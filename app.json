@@ -1,0 +1,38 @@
+{
+  "name": "Screenly Pro API - Dynamic Content",
+  "description": "An example script for creating a dynamic playlist based on weather conditions using Screenly Pro's API",
+  "image": "heroku/python",
+  "repository": "https://github.com/Screenly/api-example-dynamic-content",
+  "keywords": [
+      "python",
+      "digital-signage",
+      "api"
+  ],
+  "env": {
+    "PLAYLIST_ID": {
+        "description": "The id of the playlist you want to enable/disable.",
+    },
+    "TOKEN": {
+        "description": "The Screenly Pro API token.",
+    },
+    "DARKSKY_API_KEY": {
+        "description": "Your API key from Darksky.",
+    },
+    "LAT": {
+        "description": "The latitude of the location you want to monitor. Defaults to '51.5074' for London.",
+        "value": "51.5074",
+    },
+    "LNG": {
+        "description": "The longitude of the location you want to monitor. Defaults to '0.1278' for London.",
+        "value": "0.1278",
+    },
+    "TEMP_THRESHOLD": {
+        "description": "The temperature threshold for where the playlist is triggered (above or below) in Celcius. Defaults to '0'.",
+        "value": "0",
+    },
+    "ABOVE_OR_BELOW": {
+        "description": "If the threshold the event should be triggered above or below. Defaults to 'below'.",
+        "value": "below",
+    },
+  }
+}
