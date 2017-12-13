@@ -4,7 +4,7 @@
 
 ### Automated approach
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Screenly/api-example-dynamic-content)
 
 ### Manual approach
 
@@ -33,7 +33,8 @@ $ git push heroku master
 ## Docker
 
 ```
-$ docker run \
+$ docker run -d \
+    --name=screenly-api-example \
     -e PLAYLIST_ID= \
     -e TOKEN= \
     -e DARKSKY_API_KEY= \
