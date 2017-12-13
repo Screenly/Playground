@@ -1,19 +1,21 @@
 # Dynamic content example using Screenly Pro's API
 
-## Automated approach
+## Heroku
+
+### Automated approach
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-## Manual approach
+### Manual approach
 
-### Clone the repo
+#### Clone the repo
 
 ```
 $ git clone git@github.com:Screenly/api-example-dynamic-content.git
 $ cd api-example-dynamic-content
 ```
 
-### Configure and deploy to Heroku
+#### Configure and deploy to Heroku
 
 ```
 $ heroku create
@@ -26,4 +28,18 @@ $ heroku config:set \
     TEMP_THRESHOLD= \
     ABOVE_OR_BELOW=
 $ git push heroku master
+```
+
+## Docker
+
+```
+$ docker run \
+    -e PLAYLIST_ID= \
+    -e TOKEN= \
+    -e DARKSKY_API_KEY= \
+    -e LAT= \
+    -e LNG= \
+    -e TEMP_THRESHOLD= \
+    -e ABOVE_OR_BELOW=
+    screenly/api-example-dynamic-content
 ```
