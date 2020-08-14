@@ -34,7 +34,7 @@ def get_temperature():
     }
     weather_lookup = requests.get(
         'https://api.openweathermap.org/data/2.5/weather',
-        params=payload)
+        params=payload
     )
 
     if not weather_lookup.ok:
