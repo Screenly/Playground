@@ -1,4 +1,4 @@
-# Dynamic content example using Screenly Pro's API
+# Dynamic content example using Screenly's API
 
 ## Heroku
 
@@ -22,7 +22,7 @@ $ heroku create
 $ heroku config:set \
     PLAYLIST_ID= \
     TOKEN= \
-    DARKSKY_API_KEY= \
+    OPENWEATHERMAP_API_KEY= \
     LAT= \
     LNG= \
     TEMP_THRESHOLD= \
@@ -37,7 +37,7 @@ $ docker run -d \
     --name=screenly-api-example \
     -e PLAYLIST_ID= \
     -e TOKEN= \
-    -e DARKSKY_API_KEY= \
+    -e OPENWEATHERMAP_API_KEY= \
     -e LAT= \
     -e LNG= \
     -e TEMP_THRESHOLD= \

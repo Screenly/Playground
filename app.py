@@ -15,7 +15,7 @@ SCREENLY_TOKEN = os.getenv('TOKEN')
 HOST = 'https://api.screenlyapp.com'
 
 # Weather service API key and target location
-DARKSKY_API_KEY = os.getenv('DARKSKY_API_KEY')
+OPENWEATHERMAP_API_KEY = os.getenv('OPENWEATHERMAP_API_KEY')
 LAT = os.getenv('LAT')
 LNG = os.getenv('LNG')
 
@@ -26,21 +26,22 @@ RETRY_TIMEOUT = float(os.getenv('RETRY_TIMEOUT', default=5 * 60))
 
 
 def get_temperature():
-    payload = {'units': 'si'}
+    payload = {
+            'lat': LAT,
+            'lon': LNG,
+            'units': 'metric',
+            'appid': OPENWEATHERMAP_API_KEY
+    }
     weather_lookup = requests.get(
-        'https://api.darksky.net/forecast/{}/{},{}'.format(
-            DARKSKY_API_KEY,
-            LAT,
-            LNG
-        ),
-        params=payload,
+        'https://api.openweathermap.org/data/2.5/weather',
+        params=payload)
     )
 
     if not weather_lookup.ok:
         logger.error('Failed to perform weather lookup.')
         return
 
-    return weather_lookup.json()['currently']['temperature']
+    return weather_lookup.json()['main']['temp']
 
 
 def control_playlist(requestor, enable=True):
@@ -52,7 +53,7 @@ def control_playlist(requestor, enable=True):
 
 def main():
     # Do weather lookup
-    if not (DARKSKY_API_KEY and LAT and LNG):
+    if not (OPENWEATHERMAP_API_KEY and LAT and LNG):
         logger.error('Missing weather variables.')
         sys.exit(1)
 
