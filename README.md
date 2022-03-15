@@ -4,4 +4,4 @@ This repository holds various examples of how Screenly's feature and API can be 
 
 ## Examples
 
-* [Dynamic Playlists](/Screenly/playground/blob/master/dynamic-playlists/)
+* [Dynamic Playlists](https://github.com/Screenly/playground/tree/master/dynamic-playlists/)
