@@ -2,7 +2,7 @@
 
 ---
 
-<img src="../images/screenly-logo.png" alt="Screenly logo" width="200"/>
+<img src="images/screenly-logo.png" alt="Screenly logo" width="200"/>
 
 ## Sign in to Screenly webconsole via cookies
 
@@ -23,7 +23,7 @@ if (document.cookie.indexOf(beakerSessionId) === -1) {
 
 ---
 
-<img src="../images/tableau-logo.png" alt="Tableau logo" width="200"/>
+<img src="images/tableau-logo.png" alt="Tableau logo" width="200"/>
 
 ## Sign in to Tableau via cookies
 
@@ -58,7 +58,7 @@ if (isCookiesApplied) {
 
 ---
 
-<img src="../images/powerbi-logo.png" alt="PowerBi logo" width="200"/>
+<img src="images/powerbi-logo.png" alt="PowerBi logo" width="200"/>
 
 ## Sign in to PowerBi via cookies
 
@@ -105,7 +105,7 @@ if (isCookiesApplied) {
 
 ---
 
-<img src="../images/powerbi-logo.png" alt="PowerBi logo" width="200"/>
+<img src="images/powerbi-logo.png" alt="PowerBi logo" width="200"/>
 
 ## Sign in to PowerBi via credentials
 
