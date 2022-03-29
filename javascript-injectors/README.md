@@ -1,10 +1,24 @@
-# Javascript injectors examples
+# Javascript Injector
+
+JS Injector feature allows to insert your JS code to the web assets.\
+The JS code will be executed when the page loads.
+
+Couple use-cases are
+ - Login to the dashboards
+ - Close modals
+
 
 ## Example how to add JS Injector to an asset
 
-1. Prepare your JS Injector code
+What to pay attention to when you write your js injection code.
 
-2. Run the next python code
+1. Script should be idempotent. As there is a possibility it will be run several times.
+2. Script should execute with interval or awaiting when certain element appear on page, cause there is no guarantee that page is properly load when script is run.
+3. When cookies are set, it persists while playlist is being run. So you can optimize your script by checking if cookie is already set.
+4. In case of redirects, injection script will be executed on each page.
+
+To enrich your web asset with injection code you can use [Screenly API](https://developer.screenlyapp.com/#operation/assets_partial_update) \
+Or adapt following python code
 
 ```python
 import requests
@@ -24,6 +38,8 @@ response = requests.patch(
     headers=headers
 )
 ```
+
+## Several JS injection examples
 
 
 <img src="../images/screenly-logo.png" alt="Screenly logo" width="200"/>
