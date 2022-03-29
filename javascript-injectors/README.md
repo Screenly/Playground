@@ -1,7 +1,5 @@
 # Javascript injectors examples
 
----
-
 <img src="../images/screenly-logo.png" alt="Screenly logo" width="200"/>
 
 ## Sign in to Screenly webconsole via cookies
