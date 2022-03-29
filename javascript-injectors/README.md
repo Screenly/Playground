@@ -13,7 +13,7 @@ headers = {
     "Authorization": "Token <TOKEN>",
     "Content-Type": "application/json"
 }
-asset_id = "<ASSET_ID>
+asset_id = "<ASSET_ID>"
 js_code = """
 <YOUR_JS_CODE>
 """
