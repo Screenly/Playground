@@ -74,7 +74,7 @@ For more details see the `window.ScrollBy()` [documentation](https://developer.m
 <img src="../images/tableau-logo.png" alt="Tableau logo" width="200"/>
 
 * Sign into your Tableau account.
-* Extract the cookies `SSESS...` from your browser.
+* Extract the cookie `SSESS[...]` from your browser.
 * Download [tableau-via-cookies.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/tableau-via-cookies.js) and modify it with your cookies
 * PATCH the asset.
 
