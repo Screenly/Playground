@@ -88,3 +88,11 @@ response = requests.patch(
 ## Sign in to PowerBi via credentials
 
 #### [JavaScript Injector](https://github.com/Screenly/playground/tree/master/javascript-injectors/powerbi-signin-via-credentials.js)
+
+
+## Engadget cookies consent closing 
+
+<img src="../images/engadget-logo.png" alt="Engadget logo" width="200"/>
+
+* Download [engadget-cookies-consent-closing.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/engadget-cookies-consent-closing.js)
+* PATCH the asset.
