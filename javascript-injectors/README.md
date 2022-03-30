@@ -97,3 +97,11 @@ For more details see the `window.ScrollBy()` [documentation](https://developer.m
 
 * Download [powerbi-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/powerbi-signin-via-credentials.js) and modify it with your credentials.
 * PATCH the asset.
+
+
+## Engadget cookies consent closing
+
+<img src="../images/engadget-logo.png" alt="Engadget logo" width="200"/>
+
+* Download [engadget-cookies-consent-closing.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/engadget-cookies-consent-closing.js)
+* PATCH the asset.
