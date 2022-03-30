@@ -1,4 +1,4 @@
-### Web Asset Metadata
+## Web Asset Metadata
  
 Metadata is a special property on Web asset,
 that will enable extra headers sent from the device to the 
@@ -25,20 +25,30 @@ Example headers
 To enable on asset click 'Advanced' on any web asset
 and check Send Metadata.
 
-![](./send_metadata_checkbox.png)
+![](img/send_metadata_checkbox.png)
+
+### Docker
+
+To try this feature you can use simple flask based docker container.
+
+Build it with \
+`cd asset-metadata` \
+`docker build -t screenly/asset-metadata-example:latest .`
+
+```
+docker run -d \
+    --name=screenly-asset-metadata-example \
+    -p "5000:5000" \
+    screenly/asset-metadata-example:latest
+```
+
+[Open in browser](0.0.0.0:5000)
 
 
-To try this feature you can use simple python web server to view headers sent
+![](img/python_script_page.png)
 
-[python example](./show_metadata_simple_server.py)
 
-Run it with 
-`python3 show_metadata_simple_server.py` 
-
-and open it locally or from device.
-
-![](python_script_page.png)
 
 For testing you could use browser extensions like [ModHeader](https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj?hl=en) to inject Request headers.
 
-![](mode_header_example.png)
+![](img/mode_header_example.png)
