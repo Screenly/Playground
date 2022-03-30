@@ -1,7 +1,5 @@
 # Website Automation (aka JavaScript Injector)
 
-JS Injector feature allows inserting your JS code to the web assets.\
-The injector executes the JS code when the page loads.
 **NOTE: This feature is not yet exposed to customers**
 
 
