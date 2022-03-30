@@ -91,7 +91,7 @@ For more details see the `window.ScrollBy()` [documentation](https://developer.m
 * Download [powerbi-signin-via-cookies.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/powerbi-signin-via-cookies.js), modify it with your cookies
 * PATCH the asset.
 
-## Sign in to PowerBi via credentials
+## Sign in to Power BI via credentials
 
 <img src="../images/powerbi-logo.png" alt="Power BI logo" width="200"/>
 
