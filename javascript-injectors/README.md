@@ -1,24 +1,22 @@
-# Javascript Injector
+# Website Automation (aka JavaScript Injector)
 
-JS Injector feature allows to insert your JS code to the web assets.\
-The JS code will be executed when the page loads.
+**NOTE: This feature is not yet exposed to customers**
 
-Couple use-cases are
- - Login to the dashboards
- - Close modals
+Screenly's JavaScript Injector feature allows users to perform automations on websites, such as:
 
+* Logging into websites using credentials (or a cookie)
+* Close modals, such as GDPR consent dialogues
+* Scroll down a page
 
-## Example how to add JS Injector to an asset
+## Usage
 
-What to pay attention to when you write your js injection code.
+To use the JavaScript Injector, you need to first create the web asset. You can do that in the [user interface](https://login.screenlyapp.com), or [using the API](https://developer.screenlyapp.com/#operation/assets_create). (While you could include the JavaScript directly in the asset creation, it can be beneficial to do the JavaScript snippet as a PATCH as it allows you to easily update your JavaScript code.)
 
-1. Script should be idempotent. As there is a possibility it will be run several times.
-2. Script should execute with interval or awaiting when certain element appear on page, cause there is no guarantee that page is properly load when script is run.
-3. When cookies are set, it persists while playlist is being run. So you can optimize your script by checking if cookie is already set.
-4. In case of redirects, injection script will be executed on each page.
+With the asset created, you need the Asset ID. You will get that in the response from the API call, or you can dig it out from the URL in the user interface (e.g. https://cowboyneil.screenlyapp.com/manage/assets/$MY_ASSET_ID).
 
-To enrich your web asset with injection code you can use [Screenly API](https://developer.screenlyapp.com/#operation/assets_partial_update) \
-Or adapt following python code
+We are now finally ready to apply the JavaScript using a PATCH on the asset.
+
+Here's a sample Python snippet for how you can PATCH your asset:
 
 ```python
 import requests
@@ -39,52 +37,63 @@ response = requests.patch(
 )
 ```
 
-## Several JS injection examples
+### Important considerations
 
+* Your script should be idempotent as here is a possibility it will be run several times.
+* Your should execute with interval or awaiting when certain element appear on page. There is no guarantee that page is properly load when script is run.
+* If you are setting cookies, they will persists while playlist is being run. As such, you can optimize your script by checking if cookie is already set.
+* In case your page includes redirects, the injection script will be executed on each page.
+
+
+## Examples
+
+
+### Scroll down
+
+Perhaps the most simple example would be to scroll down a page. We can accomplish this by just using the `window.scrollBy()` function. For instance, if we want to scroll down 180 pixels, we can use:
+
+```javascript
+window.scrollBy(0,180);
+```
+
+For more details see the `window.ScrollBy()` [documentation](https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollBy).
+
+
+### Sign in to Screenly via cookies
 
 <img src="../images/screenly-logo.png" alt="Screenly logo" width="200"/>
 
-## Sign in to Screenly webconsole via cookies
+* Sign into the Screenly [user interface](https://login.screenlyapp.com).
+* Retrieve the cookie `beaker.session.id` from your browser.
+* Download [screenly-signin-via-cookies.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/screenly-signin-via-cookies.js) and modify it with your `beaker.session.id`.
+* PATCH the asset.
 
-#### Log in to the console
 
-#### Required cookies 
-- `beaker.session.id`
-
-#### [JavaScript Injector](https://github.com/Screenly/playground/tree/master/javascript-injectors/screenly-signin-via-cookies.js)
-
----
+### Sign in to Tableau via cookies
 
 <img src="../images/tableau-logo.png" alt="Tableau logo" width="200"/>
 
-## Sign in to Tableau via cookies
+* Sign into your Tableau account.
+* Extract the cookie `SSESS[...]` from your browser.
+* Download [tableau-via-cookies.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/tableau-via-cookies.js) and modify it with your cookies
+* PATCH the asset.
 
-#### Log in to the console
 
-#### Required cookies
-- `SSESS...`
+## Sign in to Power BI via cookies
 
-#### [JavaScript Injector](https://github.com/Screenly/playground/tree/master/javascript-injectors/tableau-via-cookies.js)
+<img src="../images/powerbi-logo.png" alt="Power BI logo" width="200"/>
 
----
+* Log in to your Power BI account.
+* Extract the following cookies from your browser:
+  * `.AspNet.CookiesC1`
+  * `.AspNet.CookiesC2`
+  * `.AspNet.Cookies`
+* Download [powerbi-signin-via-cookies.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/powerbi-signin-via-cookies.js), modify it with your cookies
+* PATCH the asset.
 
-<img src="../images/powerbi-logo.png" alt="PowerBi logo" width="200"/>
+## Sign in to Power BI via credentials
 
-## Sign in to PowerBi via cookies
+<img src="../images/powerbi-logo.png" alt="Power BI logo" width="200"/>
 
-#### Log in to the console
-
-#### Required cookies
-- `.AspNet.CookiesC1`
-- `.AspNet.CookiesC2`
-- `.AspNet.Cookies`
-
-#### [JavaScript Injector](https://github.com/Screenly/playground/tree/master/javascript-injectors/powerbi-signin-via-cookies.js)
-
----
-
-<img src="../images/powerbi-logo.png" alt="PowerBi logo" width="200"/>
-
-## Sign in to PowerBi via credentials
-
-#### [JavaScript Injector](https://github.com/Screenly/playground/tree/master/javascript-injectors/powerbi-signin-via-credentials.js)
+* Download [powerbi-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/powerbi-signin-via-credentials.js) and modify it with your credentials.
+* PATCH the asset.
