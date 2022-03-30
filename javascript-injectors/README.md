@@ -5,7 +5,7 @@ The injector executes the JS code when the page loads.
 **NOTE: This feature is not yet exposed to customers**
 
 
-Screenly's JavaScript Injector feature allows users to perform automations on websites, such as:
+Screenly's JavaScript Injector feature allows users to perform automation on websites, such as:
 
 * Logging into websites using credentials (or a cookie)
 * Close modals, such as GDPR consent dialogues
@@ -14,11 +14,11 @@ Screenly's JavaScript Injector feature allows users to perform automations on we
 
 ## Usage
 
-To use the JavaScript Injector, you need to first create the web asset. You can do that in the [user interface](https://login.screenlyapp.com), or [using the API](https://developer.screenlyapp.com/#operation/assets_create). (While you could include the JavaScript directly in the asset creation, it can be beneficial to do the JavaScript snippet as a PATCH as it allows you to easily update your JavaScript code.)
+To use the JavaScript Injector, you need first to create the web asset. You can do that in the [user interface](https://login.screenlyapp.com) or [using the API](https://developer.screenlyapp.com/#operation/assets_create). (While you could include the JavaScript directly in the asset creation, it can be beneficial to do the JavaScript snippet as a PATCH as it allows you to update your JavaScript code easily.)
 
 With the asset created, you need the Asset ID. You will get that in the response from the API call, or you can dig it out from the URL in the user interface (e.g. https://cowboyneil.screenlyapp.com/manage/assets/$MY_ASSET_ID).
 
-We are now finally ready to apply the JavaScript using a PATCH on the asset.
+We are finally ready to apply the JavaScript using a PATCH on the asset.
 
 Here's a sample Python snippet for how you can PATCH your asset:
 
@@ -44,9 +44,9 @@ response = requests.patch(
 ### Important considerations
 
 * Your script should be idempotent as it can run multiple times.
-* You should execute with an interval or await when a specific element appears on the page. There is no guarantee that the page is properly loaded when the script is run.
-* Screenly player persists cookies set for a slide until the player reboots or playlist changes. You can optimize your script by checking if the cookie is already set.
-* In case your page includes redirects, the injection script will be executed on each page.
+* You should execute with an interval or await when a specific element appears on the page. There is no guarantee that the page is fully loaded when the injector runs the script.
+* Screenly player persists cookies set for a slide until the player reboots or playlist changes. You can check if you have already set a cookie to optimise your script.
+* If your page includes redirects, the player will execute the injection script on each page.
 
 
 ## Examples
@@ -107,4 +107,4 @@ For more details see the `window.ScrollBy()` [documentation](https://developer.m
 <img src="../images/engadget-logo.png" alt="Engadget logo" width="200"/>
 
 * Download [engadget-cookies-consent-closing.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/engadget-cookies-consent-closing.js)
-* PATCH the asset.
+* PATCH the .
