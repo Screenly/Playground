@@ -44,12 +44,12 @@ response = requests.patch(
 ### Important considerations
 
 * Your script should be idempotent as it can run multiple times.
-* Your script should wait for a specific element to appear on a page because there is no guarantee that the page is fully loaded when the script runs.
+* You should execute with an interval or await when a specific element appears on the page. There is no guarantee that the page is properly loaded when the script is run.
 * Screenly player persists cookies set for a slide until the player reboots or playlist changes. You can optimize your script by checking if the cookie is already set.
-* In the case of redirects, the injector runs the script on each page.
+* In case your page includes redirects, the injection script will be executed on each page.
+
 
 ## Examples
-
 
 ### Scroll down
 
