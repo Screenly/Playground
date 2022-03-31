@@ -4,10 +4,10 @@ Metadata is a special property on Web asset,
 that will enable extra headers sent from the device to the 
 target page of web asset.
 
-These extra headers mainly include screen related information,
-like hostname, screen name, location, etc.
+These extra headers mainly include screen related information.. 
 
-Example headers
+You can see the full list of headers sent below. 
+Header values are examples.
 
 ```json
 {
