@@ -22,7 +22,7 @@ Header values are examples.
 }
 ```
 
-To enable on asset click 'Advanced' on any web asset
+To enable sending metadata - click 'Advanced' on any web asset edit page
 and check Send Metadata.
 
 ![](img/send_metadata_checkbox.png)
