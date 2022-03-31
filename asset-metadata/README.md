@@ -1,13 +1,10 @@
 ## Web Asset Metadata
- 
-Metadata is a special property on Web asset,
-that will enable extra headers sent from the device to the 
-target page of web asset.
 
-These extra headers mainly include screen related information.. 
+Metadata is a special property on Web asset, that will enable extra headers sent from the device to the target page of web asset.
 
-You can see the full list of headers sent below. 
-Header values are examples.
+These extra headers mainly include screen related information.
+
+Here's a list of sample headers:
 
 ```json
 {
@@ -22,18 +19,23 @@ Header values are examples.
 }
 ```
 
-To enable sending metadata - click 'Advanced' on any web asset edit page
-and check Send Metadata.
+To enable sending metadata - click 'Advanced' on any web asset edit page and check Send Metadata.
 
 ![](img/send_metadata_checkbox.png)
 
 ### Docker
 
-To try this feature you can use simple flask based docker container.
+To try this feature you can use simple [Flask](https://flask.palletsprojects.com/) based Docker container.
 
-Build it with \
-`cd asset-metadata` \
-`docker build -t screenly/asset-metadata-example:latest .`
+To build the container, run:
+
+```
+$ cd asset-metadata
+$ docker build \
+    -t screenly/asset-metadata-example:latest .
+```
+
+You can then run it using:
 
 ```
 docker run -d \
@@ -42,11 +44,11 @@ docker run -d \
     screenly/asset-metadata-example:latest
 ```
 
-[Open in browser](0.0.0.0:5000)
+
+[Open in browser](http://0.0.0.0:5000)
 
 
 ![](img/python_script_page.png)
-
 
 
 For testing you could use browser extensions like [ModHeader](https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj?hl=en) to inject Request headers.
