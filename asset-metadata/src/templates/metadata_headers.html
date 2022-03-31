@@ -1,0 +1,14 @@
+<!doctype html>
+<title>Metadata Headers example</title>
+<body>
+
+<h1>Screen metadata</h1>
+<p><b>Hostname: </b>{{ headers['X-Screenly-hostname'] }}</p>
+<p><b>Name: </b>{{ headers['X-Screenly-screen-name'] }}</p>
+<p><b>Location: </b>{{ headers['X-Screenly-location-name'] }}</p>
+<p><b>Hardware: </b>{{ headers['X-Screenly-hardware'] }}</p>
+<p><b>Version: </b>{{ headers['X-Screenly-version'] }}</p>
+<p><b>Coordinates: </b>{{ headers['X-Screenly-lat'] }}, {{ headers['X-Screenly-lng'] }}</p>
+<p><b>Tags: </b>{{ headers['X-Screenly-tags'] }}</p>
+
+</body>
