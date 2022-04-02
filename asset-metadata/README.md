@@ -19,7 +19,7 @@ Here's a list of sample headers:
 }
 ```
 
-Click 'Advanced' on any web asset edit page and check 'Send Metadata' to enable sending metadata.
+To enable sending metadata - click 'Advanced' on any web asset edit page and check 'Send Metadata'.
 
 ![Asset Metadata Checkbox](img/send_metadata_checkbox.png)
 
