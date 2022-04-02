@@ -6,8 +6,8 @@ on:
     branches-ignore: [master, main]
 
 jobs:
-  runs-on: ubuntu-latest
-  job_id:
+  deploy:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
