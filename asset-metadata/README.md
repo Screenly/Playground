@@ -23,11 +23,11 @@ To enable sending metadata - click 'Advanced' on any web asset edit page and che
 
 ![Asset Metadata Checkbox](img/send_metadata_checkbox.png)
 
-### Live Demo
+## Live Demo
 
 A live demo of this can be found on [asset-metadata-example.srly.io](https://asset-metadata-example.srly.io/).
 
-### Docker
+## Docker
 
 To try this feature you can use simple [Flask](https://flask.palletsprojects.com/) based Docker container.
 
