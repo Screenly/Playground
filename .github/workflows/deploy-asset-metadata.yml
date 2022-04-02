@@ -3,7 +3,8 @@ name: Deploy Asset Metadata to App Engine
 
 on:
   push:
-    branches-ignore: [master, main]
+    branches:
+      - 'master'
 
 jobs:
   deploy:
