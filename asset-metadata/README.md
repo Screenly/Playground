@@ -1,6 +1,6 @@
 # Web Asset Metadata
 
-Metadata is a special property on a web asset that will enable extra headers to be sent from the device to the target page of the web asset.
+Metadata is a special property on a web asset that will enable sending extra headers from the device to the target page of the web asset.
 
 These extra headers mainly include screen-related information.
 
