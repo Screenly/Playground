@@ -21,7 +21,9 @@ jobs:
 
       - id: 'deploy'
         uses: 'google-github-actions/deploy-appengine@v0'
-        working_directory: ${{ github.workspace }}/asset-metadata/
+        with:
+          deliverables: 'asset-metadata/app.yaml'
+          project_id: '${{ secrets.GCP_PROJECT }}'
 
       - id: 'test'
         run: 'curl "${{ steps.deploy.outputs.url }}"'
