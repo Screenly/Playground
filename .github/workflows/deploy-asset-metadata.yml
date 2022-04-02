@@ -15,7 +15,7 @@ jobs:
 
     - id: 'deploy'
       uses: 'google-github-actions/deploy-appengine@v0'
-      working_directory: asset-metadata
+      working_directory: 'asset-metadata/'
 
     - id: 'test'
       run: 'curl "${{ steps.deploy.outputs.url }}"'
