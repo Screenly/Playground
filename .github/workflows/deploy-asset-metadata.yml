@@ -5,7 +5,8 @@ on:
   push:
     branches:
       - 'master'
-
+    paths:
+      - 'asset-metadata/**'
 jobs:
   deploy:
     runs-on: ubuntu-latest

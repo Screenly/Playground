@@ -1,6 +1,6 @@
 FROM python:3.10.4-bullseye
 
-EXPOSE 5000
+EXPOSE 8080
 
 COPY ./requirements.txt /tmp/requirements.txt
 
