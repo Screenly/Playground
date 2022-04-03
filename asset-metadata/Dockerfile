@@ -1,4 +1,4 @@
-FROM python:3.10.4-bullseye
+FROM python:3.9-buster
 
 EXPOSE 8080
 
