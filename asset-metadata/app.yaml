@@ -2,9 +2,9 @@
 runtime: python39
 entrypoint: |
   uwsgi
-  --http-socket :8080
-  --wsgi-file src/main.py
-  --callable app
-  --master
-  --processes 1
-  --threads 2
+    --http-socket :8080
+    --wsgi-file src/main.py
+    --callable app
+    --master
+    --processes 1
+    --threads 2
