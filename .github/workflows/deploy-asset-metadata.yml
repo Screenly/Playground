@@ -24,7 +24,7 @@ jobs:
       - id: 'deploy'
         uses: 'google-github-actions/deploy-appengine@v0'
         with:
-          deliverables: 'asset-metadata/app.yaml'
+          deliverables: 'app.yaml'
           working_directory: 'asset-metadata'
           project_id: '${{ secrets.GCP_PROJECT }}'
 
