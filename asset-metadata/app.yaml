@@ -1,6 +1,6 @@
 ---
 runtime: python39
-entrypoint: >
+entrypoint: |-
   uwsgi
     --http-socket :8080
     --wsgi-file src/main.py
