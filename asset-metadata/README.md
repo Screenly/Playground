@@ -42,7 +42,7 @@ $ docker build \
 You can then run it using:
 
 ```bash
-docker run -d \
+$ docker run -d \
     --name=screenly-asset-metadata-example \
     -p "8080:8080" \
     screenly/asset-metadata-example
