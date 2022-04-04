@@ -1,0 +1,31 @@
+---
+name: Deploy Asset Metadata to App Engine
+
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'asset-metadata/**'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+      - id: 'deploy'
+        uses: 'google-github-actions/deploy-appengine@v0'
+        with:
+          deliverables: 'asset-metadata/app.yaml'
+          project_id: '${{ secrets.GCP_PROJECT }}'
+
+      - id: 'test'
+        run: 'curl "${{ steps.deploy.outputs.url }}"'

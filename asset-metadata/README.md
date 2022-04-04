@@ -1,8 +1,8 @@
-## Web Asset Metadata
+# Web Asset Metadata
 
-Metadata is a special property on Web asset, that will enable extra headers sent from the device to the target page of web asset.
+Metadata is a special property on a web asset that will enable sending extra headers from the device to the target page of the web asset.
 
-These extra headers mainly include screen related information.
+These extra headers mainly include screen-related information.
 
 Here's a list of sample headers:
 
@@ -19,38 +19,41 @@ Here's a list of sample headers:
 }
 ```
 
-To enable sending metadata - click 'Advanced' on any web asset edit page and check Send Metadata.
+To enable sending metadata - click 'Advanced' on any web asset edit page and check 'Send Metadata'.
 
-![](img/send_metadata_checkbox.png)
+![Asset Metadata Checkbox](img/send_metadata_checkbox.png)
 
-### Docker
+## Live Demo
 
-To try this feature you can use simple [Flask](https://flask.palletsprojects.com/) based Docker container.
+You can find a live demo of this on [asset-metadata-example.srly.io](https://asset-metadata-example.srly.io/).
+
+## Docker
+
+To try this feature, you can use a simple [Flask](https://flask.palletsprojects.com/) based Docker container.
 
 To build the container, run:
 
-```
+```bash
 $ cd asset-metadata
 $ docker build \
-    -t screenly/asset-metadata-example:latest .
+    -t screenly/asset-metadata-example .
 ```
 
 You can then run it using:
 
-```
+```bash
 docker run -d \
     --name=screenly-asset-metadata-example \
-    -p "5000:5000" \
-    screenly/asset-metadata-example:latest
+    -p "8080:8080" \
+    screenly/asset-metadata-example
 ```
 
-
-[Open in browser](http://0.0.0.0:5000)
-
-
-![](img/python_script_page.png)
+[Open in browser](http://0.0.0.0:8080)
 
 
-For testing you could use browser extensions like [ModHeader](https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj?hl=en) to inject Request headers.
+![Web Page Screenshot](img/python_script_page.png)
 
-![](img/mode_header_example.png)
+
+For testing, you could use browser extensions like [ModHeader](https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj?hl=en) to inject Request headers.
+
+![ModHeaders Browser Example](img/mod_header_example.png)
