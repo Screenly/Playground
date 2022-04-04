@@ -48,7 +48,7 @@ $ docker run -d \
     screenly/asset-metadata-example
 ```
 
-[Open in browser](http://0.0.0.0:8080)
+With the Docker container running, you can [preview it browser](http://0.0.0.0:8080)
 
 
 ![Web Page Screenshot](img/python_script_page.png)
