@@ -1,10 +1,10 @@
-# Website Automation (aka JavaScript Injector)
+# Site Automation (aka JavaScript Injector)
 
 **NOTE: This feature is not yet exposed to customers**
 
 Screenly's JavaScript Injector feature allows users to perform automation on websites, such as:
 
-* Logging into websites using credentials (or a cookie)
+* Logging into sites using credentials (or a cookie)
 * Close modals, such as GDPR consent dialogues
 * Scroll down a page
 
