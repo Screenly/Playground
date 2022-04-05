@@ -104,3 +104,10 @@ For more details see the `window.ScrollBy()` [documentation](https://developer.m
 
 * Download [engadget-cookies-consent-closing.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/engadget-cookies-consent-closing.js)
 * PATCH the asset.
+
+## Sign in to Ship Hero via credentials
+
+<img src="../images/shiphero-logo.png" alt="Ship Hero logo" width="200"/>
+
+* Download [shiphero-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/shiphero-signin-via-credentials.js) and modify it with your credentials.
+* PATCH the asset.
