@@ -10,9 +10,11 @@ Screenly's JavaScript Injector feature allows users to perform automation on web
 
 ## Usage
 
-To use the JavaScript Injector, you need first to create the web asset. You can do that in the [user interface](https://login.screenlyapp.com) or [using the API](https://developer.screenlyapp.com/#operation/assets_create). (While you could include the JavaScript directly in the asset creation, it can be beneficial to do the JavaScript snippet as a PATCH as it allows you to update your JavaScript code easily.)
+To use the JavaScript Injector, you need first to create the web asset.
 
-With the asset created, you need the Asset ID. You will get that in the response from the API call, or you can dig it out from the URL in the user interface (e.g. https://cowboyneil.screenlyapp.com/manage/assets/$MY_ASSET_ID).
+You can do that in the [user interface](https://login.screenlyapp.com) or [using the API](https://developer.screenlyapp.com/#operation/assets_create). (While you could include the JavaScript directly in the asset creation, it can be beneficial to do the JavaScript snippet as a PATCH as it allows you to update your JavaScript code easily.)
+
+With the asset created, you need the Asset ID. You will get that in the response from the API call, or you can dig it out from the URL in the user interface (e.g. <https://cowboyneil.screenlyapp.com/manage/assets/$MY_ASSET_ID>).
 
 We are finally ready to apply the JavaScript using a PATCH on the asset.
 
