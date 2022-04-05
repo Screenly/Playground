@@ -2,31 +2,37 @@
   const email = '<YOUR_EMAIL>'
   const password = '<YOUR_PASSWORD>'
 
-  function changeValue (input, value) {
+  const authLocation = '/login'
+
+  function setValue (selector, value) {
+    const element = document.querySelector(selector)
     const nativeInputSetter = Object.getOwnPropertyDescriptor(
       window.HTMLInputElement.prototype,
       'value'
     ).set
 
-    nativeInputSetter.call(input, value)
+    nativeInputSetter.call(element, value)
 
     const inputEvent = new Event('input', { bubbles: true })
-    input.dispatchEvent(inputEvent)
+    element.dispatchEvent(inputEvent)
+  }
+
+  function submitForm () {
+    document.querySelector('button[name="submit"]').click()
   }
 
   function login () {
     try {
-      const emailEl = document.querySelector('input[name="email"]')
-      const passwordEl = document.querySelector('input[name="password"]')
-
-      changeValue(emailEl, email)
-      changeValue(passwordEl, password)
-
-      document.querySelector('button[name="submit"]').click()
+      setValue('input[name="email"]', email)
+      setValue('input[name="password"]', password)
+      submitForm()
     } catch (error) {
-      console.log(error)
+      console.warn(error)
+      setTimeout(login, 1000)
     }
   }
 
-  setTimeout(login, 5000)
+  if (window.location.pathname === authLocation) {
+    login()
+  }
 })()
