@@ -10,7 +10,7 @@
 
     nativeInputSetter.call(input, value)
 
-    const inputEvent = new Event('input', { bubbles: true });
+    const inputEvent = new Event('input', { bubbles: true })
     input.dispatchEvent(inputEvent)
   }
 
@@ -29,4 +29,4 @@
   }
 
   setTimeout(login, 5000)
-})();
+})()
