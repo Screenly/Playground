@@ -98,9 +98,16 @@ For more details see the `window.ScrollBy()` [documentation](https://developer.m
 * PATCH the asset.
 
 
-## Engadget cookies consent closing
+## Yahoo cookies consent closing
 
-<img src="../images/engadget-logo.png" alt="Engadget logo" width="200"/>
+<img src="../images/yahoo-logo.png" alt="Yahoo logo" width="200"/>
 
-* Download [engadget-cookies-consent-closing.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/engadget-cookies-consent-closing.js)
+Applicable to Yahoo websites like Engadget, Techcrunch etc.
+
+* Download [yahoo-cookies-consent-closing.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/yahoo-cookies-consent-closing.js)
+* PATCH the asset.
+
+## Ez-cookie cookies consent closing
+
+* Download [ezcookie-cookies-consent-closing.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/ezcookie-cookies-consent-closing.js)
 * PATCH the asset.
