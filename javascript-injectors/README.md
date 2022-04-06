@@ -102,7 +102,7 @@ For more details see the `window.ScrollBy()` [documentation](https://developer.m
 
 <img src="../images/yahoo-logo.png" alt="Yahoo logo" width="200"/>
 
-Applicable to Yahoo websites like Engadget, Techcrunch etc.
+Applicable to Yahoo sites like Engadget, Techcrunch etc.
 
 * Download [yahoo-cookies-consent-closing.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/yahoo-cookies-consent-closing.js)
 * PATCH the asset.
