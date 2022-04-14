@@ -99,6 +99,12 @@ For more details see the `window.ScrollBy()` [documentation](https://developer.m
 * Download [powerbi-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/powerbi-signin-via-credentials.js) and modify it with your credentials.
 * PATCH the asset.
 
+## Sign in to Ship Hero via credentials
+
+<img src="../images/shiphero-logo.png" alt="Ship Hero logo" width="200"/>
+
+* Download [shiphero-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/shiphero-signin-via-credentials.js) and modify it with your credentials.
+* PATCH the asset.
 
 ## Yahoo cookies consent closing
 
@@ -112,11 +118,4 @@ Applicable to Yahoo sites like Engadget, Techcrunch etc.
 ## Ez-cookie cookies consent closing
 
 * Download [ezcookie-cookies-consent-closing.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/ezcookie-cookies-consent-closing.js)
-* PATCH the asset.
-
-## Sign in to Ship Hero via credentials
-
-<img src="../images/shiphero-logo.png" alt="Ship Hero logo" width="200"/>
-
-* Download [shiphero-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/shiphero-signin-via-credentials.js) and modify it with your credentials.
 * PATCH the asset.
