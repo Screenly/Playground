@@ -19,6 +19,11 @@
             }
 
             if (window.location.pathname === '/common/oauth2/authorize' && !isOauthPassed) {
+                if (document.body.innerHTML.search("Pick an account") !== -1) {
+                    const pickAccountEl = document.querySelector('div[data-test-id="' + username + '"]');
+                    pickAccountEl.click();
+                }
+
                 const passwordInput = document.querySelector('input[name="passwd"]');
                 passwordInput.value = password;
                 passwordInput.dispatchEvent(new Event('change'));
