@@ -99,17 +99,23 @@ For more details see the `window.ScrollBy()` [documentation](https://developer.m
 * Download [powerbi-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/powerbi-signin-via-credentials.js) and modify it with your credentials.
 * PATCH the asset.
 
-
-## Engadget cookies consent closing
-
-<img src="../images/engadget-logo.png" alt="Engadget logo" width="200"/>
-
-* Download [engadget-cookies-consent-closing.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/engadget-cookies-consent-closing.js)
-* PATCH the asset.
-
 ## Sign in to Ship Hero via credentials
 
 <img src="../images/shiphero-logo.png" alt="Ship Hero logo" width="200"/>
 
 * Download [shiphero-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/shiphero-signin-via-credentials.js) and modify it with your credentials.
+* PATCH the asset.
+
+## Yahoo cookies consent closing
+
+<img src="../images/yahoo-logo.png" alt="Yahoo logo" width="200"/>
+
+Applicable to Yahoo sites like Engadget, Techcrunch etc.
+
+* Download [yahoo-cookies-consent-closing.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/yahoo-cookies-consent-closing.js)
+* PATCH the asset.
+
+## Ez-cookie cookies consent closing
+
+* Download [ezcookie-cookies-consent-closing.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/ezcookie-cookies-consent-closing.js)
 * PATCH the asset.
