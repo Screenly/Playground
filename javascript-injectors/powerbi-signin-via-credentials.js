@@ -1,9 +1,11 @@
+let url
+
 (function () {
   if (typeof url !== 'undefined') {
     return
   }
 
-  var url = 'https://app.powerbi.com/home'  // eslint-disable-line no-use-before-define
+  url = 'https://app.powerbi.com/home'
   const username = '<YOUR_USERNAME>'
   const password = '<YOUR_PASSWORD>'
 
