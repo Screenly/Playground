@@ -1,4 +1,4 @@
-(function() {
+(function () {
   if (typeof url !== 'undefined') {
     return
   }
@@ -10,7 +10,7 @@
   let isSingleSignOnPassed = false
   let isOauthPassed = false
 
-  function callback() {
+  function callback () {
     try {
       if (window.location.pathname === '/singleSignOn' && !isSingleSignOnPassed) {
         document.querySelector('#email').value = username
