@@ -1,16 +1,16 @@
-(function () {
+(function() {
   if (typeof url !== 'undefined') {
     return
   }
 
-  var url = 'https://app.powerbi.com/home'  // eslint-disable-line
+  var url = 'https://app.powerbi.com/home'  // eslint-disable-line no-use-before-define
   const username = '<YOUR_USERNAME>'
   const password = '<YOUR_PASSWORD>'
 
   let isSingleSignOnPassed = false
   let isOauthPassed = false
 
-  function callback () {
+  function callback() {
     try {
       if (window.location.pathname === '/singleSignOn' && !isSingleSignOnPassed) {
         document.querySelector('#email').value = username

@@ -1,8 +1,8 @@
-function isCookieExist (key) {
+function isCookieExist(key) {
   return document.cookie.indexOf(key + '=') !== -1
 }
 
-function setCookie (key, value) {
+function setCookie(key, value) {
   if (isCookieExist(key)) {
     return false
   }

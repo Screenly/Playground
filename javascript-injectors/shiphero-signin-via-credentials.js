@@ -1,10 +1,10 @@
-(function () {
+(function() {
   const email = '<YOUR_EMAIL>'
   const password = '<YOUR_PASSWORD>'
 
   const authLocation = '/login'
 
-  function setValue (selector, value) {
+  function setValue(selector, value) {
     const element = document.querySelector(selector)
     const nativeInputSetter = Object.getOwnPropertyDescriptor(
       window.HTMLInputElement.prototype,
@@ -17,11 +17,11 @@
     element.dispatchEvent(inputEvent)
   }
 
-  function submitForm () {
+  function submitForm() {
     document.querySelector('button[name="submit"]').click()
   }
 
-  function login () {
+  function login() {
     try {
       setValue('input[name="email"]', email)
       setValue('input[name="password"]', password)

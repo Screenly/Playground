@@ -1,8 +1,8 @@
-function isCookieExist (key) {
+function isCookieExist(key) {
   return document.cookie.indexOf(key + '=') !== -1
 }
 
-function setCookie (key, value) {
+function setCookie(key, value) {
   if (isCookieExist(key)) {
     return false
   }
@@ -14,7 +14,7 @@ const url = 'https://app.powerbi.com/home'
 const cookies = {
   '.AspNet.CookiesC1': '<COOKIE_VALUE>',
   '.AspNet.CookiesC2': '<COOKIE_VALUE>',
-  '.AspNet.Cookies': 'chunks:2',
+  '.AspNet.Cookies': 'chunks:2'
 }
 
 let isCookiesApplied = false
