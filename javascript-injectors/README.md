@@ -1,7 +1,5 @@
 # Site Automation (aka JavaScript Injector)
 
-**NOTE: This feature is not yet exposed to customers**
-
 Screenly's JavaScript Injector feature allows users to perform automation on websites, such as:
 
 * Logging into sites using credentials (or a cookie)
@@ -67,7 +65,7 @@ For more details see the `window.ScrollBy()` [documentation](https://developer.m
 * Sign into the Screenly [user interface](https://login.screenlyapp.com).
 * Retrieve the cookie `beaker.session.id` from your browser.
 * Download [screenly-signin-via-cookies.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/screenly-signin-via-cookies.js) and modify it with your `beaker.session.id`.
-* PATCH the asset.
+* [PATCH](https://developer.screenlyapp.com/#operation/assets_partial_update) the asset.
 
 
 ### Sign in to Tableau via cookies
@@ -77,8 +75,7 @@ For more details see the `window.ScrollBy()` [documentation](https://developer.m
 * Sign into your Tableau account.
 * Extract the cookie `SSESS[...]` from your browser.
 * Download [tableau-via-cookies.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/tableau-via-cookies.js) and modify it with your cookies
-* PATCH the asset.
-
+* [PATCH](https://developer.screenlyapp.com/#operation/assets_partial_update) the asset.
 
 ## Sign in to Power BI via cookies
 
@@ -90,21 +87,21 @@ For more details see the `window.ScrollBy()` [documentation](https://developer.m
   * `.AspNet.CookiesC2`
   * `.AspNet.Cookies`
 * Download [powerbi-signin-via-cookies.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/powerbi-signin-via-cookies.js), modify it with your cookies
-* PATCH the asset.
+* [PATCH](https://developer.screenlyapp.com/#operation/assets_partial_update) the asset.
 
 ## Sign in to Power BI via credentials
 
 <img src="../images/powerbi-logo.png" alt="Power BI logo" width="200"/>
 
 * Download [powerbi-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/powerbi-signin-via-credentials.js) and modify it with your credentials.
-* PATCH the asset.
+* [PATCH](https://developer.screenlyapp.com/#operation/assets_partial_update) the asset.
 
 ## Sign in to Ship Hero via credentials
 
 <img src="../images/shiphero-logo.png" alt="Ship Hero logo" width="200"/>
 
 * Download [shiphero-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/shiphero-signin-via-credentials.js) and modify it with your credentials.
-* PATCH the asset.
+* [PATCH](https://developer.screenlyapp.com/#operation/assets_partial_update) the asset.
 
 ## Yahoo cookies consent closing
 
@@ -113,9 +110,9 @@ For more details see the `window.ScrollBy()` [documentation](https://developer.m
 Applicable to Yahoo sites like Engadget, Techcrunch etc.
 
 * Download [yahoo-cookies-consent-closing.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/yahoo-cookies-consent-closing.js)
-* PATCH the asset.
+* [PATCH](https://developer.screenlyapp.com/#operation/assets_partial_update) the asset.
 
 ## Ez-cookie cookies consent closing
 
 * Download [ezcookie-cookies-consent-closing.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/ezcookie-cookies-consent-closing.js)
-* PATCH the asset.
+* [PATCH](https://developer.screenlyapp.com/#operation/assets_partial_update) the asset.
