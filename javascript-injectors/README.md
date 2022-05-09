@@ -103,6 +103,13 @@ For more details see the `window.ScrollBy()` [documentation](https://developer.m
 * Download [shiphero-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/shiphero-signin-via-credentials.js) and modify it with your credentials.
 * [PATCH](https://developer.screenlyapp.com/#operation/assets_partial_update) the asset.
 
+## Sign in to Magento Dashboard via credentials
+
+<img src="../images/magento-logo.png" alt="Magento logo" width="200"/>
+
+* Download [magento-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/magento-signin-via-credentials.js) and modify it with your credentials.
+* [PATCH](https://developer.screenlyapp.com/#operation/assets_partial_update) the asset.
+
 ## Yahoo cookies consent closing
 
 <img src="../images/yahoo-logo.png" alt="Yahoo logo" width="200"/>
