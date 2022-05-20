@@ -1,7 +1,9 @@
+/* stylelint-disable color-function-notation, alpha-value-notation  */
+
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Rubik', sans-serif;
+  font-family: "Rubik", sans-serif;
 }
 
 .content {
@@ -18,16 +20,14 @@ body {
   flex-direction: column;
   align-items: flex-start;
   padding: 24px;
-
   position: absolute;
   width: 504px;
   left: 59px;
   top: 180px;
-
-  color: #ffffff;
+  color: #fff;
   background: #191d2c;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 16px;
 }
 
@@ -62,7 +62,7 @@ body {
 }
 
 .metadata-item label {
-  color: #ffffff;
+  color: #fff;
   font-size: 16px;
   line-height: 28px;
   opacity: 0.6;
