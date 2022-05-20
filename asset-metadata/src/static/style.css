@@ -3,7 +3,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "Rubik", sans-serif;
+  font-family: Rubik, sans-serif;
 }
 
 .content {
@@ -31,7 +31,7 @@ body {
   border-radius: 16px;
 }
 
-@media (min-width: 1920px)  {
+@media (min-width: 1920px) {
   .metadata {
     left: 60px;
     top: 60px;
