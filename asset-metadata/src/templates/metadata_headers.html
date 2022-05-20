@@ -1,14 +1,77 @@
-<!doctype html>
-<title>Metadata Headers example</title>
-<body>
-
-<h1>Screen metadata</h1>
-<p><b>Hostname: </b>{{ headers['X-Screenly-hostname'] }}</p>
-<p><b>Name: </b>{{ headers['X-Screenly-screen-name'] }}</p>
-<p><b>Location: </b>{{ headers['X-Screenly-location-name'] }}</p>
-<p><b>Hardware: </b>{{ headers['X-Screenly-hardware'] }}</p>
-<p><b>Version: </b>{{ headers['X-Screenly-version'] }}</p>
-<p><b>Coordinates: </b>{{ headers['X-Screenly-lat'] }}, {{ headers['X-Screenly-lng'] }}</p>
-<p><b>Tags: </b>{{ headers['X-Screenly-tags'] }}</p>
-
-</body>
+<!Doctype html>
+<html>
+  <head>
+    <title>Asset Metadata Example</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" />
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"></script>
+    <script type="text/javascript">
+      google.maps.event.addDomListener(window, 'load', init);
+  
+      function init() {
+        var mapOptions = {
+          zoom: 11,
+          center: new google.maps.LatLng('{{ headers["X-Screenly-lat"] }}', '{{ headers["X-Screenly-lng"] }}'),
+          styles: [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"},{"weight":"0.20"},{"lightness":"28"},{"saturation":"23"},{"visibility":"off"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"color":"#494949"},{"lightness":13},{"visibility":"off"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#144b53"},{"lightness":14},{"weight":1.4}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#08304b"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#0c4152"},{"lightness":5}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#0b434f"},{"lightness":25}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#0b3d51"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"transit","elementType":"all","stylers":[{"color":"#146474"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#021019"}]}]
+        };
+        var mapElement = document.getElementById('map');
+        var map = new google.maps.Map(mapElement, mapOptions);
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng('{{ headers["X-Screenly-lat"] }}', '{{ headers["X-Screenly-lng"] }}'),
+          map: map,
+          icon: "{{ url_for('static', filename='images/pin.svg') }}"
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div class="content">
+      <div id="map"></div>
+      <div class="metadata">
+        <div class="header">
+          <img src="{{ url_for('static', filename='images/logo.svg') }}" />
+          <span>Screen Metadata</span>
+        </div>
+        <div class="data">
+          <div class="metadata-item">
+            <label>Host name:</label>
+            <div class="value">{{ headers['X-Screenly-hostname'] }}</div>
+          </div>
+          <div class="metadata-item">
+            <label>Version:</label>
+            <div class="value">{{ headers['X-Screenly-version'] }}</div>
+          </div>
+          <div class="metadata-item">
+            <label>Name:</label>
+            <div class="value">{{ headers['X-Screenly-screen-name'] }}</div>
+          </div>
+          <div class="metadata-item">
+            <label>Coordinates:</label>
+            <div class="value">{{ headers['X-Screenly-lat'] }}, {{ headers['X-Screenly-lng'] }}</div>
+          </div>
+          <div class="metadata-item">
+            <label>Location:</label>
+            <div class="value">{{ headers['X-Screenly-location-name'] }}</div>
+          </div>
+          <div class="metadata-item">
+            <label>Hardware:</label>
+            <div class="value">{{ headers['X-Screenly-hardware'] }}</div>
+          </div>
+        </div>
+        <div class="tags">
+          <label>Labels</label>
+          <div class="value">
+            {% set tags = (headers['X-Screenly-tags'] or '').split(',') %}
+            {% for tag in tags %}
+              {% if tag %}
+              <span>{{ tag }}</span>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
