@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Asset Metadata Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
@@ -17,33 +18,36 @@
         </div>
         <div class="data">
           <div class="metadata-item">
-            <label>Host name:</label>
-            <div class="value">{{ headers['X-Screenly-hostname'] }}</div>
+            <label>Hostname:</label>
+            <div class="value">{{ headers['X-Screenly-hostname'] or 'Not provided' }}</div>
           </div>
           <div class="metadata-item">
             <label>Version:</label>
-            <div class="value">{{ headers['X-Screenly-version'] }}</div>
+            <div class="value">{{ headers['X-Screenly-version'] or 'Not provided' }}</div>
           </div>
           <div class="metadata-item">
             <label>Name:</label>
-            <div class="value">{{ headers['X-Screenly-screen-name'] }}</div>
+            <div class="value">{{ headers['X-Screenly-screen-name'] or 'Not provided' }}</div>
           </div>
           <div class="metadata-item">
             <label>Coordinates:</label>
-            <div class="value">{{ headers['X-Screenly-lat'] }}, {{ headers['X-Screenly-lng'] }}</div>
+            <div class="value">{{ headers['X-Screenly-lat'] or 'Not provided' }}, {{ headers['X-Screenly-lng' or 'Not provided'] }}</div>
           </div>
           <div class="metadata-item">
             <label>Location:</label>
-            <div class="value">{{ headers['X-Screenly-location-name'] }}</div>
+            <div class="value">{{ headers['X-Screenly-location-name'] or 'Not provided' }}</div>
           </div>
           <div class="metadata-item">
             <label>Hardware:</label>
-            <div class="value">{{ headers['X-Screenly-hardware'] }}</div>
+            <div class="value">{{ headers['X-Screenly-hardware'] or 'Not provided' }}</div>
           </div>
         </div>
         <div class="tags">
           <label>Labels</label>
           <div class="value">
+            {% if not headers['X-Screenly-tags'] %}
+              No tags provided
+            {% endif %}
             {% set tags = (headers['X-Screenly-tags'] or '').split(',') %}
             {% for tag in tags %}
               {% if tag %}
@@ -54,7 +58,7 @@
         </div>
       </div>
     </div>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ apiKey }}"></script>
     <script type="text/javascript">
       google.maps.event.addDomListener(window, 'load', init);
   
