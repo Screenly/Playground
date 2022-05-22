@@ -11,8 +11,7 @@ Example headers
     "X-Screenly-tags": "srly-jmar75ko6xp651j,custom-label"
 }"""
 
-from flask import Flask, request, render_template
-
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 app.config.from_pyfile("config.py")
