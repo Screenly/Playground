@@ -17,6 +17,7 @@ from flask import Flask, render_template, request
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
 
+
 @app.route("/")
 def render_metadata_headers():
     return render_template('metadata_headers.html', headers=request.headers, apiKey=app.config['GMAPS_API_KEY'])
