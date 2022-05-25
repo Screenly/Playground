@@ -58,14 +58,14 @@
         </div>
       </div>
     </div>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ apiKey }}"></script>
     <script type="text/javascript">
-      google.maps.event.addDomListener(window, 'load', init);
-  
       function init() {
+        var lat = {{ headers["X-Screenly-lat"] }};
+        var lng = {{ headers["X-Screenly-lng"] }};
+
         var mapOptions = {
-          zoom: 10,
-          center: new google.maps.LatLng('{{ headers["X-Screenly-lat"] }}', '{{ headers["X-Screenly-lng"] }}'),
+          zoom: 8,
+          center: new google.maps.LatLng(lat, lng - 1),
           streetViewControl: false,
           rotateControl: false,
           fullscreenControl: false,
@@ -74,16 +74,35 @@
         var mapElement = document.getElementById('map');
         var map = new google.maps.Map(mapElement, mapOptions);
         var marker = new google.maps.Marker({
-          position: new google.maps.LatLng('{{ headers["X-Screenly-lat"] }}', '{{ headers["X-Screenly-lng"] }}'),
+          position: new google.maps.LatLng(lat, lng),
           map: map,
           icon: {
             url: "{{ url_for('static', filename='images/pin.svg') }}",
-            size: new google.maps.Size(366, 366),
+            size: new google.maps.Size(72, 84),
             origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(183, 230)
+            anchor: new google.maps.Point(36, 42)
           }
+        });
+
+        var innerCircle = new google.maps.Circle({
+          strokeWeight: 0,
+          fillColor: "#C4C4C4",
+          fillOpacity: 0.30,
+          map: map,
+          center: new google.maps.LatLng(lat, lng),
+          radius: 50000
+        });
+
+        var outerCircle = new google.maps.Circle({
+          strokeWeight: 0,
+          fillColor: "#C4C4C4",
+          fillOpacity: 0.20,
+          map: map,
+          center: new google.maps.LatLng(lat, lng),
+          radius: 80000
         });
       }
     </script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{apiKey}}&callback=init"></script>
   </body>
 </html>
