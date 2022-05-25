@@ -110,6 +110,13 @@ For more details see the `window.ScrollBy()` [documentation](https://developer.m
 * Download [magento-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/magento-signin-via-credentials.js) and modify it with your credentials.
 * [PATCH](https://developer.screenlyapp.com/#operation/assets_partial_update) the asset.
 
+## Sign in to Domo Dashboard via credentials
+
+<img src="../images/domo-logo.png" alt="Domo logo" width="120"/>
+
+* Download [domo-dashboard-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/domo-dashboard-via-credentials.js) and modify it with your credentials.
+* [PATCH](https://developer.screenlyapp.com/#operation/assets_partial_update) the asset.
+
 ## Yahoo cookies consent closing
 
 <img src="../images/yahoo-logo.png" alt="Yahoo logo" width="200"/>
