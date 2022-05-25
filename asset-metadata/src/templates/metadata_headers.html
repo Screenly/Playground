@@ -31,7 +31,7 @@
           </div>
           <div class="metadata-item">
             <label>Coordinates:</label>
-            <div class="value">{{ headers['X-Screenly-lat'] or 'Not provided' }}, {{ headers['X-Screenly-lng' or 'Not provided'] }}</div>
+            <div class="value">{{ headers['X-Screenly-lat'] or 'Not provided' }}, {{ headers['X-Screenly-lng'] or 'Not provided' }}</div>
           </div>
           <div class="metadata-item">
             <label>Location:</label>
@@ -60,12 +60,15 @@
     </div>
     <script type="text/javascript">
       function init() {
-        var lat = {{ headers["X-Screenly-lat"] }};
-        var lng = {{ headers["X-Screenly-lng"] }};
+        {% set lat = 37.773972 %}
+        {% set lng = -122.431297 %}
+
+        var lat = {{ headers["X-Screenly-lat"] or lat }};
+        var lng = {{ headers["X-Screenly-lng"] or lng }};
 
         var mapOptions = {
           zoom: 8,
-          center: new google.maps.LatLng(lat, lng - 1),
+          center: new google.maps.LatLng(lat, parseFloat(lng) - 1.5),
           streetViewControl: false,
           rotateControl: false,
           fullscreenControl: false,
