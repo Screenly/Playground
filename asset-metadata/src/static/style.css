@@ -22,8 +22,8 @@ body {
   padding: 24px;
   position: absolute;
   width: 504px;
-  left: 59px;
-  top: 180px;
+  left: 60px;
+  top: 102px;
   color: #fff;
   background: #191d2c;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -31,10 +31,26 @@ body {
   border-radius: 16px;
 }
 
+@media (min-width: 1440px) {
+  .metadata {
+    left: 60px;
+    top: 180px;
+  }
+}
+
 @media (min-width: 1920px) {
   .metadata {
     left: 60px;
-    top: 60px;
+    top: 80px;
+  }
+}
+
+@media (min-width: 3840px) {
+  .metadata {
+    padding: 48px;
+    left: 80px;
+    top: 80px;
+    width: 1032px;
   }
 }
 
@@ -54,6 +70,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   margin-top: 24px;
+  width: 100%;
 }
 
 .metadata-item {
@@ -88,4 +105,39 @@ body {
   font-size: 14px;
   line-height: 30px;
   padding: 3px 8px;
+}
+
+@media (min-width: 3840px) {
+  .metadata .data {
+    padding-bottom: 24px;
+  }
+
+  .metadata .header {
+    font-size: 40px;
+    line-height: 48px;
+  }
+
+  .metadata-item label {
+    font-size: 32px;
+    line-height: 56px;
+  }
+
+  .metadata-item .value {
+    font-size: 36px;
+    line-height: 48px;
+  }
+
+  .tags {
+    margin-top: 48px;
+  }
+
+  .tags label {
+    font-size: 32px;
+    line-height: 56px;
+  }
+
+  .tags span {
+    font-size: 28px;
+    line-height: 36px;
+  }
 }
