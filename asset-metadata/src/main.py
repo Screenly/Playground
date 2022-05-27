@@ -12,6 +12,7 @@ Example headers
 }"""
 
 from os import environ
+
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
@@ -22,7 +23,7 @@ def render_metadata_headers():
     return render_template(
         "metadata_headers.html",
         headers=request.headers,
-        apiKey=environ.get('GOOGLE_MAPS_API_KEY'),
+        apiKey=environ.get("GOOGLE_MAPS_API_KEY"),
     )
 
 
