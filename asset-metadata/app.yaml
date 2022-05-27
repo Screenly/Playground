@@ -2,5 +2,5 @@
 # yamllint disable rule:line-length
 runtime: python39
 env_variables:
-  GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+  GOOGLE_MAPS_API_KEY: $GOOGLE_MAPS_API_KEY
 entrypoint: uwsgi --http-socket :8080 --wsgi-file src/main.py --callable app --master --processes 1 --threads 2
