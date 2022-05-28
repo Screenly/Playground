@@ -18,7 +18,7 @@ jobs:
       
       - name: Replace credentials
         run: |
-          sed -i "s/$GOOGLE_MAPS_API_KEY/${{ secrets.GOOGLE_MAPS_API_KEY }}/g" asset-metadata/app.yaml
+          sed -i "s/GOOGLE_MAPS_API_KEY_VAL/${{ secrets.GOOGLE_MAPS_API_KEY }}/g" asset-metadata/app.yaml
 
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
