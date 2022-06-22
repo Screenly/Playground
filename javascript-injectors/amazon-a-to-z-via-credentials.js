@@ -6,7 +6,7 @@
 
   function setValue (selector, value) {
     const element = document.querySelector(selector)
-    element.value = value;
+    element.value = value
   }
 
   function submitForm () {
