@@ -32,6 +32,8 @@ Web asset also will have a js injection - js code, that will run once the page i
 Here are some examples and tips on writing a proper JS injection code: * [Js Injection](../javascript-injectors/README.md)
 
 ```python
+import requests
+
 
 # This js injection will be applied when page is shown on the device.
 JS_CODE = """
@@ -89,6 +91,9 @@ Until it is, it can be shown on the screen, and usually, it takes several second
 Here is a simple wait loop for these purposes.
 
 ```python
+from time import sleep
+
+
 def get_asset_status(asset_id):
     response = requests.get(
         f'https://api.screenlyapp.com/api/v3/assets/{asset_id}/',
