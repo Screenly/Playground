@@ -27,9 +27,9 @@ HEADERS = {
 }
 ```
 
-Then, let's create a web asset we want to show on the screen.
-Web asset also will have a js injection - js code, that will run once the page is loaded.
-Here are some examples and tips on writing a proper JS injection code: * [Js Injection](../javascript-injectors/README.md)
+Then, let's create a web asset we want to show on the screen.\
+Web asset also will have a js injection - js code, that will run once the page is loaded.\
+Here are some examples and tips on writing a proper JS injection code: [Js Injection](../javascript-injectors/README.md)
 
 ```python
 import requests
@@ -61,7 +61,7 @@ def create_asset(url, js_code, title):
 create_asset(SOURCE_URL, JS_CODE, 'My new Asset')
 ```
 
-After that, you would need to create a group.
+After that, you would need to create a group.\
 Group is used to determine what playlists are applied to the screen.
 
 ```python
@@ -86,8 +86,8 @@ def create_group(screen_id, name):
 group_id = create_group(SCREEN_ID, "My Js injection Group")
 ```
 
-Before creating a playlist we need to ensure web asset is processed.
-Until it is, it can be shown on the screen, and usually, it takes several seconds.
+Before creating a playlist we need to ensure web asset is processed.\
+Until it is, it can be shown on the screen, and usually, it takes several seconds.\
 Here is a simple wait loop for these purposes.
 
 ```python
