@@ -1,21 +1,44 @@
-### Summary
+### Setup asset with JS injection on your screen
 
-This example shows how, having a screen, attach to it a newly created asset with js injection.
+This tutorial will show how to create a web asset with JS injection using only [Screenly API](https://developer.screenlyapp.com/).
 
-For this, you would need
- - an API token, which can be found on the web dashboard /manage/account/team.
- - a paired screen id, which can be found either from the API or retrieved from the web dashboard screen URL:
+Any request to the API requires an API token. \
+You can acquire it in Screenly [Web dashboard](https://your-domain.screenlyapp.com/manage/account/team) by adding a new token.
 
-https://yourteam.screenlyapp.com/manage/screens/01FAZMW8E0CB2AM78N63QP406Y
+![](./img/create_token.png)
 
-'01FAZMW8E0CB2AM78N63QP406Y' - this is screen_id.
+To make API requests tutorial uses python 3 and python [requests](https://pypi.org/project/requests/) library to make API calls.
+You can use curl or something else alternatively.
 
-Both are passed as environment variables.
-`TOKEN=<your_token> SCREEN_ID=<screen_id> python your_script.py`
+Also, for this tutorial paired screen id is required.
+If you don't know your screen ID, you can get it through [API](https://developer.screenlyapp.com/#operation/screens_list):
+```python
+import os
+import requests
+
+TOKEN = os.getenv('TOKEN')
+
+HEADERS = {
+    "Authorization": f"Token {TOKEN}",
+    "Content-Type": "application/json"
+}
+
+response = requests.get(
+    'https://api.screenlyapp.com/api/v3/screens/',
+    headers=HEADERS
+)
+print(response.json())
+```
+It will print all your screens.
+Select the screen and get the 'id' field. It will be similar to '01DQ0KJT300007KJAK074WGTBD'.
 
 
-#### Code example
-First, prepare headers for the API. Screenly uses Header token authorization
+All code below assumes TOKEN and SCREEN_ID are passed as environment variables:
+`TOKEN=<token> SCREEN_ID=<screen_id> python your_script.py`
+
+
+#### Headers
+First, prepare headers for the API. Screenly uses [Header](https://developer.screenlyapp.com/#section/Authentication/Bearer) token authorization.
 
 ```python
 import os
@@ -27,8 +50,42 @@ HEADERS = {
 }
 ```
 
-Then, let's create a web asset we want to show on the screen.\
-Web asset also will have a js injection - js code, that will run once the page is loaded.\
+#### Create Group
+
+[API](https://developer.screenlyapp.com/#operation/groups_create)
+
+Now we need to create a group. 
+Group is used to apply playlists with content to screens.
+
+```python
+SCREEN_ID = os.getenv('SCREEN_ID')
+
+def create_group(screen_id, name):
+    response = requests.post(
+        url='https://api.screenlyapp.com/api/v3/groups/',
+        json={
+            'name': name,
+            'screens': [{
+                'id': screen_id
+            }]
+        },
+        headers=HEADERS
+    )
+    group_id = response.json()['id']
+    print(f"Group created: {group_id}")
+    return group_id
+
+# For an asset to be associated with the screen we need to label the playlist and screen with the same group.
+group_id = create_group(SCREEN_ID, "My Js injection Group")
+```
+
+#### Create Web Asset
+
+[API](https://developer.screenlyapp.com/#operation/assets_create)
+
+Here, we are creating a web asset with JS injection.
+JS injection is a javascript code, that will run once a page is loaded on your screen.
+
 Here are some examples and tips on writing a proper JS injection code: [Js Injection](../javascript-injectors/README.md)
 
 ```python
@@ -60,35 +117,15 @@ def create_asset(url, js_code, title):
 # You can use your page if needed.
 create_asset(SOURCE_URL, JS_CODE, 'My new Asset')
 ```
+This code will create a web asset with a JS-injected code.
+Though the asset is not available right away. It must be processed, before it is used.
+You can check asset status in the `status` field.
 
-After that, you would need to create a group.\
-Group is used to determine what playlists are applied to the screen.
+[API](https://developer.screenlyapp.com/#operation/assets_read)
 
-```python
-SCREEN_ID = os.getenv('SCREEN_ID')
+For simple assets like this, it usually takes several seconds to process, but it could take more time, for instance for a huge video file.
 
-def create_group(screen_id, name):
-    response = requests.post(
-        url='https://api.screenlyapp.com/api/v3/groups/',
-        json={
-            'name': name,
-            'screens': [{
-                'id': screen_id
-            }]
-        },
-        headers=HEADERS
-    )
-    group_id = response.json()['id']
-    print(f"Group created: {group_id}")
-    return group_id
-
-# For an asset to be associated with the screen we need to label the playlist and screen with the same group.
-group_id = create_group(SCREEN_ID, "My Js injection Group")
-```
-
-Before creating a playlist we need to ensure web asset is processed.\
-Until it is, it can be shown on the screen, and usually, it takes several seconds.\
-Here is a simple wait loop for these purposes.
+Let's write a simple wait loop to wait until the asset is processed.
 
 ```python
 from time import sleep
@@ -115,7 +152,9 @@ def wait_asset_processed(asset_id):
 wait_asset_processed(asset_id)
 ```
 
-Then create a playlist, that will be applied to the screen with the group above.
+#### Create Playlist
+
+[API](https://developer.screenlyapp.com/#operation/playlists_create)
 
 ```python
 def create_playlist(group_id, asset_id, title):
@@ -135,7 +174,15 @@ def create_playlist(group_id, asset_id, title):
 create_playlist(group_id, asset_id, "My Js Injection Playlist")
 ```
 
-And the last thing, the screen should be updated with the created group to be targeted by playlist.
+Now we have a playlist with a web asset as content, and the last thing left is to add a group to the selected screen.
+
+#### Update screen with group
+
+[API](https://developer.screenlyapp.com/#operation/playlists_update)
+
+We are using the PUT HTTP method to update the screen.
+It requires, that the whole screen data is sent, including changed and unchanged fields.
+This is why, in the following example, there is a GET method before PUT.
 
 ```python
 def update_screen(group_id):
@@ -155,4 +202,6 @@ def update_screen(group_id):
 update_screen(group_id)
 ```
 
-Full code example is here: [Code Example](./web_asset_js_injection.py)
+Now, after a bit, you should see 'New Text' on your screen. 'New Text' is text replaced with JS code.
+
+Full [code example](./web_asset_js_injection.py).
