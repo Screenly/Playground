@@ -7,8 +7,8 @@ You can acquire it in Screenly [Web dashboard](https://your-domain.screenlyapp.c
 
 ![](./img/create_token.png)
 
-To make API requests tutorial uses python 3 and python [requests](https://pypi.org/project/requests/) library to make API calls.
-You can use curl or something else alternatively.
+To make API requests tutorial uses Python 3 and Python [requests](https://pypi.org/project/requests/) library to make API calls.
+You can use `curl` or something else alternatively.
 
 Also, for this tutorial paired screen id is required.
 If you don't know your screen ID, you can get it through [API](https://developer.screenlyapp.com/#operation/screens_list):
@@ -84,9 +84,9 @@ group_id = create_group(SCREEN_ID, "My Js injection Group")
 [API](https://developer.screenlyapp.com/#operation/assets_create)
 
 Here, we are creating a web asset with JS injection.
-JS injection is a javascript code, that will run once a page is loaded on your screen.
+JS injection is a Javascript code, that will run once a page is loaded on your screen.
 
-Here are some examples and tips on writing a proper JS injection code: [Js Injection](../javascript-injectors/README.md)
+Here are some examples and tips on writing a proper JS Injector code: [Js Injector](../javascript-injectors/README.md)
 
 ```python
 import requests
