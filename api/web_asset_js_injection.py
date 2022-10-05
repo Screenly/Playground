@@ -9,18 +9,19 @@ HEADERS = {
     "Authorization": f"Token {TOKEN}",
     "Content-Type": "application/json"
 }
+HOST = 'https://api.screenlyapp.com'
 
 
 def create_group(screen_id, name):
     response = requests.post(
-        url='https://api.screenlyapp.com/api/v3/groups/',
+        url=f'{HOST}/api/v3/groups/',
         json={
             'name': name,
             'screens': [{
                 'id': screen_id
             }]
         },
-        headers=HEADERS
+        headers=HEADERS,
     )
     group_id = response.json()['id']
     print(f"Group created: {group_id}")
@@ -29,13 +30,13 @@ def create_group(screen_id, name):
 
 def create_playlist(group_id, asset_id, title):
     response = requests.post(
-        url='https://api.screenlyapp.com/api/v3/playlists/',
+        url=f'{HOST}/api/v3/playlists/',
         json={
             'title': title,
             'groups': [{'id': group_id}],
             'assets': [{'id': asset_id, 'duration': 4}],
         },
-        headers=HEADERS
+        headers=HEADERS,
     )
     playlist_id = response.json()['id']
     print(f"Playlist created: {playlist_id}")
@@ -44,13 +45,13 @@ def create_playlist(group_id, asset_id, title):
 
 def create_asset(url, js_code, title):
     response = requests.post(
-        'https://api.screenlyapp.com/api/v3/assets/',
+        f'{HOST}/api/v3/assets/',
         json={
             'title': title,
             'js_injection': js_code,
             'source_url': url
         },
-        headers=HEADERS
+        headers=HEADERS,
     )
     asset_id = response.json()['id']
     print(f"Asset created: {asset_id}")
@@ -71,25 +72,10 @@ def wait_asset_processed(asset_id):
 
 def get_asset_status(asset_id):
     response = requests.get(
-        f'https://api.screenlyapp.com/api/v3/assets/{asset_id}/',
-        headers=HEADERS
+        f'{HOST}/api/v3/assets/{asset_id}/',
+        headers=HEADERS,
     )
     return response.json()['status']
-
-
-def update_screen(group_id):
-    screen_json = requests.get(
-        f'https://api.screenlyapp.com/api/v3/screens/{SCREEN_ID}/',
-        headers=HEADERS
-    ).json()
-
-    screen_json['groups'].append({'id': group_id})
-
-    requests.put(
-        f'https://api.screenlyapp.com/api/v3/screens/{SCREEN_ID}/',
-        json=screen_json,
-        headers=HEADERS
-    )
 
 
 def main():
@@ -112,7 +98,6 @@ def main():
     wait_asset_processed(asset_id)
 
     create_playlist(group_id, asset_id, "My Js Injection Playlist")
-    update_screen(group_id)
 
 
 if __name__ == '__main__':

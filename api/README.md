@@ -56,6 +56,7 @@ HEADERS = {
 
 Now we need to create a group. 
 Group is used to apply playlists with content to screens.
+Screen id is passed as a payload to associate this new group and the screen.
 
 ```python
 SCREEN_ID = os.getenv('SCREEN_ID')
@@ -174,34 +175,8 @@ def create_playlist(group_id, asset_id, title):
 create_playlist(group_id, asset_id, "My Js Injection Playlist")
 ```
 
-Now we have a playlist with a web asset as content, and the last thing left is to add a group to the selected screen.
-
-#### Update screen with group
-
-[API](https://developer.screenlyapp.com/#operation/playlists_update)
-
-We are using the PUT HTTP method to update the screen.
-It requires, that the whole screen data is sent, including changed and unchanged fields.
-This is why, in the following example, there is a GET method before PUT.
-
-```python
-def update_screen(group_id):
-    screen_json = requests.get(
-        f'https://api.screenlyapp.com/api/v3/screens/{SCREEN_ID}/',
-        headers=HEADERS
-    ).json()
-
-    screen_json['groups'].append({'id': group_id})
-
-    requests.put(
-        f'https://api.screenlyapp.com/api/v3/screens/{SCREEN_ID}/',
-        json=screen_json,
-        headers=HEADERS
-    )
-
-update_screen(group_id)
-```
-
-Now, after a bit, you should see 'New Text' on your screen. 'New Text' is text replaced with JS code.
+Now we have a playlist with a web asset as content.
+Playlist is targeted to a group, created above,
+and, after a bit, you should see 'New Text' on your screen. 'New Text' is text replaced with JS code.
 
 Full [code example](./web_asset_js_injection.py).
