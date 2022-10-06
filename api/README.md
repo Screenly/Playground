@@ -95,9 +95,9 @@ import requests
 
 # This js injection will be applied when page is shown on the device.
 JS_CODE = """
-document.getElementById("hello-world").textContent = 'New Text';
+document.getElementsByClassName('markdown-body')[0].textContent = 'Hello There!';
 """
-SOURCE_URL = 'https://screenly.github.io/screenly-playground.github.io/'
+SOURCE_URL = 'https://playground.srly.io'
 
 def create_asset(url, js_code, title):
     response = requests.post(
