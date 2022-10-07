@@ -3,7 +3,6 @@ from time import sleep
 
 import requests
 
-
 SCREEN_ID = os.getenv("SCREEN_ID")
 TOKEN = os.getenv("TOKEN")
 HEADERS = {"Authorization": f"Token {TOKEN}", "Content-Type": "application/json"}
