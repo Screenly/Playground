@@ -5,7 +5,7 @@ This tutorial will show how to create a web asset with JS injection using only [
 Any request to the API requires an API token. \
 You can acquire it in Screenly [Web dashboard](https://your-domain.screenlyapp.com/manage/account/team) by adding a new token.
 
-![](./img/create_token.png)
+![Token creation](./img/create_token.png)
 
 To make API requests tutorial uses Python 3 and Python [requests](https://pypi.org/project/requests/) library to make API calls.
 You can use `curl` or something else alternatively.
@@ -54,7 +54,7 @@ HEADERS = {
 
 [API](https://developer.screenlyapp.com/#operation/groups_create)
 
-Now we need to create a group. 
+Now we need to create a group.
 Group is used to apply playlists with content to screens.
 Screen ID is passed as a payload to associate this new group and the screen.
 
