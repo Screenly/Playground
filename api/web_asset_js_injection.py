@@ -83,7 +83,7 @@ def main():
     JS_CODE = """
     document.getElementsByClassName('markdown-body')[0].textContent = 'Hello There!';
     """
-    SOURCE_URL = 'https://playground.srly.io'
+    SOURCE_URL = 'https://playground.srly.io/api/'
 
     # Create a new web asset and attach js_injection
     # It uses SOURCE_URL above - the web page hosted by GitHub pages
