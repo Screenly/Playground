@@ -1,4 +1,4 @@
-### Setup asset with JS injection on your screen
+# Setup asset with JS injection on your screen
 
 This tutorial will show how to create a web asset with JS injection using only [Screenly API](https://developer.screenlyapp.com/).
 
@@ -10,7 +10,7 @@ You can acquire it in Screenly [Web dashboard](https://your-domain.screenlyapp.c
 To make API requests tutorial uses Python 3 and Python [requests](https://pypi.org/project/requests/) library to make API calls.
 You can use `curl` or something else alternatively.
 
-Also, for this tutorial paired screen id is required.
+Also, for this tutorial paired screen ID is required.
 If you don't know your screen ID, you can get it through [API](https://developer.screenlyapp.com/#operation/screens_list):
 ```python
 import os
@@ -30,7 +30,7 @@ response = requests.get(
 print(response.json())
 ```
 It will print all your screens.
-Select the screen and get the 'id' field. It will be similar to '01DQ0KJT300007KJAK074WGTBD'.
+Select the screen and get the `id` field. It will be similar to '01DQ0KJT300007KJAK074WGTBD'.
 
 
 All code below assumes TOKEN and SCREEN_ID are passed as environment variables:
@@ -56,7 +56,7 @@ HEADERS = {
 
 Now we need to create a group. 
 Group is used to apply playlists with content to screens.
-Screen id is passed as a payload to associate this new group and the screen.
+Screen ID is passed as a payload to associate this new group and the screen.
 
 ```python
 SCREEN_ID = os.getenv('SCREEN_ID')
@@ -85,7 +85,7 @@ group_id = create_group(SCREEN_ID, "My Js injection Group")
 [API](https://developer.screenlyapp.com/#operation/assets_create)
 
 Here, we are creating a web asset with JS injection.
-JS injection is a Javascript code, that will run once a page is loaded on your screen.
+JS injection is a JavaScript code, that will run once a page is loaded on your screen.
 
 Here are some examples and tips on writing a proper JS Injector code: [Js Injector](../javascript-injectors/README.md)
 
