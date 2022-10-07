@@ -97,7 +97,7 @@ import requests
 JS_CODE = """
 document.getElementsByClassName('markdown-body')[0].textContent = 'Hello There!';
 """
-SOURCE_URL = 'https://playground.srly.io'
+SOURCE_URL = 'https://playground.srly.io/api/'
 
 def create_asset(url, js_code, title):
     response = requests.post(
