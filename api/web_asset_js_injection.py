@@ -1,6 +1,7 @@
 import os
-import requests
 from time import sleep
+
+import requests
 
 
 SCREEN_ID = os.getenv("SCREEN_ID")
