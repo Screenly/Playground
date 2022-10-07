@@ -1,6 +1,7 @@
-import requests
 import os
 from time import sleep
+
+import requests
 
 
 SCREEN_ID = os.getenv("SCREEN_ID")
@@ -53,7 +54,7 @@ def wait_asset_processed(asset_id):
         if status == "finished":
             break
         if status == "error":
-            raise
+            raise Exception("Asset is processed with error")
 
     print(f"Asset is processed: {asset_id}")
 

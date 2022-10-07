@@ -37,7 +37,7 @@ All code below assumes TOKEN and SCREEN_ID are passed as environment variables:
 `TOKEN=<token> SCREEN_ID=<screen_id> python your_script.py`
 
 
-#### Headers
+## Headers
 First, prepare headers for the API. Screenly uses [Header](https://developer.screenlyapp.com/#section/Authentication/Bearer) token authorization.
 
 ```python
@@ -50,7 +50,7 @@ HEADERS = {
 }
 ```
 
-#### Create Group
+## Create Group
 
 [API](https://developer.screenlyapp.com/#operation/groups_create)
 
@@ -80,7 +80,7 @@ def create_group(screen_id, name):
 group_id = create_group(SCREEN_ID, "My Js injection Group")
 ```
 
-#### Create Web Asset
+## Create Web Asset
 
 [API](https://developer.screenlyapp.com/#operation/assets_create)
 
@@ -153,7 +153,7 @@ def wait_asset_processed(asset_id):
 wait_asset_processed(asset_id)
 ```
 
-#### Create Playlist
+## Create Playlist
 
 [API](https://developer.screenlyapp.com/#operation/playlists_create)
 
