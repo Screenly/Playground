@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <style>
+            body {
+                position: relative;
+                width: 1440px;
+                height: 1024px;
+                background: #FFFFFF;
+            }
+            
+            #frame0 {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0px;
+            
+                position: absolute;
+                width: 395px;
+                height: 411px;
+                left: 321px;
+                top: 97px;
+            
+                background: #FFFFFF;
+                box-shadow: 0px 7px 30px rgba(130, 130, 130, 0.25);
+                border-radius: 25px;
+            }
+            #frame1 {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0px;
+            
+                position: absolute;
+                width: 395px;
+                height: 411px;
+                left: 724px;
+                top: 97px;
+            
+                background: #FFFFFF;
+                box-shadow: 0px 7px 30px rgba(130, 130, 130, 0.25);
+                border-radius: 25px;
+            }
+            
+            #frame2 {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0px;
+            
+                position: absolute;
+                width: 395px;
+                height: 411px;
+                left: 321px;
+                top: 516px;
+            
+                background: #FFFFFF;
+                box-shadow: 0px 7px 30px rgba(130, 130, 130, 0.25);
+                border-radius: 25px;
+            }
+            
+            #frame3 {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0px;
+            
+                position: absolute;
+                width: 395px;
+                height: 411px;
+                left: 724px;
+                top: 516px;
+            
+                background: #FFFFFF;
+                box-shadow: 0px 7px 30px rgba(130, 130, 130, 0.25);
+                border-radius: 25px;
+            }
+            
+            .instagram_post {
+                width: 395px;
+                height: 344px;
+                border-radius: 25px 25px 0px 0px;
+            
+                /* Inside auto layout */
+            
+                flex: none;
+                order: 0;
+                align-self: stretch;
+                flex-grow: 1;
+            }
+            
+            .caption {
+                width: 258px;
+                height: 19px;
+            
+                font-family: 'Inter';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 19px;
+            
+                color: #171717;
+                padding: 2px;
+                /* Inside auto layout */
+            
+                flex: none;
+                order: 1;
+                flex-grow: 1;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            //Assign the Instagram Access token you generated to a variable.
+            var token = '{token}';
+        </script>
+
+        <!--Create figures to contain the images and captions-->
+    
+        <figure id="frame0">
+            <img id="image0" class="instagram_post" src="">
+            <figcaption class="caption" id="caption0"></figcaption>
+        </figure>
+
+        <figure id="frame1">
+            <img id="image1" class="instagram_post" src="">
+            <figcaption class="caption" id="caption1"></figcaption>
+        </figure>
+
+        <figure id="frame2">
+            <img id="image2" class="instagram_post" src="">
+            <figcaption class="caption" id="caption2"></figcaption>
+        </figure>
+
+        <figure id="frame3">
+            <img id="image3" class="instagram_post" src="">
+            <figcaption class="caption" id="caption3"></figcaption>
+        </figure>       
+    </body>
+
+    <script>
+        //Function to fetch the images from Instagram
+        function get_instagram_post() {
+        
+        //Send an API request to fetch the Images from Instagram
+        const Http = new XMLHttpRequest();
+        const url='https://graph.instagram.com/me/media?fields=username,caption,media_url&access_token=' + token;
+        Http.open("GET", url, false);
+        Http.send();
+        var ig_media = JSON.parse(Http.responseText);
+        
+        //Get the Instagram Username from the API response
+        const username = "@" + ig_media.data[0].username + " ";
+
+        //Get the latest four Instagram images and their media URL
+        const image0 = ig_media.data[0].media_url;
+        const caption0 = username + ig_media.data[0].caption;
+
+        const image1 = ig_media.data[1].media_url;
+        const caption1 = username + ig_media.data[1].caption;
+
+        const image2 = ig_media.data[2].media_url;
+        const caption2 = username + ig_media.data[2].caption;
+
+        const image3 = ig_media.data[3].media_url;
+        const caption3 = username + ig_media.data[3].caption;
+
+        //Run DOM manipulation to set the mediaURLs as image sources and image captions
+        function display_image_and_caption() {
+            document.getElementById("image0").src = image0;
+            document.getElementById("image1").src = image1;
+            document.getElementById("image2").src = image2;
+            document.getElementById("image3").src = image3;
+
+            document.getElementById("caption0").innerHTML = caption0;
+            document.getElementById("caption1").innerHTML = caption1;
+            document.getElementById("caption2").innerHTML = caption2;
+            document.getElementById("caption3").innerHTML = caption3;
+          }
+      
+        display_image_and_caption();
+        
+    }
+
+    setInterval (get_instagram_post, 1000);
+      
+    </script>
+</html>
