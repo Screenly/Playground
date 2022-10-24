@@ -82,7 +82,7 @@
                 border-radius: 25px;
             }
             
-            .instagram_post {
+            .instagram-post {
                 width: 395px;
                 height: 344px;
                 border-radius: 25px 25px 0px 0px;
@@ -124,23 +124,23 @@
         <!--Create figures to contain the images and captions-->
     
         <figure id="frame0">
-            <img id="image0" class="instagram_post" src="images/default_post.svg" alt="Instagram Image">
-            <figcaption class="caption" id="caption0"></figcaption>
+            <img id="image-zero" class="instagram-post" src="images/default_post.svg" alt="Instagram Image">
+            <figcaption class="caption" id="caption-zero"></figcaption>
         </figure>
 
         <figure id="frame1">
-            <img id="image1" class="instagram_post" src="images/default_post.svg" alt="Instagram Image">
-            <figcaption class="caption" id="caption1"></figcaption>
+            <img id="image-one" class="instagram-post" src="images/default_post.svg" alt="Instagram Image">
+            <figcaption class="caption" id="caption-one"></figcaption>
         </figure>
 
         <figure id="frame2">
-            <img id="image2" class="instagram_post" src="images/default_post.svg" alt="Instagram Image">
-            <figcaption class="caption" id="caption2"></figcaption>
+            <img id="image-two" class="instagram-post" src="images/default_post.svg" alt="Instagram Image">
+            <figcaption class="caption" id="caption-two"></figcaption>
         </figure>
 
         <figure id="frame3">
-            <img id="image3" class="instagram_post" src="images/default_post.svg" alt="Instagram Image">
-            <figcaption class="caption" id="caption3"></figcaption>
+            <img id="image-three" class="instagram-post" src="images/default_post.svg" alt="Instagram Image">
+            <figcaption class="caption" id="caption-three"></figcaption>
         </figure>       
     </body>
 
@@ -173,15 +173,15 @@
 
         //Run DOM manipulation to set the mediaURLs as image sources and image captions
         function display_image_and_caption() {
-            document.getElementById("image0").src = image0;
-            document.getElementById("image1").src = image1;
-            document.getElementById("image2").src = image2;
-            document.getElementById("image3").src = image3;
+            document.getElementById("image-zero").src = image0;
+            document.getElementById("image-one").src = image1;
+            document.getElementById("image-two").src = image2;
+            document.getElementById("image-three").src = image3;
 
-            document.getElementById("caption0").innerHTML = caption0;
-            document.getElementById("caption1").innerHTML = caption1;
-            document.getElementById("caption2").innerHTML = caption2;
-            document.getElementById("caption3").innerHTML = caption3;
+            document.getElementById("caption-zero").innerHTML = caption0;
+            document.getElementById("caption-one").innerHTML = caption1;
+            document.getElementById("caption-two").innerHTML = caption2;
+            document.getElementById("caption-three").innerHTML = caption3;
           }
       
         display_image_and_caption();
