@@ -25,7 +25,7 @@
                 align-items: flex-start;
                 padding: 0px;
                 position: absolute;
-                width: 219px;
+                width: 219px;  
                 height: 192px;
                 background: #FFFFFF;
                 box-shadow: 0px 4.93415px 21.1464px rgba(130, 130, 130, 0.25);
@@ -55,7 +55,6 @@
                 width: 219px;
                 height: 140px;
                 border-radius: 25px 25px 0px 0px;
-            
                 flex: none;
                 order: 0;
                 align-self: stretch;
@@ -71,8 +70,7 @@
                 font-size: 14px;
                 line-height: 14px;
                 color: #171717;
-                padding: 2px;
-                
+                padding: 5px;
                 flex: none;
                 order: 1;
                 flex-grow: 1;
@@ -87,7 +85,7 @@
                 }
                 
                 .frames {
-                    width: 392px; 
+                    width: 392px;
                     height: 290px;
                 }
                 
@@ -132,7 +130,7 @@
                 }
                 
                 .frames {
-                    width: 821px; 
+                    width: 821px;
                     height: 411px;
                 }
                 
@@ -258,6 +256,242 @@
                 }
             }
             
+            @media screen and (orientation:portrait) {
+                body {
+                    position: relative;
+                    width: 480px;
+                    height: 800px;
+                    background: #F8F8FA;
+                }
+            
+                .frames {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    padding: 0px;
+                    position: static;
+                    margin: auto;
+                    width: 440px;
+                    height: 411px;
+                    background: #FFFFFF;
+                    box-shadow: 0px 4.93415px 21.1464px rgba(130, 130, 130, 0.25);
+                    border-radius: 17.622px;
+                }
+            
+                .instagram-post {
+                    width: 440px;
+                    height: 344px;
+                    border-radius: 25px 25px 0px 0px;
+                    flex: none;
+                    order: 0;
+                    flex-grow: 1;
+                }
+            
+                .caption {
+                    width: 303px;
+                    height: 19px;
+                    font-family: 'Inter';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 19px;
+                    padding: 5px;
+                    color: #171717;
+                    flex: none;
+                    order: 1;
+                    flex-grow: 1;
+                }
+            }
+            
+            @media screen and (min-width:720px) and (orientation:portrait) {
+                body {
+                    position: relative;
+                    width: 720px;
+                    height: 1280px;
+                    background: #FFFFFF;
+                }
+                
+                .frames {
+                    position: absolute;
+                    width: 489px;
+                    height: 289px;
+                    
+                }
+                
+                #frame0 {
+                    left: 114px;
+                    top: 31px;
+                }
+                #frame1 {
+                    left: 114px;
+                    top: 344px;
+                }
+                
+                #frame2 {
+                    left: 114px;
+                    top: 657px;
+                }
+                
+                #frame3 {
+                    left: 114px;
+                    top: 970px;
+                }
+                
+                .instagram-post {
+                    width: 489px;
+                    height: 238.77px;
+                    align-self: stretch;
+                }
+                
+                .caption {
+                    width: 489px;
+                    height: 19px;
+                    font-size: 16px;
+                    line-height: 19px;
+                }
+            }
+            
+            @media screen and (min-width:1080px) and (orientation:portrait) {
+                body {
+                    position: relative;
+                    width: 1080px;
+                    height: 1920px;
+                    background: #FFFFFF;
+                }
+                
+                .frames {
+                    position: absolute;
+                    width: 821px;
+                    height: 411px;
+                    
+                }
+                
+                #frame0 {
+                    left: 130px;
+                    top: 103px;
+                }
+                #frame1 {
+                    left: 130px;
+                    top: 544px;
+                }
+                
+                #frame2 {
+                    left: 130px;
+                    top: 985px;
+                }
+                
+                #frame3 {
+                    left: 130px;
+                    top: 1426px;
+                }
+                
+                .instagram-post {
+                    width: 821px;
+                    height: 344px;
+                    align-self: stretch;
+                }
+                
+                .caption {
+                    width: 821px;
+                    height: 24px;
+                    font-size: 20px;
+                    line-height: 24px;
+                }
+            }
+            
+            @media screen and (min-width:2160px) and (orientation:portrait) {
+                body {
+                    position: relative;
+                    width: 2160px;
+                    height: 3840px;
+                    background: #FFFFFF;
+                }
+                
+                .frames {
+                    position: absolute;
+                    width: 1695px;
+                    height: 843px;
+                }
+                
+                #frame0 {
+                    left: 233px;
+                    top: 144px;
+                }
+                #frame1 {
+                    left: 233px;
+                    top: 1047px;
+                }
+                
+                #frame2 {
+                    left: 233px;
+                    top: 1950px;
+                }
+                
+                #frame3 {
+                    left: 233px;
+                    top: 2853px;
+                }
+                
+                .instagram-post {
+                    width: 1695px;
+                    height: 776px;
+                    align-self: stretch;
+                }
+                
+                .caption {
+                    width: 1695px;
+                    height: 36px;
+                    font-size: 30px;
+                    line-height: 36px;
+                }
+            }
+            
+            @media screen and (min-width:2160px) and (orientation:portrait) and (min-height: 4096px) {
+                body {
+                    position: relative;
+                    width: 2160px;
+                    height: 4096px;
+                    background: #FFFFFF;
+                }
+                
+                .frames {
+                    position: absolute;
+                    width: 1695px;
+                    height: 843px;
+                }
+                
+                #frame0 {
+                    left: 233px;
+                    top: 272px;
+                }
+                #frame1 {
+                    left: 233px;
+                    top: 1175px;
+                }
+                
+                #frame2 {
+                    left: 233px;
+                    top: 2078px;
+                }
+                
+                #frame3 {
+                    left: 233px;
+                    top: 2981px;
+                }
+                
+                .instagram-post {
+                    width: 1695px;
+                    height: 776px;
+                    align-self: stretch;
+                }
+                
+                .caption {
+                    width: 1695px;
+                    height: 36px;
+                    font-size: 30px;
+                    line-height: 36px;
+                }
+            }        
             
         </style>
     </head>
@@ -336,7 +570,7 @@
         
     }
 
-    setInterval (get_instagram_post, 1000);
+    setInterval (get_instagram_post, 300000);
       
     </script>
 </html>
