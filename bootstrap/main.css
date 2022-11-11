@@ -1,0 +1,116 @@
+html, body {
+    margin: 0; 
+    height: 100%; 
+    overflow: hidden;
+    background: #0D6EFD;
+    font-family: 'Inter';
+    position: relative;
+}
+.header {
+    color: #FFFFFF;
+    font-size: 2.4vh;
+    font-family: 'Inter';
+    font-style: normal;
+    border-bottom: 0.1px groove white;
+    text-align:right;
+}
+
+.footer {
+    position: fixed;
+    font-family: 'Inter';
+    font-style: normal;
+    bottom: 0.1vw;
+    width: 100%;
+    color: white;
+    text-align: center;
+    background-image: url("images/screenly_blur.svg");
+    mix-blend-mode:normal;
+    height: 50%;
+    
+  }
+
+.footer-text {
+    position: fixed;
+    font-family: 'Inter';
+    font-style: normal;
+    bottom: 0.1vw;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+
+.instagram-post {
+    border-radius: 1vw 1vw 0vw 0vw;
+  }
+  
+.caption {
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.99), rgba(255, 255, 255, 0.99)), #0D6EFD;
+  border-radius: 0px 0px 1vw 1vw;
+  padding-left: 1vw;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
+  height: 7vh;
+  font-family: 'Inter';
+  font-style: normal;
+  font-size: 2.5vh;
+  line-height: 2.6vh;
+}
+
+@media screen and (max-width:576px) {
+    #frame1 {display: none;}
+}
+
+@media screen and (orientation:portrait) {
+    .col-4 {
+        width: 31%;
+    }
+
+    .playground-logo {
+        padding-top: 2vw;
+        width: 65%;
+    }
+
+    .header {
+        font-size: 2.5vw;
+    }
+
+    .col-sm-4 {
+        width: 62%;
+        margin-top: 2vh;
+    }
+    
+    .col-12 {
+        width: 100%;
+    }
+
+    .caption {
+        font-size: 2.7vw;
+        padding-left: 1vh;
+        padding-top: 1.1vh;
+        padding-bottom: 1vh;
+        height: 5vh;
+    }
+    .footer {
+        background: none;
+    }
+
+}
+
+@media screen and (min-width:2160px) and (orientation:portrait) { 
+    .header-text {
+        margin-top:0.9vh;
+    }
+    .col-sm-4 {
+        margin-top: 3vh;
+    }
+}
+
+@media screen and (min-width:3840px) and (orientation:landscape) { 
+    .col-4 {
+        margin-top:2vh;
+    }
+    .col-sm-4 {
+        margin-top: 3vh;
+        margin-left: 2vw;
+    }
+}
