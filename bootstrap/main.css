@@ -41,79 +41,79 @@ body {
 }
 
 .instagram-post {
-        border-radius: 1vw 1vw 0 0;
+  border-radius: 1vw 1vw 0 0;
 }
 
 .caption {
-        background: #fff;
-        border-radius: 0 0 1vw 1vw;
-        padding-left: 1vw;
-        padding-top: 1vw;
-        padding-bottom: 1vw;
-        height: 7vh;
-        font-family: Inter, sans-serif;
-        font-style: normal;
-        font-size: 2.5vh;
-        line-height: 2.6vh;
+  background: #fff;
+  border-radius: 0 0 1vw 1vw;
+  padding-left: 1vw;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
+  height: 7vh;
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-size: 2.5vh;
+  line-height: 2.6vh;
 }
 
 @media screen and (max-width: 576px) {
-        #frame1 { display: none; }
+  #frame1 { display: none; }
 }
 
 @media screen and (orientation: portrait) {
-        .col-4 {
-                width: 31%;
-        }
+  .col-4 {
+    width: 31%;
+  }
 
-        .playground-logo {
-            padding-top: 2vw;
-            width: 65%;
-        }
-        
-        .header {
-            font-size: 2.5vw;
-        }
-         
-        .col-sm-4 {
-            width: 62%;
-            margin-top: 2vh;
-        }
+  .playground-logo {
+    padding-top: 2vw;
+    width: 65%;
+  }
 
-        .col-12 {
-            width: 100%;
-        }
+  .header {
+    font-size: 2.5vw;
+  }
 
-        .caption {
-            font-size: 2.7vw;
-            padding-left: 1vh;
-            padding-top: 1.1vh;
-            padding-bottom: 1vh;
-            height: 5vh;
-        }
+  .col-sm-4 {
+    width: 62%;
+    margin-top: 2vh;
+  }
 
-        .footer {
-            background: none;
-        }
+  .col-12 {
+    width: 100%;
+  }
+
+  .caption {
+    font-size: 2.7vw;
+    padding-left: 1vh;
+    padding-top: 1.1vh;
+    padding-bottom: 1vh;
+    height: 5vh;
+  }
+
+  .footer {
+    background: none;
+  }
 }
 
 @media screen and (min-width: 2160px) and (orientation: portrait) {
-        .header-text {
-                margin-top: 0.9vh;
-        }
+  .header-text {
+    margin-top: 0.9vh;
+  }
 
-        .col-sm-4 {
-                margin-top: 3vh;
-        }
+  .col-sm-4 {
+    margin-top: 3vh;
+  }
 }
 
 @media screen and (min-width: 3840px) and (orientation: landscape) {
-        .col-4 {
-                margin-top: 2vh;
-        }
-        
-        .col-sm-4 {
-                margin-top: 3vh;
-                margin-left: 2vw;
-        }
+  .col-4 {
+    margin-top: 2vh;
+  }
+
+  .col-sm-4 {
+    margin-top: 3vh;
+    margin-left: 2vw;
+  }
 }
