@@ -139,10 +139,6 @@
     
     <body>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script>
-            //Assign the Instagram Access token you generated to a variable.
-            var token = '{token}';
-        </script>
 
         <!--Create divs to contain the images and captions-->
     <div class="container-fluid">
@@ -174,44 +170,4 @@
 
   
     </body>
-
-    <script>
-        /*
-        //Function to fetch the images from Instagram
-        function get_instagram_post() {
-        
-        //Send an API request to fetch the Images from Instagram
-        const Http = new XMLHttpRequest();
-        const url='https://graph.instagram.com/me/media?fields=username,caption,media_url&access_token=' + token;
-        Http.open("GET", url, false);
-        Http.send();
-        var ig_media = JSON.parse(Http.responseText);
-        
-        //Get the Instagram Username from the API response
-        const username = "<b style='color:#0D6EFD;'>@" + ig_media.data[0].username + " </b>";
-
-        //Get the latest four Instagram images and their media URL
-        const image0 = ig_media.data[0].media_url;
-        const caption0 = username + ig_media.data[0].caption;
-
-        const image1 = ig_media.data[1].media_url;
-        const caption1 = username + ig_media.data[1].caption;
-
-        //Run DOM manipulation to set the mediaURLs as image sources and image captions
-        function display_image_and_caption() {
-            document.getElementById("image-zero").src = image0;
-            document.getElementById("image-one").src = image1;
-
-            document.getElementById("caption-zero").innerHTML = caption0;
-            document.getElementById("caption-one").innerHTML = caption1;
-          }
-      
-        display_image_and_caption();
-        
-    }
-
-    setInterval (get_instagram_post, 1000);
-    */
-      
-    </script>
 </html>
