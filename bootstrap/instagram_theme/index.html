@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        
+        <title>Instagram Images</title>
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+
+        <style>
+
+            html, body {
+                margin: 0; 
+                height: 100%; 
+                overflow: hidden;
+                background: #0D6EFD;
+                font-family: 'Inter';
+                position: relative;
+            }
+            .header {
+                color: #FFFFFF;
+                font-size: 2.4vh;
+                font-family: 'Inter';
+                font-style: normal;
+                border-bottom: 0.1px groove white;
+                text-align:right;
+            }
+    
+            .footer {
+                position: fixed;
+                font-family: 'Inter';
+                font-style: normal;
+                bottom: 0.1vw;
+                width: 100%;
+                color: white;
+                text-align: center;
+                background-image: url("images/screenly_blur.svg");
+                mix-blend-mode:normal;
+                height: 50%;
+                
+              }
+
+            .footer-text {
+                position: fixed;
+                font-family: 'Inter';
+                font-style: normal;
+                bottom: 0.1vw;
+                width: 100%;
+                color: white;
+                text-align: center;
+            }
+
+            .instagram-post {
+                border-radius: 1vw 1vw 0vw 0vw;
+              }
+              
+            .caption {
+              background: linear-gradient(0deg, rgba(255, 255, 255, 0.99), rgba(255, 255, 255, 0.99)), #0D6EFD;
+              border-radius: 0px 0px 1vw 1vw;
+              padding-left: 1vw;
+              padding-top: 1vw;
+              padding-bottom: 1vw;
+              height: 7vh;
+              font-family: 'Inter';
+              font-style: normal;
+              font-size: 2.5vh;
+              line-height: 2.6vh;
+            }
+
+            @media screen and (max-width:576px) {
+                #frame1 {display: none;}
+            }
+
+            @media screen and (orientation:portrait) {
+                .col-4 {
+                    width: 31%;
+                }
+
+                .playground-logo {
+                    padding-top: 2vw;
+                    width: 65%;
+                }
+
+                .header {
+                    font-size: 2.5vw;
+                }
+
+                .col-sm-4 {
+                    width: 62%;
+                    margin-top: 2vh;
+                }
+                
+                .col-12 {
+                    width: 100%;
+                }
+
+                .caption {
+                    font-size: 2.7vw;
+                    padding-left: 1vh;
+                    padding-top: 1.1vh;
+                    padding-bottom: 1vh;
+                    height: 5vh;
+                }
+                .footer {
+                    background: none;
+                }
+
+            }
+            
+            @media screen and (min-width:2160px) and (orientation:portrait) { 
+                .header-text {
+                    margin-top:0.9vh;
+                }
+                .col-sm-4 {
+                    margin-top: 3vh;
+                }
+            }
+            
+            @media screen and (min-width:3840px) and (orientation:landscape) { 
+                .col-4 {
+                    margin-top:2vh;
+                }
+                .col-sm-4 {
+                    margin-top: 3vh;
+                    margin-left: 2vw;
+                }
+            }
+
+
+        </style>
+    
+    </head>
+    
+    <body>
+        <script>
+            //Assign the Instagram Access token you generated to a variable.
+            var token = '{token}';
+        </script>
+
+        <!--Create divs to contain the images and captions-->
+    <div class="container-fluid">
+        
+        <div class="row d-flex justify-content-center mt-2 pb-3 header">
+            <div class="col-4">
+                <img class="playground-logo" width="40%" height="auto" src="images/playground_logo.svg" alt="Screenly logo" style="float:left;">
+            </div>
+            <div class="col-4 pt-3 header-text">
+                <span>Instagram Feed</span>
+            </div>
+        </div>
+
+        <div class="row d-flex justify-content-center mt-5 pt-3">   
+            <div id="frame0" class="col-sm-4 frames">
+                <img id="image-zero" class="img-responsive instagram-post" src="images/default_card.svg" alt="Instagram Image">
+                <div class="col-12 caption" id="caption-zero"><b style="color:#0D6EFD;">@screenly</b> Text Placeholder</div>
+            </div>
+
+            <div id="frame1" class="col-sm-4 frames">
+                <img id="image-one" class="img-responsive instagram-post" src="images/default_card.svg" alt="Instagram Image">
+                <div class="col-12 caption" id="caption-one"><b style="color:#0D6EFD;">@screenly</b> Text Placeholder</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="footer"></div>
+    <div class="footer-text">© 2013-2022 Screenly, Inc.</div>
+
+  
+    </body>
+
+    <script>
+        /*
+        //Function to fetch the images from Instagram
+        function get_instagram_post() {
+        
+        //Send an API request to fetch the Images from Instagram
+        const Http = new XMLHttpRequest();
+        const url='https://graph.instagram.com/me/media?fields=username,caption,media_url&access_token=' + token;
+        Http.open("GET", url, false);
+        Http.send();
+        var ig_media = JSON.parse(Http.responseText);
+        
+        //Get the Instagram Username from the API response
+        const username = "<b style='color:#0D6EFD;'>@" + ig_media.data[0].username + " </b>";
+
+        //Get the latest four Instagram images and their media URL
+        const image0 = ig_media.data[0].media_url;
+        const caption0 = username + ig_media.data[0].caption;
+
+        const image1 = ig_media.data[1].media_url;
+        const caption1 = username + ig_media.data[1].caption;
+
+        //Run DOM manipulation to set the mediaURLs as image sources and image captions
+        function display_image_and_caption() {
+            document.getElementById("image-zero").src = image0;
+            document.getElementById("image-one").src = image1;
+
+            document.getElementById("caption-zero").innerHTML = caption0;
+            document.getElementById("caption-one").innerHTML = caption1;
+          }
+      
+        display_image_and_caption();
+        
+    }
+
+    setInterval (get_instagram_post, 1000);
+    */
+      
+    </script>
+</html>
