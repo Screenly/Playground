@@ -8,12 +8,16 @@ body {
   position: relative;
 }
 
+.playground-logo {
+  float: left;
+}
+
 .header {
   color: #fff;
   font-size: 2.4vh;
   font-family: Inter, sans-serif;
   font-style: normal;
-  border-bottom: 0.1px groove white;
+  border-bottom: 1px groove white;
   text-align: right;
 }
 
@@ -55,6 +59,10 @@ body {
   font-style: normal;
   font-size: 2.5vh;
   line-height: 2.6vh;
+}
+
+.caption > b {
+  color: #0d6efd;
 }
 
 @media screen and (max-width: 576px) {
