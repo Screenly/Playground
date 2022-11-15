@@ -1,7 +1,8 @@
+# Screenly Playground
+
 ![Playground Logo](/images/playground.png)
 
 This repository holds various examples that showcases Screenly's features and API.
-
 
 ## Examples
 
