@@ -15,7 +15,7 @@
         {% block styles %}
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet">
-        <link href="main.css" rel="stylesheet">
+        <link href="../../assets/styles/main.css" rel="stylesheet">
         {% endblock %}
 
         {% block scripts %}
@@ -26,23 +26,12 @@
     
     <body>
         <div class="container-fluid">
-            <div class="row d-flex justify-content-center mt-2 pb-3 header">
-                <div class="col-4">
-                    <img class="playground-logo" width="40%" height="auto" src="images/playground_logo.svg" alt="Screenly logo">
-                </div>
-                <div class="col-4 pt-3 header-text">
-                    <span>{{ appName }}</span>
-                </div>
-            </div>
+            {% include "partials/header.html" %}
             <main>
-                {% block content %}
-                {% endblock %}
+                {% block content %}{% endblock %}
             </main>
+            {% include "partials/footer.html" %}
         </div>
-        <footer class="footer">
-            <div class="footer-text">© 2013-2022 Screenly, Inc.</div>
-        </footer>
-        {% block scripts-footer %}
-        {% block scripts-footer %}
+        {% block scriptsfooter %}{% endblock %}
     </body>
 </html>

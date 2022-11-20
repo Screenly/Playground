@@ -1,0 +1,15 @@
+{
+  "engines": {
+    "node": ">=14.16"
+  },
+  "scripts": {
+    "start": "gulp",
+    "build": "gulp build"
+  },
+  "devDependencies": {
+    "del": "^6.1.1",
+    "gulp": "^4.0.2",
+    "gulp-beautify": "^3.0.0",
+    "gulp-nunjucks-render": "^2.2.3"
+  }
+}
