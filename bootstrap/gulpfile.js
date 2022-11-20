@@ -2,7 +2,7 @@ const { src, dest, series, watch } = require('gulp');
 const njk = require('gulp-nunjucks-render');
 const beautify = require('gulp-beautify');
 const del = require('del');
-const gulpCopy = require('gulp-copy');
+const inlinesource = require('gulp-inline-source');
 
 function clean() {
   return del(['dist', 'build'])
@@ -29,9 +29,15 @@ function html() {
     .pipe(dest('build'))
 }
 
+function inlineAssets() {
+  return src('./build/**/*.html')
+    .pipe(inlinesource())
+    .pipe(dest('./dist'))
+}
+
 function watchFiles() {
   watch('src/**/*', html)
 }
 const copy = series(copyTemplateAssets, copyAppAssets);
-exports.build = series(clean, html)
-exports.default = series(clean, copy, html, watchFiles)
+exports.build = series(clean, copy, html, inlineAssets);
+exports.default = series(clean, copy, html, watchFiles);
