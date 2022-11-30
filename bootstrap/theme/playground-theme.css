@@ -17,7 +17,7 @@ body {
 }
 
 header {
-  border-bottom: 1px solid rgba(217 217 217 / 0.5);
+  border-bottom: 1px solid rgba(217 217 217 / 50%);
 }
 
 .header {
@@ -54,7 +54,7 @@ footer {
 footer .copyright {
   color: var(--white);
   background-color: var(--primary);
-  border-top: 1px solid rgba(217 217 217 / 0.5);
+  border-top: 1px solid rgba(217 217 217 / 50%);
   flex: 1;
   font-size: 0.8rem;
   padding: 1rem 0;
