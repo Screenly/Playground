@@ -1,14 +1,14 @@
 :root {
-  --primary: #0D6EFD;
-  --white: #FFFFFF;
-  --gray: #D9D9D9;
-  --black: #000000;
+  --primary: #0d6efd;
+  --white: #fff;
+  --gray: #d9d9d9;
+  --black: #000;
 }
 
 body {
   background-color: var(--primary);
   color: var(--white);
-  font-family: 'Inter', sans-serif;
+  font-family: Inter, sans-serif;
 }
 
 .container {
@@ -17,7 +17,7 @@ body {
 }
 
 header {
-  border-bottom: 1px solid rgba(217, 217, 217, 0.5);
+  border-bottom: 1px solid rgba(217 217 217 / 0.5);
 }
 
 .header {
@@ -54,7 +54,7 @@ footer {
 footer .copyright {
   color: var(--white);
   background-color: var(--primary);
-  border-top: 1px solid rgba(217, 217, 217, 0.5);
+  border-top: 1px solid rgba(217 217 217 / 0.5);
   flex: 1;
   font-size: 0.8rem;
   padding: 1rem 0;
@@ -79,7 +79,7 @@ footer .copyright {
   .header {
     padding: 1rem 0;
   }
-  
+
   .header .logo {
     width: 160px;
   }
@@ -105,7 +105,7 @@ footer .copyright {
   .header {
     padding: 1.5rem 0;
   }
-  
+
   .header .logo {
     width: 220px;
   }
@@ -132,7 +132,7 @@ footer .copyright {
   .header {
     padding: 1.5rem 0;
   }
-  
+
   .header .logo {
     width: 400px;
   }
@@ -171,6 +171,7 @@ footer .copyright {
   .header .app-name {
     font-size: 1.2rem;
   }
+
   .container {
     max-width: 371px;
   }
@@ -184,7 +185,7 @@ footer .copyright {
   .header {
     padding: 1.5rem 0;
   }
-  
+
   .header .logo {
     width: 180px;
   }
@@ -206,7 +207,7 @@ footer .copyright {
   .header {
     padding: 1.5rem 0;
   }
-  
+
   .header .logo {
     width: 220px;
   }
@@ -225,10 +226,6 @@ footer .copyright {
   }
 }
 
-@media screen and (min-width: 1440px) and (orientation: portrait) {
-
-}
-
 @media screen and (min-width: 2160px) and (orientation: portrait) {
   .container {
     max-width: 1320px;
@@ -237,7 +234,7 @@ footer .copyright {
   .header {
     padding: 1.5rem 0;
   }
-  
+
   .header .logo {
     width: 400px;
   }

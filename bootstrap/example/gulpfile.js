@@ -1,21 +1,21 @@
-const { src, dest, series } = require('gulp');
-const del = require('del');
-const inlinesource = require('gulp-inline-source');
+const { src, dest, series } = require('gulp')
+const del = require('del')
+const inlinesource = require('gulp-inline-source')
 
-function cleanDist() {
+function cleanDist () {
   return del('dist')
 }
 
-function cleanBuild() {
+function cleanBuild () {
   return del('build')
 }
 
-function copyAssets() {
+function copyAssets () {
   return src(['src/**'])
     .pipe(dest('build'))
 }
 
-function inlineAssets() {
+function inlineAssets () {
   return src('./build/**/*.html')
     .pipe(inlinesource({
       attribute: false
@@ -23,4 +23,4 @@ function inlineAssets() {
     .pipe(dest('./dist'))
 }
 
-exports.build = series(cleanDist, copyAssets, inlineAssets, cleanBuild);
+exports.build = series(cleanDist, copyAssets, inlineAssets, cleanBuild)
