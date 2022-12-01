@@ -5,8 +5,14 @@
   --black: #000;
 }
 
+html,
 body {
-  background-color: var(--primary);
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--primary) url("images/screenly_blur.svg") no-repeat bottom center;
   color: var(--white);
   font-family: Inter, sans-serif;
 }
@@ -18,6 +24,7 @@ body {
 
 header {
   border-bottom: 1px solid rgba(217 217 217 / 50%);
+  flex: 0 1 auto;
 }
 
 .header {
@@ -38,24 +45,16 @@ header {
 }
 
 .content {
+  flex: 1 1 auto;
   margin: 1rem auto;
+  overflow: auto;
 }
 
 footer {
-  position: fixed;
-  bottom: 0;
   width: 100%;
-  background-image: url("images/screenly_blur.svg");
-  height: 20%;
-  display: flex;
-  align-items: flex-end;
-}
-
-footer .copyright {
   color: var(--white);
-  background-color: var(--primary);
   border-top: 1px solid rgba(217 217 217 / 50%);
-  flex: 1;
+  flex: 0 1 40px;
   font-size: 0.8rem;
   padding: 1rem 0;
   text-align: center;
@@ -63,7 +62,7 @@ footer .copyright {
 
 @media screen and (min-width: 800px) {
   .container {
-    max-width: 720px;
+    max-width: 620px;
   }
 
   .header .logo {
@@ -119,7 +118,7 @@ footer .copyright {
     font-size: 1.8rem;
   }
 
-  footer .copyright {
+  footer {
     font-size: 1.3rem;
   }
 }
@@ -146,7 +145,7 @@ footer .copyright {
     font-size: 3rem;
   }
 
-  footer .copyright {
+  footer {
     font-size: 2.5rem;
   }
 }
@@ -162,7 +161,11 @@ footer .copyright {
     max-width: 346px;
   }
 
-  footer .copyright {
+  .content {
+    margin: 1.5rem auto;
+  }
+
+  footer {
     padding: 1rem 0;
   }
 }
@@ -195,7 +198,7 @@ footer .copyright {
   }
 
   .content {
-    margin: 2.5rem auto 3.5rem;
+    margin: 1.8rem auto;
   }
 }
 
@@ -221,7 +224,7 @@ footer .copyright {
     font-size: 1.8rem;
   }
 
-  footer .copyright {
+  footer {
     font-size: 1.3rem;
   }
 }
@@ -248,7 +251,7 @@ footer .copyright {
     font-size: 3rem;
   }
 
-  footer .copyright {
+  footer {
     font-size: 2.5rem;
   }
 }
