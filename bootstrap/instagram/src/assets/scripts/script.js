@@ -19,7 +19,7 @@
   }
 
   function fetchPosts () {
-    var token = "IGQVJWSDlHSG9xakxGT3p3Y3BFOTctVEc3VWtFNnhPV3VwMlhNcGJMV2cxTFhHZAnB3MDZAEZAHNpZAW12WUhvM2RrSzhYdWtyTmQ0RjJ4U0luMWdBMUJUWHREY1BZAVVNYVXI3TFlaVlNPNWZAMQTJhNGZAyYwZDZD"
+    var token = "YOUR_TOKEN_HERE"
     const url = `https://graph.instagram.com/me/media?fields=username,caption,media_url,media_type&access_token=${token}`
     fetch(url)
       .then(response => response.json())
