@@ -1,0 +1,257 @@
+:root {
+  --primary: #0d6efd;
+  --white: #fff;
+  --gray: #d9d9d9;
+  --black: #000;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--primary) url("images/screenly_blur.svg") no-repeat bottom center;
+  color: var(--white);
+  font-family: Inter, sans-serif;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+header {
+  border-bottom: 1px solid rgba(217 217 217 / 50%);
+  flex: 0 1 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.header .logo {
+  width: 120px;
+}
+
+.header .app-name {
+  text-align: right;
+  font-size: 1.3rem;
+  margin-bottom: 0;
+}
+
+.content {
+  flex: 1 1 auto;
+  margin: 1rem auto;
+  overflow: auto;
+}
+
+footer {
+  width: 100%;
+  color: var(--white);
+  border-top: 1px solid rgba(217 217 217 / 50%);
+  flex: 0 1 40px;
+  font-size: 0.8rem;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+@media screen and (min-width: 800px) {
+  .container {
+    max-width: 620px;
+  }
+
+  .header .logo {
+    width: 120px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .container {
+    max-width: 960px;
+  }
+
+  .header {
+    padding: 1rem 0;
+  }
+
+  .header .logo {
+    width: 160px;
+  }
+
+  .header .app-name {
+    font-size: 1.6rem;
+  }
+
+  .content {
+    margin: 2.5rem auto;
+  }
+
+  footer .copyright {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .container {
+    max-width: 1320px;
+  }
+
+  .header {
+    padding: 1.5rem 0;
+  }
+
+  .header .logo {
+    width: 220px;
+  }
+
+  .header .app-name {
+    font-size: 2rem;
+  }
+
+  .content {
+    margin: 4rem auto 5rem;
+    font-size: 1.8rem;
+  }
+
+  footer {
+    font-size: 1.3rem;
+  }
+}
+
+@media screen and (min-width: 3840px) {
+  .container {
+    max-width: 2640px;
+  }
+
+  .header {
+    padding: 1.5rem 0;
+  }
+
+  .header .logo {
+    width: 400px;
+  }
+
+  .header .app-name {
+    font-size: 3.75rem;
+  }
+
+  .content {
+    margin: 10.25rem auto 13rem;
+    font-size: 3rem;
+  }
+
+  footer {
+    font-size: 2.5rem;
+  }
+}
+
+@media screen and (min-width: 4096px) {
+  .container {
+    max-width: 2640px;
+  }
+}
+
+@media screen and (orientation: portrait) {
+  .container {
+    max-width: 346px;
+  }
+
+  .content {
+    margin: 1.5rem auto;
+  }
+
+  footer {
+    padding: 1rem 0;
+  }
+}
+
+@media screen and (min-width: 480px) and (orientation: portrait) {
+  .header .app-name {
+    font-size: 1.2rem;
+  }
+
+  .container {
+    max-width: 371px;
+  }
+}
+
+@media screen and (min-width: 720px) and (orientation: portrait) {
+  .container {
+    max-width: 676px;
+  }
+
+  .header {
+    padding: 1.5rem 0;
+  }
+
+  .header .logo {
+    width: 180px;
+  }
+
+  .header .app-name {
+    font-size: 1.8rem;
+  }
+
+  .content {
+    margin: 1.8rem auto;
+  }
+}
+
+@media screen and (min-width: 1080px) and (orientation: portrait) {
+  .container {
+    max-width: 960px;
+  }
+
+  .header {
+    padding: 1.5rem 0;
+  }
+
+  .header .logo {
+    width: 220px;
+  }
+
+  .header .app-name {
+    font-size: 2rem;
+  }
+
+  .content {
+    margin: 4rem auto 5rem;
+    font-size: 1.8rem;
+  }
+
+  footer {
+    font-size: 1.3rem;
+  }
+}
+
+@media screen and (min-width: 2160px) and (orientation: portrait) {
+  .container {
+    max-width: 1320px;
+  }
+
+  .header {
+    padding: 1.5rem 0;
+  }
+
+  .header .logo {
+    width: 400px;
+  }
+
+  .header .app-name {
+    font-size: 3.75rem;
+  }
+
+  .content {
+    margin: 23.5rem auto 13rem;
+    font-size: 3rem;
+  }
+
+  footer {
+    font-size: 2.5rem;
+  }
+}
