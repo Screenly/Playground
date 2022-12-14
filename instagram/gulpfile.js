@@ -16,7 +16,7 @@ function copyAssets () {
     .pipe(dest('build'))
 }
 
-function inlineCSSAssets() {
+function inlineCSSAssets () {
   return src('./build/assets/styles/*.css')
     .pipe(base64())
     .pipe(dest('./build/assets/styles'))

@@ -5,7 +5,7 @@
 Make sure you have `Node.js version 16+` installed on your system.
 To install, run:
 
-```
+```sh
 cd instagram
 npm install
 ```
@@ -19,7 +19,7 @@ Once you have that, open `instagram/src/assets/scripts/script.js`. Search for `<
 
 To build the app, run:
 
-```
+```sh
 npm run build
 ```
 
@@ -30,7 +30,7 @@ This will create a directory called `dist` which will have the generated `index.
 To add the HTML file, you'll need to setup [Screenly CLI](https://github.com/Screenly/cli).
 Once that's done, run:
 
-```
+```sh
 screenly asset add [path]
 ```
 
