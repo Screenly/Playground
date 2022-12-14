@@ -1,2 +1,4 @@
 venv
 .idea
+node_modules/
+instagram/dist
