@@ -15,7 +15,7 @@ function cleanBuild () {
 function replaceKey () {
   return src(['src/assets/scripts/script.js'])
     .pipe(replace('INSTAGRAM_API_TOKEN', process.env.INSTAGRAM_API_TOKEN))
-    .pipe(dest('build/assets/scripts'));
+    .pipe(dest('build/assets/scripts'))
 }
 
 function copyAssets () {

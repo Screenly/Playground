@@ -9,10 +9,10 @@ To build the container, run the below command from the root directory:
 To run the container, run:
 ```sh
 docker run \
-	-e INSTAGRAM_API_TOKEN=<YOUR_INSTAGRAM_API_TOKEN> \
-	-v /app/instagram/node_modules \
-	-v $(pwd)/instagram/dist:/usr/app/instagram/dist \
-	screenly/instagram
+  -e INSTAGRAM_API_TOKEN=<YOUR_INSTAGRAM_API_TOKEN> \
+  -v /app/instagram/node_modules \
+  -v $(pwd)/instagram/dist:/usr/app/instagram/dist \
+  screenly/instagram
 ```
 
 Make sure you replace `<YOUR_INSTAGRAM_API_TOKEN>` with your API token before running the above command.
