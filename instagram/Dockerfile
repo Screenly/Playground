@@ -1,5 +1,10 @@
 FROM node:17-alpine
 
-WORKDIR /usr/app/instagram
+WORKDIR /usr/app/
 
-CMD ["npm", "run", "build"]
+COPY ./instagram/package.json ./
+COPY ./instagram/package-lock.json ./
+
+RUN npm install
+
+CMD ["/bin/sh" , "-c" , "cd instagram && npm run build"]
