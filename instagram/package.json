@@ -4,7 +4,7 @@
   "description": "Example app to showcase bootstrap theme and edge apps",
   "main": "index.js",
   "scripts": {
-    "build": "gulp build"
+    "build": "npm install && gulp build"
   },
   "author": "",
   "license": "ISC",
