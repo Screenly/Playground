@@ -19,7 +19,7 @@
   }
 
   function fetchPosts () {
-    const token = '<YOUR_INSTAGRAM_TOKEN_HERE>'
+    const token = 'INSTAGRAM_API_TOKEN'
     const url = `https://graph.instagram.com/me/media?fields=username,caption,media_url,media_type&access_token=${token}`
     fetch(url)
       .then(response => response.json())

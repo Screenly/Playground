@@ -1,29 +1,23 @@
 # Instagram Edge App
 
-## Installation
+## Setup
 
-Make sure you have `Node.js version 16+` installed on your system.
-To install, run:
+To build the container, run the below command from the root directory:
 
+`docker build -t screenly/instagram -f instagram/Dockerfile .`
+
+To run the container, run:
 ```sh
-cd instagram
-npm install
+docker run \
+	-e INSTAGRAM_API_TOKEN=<YOUR_INSTAGRAM_API_TOKEN> \
+	-v /app/instagram/node_modules \
+	-v $(pwd)/instagram/dist:/usr/app/instagram/dist \
+	screenly/instagram
 ```
 
-## Config
-You will need to have an access token for the [Instagram Basic Display API](https://developers.facebook.com/docs/instagram-basic-display-api/).
+Make sure you replace `<YOUR_INSTAGRAM_API_TOKEN>` with your API token before running the above command.
 
-Once you have that, open `instagram/src/assets/scripts/script.js`. Search for `<YOUR_INSTAGRAM_TOKEN_HERE>` and replace it with your Instagram token.
-
-### Build
-
-To build the app, run:
-
-```sh
-npm run build
-```
-
-This will create a directory called `dist` which will have the generated `index.html` file.
+This will create a directory called `dist` inside the `instagram` directory which will have the generated `index.html` file.
 
 ### Add the HTML file to Screenly
 
