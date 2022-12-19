@@ -4,7 +4,7 @@
 
 To build the container, run the below command from the root directory:
 
-`docker build -t screenly/instagram -f instagram/Dockerfile .`
+`docker build -t --rm screenly/instagram -f instagram/Dockerfile .`
 
 To run the container, run:
 ```sh
@@ -12,7 +12,6 @@ docker run \
   -e INSTAGRAM_API_TOKEN=<YOUR_INSTAGRAM_API_TOKEN> \
   -v $(pwd)/instagram:/usr/app/instagram \
   -v $(pwd)/bootstrap:/usr/app/bootstrap \
-  -v /app/instagram/node_modules \
   screenly/instagram
 ```
 
