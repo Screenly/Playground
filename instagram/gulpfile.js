@@ -2,13 +2,20 @@ const { src, dest, series } = require('gulp')
 const del = require('del')
 const inlineSource = require('gulp-inline-source')
 const base64 = require('gulp-base64')
+const replace = require('gulp-replace')
 
 function cleanDist () {
-  return del('dist')
+  return del(['dist/**/*', '!dist'])
 }
 
 function cleanBuild () {
   return del('build')
+}
+
+function replaceKey () {
+  return src(['src/assets/scripts/script.js'])
+    .pipe(replace('INSTAGRAM_API_TOKEN', process.env.INSTAGRAM_API_TOKEN))
+    .pipe(dest('build/assets/scripts'))
 }
 
 function copyAssets () {
@@ -30,4 +37,4 @@ function inlineHTMLAssets () {
     .pipe(dest('./dist'))
 }
 
-exports.build = series(cleanDist, copyAssets, inlineCSSAssets, inlineHTMLAssets, cleanBuild)
+exports.build = series(cleanDist, copyAssets, replaceKey, inlineCSSAssets, inlineHTMLAssets, cleanBuild)
