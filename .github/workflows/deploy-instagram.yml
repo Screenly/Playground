@@ -1,0 +1,37 @@
+---
+name: Deploy Instagram App
+
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'instagram/**'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Build containers
+        run: |
+          docker build \
+            -t screenly/instagram \
+            -f instagram/Dockerfile \
+            .
+
+      - name: Build static page
+        run: |
+          docker run --rm \
+            -e INSTAGRAM_API_TOKEN=${{ secrets.INSTAGRAM_API_TOKEN }} \
+            -v $(pwd)/instagram:/usr/app/instagram \
+            -v $(pwd)/bootstrap:/usr/app/bootstrap \
+            screenly/instagram
+
+
+      - name: Deploy Edge App
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
+          cli_commands: asset add instagram/dist/index.html "Playground Weather App ($GITHUB_SHA)"
