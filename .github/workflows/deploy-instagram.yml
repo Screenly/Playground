@@ -36,3 +36,9 @@ jobs:
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
           cli_commands: asset add instagram/dist/index.html "Playground Instagram App ($GITHUB_SHA)"
+
+      - name: Deploy Edge App
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_WLVIKTOR }}
+          cli_commands: asset add instagram/dist/index.html "Playground Instagram App ($GITHUB_SHA)"
