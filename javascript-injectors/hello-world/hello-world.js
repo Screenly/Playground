@@ -1,3 +1,3 @@
 (function () {
-  document.querySelector('.replace-me').innerText = "John"
+  document.querySelector('.replace-me').innerText = 'John'
 })()
