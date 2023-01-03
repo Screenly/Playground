@@ -34,8 +34,8 @@ jobs:
       - name: Build Pages
         working-directory: ./javascript-injectors/hello-world/pages
         run: | 
-          chmod +x ./build.sh
-          ./build.sh
+          cp -R ../../../bootstrap ./
+          sed -i 's/..\/..\/..\/bootstrap/.\/bootstrap/' index.html
         shell: bash
 
   # Deployment job
