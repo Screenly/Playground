@@ -45,10 +45,10 @@ jobs:
     needs: build
     steps:
       - name: Upload artifact
-        run: echo $(pwd)
+        working-directory: ./javascript-injectors/hello-world/pages
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./javascript-injectors/hello-world/pages
+          path: .
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
