@@ -24,6 +24,10 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
+defaults:
+  run:
+    working-directory: ./javascript-injectors/hello-world/pages
+
 jobs:
   # Build job
   build:
@@ -32,7 +36,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build Pages
-        working-directory: ./javascript-injectors/hello-world/pages
         run: cp -R ../../../bootstrap ./
         shell: bash
 
@@ -45,7 +48,6 @@ jobs:
     needs: build
     steps:
       - name: Upload artifact
-        working-directory: ./javascript-injectors/hello-world/pages
         uses: actions/upload-pages-artifact@v1
         with:
           path: .
