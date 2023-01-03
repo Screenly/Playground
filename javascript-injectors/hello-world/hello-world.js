@@ -1,1 +1,3 @@
-// Code that changes the H1 'Hello World' to 'Hello John'
+(function () {
+  document.querySelector('.replace-me').innerText = "John"
+})()
