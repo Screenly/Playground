@@ -45,6 +45,7 @@ jobs:
     needs: build
     steps:
       - name: Upload artifact
+        run: echo $(pwd)
         uses: actions/upload-pages-artifact@v1
         with:
           path: ./javascript-injectors/hello-world/pages
