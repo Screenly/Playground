@@ -33,9 +33,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Build Pages
         working-directory: ./javascript-injectors/hello-world/pages
-        run: | 
-          cp -R ../../../bootstrap ./
-          sed -i 's/..\/..\/..\/bootstrap/.\/bootstrap/' index.html
+        run: cp -R ../../../bootstrap ./
         shell: bash
 
   # Deployment job
