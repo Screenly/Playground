@@ -12,10 +12,10 @@ You'll need to add a web asset to Screenly before injecting Javascript.
 To add a new web asset:
 
 ```sh
-./screenly asset add <URL> <AssetName>
+./screenly asset add <URL> <ASSET_NAME>
 ```
 
-Replace `<URL>` with the url of the web asset and `<AssetName>` with the name you would like to give the asset.
+Replace `<URL>` with the url of the web asset and `<ASSET_NAME>` with the name you would like to give the asset.
 
 This will generate an ID, which will be used in the next step.
 
