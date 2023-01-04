@@ -24,10 +24,6 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
-defaults:
-  run:
-    working-directory: ./javascript-injectors/hello-world/pages
-
 jobs:
   # Build job
   build:
@@ -35,22 +31,28 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Setup Pages
+        uses: actions/configure-pages@v2
       - name: Build Pages
+        working-directory: ./javascript-injectors/hello-world/pages
         run: cp -R ../../../bootstrap ./
         shell: bash
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          name: js-injector
+          path: './javascript-injectors/hello-world/pages'
 
   # Deployment job
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}/js-injector
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: .
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+        with:
+          artifact_name: js-injector
