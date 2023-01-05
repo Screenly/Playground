@@ -24,9 +24,8 @@ This will generate an ID, which will be used in the next step.
 To inject JavaScript,
 
 ```sh
-./screenly asset inject-js <ASSET_ID> <PATH_TO_YOUR_JS_FILE>
+./screenly asset inject-js <ASSET_ID> https://bit.ly/3vJ0NuG
 ```
 
 where:
 - `<ASSET_ID>` is the ID of the asset generated from the previous step
-- `<PATH_TO_YOUR_JS_FILE>` is the path of the JavaScript file that you want to inject.
