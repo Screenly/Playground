@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>Asset Metadata Example</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="../../bootstrap/theme/playground-theme.css" rel="stylesheet">
+        <link href="./assets/styles/main.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="d-flex flex-column h-100">
+            <header>
+                <div class="header container">
+                    <img class="logo" src="./assets/images/playground_logo.svg" alt="Screenly logo">
+                    <h1 class="app-name">Asset Metadata</h1>
+                </div>
+            </header>
+
+            <main class="content">
+                <div id="map"></div>
+                <div class="metadata">
+                    <div class="data">
+                        <div id="error"></div>
+                        <div class="metadata-item">
+                            <label>Hostname:</label>
+                            <div class="value hostname">Unavailable</div>
+                        </div>
+                        <div class="metadata-item">
+                            <label>Version:</label>
+                            <div class="value version">Unavailable</div>
+                        </div>
+                        <div class="metadata-item">
+                            <label>Name:</label>
+                            <div class="value name">Unavailable</div>
+                        </div>
+                        <div class="metadata-item">
+                            <label>Coordinates:</label>
+                            <div class="value coordinates">Unavailable</div>
+                        </div>
+                        <div class="metadata-item">
+                            <label>Location:</label>
+                            <div class="value location">Unavailable</div>
+                        </div>
+                        <div class="metadata-item">
+                            <label>Hardware:</label>
+                            <div class="value hardware">Unavailable</div>
+                        </div>
+                    </div>
+                    <div class="tags">
+                        <label>Labels</label>
+                        <div class="value labels">
+                            Unavailable
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="container">
+                © 2013-2022 Screenly, Inc.
+            </footer>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            var lat = 37.773972
+            var lng = -122.431297
+        </script>
+        <script src="./assets/scripts/load-map.js"></script>
+        <script src="./assets/scripts/load-metadata.js"></script>
+        <script src="./assets/scripts/load-screenly.js"></script>
+    </body>
+</html>

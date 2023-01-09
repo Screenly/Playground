@@ -1,0 +1,34 @@
+function loadMetadata () {
+  function setValue (elClass, value = 'Not provided') {
+    document.querySelector(elClass).innerText = value
+  }
+
+  function loadGoogleMaps () {
+    const script = document.createElement('script')
+    script.src = 'https://maps.googleapis.com/maps/api/js?key=GOOGLE_MAPS_API_KEY&callback=initMap'
+    script.async = true
+    document.body.appendChild(script)
+  }
+
+  if (typeof screenlyMetadataEndpoint === 'function') {
+    fetch(screenlyMetadataEndpoint())
+      .then((response) => response.json())
+      .then((data) => {
+        const { coordinates, hostname, location, screen_name, screenly_version, tags } = data
+        lat = coordinates[0] || lat
+        lng = coordinates[1] || lng
+
+        loadGoogleMaps()
+
+        setValue('.hostname', hostname)
+        setValue('.version', screenly_version)
+        setValue('.name', screen_name)
+        setValue('.coordinates', coordinates.join(", "))
+        setValue('.location', location)
+        document.querySelector('.labels').innerHTML = tags.map(tag => `<span>${tag}</span>`).join('') || 'No tags provided'
+      })
+  } else {
+    console.warn('Virtual file not loaded')
+    loadGoogleMaps()
+  }
+}

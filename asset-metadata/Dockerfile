@@ -1,14 +1,10 @@
-FROM python:3.9-buster
+FROM node:17-alpine
 
-EXPOSE 8080
+WORKDIR /usr/app/
 
-COPY ./requirements.txt /tmp/requirements.txt
+COPY ./asset-metadata/package.json ./
+COPY ./asset-metadata/package-lock.json ./
 
-RUN pip install --no-cache-dir -r /tmp/requirements.txt
+RUN npm install
 
-COPY src /app
-
-WORKDIR /app
-USER nobody
-
-CMD ["uwsgi", "--http-socket", ":8080", "--wsgi-file", "main.py", "--callable", "app", "--master", "--processes", "1", "--threads", "2"]
+CMD ["/bin/sh" , "-c" , "cd asset-metadata && npm run build"]
