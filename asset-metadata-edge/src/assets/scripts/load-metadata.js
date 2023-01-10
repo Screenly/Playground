@@ -14,16 +14,16 @@ function loadMetadata () {
     fetch(screenlyMetadataEndpoint())
       .then((response) => response.json())
       .then((data) => {
-        const { coordinates, hostname, location, screen_name, screenly_version, tags } = data
+        const { coordinates, hostname, location, screen_name: screenName, screenly_version: screenlyVersion, tags } = data
         lat = coordinates[0] || lat
         lng = coordinates[1] || lng
 
         loadGoogleMaps()
 
         setValue('.hostname', hostname)
-        setValue('.version', screenly_version)
-        setValue('.name', screen_name)
-        setValue('.coordinates', coordinates.join(", "))
+        setValue('.version', screenlyVersion)
+        setValue('.name', screenName)
+        setValue('.coordinates', coordinates.join(', '))
         setValue('.location', location)
         document.querySelector('.labels').innerHTML = tags.map(tag => `<span>${tag}</span>`).join('') || 'No tags provided'
       })

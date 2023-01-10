@@ -2,8 +2,8 @@ FROM node:17-alpine
 
 WORKDIR /usr/app/
 
-COPY ./asset-metadata/package.json ./
-COPY ./asset-metadata/package-lock.json ./
+COPY ./asset-metadata-edge/package.json ./
+COPY ./asset-metadata-edge/package-lock.json ./
 
 RUN npm install
 

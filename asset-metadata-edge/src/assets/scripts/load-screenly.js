@@ -3,7 +3,7 @@
     const script = document.createElement('script')
     script.src = './screenly.js'
     script.async = true
-    script.onload = loadMetadata()
+    script.onload = loadMetadata
     script.onerror = function () {
       console.warn('screenly js is not available. Loading defaults')
       loadMetadata()
@@ -13,4 +13,3 @@
 
   loadScreenly()
 })()
-

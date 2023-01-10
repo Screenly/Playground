@@ -1,0 +1,113 @@
+<!Doctype html>
+<html>
+  <head>
+    <title>Asset Metadata Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="content">
+      <div id="map"></div>
+      <div class="metadata">
+        <div class="header">
+          <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="screenly logo" />
+          <span>Screen Metadata</span>
+        </div>
+        <div class="data">
+          <div class="metadata-item">
+            <label>Hostname:</label>
+            <div class="value">{{ headers['X-Screenly-hostname'] or 'Not provided' }}</div>
+          </div>
+          <div class="metadata-item">
+            <label>Version:</label>
+            <div class="value">{{ headers['X-Screenly-version'] or 'Not provided' }}</div>
+          </div>
+          <div class="metadata-item">
+            <label>Name:</label>
+            <div class="value">{{ headers['X-Screenly-screen-name'] or 'Not provided' }}</div>
+          </div>
+          <div class="metadata-item">
+            <label>Coordinates:</label>
+            <div class="value">{{ headers['X-Screenly-lat'] or 'Not provided' }}, {{ headers['X-Screenly-lng'] or 'Not provided' }}</div>
+          </div>
+          <div class="metadata-item">
+            <label>Location:</label>
+            <div class="value">{{ headers['X-Screenly-location-name'] or 'Not provided' }}</div>
+          </div>
+          <div class="metadata-item">
+            <label>Hardware:</label>
+            <div class="value">{{ headers['X-Screenly-hardware'] or 'Not provided' }}</div>
+          </div>
+        </div>
+        <div class="tags">
+          <label>Labels</label>
+          <div class="value">
+            {% if not headers['X-Screenly-tags'] %}
+              No tags provided
+            {% endif %}
+            {% set tags = (headers['X-Screenly-tags'] or '').split(',') %}
+            {% for tag in tags %}
+              {% if tag %}
+              <span>{{ tag }}</span>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      function init() {
+        {% set lat = 37.773972 %}
+        {% set lng = -122.431297 %}
+
+        var lat = {{ headers["X-Screenly-lat"] or lat }};
+        var lng = {{ headers["X-Screenly-lng"] or lng }};
+
+        var mapOptions = {
+          zoom: 8,
+          center: new google.maps.LatLng(lat, parseFloat(lng) - 1.5),
+          fullscreenControl: false,
+          mapTypeControl: false,
+          rotateControl: false,
+          streetViewControl: false,
+          zoomControl: false,
+          styles: [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"},{"weight":"0.20"},{"lightness":"28"},{"saturation":"23"},{"visibility":"off"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"color":"#494949"},{"lightness":13},{"visibility":"off"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#144b53"},{"lightness":14},{"weight":1.4}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#08304b"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#0c4152"},{"lightness":5}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#0b434f"},{"lightness":25}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#0b3d51"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"transit","elementType":"all","stylers":[{"color":"#146474"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#021019"}]}]
+        };
+        var mapElement = document.getElementById('map');
+        var map = new google.maps.Map(mapElement, mapOptions);
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(lat, lng),
+          map: map,
+          icon: {
+            url: "{{ url_for('static', filename='images/pin.svg') }}",
+            size: new google.maps.Size(72, 84),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(36, 42)
+          }
+        });
+
+        var innerCircle = new google.maps.Circle({
+          strokeWeight: 0,
+          fillColor: "#C4C4C4",
+          fillOpacity: 0.30,
+          map: map,
+          center: new google.maps.LatLng(lat, lng),
+          radius: 50000
+        });
+
+        var outerCircle = new google.maps.Circle({
+          strokeWeight: 0,
+          fillColor: "#C4C4C4",
+          fillOpacity: 0.20,
+          map: map,
+          center: new google.maps.LatLng(lat, lng),
+          radius: 80000
+        });
+      }
+    </script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{apiKey}}&callback=init"></script>
+  </body>
+</html>

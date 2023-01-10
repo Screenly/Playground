@@ -1,5 +1,5 @@
-function initMap() {
-  var markerSvg = `<svg width="72" height="84" viewBox="0 0 72 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+function initMap () {
+  const markerSvg = `<svg width="72" height="84" viewBox="0 0 72 84" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_3318_19697)">
     <g filter="url(#filter0_d_3318_19697)">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M50.8478 63.3109C61.3492 57.9151 68.5335 46.9743 68.5335 34.3556C68.5335 16.3879 53.9678 1.82227 36.0001 1.82227C18.0325 1.82227 3.4668 16.3879 3.4668 34.3556C3.4668 46.9744 10.651 57.9151 21.1524 63.3109L36.0001 78.1586L50.8478 63.3109Z" fill="#80DD7D"/>
@@ -22,7 +22,7 @@ function initMap() {
     </defs>
     </svg>
   `
-  var mapOptions = {
+  const mapOptions = {
     zoom: 8,
     center: new google.maps.LatLng(lat, parseFloat(lng) - 1.5),
     fullscreenControl: false,
@@ -30,11 +30,11 @@ function initMap() {
     rotateControl: false,
     streetViewControl: false,
     zoomControl: false,
-    styles: [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"},{"weight":"0.20"},{"lightness":"28"},{"saturation":"23"},{"visibility":"off"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"color":"#494949"},{"lightness":13},{"visibility":"off"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#144b53"},{"lightness":14},{"weight":1.4}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#08304b"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#0c4152"},{"lightness":5}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#0b434f"},{"lightness":25}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#0b3d51"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"transit","elementType":"all","stylers":[{"color":"#146474"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#021019"}]}]
+    styles: [{'featureType':'all','elementType':'labels.text.fill','stylers':[{'color':'#ffffff'},{'weight':'0.20'},{'lightness':'28'},{'saturation':'23'},{'visibility':'off'}]},{'featureType':'all','elementType':'labels.text.stroke','stylers':[{'color':'#494949'},{'lightness':13},{'visibility':'off'}]},{'featureType':'all','elementType':'labels.icon','stylers':[{'visibility':'off'}]},{'featureType':'administrative','elementType':'geometry.fill','stylers':[{'color':'#000000'}]},{'featureType':'administrative','elementType':'geometry.stroke','stylers':[{'color':'#144b53'},{'lightness':14},{'weight':1.4}]},{'featureType':'landscape','elementType':'all','stylers':[{'color':'#08304b'}]},{'featureType':'poi','elementType':'geometry','stylers':[{'color':'#0c4152'},{'lightness':5}]},{'featureType':'road.highway','elementType':'geometry.fill','stylers':[{'color':'#000000'}]},{'featureType':'road.highway','elementType':'geometry.stroke','stylers':[{'color':'#0b434f'},{'lightness':25}]},{'featureType':'road.arterial','elementType':'geometry.fill','stylers':[{'color':'#000000'}]},{'featureType':'road.arterial','elementType':'geometry.stroke','stylers':[{'color':'#0b3d51'},{'lightness':16}]},{'featureType':'road.local','elementType':'geometry','stylers':[{'color':'#000000'}]},{'featureType':'transit','elementType':'all','stylers':[{'color':'#146474'}]},{'featureType':'water','elementType':'all','stylers':[{'color':'#021019'}]}]
   };
-  var mapElement = document.getElementById('map');
-  var map = new google.maps.Map(mapElement, mapOptions);
-  var marker = new google.maps.Marker({
+  const mapElement = document.getElementById('map');
+  const map = new google.maps.Map(mapElement, mapOptions);
+  new google.maps.Marker({
     position: new google.maps.LatLng(lat, lng),
     map: map,
     icon: {
@@ -45,7 +45,7 @@ function initMap() {
     }
   });
 
-  var innerCircle = new google.maps.Circle({
+  new google.maps.Circle({
     strokeWeight: 0,
     fillColor: "#C4C4C4",
     fillOpacity: 0.30,
@@ -54,7 +54,7 @@ function initMap() {
     radius: 50000
   });
 
-  var outerCircle = new google.maps.Circle({
+  new google.maps.Circle({
     strokeWeight: 0,
     fillColor: "#C4C4C4",
     fillOpacity: 0.20,
