@@ -14,7 +14,7 @@ function loadMetadata () {
     fetch(screenlyMetadataEndpoint())
       .then((response) => response.json())
       .then((data) => {
-        const { coordinates, hostname, location, screen_name: screenName, screenly_version: screenlyVersion, tags } = data
+        const { coordinates, hostname, location, screen_name: screenName, 'screenly-version': screenlyVersion, tags } = data
         lat = coordinates[0] || lat
         lng = coordinates[1] || lng
 

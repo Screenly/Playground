@@ -2,5 +2,5 @@ venv
 .idea
 node_modules/
 instagram/dist
-asset-metadata/dist
+asset-metadata-edge/dist
 .DS_Store
