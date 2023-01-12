@@ -1,5 +1,7 @@
 /* global google, lat, lng */
+// eslint-disable no-new
 
+// eslint-disable-next-line no-unused-vars
 function initMap () {
   const markerSvg = `<svg width="72" height="84" viewBox="0 0 72 84" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_3318_19697)">
@@ -39,7 +41,7 @@ function initMap () {
   const map = new google.maps.Map(mapElement, mapOptions)
   new google.maps.Marker({
     position: new google.maps.LatLng(lat, lng),
-    map: map,
+    map,
     icon: {
       url: `data:image/svg+xml;charset=utf-8,${encodeURIComponent(markerSvg)}`,
       size: new google.maps.Size(72, 84),
@@ -50,18 +52,18 @@ function initMap () {
 
   new google.maps.Circle({
     strokeWeight: 0,
-    fillColor: "#C4C4C4",
+    fillColor: '#C4C4C4',
     fillOpacity: 0.30,
-    map: map,
+    map,
     center: new google.maps.LatLng(lat, lng),
     radius: 50000
   })
 
   new google.maps.Circle({
     strokeWeight: 0,
-    fillColor: "#C4C4C4",
+    fillColor: '#C4C4C4',
     fillOpacity: 0.20,
-    map: map,
+    map,
     center: new google.maps.LatLng(lat, lng),
     radius: 80000
   })
