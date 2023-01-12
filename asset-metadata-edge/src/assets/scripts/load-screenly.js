@@ -1,3 +1,5 @@
+/* global loadMetadata */
+
 (function () {
   function loadScreenly () {
     const script = document.createElement('script')

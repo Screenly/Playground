@@ -1,3 +1,5 @@
+/* global google, lat, lng */
+
 function initMap () {
   const markerSvg = `<svg width="72" height="84" viewBox="0 0 72 84" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_3318_19697)">
@@ -30,10 +32,11 @@ function initMap () {
     rotateControl: false,
     streetViewControl: false,
     zoomControl: false,
+    // eslint-disable-next-line
     styles: [{'featureType':'all','elementType':'labels.text.fill','stylers':[{'color':'#ffffff'},{'weight':'0.20'},{'lightness':'28'},{'saturation':'23'},{'visibility':'off'}]},{'featureType':'all','elementType':'labels.text.stroke','stylers':[{'color':'#494949'},{'lightness':13},{'visibility':'off'}]},{'featureType':'all','elementType':'labels.icon','stylers':[{'visibility':'off'}]},{'featureType':'administrative','elementType':'geometry.fill','stylers':[{'color':'#000000'}]},{'featureType':'administrative','elementType':'geometry.stroke','stylers':[{'color':'#144b53'},{'lightness':14},{'weight':1.4}]},{'featureType':'landscape','elementType':'all','stylers':[{'color':'#08304b'}]},{'featureType':'poi','elementType':'geometry','stylers':[{'color':'#0c4152'},{'lightness':5}]},{'featureType':'road.highway','elementType':'geometry.fill','stylers':[{'color':'#000000'}]},{'featureType':'road.highway','elementType':'geometry.stroke','stylers':[{'color':'#0b434f'},{'lightness':25}]},{'featureType':'road.arterial','elementType':'geometry.fill','stylers':[{'color':'#000000'}]},{'featureType':'road.arterial','elementType':'geometry.stroke','stylers':[{'color':'#0b3d51'},{'lightness':16}]},{'featureType':'road.local','elementType':'geometry','stylers':[{'color':'#000000'}]},{'featureType':'transit','elementType':'all','stylers':[{'color':'#146474'}]},{'featureType':'water','elementType':'all','stylers':[{'color':'#021019'}]}]
-  };
-  const mapElement = document.getElementById('map');
-  const map = new google.maps.Map(mapElement, mapOptions);
+  }
+  const mapElement = document.getElementById('map')
+  const map = new google.maps.Map(mapElement, mapOptions)
   new google.maps.Marker({
     position: new google.maps.LatLng(lat, lng),
     map: map,
@@ -43,7 +46,7 @@ function initMap () {
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(36, 42)
     }
-  });
+  })
 
   new google.maps.Circle({
     strokeWeight: 0,
@@ -52,7 +55,7 @@ function initMap () {
     map: map,
     center: new google.maps.LatLng(lat, lng),
     radius: 50000
-  });
+  })
 
   new google.maps.Circle({
     strokeWeight: 0,
@@ -61,5 +64,5 @@ function initMap () {
     map: map,
     center: new google.maps.LatLng(lat, lng),
     radius: 80000
-  });
+  })
 }

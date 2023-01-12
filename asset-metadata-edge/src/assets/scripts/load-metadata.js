@@ -1,3 +1,6 @@
+/* global screenlyMetadataEndpoint, lat, lng */
+
+// eslint-disable-next-line no-unused-vars
 function loadMetadata () {
   function setValue (elClass, value = 'Not provided') {
     document.querySelector(elClass).innerText = value
