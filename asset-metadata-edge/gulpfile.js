@@ -2,7 +2,6 @@ const { src, dest, series } = require('gulp')
 const del = require('del')
 const inlineSource = require('gulp-inline-source')
 const base64 = require('gulp-base64')
-const replace = require('gulp-replace')
 
 function cleanDist () {
   return del(['dist/**/*', '!dist'])
