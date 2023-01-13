@@ -18,10 +18,10 @@ function loadMetadata () {
       .then((response) => response.json())
       .then((data) => {
         const { coordinates, hostname, location, screen_name: screenName, 'screenly-version': screenlyVersion, tags } = data
-        // eslint-disable no-global-assign
+        /* eslint-disable no-global-assign */
         lat = coordinates[0] || lat
         lng = coordinates[1] || lng
-        // eslint-enable no-global-assign
+        /* eslint-enable no-global-assign */
 
         loadGoogleMaps()
 

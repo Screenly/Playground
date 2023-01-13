@@ -1,5 +1,5 @@
 /* global google, lat, lng */
-// eslint-disable no-new
+/* eslint-disable no-new */
 
 // eslint-disable-next-line no-unused-vars
 function initMap () {
