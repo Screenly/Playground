@@ -12,12 +12,6 @@ function cleanBuild () {
   return del('build')
 }
 
-function replaceKey () {
-  return src(['build/assets/scripts/load-metadata.js'])
-    .pipe(replace('GOOGLE_MAPS_API_KEY', process.env.GOOGLE_MAPS_API_KEY))
-    .pipe(dest('build/assets/scripts'))
-}
-
 function copyAssets () {
   return src(['src/**'])
     .pipe(dest('build'))
@@ -37,4 +31,4 @@ function inlineHTMLAssets () {
     .pipe(dest('./dist'))
 }
 
-exports.build = series(cleanDist, copyAssets, replaceKey, inlineCSSAssets, inlineHTMLAssets, cleanBuild)
+exports.build = series(cleanDist, copyAssets, inlineCSSAssets, inlineHTMLAssets, cleanBuild)

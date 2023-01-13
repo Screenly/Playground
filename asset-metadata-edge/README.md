@@ -9,13 +9,10 @@ To build the container, run the below command from the root directory:
 To run the container, run:
 ```sh
 docker run --rm \
-  -e GOOGLE_MAPS_API_KEY=<GOOGLE_MAPS_API_KEY> \
   -v $(pwd)/asset-metadata-edge:/usr/app/asset-metadata-edge \
   -v $(pwd)/bootstrap:/usr/app/bootstrap \
   screenly/asset-metadata-edge
 ```
-
-Make sure you replace `<GOOGLE_MAPS_API_KEY>` with your Google Maps API token before running the above command.
 
 This will create a directory called `dist` inside the `asset-metadata-edge` directory which will have the generated `index.html` file.
 

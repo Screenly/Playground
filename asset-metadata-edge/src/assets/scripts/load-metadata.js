@@ -8,7 +8,7 @@ function loadMetadata () {
 
   function loadGoogleMaps () {
     const script = document.createElement('script')
-    script.src = 'https://maps.googleapis.com/maps/api/js?key=GOOGLE_MAPS_API_KEY&callback=initMap'
+    script.src = 'https://maps.googleapis.com/maps/api/js?callback=initMap'
     script.async = true
     document.body.appendChild(script)
   }
