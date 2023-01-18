@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Screenly Clock App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles/main.css" />
+</head>
+
+<body>
+    <div class="content">
+        <section class="header">
+            <a href="https://screenly.io" target="_blank" class="upgrade-banner">
+                For a simple and secure display solution, visit Screenly.io
+            </a>
+        </section>
+        <section class="footer">
+            <div class="date-time">
+                <div class="date">
+                    <img src="/static/images/icons/calendar.svg" alt="calendar icon" />
+                    <span id="date"></span>
+                </div>
+                <div id="time">
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="https://js.sentry-cdn.com/SENTRY_ID.min.js" crossorigin="anonymous"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_API_KEY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'GA_API_KEY');
+    </script>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/load-metadata.js"></script>
+    <script src="/static/js/load-screenly.js"></script>
+</body>
+</html>
