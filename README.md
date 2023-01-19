@@ -1,15 +1,13 @@
-# Screenly Playground
+# Hello World
 
-![Playground Logo](/images/playground.png)
+`Hello World` is a small app that displays a `Hello World!` text on the screen.
 
-This repository holds various examples that showcases Screenly's features and API.
+`hello-world.js` contains JavaScript to replace the `Hello World!` text with `Hello John!`
 
-## Examples
+## Deployment
 
-* [Bootstrap](https://github.com/Screenly/playground/tree/master/bootstrap/): A digital signage optimized Bootstrap theme for our Playground apps.
-* [Clock App](https://github.com/Screenly/clock-app): Screenly's Clock App
-* [Dynamic Playlists](https://github.com/Screenly/playground/tree/master/dynamic-playlists/): An example of how to use Screenly's API to enable/disable a playlist based on weather conditions.
-* [Instagram App](https://github.com/Screenly/playground/tree/master/instagram/): A basic Instagram app for Screenly.
-* [JavaScript Injectors](https://github.com/Screenly/playground/tree/master/javascript-injectors/): Examples showing Screenly's JavaScript Injector.
-* [Weather App](https://github.com/Screenly/weather-app): Screenly's Weather App
-* [Web Asset Metadata](https://github.com/Screenly/playground/tree/master/asset-metadata/): Showcase Screenly's built-in asset metadata.
+The app gets deployed automatically to GitHub pages whenever it detects a change in the source code.
+
+The app can be accessed here: [Hello World](https://playground.srly.io/)
+
+`hello-world.js` can be used as an injection script for the hosted web asset.

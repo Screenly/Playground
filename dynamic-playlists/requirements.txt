@@ -1,2 +1,0 @@
-requests==2.24.0
-certifi==2022.12.7
