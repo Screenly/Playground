@@ -13,14 +13,15 @@ To use the JavaScript Injector, you need first to create the web asset.
 
 You can do that in the [user interface](https://login.screenlyapp.com), our [CLI](https://github.com/Screenly/cli/) or by using our [API](https://developer.screenlyapp.com/#operation/assets_create) directly. The recommended way to work with our JavaScript Injector is to use the CLI, so we will be using that for the documentation.
 
-```bash $ screenly asset add https://www.engadget.com Engadget
+```bash
+$ screenly asset add https://www.engadget.com Engadget
 +----------------------------+-------------+------+--------+
-| Id                     	| Title   	| Type | Status |
+| Id                        | Title     | Type | Status |
 +----------------------------+-------------+------+--------+
-| XXXXXXXXXXXXXXXXXXXXXXXXXX | Engadget	| N/A  | none   |
+| XXXXXXXXXXXXXXXXXXXXXXXXXX | Engadget | N/A  | none   |
 +----------------------------+-------------+------+--------+
 
-# Let's store the asset ID for later
+# Let's store the Asset ID for later
 $ export ASSSET_ID=XXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
@@ -45,17 +46,51 @@ That's it! When the asset now loads on your screen, the above snippet will run a
 
 ## Examples
 
-### Scroll Down
+### Hello World
 
-Perhaps the most simple example would be to scroll down a page. We can accomplish this by just using the `window.scrollBy()` function. For instance, if we want to scroll down 180 pixels, we can use:
+**tl;dr**: Use JavaScript to change the text 'Hello World' to 'Hello John' on the demo page available on [playground.srly.io/hello-world](https://playground.srly.io/hello-world).
 
-```JavaScript
-window.scrollBy(0,180);
+#### Add a web asset
+
+First we need to add the web asset that we want to use for our JavaScript test. This can be done easily using the CLI:
+
+```bash
+$ screenly asset add https://playground.srly.io/hello-world 'Hello World'
++----------------------------+-------------+------+--------+
+| Id                         | Title       | Type | Status |
++----------------------------+-------------+------+--------+
+| XXXXXXXXXXXXXXXXXXXXXXXXXX | Hello World | N/A  | none   |
++----------------------------+-------------+------+--------+
+
+# Let's store the Asset ID for later
+$ export ASSSET_ID=XXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
-For more details see the `window.ScrollBy()` [documentation](https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollBy).
+Next, you need to log into the web interface and schedule the web asset titled 'Hello World' to an active playlist such that it will show on one of your screens.
 
-Please note that this isn't a great 'production ready' example, as it isn't idempotent (see [important considerations](https://github.com/Screenly/playground/tree/master/javascript-injectors#important-considerations)), but rather just to illustrate a simple JavaScript action.
+When the asset comes into rotation on your screen, you will notice that it says 'Hello World' on the screen. In the next step, we will use JavaScript to change this to 'Hello John' on load.
+
+#### Inject JavaScript
+
+The relevant JavaScript is very simple:
+
+```JavaScript
+(function () {
+  document.querySelector('.replace-me').innerText = 'John'
+})()
+```
+
+Again, using our CLI, along with the URL to the JavaScript above, we're able instruct Screenly to run the above JavaScript when loading the page.
+
+```bash
+$ export JAVASCRIPT_URL='https://raw.githubusercontent.com/Screenly/playground/master/javascript-injectors/examples/hello-world.js'
+$ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
+20XX-XX-XXTXX:XX:XX.XXXZ INFO  [screenly] Asset updated successfully.
+```
+
+That's it!
+
+Upon next load, you will see the text changing from 'Hello World' to 'Hello John'. In reality, this is a rather useless example. What it is is intend to do is to show how you can execute JavaScript onload. For instance, you could use this to lose a GDPR dialogue, or log into a website.
 
 ### Sign in to Screenly via cookies
 
