@@ -20,9 +20,18 @@ $ screenly asset add https://www.engadget.com Engadget
 +----------------------------+-------------+------+--------+
 | XXXXXXXXXXXXXXXXXXXXXXXXXX | Engadget | N/A  | none   |
 +----------------------------+-------------+------+--------+
+```
 
-# Let's store the Asset ID for later
+Let's store the Asset ID for later
+```bash
 $ export ASSSET_ID=XXXXXXXXXXXXXXXXXXXXXXXXXX
+```
+
+Alternatively, we can use the nifity `--json` option in the CLI and pipe it to `jq` to just get the Asset ID:
+
+```bash
+$ screenly asset list --json | jq -r '.[] | select (.title|test("Engadget")) | .id'
+XXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
 With our asset created, we can now apply the JavaScript Injection for this site. The above site, Engadget, uses Yahoo's cookie consent popover. When you first navigate to the site, you need to click the cookie consent dialogue to continue. This is obviously not ideal for digital signage.
