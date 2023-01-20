@@ -156,10 +156,14 @@ Upon next load, you will see the text changing from 'Hello World' to 'Hello John
 
 Applicable to Yahoo sites like Engadget, TechCrunch etc.
 
-* Download [yahoo-cookies-consent-closing.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/yahoo-cookies-consent-closing.js)
-* Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
+```bash
+$ export JAVASCRIPT_URL='https://raw.githubusercontent.com/Screenly/playground/master/javascript-injectors/examples/yahoo-cookies-consent-closing.js'
+$ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
+```
 
 ## Ez-cookie cookies consent closing
 
-* Download [ezcookie-cookies-consent-closing.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/ezcookie-cookies-consent-closing.js)
-* Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
+```bash
+* export JAVASCRIPT_URL='https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/ezcookie-cookies-consent-closing.js'
+$ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
+```
