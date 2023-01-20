@@ -1,3 +1,4 @@
+
 # Site Automation (aka JavaScript Injector)
 
 Screenly's JavaScript Injector feature allows users to perform automation on websites, such as:
@@ -10,53 +11,51 @@ Screenly's JavaScript Injector feature allows users to perform automation on web
 
 To use the JavaScript Injector, you need first to create the web asset.
 
-You can do that in the [user interface](https://login.screenlyapp.com) or [using the API](https://developer.screenlyapp.com/#operation/assets_create). (While you could include the JavaScript directly in the asset creation, it can be beneficial to do the JavaScript snippet as a PATCH as it allows you to update your JavaScript code easily.)
+You can do that in the [user interface](https://login.screenlyapp.com), our [CLI](https://github.com/Screenly/cli/) or by using our [API](https://developer.screenlyapp.com/#operation/assets_create) directly. The recommended way to work with our JavaScript Injector is to use the CLI, so we will be using that for the documentation.
 
-With the asset created, you need the Asset ID. You will get that in the response from the API call, or you can dig it out from the URL in the user interface (e.g. <https://cowboyneil.screenlyapp.com/manage/assets/$MY_ASSET_ID>).
+```bash $ screenly asset add https://www.engadget.com Engadget
++----------------------------+-------------+------+--------+
+| Id                     	| Title   	| Type | Status |
++----------------------------+-------------+------+--------+
+| XXXXXXXXXXXXXXXXXXXXXXXXXX | Engadget	| N/A  | none   |
++----------------------------+-------------+------+--------+
 
-We are finally ready to apply the JavaScript using a PATCH on the asset.
-
-Here's a sample Python snippet for how you can PATCH your asset:
-
-```python
-import requests
-
-headers = {
-    "Authorization": "Token <TOKEN>",
-    "Content-Type": "application/json"
-}
-asset_id = "<ASSET_ID>"
-js_code = """
-<YOUR_JS_CODE>
-"""
-
-response = requests.patch(
-    url=f'https://api.screenlyapp.com/api/v3/assets/{asset_id}/',
-    json={'js_injection': js_code},
-    headers=headers
-)
+# Let's store the asset ID for later
+$ export ASSSET_ID=XXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
+
+With our asset created, we can now apply the JavaScript Injection for this site. The above site, Engadget, uses Yahoo's cookie consent popover. When you first navigate to the site, you need to click the cookie consent dialogue to continue. This is obviously not ideal for digital signage.
+
+Luckily, we can use JavaScript to close this dialogue. The script [`yahoo-cookies-consent-closing.js`](https://raw.githubusercontent.com/Screenly/playground/master/javascript-injectors/examples/yahoo-cookies-consent-closing.js) does just that, so let's apply it to our asset using the CLI:
+
+```bash
+$ export JAVASCRIPT_URL='https://raw.githubusercontent.com/Screenly/playground/master/javascript-injectors/examples/yahoo-cookies-consent-closing.js'
+$ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
+20XX-XX-XXTXX:XX:XX.XXXZ INFO  [screenly] Asset updated successfully.
+```
+
+That's it! When the asset now loads on your screen, the above snippet will run automatically and close the cookie consent dialogue.
 
 ### Important considerations
 
 * Your script should be idempotent as it can run multiple times.
 * Your script should execute with an interval or await when a specific element appears on the page. There is no guarantee that the page is fully loaded when the injector runs the script.
-* Screenly player persists cookies set for a slide until the player reboots or playlist changes. You can check if you have already set a cookie to optimise your script.
+* Screenly player persists cookies set for a slide until the player reboots or playlist changes. You can check if you have already set a cookie to optimize your script.
 * If your page includes redirects, the player will execute the injection script on each page.
-
 
 ## Examples
 
-### Scroll down
+### Scroll Down
 
 Perhaps the most simple example would be to scroll down a page. We can accomplish this by just using the `window.scrollBy()` function. For instance, if we want to scroll down 180 pixels, we can use:
 
-```javascript
+```JavaScript
 window.scrollBy(0,180);
 ```
 
 For more details see the `window.ScrollBy()` [documentation](https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollBy).
 
+Please note that this isn't a great 'production ready' example, as it isn't idempotent (see [important considerations](https://github.com/Screenly/playground/tree/master/javascript-injectors#important-considerations)), but rather just to illustrate a simple JavaScript action.
 
 ### Sign in to Screenly via cookies
 
@@ -64,9 +63,8 @@ For more details see the `window.ScrollBy()` [documentation](https://developer.m
 
 * Sign into the Screenly [user interface](https://login.screenlyapp.com).
 * Retrieve the cookie `beaker.session.id` from your browser.
-* Download [screenly-signin-via-cookies.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/screenly-signin-via-cookies.js) and modify it with your `beaker.session.id`.
-* [PATCH](https://developer.screenlyapp.com/#operation/assets_partial_update) the asset.
-
+* Download [screenly-signin-via-cookies.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/screenly-signin-via-cookies.js) and modify it with your `beaker.session.id`.
+* Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
 
 ### Sign in to Tableau via cookies
 
@@ -74,8 +72,8 @@ For more details see the `window.ScrollBy()` [documentation](https://developer.m
 
 * Sign into your Tableau account.
 * Extract the cookie `SSESS[...]` from your browser.
-* Download [tableau-via-cookies.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/tableau-via-cookies.js) and modify it with your cookies
-* [PATCH](https://developer.screenlyapp.com/#operation/assets_partial_update) the asset.
+* Download [tableau-via-cookies.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/tableau-via-cookies.js) and modify it with your cookies.
+* Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
 
 ## Sign in to Power BI via cookies
 
@@ -86,47 +84,47 @@ For more details see the `window.ScrollBy()` [documentation](https://developer.m
   * `.AspNet.CookiesC1`
   * `.AspNet.CookiesC2`
   * `.AspNet.Cookies`
-* Download [powerbi-signin-via-cookies.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/powerbi-signin-via-cookies.js), modify it with your cookies
-* [PATCH](https://developer.screenlyapp.com/#operation/assets_partial_update) the asset.
+* Download [powerbi-signin-via-cookies.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/powerbi-signin-via-cookies.js), modify it with your cookies.
+* Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
 
 ## Sign in to Power BI via credentials
 
 <img src="../images/powerbi-logo.png" alt="Power BI logo" width="200"/>
 
-* Download [powerbi-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/powerbi-signin-via-credentials.js) and modify it with your credentials.
-* [PATCH](https://developer.screenlyapp.com/#operation/assets_partial_update) the asset.
+* Download [powerbi-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/powerbi-signin-via-credentials.js) and modify it with your credentials.
+* Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
 
 ## Sign in to Ship Hero via credentials
 
 <img src="../images/shiphero-logo.png" alt="Ship Hero logo" width="200"/>
 
-* Download [shiphero-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/shiphero-signin-via-credentials.js) and modify it with your credentials.
-* [PATCH](https://developer.screenlyapp.com/#operation/assets_partial_update) the asset.
+* Download [shiphero-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/shiphero-signin-via-credentials.js) and modify it with your credentials.
+* Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
 
 ## Sign in to Magento Dashboard via credentials
 
 <img src="../images/magento-logo.png" alt="Magento logo" width="200"/>
 
-* Download [magento-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/magento-signin-via-credentials.js) and modify it with your credentials.
-* [PATCH](https://developer.screenlyapp.com/#operation/assets_partial_update) the asset.
+* Download [magento-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/magento-signin-via-credentials.js) and modify it with your credentials.
+* Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
 
 ## Sign in to Domo Dashboard via credentials
 
 <img src="../images/domo-logo.png" alt="Domo logo" width="120"/>
 
-* Download [domo-dashboard-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/domo-dashboard-via-credentials.js) and modify it with your credentials.
+* Download [domo-dashboard-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/domo-dashboard-via-credentials.js) and modify it with your credentials.
 * [PATCH](https://developer.screenlyapp.com/#operation/assets_partial_update) the asset.
 
 ## Yahoo cookies consent closing
 
 <img src="../images/yahoo-logo.png" alt="Yahoo logo" width="200"/>
 
-Applicable to Yahoo sites like Engadget, Techcrunch etc.
+Applicable to Yahoo sites like Engadget, TechCrunch etc.
 
-* Download [yahoo-cookies-consent-closing.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/yahoo-cookies-consent-closing.js)
-* [PATCH](https://developer.screenlyapp.com/#operation/assets_partial_update) the asset.
+* Download [yahoo-cookies-consent-closing.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/yahoo-cookies-consent-closing.js)
+* Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
 
 ## Ez-cookie cookies consent closing
 
-* Download [ezcookie-cookies-consent-closing.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/ezcookie-cookies-consent-closing.js)
-* [PATCH](https://developer.screenlyapp.com/#operation/assets_partial_update) the asset.
+* Download [ezcookie-cookies-consent-closing.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/ezcookie-cookies-consent-closing.js)
+* Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
