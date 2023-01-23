@@ -4,3 +4,4 @@ node_modules/
 instagram/dist
 asset-metadata-edge/dist
 .DS_Store
+.DS_store
