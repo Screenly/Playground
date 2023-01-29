@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Screenly Weather App - Weather Forecast</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/styles/main.css" />
+        <link rel="stylesheet" href="/static/styles/background.css" />
+    </head>
+    <body>
+        <div class="content">
+            <section class="header">
+                <div class="location">
+                    <span class="location-item">
+                        <img src="/static/images/icons/map-pin.svg" />
+                        <span id="city"></span>
+                    </span>
+            
+                    <span class="location-item">
+                        <img src="/static/images/icons/clock.svg" />
+                        <span id="time"></span>
+                    </span>
+            
+                    <span class="location-item">
+                        <img src="/static/images/icons/calendar.svg" />
+                        <span id="date"></span>
+                    </span>
+                </div>
+            </section>
+            <section class="footer">
+                <div class="current-weather">
+                  <div class="weather-condition">
+                    <img id="current-weather-icon"></img>
+                    <span id="current-weather-status"></span>
+                  </div>
+                  <div class="temperature">
+                    <span id="current-temp"></span>
+                    <span id="current-temp-scale"></span>
+                  </div>
+                </div>
+                <div id="weather-item-list">
+                </div>
+                <div class="weather-item dummy-node">
+                  <span class="item-temp-degree">
+                    <span class="item-temp"></span><sup>°</sup>
+                  </span>
+                  <img src="" class="item-icon"></img>
+                  <span class="item-time"></span>
+                </div>
+            </section>
+        </div>
+        <script src="https://js.sentry-cdn.com/SENTRY_ID.min.js" crossorigin="anonymous"></script>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=GA_API_KEY"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'GA_API_KEY');
+        </script>
+        <script src="/static/js/icons.js"></script>
+        <script src="/static/js/main.js"></script>
+        <script src="/static/js/load-metadata.js"></script>
+        <script src="/static/js/load-screenly.js"></script>
+    </body>
+</html>
