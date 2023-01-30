@@ -45,7 +45,7 @@ function inlineCSSAssets () {
   return src('./build/static/styles/*.css')
     .pipe(base64({
       baseDir: './src',
-      maxImageSize: 5242880,
+      maxImageSize: 5242880
     }))
     .pipe(dest('./build/static/styles'))
 }
