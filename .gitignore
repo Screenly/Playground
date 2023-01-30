@@ -2,3 +2,4 @@ venv
 .idea
 node_modules/
 instagram/dist
+.DS_store
