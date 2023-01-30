@@ -1,3 +1,6 @@
+/* global icons */
+
+// eslint-disable-next-line no-unused-vars
 function initApp (data) {
   let clockTimer
   let weatherTimer
@@ -7,10 +10,6 @@ function initApp (data) {
   let tempScale = 'C'
   let timeFormat = 'h12'
   const { lat, lng } = data
-
-  const imagesPath = '/static/images'
-  const iconsPath = `${imagesPath}/icons`
-  const bgPath = `${imagesPath}/bg`
 
   /**
    * Countries using F scale

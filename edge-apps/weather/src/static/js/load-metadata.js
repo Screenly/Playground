@@ -10,4 +10,3 @@ function loadMetadata () {
     console.warn('Virtual file not loaded')
   }
 }
-  

@@ -60,7 +60,8 @@ body {
   margin-left: 2rem;
 }
 
-.location-item img,  .location-item svg {
+.location-item img,
+.location-item svg {
   margin-right: 10px;
   width: 0.9rem;
 }
@@ -402,7 +403,8 @@ body {
     margin-left: 0;
   }
 
-  .location-item img, .location-item svg {
+  .location-item img,
+  .location-item svg {
     width: 0.9rem;
     margin-right: 5px;
   }
@@ -474,7 +476,8 @@ body {
     margin-left: 2.5rem;
   }
 
-  .location-item img, .location-item svg {
+  .location-item img,
+  .location-item svg {
     margin-right: 10px;
     width: 1.2rem;
   }
@@ -685,7 +688,8 @@ body {
     margin-top: 1.42rem;
   }
 
-  .location-item img, .location-item svg {
+  .location-item img,
+  .location-item svg {
     margin-right: 20px;
   }
 
