@@ -4,8 +4,8 @@ function initApp () {
   let timeFormat = 'h12'
 
   const locale = navigator?.languages?.length
-      ? navigator.languages[0]
-      : navigator.language;
+    ? navigator.languages[0]
+    : navigator.language
 
   const getDefaultTimePreference = () => {
     const url = new URL(window.location)
