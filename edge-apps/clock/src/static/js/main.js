@@ -1,3 +1,4 @@
+/* global moment */
 // eslint-disable-next-line no-unused-vars
 function initApp () {
   let clockTimer

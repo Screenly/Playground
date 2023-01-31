@@ -6,7 +6,7 @@ const inlineSource = require('gulp-inline-source')
 const replace = require('gulp-replace')
 const uglifyJS = require('gulp-uglify')
 const uglifyCSS = require('gulp-uglifycss')
-const removeCode = require('gulp-remove-code');
+const removeCode = require('gulp-remove-code')
 
 function buildJS () {
   return src('build/static/js/*.js')
