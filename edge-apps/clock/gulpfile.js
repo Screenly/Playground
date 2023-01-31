@@ -6,6 +6,7 @@ const inlineSource = require('gulp-inline-source')
 const replace = require('gulp-replace')
 const uglifyJS = require('gulp-uglify')
 const uglifyCSS = require('gulp-uglifycss')
+const removeCode = require('gulp-remove-code');
 
 function buildJS () {
   return src('build/static/js/*.js')
@@ -35,8 +36,10 @@ function copyAssets () {
 
 function replaceKeys () {
   return src(['build/index.html'])
-    .pipe(replace('GA_API_KEY', process.env.GA_API_KEY))
+    .pipe(removeCode({ sentry: !process.env.SENTRY_ID }))
+    .pipe(removeCode({ googleAnalytics: !process.env.GA_API_KEY }))
     .pipe(replace('SENTRY_ID', process.env.SENTRY_ID))
+    .pipe(replace('GA_API_KEY', process.env.GA_API_KEY))
     .pipe(dest('build'))
 }
 
