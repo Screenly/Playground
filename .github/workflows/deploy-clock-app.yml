@@ -14,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
 
     defaults:
-    run:
-      working-directory: edge-apps/clock
+      run:
+        working-directory: edge-apps/clock
 
     steps:
       - name: Checkout Code
