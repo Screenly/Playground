@@ -41,10 +41,12 @@ jobs:
         uses: screenly/cli@master
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
+          # yamllint disable-line rule:line-length
           cli_commands: asset add edge-apps/clock/dist/index.html "Playground Clock Edge App ($GITHUB_SHA)"
 
       - name: Deploy Edge App
         uses: screenly/cli@master
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_WLVIKTOR }}
+          # yamllint disable-line rule:line-length
           cli_commands: asset add edge-apps/clock/dist/index.html "Playground Clock Edge App ($GITHUB_SHA)"
