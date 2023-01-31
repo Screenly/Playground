@@ -1,6 +1,6 @@
 # Screenly Clock Edge App
 
-![Clock App Screenshot](https://github.com/Screenly/standalone-app-store/blob/master/_assets/img/app-clock-digital.jpg?raw=true)
+![Clock App Screenshot](https://github.com/Screenly/playground/blob/master/edge-apps/clock/src/static/images/clock-app.jpg?raw=true)
 
 This is an example asset for Screenly as part of the [Screenly Playground](https://github.com/Screenly/playground).
 
@@ -15,14 +15,21 @@ To build the container, run the below command from the root directory:
 To run the container, run:
 ```sh
 docker run --rm \
-  -e GA_API_KEY=<GA_API_KEY> \
-  -e SENTRY_ID=<SENTRY_ID> \
   -v $(pwd)/src:/usr/app/src \
-  -v $(pwd)/dist:/usr/app/dist
+  -v $(pwd)/dist:/usr/app/dist \
   screenly/clock-app
 ```
 
-Replace `<GA_API_KEY>` with your Google Analytics API key and `<SENTRY_ID>` with your Sentry API key  before running the above command.
+You can optionally enable Google Analytics and Sentry. Replace `<GA_API_KEY>` with your Google Analytics API key and `<SENTRY_ID>` with your Sentry API key before running the below command.
+
+```sh
+docker run --rm \
+  -e GA_API_KEY=<GA_API_KEY> \
+  -e SENTRY_ID=<SENTRY_ID> \
+  -v $(pwd)/src:/usr/app/src \
+  -v $(pwd)/dist:/usr/app/dist \
+  screenly/clock-app
+```
 
 This will create a directory called `dist` inside the root directory which will have the generated `index.html` file.
 
