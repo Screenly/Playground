@@ -1,0 +1,11 @@
+dist
+node_modules
+worker
+package-lock.json
+.cargo-ok
+
+.DS_Store
+**/.DS_Store
+
+# Output of 'npm pack'
+*.tgz
