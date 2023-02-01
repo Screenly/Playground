@@ -38,8 +38,8 @@ This will create a directory called `dist` inside the root directory which will 
 To add the HTML file, you'll need to setup [Screenly CLI](https://github.com/Screenly/cli).
 Once that's done, run:
 
-```sh
-$ screenly asset add [path]
+```bash
+screenly asset add [path]
 ```
 
 where `[path]` is the location of your `dist/index.html` file
