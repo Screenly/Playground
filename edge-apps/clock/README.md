@@ -13,7 +13,7 @@ To build the container, run the below command from the root directory:
 `docker build -t screenly/clock-app -f Dockerfile .`
 
 To run the container, run:
-```sh
+```bash
 docker run --rm \
   -v $(pwd)/src:/usr/app/src \
   -v $(pwd)/dist:/usr/app/dist \
@@ -22,7 +22,7 @@ docker run --rm \
 
 You can optionally enable Google Analytics and Sentry. Replace `<GA_API_KEY>` with your Google Analytics API key and `<SENTRY_ID>` with your Sentry API key before running the below command.
 
-```sh
+```bash
 docker run --rm \
   -e GA_API_KEY=<GA_API_KEY> \
   -e SENTRY_ID=<SENTRY_ID> \
@@ -39,7 +39,7 @@ To add the HTML file, you'll need to setup [Screenly CLI](https://github.com/Scr
 Once that's done, run:
 
 ```sh
-screenly asset add [path]
+$ screenly asset add [path]
 ```
 
 where `[path]` is the location of your `dist/index.html` file
