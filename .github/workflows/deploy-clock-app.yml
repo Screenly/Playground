@@ -29,12 +29,12 @@ jobs:
             .
 
       - name: Build static page
-        "run": |
+        run: |
           docker run --rm \
             -e GA_API_KEY="${{ secrets.CLOCK_APP_GA_API_KEY }}" \
             -e SENTRY_ID="${{ secrets.CLOCK_APP_SENTRY_ID }}" \
-            -v $(pwd)/src:/usr/app/src \
-            -v $(pwd)/dist:/usr/app/dist \
+            -v "$(pwd)"/src:/usr/app/src \
+            -v "$(pwd)"/dist:/usr/app/dist \
             screenly/clock-app
 
       - name: Deploy Edge App
