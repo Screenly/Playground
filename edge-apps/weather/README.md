@@ -6,6 +6,10 @@ This is an example asset for Screenly as part of the [Screenly Playground](https
 
 You can view the live demo at [weather.srly.io](https://weather.srly.io/).
 
+## Metadata
+
+The app takes `lat` (latitude) and `lng` (longitude) of the target location as the metadata.
+
 ## Setup
 
 To build the container, run the below command from the root directory:
