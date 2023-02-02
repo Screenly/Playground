@@ -43,7 +43,7 @@ To add the HTML file, you'll need to setup [Screenly CLI](https://github.com/Scr
 Once that's done, run:
 
 ```bash
-$ screenly asset add [path]
+screenly asset add [path]
 ```
 
 where `[path]` is the location of your `dist/index.html` file

@@ -1,4 +1,4 @@
-/* global icons */
+/* global icons, moment */
 
 // eslint-disable-next-line no-unused-vars
 function initApp (data) {
@@ -28,12 +28,6 @@ function initApp (data) {
   const celsiusToFahrenheit = (temp) => ((1.8 * temp) + 32)
 
   const getTemp = (temp) => Math.round(tempScale === 'C' ? temp : celsiusToFahrenheit(temp))
-
-  const getTimeByOffset = (offsetinSecs, dt) => {
-    const now = dt ? new Date(dt * 1000) : new Date()
-    const utc = now.getTime() + (now.getTimezoneOffset() * 60 * 1000)
-    return new Date(utc + (offsetinSecs * 1000))
-  }
 
   const checkIfNight = (dt) => {
     const dateTime = moment.unix(dt).utcOffset(tz)
@@ -124,7 +118,7 @@ function initApp (data) {
     }
   }
 
-  const setTimeZone = (tzOffset) => tz = parseInt(tzOffset/60)
+  const setTimeZone = tzOffset => parseInt(tzOffset / 60)
 
   const formatTime = (today) => {
     moment.locale(locale)
