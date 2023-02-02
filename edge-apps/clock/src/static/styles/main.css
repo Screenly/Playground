@@ -1,0 +1,316 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+@font-face {
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/Barlow-Regular.woff") format("woff");
+}
+
+html,
+body {
+  height: 100%;
+  font-size: 16px;
+}
+
+body {
+  background-color: gray;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("../images/clear.jpg");
+  background-size: cover;
+  color: #fff;
+  font-family: Barlow, sans-serif;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  padding: 1.5rem 1rem 2.5rem;
+  height: 100%;
+}
+
+.header {
+  flex: 1;
+  text-align: center;
+}
+
+.upgrade-banner {
+  background: #7732b7;
+  border-radius: 60px;
+  color: #fff;
+  display: none;
+  font-size: 0.6rem;
+  padding: 10px 20px;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.visible {
+  display: inline-block;
+}
+
+.date {
+  display: flex;
+  align-items: center;
+}
+
+#date {
+  margin-left: 10px;
+  font-size: 1.25rem;
+}
+
+#time {
+  font-size: 7.5rem;
+}
+
+#time span {
+  font-size: 2.5rem;
+}
+
+@media screen and (min-width: 480px) {
+  .content {
+    padding: 2.5rem;
+  }
+
+  .upgrade-banner {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (min-width: 720px) {
+  .upgrade-banner {
+    font-size: 1rem;
+  }
+
+  #date {
+    font-size: 1.5rem;
+  }
+
+  #time {
+    font-size: 10rem;
+  }
+
+  #time span {
+    font-size: 3.3rem;
+  }
+}
+
+@media screen and (min-width: 1080px) {
+  .content {
+    padding: 5.3rem;
+  }
+
+  .upgrade-banner {
+    font-size: 2rem;
+  }
+
+  .date img {
+    width: 2.5rem;
+  }
+
+  #date {
+    font-size: 2.5rem;
+  }
+
+  #time {
+    font-size: 18.25rem;
+  }
+
+  #time span {
+    font-size: 7rem;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .content {
+    padding: 8rem;
+  }
+
+  .upgrade-banner {
+    font-size: 2rem;
+    padding: 20px 40px;
+  }
+
+  .date img {
+    width: 3rem;
+  }
+
+  #date {
+    font-size: 3rem;
+    margin-left: 15px;
+  }
+
+  #time {
+    font-size: 25rem;
+  }
+
+  #time span {
+    font-size: 8rem;
+  }
+}
+
+@media screen and (min-width: 2160px) {
+  .content {
+    padding: 8.75rem;
+  }
+
+  .upgrade-banner {
+    font-size: 3rem;
+  }
+
+  .date img {
+    width: 4rem;
+  }
+
+  #date {
+    font-size: 4rem;
+  }
+
+  #time {
+    font-size: 31.25rem;
+  }
+
+  #time span {
+    font-size: 10rem;
+  }
+}
+
+@media screen and (orientation: landscape) {
+  .header {
+    text-align: right;
+  }
+}
+
+@media screen and (min-width: 800px) and (orientation: landscape) {
+  .content {
+    padding: 2.5rem;
+  }
+
+  .upgrade-banner {
+    font-size: 0.8rem;
+  }
+
+  #time {
+    font-size: 7.5rem;
+  }
+
+  #time span {
+    font-size: 2.5rem;
+  }
+}
+
+@media screen and (min-width: 1280px) and (orientation: landscape) {
+  .content {
+    padding: 3rem;
+  }
+
+  .upgrade-banner {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+  }
+
+  .date img {
+    width: 1.5rem;
+  }
+
+  #date {
+    font-size: 1.5rem;
+  }
+
+  #time {
+    font-size: 12.5rem;
+  }
+
+  #time span {
+    font-size: 4rem;
+  }
+}
+
+@media screen and (min-width: 1920px) and (orientation: landscape) {
+  .content {
+    padding: 4.125rem;
+  }
+
+  .upgrade-banner {
+    font-size: 2rem;
+  }
+
+  .date img {
+    width: 2.5rem;
+  }
+
+  #date {
+    font-size: 2.5rem;
+  }
+
+  #time {
+    font-size: 21.25rem;
+  }
+
+  #time span {
+    font-size: 7rem;
+  }
+}
+
+@media screen and (min-width: 2560px) and (orientation: landscape) {
+  .content {
+    padding: 7.375rem;
+  }
+
+  .upgrade-banner {
+    font-size: 3rem;
+  }
+
+  .date img {
+    width: 3rem;
+  }
+
+  #date {
+    font-size: 3rem;
+  }
+
+  #time {
+    font-size: 25rem;
+  }
+
+  #time span {
+    font-size: 8rem;
+  }
+}
+
+@media screen and (min-width: 3840px) and (orientation: landscape) {
+  .content {
+    padding: 10.5rem;
+  }
+
+  .upgrade-banner {
+    font-size: 3rem;
+  }
+
+  .date img {
+    width: 4rem;
+  }
+
+  #date {
+    font-size: 4rem;
+  }
+
+  #time {
+    font-size: 31.25rem;
+  }
+
+  #time span {
+    font-size: 10rem;
+  }
+}
