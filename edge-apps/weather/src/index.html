@@ -48,8 +48,11 @@
                 </div>
             </section>
         </div>
+        <!--removeIf(sentry)-->
         <script src="https://js.sentry-cdn.com/SENTRY_ID.min.js" crossorigin="anonymous"></script>
-        <!-- Google tag (gtag.js) -->
+        <!--endRemoveIf(sentry)-->
+
+        <!--removeIf(googleAnalytics)-->
         <script async src="https://www.googletagmanager.com/gtag/js?id=GA_API_KEY"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
@@ -58,6 +61,8 @@
 
             gtag('config', 'GA_API_KEY');
         </script>
+        <!--endRemoveIf(googleAnalytics)-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="/static/js/icons.js"></script>
         <script src="/static/js/main.js"></script>
         <script src="/static/js/load-metadata.js"></script>
