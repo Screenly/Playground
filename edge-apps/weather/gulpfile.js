@@ -36,10 +36,10 @@ function copyAssets () {
 
 function replaceKeys () {
   return src(['build/**/*{.html,.js}'])
-    .pipe(removeCode({ sentry: !process.env.SENTRY_ID }))
+    .pipe(removeCode({ sentry: !process.env.SENTRY_SDN }))
     .pipe(removeCode({ googleAnalytics: !process.env.GA_API_KEY }))
     .pipe(replace('GA_API_KEY', process.env.GA_API_KEY))
-    .pipe(replace('SENTRY_ID', process.env.SENTRY_ID))
+    .pipe(replace('SENTRY_SDN', process.env.SENTRY_SDN))
     .pipe(replace('OPEN_WEATHER_API_KEY', process.env.OPEN_WEATHER_API_KEY))
     .pipe(dest('build'))
 }

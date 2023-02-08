@@ -27,12 +27,12 @@ docker run --rm \
 
 Replace `<OPEN_WEATHER_API_KEY>` with your Open Weather API key before running the above command.
 
-You can optionally enable Google Analytics and Sentry. Replace `<GA_API_KEY>` with your Google Analytics API key and `<SENTRY_ID>` with your Sentry API key before running the below command.
+You can optionally enable Google Analytics and Sentry. Replace `<GA_API_KEY>` with your Google Analytics API key and `<SENTRY_SDN>` with your Sentry API key before running the below command.
 
 ```bash
 docker run --rm \
   -e GA_API_KEY=<GA_API_KEY> \
-  -e SENTRY_ID=<SENTRY_ID> \
+  -e SENTRY_SDN=<SENTRY_SDN> \
   -e OPEN_WEATHER_API_KEY=<OPEN_WEATHER_API_KEY> \
   -v $(pwd)/src:/usr/app/src \
   -v $(pwd)/dist:/usr/app/dist \
