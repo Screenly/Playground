@@ -51,11 +51,13 @@ def add_asset_to_screenly(url, input_name):
 
 
 def main():
-    for key in [GRAFANA_API_KEY, SCREENLY_API_TOKEN]:
-        if not key:
-            print("Missing environment variable")
-            exit(1)
+    if not GRAFANA_API_KEY:
+        print("GRAFANA_API_KEY environment variable is missing.")
+    if not SCREENLY_API_TOKEN:
+        print("SCREENLY_API_TOKEN environment variable is missing")
 
+    if not SCREENLY_API_TOKEN or not GRAFANA_API_KEY:
+        exit(1)
     input_url = input("Enter Grafana URL: ")
     input_name = input("Enter dashboard name: ")
     url = massage_grafana_url(input_url)
