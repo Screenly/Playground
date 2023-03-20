@@ -25,6 +25,7 @@ $ screenly asset add https://www.engadget.com Engadget
 Let's store the Asset ID for later
 ```bash
 $ export ASSSET_ID=XXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
 Alternatively, we can use the nifity `--json` option in the CLI and pipe it to `jq` to just get the Asset ID:
