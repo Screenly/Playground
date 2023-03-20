@@ -168,6 +168,7 @@ Applicable to Yahoo sites like Engadget, TechCrunch etc.
 ```bash
 $ export JAVASCRIPT_URL='https://raw.githubusercontent.com/Screenly/playground/master/javascript-injectors/examples/yahoo-cookies-consent-closing.js'
 $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
+20XX-XX-XXTXX:XX:XX.XXXZ INFO  [screenly] Asset updated successfully.
 ```
 
 ## Ez-cookie cookies consent closing
