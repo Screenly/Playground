@@ -25,6 +25,7 @@ $ screenly asset add https://www.engadget.com Engadget
 Let's store the Asset ID for later
 ```bash
 $ export ASSSET_ID=XXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
 Alternatively, we can use the nifity `--json` option in the CLI and pipe it to `jq` to just get the Asset ID:
@@ -168,6 +169,7 @@ Applicable to Yahoo sites like Engadget, TechCrunch etc.
 ```bash
 $ export JAVASCRIPT_URL='https://raw.githubusercontent.com/Screenly/playground/master/javascript-injectors/examples/yahoo-cookies-consent-closing.js'
 $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
+20XX-XX-XXTXX:XX:XX.XXXZ INFO  [screenly] Asset updated successfully.
 ```
 
 ## Ez-cookie cookies consent closing
@@ -176,3 +178,10 @@ $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
 * export JAVASCRIPT_URL='https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/ezcookie-cookies-consent-closing.js'
 $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
 ```
+
+## Sign in to Jenkins via credentials
+
+<img src="../images/jenkins-logo.png" alt="Jenkins logo" width="200"/>
+
+* Download [jenkins-sign-in-via-credentials.js](https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/jenkins-sign-in-via-credentials.js) and modify it with your credentials.
+* Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
