@@ -185,3 +185,10 @@ $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
 
 * Download [jenkins-sign-in-via-credentials.js](https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/jenkins-sign-in-via-credentials.js) and modify it with your credentials.
 * Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
+
+## Sign in to Shopify via credentials
+
+<img src="../images/shopify-logo.png" alt="Jenkins logo" width="150"/>
+
+* Download [shopify-signin-via-credentials.js](https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/shopify-signin-via-credentials.js) and modify it with your credentials.
+* Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
