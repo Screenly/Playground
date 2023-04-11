@@ -29,5 +29,5 @@
   }
 
   login()
-  setInterval(login, 1000)
+  setInterval(login, 1500)
 })()
