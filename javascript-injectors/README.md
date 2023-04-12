@@ -158,7 +158,7 @@ Upon next load, you will see the text changing from 'Hello World' to 'Hello John
 <img src="../images/domo-logo.png" alt="Domo logo" width="120"/>
 
 * Download [domo-dashboard-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/domo-dashboard-via-credentials.js) and modify it with your credentials.
-* [PATCH](https://developer.screenlyapp.com/#operation/assets_partial_update) the asset.
+* Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
 
 ## Yahoo cookies consent closing
 
