@@ -1,11 +1,6 @@
 (function () {
   const password = '<PASSWORD>'
 
-  function elExists (selector) {
-    const el = document.querySelector(selector)
-    return el !== undefined && el.getAttribute('aria-hidden') !== 'true'
-  }
-
   function setValue (selector, value) {
     const element = document.querySelector(selector)
     element.value = value
