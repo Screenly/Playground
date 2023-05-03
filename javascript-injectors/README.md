@@ -199,3 +199,10 @@ $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
 
 * Download [nagios-signin-via-credentials.js](https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/nagios-signin-via-credentials.js) and modify it with your credentials.
 * Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
+
+## Sign in to Cyfe via credentials
+
+<img src="../images/cyfe-logo.png" alt="Cyfe logo" width="150"/>
+
+* Download [cyfe-sign-in-via-credentials.js](https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/cyfe-sign-in-via-credentials.js) and modify it with your credentials.
+* Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
