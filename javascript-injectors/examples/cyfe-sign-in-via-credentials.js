@@ -26,7 +26,6 @@
     }
   }
 
-  if (elExists('input[name=password]')) {
-    login()
-  }
+  login()
+
 })()
