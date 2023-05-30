@@ -1,5 +1,5 @@
 (function () {
-  const access_code = '<ACCESS_CODE>'
+  const accessCode = '<ACCESS_CODE>'
 
   function setValue (selector, value) {
     const element = document.querySelector(selector)
@@ -14,7 +14,6 @@
       console.warn(error)
     }
   }
-  
   login()
   setInterval(login, 2000)
 })()
