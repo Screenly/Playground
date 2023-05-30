@@ -9,7 +9,7 @@
 
   function login () {
     try {
-      setValue('input[type=text]', access_code)
+      setValue('input[type=text]', accessCode)
     } catch (error) {
       console.warn(error)
     }
