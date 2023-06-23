@@ -186,6 +186,13 @@ $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
 $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
 ```
 
+## Google Maps cookies consent closing
+
+```bash
+* export JAVASCRIPT_URL='https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/googlemaps-cookies-consent-closing.js'
+$ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
+```
+
 ## Sign in to Jenkins via credentials
 
 <img src="../images/jenkins-logo.png" alt="Jenkins logo" width="200"/>
