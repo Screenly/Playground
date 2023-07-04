@@ -1,6 +1,7 @@
-setInterval(function () {
+function closeConsentbox() {
   const acceptCookie = document.querySelector('button[id="onetrust-accept-btn-handler"]')
   if (acceptCookie) {
     acceptCookie.click()
-  } }, 2000
-)
+  }
+}
+setInterval(closeConsentbox(), 2000)
