@@ -186,13 +186,6 @@ $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
 $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
 ```
 
-## Google Maps cookies consent closing
-
-```bash
-* export JAVASCRIPT_URL='https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/googlemaps-cookies-consent-closing.js'
-$ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
-```
-
 ## Sign in to Jenkins via credentials
 
 <img src="../images/jenkins-logo.png" alt="Jenkins logo" width="200"/>
@@ -220,3 +213,10 @@ $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
 
 * Download [cyfe-sign-in-via-credentials.js](https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/cyfe-sign-in-via-credentials.js) and modify it with your credentials.
 * Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
+
+## Google Maps cookies consent closing
+
+```bash
+* export JAVASCRIPT_URL='https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/googlemaps-cookies-consent-closing.js'
+$ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
+```
