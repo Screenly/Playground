@@ -5,6 +5,7 @@
     <title>Screenly Clock App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/styles/main.css" />
+    <script src="screenly.js?version=1"></script>
 </head>
 
 <body>
@@ -19,22 +20,30 @@
         </div>
     </div>
     <!--removeIf(sentry)-->
-    <script src="https://js.sentry-cdn.com/SENTRY_ID.min.js" crossorigin="anonymous"></script>
+    <script>
+        const sentryScript = document.createElement('script')
+        sentryScript.src = `https://js.sentry-cdn.com/${screenly.settings.sentry_id}.min.js`
+        sentryScript.crossOrigin = 'anonymous'
+        document.head.appendChild(sentryScript)
+    </script>
     <!--endRemoveIf(sentry)-->
 
     <!--removeIf(googleAnalytics)-->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_API_KEY"></script>
+    <script>
+        const gtagScript = document.createElement('script')
+        gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${screenly.settings.ga_api_key}`
+        gtagScript.async = true
+        document.head.appendChild(gtagScript)
+    </script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
-        gtag('config', 'GA_API_KEY');
+        gtag('config', `${screenly.settings.ga_api_key}`);
     </script>
     <!--endRemoveIf(googleAnalytics)-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/static/js/main.js"></script>
-    <script src="/static/js/load-metadata.js"></script>
-    <script src="/static/js/load-screenly.js"></script>
 </body>
 </html>
