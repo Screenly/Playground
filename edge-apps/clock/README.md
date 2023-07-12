@@ -6,20 +6,11 @@ This is an example asset for Screenly as part of the [Screenly Playground](https
 
 You can view the live demo at [clock.srly.io](https://clock.srly.io/). The clock should automatically detect your local time zone and display the correct time.
 
-## Setup
+### Upload the Clock Edge App
 
-To build the container, run the below command from the root directory:
-
-`docker build -t screenly/mock-clock-metadata -f Dockerfile .`
-
-To start the container, run:
+Make sure that you have [Screenly CLI](https://github.com/Screenly/cli)
+installed before running the following command:
 
 ```bash
-docker run --rm \
-  -p "3004:3004" \
-  screenly/mock-clock-metadata
+screenly edge-app upload
 ```
-
-### Upload the Clock edge app
-
-This section is a **_work in progress_**. Stay tuned for updates.
