@@ -6,7 +6,7 @@ This is an example asset for Screenly as part of the [Screenly Playground](https
 
 You can view the live demo at [clock.srly.io](https://clock.srly.io/). The clock should automatically detect your local time zone and display the correct time.
 
-### Upload the Clock Edge App
+## Upload the Clock Edge App
 
 Make sure that you have [Screenly CLI](https://github.com/Screenly/cli)
 installed before running the following command:
