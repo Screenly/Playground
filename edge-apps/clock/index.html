@@ -19,31 +19,35 @@
             </div>
         </div>
     </div>
-    <!--removeIf(sentry)-->
-    <script>
-        const sentryScript = document.createElement('script')
-        sentryScript.src = `https://js.sentry-cdn.com/${screenly.settings.sentry_id}.min.js`
-        sentryScript.crossOrigin = 'anonymous'
-        document.head.appendChild(sentryScript)
-    </script>
-    <!--endRemoveIf(sentry)-->
 
-    <!--removeIf(googleAnalytics)-->
     <script>
-        const gtagScript = document.createElement('script')
-        gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${screenly.settings.ga_api_key}`
-        gtagScript.async = true
-        document.head.appendChild(gtagScript)
+        const sentryId = screenly.settings.sentry_id;
+        const gaApiKey = screenly.settings.ga_api_key;
+
+        const sentryScript = document.createElement('script');
+        sentryScript.src = `https://js.sentry-cdn.com/${sentryId}.min.js`;
+        sentryScript.crossOrigin = 'anonymous';
+        document.head.appendChild(sentryScript);
+
+        const gtagScript = document.createElement('script');
+        gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${gaApiKey}`;
+        gtagScript.async = true;
+        document.head.appendChild(gtagScript);
     </script>
+
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
-        gtag('config', `${screenly.settings.ga_api_key}`);
+        gtag('config', `${gaApiKey}`);
     </script>
-    <!--endRemoveIf(googleAnalytics)-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"
+        integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    ></script>
     <script src="/static/js/main.js"></script>
 </body>
 </html>
