@@ -11,7 +11,7 @@ function initApp (data) {
   const locale = navigator?.languages?.length
     ? navigator.languages[0]
     : navigator.language
-  const { lat, lng } = data
+  const [lat, lng] = screenly.metadata.coordinates
 
   /**
    * Countries using F scale
@@ -214,7 +214,7 @@ function initApp (data) {
     tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C'
 
     updateLocation(name)
-    setTimeZone(timezone)
+    tz = setTimeZone(timezone)
     initDateTime(timezone)
     updateWeather(list)
   }
@@ -242,3 +242,5 @@ function initApp (data) {
 
   init()
 }
+
+initApp()
