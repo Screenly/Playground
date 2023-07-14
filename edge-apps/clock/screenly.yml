@@ -1,9 +1,11 @@
-app_id: 01H55NQ0290YC714DF36KQ9PN7
+app_id: ''
 root_asset_id: ''
 user_version: 'v1.0.0'
 revision: 1
-description: 'Displays the current time'
+description: 'Screenly Clock Edge App'
 icon: ''
 author: 'Screenly, Inc.'
 homepage_url: ''
-settings: {}
+settings:
+  override_timezone: false
+  disable_analytics: false

@@ -22,29 +22,31 @@
     <script src="screenly.js?version=1"></script>
 
     <script>
-        const sentryId = screenly.settings.sentry_id;
-        const gaApiKey = screenly.settings.ga_api_key;
+        const disableAnalytics = screenly.settings.disable_analytics || false;
 
-        const sentryScript = document.createElement('script');
-        sentryScript.src = `https://js.sentry-cdn.com/${sentryId}.min.js`;
-        sentryScript.crossOrigin = 'anonymous';
-        document.head.appendChild(sentryScript);
+        if (!disableAnalytics) {
+            const sentryId = screenly.settings.sentry_id;
+            const gaApiKey = screenly.settings.ga_api_key;
 
-        const gtagScript = document.createElement('script');
-        gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${gaApiKey}`;
-        gtagScript.async = true;
-        document.head.appendChild(gtagScript);
-    </script>
+            const sentryScript = document.createElement('script');
+            sentryScript.src = `https://js.sentry-cdn.com/${sentryId}.min.js`;
+            sentryScript.crossOrigin = 'anonymous';
+            document.head.appendChild(sentryScript);
 
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', `${gaApiKey}`);
+            const gtagScript = document.createElement('script');
+            gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${gaApiKey}`;
+            gtagScript.async = true;
+            document.head.appendChild(gtagScript);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', `${gaApiKey}`);
+        }
     </script>
 
     <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"
+        src="/static/js/moment-with-locales.min.js"
         integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg=="
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
