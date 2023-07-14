@@ -7,9 +7,9 @@ function initApp () {
     ? navigator.languages[0]
     : navigator.language
 
-  const formatTime = () => {
+  const formatTime = (momentObject) => {
     moment.locale(locale)
-    const time = moment().format('LT')
+    const time = momentObject.format('LT')
     const timeFragments = time.split(' ')
 
     return Array.isArray(timeFragments) && timeFragments.length === 2
@@ -20,8 +20,12 @@ function initApp () {
   const initDateTime = () => {
     clearTimeout(clockTimer)
 
-    document.querySelector('#date').innerText = moment().format('DD MMMM, YYYY')
-    document.querySelector('#time').innerHTML = formatTime()
+    const momentObject = screenly.settings.override_timezone
+      ? moment().tz(screenly.settings.timezone)
+      : moment()
+
+    document.querySelector('#date').innerText = momentObject.format('DD MMMM, YYYY')
+    document.querySelector('#time').innerHTML = formatTime(momentObject)
 
     clockTimer = setTimeout(initDateTime, 10000)
   }

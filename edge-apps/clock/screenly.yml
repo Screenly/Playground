@@ -7,5 +7,6 @@ icon: ''
 author: 'Screenly, Inc.'
 homepage_url: ''
 settings:
-  override_timezone: false
+  override_timezone: true
+  timezone: 'America/Los_Angeles'
   disable_analytics: false
