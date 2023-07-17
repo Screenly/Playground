@@ -143,7 +143,7 @@ function initApp (data) {
     updateAttribute('current-weather-icon', 'src', icons[icon])
     updateContent('current-weather-status', desc)
     updateContent('current-temp', getTemp(temp))
-    updateContent('current-temp-scale', `°${tempScale}`)
+    updateContent('current-temp-scale', `\u00B0${tempScale}`)
   }
 
   const findCurrentWeatherItem = (list) => {
