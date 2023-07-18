@@ -226,8 +226,12 @@ function initApp (data) {
   const fetchWeather = async () => {
     clearTimeout(refreshTimer)
     try {
-      const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&units=metric&cnt=10&appid=001085696589b9680f971c7d40e8e1f3`)
+      const endpointUrl = `https://api.openweathermap.org/data/2.5/forecast`
+      const apiKey = screenly.settings.openweathermap_api_key
+      const queryParams = `lat=${lat}&lon=${lng}&units=metric&cnt=10&appid=${apiKey}`
+      const response = await fetch(`${endpointUrl}?${queryParams}`)
       const data = await response.json()
+
       updateData(data)
     } catch (e) {
       console.log(e)
