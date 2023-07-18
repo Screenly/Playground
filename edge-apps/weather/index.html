@@ -52,24 +52,28 @@
         <script src="screenly.js?version=1"></script>
 
         <script>
-            const sentryId = screenly.settings.sentry_id;
-            const gaApiKey = screenly.settings.ga_api_key;
+            const disableAnalytics = screenly.settings.disable_analytics || false;
 
-            const sentryScript = document.createElement('script');
-            sentryScript.src = `https://js.sentry-cdn.com/${sentryId}.min.js`;
-            sentryScript.crossOrigin = 'anonymous';
-            document.head.appendChild(sentryScript);
+            if (!disableAnalytics) {
+                const sentryId = screenly.settings.sentry_id;
+                const gaApiKey = screenly.settings.ga_api_key;
 
-            const gtagScript = document.createElement('script');
-            gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${gaApiKey}`;
-            gtagScript.async = true;
-            document.head.appendChild(gtagScript);
+                const sentryScript = document.createElement('script');
+                sentryScript.src = `https://js.sentry-cdn.com/${sentryId}.min.js`;
+                sentryScript.crossOrigin = 'anonymous';
+                document.head.appendChild(sentryScript);
 
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
+                const gtagScript = document.createElement('script');
+                gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${gaApiKey}`;
+                gtagScript.async = true;
+                document.head.appendChild(gtagScript);
 
-            gtag('js', new Date());
-            gtag('config', gaApiKey);
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+
+                gtag('js', new Date());
+                gtag('config', gaApiKey);
+            }
         </script>
 
         <script
