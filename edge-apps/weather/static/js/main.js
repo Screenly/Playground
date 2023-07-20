@@ -4,7 +4,6 @@
 function initApp (data) {
   let clockTimer
   let weatherTimer
-  let refreshTimer
   let tz
   let currentWeatherId
   let tempScale = 'C'
@@ -205,12 +204,14 @@ function initApp (data) {
 
     weatherListContainer.innerHTML = ''
     weatherListContainer.appendChild(frag)
-    // Refresh weather from local list every 15 mins
-    weatherTimer = setTimeout(() => updateWeather(list), 10 * 60 * 1000)
+    // Refresh weather from local list every 60 mins
+    weatherTimer = setTimeout(() => updateWeather(list), 60 * 60 * 1000)
   }
 
-  const updateData = (data) => {
-    const { city: { name, country, timezone }, list } = data
+  const updateData = () => {
+    // @TODO: Make use of `IndexedDB` instead of `localStorage`.
+    const decodedWeatherData = JSON.parse(localStorage.getItem('weatherData'))
+    const { city: { name, country, timezone }, list } = decodedWeatherData
     tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C'
 
     updateLocation(name)
@@ -224,15 +225,24 @@ function initApp (data) {
    */
 
   const fetchWeather = async () => {
-    clearTimeout(refreshTimer)
     try {
       const endpointUrl = `https://api.openweathermap.org/data/2.5/forecast`
       const apiKey = screenly.settings.openweathermap_api_key
       const queryParams = `lat=${lat}&lon=${lng}&units=metric&cnt=10&appid=${apiKey}`
-      const response = await fetch(`${endpointUrl}?${queryParams}`)
-      const data = await response.json()
+      const cacheTime = 60 * 60 * 1000
 
-      updateData(data)
+      setInterval(await (async () => {
+        const lambda = async () => {
+          const response = await fetch(`${endpointUrl}?${queryParams}`)
+          const data = await response.json()
+          localStorage.setItem('weatherData', JSON.stringify(data))
+        }
+
+        await lambda()
+        return lambda
+      })(), cacheTime)
+
+      updateData()
     } catch (e) {
       console.log(e)
     }
@@ -240,8 +250,6 @@ function initApp (data) {
 
   const init = () => {
     fetchWeather()
-    // Refresh weather every 2 hours
-    refreshTimer = setTimeout(fetchWeather, 120 * 60 * 1000)
   }
 
   init()
