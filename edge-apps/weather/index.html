@@ -52,7 +52,7 @@
         <script src="screenly.js?version=1"></script>
 
         <script>
-            const disableAnalytics = screenly.settings.disable_analytics || false;
+            const disableAnalytics = screenly.settings.disable_analytics;
 
             if (!disableAnalytics) {
                 const sentryId = screenly.settings.sentry_id;
