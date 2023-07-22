@@ -6,8 +6,23 @@
     <title>Hello world</title>
   </head>
   <body>
+    <template id="feed-template">
+      <div class="feed-container" style="margin-bottom: 40px;">
+        <h2 class="feed-title"></h2>
+        <p class="feed-date"></p>
+        <a class="feed-link" href="#"></a>
+      </div>
+    </template>
+
     <h1>RSS Reader</h1>
-    <p>Hello, world! Stay tuned for more updates.</p>
+
+    <div id="feeds-container" style="margin-top: 40px;">
+    </div>
+
     <script src="screenly.js?version=1"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/rss-parser@3.13.0/dist/rss-parser.min.js"
+    ></script>
+    <script src="static/js/main.js"></script>
   </body>
 </html>
