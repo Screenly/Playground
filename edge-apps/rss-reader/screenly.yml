@@ -6,4 +6,29 @@ description: Screenly RSS Reader App
 icon: ''
 author: Screenly, Inc.
 homepage_url: ''
-settings: {}
+settings:
+  disable_analytics:
+    type: text
+    default: "false"
+    optional: true
+    title: Disable Analytics
+    help_text: Whether to disable Sentry and Google Analytics integrations
+  ga_api_key:
+    type: text
+    default: ''
+    optional: true
+    title: Google Analytics API key
+    help_text: |
+      Specify a Google Analytics API key that will be used for the Google Tag Manager API.
+  sentry_id:
+    type: text
+    default: ''
+    optional: true
+    title: Sentry ID
+    help_text: Specify your Sentry ID
+  rss_url:
+    type: text
+    default: ''
+    optional: false
+    title: RSS Feed URL
+    help_text: Specify the URL to where to get the data from.

@@ -1,34 +1,29 @@
-let parser = new RSSParser()
-const sources = [
-  'https://buttondown.email/alpinejs/rss',
-]
-
 const initApp = () => {
   const feedsContainer = document.querySelector('#feeds-container')
+  const source = screenly.settings.rss_url
+  const parser = new RSSParser()
 
-  sources.forEach(source => {
-    console.log(source)
-    parser.parseURL(source, (err, feed) => {
-      if (err) {
-        throw err
-      }
-      feed.items.forEach(entry => {
-        title = entry.title
-        link = entry.link,
-        date = new Date(entry.pubDate)
+  parser.parseURL(source, (err, feed) => {
+    if (err) {
+      throw err
+    }
 
-        const feedTemplate = document.querySelector('#feed-template')
-        const feedContainer = feedTemplate.content.cloneNode(true)
-        feedContainer.querySelector('.feed-title').innerHTML = title
-        feedContainer.querySelector('.feed-date').innerHTML = date
+    feed.items.forEach(entry => {
+      title = entry.title
+      link = entry.link,
+      date = new Date(entry.pubDate)
 
-        feedLink = feedContainer.querySelector('.feed-link')
-        feedLink.innerHTML = link
-        feedLink.href = link
-        feedLink.target = '_blank'
+      const feedTemplate = document.querySelector('#feed-template')
+      const feedContainer = feedTemplate.content.cloneNode(true)
+      feedContainer.querySelector('.feed-title').innerHTML = title
+      feedContainer.querySelector('.feed-date').innerHTML = date
 
-        feedsContainer.appendChild(feedContainer)
-      })
+      feedLink = feedContainer.querySelector('.feed-link')
+      feedLink.innerHTML = link
+      feedLink.href = link
+      feedLink.target = '_blank'
+
+      feedsContainer.appendChild(feedContainer)
     })
   })
 }
