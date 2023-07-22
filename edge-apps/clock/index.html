@@ -24,7 +24,7 @@
     <script>
         const disableAnalytics = screenly.settings.disable_analytics;
 
-        if (disableAnalytics == "true") {
+        if (disableAnalytics != "true") {
             const sentryId = screenly.settings.sentry_id;
             const gaApiKey = screenly.settings.ga_api_key;
 
