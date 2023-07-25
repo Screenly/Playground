@@ -2,20 +2,26 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Hello world</title>
+    <title>RSS Reader</title>
+
+    <link rel="stylesheet" href="static/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/theme/playground-theme.css">
+    <link rel="stylesheet" href="static/styles/main.css">
   </head>
   <body>
     <template id="feed-template">
-      <div class="feed-container" style="margin-bottom: 40px;">
-        <h2 class="feed-title"></h2>
-        <p class="feed-date"></p>
-        <a class="feed-link" href="#"></a>
+      <div class="feed-container">
+        <h2 class="feed-title mb-2"></h2>
+        <p class="feed-date mb-3"></p>
+        <p><a class="feed-link text-white" href="#"></a></p>
+        <p class="feed-description text-white mt-4">
+        </p>
       </div>
     </template>
 
-    <h1>RSS Reader</h1>
 
-    <div id="feeds-container" style="margin-top: 40px;">
+    <div id="feeds-container" class="container d-flex flex-column justify-content-center">
+      <h1 id="rss-title" class="fw-bolder header">RSS Reader</h1>
     </div>
 
     <script src="screenly.js?version=1"></script>

@@ -1,0 +1,33 @@
+#feeds-container {
+    height: 100vh;
+}
+
+p {
+    font-size: 1rem;
+}
+
+/* Media query for laptops and smaller screens */
+@media (max-width: 1200px) {
+    h1, h2, h3, h4, h5, h6 {
+        font-size: 1.6rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Media query for 4K TVs and larger screens */
+@media (min-width: 2000px) {
+    h1, h2, h3, h4, h5, h6 {
+        font-size: 6rem;
+    }
+
+    p {
+        font-size: 3rem;
+    }
+
+    .feed-description {
+        margin-top: 5rem !important;
+    }
+}

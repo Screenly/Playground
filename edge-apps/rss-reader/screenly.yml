@@ -26,9 +26,21 @@ settings:
     optional: true
     title: Sentry ID
     help_text: Specify your Sentry ID
+  rss_title:
+    type: text
+    default: ''
+    optional: false
+    title: RSS Feeds Title
+    help_text: The title of the websote where the feeds were derived
   rss_url:
     type: text
     default: ''
     optional: false
     title: RSS Feed URL
     help_text: Specify the URL to where to get the data from.
+  limit:
+    type: text
+    default: '1'
+    optional: true
+    title: Limit
+    help_text: Specify the number of feeds to include in the page.
