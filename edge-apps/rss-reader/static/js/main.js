@@ -17,7 +17,8 @@ const initApp = () => {
     entries.forEach(entry => {
       const title = entry.title
       const link = entry.link
-      const date = new Date(entry.pubDate)
+      const date = moment(new Date(entry.pubDate))
+        .format('MMMM DD, YYYY, h:mm A')
       // @TODO: Some feeds don't have a `contentSnippet` property.
       //        We should handle situations where the description is not available
       //        or uses a different property name. Alternatively, we could
