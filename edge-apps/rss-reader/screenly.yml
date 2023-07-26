@@ -40,7 +40,7 @@ settings:
     help_text: Specify the URL to where to get the data from.
   limit:
     type: text
-    default: '1'
-    optional: true
+    default: ''
+    optional: false
     title: Limit
     help_text: Specify the number of feeds to include in the page.

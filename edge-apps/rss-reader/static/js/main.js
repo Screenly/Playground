@@ -16,25 +16,17 @@ const initApp = () => {
 
     entries.forEach(entry => {
       const title = entry.title
-      const link = entry.link
       const date = moment(new Date(entry.pubDate))
         .format('MMMM DD, YYYY, h:mm A')
-      // @TODO: Some feeds don't have a `contentSnippet` property.
-      //        We should handle situations where the description is not available
-      //        or uses a different property name. Alternatively, we could
-      //        specify the name of the property in the settings.
-      const description = entry.contentSnippet
+      // @TODO: Handle content dynamically. Some have images, some have just text,
+      // some have both.
+      const description = entry.content
 
       const feedTemplate = document.querySelector('#feed-template')
       const feedContainer = feedTemplate.content.cloneNode(true)
+
       feedContainer.querySelector('.feed-title').innerHTML = title
       feedContainer.querySelector('.feed-date').innerHTML = date
-
-      feedLink = feedContainer.querySelector('.feed-link')
-      feedLink.innerHTML = link
-      feedLink.href = link
-      feedLink.target = '_blank'
-
       feedDescription = feedContainer.querySelector('.feed-description')
       feedDescription.innerHTML = description
 

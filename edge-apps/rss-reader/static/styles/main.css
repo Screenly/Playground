@@ -9,6 +9,10 @@ body {
     font-family: Barlow, sans-serif;
 }
 
+a {
+    color: #FFFFFF;
+}
+
 p {
     font-size: 1rem;
 }
