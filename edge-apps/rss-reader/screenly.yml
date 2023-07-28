@@ -44,3 +44,8 @@ settings:
     optional: false
     title: Limit
     help_text: Specify the number of feeds to include in the page.
+  cache_interval:
+    type: text
+    default: '5'
+    optional: false
+    help_text: Specify the interval (in seconds) used to periodically cache feeds.
