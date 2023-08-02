@@ -85,7 +85,7 @@ class RssCache {
 const initApp = () => {
   const feedsContainer = document
     .querySelector('#feeds-container')
-    .querySelector('.row')
+    .querySelector('#grid')
   const { rss_url, rss_title, limit } = screenly.settings
   const parser = new RSSParser()
 
