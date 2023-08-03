@@ -1,7 +1,25 @@
-const processFeedContent = ({ content, contentSnippet }) => {
-  // TODO: Process feed content to handle images and text accordingly.
-  //   Add conditional statements to handle different types of content.
-  return contentSnippet
+const processFeedContent = (
+  feedDescription, { content, contentSnippet }, includeImage) => {
+  const parser = new DOMParser()
+  const doc = parser.parseFromString(content, 'text/html')
+  const image = doc.querySelector('img')
+
+  const text = document.createElement('p')
+  text.innerHTML = contentSnippet
+  const span = document.createElement('span')
+  span.appendChild(text)
+
+  if (image && includeImage) {
+    const imageUrl = image.getAttribute('src')
+    const imageElement = document.createElement('img')
+    imageElement.setAttribute('src', imageUrl)
+    imageElement.classList.add('feed-image')
+    imageElement.setAttribute('alt', 'feed-image')
+
+    span.appendChild(imageElement)
+  }
+
+  feedDescription.innerHTML = span.innerHTML
 }
 
 class RssCache {
@@ -129,20 +147,19 @@ const initApp = () => {
         }
 
         rssCache.updateData(entries => {
-          entries.forEach(entry => {
+          entries.forEach((entry, index) => {
             const title = entry.title
             const date = moment(new Date(entry.pubDate))
               .format('MMMM DD, YYYY, h:mm A')
-
             const feedTemplate = document.querySelector('#feed-template')
             const feedContainer = feedTemplate.content.cloneNode(true)
 
             feedContainer.querySelector('.feed-title').innerHTML = title
             feedContainer.querySelector('.feed-date').innerHTML = date
-            feedDescription = feedContainer
+
+            const feedDescription = feedContainer
               .querySelector('.feed-description')
-              .querySelector('p')
-            feedDescription.innerHTML = processFeedContent(entry)
+            processFeedContent(feedDescription, entry, (index === 0))
 
             feedsContainer.appendChild(feedContainer)
           })

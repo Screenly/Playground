@@ -29,6 +29,13 @@ footer {
   row-gap: 1rem;
 }
 
+.feed-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin-top: 4rem;
+}
+
 @media (min-width: 800px)
   and (orientation: landscape)
 {
