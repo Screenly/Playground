@@ -14,8 +14,6 @@ a {
 }
 
 header {
-  border-bottom: 0.25rem solid #FFFFFF;
-  flex: 0 1 auto;
   padding: 1.5rem;
 }
 
@@ -27,6 +25,10 @@ footer {
   display: grid;
   column-gap: 1rem;
   row-gap: 1rem;
+}
+
+.feed-date {
+  opacity: 0.8;
 }
 
 .feed-image {
@@ -105,10 +107,6 @@ footer {
 
   p {
     font-size: 2rem;
-  }
-
-  header {
-    border-bottom: 0.5rem solid #FFFFFF;
   }
 
   #feeds-container > #grid {
