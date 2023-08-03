@@ -20,7 +20,7 @@ function initApp () {
   const initDateTime = () => {
     clearTimeout(clockTimer)
 
-    const momentObject = (screenly.settings.override_timezone == "true")
+    const momentObject = (screenly.settings.timezone != '')
       ? moment().tz(screenly.settings.timezone)
       : moment()
 

@@ -7,36 +7,24 @@ icon: ''
 author: 'Screenly, Inc.'
 homepage_url: ''
 settings:
-  override_timezone:
-    type: text
-    default: "false"
-    optional: true
-    title: Override Timezone
-    help_text: |
-      Whether to override the timezone with the timezone specified
-      in settings.
   timezone:
     type: text
-    default: '' # Can we omit `default` if the field's not optional?
-    optional: false
-    title: Timezone
+    default_value: ''
+    optional: true
     help_text: Specify a supported timezone value.
   disable_analytics:
     type: text
-    default: "false"
+    default_value: "false"
     optional: true
-    title: Disable Analytics
     help_text: Whether to disable Sentry and Google Analytics integrations
   ga_api_key:
     type: text
-    default: ''
+    default_value: ''
     optional: true
-    title: Google Analytics API key
     help_text: |
       Specify a Google Analytics API key that will be used for the Google Tag Manager API.
   sentry_id:
     type: text
-    default: ''
+    default_value: ''
     optional: true
-    title: Sentry ID
     help_text: Specify your Sentry ID
