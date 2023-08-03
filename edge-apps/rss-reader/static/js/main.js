@@ -9,15 +9,16 @@ const processFeedContent = (
   const span = document.createElement('span')
   span.appendChild(text)
 
-  if (image && includeImage) {
-    const imageUrl = image.getAttribute('src')
-    const imageElement = document.createElement('img')
-    imageElement.setAttribute('src', imageUrl)
-    imageElement.classList.add('feed-image')
-    imageElement.setAttribute('alt', 'feed-image')
+  // @TODO: Uncomment this if-statement if you want to include the image.
+  // if (image && includeImage) {
+  //   const imageUrl = image.getAttribute('src')
+  //   const imageElement = document.createElement('img')
+  //   imageElement.setAttribute('src', imageUrl)
+  //   imageElement.classList.add('feed-image')
+  //   imageElement.setAttribute('alt', 'feed-image')
 
-    span.appendChild(imageElement)
-  }
+  //   span.appendChild(imageElement)
+  // }
 
   feedDescription.innerHTML = span.innerHTML
 }
