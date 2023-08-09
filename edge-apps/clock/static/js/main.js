@@ -3,8 +3,9 @@
 
 function initApp () {
   let clockTimer
-  const latitude = screenly.metadata.coordinates[0];
-  const longitude = screenly.metadata.coordinates[1];
+  const { metadata, settings } = screenly
+  const latitude = metadata.coordinates[0]
+  const longitude = metadata.coordinates[1]
 
   const locale = navigator?.languages?.length
     ? navigator.languages[0]
@@ -23,8 +24,8 @@ function initApp () {
   const initDateTime = () => {
     clearTimeout(clockTimer)
 
-    const timezone = (screenly.settings?.override_timezone != '')
-      ? screenly.settings.override_timezone
+    const timezone = (settings?.override_timezone != '')
+      ? settings.override_timezone
       : tzlookup(latitude, longitude)
     const momentObject = moment().tz(timezone)
 
