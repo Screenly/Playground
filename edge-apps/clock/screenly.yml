@@ -18,12 +18,6 @@ settings:
     optional: true
     help_text: |
       Specify a Google Analytics API key that will be used for the Google Tag Manager API.
-  gm_api_key:
-    type: text
-    default_value: ''
-    optional: true
-    help_text:
-      Specify a Google Maps API key.
   sentry_id:
     type: text
     default_value: ''
