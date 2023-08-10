@@ -1,0 +1,30 @@
+app_id: ''
+root_asset_id: ''
+user_version: v1.0.0
+revision: 0
+description: Screenly Clock Edge App
+icon: ''
+author: Screenly, Inc.
+homepage_url: ''
+settings:
+  disable_analytics:
+    type: text
+    default_value: 'false'
+    optional: true
+    help_text: Whether to disable Sentry and Google Analytics integrations
+  ga_api_key:
+    type: text
+    default_value: ''
+    optional: true
+    help_text: |
+      Specify a Google Analytics API key that will be used for the Google Tag Manager API.
+  sentry_id:
+    type: text
+    default_value: ''
+    optional: true
+    help_text: Specify your Sentry ID
+  override_timezone:
+    type: text
+    default_value: ''
+    optional: true
+    help_text: Specify a supported timezone value (e.g., Europe/London).
