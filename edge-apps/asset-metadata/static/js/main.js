@@ -1,5 +1,5 @@
 /* global google, screenly */
-/* eslint-disable no-new, head-script-disabled */
+/* eslint-disable no-new */
 
 // eslint-disable-next-line no-unused-vars
 function initMap() {
