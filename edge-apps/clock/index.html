@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Screenly Clock App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/styles/main.css" />
+</head>
+
+<body>
+    <div class="content">
+        <div class="date-time">
+            <div class="date">
+                <img src="static/images/icons/calendar.svg" alt="calendar icon" />
+                <span id="date"></span>
+            </div>
+            <div id="time">
+            </div>
+        </div>
+    </div>
+
+    <script src="screenly.js?version=1"></script>
+
+    <script>
+        const disableAnalytics = screenly.settings.disable_analytics;
+
+        if (disableAnalytics != "true") {
+            const sentryId = screenly.settings.sentry_id;
+            const gaApiKey = screenly.settings.ga_api_key;
+
+            const sentryScript = document.createElement('script');
+            sentryScript.src = `https://js.sentry-cdn.com/${sentryId}.min.js`;
+            sentryScript.crossOrigin = 'anonymous';
+            document.head.appendChild(sentryScript);
+
+            const gtagScript = document.createElement('script');
+            gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${gaApiKey}`;
+            gtagScript.async = true;
+            document.head.appendChild(gtagScript);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', `${gaApiKey}`);
+        }
+    </script>
+
+    <script
+        src="static/js/moment-with-locales.min.js"
+        integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    ></script>
+    <script src="static/js/tz.min.js"></script>
+    <script src="static/js/moment-timezone-with-data.min.js"></script>
+    <script src="static/js/main.js"></script>
+</body>
+</html>
