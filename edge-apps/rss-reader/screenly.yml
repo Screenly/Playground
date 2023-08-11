@@ -7,52 +7,52 @@ icon: ''
 author: Screenly, Inc.
 homepage_url: ''
 settings:
+  bypass_cors:
+    type: text
+    default_value: ''
+    title: bypass_cors
+    optional: true
+    help_text: Some RSS sources require you to bypass CORS policies. Setting this to 'true' enables this feature.
+  cache_interval:
+    type: text
+    default_value: ''
+    title: cache_interval
+    optional: false
+    help_text: Specify the interval (in seconds) used to periodically cache feeds.
   disable_analytics:
     type: text
-    default: "false"
-    optional: true
+    default_value: ''
     title: disable_analytics
+    optional: true
     help_text: Whether to disable Sentry and Google Analytics integrations
   ga_api_key:
-    type: text
-    default: ''
-    optional: true
+    type: secret
+    default_value: ''
     title: ga_api_key
+    optional: true
     help_text: |
       Specify a Google Analytics API key that will be used for the Google Tag Manager API.
-  sentry_id:
+  limit:
     type: text
-    default: ''
-    optional: true
-    title: sentry_id
-    help_text: Specify your Sentry ID
+    default_value: ''
+    title: limit
+    optional: false
+    help_text: Specify the number of feeds to include in the page.
   rss_title:
     type: text
-    default: ''
-    optional: false
+    default_value: ''
     title: rss_title
+    optional: false
     help_text: The title of the websote where the feeds were derived
   rss_url:
     type: text
-    default: ''
-    optional: false
+    default_value: ''
     title: rss_url
+    optional: false
     help_text: Specify the URL to where to get the data from.
-  bypass_cors:
-    type: text
-    default: 'false'
+  sentry_id:
+    type: secret
+    default_value: ''
+    title: sentry_id
     optional: true
-    title: bypass_cors
-    help_text:
-  limit:
-    type: text
-    default: ''
-    optional: false
-    title: limit
-    help_text: Specify the number of feeds to include in the page.
-  cache_interval:
-    type: text
-    default: '5'
-    optional: false
-    title: cache_interval
-    help_text: Specify the interval (in seconds) used to periodically cache feeds.
+    help_text: Specify your Sentry ID
