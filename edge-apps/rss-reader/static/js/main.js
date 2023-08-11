@@ -105,8 +105,13 @@ const initApp = () => {
   const feedsContainer = document
     .querySelector('#feeds-container')
     .querySelector('#grid')
-  const { rss_url, rss_title, limit } = screenly.settings
+  let { rss_url: rssUrl, rss_title, limit } = screenly.settings
   const parser = new RSSParser()
+  const bypassCors = screenly.settings.bypass_cors
+
+  if (bypassCors != "false") {
+    rssUrl = screenly.cors_proxy + rssUrl
+  }
 
   const titleHeader = document.querySelector('#rss-title')
   titleHeader.innerHTML = rss_title
@@ -117,7 +122,7 @@ const initApp = () => {
   rssCache.openRequest.addEventListener('success', () => {
     setInterval((() => {
       const lambda = () => {
-        parser.parseURL(rss_url, (err, feed) => {
+        parser.parseURL(rssUrl, (err, feed) => {
           if (err) {
             throw err
           }

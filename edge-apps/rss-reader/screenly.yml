@@ -1,7 +1,7 @@
-app_id: 01H5X26SAC194MEJDFSMV7BFTD
-root_asset_id: 01H5X2X3VHA3AJD84TZSHD4ZV9
-user_version: v1.0.0
-revision: 1
+app_id: ''
+root_asset_id: ''
+user_version: ''
+revision: 0
 description: Screenly RSS Reader App
 icon: ''
 author: Screenly, Inc.
@@ -11,41 +11,48 @@ settings:
     type: text
     default: "false"
     optional: true
-    title: Disable Analytics
+    title: disable_analytics
     help_text: Whether to disable Sentry and Google Analytics integrations
   ga_api_key:
     type: text
     default: ''
     optional: true
-    title: Google Analytics API key
+    title: ga_api_key
     help_text: |
       Specify a Google Analytics API key that will be used for the Google Tag Manager API.
   sentry_id:
     type: text
     default: ''
     optional: true
-    title: Sentry ID
+    title: sentry_id
     help_text: Specify your Sentry ID
   rss_title:
     type: text
     default: ''
     optional: false
-    title: RSS Feeds Title
+    title: rss_title
     help_text: The title of the websote where the feeds were derived
   rss_url:
     type: text
     default: ''
     optional: false
-    title: RSS Feed URL
+    title: rss_url
     help_text: Specify the URL to where to get the data from.
+  bypass_cors:
+    type: text
+    default: 'false'
+    optional: true
+    title: bypass_cors
+    help_text:
   limit:
     type: text
     default: ''
     optional: false
-    title: Limit
+    title: limit
     help_text: Specify the number of feeds to include in the page.
   cache_interval:
     type: text
     default: '5'
     optional: false
+    title: cache_interval
     help_text: Specify the interval (in seconds) used to periodically cache feeds.
