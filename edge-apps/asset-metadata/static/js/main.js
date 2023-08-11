@@ -78,7 +78,12 @@ function initApp() {
 
   function loadGoogleMaps() {
     const script = document.createElement('script')
-    script.src = 'https://maps.googleapis.com/maps/api/js?callback=initMap'
+    const googleMapsApiKey = screenly.settings.google_maps_api_key
+    const queryParams = [
+      'callback=initMap',
+      `key=${googleMapsApiKey}`
+    ].join('&')
+    script.src = `https://maps.googleapis.com/maps/api/js?${queryParams}`
     script.async = true
     document.body.appendChild(script)
   }

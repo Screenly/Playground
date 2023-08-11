@@ -1,9 +1,15 @@
 app_id: 01H7DRWY69JAWPD6WVNY74ZBEP
-root_asset_id: 01H7EKECWE0MYFJ1Y2EB7H52X8
+root_asset_id: 01H7GCWXHVFKSZKYRAWB53RXGG
 user_version: ''
-revision: 11
+revision: 13
 description: ''
 icon: ''
 author: ''
 homepage_url: ''
-settings: {}
+settings:
+  google_maps_api_key:
+    type: secret
+    default_value: ''
+    title: google_maps_api_key
+    optional: true
+    help_text: "Specify a commercial Google Maps API key. Required due to the app's map feature."
