@@ -1,36 +1,35 @@
-app_id: 01H56TPQX7YCG9ZN4XS402YHS8
+app_id: ''
 root_asset_id: ''
-user_version: 'v1.0.0'
-revision: 1
-description: 'Displays the current weather and time'
+user_version: ''
+revision: 0
+description: Displays the current weather and time
 icon: ''
-author: 'Screenly, Inc.'
+author: Screenly, Inc.
 homepage_url: ''
 settings:
   disable_analytics:
     type: text
-    default: 'false'
+    default_value: ''
+    title: disable_analytics
     optional: true
-    title: Disable Analytics
     help_text: Whether to disable Sentry and Google Analytics integrations
   ga_api_key:
-    type: text
-    default: ''
+    type: secret
+    default_value: ''
+    title: ga_api_key
     optional: true
-    title: Google Analytics API key
     help_text: |
       Specify a Google Analytics API key that will be used for the Google Tag Manager API.
-  sentry_id:
-    type: text
-    default: ''
-    optional: true
-    title: Sentry ID
-    help_text: Specify your Sentry ID
   openweathermap_api_key:
-    type: text
-    default: ''
+    type: secret
+    default_value: ''
+    title: openweathermap_api_key
     optional: false
-    title: OpenWeatherMap API Key
     help_text: |
-      # Are multiline strings currently supported by the API?
       Specify an API key so that you'll have access to all the necessary weather data.
+  sentry_id:
+    type: secret
+    default_value: ''
+    title: sentry_id
+    optional: true
+    help_text: Specify your Sentry ID
