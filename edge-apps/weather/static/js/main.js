@@ -66,7 +66,6 @@ function initApp (data) {
 
   const countriesUsingFahrenheit = ['US', 'BS', 'KY', 'LR', 'PW', 'FM', 'MH']
   const celsiusToFahrenheit = (temp) => ((1.8 * temp) + 32)
-
   const getTemp = (temp) => Math.round(tempScale === 'C' ? temp : celsiusToFahrenheit(temp))
 
   const checkIfNight = (dt) => {
@@ -265,8 +264,10 @@ function initApp (data) {
 
   const cacheWeatherData = (data) => {
     const { city: { name, country, timezone }, list } = data
+
     const transaction = db.transaction(['weatherStore'], 'readwrite')
     const objectStore = transaction.objectStore('weatherStore')
+    objectStore.clear()
     const addRequest = objectStore.add({ name, country, timezone, list })
 
     addRequest.addEventListener('success', () => {
@@ -282,11 +283,21 @@ function initApp (data) {
     })
   }
 
+  const stringifyQueryParams = (params) => {
+    return Object.entries(params).map(([key, value]) => `${key}=${value}`).join('&')
+  }
+
   const fetchWeather = async () => {
     try {
       const endpointUrl = `https://api.openweathermap.org/data/2.5/forecast`
       const apiKey = screenly.settings.openweathermap_api_key
-      const queryParams = `lat=${lat}&lon=${lng}&units=metric&cnt=10&appid=${apiKey}`
+      const queryParams = stringifyQueryParams({
+        lat: lat,
+        lon: lng,
+        units: 'metric', // TODO: Make this dependent on the current location.
+        cnt: 10,
+        appid: apiKey,
+      })
 
       setInterval(await (async () => {
         const lambda = async () => {

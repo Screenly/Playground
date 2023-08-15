@@ -3,8 +3,9 @@
     <head>
         <title>Screenly Weather App - Weather Forecast</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/static/styles/main.css" />
-        <link rel="stylesheet" href="/static/styles/background.css" />
+        <link rel="stylesheet" href="static/styles/main.css" />
+        <link rel="stylesheet" href="static/styles/background.css" />
+        <script src="screenly.js?version=1"></script>
     </head>
     <body>
         <div class="content">
@@ -49,8 +50,6 @@
             </section>
         </div>
 
-        <script src="screenly.js?version=1"></script>
-
         <script>
             const disableAnalytics = screenly.settings.disable_analytics == "true";
 
@@ -76,13 +75,8 @@
             }
         </script>
 
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"
-            integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-        ></script>
-        <script src="/static/js/icons.js"></script>
-        <script src="/static/js/main.js"></script>
+        <script src="static/js/moment-with-locales.min.js"></script>
+        <script src="static/js/icons.js"></script>
+        <script src="static/js/main.js"></script>
     </body>
 </html>
