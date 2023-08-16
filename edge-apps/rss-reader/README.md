@@ -10,7 +10,7 @@ so you need to copy the necessary files first. To do so, run the following comma
 ```bash
 # Assuming that you're inside `./edge-apps/rss-reader`
 mkdir -p bootstrap/theme
-cp -r ../../bootstrap/theme ./bootstrap/theme
+cp -r ../../bootstrap/theme/ ./bootstrap/
 screenly edge-app upload
 ```
 

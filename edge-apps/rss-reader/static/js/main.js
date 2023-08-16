@@ -109,7 +109,7 @@ const initApp = () => {
   const parser = new RSSParser()
   const bypassCors = screenly.settings.bypass_cors
 
-  if (bypassCors != "false") {
+  if (bypassCors != "true") {
     rssUrl = screenly.cors_proxy + rssUrl
   }
 
