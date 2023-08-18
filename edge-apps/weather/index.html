@@ -3,8 +3,9 @@
     <head>
         <title>Screenly Weather App - Weather Forecast</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/static/styles/main.css" />
-        <link rel="stylesheet" href="/static/styles/background.css" />
+        <link rel="stylesheet" href="static/styles/main.css" />
+        <link rel="stylesheet" href="static/styles/background.css" />
+        <script src="screenly.js?version=1"></script>
     </head>
     <body>
         <div class="content">
@@ -14,12 +15,12 @@
                         <img src="/static/images/icons/map-pin.svg" alt="map pin icon">
                         <span id="city"></span>
                     </span>
-            
+
                     <span class="location-item">
                         <img src="/static/images/icons/clock.svg" alt="clock icon">
                         <span id="time"></span>
                     </span>
-            
+
                     <span class="location-item">
                         <img src="/static/images/icons/calendar.svg" alt="calendar icon">
                         <span id="date"></span>
@@ -41,31 +42,41 @@
                 </div>
                 <div class="weather-item dummy-node">
                   <span class="item-temp-degree">
-                    <span class="item-temp"></span><sup>°</sup>
+                    <span class="item-temp"></span>&deg;
                   </span>
                   <img class="item-icon" alt="clock icon">
                   <span class="item-time"></span>
                 </div>
             </section>
         </div>
-        <!--removeIf(sentry)-->
-        <script src="https://js.sentry-cdn.com/SENTRY_ID.min.js" crossorigin="anonymous"></script>
-        <!--endRemoveIf(sentry)-->
 
-        <!--removeIf(googleAnalytics)-->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=GA_API_KEY"></script>
         <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+            const disableAnalytics = screenly.settings.disable_analytics == "true";
 
-            gtag('config', 'GA_API_KEY');
+            if (disableAnalytics != "true") {
+                const sentryId = screenly.settings.sentry_id;
+                const gaApiKey = screenly.settings.ga_api_key;
+
+                const sentryScript = document.createElement('script');
+                sentryScript.src = `https://js.sentry-cdn.com/${sentryId}.min.js`;
+                sentryScript.crossOrigin = 'anonymous';
+                document.head.appendChild(sentryScript);
+
+                const gtagScript = document.createElement('script');
+                gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${gaApiKey}`;
+                gtagScript.async = true;
+                document.head.appendChild(gtagScript);
+
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+
+                gtag('js', new Date());
+                gtag('config', gaApiKey);
+            }
         </script>
-        <!--endRemoveIf(googleAnalytics)-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="/static/js/icons.js"></script>
-        <script src="/static/js/main.js"></script>
-        <script src="/static/js/load-metadata.js"></script>
-        <script src="/static/js/load-screenly.js"></script>
+
+        <script src="static/js/moment-with-locales.min.js"></script>
+        <script src="static/js/icons.js"></script>
+        <script src="static/js/main.js"></script>
     </body>
 </html>
