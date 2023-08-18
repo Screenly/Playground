@@ -25,14 +25,14 @@ returns a QR code image as an SVG string. Here's an example of how to use it:
 generateQrCode(
   'https://react.gg/',
   options,
-  enable_ga = false,
+  enableUtm = false,
   callback = (svgElement) => {
     document.body.appendChild(svgElement);
   },
 );
 ```
 
-If `enable_ga` is set to `true`, the function will add the following query
+If `enableUtm` is set to `true`, the function will add the following query
 parameters to the URL:
 
 * utm_source=screenly

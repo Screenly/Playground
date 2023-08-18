@@ -3,7 +3,7 @@
 /**
  * @param {string} url
  * @param {object} options
- * @param {boolean} enable_ga
+ * @param {boolean} enableUtm
  * @param {function} callback
  * @return {void}
  * @description Generate QR code
@@ -11,15 +11,15 @@
  * generateQrCode(
  *   'https://react.gg/',
  *   options,
- *   enable_ga = false,
+ *   enableUtm = false,
  *   callback = (svgElement) => {
  *     document.body.appendChild(svgElement);
  *   },
  *  );
  */
-function generateQrCode(url, options, enable_ga, callback) {
+function generateQrCode(url, options, enableUtm, callback) {
   const handleUrl = (url) => {
-    if (!enable_ga) return url;
+    if (!enableUtm) return url;
     const { location, hostname } = screenly.metadata;
     const queryParams = {
       utm_source: 'screenly',
@@ -55,7 +55,7 @@ window.onload = function() {
       },
       margin: 2,
     },
-    enable_ga = true,
+    enableUtm = true,
     callback = (svgElement) => {
       svgElement.classList.add('qr-code');
       const container = document.querySelector('.container');
