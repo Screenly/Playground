@@ -253,7 +253,7 @@ function initApp (data) {
   const updateData = () => {
     getDataFromIndexedDB(db, (data) => {
       const { name, country, timezone } = data
-      tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C'
+      tempScale = timeZonesUsingFahrenheit.includes(tzlookup(lat, lng)) ? 'F' : 'C'
       updateLocation(name)
       tz = setTimeZone(timezone)
       initDateTime()
