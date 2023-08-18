@@ -1,4 +1,4 @@
-app_id: 01H7ZSS86N2KWV6YREXQBQE715
+app_id: ''
 root_asset_id: ''
 user_version: ''
 revision: 0
@@ -6,11 +6,4 @@ description: ''
 icon: ''
 author: ''
 homepage_url: ''
-settings:
-  # TODO NICO: Add appropriate settings here.
-  username:
-    type: text
-    default_value: stranger
-    title: username
-    optional: true
-    help_text: An example of a setting that is used in index.html
+settings: {}
