@@ -8,23 +8,23 @@ author: Screenly, Inc.
 homepage_url: ''
 settings:
   disable_analytics:
-    type: text
+    type: string
     default_value: 'false'
     optional: true
     help_text: Whether to disable Sentry and Google Analytics integrations
   ga_api_key:
-    type: text
+    type: secret
     default_value: ''
     optional: true
     help_text: |
       Specify a Google Analytics API key that will be used for the Google Tag Manager API.
   sentry_id:
-    type: text
+    type: secret
     default_value: ''
     optional: true
     help_text: Specify your Sentry ID
   override_timezone:
-    type: text
+    type: string
     default_value: ''
     optional: true
     help_text: Specify a supported timezone value (e.g., Europe/London).
