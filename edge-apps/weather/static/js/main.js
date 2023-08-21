@@ -325,4 +325,4 @@ function initApp (data) {
   init()
 }
 
-initApp()
+window.onload = initApp;
