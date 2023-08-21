@@ -8,7 +8,7 @@ author: Screenly, Inc.
 homepage_url: ''
 settings:
   disable_analytics:
-    type: text
+    type: string
     default_value: ''
     title: disable_analytics
     optional: true
