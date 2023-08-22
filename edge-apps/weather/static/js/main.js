@@ -66,7 +66,16 @@ function initApp (data) {
 
   const countriesUsingFahrenheit = ['US', 'BS', 'KY', 'LR', 'PW', 'FM', 'MH']
   const timeZonesUsingFahrenheit = countriesUsingFahrenheit.map(
-    country => moment.tz.zonesForCountry(country)).flat()
+    country => {
+      let timezones = moment.tz.zonesForCountry(country)
+
+      if (country === "BS") {
+        timezones = timezones.filter(tz => tz !== 'America/Toronto')
+      }
+
+      return timezones
+    }
+  ).flat()
 
   const checkIfNight = (dt) => {
     const dateTime = moment.unix(dt).utcOffset(tz)
