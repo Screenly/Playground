@@ -10,21 +10,18 @@ settings:
   disable_analytics:
     type: string
     default_value: 'false'
+    title: disable_analytics
     optional: true
     help_text: Whether to disable Sentry and Google Analytics integrations
-  ga_api_key:
+  tag_manager_id:
     type: secret
     default_value: ''
+    title: tag_manager_id
     optional: true
-    help_text: |
-      Specify a Google Analytics API key that will be used for the Google Tag Manager API.
-  sentry_id:
-    type: secret
-    default_value: ''
-    optional: true
-    help_text: Specify your Sentry ID
+    help_text: Specify a Google Tag Manager ID
   override_timezone:
     type: string
     default_value: ''
+    title: override_timezone
     optional: true
     help_text: Specify a supported timezone value (e.g., Europe/London).

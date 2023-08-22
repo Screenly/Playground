@@ -5,6 +5,33 @@
     <title>Screenly Clock App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="static/styles/main.css" />
+
+    <script src="screenly.js?version=1"></script>
+
+    <!-- Google Tag Manager -->
+    <script>
+        const {
+          disable_analytics: disableAnalytics,
+          tag_manager_id: tagManagerId,
+        } = screenly.settings;
+
+        if (disableAnalytics !== 'true') {
+            (function(w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start': new Date().getTime(),
+                    event: 'gtm.js'
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', tagManagerId);
+        }
+    </script>
+    <!-- End Google Tag Manager -->
 </head>
 
 <body>
@@ -19,31 +46,15 @@
         </div>
     </div>
 
-    <script src="screenly.js?version=1"></script>
-
-    <script>
-        const disableAnalytics = screenly.settings.disable_analytics;
-
-        if (disableAnalytics != "true") {
-            const sentryId = screenly.settings.sentry_id;
-            const gaApiKey = screenly.settings.ga_api_key;
-
-            const sentryScript = document.createElement('script');
-            sentryScript.src = `https://js.sentry-cdn.com/${sentryId}.min.js`;
-            sentryScript.crossOrigin = 'anonymous';
-            document.head.appendChild(sentryScript);
-
-            const gtagScript = document.createElement('script');
-            gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${gaApiKey}`;
-            gtagScript.async = true;
-            document.head.appendChild(gtagScript);
-
-            window.dataLayer = window.dataLayer || [];
-            function gtag() { dataLayer.push(arguments); }
-            gtag('js', new Date());
-            gtag('config', `${gaApiKey}`);
-        }
-    </script>
+    <!-- Google Tag Manager (noscript) -->
+    <!-- TODO: Have the `id` depend on the settings, if possible. -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P98SPZ9Z"
+            height="0"
+            width="0"
+            style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <script
         src="static/js/moment-with-locales.min.js"
