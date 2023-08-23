@@ -1,5 +1,4 @@
 app_id: ''
-root_asset_id: ''
 user_version: v1.0.0
 revision: 0
 description: Screenly Clock Edge App
@@ -14,7 +13,7 @@ settings:
     optional: true
     help_text: Whether to disable Sentry and Google Analytics integrations
   tag_manager_id:
-    type: secret
+    type: string
     default_value: ''
     title: tag_manager_id
     optional: true

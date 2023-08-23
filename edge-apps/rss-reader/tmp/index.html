@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Hello world</title>
+    <script src="screenly.js?version=1"></script>
+  </head>
+  <body>
+    <p>Hi <span id="username"></span>,</p>
+    <p>I'm <span id="screen-name"></span>.</p>
+  </body>
+  <script>
+    document.getElementById("username").innerText = screenly.settings.username || "stranger";
+    document.getElementById("screen-name").innerText = screenly.metadata.screen_name;
+  </script>
+</html>

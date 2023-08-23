@@ -21,7 +21,7 @@ settings:
     help_text: |
       Specify an API key so that you'll have access to all the necessary weather data.
   tag_manager_id:
-    type: secret
+    type: string
     default_value: ''
     title: tag_manager_id
     optional: true
