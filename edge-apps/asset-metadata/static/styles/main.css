@@ -45,11 +45,11 @@
     padding: 48px;
     left: 80px;
     top: 80px;
-    width: 1032px;
+    width: 1008px;
   }
 
   .metadata img {
-    height: 10rem;
+    height: 130px;
   }
 }
 
@@ -104,12 +104,12 @@
 }
 
 .tags span {
-  background: #0d6efd;
+  background-color: #9855D9;
   border-radius: 4px;
   font-size: 14px;
   line-height: 30px;
   padding: 3px 8px;
-  margin-right: 5px;
+  margin-right: 4px;
 }
 
 @media (min-width: 3840px) {
@@ -147,7 +147,10 @@
   }
 
   .tags span {
+    border-radius: 8px;
     font-size: 28px;
     line-height: 36px;
+    padding: 6px 16px;
+    margin-right: 8px;
   }
 }
