@@ -91,6 +91,7 @@ function initApp() {
   const {
     coordinates,
     hostname,
+    hardware,
     location,
     screenly_version: screenlyVersion,
     screen_name: screenName,
@@ -100,6 +101,7 @@ function initApp() {
   loadGoogleMaps()
 
   setValue('.hostname', hostname)
+  setValue('.hardware', hardware)
   setValue('.version', screenlyVersion)
   setValue('.name', screenName)
   setValue('.coordinates', coordinates.join(', '))
