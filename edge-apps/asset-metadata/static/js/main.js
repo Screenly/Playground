@@ -88,6 +88,23 @@ function initApp() {
     document.body.appendChild(script)
   }
 
+  function formatCoordinates(coordinates) {
+    const [lat, lng] = coordinates;
+    const formatQuantity = (coordinate, type) => {
+      return `${Math.abs(coordinate).toFixed(4)}\u00B0`
+    }
+    const formatLatitude = (lat) => {
+      const direction = lat > 0 ? 'N' : 'S'
+      return `${formatQuantity(lat)} ${direction}`
+    }
+    const formatLongitude = (lng) => {
+      const direction = lng > 0 ? 'E' : 'W'
+      return `${formatQuantity(lng)} ${direction}`
+    }
+
+    return `${formatLatitude(lat)}, ${formatLongitude(lng)}`
+  }
+
   const {
     coordinates,
     hostname,
@@ -104,7 +121,7 @@ function initApp() {
   setValue('.hardware', hardware)
   setValue('.version', screenlyVersion)
   setValue('.name', screenName)
-  setValue('.coordinates', coordinates.join(', '))
+  setValue('.coordinates', formatCoordinates(coordinates))
   setValue('.location', location)
 
   document.querySelector('.labels').innerHTML = tags.map(tag => `<span>${tag}</span>`).join('') || 'No tags provided'
