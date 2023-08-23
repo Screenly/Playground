@@ -7,6 +7,18 @@ icon: ''
 author: ''
 homepage_url: ''
 settings:
+  disable_analytics:
+    type: string
+    default_value: 'false'
+    title: disable_analytics
+    optional: true
+    help_text: Whether to disable analytics or not
+  tag_manager_id:
+    type: secret
+    default_value: ''
+    title: tag_manager_id
+    optional: true
+    help_text: Specify a Google Tag Manager ID
   google_maps_api_key:
     type: secret
     default_value: ''
