@@ -14,7 +14,7 @@ settings:
     optional: true
     help_text: Whether to disable analytics or not
   tag_manager_id:
-    type: secret
+    type: string
     default_value: ''
     title: tag_manager_id
     optional: true
