@@ -1,6 +1,6 @@
 app_id: ''
 root_asset_id: ''
-user_version: ''
+user_version: '1.0.0'
 revision: 0
 description: Displays the current weather and time
 icon: ''
