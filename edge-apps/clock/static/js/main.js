@@ -24,9 +24,7 @@ function initApp () {
   const initDateTime = () => {
     clearTimeout(clockTimer)
 
-    const timezone = (settings?.override_timezone != '')
-      ? settings.override_timezone
-      : tzlookup(latitude, longitude)
+    const timezone = settings?.override_timezone || tzlookup(latitude, longitude)
     const momentObject = moment().tz(timezone)
 
     document.querySelector('#date').innerText = momentObject.format('DD MMMM, YYYY')
