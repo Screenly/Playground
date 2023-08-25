@@ -17,37 +17,37 @@ jobs:
       run:
         working-directory: edge-apps/weather
 
+    inputs:
+      app_id: 01H8PFEJC8QRQ8DJAWV84NT4HH
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
-
-      - name: Build containers
-        run: |
-          docker build \
-            -t screenly/weather-app \
-            -f Dockerfile \
-            .
-
-      - name: Build static page
-        run: |
-          docker run --rm \
-            -e GA_API_KEY="${{ secrets.CLOCK_APP_GA_API_KEY }}" \
-            -e SENTRY_ID="${{ secrets.CLOCK_APP_SENTRY_ID }}" \
-            -e OPEN_WEATHER_API_KEY="${{ secrets.OPEN_WEATHER_API_KEY }}" \
-            -v "$(pwd)"/src:/usr/app/src \
-            -v "$(pwd)"/dist:/usr/app/dist \
-            screenly/weather-app
 
       - name: Deploy Edge App
         uses: screenly/cli@master
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
           # yamllint disable-line rule:line-length
-          cli_commands: asset add edge-apps/weather/dist/index.html "Playground Weather Edge App ($GITHUB_SHA)"
+          cli_commands: edge-app upload --app-id="$INPUT_APP_ID"
 
-      - name: Deploy Edge App
+      - name: Get Revisions
+        id: get_revisions
         uses: screenly/cli@master
         with:
-          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_WLVIKTOR }}
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
           # yamllint disable-line rule:line-length
-          cli_commands: asset add edge-apps/weather/dist/index.html "Playground Weather Edge App ($GITHUB_SHA)"
+          cli_commands: edge-app version list --app-id="$INPUT_APP_ID" --json
+
+      - name: Latest Revision
+        # Using `jq` to extract the latest revision
+        id: latest_revision
+        # yamllint disable-line rule:line-length
+        run: echo "revision=$(echo ${{ steps.get_revisions.stdout.value }} | jq '.[-1:] | .[].revision')" >> "$GITHUB_OUTPUT"
+
+      - name: Promote Edge App
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
+          # yamllint disable-line rule:line-length
+          cli_commands: edge-app version promote --revision=${{ steps.latest_revision.outputs.revision }} --channel=candidate --app-id="$INPUT_APP_ID"
