@@ -24,26 +24,26 @@ jobs:
         uses: screenly/cli@master
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
+            # yamllint disable-line rule:line-length
+          cli_commands: edge-app upload --app-id=${{ env.APP_ID }} --path=${{ env.APP_PATH }}
+
+      - name: Get Revisions
+        id: get_revisions
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
+            # yamllint disable-line rule:line-length
+          cli_commands: edge-app version list --app-id=${{ env.APP_ID }} --path=${{ env.APP_PATH }} --json
+
+      - name: Latest Revision
+        # Using `jq` to extract the latest revision
+        id: latest_revision
           # yamllint disable-line rule:line-length
-          cli_commands: edge-app upload --app-id=${{ env.APP_ID }} --path=%{{ github.workspace }}/${{ env.APP_PATH }}
+        run: echo "revision=$(echo ${{ steps.get_revisions.stdout.value }} | jq '.[-1:] | .[].revision')" >> "$GITHUB_OUTPUT"
 
-#     - name: Get Revisions
-#       id: get_revisions
-#       uses: screenly/cli@master
-#       with:
-#         screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
-#         # yamllint disable-line rule:line-length
-#         cli_commands: edge-app version list --app-id=${{ env.APP_ID }} --path=${{ env.APP_PATH }} --json
-
-#     - name: Latest Revision
-#       # Using `jq` to extract the latest revision
-#       id: latest_revision
-#       # yamllint disable-line rule:line-length
-#       run: echo "revision=$(echo ${{ steps.get_revisions.stdout.value }} | jq '.[-1:] | .[].revision')" >> "$GITHUB_OUTPUT"
-
-#     - name: Promote Edge App
-#       uses: screenly/cli@master
-#       with:
-#         screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
-#         # yamllint disable-line rule:line-length
-#         cli_commands: edge-app version promote --revision=${{ steps.latest_revision.outputs.revision }} --channel=candidate --app-id=${{ env.APP_ID }} --path=${{ env.APP_PATH }}
+      - name: Promote Edge App
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
+            # yamllint disable-line rule:line-length
+          cli_commands: edge-app version promote --revision=${{ steps.latest_revision.outputs.revision }} --channel=candidate --app-id=${{ env.APP_ID }} --path=${{ env.APP_PATH }}
