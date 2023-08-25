@@ -12,7 +12,7 @@
   font-family: Barlow;
   font-style: normal;
   font-weight: normal;
-  src: url("/static/fonts/Barlow-Regular.woff") format("woff");
+  src: url("../../static/fonts/Barlow-Regular.woff") format("woff");
 }
 
 html,
@@ -25,7 +25,7 @@ body {
   background-color: gray;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url("/static/images/bg/default-min.jpg");
+  background-image: url("../../static/images/bg/default-min.jpg");
   background-size: cover;
   color: #fff;
   font-family: Barlow, sans-serif;
