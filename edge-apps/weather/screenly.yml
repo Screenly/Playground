@@ -1,6 +1,6 @@
 app_id: ''
 root_asset_id: ''
-user_version: ''
+user_version: '1.0.0'
 revision: 0
 description: Displays the current weather and time
 icon: ''
@@ -8,18 +8,11 @@ author: Screenly, Inc.
 homepage_url: ''
 settings:
   disable_analytics:
-    type: text
+    type: string
     default_value: ''
     title: disable_analytics
     optional: true
     help_text: Whether to disable Sentry and Google Analytics integrations
-  ga_api_key:
-    type: secret
-    default_value: ''
-    title: ga_api_key
-    optional: true
-    help_text: |
-      Specify a Google Analytics API key that will be used for the Google Tag Manager API.
   openweathermap_api_key:
     type: secret
     default_value: ''
@@ -27,9 +20,9 @@ settings:
     optional: false
     help_text: |
       Specify an API key so that you'll have access to all the necessary weather data.
-  sentry_id:
-    type: secret
+  tag_manager_id:
+    type: string
     default_value: ''
-    title: sentry_id
+    title: tag_manager_id
     optional: true
-    help_text: Specify your Sentry ID
+    help_text: Specify a Google Tag Manager ID

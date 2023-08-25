@@ -1,0 +1,79 @@
+body {
+    background-color: #7E2BD0;
+}
+
+@media (min-width: 800px)
+    and (orientation: landscape)
+{
+    .qr-code {
+        max-width: 300px;
+    }
+}
+
+@media (min-width: 1280px)
+    and (orientation: landscape)
+{
+    .qr-code {
+        max-width: 450px;
+    }
+}
+
+@media (min-width: 1920px)
+    and (orientation: landscape)
+{
+    .qr-code {
+        max-width: 650px;
+    }
+}
+
+@media (min-width: 3840px)
+    and (orientation: landscape)
+{
+    .qr-code {
+        max-width: 2000px;
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+@media (min-width: 800px)
+    and (orientation: landscape)
+{
+    .container > h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+}
+
+@media (min-width: 1280px)
+    and (orientation: landscape)
+{
+    .container > h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1.50rem;
+    }
+}
+
+@media (min-width: 1920px)
+    and (orientation: landscape)
+{
+    .container > h2 {
+        font-size: 3.75rem;
+        margin-bottom: 2.75rem;
+    }
+}
+
+@media (min-width: 3840px)
+    and (orientation: landscape)
+{
+    .container > h2 {
+        font-size: 7rem;
+        margin-bottom: 5rem;
+    }
+}
