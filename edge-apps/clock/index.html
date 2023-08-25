@@ -15,7 +15,7 @@
           tag_manager_id: tagManagerId,
         } = screenly.settings;
 
-        if (disableAnalytics !== 'true') {
+        if (disableAnalytics !== undefined && disableAnalytics !== 'true') {
             (function(w, d, s, l, i) {
                 w[l] = w[l] || [];
                 w[l].push({
