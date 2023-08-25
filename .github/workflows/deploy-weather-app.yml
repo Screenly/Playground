@@ -16,8 +16,9 @@ jobs:
     defaults:
       run:
         working-directory: edge-apps/weather
+
     inputs:
-      app_id:
+      app_id: 01H8PFEJC8QRQ8DJAWV84NT4HH
 
     steps:
       - name: Checkout Code
@@ -41,7 +42,8 @@ jobs:
       - name: Latest Revision
         # Using `jq` to extract the latest revision
         id: latest_revision
-        run: echo revision=$(echo "${{ steps.get_revisions.stdout.value }}" | jq '.[-1:] | .[].revision') >> "$GITHUB_OUTPUT"
+        # yamllint disable-line rule:line-length
+        run: echo "revision=$(echo ${{ steps.get_revisions.stdout.value }} | jq '.[-1:] | .[].revision')" >> "$GITHUB_OUTPUT"
 
       - name: Promote Edge App
         uses: screenly/cli@master

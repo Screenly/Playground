@@ -18,7 +18,7 @@ jobs:
         working-directory: edge-apps/clock
 
     inputs:
-      app_id:
+      app_id: 01H8PFD70PYNZ440QJ42SSQXF6
 
     steps:
       - name: Checkout Code
@@ -43,7 +43,7 @@ jobs:
         # Using `jq` to extract the latest revision
         id: latest_revision
         # yamllint disable-line rule:line-length
-        run: echo revision=$(echo "${{ steps.get_revisions.stdout.value }}" | jq '.[-1:] | .[].revision') >> "$GITHUB_OUTPUT"
+        run: echo "revision=$(echo ${{ steps.get_revisions.stdout.value }} | jq '.[-1:] | .[].revision')" >> "$GITHUB_OUTPUT"
 
       - name: Promote Edge App
         uses: screenly/cli@master
