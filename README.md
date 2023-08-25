@@ -10,14 +10,12 @@ If your Edge App depends on the Playground theme, make sure to run the following
 before uploading changes (via `screenly edge-app upload`):
 
 ```bash
-EDGE_APP_PATH=<EDGE_APP_PATH> bash scripts/copy_playground_theme.sh
+cd edge-apps/<EDGE_APP_NAME>
 
 # For example:
-# EDGE_APP_PATH=./edge-apps/clock bash scripts/copy_playground_theme.sh
+cd edge-apps/clock
+../../scripts/copy_playground_theme.sh
 ```
-
-If the `EDGE_APP_PATH` specified does not contain a `screenly.yml` file, the script
-will exit immediately.
 
 ## Uploading changes to an Edge App
 
@@ -26,6 +24,14 @@ Go to a directory where an Edge App is located and run the following:
 
 ```bash
 screenly edge-app upload
+```
+
+If necessary, add settings or secrets to your Edge App by running any of
+the following:
+
+```bash
+screenly edge-app setting set <SETTING_NAME>=<SETTING_VALUE>
+screenly edge-app secret set <SECRET_NAME>=<SECRET_VALUE>
 ```
 
 In order to have your screen/s include the Edge App as an asset, run:
