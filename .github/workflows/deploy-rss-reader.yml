@@ -8,16 +8,12 @@ on:
     paths:
       - 'edge-apps/rss-reader/**'
       - '.github/workflows/deploy-rss-reader.yml'
-  workflow_dispatch:
-    inputs:
-      app_id:
-        description: 'Target Edge App ID'
-        required: true
-        default: '01H8PFEZDA5THTPQ7Y19Z9KDQ0'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      APP_ID: '01H8PFEZDA5THTPQ7Y19Z9KDQ0'
 
     defaults:
       run:
@@ -32,7 +28,7 @@ jobs:
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
           # yamllint disable-line rule:line-length
-          cli_commands: edge-app upload --app-id="${{ github.event.inputs.app_id }}"
+          cli_commands: edge-app upload --app-id=${{ env.APP_ID }}
 
       - name: Get Revisions
         id: get_revisions
@@ -40,7 +36,7 @@ jobs:
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
           # yamllint disable-line rule:line-length
-          cli_commands: edge-app version list --app-id="${{ github.event.inputs.app_id }}" --json
+          cli_commands: edge-app version list --app-id=${{ env.APP_ID }} --json
 
       - name: Latest Revision
         # Using `jq` to extract the latest revision
@@ -53,4 +49,4 @@ jobs:
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
           # yamllint disable-line rule:line-length
-          cli_commands: edge-app version promote --revision="${{ steps.latest_revision.outputs.revision }}" --channel=candidate --app-id="${{ github.event.inputs.app_id }}"
+          cli_commands: edge-app version promote --revision=${{ steps.latest_revision.outputs.revision }} --channel=candidate --app-id=${{ env.APP_ID }}
