@@ -1,20 +1,20 @@
 ---
-name: Deploy Clock App
+name: Deploy RSS Reader App
 
 on:
   push:
     branches:
       - 'master'
     paths:
-      - 'edge-apps/clock/**'
-      - '.github/workflows/deploy-clock-app.yml'
+      - 'edge-apps/rss-reader/**'
+      - '.github/workflows/deploy-rss-reader.yml'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      APP_ID: '01H8PFD70PYNZ440QJ42SSQXF6'
-      APP_PATH: 'edge-apps/clock'
+      APP_ID: '01H8PFEZDA5THTPQ7Y19Z9KDQ0'
+      APP_PATH: 'edge-apps/rss-reader'
 
     steps:
       - name: Checkout Code
