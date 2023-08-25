@@ -8,6 +8,12 @@ on:
     paths:
       - 'edge-apps/weather/**'
       - '.github/workflows/deploy-weather-app.yml'
+  workflow_dispatch:
+    inputs:
+      app_id:
+        description: 'Target Edge App ID'
+        required: true
+        default: '01H8PFEJC8QRQ8DJAWV84NT4HH'
 
 jobs:
   deploy:
@@ -16,9 +22,6 @@ jobs:
     defaults:
       run:
         working-directory: edge-apps/weather
-
-    inputs:
-      app_id: 01H8PFEJC8QRQ8DJAWV84NT4HH
 
     steps:
       - name: Checkout Code
@@ -29,7 +32,7 @@ jobs:
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
           # yamllint disable-line rule:line-length
-          cli_commands: edge-app upload --app-id="$INPUT_APP_ID"
+          cli_commands: edge-app upload --app-id="${{ github.event.inputs.app_id }}"
 
       - name: Get Revisions
         id: get_revisions
@@ -37,7 +40,7 @@ jobs:
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
           # yamllint disable-line rule:line-length
-          cli_commands: edge-app version list --app-id="$INPUT_APP_ID" --json
+          cli_commands: edge-app version list --app-id="${{ github.event.inputs.app_id }}" --json
 
       - name: Latest Revision
         # Using `jq` to extract the latest revision
@@ -50,4 +53,4 @@ jobs:
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
           # yamllint disable-line rule:line-length
-          cli_commands: edge-app version promote --revision=${{ steps.latest_revision.outputs.revision }} --channel=candidate --app-id="$INPUT_APP_ID"
+          cli_commands: edge-app version promote --revision="${{ steps.latest_revision.outputs.revision }}" --channel=candidate --app-id="${{ github.event.inputs.app_id }}"
