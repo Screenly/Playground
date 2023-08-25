@@ -1,13 +1,13 @@
 ---
-name: Deploy Clock App
+name: Deploy RSS Reader App
 
 on:
   push:
     branches:
       - 'master'
     paths:
-      - 'edge-apps/clock/**'
-      - '.github/workflows/deploy-clock-app.yml'
+      - 'edge-apps/rss-reader/**'
+      - '.github/workflows/deploy-rss-reader.yml'
 
 jobs:
   deploy:
@@ -15,7 +15,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: edge-apps/clock
+        working-directory: edge-apps/rss-reader
 
     inputs:
       app_id:

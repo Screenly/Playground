@@ -41,7 +41,7 @@ jobs:
       - name: Latest Revision
         # Using `jq` to extract the latest revision
         id: latest_revision
-        run: echo revision=$(echo ${{ steps.get_revisions.stdout.value }} | jq '.[-1:] | .[].revision') >> "$GITHUB_OUTPUT"
+        run: echo revision=$(echo "${{ steps.get_revisions.stdout.value }}" | jq '.[-1:] | .[].revision') >> "$GITHUB_OUTPUT"
 
       - name: Promote Edge App
         uses: screenly/cli@master
