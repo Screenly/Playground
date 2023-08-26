@@ -7,12 +7,12 @@ icon: ''
 author: ''
 homepage_url: ''
 settings:
-  disable_analytics:
+  enable_analytics:
     type: string
-    default_value: 'false'
-    title: disable_analytics
+    default_value: 'true'
+    title: enable_analytics
     optional: true
-    help_text: Whether to disable analytics or not
+    help_text: Whether to enable analytics or not
   tag_manager_id:
     type: string
     default_value: ''
