@@ -6,10 +6,10 @@ icon: ''
 author: Screenly, Inc.
 homepage_url: ''
 settings:
-  disable_analytics:
+  enable_analytics:
     type: string
-    default_value: 'false'
-    title: disable_analytics
+    default_value: 'true'
+    title: enable_analytics
     optional: true
     help_text: Whether to disable Sentry and Google Analytics integrations
   tag_manager_id:
