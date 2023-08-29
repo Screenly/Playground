@@ -11,11 +11,11 @@
         <!-- Google Tag Manager -->
         <script>
             const {
-                disable_analytics: disableAnalytics,
+                enable_analytics: enableAnalytics,
                 tag_manager_id: tagManagerId,
             } = screenly.settings;
 
-            if (disableAnalytics != undefined && disableAnalytics !== 'true') {
+            if (enableAnalytics === 'true') {
                 (function(w, d, s, l, i) {
                     w[l] = w[l] || [];
                     w[l].push({
