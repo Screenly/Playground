@@ -1,9 +1,9 @@
 ---
 app_id: ''
 user_version: ''
-description: Displays the current weather and time
+description: ''
 icon: ''
-author: Screenly, Inc.
+author: ''
 homepage_url: ''
 settings:
   enable_analytics:
@@ -12,16 +12,15 @@ settings:
     title: enable_analytics
     optional: true
     help_text: Whether to enable analytics or not
-  openweathermap_api_key:
-    type: secret
-    default_value: ''
-    title: openweathermap_api_key
-    optional: false
-    help_text: |
-      Specify an API key so that you'll have access to all the necessary weather data.
   tag_manager_id:
     type: string
     default_value: ''
     title: tag_manager_id
     optional: true
     help_text: Specify a Google Tag Manager ID
+  google_maps_api_key:
+    type: secret
+    default_value: ''
+    title: google_maps_api_key
+    optional: true
+    help_text: Specify a commercial Google Maps API key. Required due to the app's map feature.

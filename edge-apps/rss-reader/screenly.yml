@@ -1,0 +1,44 @@
+---
+app_id: ''
+user_version: ''
+description: Screenly RSS Reader App
+icon: ''
+author: Screenly, Inc.
+homepage_url: ''
+settings:
+  bypass_cors:
+    type: string
+    default_value: 'false'
+    title: bypass_cors
+    optional: true
+    help_text: Some RSS sources require you to bypass CORS policies. Setting this to 'true' enables this feature.
+  cache_interval:
+    type: string
+    default_value: ''
+    title: cache_interval
+    optional: false
+    help_text: Specify the interval (in seconds) used to periodically cache feeds.
+  enable_analytics:
+    type: string
+    default_value: 'true'
+    title: enable_analytics
+    optional: true
+    help_text: Whether to enable analytics or not
+  limit:
+    type: string
+    default_value: ''
+    title: limit
+    optional: false
+    help_text: Specify the number of feeds to include in the page.
+  rss_title:
+    type: string
+    default_value: ''
+    title: rss_title
+    optional: false
+    help_text: The title of the website where the feeds were derived
+  rss_url:
+    type: string
+    default_value: ''
+    title: rss_url
+    optional: false
+    help_text: Specify the URL to where to get the data from.
