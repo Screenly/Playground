@@ -8,7 +8,7 @@ homepage_url: ''
 settings:
   bypass_cors:
     type: string
-    default_value: 'true'
+    default_value: 'false'
     title: bypass_cors
     optional: true
     help_text: Some RSS sources require you to bypass CORS policies. Setting this to 'true' enables this feature.
@@ -35,7 +35,7 @@ settings:
     default_value: ''
     title: rss_title
     optional: false
-    help_text: The title of the websote where the feeds were derived
+    help_text: The title of the website where the feeds were derived
   rss_url:
     type: string
     default_value: ''
