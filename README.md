@@ -6,6 +6,8 @@ This repository holds various examples that showcases Screenly's features and AP
 
 ## Edge Apps
 
+If you are not familiar with Edge Apps, we suggest you review our [developer documentation](https://developer.screenly.io/edge-apps/#getting-started).
+
 * [Asset Metadata](https://github.com/Screenly/Playground/tree/master/edge-apps/asset-metadata) - An example implementation of Screenly's meta data.
 * [Clock App](https://github.com/Screenly/Playground/tree/master/edge-apps/clock) - A simple clock app.
 * [QR Code Generator](https://github.com/Screenly/Playground/tree/master/edge-apps/qr-code) - An example of how to build unique QR Codes that embeds the screen metadata as UTM parameters.
