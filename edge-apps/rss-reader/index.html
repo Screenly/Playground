@@ -43,9 +43,9 @@
 
     <script src="screenly.js?version=1"></script>
     <script>
-      const disableAnalytics = screenly.settings.disable_analytics;
+      const enableAnalytics = screenly.settings.enable_analytics;
 
-      if (disableAnalytics != "true") {
+      if (enableAnalytics === "true") {
         const sentryId = screenly.settings.sentry_id;
         const gaApiKey = screenly.settings.ga_api_key;
 

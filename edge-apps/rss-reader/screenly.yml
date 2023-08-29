@@ -18,12 +18,12 @@ settings:
     title: cache_interval
     optional: false
     help_text: Specify the interval (in seconds) used to periodically cache feeds.
-  disable_analytics:
+  enable_analytics:
     type: string
-    default_value: ''
-    title: disable_analytics
+    default_value: 'true'
+    title: enable_analytics
     optional: true
-    help_text: Whether to disable Sentry and Google Analytics integrations
+    help_text: Whether to enable analytics or not
   limit:
     type: string
     default_value: ''
