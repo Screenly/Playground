@@ -7,37 +7,37 @@ author: Screenly, Inc.
 homepage_url: ''
 settings:
   bypass_cors:
-    type: text
+    type: string
     default_value: 'true'
     title: bypass_cors
     optional: true
     help_text: Some RSS sources require you to bypass CORS policies. Setting this to 'true' enables this feature.
   cache_interval:
-    type: text
+    type: string
     default_value: ''
     title: cache_interval
     optional: false
     help_text: Specify the interval (in seconds) used to periodically cache feeds.
   disable_analytics:
-    type: text
+    type: string
     default_value: ''
     title: disable_analytics
     optional: true
     help_text: Whether to disable Sentry and Google Analytics integrations
   limit:
-    type: text
+    type: string
     default_value: ''
     title: limit
     optional: false
     help_text: Specify the number of feeds to include in the page.
   rss_title:
-    type: text
+    type: string
     default_value: ''
     title: rss_title
     optional: false
     help_text: The title of the websote where the feeds were derived
   rss_url:
-    type: text
+    type: string
     default_value: ''
     title: rss_url
     optional: false
