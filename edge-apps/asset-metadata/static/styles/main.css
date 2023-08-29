@@ -1,13 +1,8 @@
 /* stylelint-disable color-function-notation, alpha-value-notation  */
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Rubik, sans-serif;
-}
-
 .content {
   position: relative;
+  margin: 0;
 }
 
 #map {
@@ -50,7 +45,11 @@ body {
     padding: 48px;
     left: 80px;
     top: 80px;
-    width: 1032px;
+    width: 1008px;
+  }
+
+  .metadata img {
+    height: 130px;
   }
 }
 
@@ -60,6 +59,7 @@ body {
   align-items: center;
   font-size: 20px;
   line-height: 24px;
+  padding-top: 0px;
   padding-bottom: 24px;
   border-bottom: 1px solid rgba(196, 196, 196, 0.21);
   width: 100%;
@@ -99,12 +99,17 @@ body {
   line-height: 28px;
 }
 
+.tags .value {
+  font-size: 18px;
+}
+
 .tags span {
-  background: #9855d9;
+  background-color: #9855D9;
   border-radius: 4px;
   font-size: 14px;
   line-height: 30px;
   padding: 3px 8px;
+  margin-right: 4px;
 }
 
 @media (min-width: 3840px) {
@@ -115,6 +120,7 @@ body {
   .metadata .header {
     font-size: 40px;
     line-height: 48px;
+    padding-bottom: 48px;
   }
 
   .metadata-item label {
@@ -136,8 +142,15 @@ body {
     line-height: 56px;
   }
 
+  .tags .value {
+    font-size: 36px;
+  }
+
   .tags span {
+    border-radius: 8px;
     font-size: 28px;
     line-height: 36px;
+    padding: 6px 16px;
+    margin-right: 8px;
   }
 }
