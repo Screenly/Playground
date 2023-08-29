@@ -4,3 +4,5 @@ node_modules/
 instagram/dist
 .DS_Store
 **/.DS_Store
+
+edge-apps/rss-reader/bootstrap/
