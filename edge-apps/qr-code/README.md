@@ -23,7 +23,7 @@ returns a QR code image as an SVG string. Here's an example of how to use it:
 
 ```js
 generateQrCode(
-  'https://react.gg/',
+  'https://screenly.io',
   options,
   enableUtm = false,
   callback = (svgElement) => {
