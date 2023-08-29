@@ -1,7 +1,6 @@
+---
 app_id: ''
-root_asset_id: ''
 user_version: ''
-revision: 0
 description: Screenly RSS Reader App
 icon: ''
 author: Screenly, Inc.
@@ -9,7 +8,7 @@ homepage_url: ''
 settings:
   bypass_cors:
     type: text
-    default_value: ''
+    default_value: 'true'
     title: bypass_cors
     optional: true
     help_text: Some RSS sources require you to bypass CORS policies. Setting this to 'true' enables this feature.
@@ -25,13 +24,6 @@ settings:
     title: disable_analytics
     optional: true
     help_text: Whether to disable Sentry and Google Analytics integrations
-  ga_api_key:
-    type: secret
-    default_value: ''
-    title: ga_api_key
-    optional: true
-    help_text: |
-      Specify a Google Analytics API key that will be used for the Google Tag Manager API.
   limit:
     type: text
     default_value: ''
@@ -50,9 +42,3 @@ settings:
     title: rss_url
     optional: false
     help_text: Specify the URL to where to get the data from.
-  sentry_id:
-    type: secret
-    default_value: ''
-    title: sentry_id
-    optional: true
-    help_text: Specify your Sentry ID
