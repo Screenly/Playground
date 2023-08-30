@@ -7,7 +7,9 @@ This example shows how to generate a QR code from a URL and display it on the sc
 If you haven't created an Edge App yet, run the following command:
 
 ```bash
-screenly edge-app create $EDGE_APP_NAME
+screenly edge-app create \
+    --name my-qr-code \
+    --in-place
 ```
 
 To deploy the example, run the following command:

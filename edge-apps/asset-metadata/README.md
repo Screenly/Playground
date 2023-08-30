@@ -8,7 +8,9 @@ To use this Edge App, you need to retrieve a Google Maps [API key](https://devel
 
 ```bash
 $ cd edge-apps/asset-metadata
-$ screenly edge-app init
+$ screenly edge-app create \
+    --name my-asset-metadata \
+    --in-place
 $ screenly edge-app upload
 [...]
 $ screenly edge-app secret set google_maps_api_key=Your_API_KEY

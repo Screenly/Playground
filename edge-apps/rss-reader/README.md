@@ -11,6 +11,9 @@ so you need to copy the necessary files first. To do so, run the following comma
 $ cd edge-apps/rss-reader
 $ mkdir -p bootstrap/theme
 $ cp -r ../../bootstrap/theme/ ./bootstrap/
+$ screenly edge-app create \
+    --name=my-weather-app \
+    --in-place
 $ screenly edge-app upload
 ```
 
