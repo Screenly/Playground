@@ -220,3 +220,10 @@ $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
 
 * Download [cyfe-sign-in-via-credentials.js](https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/cyfe-sign-in-via-credentials.js) and modify it with your credentials.
 * Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
+
+## Sign in to Zabbix via credentials
+
+<img src="../images/zabbix-logo.png" alt="Zabbix logo" width="150"/>
+
+* Download [zabbix-login-via-credentials.js](https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/zabbix-login-via-credentials.js) and modify it with your credentials.
+* Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
