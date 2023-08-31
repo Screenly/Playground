@@ -35,7 +35,7 @@ function generateQrCode(url, options, enableUtm, callback) {
     return `${url}?${queryString}`;
   };
 
-  QRCode.toString(url, options, (err, result) => {
+  QRCode.toString(handleUrl(url), options, (err, result) => {
     if (err) throw err;
 
     const parser = new DOMParser();
