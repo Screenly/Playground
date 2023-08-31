@@ -110,16 +110,35 @@ const initApp = () => {
   const bypassCors = screenly.settings.bypass_cors
 
   if (bypassCors != "true") {
-    rssUrl = screenly.cors_proxy + rssUrl
+    rssUrl = screenly.cors_proxy + '/' + rssUrl
   }
 
   const titleHeader = document.querySelector('#rss-title')
   titleHeader.innerHTML = rss_title
   document.title = rss_title
 
+  const updateDom = ((entry, index) => {
+    const title = entry.title
+    const date = moment(new Date(entry.pubDate))
+      .format('MMMM DD, YYYY, h:mm A')
+    const feedTemplate = document.querySelector('#feed-template')
+    const feedContainer = feedTemplate.content.cloneNode(true)
+
+    feedContainer.querySelector('.feed-title').innerHTML = title
+    feedContainer.querySelector('.feed-date').innerHTML = date
+
+    const feedDescription = feedContainer
+      .querySelector('.feed-description')
+    processFeedContent(feedDescription, entry, (index === 0))
+
+    feedsContainer.appendChild(feedContainer)
+  })
+
   const rssCache = new RssCache({ dbName: 'rssCache', storeName: 'rssStore' })
 
   rssCache.openRequest.addEventListener('success', () => {
+    let initialLoadCalled = false
+
     setInterval((() => {
       const lambda = () => {
         parser.parseURL(rssUrl, (err, feed) => {
@@ -130,7 +149,7 @@ const initApp = () => {
           const entries = feed.items.slice(0, limit)
 
           rssCache.clearData()
-          entries.forEach(entry => {
+          entries.forEach((entry, index) => {
             rssCache.addData({
               title: entry.title,
               pubDate: entry.pubDate,
@@ -138,6 +157,13 @@ const initApp = () => {
               contentSnippet: entry.contentSnippet,
             })
           })
+
+          if (!initialLoadCalled) {
+            entries.forEach((entry, index) => {
+              updateDom(entry, index)
+            })
+            initialLoadCalled = true
+          }
         })
       }
 
@@ -154,20 +180,7 @@ const initApp = () => {
 
         rssCache.updateData(entries => {
           entries.forEach((entry, index) => {
-            const title = entry.title
-            const date = moment(new Date(entry.pubDate))
-              .format('MMMM DD, YYYY, h:mm A')
-            const feedTemplate = document.querySelector('#feed-template')
-            const feedContainer = feedTemplate.content.cloneNode(true)
-
-            feedContainer.querySelector('.feed-title').innerHTML = title
-            feedContainer.querySelector('.feed-date').innerHTML = date
-
-            const feedDescription = feedContainer
-              .querySelector('.feed-description')
-            processFeedContent(feedDescription, entry, (index === 0))
-
-            feedsContainer.appendChild(feedContainer)
+            updateDom(entry, index)
           })
         })
       }
