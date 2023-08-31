@@ -1,7 +1,3 @@
-body {
-    background-color: #7E2BD0;
-}
-
 @media (min-width: 800px)
     and (orientation: landscape)
 {
@@ -34,13 +30,13 @@ body {
     }
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
+/* .container { */
+/*     display: flex; */
+/*     flex-direction: column; */
+/*     align-items: center; */
+/*     justify-content: center; */
+/*     height: 100vh; */
+/* } */
 
 @media (min-width: 800px)
     and (orientation: landscape)

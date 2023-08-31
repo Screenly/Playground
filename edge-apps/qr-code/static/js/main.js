@@ -63,7 +63,7 @@ window.onload = function() {
     enableUtm = (enable_utm === 'true'),
     callback = (svgElement) => {
       svgElement.classList.add('qr-code');
-      const container = document.querySelector('.container');
+      const container = document.querySelector('#qr-code-container');
       container.appendChild(svgElement);
     },
   );
