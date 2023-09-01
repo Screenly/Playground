@@ -223,7 +223,7 @@ $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
 
 ## Sign in to Zabbix via credentials
 
-<img src="../images/zabbix-logo.png" alt="Zabbix logo" width="150"/>
+<img src="../images/zabbix-logo.svg" alt="Zabbix logo" width="150"/>
 
 * Download [zabbix-login-via-credentials.js](https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/zabbix-login-via-credentials.js) and modify it with your credentials.
 * Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
