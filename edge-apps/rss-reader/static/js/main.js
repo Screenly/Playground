@@ -156,7 +156,13 @@ const getRssData = function() {
         storeName: 'rssStore',
         fieldNames: ['title', 'pubDate', 'content', 'contentSnippet'],
       });
-      await appCache.openDatabase();
+
+      try {
+        await appCache.openDatabase();
+      } catch (err) {
+        console.error(err);
+        return;
+      }
 
       setInterval(await (async () => {
         const lambda = async () => {
