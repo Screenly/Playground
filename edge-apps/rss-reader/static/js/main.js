@@ -1,195 +1,194 @@
-const processFeedContent = (
-  feedDescription, { content, contentSnippet }, includeImage) => {
-  const parser = new DOMParser()
-  const doc = parser.parseFromString(content, 'text/html')
-  const image = doc.querySelector('img')
+class AppCache {
+  constructor({ dbName, storeName, fieldNames }) {
+    this.version = 1;
+    this.dbName = dbName;
+    this.storeName = storeName;
+    this.db = null;
+    this.fieldNames = [...fieldNames];
+  }
 
-  const text = document.createElement('p')
-  text.innerHTML = contentSnippet
-  const span = document.createElement('span')
-  span.appendChild(text)
+  async openDatabase() {
+    return new Promise((resolve, reject) => {
+      const request = window.indexedDB.open(this.dbName, this.version);
 
-  // @TODO: Uncomment this if-statement if you want to include the image.
-  // if (image && includeImage) {
-  //   const imageUrl = image.getAttribute('src')
-  //   const imageElement = document.createElement('img')
-  //   imageElement.setAttribute('src', imageUrl)
-  //   imageElement.classList.add('feed-image')
-  //   imageElement.setAttribute('alt', 'feed-image')
-
-  //   span.appendChild(imageElement)
-  // }
-
-  feedDescription.innerHTML = span.innerHTML
-}
-
-class RssCache {
-  constructor({ dbName, storeName }) {
-    this.db = null
-    this.dbName = dbName
-    this.storeName = storeName
-
-    this.openRequest = window.indexedDB.open(this.dbName, 1)
-
-    this.openRequest.addEventListener('error', () => {
-      console.log('Database failed to open')
-    })
-
-    this.openRequest.addEventListener('success', () => {
-      console.log('Database opened successfully')
-
-      this.db = this.openRequest.result
-    });
-
-    this.openRequest.addEventListener('upgradeneeded', (e) => {
-      this.db = e.target.result
-
-      const objectStore = this.db.createObjectStore(this.storeName, {
-        keyPath: 'id',
-        autoIncrement: true,
+      request.addEventListener('error', (err) => {
+        console.error('Database failed to open');
+        reject(err);
       });
 
-      const fieldNames = ['title', 'pubDate', 'content', 'contentSnippet']
+      request.addEventListener('success', (event) => {
+        console.log('Database opened successfully');
+        this.db = event.target.result;
+        resolve();
+      });
 
-      fieldNames.forEach(fieldName => {
-        objectStore.createIndex(fieldName, fieldName, { unique: false })
-      })
+      request.addEventListener('upgradeneeded', (event) => {
+        this.db = event.target.result;
+        const objectStore = this.db.createObjectStore(this.storeName, {
+          keyPath: 'id',
+          autoIncrement: true,
+        });
 
-      console.log('Database setup complete')
+        this.fieldNames.forEach((fieldName) => {
+          objectStore.createIndex(fieldName, fieldName, { unique: false });
+        });
+
+        console.log('Database setup complete');
+      });
     });
   }
 
-  addData({ title, pubDate, content, contentSnippet }) {
-    const transaction = this.db.transaction([this.storeName], 'readwrite')
-    const objectStore = transaction.objectStore(this.storeName)
-    const addRequest = objectStore.add({
-      title,
-      pubDate,
-      content,
-      contentSnippet
-    })
+  async addData(data) {
+    const hasAllRequiredFields = this.fieldNames.every((field) => {
+      return Object.keys(data).includes(field);
+    });
 
-    addRequest.addEventListener('success', () => {
-      console.log('Data added successfully')
-    })
+    if (!hasAllRequiredFields) {
+      throw new Error('Data does not have all required fields');
+    }
 
-    transaction.addEventListener('complete', () => {
-      console.log('Transaction completed: database modification finished.')
-    })
+    const transaction = this.db.transaction([this.storeName], 'readwrite');
+    const store = transaction.objectStore(this.storeName);
+    const request = store.add(data);
 
-    transaction.addEventListener('error', () => {
-      console.log('Transaction not opened due to error')
-    })
+    return new Promise((resolve, reject) => {
+      request.addEventListener('success', (event) => {
+        console.log('Data added successfully');
+        resolve();
+      });
+
+      request.addEventListener('error', (err) => {
+        reject(err);
+      });
+    });
   }
 
-  updateData(callback) {
-    const objectStore = this.db
-      .transaction(this.storeName)
-      .objectStore(this.storeName)
-    const request = objectStore.getAll()
+  async getData() {
+    const transaction = this.db.transaction([this.storeName], 'readonly');
+    const store = transaction.objectStore(this.storeName);
+    const request = store.getAll();
 
-    request.addEventListener('success', () => {
-      callback(request.result)
-    })
+    return new Promise((resolve, reject) => {
+      request.addEventListener('success', (event) => {
+        resolve(event.target.result);
+      });
+
+      request.addEventListener('error', (err) => {
+        reject(err);
+      });
+    });
   }
 
-  clearData() {
-    const objectStore = this.db
-      .transaction(this.storeName, 'readwrite')
-      .objectStore(this.storeName)
-    objectStore.clear()
+  async clearData() {
+    const transaction = this.db.transaction([this.storeName], 'readwrite');
+    const store = transaction.objectStore(this.storeName);
+    const request = store.clear();
+
+    return new Promise((resolve, reject) => {
+      request.addEventListener('success', (event) => {
+        resolve();
+      });
+
+      request.addEventListener('error', (err) => {
+        reject(err);
+      });
+    });
   }
 }
 
-const initApp = () => {
-  const feedsContainer = document
-    .querySelector('#feeds-container')
-    .querySelector('#grid')
-  let { rss_url: rssUrl, rss_title, limit } = screenly.settings
-  const parser = new RSSParser()
-  const bypassCors = screenly.settings.bypass_cors
+const processUrl = (context) => {
+  const corsProxy = context.corsProxy;
+  const { bypassCors, rssUrl } = context.settings;
 
-  if (bypassCors != "true") {
-    rssUrl = screenly.cors_proxy + '/' + rssUrl
+  if (!bypassCors) {
+    return `${corsProxy}/${rssUrl}`;
+  } else {
+    return rssUrl;
   }
+};
 
-  const titleHeader = document.querySelector('#rss-title')
-  titleHeader.innerHTML = rss_title
-  document.title = rss_title
-
-  const updateDom = ((entry, index) => {
-    const title = entry.title
-    const date = moment(new Date(entry.pubDate))
-      .format('MMMM DD, YYYY, h:mm A')
-    const feedTemplate = document.querySelector('#feed-template')
-    const feedContainer = feedTemplate.content.cloneNode(true)
-
-    feedContainer.querySelector('.feed-title').innerHTML = title
-    feedContainer.querySelector('.feed-date').innerHTML = date
-
-    const feedDescription = feedContainer
-      .querySelector('.feed-description')
-    processFeedContent(feedDescription, entry, (index === 0))
-
-    feedsContainer.appendChild(feedContainer)
-  })
-
-  const rssCache = new RssCache({ dbName: 'rssCache', storeName: 'rssStore' })
-
-  rssCache.openRequest.addEventListener('success', () => {
-    let initialLoadCalled = false
-
-    setInterval((() => {
-      const lambda = () => {
-        parser.parseURL(rssUrl, (err, feed) => {
-          if (err) {
-            throw err
-          }
-
-          const entries = feed.items.slice(0, limit)
-
-          rssCache.clearData()
-          entries.forEach((entry, index) => {
-            rssCache.addData({
-              title: entry.title,
-              pubDate: entry.pubDate,
-              content: entry.content,
-              contentSnippet: entry.contentSnippet,
-            })
-          })
-
-          if (!initialLoadCalled) {
-            entries.forEach((entry, index) => {
-              updateDom(entry, index)
-            })
-            initialLoadCalled = true
-          }
-        })
+const getApiResponse = (context) => {
+  return new Promise((resolve, reject) => {
+    let parser = new RSSParser();
+    const url = processUrl(context);
+    parser.parseURL(url, (err, feed) => {
+      if (err) {
+        reject(err);
       }
 
-      lambda()
+      resolve(feed.items);
+    });
+  });
+};
 
-      return lambda
-    })(), screenly.settings.cache_interval * 1000)
-
-    setInterval((() => {
-      const lambda = () => {
-        while (feedsContainer.firstChild) {
-          feedsContainer.removeChild(feedsContainer.firstChild)
-        }
-
-        rssCache.updateData(entries => {
-          entries.forEach((entry, index) => {
-            updateDom(entry, index)
-          })
-        })
+const getRssData = function() {
+  return {
+    entries: [],
+    settings: {
+      limit: 4,
+      cacheInterval: 1800,
+      rssUrl: 'http://feeds.bbci.co.uk/news/rss.xml',
+      rssTitle: 'RSS Feed',
+    },
+    corsProxy: 'http://127.0.0.1:3030',
+    loadSettings: function() {
+      if (typeof screenly === 'undefined') {
+        console.warn('screenly is not defined. Using default settings.');
+        return;
       }
 
-      lambda()
+      const settings = screenly.settings;
 
-      return lambda
-    })(), screenly.settings.cache_interval * 1000)
-  })
-}
+      this.settings.cacheInterval = parseInt(settings?.cache_interval)
+        || this.settings.cacheInterval;
+      this.settings.bypassCors = (settings?.bypass_cors === 'true');
+      this.settings.limit = parseInt(settings?.limit)
+        || this.settings.limit;
+      this.settings.rssUrl = settings?.rss_url || this.settings.rssUrl;
+      this.settings.rssTitle = settings?.rss_title || this.settings.rssTitle;
+      this.corsProxy = screenly.cors_proxy || this.corsProxy;
+    },
+    init: async function() {
+      this.loadSettings();
+      const msPerSecond = 1000;
+      const appCache = new AppCache({
+        dbName: 'rssCache',
+        storeName: 'rssStore',
+        fieldNames: ['title', 'pubDate', 'content', 'contentSnippet'],
+      });
+      await appCache.openDatabase();
 
-initApp()
+      setInterval(await (async () => {
+        const lambda = async () => {
+          try {
+            const response = (await getApiResponse(this)).slice(0, this.settings.limit);
+            await appCache.clearData();
+            const entries = response.map(
+              ({title, pubDate, content, contentSnippet}) => {
+                return { title, pubDate, content, contentSnippet };
+              }
+            );
+
+            this.entries = entries;
+
+            entries.forEach(async (entry) => {
+              await appCache.addData(entry);
+            });
+          } catch (err) {
+            console.error(err);
+            const entries = await appCache.getData();
+            this.entries = entries;
+          }
+        };
+
+        lambda();
+
+        return lambda;
+      })(), this.settings.cacheInterval * msPerSecond);
+    },
+  };
+};
+
+document.addEventListener('alpine:init', () => {
+  Alpine.data('rss', getRssData);
+});
