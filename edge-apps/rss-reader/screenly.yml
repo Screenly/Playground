@@ -11,7 +11,9 @@ settings:
     default_value: 'false'
     title: bypass_cors
     optional: true
-    help_text: Some RSS sources require you to bypass CORS policies. Setting this to 'true' enables this feature.
+    help_text: |
+      Some RSS sources require you to bypass CORS policies.
+      Setting this to 'true' enables this feature.
   cache_interval:
     type: string
     default_value: '1800'
