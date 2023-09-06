@@ -76,7 +76,7 @@ const getRssData = function() {
         || this.settings.limit;
       this.settings.rssUrl = settings?.rss_url || this.settings.rssUrl;
       this.settings.rssTitle = settings?.rss_title || this.settings.rssTitle;
-      this.corsProxy = screenly.cors_proxy || this.corsProxy;
+      this.corsProxy = screenly.cors_proxy || screenly.cors_proxy_url || this.corsProxy;
     },
     init: async function() {
       this.loadSettings();
