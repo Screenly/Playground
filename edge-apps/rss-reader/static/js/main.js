@@ -1,98 +1,28 @@
 class AppCache {
-  constructor({ dbName, storeName, fieldNames }) {
-    this.version = 1;
-    this.dbName = dbName;
+  constructor({ storeName }) {
     this.storeName = storeName;
-    this.db = null;
-    this.fieldNames = [...fieldNames];
-  }
 
-  async openDatabase() {
-    return new Promise((resolve, reject) => {
-      const request = window.indexedDB.open(this.dbName, this.version);
-
-      request.addEventListener('error', (err) => {
-        console.error('Database failed to open');
-        reject(err);
-      });
-
-      request.addEventListener('success', (event) => {
-        console.log('Database opened successfully');
-        this.db = event.target.result;
-        resolve();
-      });
-
-      request.addEventListener('upgradeneeded', (event) => {
-        this.db = event.target.result;
-        const objectStore = this.db.createObjectStore(this.storeName, {
-          keyPath: 'id',
-          autoIncrement: true,
-        });
-
-        this.fieldNames.forEach((fieldName) => {
-          objectStore.createIndex(fieldName, fieldName, { unique: false });
-        });
-
-        console.log('Database setup complete');
-      });
-    });
-  }
-
-  async addData(data) {
-    const hasAllRequiredFields = this.fieldNames.every((field) => {
-      return Object.keys(data).includes(field);
-    });
-
-    if (!hasAllRequiredFields) {
-      throw new Error('Data does not have all required fields');
+    if (localStorage.getItem(this.storeName) === null) {
+      this.data = [];
+      localStorage.setItem(this.storeName, JSON.stringify(this.data));
+    } else {
+      this.data = JSON.parse(localStorage.getItem(this.storeName));
+      console.log('Database setup complete');
     }
-
-    const transaction = this.db.transaction([this.storeName], 'readwrite');
-    const store = transaction.objectStore(this.storeName);
-    const request = store.add(data);
-
-    return new Promise((resolve, reject) => {
-      request.addEventListener('success', (event) => {
-        console.log('Data added successfully');
-        resolve();
-      });
-
-      request.addEventListener('error', (err) => {
-        reject(err);
-      });
-    });
   }
 
-  async getData() {
-    const transaction = this.db.transaction([this.storeName], 'readonly');
-    const store = transaction.objectStore(this.storeName);
-    const request = store.getAll();
-
-    return new Promise((resolve, reject) => {
-      request.addEventListener('success', (event) => {
-        resolve(event.target.result);
-      });
-
-      request.addEventListener('error', (err) => {
-        reject(err);
-      });
-    });
+  clear() {
+    this.data = [];
+    localStorage.removeItem(this.storeName);
   }
 
-  async clearData() {
-    const transaction = this.db.transaction([this.storeName], 'readwrite');
-    const store = transaction.objectStore(this.storeName);
-    const request = store.clear();
+  add(data) {
+    this.data.push(data);
+    localStorage.setItem(this.storeName, JSON.stringify(this.data));
+  }
 
-    return new Promise((resolve, reject) => {
-      request.addEventListener('success', (event) => {
-        resolve();
-      });
-
-      request.addEventListener('error', (err) => {
-        reject(err);
-      });
-    });
+  getAll() {
+    return this.data;
   }
 }
 
@@ -152,23 +82,14 @@ const getRssData = function() {
       this.loadSettings();
       const msPerSecond = 1000;
       const appCache = new AppCache({
-        dbName: 'rssCache',
         storeName: 'rssStore',
-        fieldNames: ['title', 'pubDate', 'content', 'contentSnippet'],
       });
-
-      try {
-        await appCache.openDatabase();
-      } catch (err) {
-        console.error(err);
-        return;
-      }
 
       setInterval(await (async () => {
         const lambda = async () => {
           try {
             const response = (await getApiResponse(this)).slice(0, this.settings.limit);
-            await appCache.clearData();
+            appCache.clear();
             const entries = response.map(
               ({title, pubDate, content, contentSnippet}) => {
                 return { title, pubDate, content, contentSnippet };
@@ -178,11 +99,11 @@ const getRssData = function() {
             this.entries = entries;
 
             entries.forEach(async (entry) => {
-              await appCache.addData(entry);
+              appCache.add(entry);
             });
           } catch (err) {
             console.error(err);
-            const entries = await appCache.getData();
+            const entries = appCache.getAll();
             this.entries = entries;
           }
         };
