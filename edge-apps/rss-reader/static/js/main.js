@@ -30,7 +30,7 @@ const processUrl = (context) => {
   const corsProxy = context.corsProxy;
   const { bypassCors, rssUrl } = context.settings;
 
-  if (!bypassCors) {
+  if (bypassCors) {
     return `${corsProxy}/${rssUrl}`;
   } else {
     return rssUrl;
