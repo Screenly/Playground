@@ -1,84 +1,5 @@
 /* global icons, moment */
 
-class AppCache {
-  constructor({ dbName, storeName }) {
-    this.db = null
-    this.dbName = dbName
-    this.storeName = storeName
-
-    this.openRequest = window.indexedDB.open(this.dbName, 1)
-
-    this.openRequest.addEventListener('error', () => {
-      console.log('Database failed to open')
-    })
-
-    this.openRequest.addEventListener('success', () => {
-      console.log('Database opened successfully')
-
-      this.db = this.openRequest.result
-    });
-
-    this.openRequest.addEventListener('upgradeneeded', (e) => {
-      this.db = e.target.result
-
-      const objectStore = this.db.createObjectStore(this.storeName, {
-        keyPath: 'id',
-        autoIncrement: true,
-      });
-
-      const fieldNames = ['name', 'country', 'timezone', 'list']
-
-      fieldNames.forEach(fieldName => {
-        objectStore.createIndex(fieldName, fieldName, { unique: false })
-      })
-
-      console.log('Database setup complete')
-    });
-  }
-
-  addData({ name, country, timezone, list}) {
-    const transaction = this.db.transaction([this.storeName], 'readwrite')
-    const objectStore = transaction.objectStore(this.storeName)
-    const addRequest = objectStore.add({
-      name,
-      country,
-      timezone,
-      list,
-    })
-
-    addRequest.addEventListener('success', () => {
-      console.log('Data added successfully')
-    })
-
-    transaction.addEventListener('complete', () => {
-      console.log('Transaction completed: database modification finished.')
-    })
-
-    transaction.addEventListener('error', () => {
-      console.log('Transaction not opened due to error')
-    })
-  }
-
-  updateData(callback) {
-    const objectStore = this.db
-      .transaction(this.storeName)
-      .objectStore(this.storeName)
-    const request = objectStore.getAll()
-
-    request.addEventListener('success', () => {
-      let result = (request.result.length === 0) ? null : request.result[0]
-      callback(result)
-    })
-  }
-
-  clearData() {
-    const objectStore = this.db
-      .transaction(this.storeName, 'readwrite')
-      .objectStore(this.storeName)
-    objectStore.clear()
-  }
-}
-
 // eslint-disable-next-line no-unused-vars
 function initApp (data) {
   let clockTimer
@@ -88,7 +9,8 @@ function initApp (data) {
   const locale = navigator?.languages?.length
     ? navigator.languages[0]
     : navigator.language
-  const [lat, lng] = screenly.metadata.coordinates
+  // TODO: Set `lat` and `lng` to just the latter.
+  const [lat, lng] = screenly.coordinates || screenly.metadata.coordinates
   const weatherDataUpdateInterval = 60 * 60 * 1000 // 60 minutes in milliseconds
   const dateTimeUpdateInterval = 30 * 1000 // 30 seconds in milliseconds
 
@@ -301,41 +223,24 @@ function initApp (data) {
         appid: apiKey,
       })
 
-      const weatherCache = new AppCache({ dbName: 'weatherDb', storeName: 'weatherStore' })
+      setInterval((async () => {
+        const lambda = async () => {
+          const response = await fetch(`${endpointUrl}?${queryParams}`)
+          const data = await response.json()
+          const { city: { name, country, timezone }, list } = data
 
-      weatherCache.openRequest.addEventListener('success', () => {
-        let initialFetch = false
+          tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C'
+          updateLocation(name)
+          tz = setTimeZone(timezone)
+          initDateTime()
 
-        setInterval((async () => {
-          const lambda = async () => {
-            const response = await fetch(`${endpointUrl}?${queryParams}`)
-            const data = await response.json()
-            const { city: { name, country, timezone }, list } = data
+          updateWeather({ list })
+        }
 
-            weatherCache.clearData()
-            weatherCache.addData({ name, country, timezone, list })
+        lambda()
 
-            if (!initialFetch) {
-              initialFetch = true
-
-              tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C'
-              updateLocation(name)
-              tz = setTimeZone(timezone)
-              initDateTime()
-            }
-
-            updateWeather({ list })
-          }
-
-          lambda()
-
-          return lambda
-        })(), weatherDataUpdateInterval)
-
-        // TODO: Call updateWeather() here periodicallyinstead of in the
-        //   setInterval() above.
-
-      })
+        return lambda
+      })(), weatherDataUpdateInterval)
     } catch (e) {
       console.log(e)
     }
