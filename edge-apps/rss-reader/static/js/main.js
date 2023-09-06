@@ -60,7 +60,6 @@ const getRssData = function() {
       rssUrl: 'http://feeds.bbci.co.uk/news/rss.xml',
       rssTitle: 'BBC News',
     },
-    corsProxy: 'https://cors-anywhere.herokuapp.com',
     loadSettings: function() {
       if (typeof screenly === 'undefined') {
         console.warn('screenly is not defined. Using default settings.');
@@ -76,7 +75,7 @@ const getRssData = function() {
         || this.settings.limit;
       this.settings.rssUrl = settings?.rss_url || this.settings.rssUrl;
       this.settings.rssTitle = settings?.rss_title || this.settings.rssTitle;
-      this.corsProxy = screenly.cors_proxy || screenly.cors_proxy_url || this.corsProxy;
+      this.corsProxy = screenly.cors_proxy_url;
 
       console.log(`CORS Proxy URL: ${this.corsProxy}`);
     },
