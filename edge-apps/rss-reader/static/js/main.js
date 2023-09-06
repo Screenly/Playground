@@ -55,10 +55,10 @@ const getRssData = function() {
   return {
     entries: [],
     settings: {
-      limit: 4,
       cacheInterval: 1800,
+      limit: 4,
       rssUrl: 'http://feeds.bbci.co.uk/news/rss.xml',
-      rssTitle: 'RSS Feed',
+      rssTitle: 'BBC News',
     },
     corsProxy: 'http://127.0.0.1:3030',
     loadSettings: function() {
@@ -69,9 +69,9 @@ const getRssData = function() {
 
       const settings = screenly.settings;
 
+      this.settings.bypassCors = (settings?.bypass_cors === 'true');
       this.settings.cacheInterval = parseInt(settings?.cache_interval)
         || this.settings.cacheInterval;
-      this.settings.bypassCors = (settings?.bypass_cors === 'true');
       this.settings.limit = parseInt(settings?.limit)
         || this.settings.limit;
       this.settings.rssUrl = settings?.rss_url || this.settings.rssUrl;
