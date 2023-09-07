@@ -1,8 +1,9 @@
 # RSS Reader Edge App
 
 This Edge App displays articles from an RSS feed.
+It's uses [Alpine.js](https://alpinejs.dev/) for reactivity.
 
-## Uploading
+## Dependencies
 
 The RSS reader app depends on [Screenly's Playground Theme](https://github.com/Screenly/Playground/tree/master/bootstrap),
 so you need to copy the necessary files first. To do so, run the following commands.
@@ -11,6 +12,43 @@ so you need to copy the necessary files first. To do so, run the following comma
 $ cd edge-apps/rss-reader
 $ mkdir -p bootstrap/theme
 $ cp -r ../../bootstrap/theme/ ./bootstrap/
+```
+
+## Running the Edge App emulator
+
+Before running the development server, run the following commands.
+Doing so generates a file named `mock-data.yml`. Feel free to tweak the
+YAML file as you see fit.
+
+```bash
+$ cd edge-apps/rss-reader
+$ screenly edge-app generate-mock-data
+```
+
+Start the emulator:
+
+```bash
+$ screenly edge-app run
+```
+
+You'll get the following console output:
+
+```
+Edge app emulator is running at http://127.0.0.1:40069/edge/1/index.html
+```
+
+The port number (e.g., `40069`) changes everytime you run the command.
+Hit `Ctrl-C` to close the server.
+
+## Uploading
+
+The RSS reader app depends on [Screenly's Playground Theme](https://github.com/Screenly/Playground/tree/master/bootstrap),
+so you need to copy the necessary files first. To do so, run the following commands.
+
+```bash
+$ screenly edge-app create \
+    --name=my-rss-reader-app \
+    --in-place
 $ screenly edge-app upload
 ```
 

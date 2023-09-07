@@ -35,7 +35,7 @@ function generateQrCode(url, options, enableUtm, callback) {
     return `${url}?${queryString}`;
   };
 
-  QRCode.toString(url, options, (err, result) => {
+  QRCode.toString(handleUrl(url), options, (err, result) => {
     if (err) throw err;
 
     const parser = new DOMParser();
@@ -46,8 +46,13 @@ function generateQrCode(url, options, enableUtm, callback) {
 }
 
 window.onload = function() {
+  const {
+    url,
+    enable_utm
+  } = screenly.settings;
+
   generateQrCode(
-    'https://www.screenly.io/blog/',
+    url,
     options = {
       type: 'image/svg',
       color: {
@@ -55,10 +60,10 @@ window.onload = function() {
       },
       margin: 2,
     },
-    enableUtm = true,
+    enableUtm = (enable_utm === 'true'),
     callback = (svgElement) => {
       svgElement.classList.add('qr-code');
-      const container = document.querySelector('.container');
+      const container = document.querySelector('#qr-code-container');
       container.appendChild(svgElement);
     },
   );

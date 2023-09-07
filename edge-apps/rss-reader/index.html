@@ -7,18 +7,11 @@
     <link rel="stylesheet" href="static/styles/bootstrap.min.css">
     <link rel="stylesheet" href="bootstrap/theme/playground-theme.css">
     <link rel="stylesheet" href="static/styles/main.css">
+
+    <script src="static/js/alpinejs-3.13.0.min.js" defer></script>
   </head>
   <body>
-    <template id="feed-template">
-      <div class="feed-container">
-        <h2 class="feed-title fw-bolder"></h2>
-        <p class="feed-date mb-0"></p>
-        <div class="feed-description mt-3">
-        </div>
-      </div>
-    </template>
-
-    <div class="d-flex flex-column h-100">
+    <div class="d-flex flex-column h-100" x-data="rss">
       <header>
         <div class="header container">
           <img
@@ -26,45 +19,57 @@
             src="static/images/playground-logo.svg"
             alt="Screenly logo"
           >
-          <h1 id="rss-title" class="app-name fw-bolder">RSS Feed</h1>
+          <h1 id="rss-title" class="app-name fw-bolder" x-text="settings.rssTitle">RSS Feed</h1>
         </div>
       </header>
 
       <main class="container content">
         <div id="feeds-container" class="container d-flex flex-column h-100">
-          <div id="grid" class="mt-4"></div>
+          <div id="grid" class="mt-4">
+            <template x-for="entry in entries">
+              <div class="feed-container">
+                <h2 class="feed-title fw-bolder" x-text="entry.title"></h2>
+                <p class="feed-date mb-0" x-text="entry.pubDate"></p>
+                <div class="feed-description mt-3" x-text="entry.contentSnippet">
+                </div>
+              </div>
+            </template>
+          </div>
         </div>
       </main>
 
       <footer class="container">
-        <p>&copy; 2013-2022 Screenly, Inc.</p>
+        <p>&copy; 2023 Screenly, Inc.</p>
       </footer>
     </div>
 
     <script src="screenly.js?version=1"></script>
+
+    <!-- Google Tag Manager -->
     <script>
-      const enableAnalytics = screenly.settings.enable_analytics;
+        const {
+          enable_analytics: enableAnalytics,
+          tag_manager_id: tagManagerId,
+        } = screenly.settings;
 
-      if (enableAnalytics === "true") {
-        const sentryId = screenly.settings.sentry_id;
-        const gaApiKey = screenly.settings.ga_api_key;
-
-        const sentryScript = document.createElement('script');
-        sentryScript.src = `https://js.sentry-cdn.com/${sentryId}.min.js`;
-        sentryScript.crossOrigin = 'anonymous';
-        document.head.appendChild(sentryScript);
-
-        const gtagScript = document.createElement('script');
-        gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${gaApiKey}`;
-        gtagScript.async = true;
-        document.head.appendChild(gtagScript);
-
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', `${gaApiKey}`);
-      }
+        if (enableAnalytics === 'true') {
+            (function(w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start': new Date().getTime(),
+                    event: 'gtm.js'
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', tagManagerId);
+        }
     </script>
+    <!-- End Google Tag Manager -->
+
     <script src="static/js/rss-parser-3.13.0.min.js"></script>
     <script src="static/js/moment-with-locales.min.js"></script>
     <script src="static/js/main.js"></script>

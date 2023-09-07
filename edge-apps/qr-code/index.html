@@ -2,17 +2,40 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Hello world</title>
+    <title>QR Code Generator</title>
     <script src="screenly.js?version=1"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/theme/playground-theme.css">
     <link rel="stylesheet" href="static/styles/main.css">
   </head>
   <body>
-    <div class="container">
-      <h2 class="text-white">
-        Scan the QR code.
-      </h2>
+    <div class="d-flex flex-column h-100">
+      <header>
+        <div class="header container">
+          <img
+            class="logo"
+            src="static/images/playground-logo.svg"
+            alt="Screenly logo"
+          >
+          <h1 id="rss-title" class="app-name fw-bold">QR Code</h1>
+        </div>
+      </header>
+
+      <main class="container content">
+        <div
+          id="qr-code-container"
+          class="container d-flex flex-column
+            justify-content-center align-items-center h-100"
+        >
+          <h2 class="text-white">
+            Scan the QR code.
+          </h2>
+        </div>
+      </main>
+
+      <footer class="container">
+        <p>&copy; 2023 Screenly, Inc.</p>
+      </footer>
     </div>
   </body>
   <script src="static/js/node-qrcode.min.js"></script>

@@ -1,182 +1,122 @@
-const processFeedContent = (
-  feedDescription, { content, contentSnippet }, includeImage) => {
-  const parser = new DOMParser()
-  const doc = parser.parseFromString(content, 'text/html')
-  const image = doc.querySelector('img')
+class AppCache {
+  constructor({ storeName }) {
+    this.storeName = storeName;
 
-  const text = document.createElement('p')
-  text.innerHTML = contentSnippet
-  const span = document.createElement('span')
-  span.appendChild(text)
+    if (localStorage.getItem(this.storeName) === null) {
+      this.data = [];
+      localStorage.setItem(this.storeName, JSON.stringify(this.data));
+    } else {
+      this.data = JSON.parse(localStorage.getItem(this.storeName));
+      console.log('Database setup complete');
+    }
+  }
 
-  // @TODO: Uncomment this if-statement if you want to include the image.
-  // if (image && includeImage) {
-  //   const imageUrl = image.getAttribute('src')
-  //   const imageElement = document.createElement('img')
-  //   imageElement.setAttribute('src', imageUrl)
-  //   imageElement.classList.add('feed-image')
-  //   imageElement.setAttribute('alt', 'feed-image')
+  clear() {
+    this.data = [];
+    localStorage.removeItem(this.storeName);
+  }
 
-  //   span.appendChild(imageElement)
-  // }
+  add(data) {
+    this.data.push(data);
+    localStorage.setItem(this.storeName, JSON.stringify(this.data));
+  }
 
-  feedDescription.innerHTML = span.innerHTML
+  getAll() {
+    return this.data;
+  }
 }
 
-class RssCache {
-  constructor({ dbName, storeName }) {
-    this.db = null
-    this.dbName = dbName
-    this.storeName = storeName
+const processUrl = (context) => {
+  const corsProxy = context.corsProxy;
+  const { bypassCors, rssUrl } = context.settings;
 
-    this.openRequest = window.indexedDB.open(this.dbName, 1)
+  if (bypassCors) {
+    return `${corsProxy}/${rssUrl}`;
+  } else {
+    return rssUrl;
+  }
+};
 
-    this.openRequest.addEventListener('error', () => {
-      console.log('Database failed to open')
-    })
+const getApiResponse = (context) => {
+  return new Promise((resolve, reject) => {
+    let parser = new RSSParser();
+    const url = processUrl(context);
+    parser.parseURL(url, (err, feed) => {
+      if (err) {
+        reject(err);
+      }
 
-    this.openRequest.addEventListener('success', () => {
-      console.log('Database opened successfully')
-
-      this.db = this.openRequest.result
+      resolve(feed.items);
     });
+  });
+};
 
-    this.openRequest.addEventListener('upgradeneeded', (e) => {
-      this.db = e.target.result
+const getRssData = function() {
+  return {
+    entries: [],
+    settings: {
+      cacheInterval: 1800,
+      limit: 4,
+      rssUrl: 'http://feeds.bbci.co.uk/news/rss.xml',
+      rssTitle: 'BBC News',
+    },
+    loadSettings: function() {
+      if (typeof screenly === 'undefined') {
+        console.warn('screenly is not defined. Using default settings.');
+        return;
+      }
 
-      const objectStore = this.db.createObjectStore(this.storeName, {
-        keyPath: 'id',
-        autoIncrement: true,
+      const settings = screenly.settings;
+
+      this.settings.bypassCors = (settings?.bypass_cors === 'true');
+      this.settings.cacheInterval = parseInt(settings?.cache_interval)
+        || this.settings.cacheInterval;
+      this.settings.limit = parseInt(settings?.limit)
+        || this.settings.limit;
+      this.settings.rssUrl = settings?.rss_url || this.settings.rssUrl;
+      this.settings.rssTitle = settings?.rss_title || this.settings.rssTitle;
+      this.corsProxy = screenly.cors_proxy_url;
+
+      console.log(`CORS Proxy URL: ${this.corsProxy}`);
+    },
+    init: async function() {
+      this.loadSettings();
+      const msPerSecond = 1000;
+      const appCache = new AppCache({
+        storeName: 'rssStore',
       });
 
-      const fieldNames = ['title', 'pubDate', 'content', 'contentSnippet']
+      setInterval(await (async () => {
+        const lambda = async () => {
+          try {
+            const response = (await getApiResponse(this)).slice(0, this.settings.limit);
+            appCache.clear();
+            const entries = response.map(
+              ({title, pubDate, content, contentSnippet}) => {
+                return { title, pubDate, content, contentSnippet };
+              }
+            );
 
-      fieldNames.forEach(fieldName => {
-        objectStore.createIndex(fieldName, fieldName, { unique: false })
-      })
+            this.entries = entries;
 
-      console.log('Database setup complete')
-    });
-  }
-
-  addData({ title, pubDate, content, contentSnippet }) {
-    const transaction = this.db.transaction([this.storeName], 'readwrite')
-    const objectStore = transaction.objectStore(this.storeName)
-    const addRequest = objectStore.add({
-      title,
-      pubDate,
-      content,
-      contentSnippet
-    })
-
-    addRequest.addEventListener('success', () => {
-      console.log('Data added successfully')
-    })
-
-    transaction.addEventListener('complete', () => {
-      console.log('Transaction completed: database modification finished.')
-    })
-
-    transaction.addEventListener('error', () => {
-      console.log('Transaction not opened due to error')
-    })
-  }
-
-  updateData(callback) {
-    const objectStore = this.db
-      .transaction(this.storeName)
-      .objectStore(this.storeName)
-    const request = objectStore.getAll()
-
-    request.addEventListener('success', () => {
-      callback(request.result)
-    })
-  }
-
-  clearData() {
-    const objectStore = this.db
-      .transaction(this.storeName, 'readwrite')
-      .objectStore(this.storeName)
-    objectStore.clear()
-  }
-}
-
-const initApp = () => {
-  const feedsContainer = document
-    .querySelector('#feeds-container')
-    .querySelector('#grid')
-  let { rss_url: rssUrl, rss_title, limit } = screenly.settings
-  const parser = new RSSParser()
-  const bypassCors = screenly.settings.bypass_cors
-
-  if (bypassCors != "true") {
-    rssUrl = screenly.cors_proxy + rssUrl
-  }
-
-  const titleHeader = document.querySelector('#rss-title')
-  titleHeader.innerHTML = rss_title
-  document.title = rss_title
-
-  const rssCache = new RssCache({ dbName: 'rssCache', storeName: 'rssStore' })
-
-  rssCache.openRequest.addEventListener('success', () => {
-    setInterval((() => {
-      const lambda = () => {
-        parser.parseURL(rssUrl, (err, feed) => {
-          if (err) {
-            throw err
+            entries.forEach(async (entry) => {
+              appCache.add(entry);
+            });
+          } catch (err) {
+            console.error(err);
+            const entries = appCache.getAll();
+            this.entries = entries;
           }
+        };
 
-          const entries = feed.items.slice(0, limit)
+        lambda();
 
-          rssCache.clearData()
-          entries.forEach(entry => {
-            rssCache.addData({
-              title: entry.title,
-              pubDate: entry.pubDate,
-              content: entry.content,
-              contentSnippet: entry.contentSnippet,
-            })
-          })
-        })
-      }
+        return lambda;
+      })(), this.settings.cacheInterval * msPerSecond);
+    },
+  };
+};
 
-      lambda()
-
-      return lambda
-    })(), screenly.settings.cache_interval * 1000)
-
-    setInterval((() => {
-      const lambda = () => {
-        while (feedsContainer.firstChild) {
-          feedsContainer.removeChild(feedsContainer.firstChild)
-        }
-
-        rssCache.updateData(entries => {
-          entries.forEach((entry, index) => {
-            const title = entry.title
-            const date = moment(new Date(entry.pubDate))
-              .format('MMMM DD, YYYY, h:mm A')
-            const feedTemplate = document.querySelector('#feed-template')
-            const feedContainer = feedTemplate.content.cloneNode(true)
-
-            feedContainer.querySelector('.feed-title').innerHTML = title
-            feedContainer.querySelector('.feed-date').innerHTML = date
-
-            const feedDescription = feedContainer
-              .querySelector('.feed-description')
-            processFeedContent(feedDescription, entry, (index === 0))
-
-            feedsContainer.appendChild(feedContainer)
-          })
-        })
-      }
-
-      lambda()
-
-      return lambda
-    })(), screenly.settings.cache_interval * 1000)
-  })
-}
-
-initApp()
+document.addEventListener('alpine:init', () => {
+  Alpine.data('rss', getRssData);
+});

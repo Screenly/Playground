@@ -1,9 +1,87 @@
 /* global icons, moment */
 
+class AppCache {
+  constructor({ dbName, storeName }) {
+    this.db = null
+    this.dbName = dbName
+    this.storeName = storeName
+
+    this.openRequest = window.indexedDB.open(this.dbName, 1)
+
+    this.openRequest.addEventListener('error', () => {
+      console.log('Database failed to open')
+    })
+
+    this.openRequest.addEventListener('success', () => {
+      console.log('Database opened successfully')
+
+      this.db = this.openRequest.result
+    });
+
+    this.openRequest.addEventListener('upgradeneeded', (e) => {
+      this.db = e.target.result
+
+      const objectStore = this.db.createObjectStore(this.storeName, {
+        keyPath: 'id',
+        autoIncrement: true,
+      });
+
+      const fieldNames = ['name', 'country', 'timezone', 'list']
+
+      fieldNames.forEach(fieldName => {
+        objectStore.createIndex(fieldName, fieldName, { unique: false })
+      })
+
+      console.log('Database setup complete')
+    });
+  }
+
+  addData({ name, country, timezone, list}) {
+    const transaction = this.db.transaction([this.storeName], 'readwrite')
+    const objectStore = transaction.objectStore(this.storeName)
+    const addRequest = objectStore.add({
+      name,
+      country,
+      timezone,
+      list,
+    })
+
+    addRequest.addEventListener('success', () => {
+      console.log('Data added successfully')
+    })
+
+    transaction.addEventListener('complete', () => {
+      console.log('Transaction completed: database modification finished.')
+    })
+
+    transaction.addEventListener('error', () => {
+      console.log('Transaction not opened due to error')
+    })
+  }
+
+  updateData(callback) {
+    const objectStore = this.db
+      .transaction(this.storeName)
+      .objectStore(this.storeName)
+    const request = objectStore.getAll()
+
+    request.addEventListener('success', () => {
+      let result = (request.result.length === 0) ? null : request.result[0]
+      callback(result)
+    })
+  }
+
+  clearData() {
+    const objectStore = this.db
+      .transaction(this.storeName, 'readwrite')
+      .objectStore(this.storeName)
+    objectStore.clear()
+  }
+}
+
 // eslint-disable-next-line no-unused-vars
 function initApp (data) {
   let clockTimer
-  let weatherTimer
   let tz
   let currentWeatherId
   let tempScale = 'C'
@@ -13,45 +91,6 @@ function initApp (data) {
   const [lat, lng] = screenly.metadata.coordinates
   const weatherDataUpdateInterval = 60 * 60 * 1000 // 60 minutes in milliseconds
   const dateTimeUpdateInterval = 30 * 1000 // 30 seconds in milliseconds
-
-  let db;
-
-  const openRequest = window.indexedDB.open('weatherDb', 1)
-
-  openRequest.addEventListener('error', () => {
-    console.error('Database failed to open')
-  })
-
-  openRequest.addEventListener('success', () => {
-    console.log('Database opened successfully')
-    db = openRequest.result
-  })
-
-  openRequest.addEventListener('upgradeneeded', (e) => {
-    db = e.target.result
-
-    const objectStore = db.createObjectStore('weatherStore', {
-      keyPath: 'id',
-      autoIncrement: true
-    })
-
-    objectStore.createIndex('name', 'name', { unique: false })
-    objectStore.createIndex('country', 'country', { unique: false })
-    objectStore.createIndex('timezone', 'timezone', { unique: false })
-    objectStore.createIndex('list', 'list', { unique: false })
-
-    console.log('Database setup complete')
-  })
-
-  const getDataFromIndexedDB = (db, callback) => {
-    const objectStore = db.transaction('weatherStore').objectStore('weatherStore')
-    objectStore.openCursor().addEventListener('success', (e) => {
-      const cursor = e.target.result
-      if (cursor) {
-        callback(cursor.value)
-      }
-    })
-  }
 
   /**
    * Countries using F scale
@@ -205,82 +244,45 @@ function initApp (data) {
     return itemIndex
   }
 
-  const updateWeather = () => {
-    clearTimeout(weatherTimer)
-    getDataFromIndexedDB(db, (data) => {
-      const { list } = data
-      const currentIndex = findCurrentWeatherItem(list)
+  const updateWeather = (data) => {
+    const { list } = data
+    const currentIndex = findCurrentWeatherItem(list)
 
-      const { dt, weather, main: { temp } } = list[currentIndex]
+    const { dt, weather, main: { temp } } = list[currentIndex]
 
-      if (Array.isArray(weather) && weather.length > 0) {
-        const { id, description } = weather[0]
-        const { icon, bg } = getWeatherImagesById(id, dt)
-        if (id !== currentWeatherId) {
-          loadBackground(bg)
-        }
-
-        updateCurrentWeather(icon, description, temp)
-        currentWeatherId = id
+    if (Array.isArray(weather) && weather.length > 0) {
+      const { id, description } = weather[0]
+      const { icon, bg } = getWeatherImagesById(id, dt)
+      if (id !== currentWeatherId) {
+        loadBackground(bg)
       }
 
-      const weatherListContainer = document.querySelector('#weather-item-list')
-      const frag = document.createDocumentFragment()
-      const windowSize = 5
-      const currentWindow = list.slice(currentIndex, currentIndex <= windowSize - 1 ? currentIndex + windowSize : list.length - 1)
-      currentWindow.forEach((item, index) => {
-        const { dt, main: { temp }, weather } = item
+      updateCurrentWeather(icon, description, temp)
+      currentWeatherId = id
+    }
 
-        const { icon } = getWeatherImagesById(weather[0]?.id, dt)
-        const dateTime = moment.unix(dt).utcOffset(tz)
+    const weatherListContainer = document.querySelector('#weather-item-list')
+    const frag = document.createDocumentFragment()
+    const windowSize = 5
+    const currentWindow = list.slice(currentIndex, currentIndex <= windowSize - 1 ? currentIndex + windowSize : list.length - 1)
+    currentWindow.forEach((item, index) => {
+      const { dt, main: { temp }, weather } = item
 
-        const dummyNode = document.querySelector('.dummy-node')
-        const node = dummyNode.cloneNode(true)
-        node.classList.remove('dummy-node')
-        node.querySelector('.item-temp').innerText = getTemp(temp)
-        node.querySelector('.item-icon').setAttribute('src', icons[icon])
-        node.querySelector('.item-time').innerText = index === 0 ? 'Current' : formatTime(dateTime)
+      const { icon } = getWeatherImagesById(weather[0]?.id, dt)
+      const dateTime = moment.unix(dt).utcOffset(tz)
 
-        frag.appendChild(node)
-      })
+      const dummyNode = document.querySelector('.dummy-node')
+      const node = dummyNode.cloneNode(true)
+      node.classList.remove('dummy-node')
+      node.querySelector('.item-temp').innerText = getTemp(temp)
+      node.querySelector('.item-icon').setAttribute('src', icons[icon])
+      node.querySelector('.item-time').innerText = index === 0 ? 'Current' : formatTime(dateTime)
 
-      weatherListContainer.innerHTML = ''
-      weatherListContainer.appendChild(frag)
-    })
-    weatherTimer = setTimeout(() => updateWeather(), weatherDataUpdateInterval)
-  }
-
-  const updateData = () => {
-    getDataFromIndexedDB(db, (data) => {
-      const { name, country, timezone } = data
-      tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C'
-      updateLocation(name)
-      tz = setTimeZone(timezone)
-      initDateTime()
+      frag.appendChild(node)
     })
 
-    updateWeather()
-  }
-
-  const cacheWeatherData = (data) => {
-    const { city: { name, country, timezone }, list } = data
-
-    const transaction = db.transaction(['weatherStore'], 'readwrite')
-    const objectStore = transaction.objectStore('weatherStore')
-    objectStore.clear()
-    const addRequest = objectStore.add({ name, country, timezone, list })
-
-    addRequest.addEventListener('success', () => {
-      console.log('Weather data added to the store')
-    })
-
-    transaction.addEventListener('complete', () => {
-      console.log('Transaction completed: database modification finished')
-    })
-
-    transaction.addEventListener('error', () => {
-      console.error('Transaction not opened due to error')
-    })
+    weatherListContainer.innerHTML = ''
+    weatherListContainer.appendChild(frag)
   }
 
   const stringifyQueryParams = (params) => {
@@ -299,18 +301,41 @@ function initApp (data) {
         appid: apiKey,
       })
 
-      setInterval(await (async () => {
-        const lambda = async () => {
-          const response = await fetch(`${endpointUrl}?${queryParams}`)
-          const data = await response.json()
-          cacheWeatherData(data)
-        }
+      const weatherCache = new AppCache({ dbName: 'weatherDb', storeName: 'weatherStore' })
 
-        await lambda()
-        return lambda
-      })(), weatherDataUpdateInterval)
+      weatherCache.openRequest.addEventListener('success', () => {
+        let initialFetch = false
 
-      updateData()
+        setInterval((async () => {
+          const lambda = async () => {
+            const response = await fetch(`${endpointUrl}?${queryParams}`)
+            const data = await response.json()
+            const { city: { name, country, timezone }, list } = data
+
+            weatherCache.clearData()
+            weatherCache.addData({ name, country, timezone, list })
+
+            if (!initialFetch) {
+              initialFetch = true
+
+              tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C'
+              updateLocation(name)
+              tz = setTimeZone(timezone)
+              initDateTime()
+            }
+
+            updateWeather({ list })
+          }
+
+          lambda()
+
+          return lambda
+        })(), weatherDataUpdateInterval)
+
+        // TODO: Call updateWeather() here periodicallyinstead of in the
+        //   setInterval() above.
+
+      })
     } catch (e) {
       console.log(e)
     }
@@ -323,4 +348,4 @@ function initApp (data) {
   init()
 }
 
-initApp()
+window.onload = initApp

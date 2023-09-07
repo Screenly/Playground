@@ -8,13 +8,15 @@ homepage_url: ''
 settings:
   bypass_cors:
     type: string
-    default_value: 'false'
+    default_value: 'true'
     title: bypass_cors
     optional: true
-    help_text: Some RSS sources require you to bypass CORS policies. Setting this to 'true' enables this feature.
+    help_text: |
+      Some RSS sources require you to bypass CORS policies.
+      Setting this to 'true' enables this feature.
   cache_interval:
     type: string
-    default_value: ''
+    default_value: '1800'
     title: cache_interval
     optional: false
     help_text: Specify the interval (in seconds) used to periodically cache feeds.
@@ -26,19 +28,25 @@ settings:
     help_text: Whether to enable analytics or not
   limit:
     type: string
-    default_value: ''
+    default_value: '4'
     title: limit
     optional: false
     help_text: Specify the number of feeds to include in the page.
   rss_title:
     type: string
-    default_value: ''
+    default_value: 'BBC News'
     title: rss_title
     optional: false
     help_text: The title of the website where the feeds were derived
   rss_url:
     type: string
-    default_value: ''
+    default_value: 'http://feeds.bbci.co.uk/news/rss.xml'
     title: rss_url
     optional: false
     help_text: Specify the URL to where to get the data from.
+  tag_manager_id:
+    type: string
+    default_value: 'GTM-P98SPZ9Z'
+    title: tag_manager_id
+    optional: true
+    help_text: Specify a Google Tag Manager ID
