@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="static/styles/background.css" />
 
         <script src="screenly.js?version=1"></script>
+        <script src="static/js/alpinejs-3.13.0.min.js" defer></script>
 
         <!-- Google Tag Manager -->
         <script>
@@ -34,22 +35,22 @@
         <!-- End Google Tag Manager -->
     </head>
     <body>
-        <div class="content">
+        <div class="content" x-data="weather">
             <section class="header">
                 <div class="location">
                     <span class="location-item">
                         <img src="static/images/icons/map-pin.svg" alt="map pin icon">
-                        <span id="city"></span>
+                        <span id="city" x-text="city"></span>
                     </span>
 
                     <span class="location-item">
                         <img src="static/images/icons/clock.svg" alt="clock icon">
-                        <span id="time"></span>
+                        <span id="time" x-text="currentTime"></span>
                     </span>
 
                     <span class="location-item">
                         <img src="static/images/icons/calendar.svg" alt="calendar icon">
-                        <span id="date"></span>
+                        <span id="date" x-text="currentDate"></span>
                     </span>
                 </div>
             </section>
@@ -77,6 +78,6 @@
         </div>
         <script src="static/js/moment-with-locales.min.js"></script>
         <script src="static/js/icons.js"></script>
-        <script src="static/js/main.js"></script>
+        <script src="static/js/index.js"></script>
     </body>
 </html>
