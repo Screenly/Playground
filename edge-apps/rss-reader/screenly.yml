@@ -8,7 +8,7 @@ homepage_url: ''
 settings:
   bypass_cors:
     type: string
-    default_value: 'false'
+    default_value: 'true'
     title: bypass_cors
     optional: true
     help_text: |
