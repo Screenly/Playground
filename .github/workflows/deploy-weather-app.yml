@@ -23,7 +23,7 @@ jobs:
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
             # yamllint disable-line rule:line-length
-          cli_commands: edge-app upload --app-id=${{ env.APP_ID }} --path=${{ env.APP_PATH }}
+          cli_commands: ls ${{ env.APP_PATH }} && edge-app upload --app-id=${{ env.APP_ID }} --path=${{ env.APP_PATH }}
 
       - name: Promote Edge App
         uses: screenly/cli@master
