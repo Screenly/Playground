@@ -1,10 +1,5 @@
----
-app_id: ''
-user_version: ''
 description: Screenly Clock Edge App
-icon: ''
 author: Screenly, Inc.
-homepage_url: ''
 settings:
   enable_analytics:
     type: string

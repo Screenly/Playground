@@ -1,31 +1,21 @@
-/* global moment */
+/* global clm, moment, OfflineGeocodeCity */
 // eslint-disable-next-line no-unused-vars
 
-async function getReverseGeocodingData({ latitude, longitude }) {
-  const apiUrl = 'https://nominatim.openstreetmap.org/reverse';
-  const queryParams = [
-    `lat=${encodeURIComponent(latitude)}`,
-    `lon=${encodeURIComponent(longitude)}`,
-    'format=json',
-  ].join('&');
-  const response = await fetch(`${apiUrl}?${queryParams}`);
-  const data = await response.json();
-  return data;
-}
+const { getNearestCity } = OfflineGeocodeCity;
 
 async function initApp () {
-  let clockTimer
-  const { metadata, settings } = screenly
-  const latitude = metadata.coordinates[0]
-  const longitude = metadata.coordinates[1]
+  let clockTimer;
+  const { metadata, settings } = screenly;
+  const latitude = metadata.coordinates[0];
+  const longitude = metadata.coordinates[1];
 
   const defaultLocale = navigator?.languages?.length
     ? navigator.languages[0]
-    : navigator.language
+    : navigator.language;
 
   const formatTime = async (momentObject) => {
-    const data = await getReverseGeocodingData({ latitude, longitude });
-    const countryCode = data.address.country_code.toUpperCase();
+    const data = getNearestCity(latitude, longitude);
+    const countryCode = data.countryIso2.toUpperCase();
     const locale = clm.getLocaleByAlpha2(countryCode) || defaultLocale;
 
     moment.locale(locale);
@@ -49,7 +39,7 @@ async function initApp () {
     clockTimer = setTimeout(initDateTime, 10000);
   }
 
-  await initDateTime()
+  await initDateTime();
 }
 
 initApp()
