@@ -1,3 +1,4 @@
+---
 description: Screenly Clock Edge App
 author: Screenly, Inc.
 settings:
@@ -7,15 +8,15 @@ settings:
     title: enable_analytics
     optional: true
     help_text: Whether to disable Sentry and Google Analytics integrations
-  tag_manager_id:
-    type: string
-    default_value: ''
-    title: tag_manager_id
-    optional: true
-    help_text: Specify a Google Tag Manager ID
   override_timezone:
     type: string
     default_value: ''
     title: override_timezone
     optional: true
     help_text: Specify a supported timezone value (e.g., Europe/London).
+  tag_manager_id:
+    type: string
+    default_value: ''
+    title: tag_manager_id
+    optional: true
+    help_text: Specify a Google Tag Manager ID
