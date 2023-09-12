@@ -1,6 +1,9 @@
 ---
+user_version: v1.0.0
 description: Screenly Clock Edge App
+icon: ''
 author: Screenly, Inc.
+homepage_url: ''
 settings:
   enable_analytics:
     type: string
@@ -16,7 +19,7 @@ settings:
     help_text: Specify a supported timezone value (e.g., Europe/London).
   tag_manager_id:
     type: string
-    default_value: ''
+    default_value: GTM-P98SPZ9Z
     title: tag_manager_id
     optional: true
     help_text: Specify a Google Tag Manager ID
