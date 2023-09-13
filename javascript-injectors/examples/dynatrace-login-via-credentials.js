@@ -1,6 +1,6 @@
 function dynatraceLogin () {
-  const email = 'oabah@screenly.io'
-  const password = 'Abcdefghijkl$'
+  const email = '<YOUR_EMAIL>'
+  const password = '<YOUR_PASSWORD>'
 
   const authLocation = '/action/signin'
 
