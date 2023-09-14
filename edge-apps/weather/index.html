@@ -34,8 +34,8 @@
         </script>
         <!-- End Google Tag Manager -->
     </head>
-    <body>
-        <div class="content" x-data="weather">
+    <body x-data="weather" :class="bgClass">
+        <div class="content">
             <section class="header">
                 <div class="location">
                     <span class="location-item">
@@ -57,27 +57,43 @@
             <section class="footer">
                 <div class="current-weather">
                   <div class="weather-condition">
-                    <img id="current-weather-icon" alt="weather icon">
-                    <span id="current-weather-status"></span>
+                    <img
+                        id="current-weather-icon"
+                        alt="weather icon"
+                        :src="currentWeatherIcon"
+                    >
+                    <span
+                        id="current-weather-status"
+                        x-text="currentWeatherStatus"
+                    ></span>
                   </div>
                   <div class="temperature">
-                    <span id="current-temp"></span>
-                    <span id="current-temp-scale"></span>
+                    <span
+                        id="current-temp"
+                        x-text="currentTemp"
+                    ></span>
+                    <span
+                        id="current-temp-scale"
+                        x-text="currentFormattedTempScale"
+                    ></span>
                   </div>
                 </div>
+
                 <div id="weather-item-list">
-                </div>
-                <div class="weather-item dummy-node">
-                  <span class="item-temp-degree">
-                    <span class="item-temp"></span>&deg;
-                  </span>
-                  <img class="item-icon" alt="clock icon">
-                  <span class="item-time"></span>
+                    <template x-for="item in forecastedItems" :key="item.id">
+                        <div class="weather-item">
+                            <span class="item-temp-degree">
+                                <span class="item-temp" x-text="item.temp"></span>&deg;
+                            </span>
+                            <img class="item-icon" alt="clock icon" :src="item.icon">
+                            <span class="item-time" x-text="item.time"></span>
+                        </div>
+                    </template>
                 </div>
             </section>
         </div>
         <script src="static/js/moment-with-locales.min.js"></script>
         <script src="static/js/icons.js"></script>
-        <script src="static/js/index.js"></script>
+        <script src="static/js/main.js"></script>
     </body>
 </html>
