@@ -1,5 +1,33 @@
 /* global icons, moment */
 
+class AppCache {
+  constructor({ storeName }) {
+    this.storeName = storeName;
+
+    if (localStorage.getItem(this.storeName) === null) {
+      this.data = {};
+      localStorage.setItem(this.storeName, JSON.stringify(this.data));
+    } else {
+      this.data = JSON.parse(localStorage.getItem(this.storeName));
+      console.log('Database setup complete');
+    }
+  }
+
+  clear() {
+    this.data = {};
+    localStorage.removeItem(this.storeName);
+  }
+
+  set(data) {
+    this.data = data;
+    localStorage.setItem(this.storeName, JSON.stringify(this.data));
+  }
+
+  get() {
+    return this.data;
+  }
+}
+
 async function getWeatherApiData(apiKey, lat, lng) {
   const stringifyQueryParams = (params) => {
     return Object.entries(params).map(
@@ -16,8 +44,29 @@ async function getWeatherApiData(apiKey, lat, lng) {
     appid: apiKey,
   });
 
-  const response = await fetch(`${endpointUrl}?${queryParams}`);
-  return await response.json();
+  let result;
+  const appCache = new AppCache({ storeName: 'weather' });
+
+  try {
+    const response = await fetch(`${endpointUrl}?${queryParams}`);
+    const data = await response.json();
+
+    if (data.cod !== '200') {
+      throw new Error(data.message);
+    }
+
+    appCache.clear();
+    const { city: { name, country, timezone }, list } = data;
+
+    result = { name, country, timezone, list };
+
+    appCache.set(result);
+  } catch (error) {
+    console.log(error);
+    result = appCache.get();
+  }
+
+  return result;
 }
 
 function formatTime(today) {
@@ -226,7 +275,7 @@ function getWeatherData() {
     clockTimer: null,
     clockTimerInterval: 1000,
     weatherTimer: null,
-    weatherTimerInterval: 1000 * 60 * 5, // 6 minutes
+    weatherTimerInterval: 1000 * 60 * 15, // 15 minutes
     tzOffset: 0,
     bgClass: '',
     tempScale: 'C',
@@ -240,7 +289,7 @@ function getWeatherData() {
       this.apiKey = screenly.settings.openweathermap_api_key;
 
       const data = await getWeatherApiData(this.apiKey, this.lat, this.lng);
-      const { city: { name, country, timezone: tzOffset }, list } = data;
+      const { name, country, timezone: tzOffset } = data;
 
       this.city = `${name}, ${country}`;
       this.tzOffset = parseInt(tzOffset / 60); // in minutes
