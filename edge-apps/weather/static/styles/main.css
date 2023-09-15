@@ -127,6 +127,19 @@ body {
   white-space: nowrap;
 }
 
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.error h1 {
+  text-align: center;
+  line-height: 1.5;
+}
+
 @media screen and (min-width: 800px) {
   .content {
     padding: 4rem;
@@ -232,6 +245,10 @@ body {
     padding: 2.25rem;
   }
 
+  .error h1 {
+    font-size: 48px;
+  }
+
   .location {
     font-size: 0.6rem;
   }
@@ -283,6 +300,10 @@ body {
     padding: 3.125rem;
   }
 
+  .error h1 {
+    font-size: 64px;
+  }
+
   .location {
     font-size: 0.66rem;
   }
@@ -332,6 +353,10 @@ body {
 
   .content {
     padding: 3.125rem;
+  }
+
+  .error h1 {
+    font-size: 96px;
   }
 
   .location {

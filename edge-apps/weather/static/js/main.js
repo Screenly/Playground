@@ -28,7 +28,7 @@ class AppCache {
   }
 }
 
-async function getWeatherApiData(apiKey, lat, lng) {
+async function getWeatherApiData(context) {
   const stringifyQueryParams = (params) => {
     return Object.entries(params).map(
       ([key, value]) => `${key}=${value}`
@@ -37,11 +37,11 @@ async function getWeatherApiData(apiKey, lat, lng) {
 
   const endpointUrl = `https://api.openweathermap.org/data/2.5/forecast`;
   const queryParams = stringifyQueryParams({
-    lat: lat,
-    lon: lng,
+    lat: context.lat,
+    lon: context.lng,
     units: 'metric', // TODO: Make this dependent on the current location.
     cnt: 10,
-    appid: apiKey,
+    appid: context.apiKey,
   });
 
   let result;
@@ -50,6 +50,7 @@ async function getWeatherApiData(apiKey, lat, lng) {
   try {
     const response = await fetch(`${endpointUrl}?${queryParams}`);
     const data = await response.json();
+    context.fetchError = false;
 
     if (data.cod !== '200') {
       throw new Error(data.message);
@@ -64,6 +65,13 @@ async function getWeatherApiData(apiKey, lat, lng) {
   } catch (error) {
     console.log(error);
     result = appCache.get();
+
+    const requiredKeys = ['name', 'country', 'timezone', 'list'];
+    const isComplete = requiredKeys.every((key) => {
+      return result.hasOwnProperty(key);
+    });
+
+    context.fetchError = !isComplete;
   }
 
   return result;
@@ -214,8 +222,7 @@ const getTemp = (context, temp) => {
 async function refreshWeather(context) {
   clearTimeout(context.weatherTimer);
 
-  const data = await getWeatherApiData(
-    context.apiKey, context.lat, context.lng);
+  const data = await getWeatherApiData(context);
 
   const { list } = data;
   const currentIndex = findCurrentWeatherItem(list);
@@ -284,11 +291,12 @@ function getWeatherData() {
     currentTemp: null,
     currentFormattedTempScale: '',
     forecastedItems: [],
+    fetchError: false,
     init: async function() {
       [this.lat, this.lng] = screenly.metadata?.coordinates;
       this.apiKey = screenly.settings.openweathermap_api_key;
 
-      const data = await getWeatherApiData(this.apiKey, this.lat, this.lng);
+      const data = await getWeatherApiData(this);
       const { name, country, timezone: tzOffset } = data;
 
       this.city = `${name}, ${country}`;

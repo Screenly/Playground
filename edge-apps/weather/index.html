@@ -35,63 +35,73 @@
         <!-- End Google Tag Manager -->
     </head>
     <body x-data="weather" :class="bgClass">
-        <div class="content">
-            <section class="header">
-                <div class="location">
-                    <span class="location-item">
-                        <img src="static/images/icons/map-pin.svg" alt="map pin icon">
-                        <span id="city" x-text="city"></span>
-                    </span>
+        <template x-if="fetchError">
+            <div class="error">
+                <h1>
+                    Oops! There's an error in fetching the weather data. <br>
+                    Make sure that an Internet connection is available.
+                </h1>
+            </div>
+        </template>
+        <template x-if="!fetchError">
+            <div class="content">
+                <section class="header">
+                    <div class="location">
+                        <span class="location-item">
+                            <img src="static/images/icons/map-pin.svg" alt="map pin icon">
+                            <span id="city" x-text="city"></span>
+                        </span>
 
-                    <span class="location-item">
-                        <img src="static/images/icons/clock.svg" alt="clock icon">
-                        <span id="time" x-text="currentTime"></span>
-                    </span>
+                        <span class="location-item">
+                            <img src="static/images/icons/clock.svg" alt="clock icon">
+                            <span id="time" x-text="currentTime"></span>
+                        </span>
 
-                    <span class="location-item">
-                        <img src="static/images/icons/calendar.svg" alt="calendar icon">
-                        <span id="date" x-text="currentDate"></span>
-                    </span>
-                </div>
-            </section>
-            <section class="footer">
-                <div class="current-weather">
-                  <div class="weather-condition">
-                    <img
-                        id="current-weather-icon"
-                        alt="weather icon"
-                        :src="currentWeatherIcon"
-                    >
-                    <span
-                        id="current-weather-status"
-                        x-text="currentWeatherStatus"
-                    ></span>
-                  </div>
-                  <div class="temperature">
-                    <span
-                        id="current-temp"
-                        x-text="currentTemp"
-                    ></span>
-                    <span
-                        id="current-temp-scale"
-                        x-text="currentFormattedTempScale"
-                    ></span>
-                  </div>
-                </div>
+                        <span class="location-item">
+                            <img src="static/images/icons/calendar.svg" alt="calendar icon">
+                            <span id="date" x-text="currentDate"></span>
+                        </span>
+                    </div>
+                </section>
+                <section class="footer">
+                    <div class="current-weather">
+                    <div class="weather-condition">
+                        <img
+                            id="current-weather-icon"
+                            alt="weather icon"
+                            :src="currentWeatherIcon"
+                        >
+                        <span
+                            id="current-weather-status"
+                            x-text="currentWeatherStatus"
+                        ></span>
+                    </div>
+                    <div class="temperature">
+                        <span
+                            id="current-temp"
+                            x-text="currentTemp"
+                        ></span>
+                        <span
+                            id="current-temp-scale"
+                            x-text="currentFormattedTempScale"
+                        ></span>
+                    </div>
+                    </div>
 
-                <div id="weather-item-list">
-                    <template x-for="item in forecastedItems" :key="item.id">
-                        <div class="weather-item">
-                            <span class="item-temp-degree">
-                                <span class="item-temp" x-text="item.temp"></span>&deg;
-                            </span>
-                            <img class="item-icon" alt="clock icon" :src="item.icon">
-                            <span class="item-time" x-text="item.time"></span>
-                        </div>
-                    </template>
-                </div>
-            </section>
-        </div>
+                    <div id="weather-item-list">
+                        <template x-for="item in forecastedItems" :key="item.id">
+                            <div class="weather-item">
+                                <span class="item-temp-degree">
+                                    <span class="item-temp" x-text="item.temp"></span>&deg;
+                                </span>
+                                <img class="item-icon" alt="clock icon" :src="item.icon">
+                                <span class="item-time" x-text="item.time"></span>
+                            </div>
+                        </template>
+                    </div>
+                </section>
+            </div>
+        </template>
         <script src="static/js/moment-with-locales.min.js"></script>
         <script src="static/js/icons.js"></script>
         <script src="static/js/main.js"></script>
