@@ -4,6 +4,7 @@ description: Screenly Clock Edge App
 icon: ''
 author: Screenly, Inc.
 homepage_url: ''
+entrypoint: index.html
 settings:
   disable_analytics:
     type: string

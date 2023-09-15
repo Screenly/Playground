@@ -4,6 +4,7 @@ description: Screenly RSS Reader App
 icon: ''
 author: Screenly, Inc.
 homepage_url: ''
+entrypoint: index.html
 settings:
   bypass_cors:
     type: string

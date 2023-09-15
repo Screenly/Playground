@@ -4,6 +4,7 @@ description: ''
 icon: ''
 author: ''
 homepage_url: ''
+entrypoint: index.html
 settings:
   enable_analytics:
     type: string
