@@ -1,10 +1,7 @@
 ---
-entrypoint: index.html
-user_version: ''
 description: Displays the current weather and time
-icon: ''
 author: Screenly, Inc.
-homepage_url: ''
+entrypoint: index.html
 settings:
   enable_analytics:
     type: string
