@@ -1,4 +1,5 @@
 ---
+entrypoint: index.html
 user_version: ''
 description: Displays the current weather and time
 icon: ''
