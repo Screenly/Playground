@@ -29,6 +29,7 @@ body {
   background-size: cover;
   color: #fff;
   font-family: Barlow, sans-serif;
+  transition: background-image 0.5s ease-in-out;
 }
 
 .content {
@@ -138,6 +139,20 @@ body {
 .error h1 {
   text-align: center;
   line-height: 1.5;
+}
+
+.loader {
+  border: 7px solid #ffffff;
+  border-left-color: transparent;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  animation: spin 0.7s ease-in-out infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 @media screen and (min-width: 800px) {

@@ -35,6 +35,12 @@
         <!-- End Google Tag Manager -->
     </head>
     <body x-data="weather" :class="bgClass">
+        <template x-if="isLoading && !fetchError">
+            <div class="error">
+                <div class="loader"></div>
+            </div>
+        </template>
+
         <template x-if="fetchError">
             <div class="error">
                 <h1>
@@ -43,6 +49,7 @@
                 </h1>
             </div>
         </template>
+
         <template x-if="!fetchError">
             <div class="content">
                 <section class="header">

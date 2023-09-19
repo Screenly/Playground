@@ -223,8 +223,19 @@ async function refreshWeather(context) {
   clearTimeout(context.weatherTimer);
 
   const data = await getWeatherApiData(context);
+  const { name, country, timezone: tzOffset, list } = data;
 
-  const { list } = data;
+  // We only want to set these values once.
+  if (!context.firstFetchComplete) {
+    context.city = `${name}, ${country}`;
+    context.tzOffset = parseInt(tzOffset / 60); // in minutes
+    context.tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C';
+    refreshDateTime(context);
+
+    context.firstFetchComplete = true;
+    context.isLoading = false;
+  }
+
   const currentIndex = findCurrentWeatherItem(list);
 
   const { dt, weather, main: { temp } } = list[currentIndex];
@@ -292,17 +303,11 @@ function getWeatherData() {
     currentFormattedTempScale: '',
     forecastedItems: [],
     fetchError: false,
+    firstFetchComplete: false,
+    isLoading: true,
     init: async function() {
       [this.lat, this.lng] = screenly.metadata?.coordinates;
       this.apiKey = screenly.settings.openweathermap_api_key;
-
-      const data = await getWeatherApiData(this);
-      const { name, country, timezone: tzOffset } = data;
-
-      this.city = `${name}, ${country}`;
-      this.tzOffset = parseInt(tzOffset / 60); // in minutes
-      this.tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C';
-      refreshDateTime(this);
 
       await refreshWeather(this);
     },
