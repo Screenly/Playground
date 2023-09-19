@@ -1,6 +1,7 @@
 ---
 description: Screenly RSS Reader App
 author: Screenly, Inc.
+entrypoint: index.html
 settings:
   bypass_cors:
     type: string
