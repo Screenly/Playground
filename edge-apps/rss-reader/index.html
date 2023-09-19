@@ -11,7 +11,10 @@
     <script src="static/js/alpinejs-3.13.0.min.js" defer></script>
   </head>
   <body>
-    <div class="d-flex flex-column h-100" x-data="rss">
+    <div
+      class="d-flex flex-column h-100"
+      x-data="rss"
+    >
       <header>
         <div class="header container">
           <img
@@ -23,15 +26,15 @@
         </div>
       </header>
 
-      <main class="container content">
-        <div id="feeds-container" class="container d-flex flex-column h-100">
+      <main class="content container">
+        <div id="feeds-container" class="d-flex flex-column h-100">
           <div id="grid" class="mt-4">
             <template x-for="entry in entries">
               <div class="feed-container">
                 <h2 class="feed-title fw-bolder" x-text="entry.title"></h2>
-                <p class="feed-date mb-0" x-text="entry.pubDate"></p>
-                <div class="feed-description mt-3" x-text="entry.contentSnippet">
+                <div class="feed-description" x-text="entry.contentSnippet">
                 </div>
+                <p class="feed-date" x-text="entry.pubDate"></p>
               </div>
             </template>
           </div>

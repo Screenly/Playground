@@ -38,6 +38,15 @@ footer {
   margin-top: 4rem;
 }
 
+header {
+  padding: 0;
+  border-bottom: 1px solid #D9D9D9;
+}
+
+.content {
+  align-self: center;
+}
+
 @media (min-width: 800px)
   and (orientation: landscape)
 {
@@ -70,7 +79,21 @@ footer {
   }
 
   #feeds-container > #grid {
+    column-gap: 32px;
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .header {
+    padding: 17px 0;
+    max-height: 90px;
+  }
+
+  .container {
+    max-width: 1216px;
+  }
+
+  .content {
+    padding: 0;
   }
 }
 
