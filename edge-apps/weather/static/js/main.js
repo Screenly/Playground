@@ -1,26 +1,26 @@
 /* global icons, moment */
 
 class AppCache {
-  constructor({ storeName }) {
-    this.storeName = storeName;
+  constructor({ keyName }) {
+    this.keyName = keyName;
 
-    if (localStorage.getItem(this.storeName) === null) {
+    if (localStorage.getItem(this.keyName) === null) {
       this.data = {};
-      localStorage.setItem(this.storeName, JSON.stringify(this.data));
+      localStorage.setItem(this.keyName, JSON.stringify(this.data));
     } else {
-      this.data = JSON.parse(localStorage.getItem(this.storeName));
+      this.data = JSON.parse(localStorage.getItem(this.keyName));
       console.log('Database setup complete');
     }
   }
 
   clear() {
     this.data = {};
-    localStorage.removeItem(this.storeName);
+    localStorage.removeItem(this.keyName);
   }
 
   set(data) {
     this.data = data;
-    localStorage.setItem(this.storeName, JSON.stringify(this.data));
+    localStorage.setItem(this.keyName, JSON.stringify(this.data));
   }
 
   get() {
@@ -45,7 +45,7 @@ async function getWeatherApiData(context) {
   });
 
   let result;
-  const appCache = new AppCache({ storeName: 'weather' });
+  const appCache = new AppCache({ keyName: 'weather' });
 
   try {
     const response = await fetch(`${endpointUrl}?${queryParams}`);
