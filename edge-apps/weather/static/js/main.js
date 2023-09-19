@@ -9,7 +9,7 @@ class AppCache {
       localStorage.setItem(this.keyName, JSON.stringify(this.data));
     } else {
       this.data = JSON.parse(localStorage.getItem(this.keyName));
-      console.log('Database setup complete');
+      console.debug('Database setup complete');
     }
   }
 
@@ -63,7 +63,7 @@ async function getWeatherApiData(context) {
 
     appCache.set(result);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     result = appCache.get();
 
     const requiredKeys = ['name', 'country', 'timezone', 'list'];
