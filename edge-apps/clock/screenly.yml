@@ -1,9 +1,7 @@
 ---
 user_version: v1.0.0
 description: Screenly Clock Edge App
-icon: ''
 author: Screenly, Inc.
-homepage_url: ''
 entrypoint: index.html
 settings:
   enable_analytics:
