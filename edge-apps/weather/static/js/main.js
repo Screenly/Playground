@@ -223,58 +223,60 @@ async function refreshWeather(context) {
   clearTimeout(context.weatherTimer);
 
   const data = await getWeatherApiData(context);
-  const { name, country, timezone: tzOffset, list } = data;
 
-  // We only want to set these values once.
-  if (!context.firstFetchComplete) {
-    context.city = `${name}, ${country}`;
-    context.tzOffset = parseInt(tzOffset / 60); // in minutes
-    context.tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C';
-    refreshDateTime(context);
+  if (data.list !== undefined) {
+    const { name, country, timezone: tzOffset, list } = data;
 
-    context.firstFetchComplete = true;
-    context.isLoading = false;
-  }
+    // We only want to set these values once.
+    if (!context.firstFetchComplete) {
+      context.city = `${name}, ${country}`;
+      context.tzOffset = parseInt(tzOffset / 60); // in minutes
+      context.tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C';
+      refreshDateTime(context);
 
-  const currentIndex = findCurrentWeatherItem(list);
-
-  const { dt, weather, main: { temp } } = list[currentIndex];
-
-  if (Array.isArray(weather) && weather.length > 0) {
-    const { id, description } = weather[0];
-    const { icon, bg } = getWeatherImagesById(context, id, dt);
-    if (id !== context.currentWeatherId) {
-      context.bgClass = `bg-${bg}`;
+      context.firstFetchComplete = true;
+      context.isLoading = false;
     }
 
-    context.currentWeatherIcon = icons[icon];
-    context.currentWeatherStatus = description;
-    context.currentTemp = getTemp(context, temp);
-    context.currentFormattedTempScale = `\u00B0${context.tempScale}`;
+    const currentIndex = findCurrentWeatherItem(list);
+    const { dt, weather, main: { temp } } = list[currentIndex];
 
-    context.currentWeatherId = id;
+    if (Array.isArray(weather) && weather.length > 0) {
+      const { id, description } = weather[0];
+      const { icon, bg } = getWeatherImagesById(context, id, dt);
+      if (id !== context.currentWeatherId) {
+        context.bgClass = `bg-${bg}`;
+      }
+
+      context.currentWeatherIcon = icons[icon];
+      context.currentWeatherStatus = description;
+      context.currentTemp = getTemp(context, temp);
+      context.currentFormattedTempScale = `\u00B0${context.tempScale}`;
+
+      context.currentWeatherId = id;
+    }
+
+    const windowSize = 5
+    const currentWindow = list.slice(
+      currentIndex,
+      (currentIndex <= windowSize - 1)
+        ? currentIndex + windowSize : list.length - 1,
+    );
+
+    context.forecastedItems = currentWindow.map((item, index) => {
+      const { dt, main: { temp }, weather } = item;
+
+      const { icon } = getWeatherImagesById(context, weather[0]?.id, dt);
+      const dateTime = moment.unix(dt).utcOffset(context.tzOffset);
+
+      return {
+        id: index,
+        temp: getTemp(context, temp),
+        icon: icons[icon],
+        time: index === 0 ? 'Current' : formatTime(dateTime),
+      };
+    });
   }
-
-  const windowSize = 5
-  const currentWindow = list.slice(
-    currentIndex,
-    (currentIndex <= windowSize - 1)
-      ? currentIndex + windowSize : list.length - 1,
-  );
-
-  context.forecastedItems = currentWindow.map((item, index) => {
-    const { dt, main: { temp }, weather } = item;
-
-    const { icon } = getWeatherImagesById(context, weather[0]?.id, dt);
-    const dateTime = moment.unix(dt).utcOffset(context.tzOffset);
-
-    return {
-      id: index,
-      temp: getTemp(context, temp),
-      icon: icons[icon],
-      time: index === 0 ? 'Current' : formatTime(dateTime),
-    };
-  });
 
   context.weatherTimer = setTimeout(
     () => refreshWeather(context),
