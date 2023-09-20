@@ -136,17 +136,16 @@ body {
   height: 100%;
 }
 
-.error h1 {
+.error h2 {
   text-align: center;
   line-height: 1.5;
+  margin-bottom: 2rem;
 }
 
 .loader {
   border: 7px solid #ffffff;
   border-left-color: transparent;
   border-radius: 50%;
-  width: 70px;
-  height: 70px;
   animation: spin 0.7s ease-in-out infinite;
 }
 
@@ -158,6 +157,16 @@ body {
 @media screen and (min-width: 800px) {
   .content {
     padding: 4rem;
+  }
+
+  .error h2 {
+    font-size: 15px;
+  }
+
+  .loader {
+    border-width: 4px;
+    width: 45px;
+    height: 45px;
   }
 
   .location {
@@ -206,6 +215,16 @@ body {
 
   .content {
     padding: 3.3rem;
+  }
+
+  .error h2 {
+    font-size: 24px;
+  }
+
+  .loader {
+    border-width: 7px;
+    width: 70px;
+    height: 70px;
   }
 
   .location {
@@ -260,8 +279,14 @@ body {
     padding: 2.25rem;
   }
 
-  .error h1 {
-    font-size: 48px;
+  .error h2 {
+    font-size: 36px;
+  }
+
+  .loader {
+    border-width: 10.5px;
+    width: 105px;
+    height: 105px;
   }
 
   .location {
@@ -315,8 +340,14 @@ body {
     padding: 3.125rem;
   }
 
-  .error h1 {
-    font-size: 64px;
+  .error h2 {
+    font-size: 48px;
+  }
+
+  .loader {
+    border-width: 14px;
+    width: 140px;
+    height: 140px;
   }
 
   .location {
@@ -370,8 +401,14 @@ body {
     padding: 3.125rem;
   }
 
-  .error h1 {
-    font-size: 96px;
+  .error h2 {
+    font-size: 72px;
+  }
+
+  .loader {
+    border-width: 21.5px;
+    width: 215px;
+    height: 215px;
   }
 
   .location {
@@ -506,6 +543,16 @@ body {
     padding: 2rem 2.5rem 2.5rem;
   }
 
+  .error h2 {
+    font-size: 20px;
+  }
+
+  .loader {
+    border-width: 4px;
+    width: 45px;
+    height: 45px;
+  }
+
   .location {
     flex-direction: row;
     font-size: 0.875rem;
@@ -569,6 +616,16 @@ body {
     padding: 2.66rem 2.7rem 2.7rem;
   }
 
+  .error h2 {
+    font-size: 24px;
+  }
+
+  .loader {
+    border-width: 7px;
+    width: 70px;
+    height: 70px;
+  }
+
   .location {
     font-size: 0.875rem;
   }
@@ -618,6 +675,16 @@ body {
 
   .content {
     padding: 3.25rem 2.1rem 2.1rem;
+  }
+
+  .error h2 {
+    font-size: 36px;
+  }
+
+  .loader {
+    border-width: 10.5px;
+    width: 105px;
+    height: 105px;
   }
 
   .location {
@@ -675,6 +742,16 @@ body {
     padding: 2.66rem;
   }
 
+  .error h2 {
+    font-size: 48px;
+  }
+
+  .loader {
+    border-width: 14px;
+    width: 140px;
+    height: 140px;
+  }
+
   .location {
     font-size: 0.66rem;
     margin-top: 1.8rem;
@@ -721,6 +798,16 @@ body {
 
   .content {
     padding: 3.24rem 2.5rem 2.5rem;
+  }
+
+  .error h2 {
+    font-size: 72px;
+  }
+
+  .loader {
+    border-width: 21.5px;
+    width: 215px;
+    height: 215px;
   }
 
   .location {

@@ -43,10 +43,11 @@
 
         <template x-if="fetchError">
             <div class="error">
-                <h1>
-                    Oops! There's an error in fetching the weather data. <br>
-                    Make sure that an Internet connection is available.
-                </h1>
+                <h2>
+                    Waiting for an Internet connection...
+                </h2>
+
+                <div class="loader"></div>
             </div>
         </template>
 
