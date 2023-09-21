@@ -37,18 +37,19 @@
     <body x-data="weather" :class="bgClass">
         <template x-if="isLoading && !fetchError">
             <div class="error">
-                <h2>Loading...</h2>
-                <div class="loader"></div>
+                <div class="group">
+                    <h2>Loading...</h2>
+                    <div class="loader"></div>
+                </div>
             </div>
         </template>
 
         <template x-if="fetchError">
             <div class="error">
-                <h2>
-                    Waiting for Internet connection...
-                </h2>
-
-                <div class="loader"></div>
+                <div class="group">
+                    <h2>Waiting for Internet connection...</h2>
+                    <div class="loader"></div>
+                </div>
             </div>
         </template>
 

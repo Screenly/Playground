@@ -139,14 +139,24 @@ body {
 .error h2 {
   text-align: center;
   line-height: 1.5;
-  margin-bottom: 2rem;
+  margin-bottom: 20px;
+  font-size: 15px;
 }
 
 .loader {
-  border: 7px solid #ffffff;
+  border: 4px solid #ffffff;
   border-left-color: transparent;
   border-radius: 50%;
   animation: spin 0.7s ease-in-out infinite;
+  width: 45px;
+  height: 45px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  scale: 1;
 }
 
 @keyframes spin {
@@ -159,14 +169,8 @@ body {
     padding: 4rem;
   }
 
-  .error h2 {
-    font-size: 15px;
-  }
-
-  .loader {
-    border-width: 4px;
-    width: 45px;
-    height: 45px;
+  .group {
+    scale: 1;
   }
 
   .location {
@@ -217,14 +221,8 @@ body {
     padding: 3.3rem;
   }
 
-  .error h2 {
-    font-size: 24px;
-  }
-
-  .loader {
-    border-width: 7px;
-    width: 70px;
-    height: 70px;
+  .group {
+    scale: 1.6;
   }
 
   .location {
@@ -279,14 +277,8 @@ body {
     padding: 2.25rem;
   }
 
-  .error h2 {
-    font-size: 36px;
-  }
-
-  .loader {
-    border-width: 10.5px;
-    width: 105px;
-    height: 105px;
+  .group {
+    scale: 2.4;
   }
 
   .location {
@@ -340,14 +332,8 @@ body {
     padding: 3.125rem;
   }
 
-  .error h2 {
-    font-size: 48px;
-  }
-
-  .loader {
-    border-width: 14px;
-    width: 140px;
-    height: 140px;
+  .group {
+    scale: 3.2;
   }
 
   .location {
@@ -401,14 +387,8 @@ body {
     padding: 3.125rem;
   }
 
-  .error h2 {
-    font-size: 72px;
-  }
-
-  .loader {
-    border-width: 21.5px;
-    width: 215px;
-    height: 215px;
+  .group {
+    scale: 4.8;
   }
 
   .location {
@@ -543,14 +523,8 @@ body {
     padding: 2rem 2.5rem 2.5rem;
   }
 
-  .error h2 {
-    font-size: 20px;
-  }
-
-  .loader {
-    border-width: 4px;
-    width: 45px;
-    height: 45px;
+  .group {
+    scale: 1;
   }
 
   .location {
@@ -616,14 +590,8 @@ body {
     padding: 2.66rem 2.7rem 2.7rem;
   }
 
-  .error h2 {
-    font-size: 24px;
-  }
-
-  .loader {
-    border-width: 7px;
-    width: 70px;
-    height: 70px;
+  .group {
+    scale: 1.6;
   }
 
   .location {
@@ -677,14 +645,8 @@ body {
     padding: 3.25rem 2.1rem 2.1rem;
   }
 
-  .error h2 {
-    font-size: 36px;
-  }
-
-  .loader {
-    border-width: 10.5px;
-    width: 105px;
-    height: 105px;
+  .group {
+    scale: 2.4;
   }
 
   .location {
@@ -742,14 +704,8 @@ body {
     padding: 2.66rem;
   }
 
-  .error h2 {
-    font-size: 48px;
-  }
-
-  .loader {
-    border-width: 14px;
-    width: 140px;
-    height: 140px;
+  .group {
+    scale: 3.2;
   }
 
   .location {
@@ -800,14 +756,8 @@ body {
     padding: 3.24rem 2.5rem 2.5rem;
   }
 
-  .error h2 {
-    font-size: 72px;
-  }
-
-  .loader {
-    border-width: 21.5px;
-    width: 215px;
-    height: 215px;
+  .group {
+    scale: 4.8;
   }
 
   .location {
