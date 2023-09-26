@@ -295,7 +295,7 @@ function getWeatherData() {
     clockTimer: null,
     clockTimerInterval: 1000,
     weatherTimer: null,
-    weatherTimerInterval: 1000 * 60 * 15, // 15 minutes
+    weatherTimerInterval: 1000 * 60 * 30, // 30 minutes
     tzOffset: 0,
     bgClass: '',
     tempScale: 'C',
