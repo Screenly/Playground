@@ -2,6 +2,7 @@
 // eslint-disable-next-line no-unused-vars
 
 const { getNearestCity } = OfflineGeocodeCity;
+const allTimezones = moment.tz.names();
 
 async function initApp () {
   let clockTimer;
@@ -37,10 +38,23 @@ async function initApp () {
       : time;
   }
 
+  const getOverrideTimezone = () => {
+    const overrideTimezone = settings?.override_timezone;
+    if (overrideTimezone) {
+      if (allTimezones.includes(overrideTimezone)) {
+        return overrideTimezone;
+      } else {
+        console.warn(`Invalid timezone: ${overrideTimezone}. Using defaults.`);
+      }
+    }
+
+    return tzlookup(latitude, longitude);
+  };
+
   const initDateTime = async () => {
     clearTimeout(clockTimer);
 
-    const timezone = settings?.override_timezone || tzlookup(latitude, longitude);
+    const timezone = getOverrideTimezone();
     const momentObject = moment().tz(timezone);
 
     document.querySelector('#date').innerText = momentObject.format('LL');
