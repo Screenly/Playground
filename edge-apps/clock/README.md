@@ -22,10 +22,11 @@ For instance, if you want to clock app to display the current date and time in L
 run the following command:
 
 ```bash
-$ screenly edge-app setting set override_timezone='Europe/London'
+$ screenly edge-app setting set override_timezone='Europe/Paris'
+$ screenly edge-app setting set override_locale='fr'
 ```
 
-See [this page](https://www.ibm.com/docs/en/cloudpakw3700/2.3.0.0?topic=SS6PD2_2.3.0/doc/psapsys_restapi/time_zone_list.htm)
-for the list of all possible values for the time zone.
+See [this page](https://momentjs.com/) for the list of all possible values for the time zone.
+Alternatively, you can call `moment.locales()`, which returns all the supported locale values.
 
 Setting invalid values for the timezone won't crash the app itself, it'll just fall back to the default time.

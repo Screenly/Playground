@@ -18,7 +18,11 @@ async function initApp () {
     overrideLocale = settings?.override_locale;
 
     if (overrideLocale) {
-      return overrideLocale;
+      if (moment.locales().includes(overrideLocale)) {
+        return overrideLocale;
+      } else {
+        console.warn(`Invalid locale: ${overrideLocale}. Using defaults.`);
+      }
     }
 
     const data = getNearestCity(latitude, longitude);
@@ -38,7 +42,7 @@ async function initApp () {
       : time;
   }
 
-  const getOverrideTimezone = () => {
+  const getTimezone = () => {
     const overrideTimezone = settings?.override_timezone;
     if (overrideTimezone) {
       if (allTimezones.includes(overrideTimezone)) {
@@ -54,7 +58,7 @@ async function initApp () {
   const initDateTime = async () => {
     clearTimeout(clockTimer);
 
-    const timezone = getOverrideTimezone();
+    const timezone = getTimezone();
     const momentObject = moment().tz(timezone);
 
     document.querySelector('#date').innerText = momentObject.format('LL');
