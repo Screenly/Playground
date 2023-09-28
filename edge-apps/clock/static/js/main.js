@@ -13,11 +13,21 @@ async function initApp () {
     ? navigator.languages[0]
     : navigator.language;
 
-  const formatTime = async (momentObject) => {
+  const getLocale = () => {
+    overrideLocale = settings?.override_locale;
+
+    if (overrideLocale) {
+      return overrideLocale;
+    }
+
     const data = getNearestCity(latitude, longitude);
     const countryCode = data.countryIso2.toUpperCase();
-    const locale = clm.getLocaleByAlpha2(countryCode) || defaultLocale;
 
+    return clm.getLocaleByAlpha2(countryCode) || defaultLocale;
+  };
+
+  const formatTime = async (momentObject) => {
+    const locale = getLocale();
     moment.locale(locale);
     const time = momentObject.format('LT');
     const timeFragments = time.split(' ');

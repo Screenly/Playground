@@ -16,6 +16,11 @@ settings:
     title: override_timezone
     optional: true
     help_text: Specify a supported timezone value (e.g., Europe/London).
+  override_locale:
+    type: string
+    default_value: ''
+    optional: true
+    help_text: Specify a supported locale value (e.g., en_US).
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z
