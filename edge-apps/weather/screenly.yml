@@ -11,7 +11,6 @@ settings:
     help_text: Whether to enable analytics or not
   openweathermap_api_key:
     type: secret
-    default_value: ''
     title: openweathermap_api_key
     optional: false
     help_text: |
