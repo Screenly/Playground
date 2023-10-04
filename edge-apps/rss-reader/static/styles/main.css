@@ -43,6 +43,10 @@ header {
   border-bottom: 1px solid #D9D9D9;
 }
 
+.feed-container {
+  border-bottom: 0.5px solid #D9D9D9;
+}
+
 .content {
   align-self: center;
 }
@@ -72,14 +76,24 @@ header {
 
   h2 {
     font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    line-height: 30px;
   }
 
-  p {
+  .feed-description {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    line-height: 28px;
+  }
+
+  .feed-date {
     font-size: 1rem;
+    line-height: 18px;
   }
 
   #feeds-container > #grid {
     column-gap: 32px;
+    row-gap: 35px;
     grid-template-columns: repeat(2, 1fr);
   }
 
