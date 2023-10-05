@@ -92,8 +92,8 @@ header {
   }
 
   #feeds-container > #grid {
-    column-gap: 32px;
-    row-gap: 35px;
+    column-gap: 2rem;
+    row-gap: 2rem;
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -137,20 +137,43 @@ header {
   and (orientation: landscape)
 {
   h1 {
-    font-size: 4.25rem;
+    font-size: 5rem;
   }
 
   h2 {
-    font-size: 3.75rem;
+    font-size: 3.2rem;
+    margin-bottom: 3rem;
+    line-height: 60px;
   }
 
   p {
     font-size: 2rem;
   }
 
+  .feed-description {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    line-height: 56px;
+  }
+
+  .feed-date {
+    font-size: 2rem;
+    line-height: 36px;
+    margin-bottom: 2rem;
+  }
+
+  .container {
+    max-width: 2640px;
+  }
+
+  .header {
+    padding: 34px 0;
+    max-height: 180px;
+  }
+
   #feeds-container > #grid {
-    column-gap: 3rem;
-    row-gap: 2rem;
+    column-gap: 4rem;
+    row-gap: 4rem;
   }
 }
 
