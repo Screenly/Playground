@@ -115,15 +115,17 @@ header {
   and (orientation: landscape)
 {
   h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 
   h2 {
-    font-size: 2.25rem;
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    line-height: 30px;
   }
 
-  p {
-    font-size: 1.25rem;
+  .container {
+    max-width: 1320px;
   }
 
   #feeds-container > #grid {
