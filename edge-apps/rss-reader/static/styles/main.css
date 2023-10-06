@@ -168,7 +168,7 @@ header {
 
   .header {
     padding: 34px 0;
-    max-height: 180px;
+    max-height: 190px;
   }
 
   #feeds-container > #grid {
@@ -250,15 +250,38 @@ header {
   }
 
   h2 {
-    font-size: 4.5rem;
+    font-size: 3.2rem;
+    margin-bottom: 3rem;
+    line-height: 60px;
   }
 
   p {
-    font-size: 3rem;
+    font-size: 2rem;
+  }
+
+  .feed-description {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    line-height: 56px;
+  }
+
+  .feed-date {
+    font-size: 2rem;
+    line-height: 36px;
+    margin-bottom: 2rem;
+  }
+
+  .header {
+    padding: 34px 0;
+    max-height: 190px;
+  }
+
+  #feeds-container > #grid {
+    row-gap: 4rem;
   }
 
   .container {
-    max-width: 1700px;
+    max-width: 1288px;
   }
 
   .content {
