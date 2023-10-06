@@ -222,15 +222,34 @@ header {
   and (orientation: portrait)
 {
   h1 {
-    font-size: 3rem;
-  }
-
-  h2 {
     font-size: 2.5rem;
   }
 
+  h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    line-height: 30px;
+  }
+
   p {
+    font-size: 1rem;
+  }
+
+  .header {
+    padding: 17px 0;
+    max-height: 100px;
+  }
+
+  .feed-description {
     font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    line-height: 28px;
+  }
+
+  .feed-date {
+    font-size: 1rem;
+    line-height: 18px;
+    margin-bottom: 1rem;
   }
 
   .container {
@@ -238,7 +257,7 @@ header {
   }
 
   #feeds-container > #grid {
-    row-gap: 3rem;
+    row-gap: 2.25rem;
   }
 }
 
