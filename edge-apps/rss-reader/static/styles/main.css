@@ -55,15 +55,41 @@ header {
   and (orientation: landscape)
 {
   h1 {
-    font-size: 2rem;
+    font-size: 1.6rem;
   }
 
   h2 {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 
   p {
-    font-size: 1rem;
+    font-size: 0.625rem;
+  }
+
+  .feed-description {
+    font-size: 0.78rem;
+    margin-bottom: 0.84rem;
+    line-height: 17.5px;
+  }
+
+  .feed-date {
+    font-size: 0.625rem;
+    line-height: 11.25px;
+  }
+
+  #feeds-container > #grid {
+    column-gap: 1.25rem;
+    row-gap: 1.25rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .header {
+    padding: 10.63px 0;
+    max-height: 56.25px;
+  }
+
+  .container {
+    max-width: 760px;
   }
 }
 
