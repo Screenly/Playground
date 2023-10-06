@@ -236,7 +236,9 @@ header {
   }
 
   h2 {
-    font-size: 2rem;
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    line-height: 30px;
   }
 
   p {
@@ -245,6 +247,31 @@ header {
 
   .container {
     min-width: 700px;
+  }
+
+  .header {
+    padding: 17px 0;
+    max-height: 90px;
+  }
+
+  .feed-description {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    line-height: 28px;
+  }
+
+  .feed-date {
+    font-size: 1rem;
+    line-height: 18px;
+    margin-bottom: 1rem;
+  }
+
+  #feeds-container > #grid {
+    row-gap: 2.25rem;
+  }
+
+  .content {
+    padding: 0;
   }
 }
 
