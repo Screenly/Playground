@@ -91,6 +91,10 @@ header {
   .container {
     max-width: 760px;
   }
+
+  .content {
+    padding: 0;
+  }
 }
 
 @media (min-width: 1280px)
