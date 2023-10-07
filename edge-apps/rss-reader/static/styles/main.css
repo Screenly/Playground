@@ -51,6 +51,39 @@ header {
   align-self: center;
 }
 
+.loader-wrapper {
+  height: 100%;
+}
+
+.loader-group {
+  scale: 1;
+}
+
+.loader-text {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.loader-icon {
+  border: 7px solid #F3F3F3;
+  border-top: 7px solid transparent;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @media (min-width: 800px)
   and (orientation: landscape)
 {
@@ -62,7 +95,7 @@ header {
     font-size: 1rem;
   }
 
-  p {
+  footer.container p {
     font-size: 0.625rem;
   }
 
@@ -104,6 +137,10 @@ header {
     font-size: 2.5rem;
   }
 
+  footer.container p {
+    font-size: 1.25rem;
+  }
+
   h2 {
     font-size: 1.6rem;
     margin-bottom: 1.5rem;
@@ -139,6 +176,10 @@ header {
   .content {
     padding: 0;
   }
+
+  .loader-group {
+    scale: 1.6;
+  }
 }
 
 @media (min-width: 1920px)
@@ -161,6 +202,10 @@ header {
   #feeds-container > #grid {
     column-gap: 1.75rem;
   }
+
+  .loader-group {
+    scale: 2.4;
+  }
 }
 
 @media (min-width: 3840px)
@@ -176,8 +221,8 @@ header {
     line-height: 60px;
   }
 
-  p {
-    font-size: 2rem;
+  footer.container p {
+    font-size: 2.5rem;
   }
 
   .feed-description {
@@ -205,6 +250,10 @@ header {
     column-gap: 4rem;
     row-gap: 4rem;
   }
+
+  .loader-group {
+    scale: 4.8;
+  }
 }
 
 @media (min-width: 4096px)
@@ -225,6 +274,10 @@ header {
   #feeds-container > #grid {
     column-gap: 3.25rem;
     row-gap: 1.5rem;
+  }
+
+  .loader-group {
+    scale: 5.12;
   }
 }
 
@@ -273,6 +326,10 @@ header {
   .content {
     padding: 0;
   }
+
+  .loader-group {
+    scale: 1.5;
+  }
 }
 
 @media screen and (min-width: 1080px)
@@ -315,6 +372,10 @@ header {
 
   #feeds-container > #grid {
     row-gap: 2.25rem;
+  }
+
+  .loader-group {
+    scale: 2.25;
   }
 }
 
@@ -362,5 +423,9 @@ header {
 
   .content {
     margin: 14rem auto 14rem;
+  }
+
+  .loader-group {
+    scale: 4.5;
   }
 }

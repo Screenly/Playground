@@ -60,6 +60,7 @@ const getRssData = function() {
       rssUrl: 'http://feeds.bbci.co.uk/news/rss.xml',
       rssTitle: 'BBC News',
     },
+    isLoading: true,
     loadSettings: function() {
       if (typeof screenly === 'undefined') {
         console.warn('screenly is not defined. Using default settings.');
@@ -102,6 +103,8 @@ const getRssData = function() {
             entries.forEach(async (entry) => {
               appCache.add(entry);
             });
+
+            this.isLoading = false;
           } catch (err) {
             console.error(err);
             const entries = appCache.getAll();

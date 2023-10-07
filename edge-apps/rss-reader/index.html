@@ -10,11 +10,8 @@
 
     <script src="static/js/alpinejs-3.13.0.min.js" defer></script>
   </head>
-  <body>
-    <div
-      class="d-flex flex-column h-100"
-      x-data="rss"
-    >
+  <body x-data="rss">
+    <div class="d-flex flex-column h-100">
       <header>
         <div class="header container">
           <img
@@ -27,18 +24,44 @@
       </header>
 
       <main class="content container">
-        <div id="feeds-container" class="d-flex flex-column h-100">
-          <div id="grid" class="mt-4">
-            <template x-for="entry in entries">
-              <div class="feed-container">
-                <h2 class="feed-title fw-bolder" x-text="entry.title"></h2>
-                <div class="feed-description" x-text="entry.contentSnippet">
-                </div>
-                <p class="feed-date" x-text="entry.pubDate"></p>
-              </div>
-            </template>
+        <template x-if="isLoading">
+          <div
+            class="
+              loader-wrapper
+              d-flex
+              flex-column
+              align-items-center
+              justify-content-center
+            "
+          >
+            <div
+              class="
+                loader-group
+                d-flex
+                flex-column
+                align-items-center
+              "
+            >
+              <h1 class="loader-text">Loading feed items...</h1>
+              <div class="loader-icon"></div>
+            </div>
           </div>
-        </div>
+        </template>
+
+        <template x-if="!isLoading">
+          <div id="feeds-container" class="d-flex flex-column h-100">
+            <div id="grid" class="mt-4">
+              <template x-for="entry in entries">
+                <div class="feed-container">
+                  <h2 class="feed-title fw-bolder" x-text="entry.title"></h2>
+                  <div class="feed-description" x-text="entry.contentSnippet">
+                  </div>
+                  <p class="feed-date" x-text="entry.pubDate"></p>
+                </div>
+              </template>
+            </div>
+          </div>
+        </template>
       </main>
 
       <footer class="container">
