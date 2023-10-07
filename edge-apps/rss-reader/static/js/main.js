@@ -1,24 +1,24 @@
 class AppCache {
-  constructor({ storeName }) {
-    this.storeName = storeName;
+  constructor({ keyName }) {
+    this.keyName = keyName;
 
-    if (localStorage.getItem(this.storeName) === null) {
+    if (localStorage.getItem(this.keyName) === null) {
       this.data = [];
-      localStorage.setItem(this.storeName, JSON.stringify(this.data));
+      localStorage.setItem(this.keyName, JSON.stringify(this.data));
     } else {
-      this.data = JSON.parse(localStorage.getItem(this.storeName));
+      this.data = JSON.parse(localStorage.getItem(this.keyName));
       console.log('Database setup complete');
     }
   }
 
   clear() {
     this.data = [];
-    localStorage.removeItem(this.storeName);
+    localStorage.removeItem(this.keyName);
   }
 
   add(data) {
     this.data.push(data);
-    localStorage.setItem(this.storeName, JSON.stringify(this.data));
+    localStorage.setItem(this.keyName, JSON.stringify(this.data));
   }
 
   getAll() {
@@ -84,7 +84,7 @@ const getRssData = function() {
       this.loadSettings();
       const msPerSecond = 1000;
       const appCache = new AppCache({
-        storeName: 'rssStore',
+        keyName: 'rssStore',
       });
 
       setInterval(await (async () => {
