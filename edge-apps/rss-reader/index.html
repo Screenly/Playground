@@ -42,13 +42,20 @@
                 align-items-center
               "
             >
-              <h1 class="loader-text">Loading feed items...</h1>
+              <template x-if="fetchError">
+                <h1 class="loader-text">Error loading feed items. Retrying...</h1>
+              </template>
+
+              <template x-if="!fetchError">
+                <h1 class="loader-text">Loading feed items...</h1>
+              </template>
+
               <div class="loader-icon"></div>
             </div>
           </div>
         </template>
 
-        <template x-if="!isLoading">
+        <template x-if="!fetchError">
           <div id="feeds-container" class="d-flex flex-column h-100">
             <div id="grid" class="mt-4">
               <template x-for="entry in entries">

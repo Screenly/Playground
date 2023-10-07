@@ -61,6 +61,7 @@ const getRssData = function() {
       rssTitle: 'BBC News',
     },
     isLoading: true,
+    fetchError: false,
     loadSettings: function() {
       if (typeof screenly === 'undefined') {
         console.warn('screenly is not defined. Using default settings.');
@@ -91,6 +92,7 @@ const getRssData = function() {
         const lambda = async () => {
           try {
             const response = (await getApiResponse(this)).slice(0, this.settings.limit);
+            this.fetchError = false;
             appCache.clear();
             const entries = response.map(
               ({title, pubDate, content, contentSnippet}) => {
@@ -108,7 +110,13 @@ const getRssData = function() {
           } catch (err) {
             console.error(err);
             const entries = appCache.getAll();
-            this.entries = entries;
+            if (entries.length === 0) {
+              this.fetchError = true;
+            } else {
+              this.fetchError = false;
+              this.entries = entries;
+              this.isLoading = false;
+            }
           }
         };
 
