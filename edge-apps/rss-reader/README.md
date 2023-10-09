@@ -64,3 +64,13 @@ In some instances, you need to bypass the CORS policy in order to retrieve news.
 ```bash
 $ screenly edge-app setting set bypass_cors=true
 ```
+
+Here's a table that contains a list of some RSS feed URLs, and whether the CORS proxy should be bypassed or not.
+
+| URL                                                 | Requires CORS | bypass_cors |
+| --------------------------------------------------- | ------------- | ----------- |
+| http://feeds.bbci.co.uk/news/rss.xml                | Yes           | true        |
+| https://lifehacker.com/rss                          | Yes           | true        |
+| https://www.reddit.com/.rss                         | Yes           | true        |
+| https://rss.nytimes.com/services/xml/rss/nyt/US.xml | No            | false       |
+| http://rss.sciam.com/sciam/60secsciencepodcast      | Yes           | true        |
