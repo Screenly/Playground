@@ -6,17 +6,17 @@ settings:
     type: string
     default_value:
     title: Azure AD Client ID
-    optional: false
+    optional: true
     help_text: The Oauth 2.0 Client ID for Azure AD
   azure_ad_client_secret:
     type: secret
     default_value:
     title: Azure AD Client Secret
-    optional: false
+    optional: true
     help_text: The Oauth 2.0 Client Secret for Azure AD
   azure_ad_resource:
     type: string
-    default_value: https://analysis.windows.net/powerbi/api
+    default_value: https://login.microsoftonline.com
     title: Oauth 2.0 Resource
     optional: false
     help_text: The Oauth 2.0 Resource for Azure AD
@@ -30,23 +30,23 @@ settings:
     type: string
     default_value:
     title: Microsoft Tenant ID
-    optional: false
+    optional: true
     help_text: The Microsoft Tenant ID
   power_bi_group_id:
     type: string
     default_value:
     title: Power Group ID
-    optional: false
+    optional: true
     help_text: The Group ID, also known as Workspace ID
   power_bi_resource_id:
     type: string
     default_value:
     title: Power BI Dashboard or Report ID
-    optional: false
+    optional: true
     help_text: The Dashboard or Report ID
   power_bi_resource_type:
     type: string
     default_value:
     title: Power BI resource type, meaning report or dashboard
-    optional: false
+    optional: true
     help_text: The resource type, meaning report or dashboard
