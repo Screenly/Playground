@@ -47,9 +47,9 @@
                 }
             };
 
-            // Use `report_page` setting to deeplink to a given report
-            if (screenly.settings && screenly.settings.report_page) {
-                embedConfiguration.pageName = screenly.settings.report_page;
+            // Use `page_name` setting to deeplink to a given report
+            if (screenly.settings && screenly.settings.power_bi_page_name) {
+                embedConfiguration.pageName = screenly.settings.power_bi_page_name;
             }
 
             var report = powerbi.embed(embedContainer, embedConfiguration);

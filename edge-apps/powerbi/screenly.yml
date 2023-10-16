@@ -50,3 +50,9 @@ settings:
     title: Power BI resource type, meaning report or dashboard
     optional: true
     help_text: The resource type, meaning report or dashboard
+  power_bi_page_name:
+    type: string
+    default_value:
+    title: Power BI report page name (optional)
+    optional: true
+    help_text: Display a specific page (i.e. tab name) within a given Power BI report to display
