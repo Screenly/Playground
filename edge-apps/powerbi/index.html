@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScreenlyPower BI Edge App</title>
+    <title>Screenly Power BI Edge App</title>
     <script src="screenly.js?version=1"></script>
 
     <style>
@@ -46,8 +46,15 @@
                     navContentPaneEnabled: false
                 }
             };
+
+            // Use `report_page` setting to deeplink to a given report
+            if (screenly.settings && screenly.settings.report_page) {
+                embedConfiguration.pageName = screenly.settings.report_page;
+            }
+
             var report = powerbi.embed(embedContainer, embedConfiguration);
         }
+
     </script>
 
     <!-- Load the Power BI JavaScript SDK and then call the function -->
