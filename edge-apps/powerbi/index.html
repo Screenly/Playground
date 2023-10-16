@@ -5,32 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Screenly Power BI Edge App</title>
-    <script src="screenly.js?version=1"></script>
 
     <style>
       body {
         margin: 0;
         padding: 0;
       }
-      #embedContainer {
+      #embed-container {
         width: 100%;
         height: 100vh;
         margin: 0 auto;
       }
-      #embedContainer iframe {
+      #embed-container iframe {
         border: 0;
       }
     </style>
 </head>
 
 <body>
-    <div id="embedContainer"></div>
+    <script src="screenly.js?version=1"></script>
+    <div id="embed-container"></div>
 
     <script>
         // Define the function first
         function initializePowerBI() {
             // Embed the content
-            var embedContainer = document.getElementById('embedContainer');
+            var embed-container = document.getElementById('embed-container');
             //var powerbiInstance = new powerbi.PowerBI();
             var models = window['powerbi-client'].models;
             // Configuration settings for embedding
@@ -52,7 +52,7 @@
                 embedConfiguration.pageName = screenly.settings.power_bi_page_name;
             }
 
-            var report = powerbi.embed(embedContainer, embedConfiguration);
+            var report = powerbi.embed(embed-container, embedConfiguration);
         }
 
     </script>
