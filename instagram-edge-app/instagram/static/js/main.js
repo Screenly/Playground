@@ -20,7 +20,6 @@
 
   function fetchPosts () {
     const token = screenly.settings.instagram_api_token
-    // const token = "IGQWRQbXE5YmJuWFI5RjRYQkxYdkJlYTZA1ZAHhELS1JUkZAyS05wNlJQcXY0QlFjODFYWGVIY0JLQ2RGZAlJBOWdyaUQ0bnJzMkwwUXVFd0tVYzhmaXVrRVdTcTEtTVBYendob1VfYWZAPTXRsRTlxQUZAvZAWQ1b1RfM0UZD"
     const url = `https://graph.instagram.com/me/media?fields=username,caption,media_url,media_type&access_token=${token}`
     fetch(url)
       .then(response => response.json())
