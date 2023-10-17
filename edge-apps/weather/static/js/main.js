@@ -59,7 +59,9 @@ async function getWeatherApiData(context) {
     appCache.clear();
     const { city: { name, country, timezone }, list } = data;
 
-    result = { name, country, timezone, list };
+    const timestamp = String(new Date());
+
+    result = { name, country, timezone, list, timestamp };
 
     appCache.set(result);
   } catch (error) {
@@ -244,7 +246,7 @@ async function refreshWeather(context) {
     if (Array.isArray(weather) && weather.length > 0) {
       const { id, description } = weather[0];
       const { icon, bg } = getWeatherImagesById(context, id, dt);
-      if (id !== context.currentWeatherId) {
+      if ((id !== context.currentWeatherId) || (`bg-${bg}` !== context.bgClass)) {
         context.bgClass = `bg-${bg}`;
       }
 
@@ -295,7 +297,7 @@ function getWeatherData() {
     clockTimer: null,
     clockTimerInterval: 1000,
     weatherTimer: null,
-    weatherTimerInterval: 1000 * 60 * 30, // 30 minutes
+    weatherTimerInterval: 1000 * 60 * 15, // 15 minutes
     tzOffset: 0,
     bgClass: '',
     tempScale: 'C',
