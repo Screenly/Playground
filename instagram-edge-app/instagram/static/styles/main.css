@@ -1,113 +1,100 @@
 .cards {
-    display: flex;
-    justify-content: space-around;
-    column-gap: 20px;
-    color: #000;
-    margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  column-gap: 20px;
+  color: #000;
+}
+
+
+.card {
+  border: 1px solid #e1e1e1; 
+  border-radius: 8px; 
+  flex-direction: column;
+  background-color: #fff; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  text-align: center;
+  display: block;
+  overflow-y: hidden; 
+}
+
+.dummy-card a {
+  display: block;
+  border: 1px solid #ddd; 
+  border-radius: 5px; 
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
+  transition: transform 0.2s;
+}
+
+.post-image {
+  width: 100%; 
+  height: 92%; 
+  padding-bottom: 0;
+  background-size: cover; 
+}
+
+.dummy-card {
+  display: none;
+}
+
+.user-handle {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.caption {
+  font-size: 14px;
+  margin: 0; 
+  word-wrap: break-word; 
+}
+
+@media screen and (min-width: 1920px) {
+  .card .caption {
+    padding: 24px 18px;
   }
-  
+}
+
+@media screen and (min-width: 3840px) {
+  .card .caption {
+    padding: 50px 24px;
+  }
+}
+
+@media screen and (orientation: portrait) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+    row-gap: 20px;
+  }
 
   .card {
-    border: 1px solid #e1e1e1; /* Border for the post */
-    border-radius: 8px; /* Rounded corners */
-    padding: 0px; /* Padding around the post */
-    margin: 0px; /* Spacing between posts */
-    display: flex;
-    flex-direction: column;
-    background-color: #fff; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    position: relative;
-    max-width: 100%;
-    text-align: center;
-    max-width: 100%; /* Ensure the image doesn't exceed the container */
-    height: auto; /* Maintain the image's original aspect ratio */
-    display: block;
-    margin: 0 auto;
+    max-width: 75%;
+  }
+}
+
+@media screen and (min-width: 480px) and (orientation: portrait) {
+  .card {
+    max-width: 75%;
+  }
+}
+
+@media screen and (min-width: 720px) and (orientation: portrait) {
+  .card {
+    max-width: 65%;
   }
 
-  .dummy-card a {
-    display: block;
-    position: relative;
-    overflow: hidden;
-    border: 1px solid #ddd; /* Border for each post */
-    border-radius: 5px; /* Rounded corners */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Drop shadow */
-    transition: transform 0.2s;
+  .card .caption {
+    padding: 16px 12px;
   }
-  
-  .post-image {
-    width: 100%; /* Set the width to 100% to take up the full width of the parent container */
-    height: 100%; /* Start with a height of 0 */
-    padding-bottom: 0;
-    background-size: cover; /* Ensure the image covers the entire square without stretching */
-  }
-  
-  .dummy-card {
-    display: none;
-  }
-  
-  .user-handle {
-    font-weight: bold;
-    margin-right: 5px;
-  }
-  
-  .caption {
-    font-size: 14px;
-    margin: 0; /* Remove default margin */
-    word-wrap: break-word; /* Wrap long words to the next line */
-    padding-bottom: 20;
-  }
- 
-  @media screen and (min-width: 1920px) {
-    .card .caption {
-      padding: 24px 18px;
-    }
-  }
-  
-  @media screen and (min-width: 3840px) {
-    .card .caption {
-      padding: 50px 24px;
-    }
-  }
-  
-  @media screen and (orientation: portrait) {
-    .cards {
-      flex-direction: column;
-      align-items: center;
-      row-gap: 20px;
-    }
-  
-    .card {
-      max-width: 75%;
-    }
-  }
-  
-  @media screen and (min-width: 480px) and (orientation: portrait) {
-    .card {
-      max-width: 75%;
-    }
-  }
-  
-  @media screen and (min-width: 720px) and (orientation: portrait) {
-    .card {
-      max-width: 65%;
-    }
-  
-    .card .caption {
-      padding: 16px 12px;
-    }
-  }
-  
-  @media screen and (min-width: 1080px) and (orientation: portrait) {
-    .cards {
-      row-gap: 60px;
-    }
-  }
-  
-  @media screen and (min-width: 2160px) and (orientation: portrait) {
-    .card {
-      min-width: 100%;
-    }
-  }
+}
 
+@media screen and (min-width: 1080px) and (orientation: portrait) {
+  .cards {
+    row-gap: 60px;
+  }
+}
 
+@media screen and (min-width: 2160px) and (orientation: portrait) {
+  .card {
+    min-width: 100%;
+  }
+}
