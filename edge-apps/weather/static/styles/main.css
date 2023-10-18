@@ -144,7 +144,7 @@ body {
 }
 
 .loader {
-  border: 4px solid #ffffff;
+  border: 4px solid #fff;
   border-left-color: transparent;
   border-radius: 50%;
   animation: spin 0.7s ease-in-out infinite;
