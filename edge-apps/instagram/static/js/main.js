@@ -1,3 +1,5 @@
+/* global screenly */
+
 (function () {
   function displayPosts (posts) {
     const container = document.querySelector('.cards')
@@ -10,7 +12,7 @@
       const captionNode = node.querySelector('.caption')
 
       imgNode.setAttribute('src', mediaUrl)
-      captionNode.innerHTML = `<span class="user-handle">@${username}</span> ${caption || ''}`
+      captionNode.innerHTML = `<span class='user-handle'>@${username}</span> ${caption || ''}`
       node.classList.remove('dummy-card')
       fragment.appendChild(node)
     })
