@@ -23,7 +23,12 @@ run the following command:
 
 ```bash
 $ screenly edge-app setting set override_timezone='Europe/Paris'
+# A relatively long console output...
+Edge app setting successfully set.
+
 $ screenly edge-app setting set override_locale='fr'
+# A relatively long console output...
+Edge app setting successfully set.
 ```
 
 See [this page](https://momentjs.com/) for the list of all possible values for the time zone.
