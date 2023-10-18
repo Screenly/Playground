@@ -1,4 +1,4 @@
-/* global clm, moment, OfflineGeocodeCity */
+/* global clm, moment, OfflineGeocodeCity, screenly, tzlookup */
 // eslint-disable-next-line no-unused-vars
 
 const { getNearestCity } = OfflineGeocodeCity
@@ -15,7 +15,7 @@ async function initApp () {
     : navigator.language
 
   const getLocale = () => {
-    overrideLocale = settings?.override_locale
+    const overrideLocale = settings?.override_locale
 
     if (overrideLocale) {
       if (moment.locales().includes(overrideLocale)) {
