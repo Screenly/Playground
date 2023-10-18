@@ -10,5 +10,5 @@ $ screenly edge-app create \
 $ screenly edge-app upload
 [...]
 $ screenly edge-app secret set instagram_api_token=MY_META_TOKEN
-$ screenly edge-app version promote revision=X
+$ screenly edge-app version promote --latest
 ```
