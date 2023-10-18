@@ -5,7 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="static/styles/main.css" />
         <link rel="stylesheet" href="static/styles/background.css" />
-
+    </head>
+    <body x-data="weather" :class="bgClass">
         <script src="screenly.js?version=1"></script>
         <script src="static/js/alpinejs-3.13.0.min.js" defer></script>
 
@@ -35,8 +36,7 @@
             };
         </script>
         <!-- End Google Tag Manager -->
-    </head>
-    <body x-data="weather" :class="bgClass">
+
         <template x-if="isLoading && !fetchError">
             <div class="error">
                 <div class="group">
