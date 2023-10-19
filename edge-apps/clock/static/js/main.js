@@ -1,7 +1,7 @@
 /* global moment */
 // eslint-disable-next-line no-unused-vars
 
-function initApp () {
+function initApp() {
   let clockTimer
   const { metadata, settings } = screenly
   const latitude = metadata.coordinates[0]
@@ -15,7 +15,7 @@ function initApp () {
     moment.locale(locale);
     const time = momentObject.format('HH:mm'); // Use 'HH:mm' for 24-hour format
     return time;
-}
+  }
 
 
   const initDateTime = () => {
