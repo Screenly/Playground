@@ -35,13 +35,13 @@ async function getWeatherApiData (context) {
     ).join('&')
   }
 
-  const endpointUrl = `https://api.openweathermap.org/data/2.5/forecast`
+  const endpointUrl = 'https://api.openweathermap.org/data/2.5/forecast'
   const queryParams = stringifyQueryParams({
     lat: context.lat,
     lon: context.lng,
     units: 'metric', // TODO: Make this dependent on the current location.
     cnt: 10,
-    appid: context.apiKey,
+    appid: context.apiKey
   })
 
   let result
@@ -70,7 +70,7 @@ async function getWeatherApiData (context) {
 
     const requiredKeys = ['name', 'country', 'timezone', 'list']
     const isComplete = requiredKeys.every((key) => {
-      return result.hasOwnProperty(key)
+      return Object.prototype.hasOwnProperty.call(result, key)
     })
 
     context.fetchError = !isComplete
@@ -263,7 +263,7 @@ async function refreshWeather (context) {
       currentIndex,
       (currentIndex <= windowSize - 1)
         ? currentIndex + windowSize
-        : list.length - 1,
+        : list.length - 1
     )
 
     context.forecastedItems = currentWindow.map((item, index) => {
@@ -276,7 +276,7 @@ async function refreshWeather (context) {
         id: index,
         temp: getTemp(context, temp),
         icon: icons[icon],
-        time: index === 0 ? 'Current' : formatTime(dateTime),
+        time: index === 0 ? 'Current' : formatTime(dateTime)
       }
     })
   }
@@ -310,13 +310,13 @@ function getWeatherData () {
     fetchError: false,
     firstFetchComplete: false,
     isLoading: true,
-    init: async function() {
+    init: async function () {
       [this.lat, this.lng] = screenly.metadata?.coordinates
       this.apiKey = screenly.settings.openweathermap_api_key
 
       await refreshWeather(this)
     },
-    settings: {},
+    settings: {}
   }
 }
 
