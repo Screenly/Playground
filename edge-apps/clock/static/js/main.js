@@ -12,14 +12,11 @@ function initApp () {
     : navigator.language
 
   const formatTime = (momentObject) => {
-    moment.locale(locale)
-    const time = momentObject.format('LT')
-    const timeFragments = time.split(' ')
+    moment.locale(locale);
+    const time = momentObject.format('HH:mm'); // Use 'HH:mm' for 24-hour format
+    return time;
+}
 
-    return Array.isArray(timeFragments) && timeFragments.length === 2
-      ? `${timeFragments[0]}<span>${timeFragments[1]}</span>`
-      : time
-  }
 
   const initDateTime = () => {
     clearTimeout(clockTimer)
@@ -27,7 +24,7 @@ function initApp () {
     const timezone = settings?.override_timezone || tzlookup(latitude, longitude)
     const momentObject = moment().tz(timezone)
 
-    document.querySelector('#date').innerText = momentObject.format('DD MMMM, YYYY')
+    document.querySelector('#date').innerText = momentObject.format('MMMM DD, YYYY')
     document.querySelector('#time').innerHTML = formatTime(momentObject)
 
     clockTimer = setTimeout(initDateTime, 10000)
