@@ -29,6 +29,7 @@ body {
   background-size: cover;
   color: #fff;
   font-family: Barlow, sans-serif;
+  transition: background-image 0.5s ease-in-out;
 }
 
 .content {
@@ -127,9 +128,49 @@ body {
   white-space: nowrap;
 }
 
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.error h2 {
+  text-align: center;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.loader {
+  border: 4px solid #fff;
+  border-left-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s ease-in-out infinite;
+  width: 45px;
+  height: 45px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  scale: 1;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 @media screen and (min-width: 800px) {
   .content {
     padding: 4rem;
+  }
+
+  .group {
+    scale: 1;
   }
 
   .location {
@@ -178,6 +219,10 @@ body {
 
   .content {
     padding: 3.3rem;
+  }
+
+  .group {
+    scale: 1.6;
   }
 
   .location {
@@ -232,6 +277,10 @@ body {
     padding: 2.25rem;
   }
 
+  .group {
+    scale: 2.4;
+  }
+
   .location {
     font-size: 0.6rem;
   }
@@ -283,6 +332,10 @@ body {
     padding: 3.125rem;
   }
 
+  .group {
+    scale: 3.2;
+  }
+
   .location {
     font-size: 0.66rem;
   }
@@ -332,6 +385,10 @@ body {
 
   .content {
     padding: 3.125rem;
+  }
+
+  .group {
+    scale: 4.8;
   }
 
   .location {
@@ -466,6 +523,10 @@ body {
     padding: 2rem 2.5rem 2.5rem;
   }
 
+  .group {
+    scale: 1;
+  }
+
   .location {
     flex-direction: row;
     font-size: 0.875rem;
@@ -529,6 +590,10 @@ body {
     padding: 2.66rem 2.7rem 2.7rem;
   }
 
+  .group {
+    scale: 1.6;
+  }
+
   .location {
     font-size: 0.875rem;
   }
@@ -578,6 +643,10 @@ body {
 
   .content {
     padding: 3.25rem 2.1rem 2.1rem;
+  }
+
+  .group {
+    scale: 2.4;
   }
 
   .location {
@@ -635,6 +704,10 @@ body {
     padding: 2.66rem;
   }
 
+  .group {
+    scale: 3.2;
+  }
+
   .location {
     font-size: 0.66rem;
     margin-top: 1.8rem;
@@ -681,6 +754,10 @@ body {
 
   .content {
     padding: 3.24rem 2.5rem 2.5rem;
+  }
+
+  .group {
+    scale: 4.8;
   }
 
   .location {

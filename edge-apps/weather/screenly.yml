@@ -1,9 +1,6 @@
 ---
-user_version: ''
 description: Displays the current weather and time
-icon: ''
 author: Screenly, Inc.
-homepage_url: ''
 entrypoint: index.html
 settings:
   enable_analytics:
@@ -14,14 +11,13 @@ settings:
     help_text: Whether to enable analytics or not
   openweathermap_api_key:
     type: secret
-    default_value: ''
     title: openweathermap_api_key
     optional: false
     help_text: |
       Specify an API key so that you'll have access to all the necessary weather data.
   tag_manager_id:
     type: string
-    default_value: ''
+    default_value: GTM-P98SPZ9Z
     title: tag_manager_id
     optional: true
     help_text: Specify a Google Tag Manager ID
