@@ -1,26 +1,29 @@
 ---
 user_version: v1.0.0
 description: Screenly Clock Edge App
-icon: ''
 author: Screenly, Inc.
-homepage_url: ''
 entrypoint: index.html
 settings:
-  disable_analytics:
+  enable_analytics:
     type: string
-    default_value: 'false'
-    title: disable_analytics
+    default_value: 'true'
+    title: enable_analytics
     optional: true
     help_text: Whether to disable Sentry and Google Analytics integrations
-  tag_manager_id:
-    type: string
-    default_value: ''
-    title: tag_manager_id
-    optional: true
-    help_text: Specify a Google Tag Manager ID
   override_timezone:
     type: string
     default_value: ''
     title: override_timezone
     optional: true
     help_text: Specify a supported timezone value (e.g., Europe/London).
+  override_locale:
+    type: string
+    default_value: ''
+    optional: true
+    help_text: Specify a supported locale value (e.g., en_US).
+  tag_manager_id:
+    type: string
+    default_value: GTM-P98SPZ9Z
+    title: tag_manager_id
+    optional: true
+    help_text: Specify a Google Tag Manager ID

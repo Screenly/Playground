@@ -4,18 +4,21 @@
 <head>
     <title>Screenly Clock App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
     <link rel="stylesheet" href="static/styles/main.css" />
+</head>
 
+<body>
     <script src="screenly.js?version=1"></script>
 
     <!-- Google Tag Manager -->
     <script>
         const {
-          disable_analytics: disableAnalytics,
+          enable_analytics: enableAnalytics,
           tag_manager_id: tagManagerId,
         } = screenly.settings;
 
-        if (disableAnalytics !== undefined && disableAnalytics !== 'true') {
+        if (enableAnalytics === 'true') {
             (function(w, d, s, l, i) {
                 w[l] = w[l] || [];
                 w[l].push({
@@ -32,9 +35,7 @@
         }
     </script>
     <!-- End Google Tag Manager -->
-</head>
 
-<body>
     <div class="content">
         <div class="date-time">
             <div class="date">
@@ -46,14 +47,11 @@
         </div>
     </div>
 
-    <script
-        src="static/js/moment-with-locales.min.js"
-        integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-    ></script>
+    <script src="static/js/moment-with-locales.min.js"></script>
     <script src="static/js/tz.min.js"></script>
     <script src="static/js/moment-timezone-with-data.min.js"></script>
+    <script src="static/js/country-locale-map.1.18.5.min.js"></script>
+    <script src="static/js/offline-geocode-city-1.0.2.min.js"></script>
     <script src="static/js/main.js"></script>
 </body>
 </html>
