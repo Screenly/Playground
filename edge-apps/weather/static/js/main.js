@@ -1,7 +1,7 @@
-/* global icons, moment */
+/* global Alpine, icons, moment, screenly */
 
 class AppCache {
-  constructor({ keyName }) {
+  constructor ({ keyName }) {
     this.keyName = keyName
 
     if (localStorage.getItem(this.keyName) === null) {
@@ -13,22 +13,22 @@ class AppCache {
     }
   }
 
-  clear() {
+  clear () {
     this.data = {}
     localStorage.removeItem(this.keyName)
   }
 
-  set(data) {
+  set (data) {
     this.data = data
     localStorage.setItem(this.keyName, JSON.stringify(this.data))
   }
 
-  get() {
+  get () {
     return this.data
   }
 }
 
-async function getWeatherApiData(context) {
+async function getWeatherApiData (context) {
   const stringifyQueryParams = (params) => {
     return Object.entries(params).map(
       ([key, value]) => `${key}=${value}`
@@ -79,7 +79,7 @@ async function getWeatherApiData(context) {
   return result
 }
 
-function formatTime(today) {
+function formatTime (today) {
   const locale = navigator?.languages?.length
     ? navigator.languages[0]
     : navigator.language
@@ -87,7 +87,7 @@ function formatTime(today) {
   return moment(today).format('LT')
 }
 
-function refreshDateTime(context) {
+function refreshDateTime (context) {
   clearTimeout(context.clockTimer)
 
   const now = moment().utcOffset(context.tzOffset)
@@ -100,7 +100,7 @@ function refreshDateTime(context) {
   )
 }
 
-function findCurrentWeatherItem(list) {
+function findCurrentWeatherItem (list) {
   const currentUTC = Math.round(new Date().getTime() / 1000)
   let itemIndex = 0
 
@@ -120,20 +120,20 @@ function findCurrentWeatherItem(list) {
   return itemIndex
 }
 
-function checkIfNight(context, dt) {
+function checkIfNight (context, dt) {
   const dateTime = moment.unix(dt).utcOffset(context.tzOffset)
   const hrs = dateTime.hour()
 
   return hrs <= 5 || hrs >= 20
 }
 
-function checkIfInRange(ranges, code) {
+function checkIfInRange (ranges, code) {
   return ranges.reduce(
     (acc, range) => acc || (code >= range[0] && code <= range[1])
   )
 }
 
-function getWeatherImagesById(context, id = 800, dt) {
+function getWeatherImagesById (context, id = 800, dt) {
   // List of codes - https://openweathermap.org/weather-conditions
   // To do - Refactor
   const isNight = checkIfNight(context, dt)
@@ -221,7 +221,7 @@ const getTemp = (context, temp) => {
   )
 }
 
-async function refreshWeather(context) {
+async function refreshWeather (context) {
   clearTimeout(context.weatherTimer)
 
   const data = await getWeatherApiData(context)
@@ -262,7 +262,8 @@ async function refreshWeather(context) {
     const currentWindow = list.slice(
       currentIndex,
       (currentIndex <= windowSize - 1)
-        ? currentIndex + windowSize : list.length - 1,
+        ? currentIndex + windowSize
+        : list.length - 1,
     )
 
     context.forecastedItems = currentWindow.map((item, index) => {
@@ -286,7 +287,7 @@ async function refreshWeather(context) {
   )
 }
 
-function getWeatherData() {
+function getWeatherData () {
   return {
     currentDate: '',
     currentTime: '',
