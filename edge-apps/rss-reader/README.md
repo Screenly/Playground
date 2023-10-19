@@ -12,6 +12,7 @@ so you need to copy the necessary files first. To do so, run the following comma
 $ cd edge-apps/rss-reader
 $ mkdir -p bootstrap/theme
 $ cp -r ../../bootstrap/theme/ ./bootstrap/
+# Copies the necessary theme files for this Edge App
 ```
 
 ## Running the Edge App emulator
@@ -23,17 +24,14 @@ YAML file as you see fit.
 ```bash
 $ cd edge-apps/rss-reader
 $ screenly edge-app generate-mock-data
+# A file named `mock-data.yml` will be created if it doesn't exist yet.
 ```
 
 Start the emulator:
 
 ```bash
 $ screenly edge-app run
-```
-
-You'll get the following console output:
-
-```bash
+# You'll get the following console output:
 Edge app emulator is running at http://127.0.0.1:40069/edge/1/index.html
 ```
 
@@ -56,21 +54,25 @@ Configure the feed:
 
 ```bash
 $ screenly edge-app setting set rss_title=BBC
+Edge app setting successfully set.
+
 $ screenly edge-app setting set rss_url=http://feeds.bbci.co.uk/news/rss.xml
+Edge app setting successfully set.
 ```
 
 In some instances, you need to bypass the CORS policy in order to retrieve news. To do this, we can use the built-in [CORS bypass](https://developer.screenly.io/edge-apps/#cors) in Edge Apps by setting:
 
 ```bash
 $ screenly edge-app setting set bypass_cors=true
+Edge app setting successfully set.
 ```
 
 Here's a table that contains a list of some RSS feed URLs, and whether the CORS proxy should be bypassed or not.
 
-| URL                                                 | Requires CORS | bypass_cors |
-| --------------------------------------------------- | ------------- | ----------- |
-| http://feeds.bbci.co.uk/news/rss.xml                | Yes           | true        |
-| https://lifehacker.com/rss                          | Yes           | true        |
-| https://www.reddit.com/.rss                         | Yes           | true        |
-| https://rss.nytimes.com/services/xml/rss/nyt/US.xml | No            | false       |
-| http://rss.sciam.com/sciam/60secsciencepodcast      | Yes           | true        |
+| URL                                                   | Requires CORS | bypass_cors |
+| ----------------------------------------------------- | ------------- | ----------- |
+| `http://feeds.bbci.co.uk/news/rss.xml`                | Yes           | true        |
+| `https://lifehacker.com/rss`                          | Yes           | true        |
+| `https://www.reddit.com/.rss`                         | Yes           | true        |
+| `https://rss.nytimes.com/services/xml/rss/nyt/US.xml` | No            | false       |
+| `http://rss.sciam.com/sciam/60secsciencepodcast`      | Yes           | true        |
