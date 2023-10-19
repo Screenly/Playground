@@ -33,7 +33,7 @@ $ screenly edge-app run
 
 You'll get the following console output:
 
-```
+```bash
 Edge app emulator is running at http://127.0.0.1:40069/edge/1/index.html
 ```
 
