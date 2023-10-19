@@ -1,0 +1,23 @@
+---
+description: Displays latest two Instagram post
+author: Screenly, Inc.
+entrypoint: index.html
+settings:
+  enable_analytics:
+    type: string
+    default_value: 'true'
+    title: enable_analytics
+    optional: true
+    help_text: Whether to enable analytics or not
+  instagram_api_token:
+    type: secret
+    title: instagram_api_token
+    optional: false
+    help_text: |
+      Specify an API key so that you'll have access to all the necessary data.
+  tag_manager_id:
+    type: string
+    default_value: ''
+    title: tag_manager_id
+    optional: true
+    help_text: Specify a Google Tag Manager ID
