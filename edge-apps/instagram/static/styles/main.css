@@ -3,46 +3,47 @@
   justify-content: space-around;
   column-gap: 20px;
   color: #000;
-  margin: 0 auto;
 }
 
 .card {
-  flex: 1;
-  border: 0;
-  border-radius: 2%;
-  max-width: 60%;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  flex-direction: column;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0 0 0 / 10%);
+  text-align: center;
+  display: block;
+  overflow-y: hidden;
+}
+
+.dummy-card a {
+  display: block;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0 0 0 / 20%);
+  transition: transform 0.2s;
 }
 
 .post-image {
-  border-top-left-radius: 2%;
-  border-top-right-radius: 2%;
+  width: 100%;
+  height: 92%;
+  padding-bottom: 0;
+  background-size: cover;
 }
 
 .dummy-card {
   display: none;
 }
 
-.card .user-handle {
-  color: #0d6efd;
-  font-weight: 800;
+.user-handle {
+  font-weight: bold;
+  margin-right: 5px;
 }
 
-.card .caption {
-  padding: 8px 12px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-@media screen and (min-width: 1280px) {
-  .cards {
-    column-gap: 60px;
-    max-width: none;
-  }
-
-  .card .caption {
-    padding: 16px 12px;
-  }
+.caption {
+  font-size: 14px;
+  margin: 0;
+  word-wrap: break-word;
 }
 
 @media screen and (min-width: 1920px) {
