@@ -4,57 +4,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Screenly Power BI Edge App</title>
+    <title>PowerBI Embedded Report</title>
 
     <style>
       body {
         margin: 0;
         padding: 0;
       }
-      #embed-container {
+      #embedContainer {
         width: 100%;
         height: 100vh;
         margin: 0 auto;
       }
-      #embed-container iframe {
+      #embedContainer iframe {
         border: 0;
       }
     </style>
 </head>
 
 <body>
+
+    <!-- Placeholder for the Power BI embedded content -->
+    <div id="embedContainer"></div>
     <script src="screenly.js?version=1"></script>
-    <div id="embed-container"></div>
 
     <script>
         // Define the function first
         function initializePowerBI() {
             // Embed the content
-            var embed-container = document.getElementById('embed-container');
+            var embedContainer = document.getElementById('embedContainer');
             //var powerbiInstance = new powerbi.PowerBI();
             var models = window['powerbi-client'].models;
             // Configuration settings for embedding
+            console.info(screenly.settings)
             var embedConfiguration = {
-                type: screenly.settings.power_bi_resource_type,
+                type: 'report',  // or 'dashboard' for dashboards
                 tokenType: models.TokenType.Embed,
                 accessToken: screenly.settings.power_bi_access_token,
                 embedUrl: screenly.settings.power_bi_embed_url,
-                id: screenly.settings.power_bi_resource_id,
+                id: screenly.settings.power_bi_resource_id, // Report or Dashboard ID
                 permissions: models.Permissions.All,
                 settings: {
-                    filterPaneEnabled: false,
-                    navContentPaneEnabled: false
+                    filterPaneEnabled: true,
+                    navContentPaneEnabled: true
                 }
             };
-
-            // Use `page_name` setting to deeplink to a given report
-            if (screenly.settings && screenly.settings.power_bi_page_name) {
-                embedConfiguration.pageName = screenly.settings.power_bi_page_name;
-            }
-
-            var report = powerbi.embed(embed-container, embedConfiguration);
+            var report = powerbi.embed(embedContainer, embedConfiguration);
         }
-
     </script>
 
     <!-- Load the Power BI JavaScript SDK and then call the function -->
