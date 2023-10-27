@@ -11,12 +11,12 @@
         margin: 0;
         padding: 0;
       }
-      #embed-container {
+      #embedContainer {
         width: 100%;
         height: 100vh;
         margin: 0 auto;
       }
-      #embed-container iframe {
+      #embedContainer iframe {
         border: 0;
       }
     </style>
@@ -24,15 +24,16 @@
 
 <body>
     <script src="screenly.js?version=1"></script>
-    <div id="embed-container"></div>
+    <div id="embedContainer"></div>
 
     <script>
         // Define the function first
         function initializePowerBI() {
             // Embed the content
-            var embed-container = document.getElementById('embed-container');
+            var embedContainer = document.getElementById('embedContainer');
             //var powerbiInstance = new powerbi.PowerBI();
             var models = window['powerbi-client'].models;
+
             // Configuration settings for embedding
             var embedConfiguration = {
                 type: screenly.settings.power_bi_resource_type,
@@ -52,7 +53,7 @@
                 embedConfiguration.pageName = screenly.settings.power_bi_page_name;
             }
 
-            var report = powerbi.embed(embed-container, embedConfiguration);
+            var report = powerbi.embed(embedContainer, embedConfiguration);
         }
 
     </script>
@@ -61,5 +62,4 @@
     <script src="powerbi.min.js" onload="initializePowerBI()"></script>
 
 </body>
-
 </html>
