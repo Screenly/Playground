@@ -1,0 +1,29 @@
+---
+app_id:
+entrypoint: http://my.app.com
+settings:
+  oauth2_client_secret:
+    type: secret
+    title: Oauth 2 Client Secret
+    optional: true
+    help_text: Auth0 Client Secret
+  oauth2_client_id:
+    type: string
+    title: Oauth 2 Client ID
+    optional: true
+    help_text: Auth0 Client ID
+  oauth2_audience:
+    type: string
+    title: Oauth 2 Audience
+    optional: true
+    help_text: Auth0 Audience
+  oauth2_scope:
+    type: string
+    title: Oauth 2 Scope
+    optional: true
+    help_text: Auth0 Scope
+  oauth2_endpoint:
+    type: string
+    title: Oauth 2 Entrypoint
+    optional: true
+    help_text: Auth0 Entrypoint

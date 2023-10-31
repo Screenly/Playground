@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Hello World</title>
+    <script src="screenly.js?version=1"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://playground.srly.io/bootstrap/theme/playground-theme.css">
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <div class="px-4 py-5 my-5 text-center">
+          <h1 class="display-5 fw-bold">Greetings <span id="greeting"></span>!</h1>
+          <p>You secret word is <span id="secret_word"></span>.</p>
+          <p>I'm <span id="screen-name"></span>. Assuming you've pinned me in the right location, I'm located in <span id="screen-location"></span> (more precisely at latitude <span id="screen-lat"></span>&#176; and longitude <span id="screen-lng"></span>&#176;).</p>
+          <p>My Screenly ID is <span id="screen-hostname"></span> (which conveniently is also my hostname), and I'm running on a <span id="screen-hardware"></span>.</p>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script>
+    document.getElementById("greeting").innerText = screenly.settings.greeting || "stranger";
+    document.getElementById("secret_word").innerText = screenly.settings.secret_word || "not set";
+    document.getElementById("screen-name").innerText = screenly.metadata.screen_name;
+    document.getElementById("screen-location").innerText = screenly.metadata.location;
+    document.getElementById("screen-hostname").innerText = screenly.metadata.hostname;
+    document.getElementById("screen-hardware").innerText = screenly.metadata.hardware;
+    document.getElementById("screen-lat").innerText = screenly.metadata.coordinates[0];
+    document.getElementById("screen-lng").innerText = screenly.metadata.coordinates[1];
+  </script>
+</html>
