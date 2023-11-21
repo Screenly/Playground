@@ -16,7 +16,8 @@ body {
 
 header {
   background: rgba(29 31 52 / 100%);
-  background: radial-gradient(
+  background: 
+  radial-gradient(
     circle,
     rgba(29 31 52 / 100%) 0%,
     rgba(55 58 58 / 100%) 55%,

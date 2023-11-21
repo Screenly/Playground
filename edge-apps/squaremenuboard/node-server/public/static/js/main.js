@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
               // heading for the category
               const coffeeType = document.createElement('h2')
-              const hr = document.createElement('hr')
               coffeeType.className = 'coffeeType'
               coffeeType.textContent = category
               column.appendChild(coffeeType)
