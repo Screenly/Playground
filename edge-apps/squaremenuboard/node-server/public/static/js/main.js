@@ -1,4 +1,8 @@
 /* global screenly */
+/* global moment */
+/* global google, screenly */
+/* eslint-disable no-new */
+// eslint-disable-next-line no-unused-vars
 
 document.addEventListener("DOMContentLoaded", function () {
   const productContainer = document.getElementById("product-list");
