@@ -28,7 +28,7 @@ settings:
     help_text: Specify a subheader to be displayed on the screen
   url:
     type: string
-    default_value: https://tracx.me/kiqigo
+    default_value: https://tracx.me/qckmka
     title: url
     optional: false
     help_text: Specify a URL to be converted into a QR code
