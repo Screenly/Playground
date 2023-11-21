@@ -7,7 +7,7 @@ const cors = require('cors') // Require the cors middleware
 
 // Enable CORS for all routes
 const corsOptions = {
-  origin: 'http://localhost:3000/', // Replace with the allowed origin
+  origin: 'http://localhost:3000/' // Replace with the allowed origin
 }
 
 app.use(cors(corsOptions))
