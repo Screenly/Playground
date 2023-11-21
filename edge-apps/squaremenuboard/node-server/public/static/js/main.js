@@ -1,8 +1,3 @@
-/* global screenly */
-/* global moment */
-/* global google, screenly */
-/* eslint-enable no-unused-vars */
-
 document.addEventListener('DOMContentLoaded', function () {
   const productContainer = document.getElementById('product-list')
 
