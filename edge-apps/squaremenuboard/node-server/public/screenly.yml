@@ -1,7 +1,7 @@
 ---
 description: An edge app that automatically builds a menu board based on inventory in Square
 author: Screenly, Inc.
-entrypoint: index.html 
+entrypoint: index.html
 settings:
   enable_analytics:
     type: string

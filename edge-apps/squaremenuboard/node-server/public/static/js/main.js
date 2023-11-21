@@ -1,6 +1,8 @@
 /* global screenly */
 /* global moment */
 /* global google, screenly */
+/* eslint-disable no-unused-vars */
+/* eslint-enable no-unused-vars */
 
 document.addEventListener('DOMContentLoaded', function () {
   const productContainer = document.getElementById('product-list')
@@ -34,9 +36,9 @@ document.addEventListener('DOMContentLoaded', function () {
   fetchData()
     .then(data => {
       if (data && data.data) {
-        const chunk_recieved = JSON.parse(data.data)
-        if (chunk_recieved && chunk_recieved.objects.length > 0) {
-          const obj = chunk_recieved.objects
+        const chunk_Recieved = JSON.parse(data.data)
+        if (chunk_Recieved && chunk_Recieved.objects.length > 0) {
+          const obj = chunk_Recieved.objects
           console.log(obj)
 
           // Object to store categories and their items
