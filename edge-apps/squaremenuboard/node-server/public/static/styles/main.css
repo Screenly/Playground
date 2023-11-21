@@ -1,0 +1,65 @@
+/* main.css */
+body {
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  background: rgb(29,31,52) !important;
+  background: radial-gradient(circle, rgba(29,31,52,1) 0%, rgba(55,58,58,1) 55%, rgba(51,41,75,1) 100%) !important;
+  max-height: 100vh;
+  width: 100vw;
+}
+header{
+  background: rgb(29,31,52) !important;
+  background: radial-gradient(circle, rgba(29,31,52,1) 0%, rgba(55,58,58,1) 55%, rgba(51,41,75,1) 100%) !important;
+}
+h1 {
+  text-align: center;
+}
+
+#product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 67vh;
+  width: 100vw;
+}
+
+.columns{
+  width: 25%;
+  padding: 2rem;
+  /* border: 1px solid red; */
+  line-height: 2;
+  min-height: 50%;
+  background-color: rgba(55, 58, 58, 0.35);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+
+}
+.columns:nth-child(2){
+  background-color: #7A1DCE;
+  min-height: 60%;
+
+}
+.coffeeItem{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.coffeeType{
+  text-align: center;
+  padding-bottom: 1rem;
+  /* border-bottom: 1px solid white; */
+}
+
+.product-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  width: 250px;
+  text-align: center;
+}
+

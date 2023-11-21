@@ -1,0 +1,23 @@
+---
+description: An edge app that automatically builds a menu board based on inventory in Square
+author: Screenly, Inc.
+entrypoint: index.html 
+settings:
+  enable_analytics:
+    type: string
+    default_value: 'true'
+    title: enable_analytics
+    optional: true
+    help_text: Whether to enable analytics or not
+  square_api_token:
+    type: secret
+    title: square_api_token
+    optional: false
+    help_text: |
+      Specify an API key so that you'll have access to all the necessary data.
+  tag_manager_id:
+    type: string
+    default_value: ''
+    title: tag_manager_id
+    optional: true
+    help_text: Specify a Google Tag Manager ID
