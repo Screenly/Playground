@@ -3,26 +3,26 @@ body {
   font-family: Arial, sans-serif;
   overflow: hidden;
   background: rgb(29 31 52 / 100%);
-  background: 
-  radial-gradient(
-    circle,
+  background:
+    radial-gradient(
+      circle,
     rgb(29 31 52 / 100%) 0%,
     rgb(55 58 58 / 100%) 55%,
     rgb(51 41 75 / 100%) 100%
-  );
+    );
   max-height: 100vh;
   width: 100vw;
 }
 
 header {
   background: rgb(29 31 52 / 100%);
-  background: 
-  radial-gradient(
-    circle,
+  background:
+    radial-gradient(
+      circle,
     rgb(29 31 52 / 100%) 0%,
     rgb(55 58 58 / 100%) 55%,
     rgb(51 41 75 / 100%) 100%
-  );
+    );
 }
 
 h1 {
