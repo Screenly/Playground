@@ -2,7 +2,7 @@
   const username = '<USERNAME>'
   const password = '<PASSWORD>'
 
-  const authLocation = '/portal/sharing/oauth2/authorize'
+  const authLocation = '/portal/sharing/rest/oauth2/authorize'
 
   function setValue (selector, value) {
     const element = document.querySelector(selector)
