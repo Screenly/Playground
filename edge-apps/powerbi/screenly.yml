@@ -1,18 +1,18 @@
 ---
-app_id:
+author: Screenly, Inc.
+description: Displays Power BI dashboards and reports with big focus on security.
 entrypoint: index.html
 settings:
   azure_ad_client_id:
     type: string
     default_value:
     title: Azure AD Client ID
-    optional: true
+    optional: false
     help_text: The Oauth 2.0 Client ID for Azure AD
   azure_ad_client_secret:
     type: secret
-    default_value:
     title: Azure AD Client Secret
-    optional: true
+    optional: false
     help_text: The Oauth 2.0 Client Secret for Azure AD
   azure_ad_resource:
     type: string
@@ -30,29 +30,29 @@ settings:
     type: string
     default_value:
     title: Microsoft Tenant ID
-    optional: true
+    optional: false
     help_text: The Microsoft Tenant ID
   power_bi_group_id:
     type: string
     default_value:
     title: Power Group ID
-    optional: true
+    optional: false
     help_text: The Group ID, also known as Workspace ID
   power_bi_resource_id:
     type: string
     default_value:
     title: Power BI Dashboard or Report ID
-    optional: true
+    optional: false
     help_text: The Dashboard or Report ID
   power_bi_resource_type:
     type: string
     default_value:
     title: Power BI resource type, meaning report or dashboard
-    optional: true
+    optional: false
     help_text: The resource type, meaning report or dashboard
   power_bi_page_name:
     type: string
     default_value:
-    title: Power BI report page name (optional)
+    title: Power BI report page name
     optional: true
     help_text: Display a specific page (i.e. tab name) within a given Power BI report to display
