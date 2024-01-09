@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Deploy Edge App
-        uses: screenly/cli@master
+        uses: screenly/cli@edits-cli-action-outputs
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
             # yamllint disable-line rule:line-length
@@ -32,7 +32,7 @@ jobs:
 
       - name: Get Revisions
         id: get_revisions
-        uses: screenly/cli@master
+        uses: screenly/cli@edits-cli-action-outputs
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
             # yamllint disable-line rule:line-length
@@ -42,10 +42,10 @@ jobs:
         # Using `jq` to extract the latest revision
         id: latest_revision
           # yamllint disable-line rule:line-length
-        run: echo "revision=$(echo ${{ steps.get_revisions.stdout.value }} | jq '.[-1:] | .[].revision')" >> "$GITHUB_OUTPUT"
+        run: echo "revision=$(echo ${{ steps.get_revisions.stdout.cli_commands_response }} | jq '.[-1:] | .[].revision')" >> "$GITHUB_OUTPUT"
 
       - name: Promote Edge App
-        uses: screenly/cli@master
+        uses: screenly/cli@edits-cli-action-outputs
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
             # yamllint disable-line rule:line-length
