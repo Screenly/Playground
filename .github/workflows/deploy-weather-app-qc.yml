@@ -1,5 +1,5 @@
 ---
-name: Deploy Weather App
+name: Deploy Weather App (QC)
 
 on:
   push:
