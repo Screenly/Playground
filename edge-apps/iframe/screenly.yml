@@ -1,0 +1,11 @@
+---
+user_version: v1.0.0
+author: Screenly, Inc.
+description: Screenly iframe Edge App
+entrypoint: index.html
+settings:
+  iframe:
+    type: string
+    title: iframe
+    optional: true
+    help_text: iframe URL

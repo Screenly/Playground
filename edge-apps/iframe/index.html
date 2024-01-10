@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>iFrame Edge App</title>
+    <script src="screenly.js?version=1"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <iframe id="iframe" src="" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="100%" scrolling="auto">
+    </iframe>
+
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var iframeUrl = screenly.settings.iframe || "iframe URL not set";
+      document.getElementById("iframe").src = iframeUrl;
+      document.getElementById("iframe").innerText = iframeUrl;
+    });
+  </script>
+</html>
