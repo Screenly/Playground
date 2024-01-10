@@ -42,7 +42,7 @@ jobs:
         # Using `jq` to extract the latest revision
         id: latest_revision
           # yamllint disable-line rule:line-length
-        run: echo "revision=$(echo ${{ steps.get_revisions.outputs.cli_commands_response }} | jq '.[-1:] | .[].revision')" >> "$GITHUB_OUTPUT"
+        run: echo "revision=$(echo '${{ steps.get_revisions.outputs.cli_commands_response }}' | jq '.[-1:] | .[].revision')" >> "$GITHUB_OUTPUT"
 
       - name: Promote Edge App
         uses: screenly/cli@edits-cli-action-outputs
