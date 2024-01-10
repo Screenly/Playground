@@ -1,0 +1,48 @@
+---
+name: Deploy RSS Reader App (QC)
+
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'edge-apps/rss-reader/**'
+      - '.github/workflows/deploy-rss-reader.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      APP_ID: '01HKT59B49Z343B7C2H9JVH51B'
+      APP_PATH: 'edge-apps/rss-reader'
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Copy in Bootstrap theme
+        run: |
+          cd edge-apps/rss-reader
+          mkdir -p bootstrap/theme
+          cp -r ../../bootstrap/theme/ ./bootstrap/
+
+      - name: Deploy Edge App
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
+          # yamllint disable-line rule:line-length
+          cli_commands: edge-app upload --app-id=${{ env.APP_ID }} --path=${{ env.APP_PATH }}
+
+      - name: List Releases
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
+          # yamllint disable-line rule:line-length
+          cli_commands: edge-app version list --app-id=${{ env.APP_ID }}
+
+      - name: Promote Edge App
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
+          # yamllint disable-line rule:line-length
+          cli_commands: edge-app version promote --latest --app-id=${{ env.APP_ID }} --path=${{ env.APP_PATH }}
