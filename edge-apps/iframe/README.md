@@ -5,24 +5,24 @@ This guide will walk you through the steps to create an Edge App in Screenly tha
 ## Prerequisites
 * Install Screenly CLI - Please follow the guide [here](https://github.com/Screenly/cli)
 
-## Steps:
+## Steps
 
 1. **Log in to the Screenly account via CLI**
+
+Follow the on-screen instructions to log in to your Screenly account.
 
    ```bash
    $ screenly login
    ```
 
-   > Follow the on-screen instructions to log in to your Screenly account.
-
-2. **Download and Open Edge App Playground:**
+2. **Download and Open Edge App Playground**
 
    ```bash
    $ git clone https://github.com/Screenly/Playground.git
    $ cd edge-apps/iframe
    ```
 
-3. **Enter iFrame Edge App Directory:**
+3. **Enter iFrame Edge App Directory**
 
    ```bash
    $ cd edge-apps/iframe
@@ -36,7 +36,7 @@ This guide will walk you through the steps to create an Edge App in Screenly tha
 
    > Replace "iframePage" with your desired app name.
 
-5. **Upload the Edge App:**
+5. **Upload the Edge App**
 
    ```bash
    $ screenly edge-app upload
@@ -44,7 +44,7 @@ This guide will walk you through the steps to create an Edge App in Screenly tha
 
    > Wait for the upload to complete.
 
-6. **Specify the iFrame URL:**
+6. **Specify the iFrame URL**
 
    ```bash
    $ screenly edge-app setting set iframe=WEBPAGE_URL
@@ -52,7 +52,7 @@ This guide will walk you through the steps to create an Edge App in Screenly tha
 
    > Replace "WEBPAGE_URL" with the actual URL you want to display in the iFrame.
 
-7. **Deploy the Edge App as Asset:**
+7. **Deploy the Edge App as Asset**
 
    ```bash
    screenly edge-app version promote --latest
@@ -60,11 +60,11 @@ This guide will walk you through the steps to create an Edge App in Screenly tha
 
    > This promotes the latest version of the Edge App as an asset.
 
-8. **Check the Screenly Dashboard:**
+8. **Check the Screenly Dashboard**
 
    Open the Screenly dashboard and verify that the new Edge App has been added as an asset.
 
-9. **Assign Asset to Playlist and Device:**
+9. **Assign Asset to Playlist and Device**
 
    1. Assign the new asset to a playlist.
    2. Assign the playlist to a device.
