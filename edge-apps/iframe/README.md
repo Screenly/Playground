@@ -5,71 +5,68 @@ This guide will walk you through the steps to create an Edge App in Screenly tha
 ## Prerequisites
 * Install Screenly CLI - Please follow the guide [here](https://github.com/Screenly/cli)
 
-
 ## Steps:
 
-1. Log in to the Screenly account via CLI
+1. **Log in to the Screenly account via CLI**
 
-```bash
-$ screenly login
-```
-> Follow the on-screen instructions to log in to your Screenly account.
+   ```bash
+   $ screenly login
+   ```
 
-2. Download and Open Edge App Playground:
+   > Follow the on-screen instructions to log in to your Screenly account.
 
-```bash
-$ git clone https://github.com/Screenly/Playground.git
+2. **Download and Open Edge App Playground:**
 
-$ cd edge-apps/iframe
-```
+   ```bash
+   $ git clone https://github.com/Screenly/Playground.git
+   $ cd edge-apps/iframe
+   ```
 
-3. Enter iFrame Edge App Directory:
+3. **Enter iFrame Edge App Directory:**
 
-``` bash
- $ cd edge-apps/iframe
- ```
+   ```bash
+   $ cd edge-apps/iframe
+   ```
 
-4.Create a New iFrame Edge App:
+4. **Create a New iFrame Edge App:**
 
-```bash
-$ screenly edge-app create --name iframePage --in-place
-```
+   ```bash
+   $ screenly edge-app create --name iframePage --in-place
+   ```
 
-> Replace "iframePage" with your desired app name.
+   > Replace "iframePage" with your desired app name.
 
+5. **Upload the Edge App:**
 
-5. Upload the Edge App
+   ```bash
+   $ screenly edge-app upload
+   ```
 
-```bash
-$ screenly edge-app upload
-```
+   > Wait for the upload to complete.
 
-> Wait for the upload to complete.
+6. **Specify the iFrame URL:**
 
-6. Specify the iFrame URL
+   ```bash
+   $ screenly edge-app setting set iframe=WEBPAGE_URL
+   ```
 
-```bash
-$ screenly edge-app setting set iframe=WEBPAGE_URL
-```
+   > Replace "WEBPAGE_URL" with the actual URL you want to display in the iFrame.
 
-> Replace "WEBPAGE_URL" with the actual URL you want to display in the iFrame.
+7. **Deploy the Edge App as Asset:**
 
-7. Deploy the Edge App as Asset:
+   ```bash
+   screenly edge-app version promote --latest
+   ```
 
-```bash
-screenly edge-app version promote --latest
-```
+   > This promotes the latest version of the Edge App as an asset.
 
-> This promotes the latest version of the Edge App as an asset.
+8. **Check the Screenly Dashboard:**
 
-8. Check the Screenly Dashboard
+   Open the Screenly dashboard and verify that the new Edge App has been added as an asset.
 
-    Open the Screenly dashboard and verify that the new Edge App has been added as an asset.
+9. **Assign Asset to Playlist and Device:**
 
-9. Assign Asset to Playlist and Device:
-
-    1. Assign the new asset to a playlist.
-    2. Assign the playlist to a device.
+   1. Assign the new asset to a playlist.
+   2. Assign the playlist to a device.
 
 Now, the iFrame Edge App has been configured, and the designated webpage/dashboard will be presented on the Screenly-connected TV/Monitor.
-
