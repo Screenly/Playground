@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP_ID: '01HKT1XSC070BGNKYR7ZE689DE'
+
       APP_PATH: 'edge-apps/clock'
 
     steps:
@@ -27,17 +28,9 @@ jobs:
           # yamllint disable-line rule:line-length
           cli_commands: edge-app upload --app-id=${{ env.APP_ID }} --path=${{ env.APP_PATH }}
 
-      - name: Get Revisions
-        id: get_revisions
-        uses: screenly/cli@master
-        with:
-          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
-          # yamllint disable-line rule:line-length
-          cli_commands: edge-app version list --app-id=${{ env.APP_ID }} --path=${{ env.APP_PATH }} --json
-
       - name: Promote Edge App
         uses: screenly/cli@master
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
-            # yamllint disable-line rule:line-length
+          # yamllint disable-line rule:line-length
           cli_commands: edge-app version promote --latest --channel=candidate --app-id=${{ env.APP_ID }} --path=${{ env.APP_PATH }}
