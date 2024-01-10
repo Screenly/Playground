@@ -1,7 +1,7 @@
 /* global  screenly */
 
 function extractUrlFromIframeSetting (settingValue) {
- if (settingValue.includes('<iframe')) {
+  if (settingValue.includes('<iframe')) {
     const match = settingValue.match(/<iframe.*?src=["'](.*?)["']/)
     if (match && match[1]) {
       return match[1]
