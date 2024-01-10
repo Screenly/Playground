@@ -1,21 +1,21 @@
 html {
-    overflow: auto;
+  overflow: auto;
 }
 
 html,
 body,
 div,
 iframe {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    border: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  border: none;
 }
 
 iframe {
-    display: block;
-    width: 100%;
-    border: none;
-    overflow-y: auto;
-    overflow-x: hidden;
+  display: block;
+  width: 100%;
+  border: none;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
