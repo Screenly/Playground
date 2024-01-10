@@ -3,35 +3,36 @@
 This guide will walk you through the steps to create an Edge App in Screenly that uses an iFrame to load another HTML page or dashboard.
 
 ## Prerequisites
+
 * Install Screenly CLI - Please follow the guide [here](https://github.com/Screenly/cli)
 
 ## Steps
 
 1. **Log in to the Screenly account via CLI**
 
-Follow the on-screen instructions to log in to your Screenly account.
+   Follow the on-screen instructions to log in to your Screenly account.
 
    ```bash
-   $ screenly login
+   screenly login
    ```
 
 2. **Download and Open Edge App Playground**
 
    ```bash
-   $ git clone https://github.com/Screenly/Playground.git
-   $ cd edge-apps/iframe
+   git clone https://github.com/Screenly/Playground.git
+   cd edge-apps/iframe
    ```
 
 3. **Enter iFrame Edge App Directory**
 
    ```bash
-   $ cd edge-apps/iframe
+   cd edge-apps/iframe
    ```
 
 4. **Create a New iFrame Edge App:**
 
    ```bash
-   $ screenly edge-app create --name iframePage --in-place
+   screenly edge-app create --name iframePage --in-place
    ```
 
    > Replace "iframePage" with your desired app name.
@@ -39,18 +40,24 @@ Follow the on-screen instructions to log in to your Screenly account.
 5. **Upload the Edge App**
 
    ```bash
-   $ screenly edge-app upload
+   screenly edge-app upload
    ```
 
    > Wait for the upload to complete.
 
 6. **Specify the iFrame URL**
 
+   Replace "WEBPAGE_URL" with the actual URL you want to display in the iFrame.
+
    ```bash
-   $ screenly edge-app setting set iframe=WEBPAGE_URL
+   screenly edge-app setting set iframe=WEBPAGE_URL
    ```
 
-   > Replace "WEBPAGE_URL" with the actual URL you want to display in the iFrame.
+   or
+
+   ```bash
+   screenly edge-app setting set iframe='<iframe src="WEBPAGE_URL" title="programiz pro website" height="500" width="500" ></iframe>'
+   ```
 
 7. **Deploy the Edge App as Asset**
 
