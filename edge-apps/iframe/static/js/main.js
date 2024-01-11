@@ -9,7 +9,6 @@ function extractUrlFromIframeSetting (settingValue) {
   } else {
     return settingValue
   }
-  return null
 }
 document.addEventListener('DOMContentLoaded', function () {
   const iframeSettingValue = screenly.settings.iframe || 'iframe URL not set'
