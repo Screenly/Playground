@@ -1,5 +1,6 @@
 ---
 description: Displays latest two Instagram post
+icon: 'https://playground.srly.io/edge-apps/instagram/static/images/icon.svg'
 author: Screenly, Inc.
 entrypoint: index.html
 settings:
