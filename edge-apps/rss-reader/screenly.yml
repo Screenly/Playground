@@ -1,5 +1,6 @@
 ---
 description: Screenly RSS Reader App
+icon: 'https://playground.srly.io/edge-apps/rss-reader/static/images/icon.svg'
 author: Screenly, Inc.
 entrypoint: index.html
 settings:

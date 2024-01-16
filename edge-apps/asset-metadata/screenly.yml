@@ -1,5 +1,6 @@
 ---
 description: Displays the screen metadata like position on Google map, coordinates, hostname, etc.
+icon: 'https://playground.srly.io/edge-apps/asset-metadata/static/images/icon.svg'
 author: Screenly, Inc.
 entrypoint: index.html
 settings:
