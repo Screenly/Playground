@@ -8,7 +8,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      APP_ID: ''
+      APP_ID: '01HKT8GYC2WW2SJTCSER92APDB'
       APP_PATH: 'edge-apps/weather'
 
     steps:
