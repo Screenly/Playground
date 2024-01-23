@@ -14,6 +14,8 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 * [QR Code Generator](https://github.com/Screenly/Playground/tree/master/edge-apps/qr-code) - An example of how to build unique QR Codes that embeds the screen metadata as UTM parameters.
 * [RSS Reader](https://github.com/Screenly/Playground/tree/master/edge-apps/rss-reader) - A simple RSS reader.
 * [Weather App](https://github.com/Screenly/Playground/tree/master/edge-apps/weather) - A simple weather app.
+* [iFrame App](https://github.com/Screenly/Playground/tree/master/edge-apps/iframe) - A simple iFrame app.
+
 
 ## Other
 
