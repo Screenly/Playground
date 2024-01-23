@@ -15,5 +15,4 @@ document.addEventListener('DOMContentLoaded', function () {
   const iframeUrl = extractUrlFromIframeSetting(iframeSettingValue)
   const iframeElement = document.getElementById('iframe')
   iframeElement.src = iframeUrl
-  iframeElement.innerText = iframeUrl
 })
