@@ -312,7 +312,7 @@ function getWeatherData () {
     isLoading: true,
     init: async function () {
       if (screenly.settings.override_coordinates) {
-        [this.lat, this.lng] = screenly.settings.override_coordinates.split(",")
+        [this.lat, this.lng] = screenly.settings.override_coordinates.split(',')
       }
 
       if (!this.lat || !this.lng) {
