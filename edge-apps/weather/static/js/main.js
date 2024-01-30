@@ -311,7 +311,14 @@ function getWeatherData () {
     firstFetchComplete: false,
     isLoading: true,
     init: async function () {
-      [this.lat, this.lng] = screenly.metadata?.coordinates
+      if (screenly.settings.override_coordinates) {
+        [this.lat, this.lng] = screenly.settings.override_coordinates.split(',')
+      }
+
+      if (!this.lat || !this.lng) {
+        [this.lat, this.lng] = screenly.metadata?.coordinates
+      }
+
       this.apiKey = screenly.settings.openweathermap_api_key
 
       await refreshWeather(this)
