@@ -8,23 +8,24 @@ settings:
   enable_analytics:
     type: string
     default_value: 'true'
-    title: enable_analytics
+    title: Enable Analytics
     optional: true
     help_text: Whether to disable Sentry and Google Analytics integrations
   override_timezone:
     type: string
     default_value: ''
-    title: override_timezone
+    title: Override Timezone
     optional: true
     help_text: Specify a supported timezone value (e.g., Europe/London).
   override_locale:
     type: string
     default_value: ''
+    title: Override Locale
     optional: true
     help_text: Specify a supported locale value (e.g., en_US).
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z
-    title: tag_manager_id
+    title: Google Tag Manager ID
     optional: true
     help_text: Specify a Google Tag Manager ID

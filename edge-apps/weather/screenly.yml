@@ -7,25 +7,25 @@ settings:
   enable_analytics:
     type: string
     default_value: 'true'
-    title: enable_analytics
+    title: Enable Analytics
     optional: true
     help_text: Whether to enable analytics or not
   openweathermap_api_key:
     type: secret
-    title: openweathermap_api_key
+    title: Openweathermap API Key
     optional: false
     help_text: |
       Specify an API key so that you'll have access to all the necessary weather data.
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z
-    title: tag_manager_id
+    title: Google Tag Manager ID
     optional: true
     help_text: Specify a Google Tag Manager ID
   override_coordinates:
     type: string
     default_value: ''
-    title: override_coordinates
+    title: Override Coordinates
     optional: true
     help_text: |
       Specify a comma-separated pair of coordinates (e.g., 37.8267,-122.4233).
