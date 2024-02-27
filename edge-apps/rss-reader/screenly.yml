@@ -45,6 +45,6 @@ settings:
   tag_manager_id:
     type: string
     default_value: 'GTM-P98SPZ9Z'
-    title: Google Tag Mnager ID
+    title: Google Tag Manager ID
     optional: true
     help_text: Specify a Google Tag Manager ID
