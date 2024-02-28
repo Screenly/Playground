@@ -55,6 +55,9 @@
             }
 
             var report = powerbi.embed(embedContainer, embedConfiguration);
+            report.on("render", function () {
+              screenly.signalReadyForRendering();
+            });
         }
 
     </script>
