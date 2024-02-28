@@ -56,3 +56,9 @@ settings:
     title: Power BI report page name (optional)
     optional: true
     help_text: Display a specific page (i.e. tab name) within a given Power BI report to display
+  screenly_render_notification:
+    type: string
+    default_value: "1"
+    title: "Requires ready for rendering"
+    help_text: "Special setting to indicate that application needs to call screenly.signalReadyForRendering before being shown on the screen."
+    optional: true
