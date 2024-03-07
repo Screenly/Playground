@@ -1,21 +1,21 @@
 ---
-name: Deploy Clock App (QC)
+name: Deploy Power BI (QC)
 
 on:
   push:
     branches:
       - 'master'
     paths:
-      - 'edge-apps/clock/**'
-      - '.github/workflows/deploy-clock-app-qc.yml'
+      - 'edge-apps/powerbi/**'
+      - '.github/workflows/deploy-powerbi-qc.yml'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      APP_ID: '01HKT1XSC070BGNKYR7ZE689DE'
+      APP_ID: '01HRCAW49EW573V7JCH711SP5G'
 
-      APP_PATH: 'edge-apps/clock'
+      APP_PATH: 'edge-apps/powerbi'
 
     steps:
       - name: Checkout Code
