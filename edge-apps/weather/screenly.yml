@@ -14,6 +14,7 @@ settings:
     type: secret
     title: Openweathermap API Key
     optional: false
+    is_global: true
     help_text: |
       Specify an API key so that you'll have access to all the necessary weather data.
   tag_manager_id:
