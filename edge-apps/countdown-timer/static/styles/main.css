@@ -118,7 +118,7 @@ h3{
 .container-day,
 .container-hour,
 .container-minute,
-.container-second{
+.container-second {
 	width: 300px;
 	transition: all 0.5s ease;
 }
