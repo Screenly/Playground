@@ -29,7 +29,7 @@ settings:
     title: Tag Manager Id
     optional: true
     help_text: Specify a Google Tag Manager ID
-  timer:
+  countdown_timer:
     type: string
     default_value: '2025-01-01T00:00:00'
     title: Countdown Timer
