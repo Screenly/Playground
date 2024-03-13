@@ -33,12 +33,12 @@ settings:
     type: string
     default_value: '2025-01-01T00:00:00'
     title: Countdown Timer
-    optional: true
+    optional: false
     help_text: countdown time
   timer_headline:
     type: string
     default_value: 'New Year Countdown'
     title: Countdown Header Text
-    optional: true
+    optional: false
     help_text: countdown header value
 
