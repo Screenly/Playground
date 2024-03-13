@@ -68,7 +68,7 @@ async function initApp() {
   }
 
   const countdown = () => {
-    const timer_headlineText = screenly.settings.timer_headline
+    const timerHeadline_text = screenly.settings.timer_headline
     const timerlimit = settings?.timer
     const countDate = moment(timerlimit).tz(getTimezone())
     const now = moment().tz(getTimezone())
@@ -84,7 +84,7 @@ async function initApp() {
     const textMinute = Math.floor((remainingTime % hour) / minute)
     const textSecond = Math.floor((remainingTime % minute) / second)
 
-    document.querySelector('.timer-headline').innerText = timer_headlineText
+    document.querySelector('.timer-headline').innerText = timerHeadline_text
     document.querySelector('.day').innerText = textDay > 0 ? textDay : 0
     document.querySelector('.hour').innerText = textHour > 0 ? textHour : 0
     document.querySelector('.minute').innerText = textMinute > 0 ? textMinute : 0
