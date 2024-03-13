@@ -4,7 +4,7 @@
 const { getNearestCity } = OfflineGeocodeCity
 const allTimezones = moment.tz.names()
 
-async function initApp() {
+async function initApp () {
   let clockTimer
   const { metadata, settings } = screenly
   const latitude = metadata.coordinates[0]
@@ -68,33 +68,27 @@ async function initApp() {
   }
 
   const countdown = () => {
-    const {
-      timer: timerlimit,
-    } = screenly.settings;
-
+    const timerlimit = settings?.timer
     const countDate = moment(timerlimit).tz(getTimezone());
-    const locale = getLocale();
-
     const now = moment().tz(getTimezone());
-
     const remainingTime = countDate - now;
 
-    const second = 1000;
-    const minute = second * 60;
-    const hour = minute * 60;
-    const day = hour * 24;
+    const second = 1000
+    const minute = second * 60
+    const hour = minute * 60
+    const day = hour * 24
 
-    const textDay = Math.floor(remainingTime / day);
-    const textHour = Math.floor((remainingTime % day) / hour);
-    const textMinute = Math.floor((remainingTime % hour) / minute);
-    const textSecond = Math.floor((remainingTime % minute) / second);
+    const textDay = Math.floor(remainingTime / day)
+    const textHour = Math.floor((remainingTime % day) / hour)
+    const textMinute = Math.floor((remainingTime % hour) / minute)
+    const textSecond = Math.floor((remainingTime % minute) / second)
 
-    document.querySelector(".day").innerText = textDay > 0 ? textDay : 0;
-    document.querySelector(".hour").innerText = textHour > 0 ? textHour : 0;
-    document.querySelector(".minute").innerText = textMinute > 0 ? textMinute : 0;
-    document.querySelector(".second").innerText = textSecond > 0 ? textSecond : 0;
+    document.querySelector(".day").innerText = textDay > 0 ? textDay : 0
+    document.querySelector(".hour").innerText = textHour > 0 ? textHour : 0
+    document.querySelector(".minute").innerText = textMinute > 0 ? textMinute : 0
+    document.querySelector(".second").innerText = textSecond > 0 ? textSecond : 0
 
-    setTimeout(countdown, 1000);
+    setTimeout(countdown, 1000)
   };
 
   countdown();
