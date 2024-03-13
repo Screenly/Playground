@@ -72,7 +72,7 @@ body {
 
 #time {
   font-size: 2rem;
-	margin-left: 10px;
+  margin-left: 10px;
 }
 
 #time span {
@@ -85,15 +85,15 @@ h2 {
   padding: 3rem;
 }
 
-h3{
-	font-size: 3rem;
-	padding: 3rem;
+h3 {
+  font-size: 3rem;
+  padding: 3rem;
 }
 
 .countdown-section {
   min-height: 100vh;
   display: flex;
-	color: white;
+  color: white;
   align-items: center;
   flex-direction: column;
   justify-content: center;
@@ -105,7 +105,7 @@ h3{
   display: flex;
   justify-content: space-around;
   text-align: center;
-	align-items: center;
+  align-items: center;
 }
 
 .day,
@@ -119,10 +119,9 @@ h3{
 .container-hour,
 .container-minute,
 .container-second {
-	width: 300px;
-	transition: all 0.5s ease;
+  width: 300px;
+  transition: all 0.5s ease;
 }
-
 
 .waiting {
   height: 50vh;
