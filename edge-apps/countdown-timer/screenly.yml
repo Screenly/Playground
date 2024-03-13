@@ -34,11 +34,11 @@ settings:
     default_value: '2025-01-01T00:00:00'
     title: Countdown Timer
     optional: false
-    help_text: countdown time
+    help_text: Countdown timer value (Format YYYY-MM-DDTHH:MM:SS).
   timer_headline:
     type: string
     default_value: 'New Year Countdown'
     title: Countdown Header Text
     optional: false
-    help_text: countdown header value
+    help_text: Countdown header text value.
 
