@@ -69,8 +69,8 @@ async function initApp () {
 
   const countdown = () => {
     const timerHeadlineText = screenly.settings.countdown_headline
-    const countdown_end_time = settings?.target_timestamp
-    const countDate = moment(countdown_end_time).tz(getTimezone())
+    const countdownEndTime = settings?.target_timestamp
+    const countDate = moment(countdownEndTime).tz(getTimezone())
     const now = moment().tz(getTimezone())
     const remainingTime = countDate - now
 
