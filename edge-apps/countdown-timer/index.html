@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Screenly Clock App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="static/styles/main.css" />
+</head>
+
+<body>
+    <script src="screenly.js?version=1"></script>
+
+    <!-- Google Tag Manager -->
+    <script>
+        const {
+          enable_analytics: enableAnalytics,
+          tag_manager_id: tagManagerId,
+        } = screenly.settings;
+
+        if (enableAnalytics === 'true') {
+            (function(w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start': new Date().getTime(),
+                    event: 'gtm.js'
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', tagManagerId);
+        }
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <div class="content">
+
+			<section class="coming-soon">
+				<div>
+					<!-- <h2>Timer ⏳</h2> -->
+					<div class="countdown">
+						<div class="container-day">
+							<h3 class="day">Time</h3>
+							<h3>Day</h3>
+						</div>
+						<div class="container-hour">
+							<h3 class="hour">Time</h3>
+							<h3>Hour</h3>
+						</div>
+						<div class="container-minute">
+							<h3 class="minute">Time</h3>
+							<h3>Minute</h3>
+						</div>
+						<div class="container-second">
+							<h3 class="second">Time</h3>
+							<h3>Second</h3>
+						</div>
+					</div>
+				</div>
+			</section>
+
+
+
+        <div class="date-time">
+            <div class="date">
+                <img src="static/images/icons/calendar.svg" alt="calendar icon" />
+                <span id="date"></span>
+            </div>
+						<div class="time">
+						<img src="static/images/icons/clock.svg" alt="calendar icon" />
+            <span id="time"></span>
+					</div>
+        </div>
+    </div>
+
+    <script src="static/js/moment-with-locales.min.js"></script>
+    <script src="static/js/tz.min.js"></script>
+    <script src="static/js/moment-timezone-with-data.min.js"></script>
+    <script src="static/js/country-locale-map.1.18.5.min.js"></script>
+    <script src="static/js/offline-geocode-city-1.0.2.min.js"></script>
+    <script src="static/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+---
+app_id: 01HRVKBA643MN101ZB60G5NRV9
+user_version: v1.0.0
+description: Screenly Countdown Edge App
+icon: https://playground.srly.io/edge-apps/clock/static/images/icon.svg
+author: Screenly, Inc.
+entrypoint: index.html
+settings:
+  enable_analytics:
+    type: string
+    default_value: 'true'
+    title: enable_analytics
+    optional: true
+    help_text: Whether to disable Sentry and Google Analytics integrations
+  override_locale:
+    type: string
+    default_value: ''
+    title: override_locale
+    optional: true
+    help_text: Specify a supported locale value (e.g., en_US).
+  override_timezone:
+    type: string
+    default_value: ''
+    title: override_timezone
+    optional: true
+    help_text: Specify a supported timezone value (e.g., Europe/London).
+  tag_manager_id:
+    type: string
+    default_value: GTM-P98SPZ9Z
+    title: tag_manager_id
+    optional: true
+    help_text: Specify a Google Tag Manager ID
+  timer:
+    type: string
+    default_value: ''
+    title: timer_value
+    optional: true
+    help_text: countdown timee
