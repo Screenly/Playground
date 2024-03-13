@@ -13,7 +13,7 @@ settings:
     help_text: Whether to disable Sentry and Google Analytics integrations
   override_locale:
     type: string
-    default_value: ''
+    default_value: 'en'
     title: override_locale
     optional: true
     help_text: Specify a supported locale value (e.g., en_US).
@@ -31,7 +31,14 @@ settings:
     help_text: Specify a Google Tag Manager ID
   timer:
     type: string
-    default_value: ''
-    title: timer_value
+    default_value: '2025-01-01T00:00:00'
+    title: timer
     optional: true
-    help_text: countdown timee
+    help_text: countdown time
+  timer_headline:
+    type: string
+    default_value: 'New Year Countdown'
+    title: countdown head
+    optional: true
+    help_text: countdown head
+

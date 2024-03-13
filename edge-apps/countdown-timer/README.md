@@ -23,12 +23,22 @@ $ screenly edge-app version promote --revision=X
 To set the countdown timer, we can use the `timer` settings.
 
 ```bash
-$ creenly edge-app setting set timer=2024-03-14T00:00:00
+$ Screenly edge-app setting set timer=2024-03-14T00:00:00
+# A relatively long console output...
+Edge app setting successfully set.
+```
+where `2024-03-14T00:00:00` your countdown timer limit with `YYYY-MM-DDTHH:MM:SS` format.
+
+### `timer_headline`
+
+To set the countdown timer headline, we can use the `timer_headline` settings.
+
+```bash
+$ Screenly edge-app setting set timer_headline='New Year Countdown'
 # A relatively long console output...
 Edge app setting successfully set.
 ```
 
-where `2024-03-14T00:00:00` your countdown timer limit with `YYYY-MM-DDTHH:MM:SS` format.
 
 ### `override_timezone`
 
