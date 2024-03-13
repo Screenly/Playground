@@ -29,16 +29,15 @@ settings:
     title: Tag Manager Id
     optional: true
     help_text: Specify a Google Tag Manager ID
-  countdown_timer:
+  target_timestamp:
     type: string
     default_value: '2025-01-01T00:00:00'
-    title: Countdown Timer
+    title: Countdown End Timer
     optional: false
     help_text: Countdown timer value (Format YYYY-MM-DDTHH:MM:SS).
-  timer_headline:
+  countdown_headline:
     type: string
     default_value: 'New Year Countdown'
     title: Countdown Header Text
     optional: false
     help_text: Countdown header text value.
-
