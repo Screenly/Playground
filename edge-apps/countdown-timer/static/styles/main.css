@@ -60,34 +60,36 @@ body {
   display: inline-block;
 }
 
-.date {
-  display: flex;
-  align-items: center;
-}
-
 #date {
   margin-left: 10px;
-  font-size: 2rem;
 }
 
 #time {
-  font-size: 2rem;
   margin-left: 10px;
 }
 
 #time span {
-  font-size: 2rem;
+  font-size: 1.25rem;
+}
+
+.date-time{
+  position: absolute;
+  bottom: 2rem;
+  left: 1rem;
+	font-size: 2rem;
 }
 
 h2 {
   font-size: 3rem;
   font-weight: bold;
-  padding: 3rem;
+  padding: 1rem;
+	top: 5rem;
+
 }
 
 h3 {
   font-size: 3rem;
-  padding: 3rem;
+  padding: 1rem;
 }
 
 .countdown-section {
