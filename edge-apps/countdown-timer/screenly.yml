@@ -1,0 +1,43 @@
+---
+user_version: v1.0.0
+description: Screenly Countdown Edge App
+icon: https://playground.srly.io/edge-apps/countdown-timer/static/images/icon.svg
+author: Screenly, Inc.
+entrypoint: index.html
+settings:
+  countdown_headline:
+    type: string
+    default_value: New Year Countdown
+    title: countdown_headline
+    optional: false
+    help_text: Countdown header text value.
+  enable_analytics:
+    type: string
+    default_value: 'true'
+    title: enable_analytics
+    optional: true
+    help_text: Whether to disable Sentry and Google Analytics integrations
+  override_locale:
+    type: string
+    default_value: en
+    title: override_locale
+    optional: true
+    help_text: Specify a supported locale value (e.g., en_US).
+  override_timezone:
+    type: string
+    default_value: ''
+    title: override_timezone
+    optional: true
+    help_text: Specify a supported timezone value (e.g., Europe/London).
+  tag_manager_id:
+    type: string
+    default_value: GTM-P98SPZ9Z
+    title: tag_manager_id
+    optional: true
+    help_text: Specify a Google Tag Manager ID
+  target_timestamp:
+    type: string
+    default_value: 2025-01-01T00:00:00
+    title: target_timestamp
+    optional: false
+    help_text: Countdown timer value (Format YYYY-MM-DDTHH:MM:SS).

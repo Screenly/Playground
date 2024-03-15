@@ -1,0 +1,129 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+@font-face {
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/Barlow-Regular.woff") format("woff");
+}
+
+html,
+body {
+  height: 100%;
+  font-size: 16px;
+}
+
+body {
+  background-color: gray;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("../images/clear.jpg");
+  background-size: cover;
+  color: #fff;
+  font-family: Barlow, sans-serif;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  padding: 1.5rem 1rem 2.5rem;
+  height: 100%;
+}
+
+.header {
+  flex: 1;
+  text-align: center;
+}
+
+.upgrade-banner {
+  background: #7732b7;
+  border-radius: 60px;
+  color: #fff;
+  display: none;
+  font-size: 0.6rem;
+  padding: 10px 20px;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.visible {
+  display: inline-block;
+}
+
+#date {
+  margin-left: 10px;
+}
+
+#time {
+  margin-left: 10px;
+}
+
+#time span {
+  font-size: 1.25rem;
+}
+
+.date-time {
+  position: absolute;
+  bottom: 2rem;
+  left: 1rem;
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 3rem;
+  font-weight: bold;
+  padding: 1rem;
+  top: 5rem;
+}
+
+h3 {
+  font-size: 3rem;
+  padding: 1rem;
+}
+
+.countdown-section {
+  min-height: 100vh;
+  display: flex;
+  color: white;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-image: url("clear.jpg");
+  background-size: 100%;
+}
+
+.countdown {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  align-items: center;
+}
+
+.day,
+.hour,
+.minute,
+.second {
+  font-size: 10rem;
+}
+
+.container-day,
+.container-hour,
+.container-minute,
+.container-second {
+  width: 300px;
+  transition: all 0.5s ease;
+}
+
+.waiting {
+  height: 50vh;
+}
