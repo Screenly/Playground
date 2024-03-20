@@ -15,6 +15,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 * [RSS Reader](https://github.com/Screenly/Playground/tree/master/edge-apps/rss-reader) - A simple RSS reader.
 * [Weather App](https://github.com/Screenly/Playground/tree/master/edge-apps/weather) - A simple weather app.
 * [iFrame App](https://github.com/Screenly/Playground/tree/master/edge-apps/iframe) - A simple iFrame app.
+* [iFrame App](https://github.com/Screenly/Playground/tree/master/edge-apps/countdown-timer) - A simple countdown timer app.
 
 
 ## Other
