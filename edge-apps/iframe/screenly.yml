@@ -1,12 +1,12 @@
 ---
-author: Screenly, Inc.
 description: Screenly iframe Edge App
+author: Screenly, Inc.
 entrypoint: index.html
 settings:
   iframe:
     type: string
     title: iframe
-    optional: true
+    optional: false
     help_text: |
       Provide an iframe URL to be embedded.
 
