@@ -1,354 +1,360 @@
 *,
 *::before,
 *::after {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 * {
-	margin: 0;
+  margin: 0;
 }
 
 @font-face {
-	font-family: Barlow;
-	font-style: normal;
-	font-weight: normal;
-	src: url("../fonts/Barlow-Regular.woff") format("woff");
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/Barlow-Regular.woff") format("woff");
 }
 
 html,
 body {
-	height: 100%;
-	font-size: 1rem;
+  height: 100%;
+  font-size: 1rem;
 }
 
 body {
-	background-color: gray;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-image: url("../images/clear.jpg");
-	background-size: cover;
-	color: #fff;
-	font-family: Barlow, sans-serif;
+  background-color: gray;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("../images/clear.jpg");
+  background-size: cover;
+  color: #fff;
+  font-family: Barlow, sans-serif;
 }
 
 .content {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	position: relative;
-	padding: 1rem;
-	height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  padding: 1rem;
+  height: 100%;
 }
 
 .header {
-	flex: 1;
-	text-align: center;
+  flex: 1;
+  text-align: center;
 }
 
 
 .visible {
-	display: inline-block;
+  display: inline-block;
 }
 
 #date {
-	margin-left: 0.625rem;
+  margin-left: 0.625rem;
 }
 
 #time {
-	margin-left: 0.625rem;
+  margin-left: 0.625rem;
 }
 
 #time span {
-	font-size: 1.25rem;
+  font-size: 1.25rem;
 }
 
 .date-time {
-	position: absolute;
-	bottom: 2rem;
-	left: 1rem;
-	font-size: 2rem;
+  position: absolute;
+  bottom: 2rem;
+  left: 1rem;
+  font-size: 2rem;
 }
 
 h2 {
-	font-size: 3rem;
-	font-weight: bold;
-	padding: 1rem;
+  font-size: 3rem;
+  font-weight: bold;
+  padding: 1rem;
 }
 
 h3 {
-	font-size: 3rem;
-	padding: 1rem;
+  font-size: 3rem;
+  padding: 1rem;
 }
 
 .countdown-section {
-	min-height: 100vh;
-	display: flex;
-	color: white;
-	align-items: center;
-	flex-direction: column;
-	justify-content: center;
-	background-size: 100%;
+  min-height: 100vh;
+  display: flex;
+  color: white;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-size: 100%;
 }
 
 .countdown {
-	display: flex;
-	justify-content: space-around;
-	text-align: center;
-	align-items: center;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  align-items: center;
 }
 
 .day,
 .hour,
 .minute,
 .second {
-	font-size: 10rem;
+  font-size: 10rem;
 }
 
 .container-day,
 .container-hour,
 .container-minute,
 .container-second {
-	width: 18.75rem;
-	transition: all 0.5s ease;
+  width: 18.75rem;
+  transition: all 0.5s ease;
+}
+
+.timer-headline{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media screen and (min-width: 480px) {
-	html {
-		font-size: .35rem;
-	}
+  html {
+    font-size: .35rem;
+  }
 
-	.content {
-		padding: 1rem;
-	}
+  .content {
+    padding: 1rem;
+  }
 
-	h2 {
-		font-size: 4rem;
-	}
+  h2 {
+    font-size: 4rem;
+  }
 
-	.date-time {
-		position: absolute;
-		bottom: 2rem;
-		left: 1rem;
-		font-size: 4rem;
+  .date-time {
+    position: absolute;
+    bottom: 2rem;
+    left: 1rem;
+    font-size: 4rem;
 
-	}
+  }
 
-	.date-time img {
-		width: 3rem;
-		height: auto;
-	}
+  .date-time img {
+    width: 3rem;
+    height: auto;
+  }
 
-	#time span {
-		font-size: 2rem;
-	}
+  #time span {
+    font-size: 2rem;
+  }
 }
 
 @media screen and (min-width: 1080px) {
-	html {
-		font-size: .6rem;
-	}
+  html {
+    font-size: .6rem;
+  }
 
-	.content {
-		font-size: 10rem;
-		padding: 1rem;
-	}
+  .content {
+    font-size: 10rem;
+    padding: 1rem;
+  }
 
-	.date-time {
-		position: absolute;
-		bottom: 2rem;
-		left: 1rem;
-		font-size: 2.5rem;
-	}
+  .date-time {
+    position: absolute;
+    bottom: 2rem;
+    left: 1rem;
+    font-size: 2.5rem;
+  }
 
-	#time span {
-		font-size: 2rem;
-	}
+  #time span {
+    font-size: 2rem;
+  }
 
-	.date-time img {
-		width: 2.5rem;
-		height: auto;
-	}
+  .date-time img {
+    width: 2.5rem;
+    height: auto;
+  }
 }
 
 @media screen and (min-width: 1440px) {
-	html {
-		font-size: 1rem;
-	}
+  html {
+    font-size: 1rem;
+  }
 
-	.content {
-		font-size: .8rem;
-		padding: 1rem;
-	}
+  .content {
+    font-size: .8rem;
+    padding: 1rem;
+  }
 
-	.date-time {
-		position: absolute;
-		bottom: 2rem;
-		left: 1rem;
-		font-size: 2.5rem;
-	}
+  .date-time {
+    position: absolute;
+    bottom: 2rem;
+    left: 1rem;
+    font-size: 2.5rem;
+  }
 
-	#time span {
-		font-size: 2rem;
-	}
+  #time span {
+    font-size: 2rem;
+  }
 
-	.date-time img {
-		width: 2rem;
-		height: auto;
-	}
+  .date-time img {
+    width: 2rem;
+    height: auto;
+  }
 }
 
 @media screen and (min-width: 2160px) {
-	html {
-		font-size: 1.5rem;
-	}
+  html {
+    font-size: 1.5rem;
+  }
 
-	.content {
-		padding: 1rem;
-	}
+  .content {
+    padding: 1rem;
+  }
 
-	.date-time {
-		position: absolute;
-		bottom: 2rem;
-		left: 1rem;
-		font-size: 1.5rem;
-	}
+  .date-time {
+    position: absolute;
+    bottom: 2rem;
+    left: 1rem;
+    font-size: 1.5rem;
+  }
 
-	#time span {
-		font-size: .9rem;
-	}
+  #time span {
+    font-size: .9rem;
+  }
 
-	.date-time img {
-		width: 1.5rem;
-		height: auto;
-	}
+  .date-time img {
+    width: 1.5rem;
+    height: auto;
+  }
 }
 
 @media screen and (min-width: 800px) and (orientation: landscape) {
-	html {
-		font-size: .8rem;
-	}
+  html {
+    font-size: .8rem;
+  }
 
-	.content {
-		padding: 1rem;
-	}
+  .content {
+    padding: 1rem;
+  }
 
-	.date-time {
-		position: absolute;
-		bottom: 2rem;
-		left: 1rem;
-		font-size: 1.5rem;
-	}
+  .date-time {
+    position: absolute;
+    bottom: 2rem;
+    left: 1rem;
+    font-size: 1.5rem;
+  }
 
-	#time span {
-		font-size: .9rem;
-	}
+  #time span {
+    font-size: .9rem;
+  }
 
-	.date-time img {
-		width: 1.5rem;
-		height: auto;
-	}
+  .date-time img {
+    width: 1.5rem;
+    height: auto;
+  }
 }
 
 @media screen and (min-width: 1280px) and (orientation: landscape) {
-	html {
-		font-size: .8rem;
-	}
+  html {
+    font-size: .8rem;
+  }
 
-	.content {
-		padding: 1rem;
-	}
+  .content {
+    padding: 1rem;
+  }
 
-	.date-time {
-		position: absolute;
-		bottom: 2rem;
-		left: 1rem;
-		font-size: 2rem;
-	}
+  .date-time {
+    position: absolute;
+    bottom: 2rem;
+    left: 1rem;
+    font-size: 2rem;
+  }
 
-	#time span {
-		font-size: .9rem;
-	}
+  #time span {
+    font-size: .9rem;
+  }
 
-	.date-time img {
-		width: 1.5rem;
-		height: auto;
-	}
+  .date-time img {
+    width: 1.5rem;
+    height: auto;
+  }
 }
 
 @media screen and (min-width: 1920px) and (orientation: landscape) {
-	html {
-		font-size: 1rem;
-	}
+  html {
+    font-size: 1rem;
+  }
 
-	.content {
-		padding: 1rem;
-	}
+  .content {
+    padding: 1rem;
+  }
 
-	.date-time {
-		position: absolute;
-		bottom: 2rem;
-		left: 1rem;
-		font-size: 2.5rem;
-	}
+  .date-time {
+    position: absolute;
+    bottom: 2rem;
+    left: 1rem;
+    font-size: 2.5rem;
+  }
 
-	#time span {
-		font-size: 1.5rem;
-	}
+  #time span {
+    font-size: 1.5rem;
+  }
 
-	.date-time img {
-		width: 2rem;
-		height: auto;
-	}
+  .date-time img {
+    width: 2rem;
+    height: auto;
+  }
 }
 
 @media screen and (min-width: 2560px) and (orientation: landscape) {
-	html {
-		font-size: 1rem;
-	}
+  html {
+    font-size: 1rem;
+  }
 
-	.content {
-		padding: 1rem;
-	}
+  .content {
+    padding: 1rem;
+  }
 
-	.date-time {
-		position: absolute;
-		bottom: 2rem;
-		left: 1rem;
-		font-size: 2.5rem;
-	}
+  .date-time {
+    position: absolute;
+    bottom: 2rem;
+    left: 1rem;
+    font-size: 2.5rem;
+  }
 
-	#time span {
-		font-size: 1.5rem;
-	}
+  #time span {
+    font-size: 1.5rem;
+  }
 
-	.date-time img {
-		width: 2rem;
-		height: auto;
-	}
+  .date-time img {
+    width: 2rem;
+    height: auto;
+  }
 }
 
 @media screen and (min-width: 3840px) and (orientation: landscape) {
-	html {
-		font-size: 1.5rem;
-	}
+  html {
+    font-size: 1.5rem;
+  }
 
-	.content {
-		padding: 1rem;
-	}
+  .content {
+    padding: 1rem;
+  }
 
-	.date-time {
-		position: absolute;
-		bottom: 2rem;
-		left: 1rem;
-		font-size: 2.5rem;
-	}
+  .date-time {
+    position: absolute;
+    bottom: 2rem;
+    left: 1rem;
+    font-size: 2.5rem;
+  }
 
-	#time span {
-		font-size: 1.5rem;
-	}
+  #time span {
+    font-size: 1.5rem;
+  }
 
-	.date-time img {
-		width: 2rem;
-		height: auto;
-	}
+  .date-time img {
+    width: 2rem;
+    height: auto;
+  }
 }
