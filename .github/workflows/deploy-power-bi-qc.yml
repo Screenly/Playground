@@ -7,7 +7,7 @@ on:
       - 'master'
     paths:
       - 'edge-apps/powerbi/**'
-      - '.github/workflows/deploy-powerbi-qc.yml'
+      - '.github/workflows/deploy-power-bi-qc.yml'
 
 jobs:
   deploy:
