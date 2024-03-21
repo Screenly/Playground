@@ -9,54 +9,55 @@ settings:
     default_value:
     title: Azure AD Client ID
     optional: false
-    help_text: The Oauth 2.0 Client ID for Azure AD
+    help_text: The Oauth 2.0 Client ID for Azure AD.
   azure_ad_client_secret:
     type: secret
     title: Azure AD Client Secret
     optional: false
-    help_text: The Oauth 2.0 Client Secret for Azure AD
+    help_text: The Oauth 2.0 Client Secret for Azure AD.
   azure_ad_resource:
     type: string
     default_value: https://login.microsoftonline.com
     title: Oauth 2.0 Resource
     optional: false
-    help_text: The Oauth 2.0 Resource for Azure AD
+    help_text: The Oauth 2.0 Resource for Azure AD.
   azure_ad_scope:
     type: string
     default_value: https://analysis.windows.net/powerbi/api
     title: Oauth 2.0 Scope
     optional: false
-    help_text: The Oauth 2.0 Scope for Azure AD
+    help_text: The Oauth 2.0 Scope for Azure AD.
   azure_ad_tenant_id:
     type: string
     default_value:
     title: Microsoft Tenant ID
     optional: false
-    help_text: The Microsoft Tenant ID
+    help_text: The Microsoft Tenant ID.
   power_bi_group_id:
     type: string
     default_value:
     title: Power Group ID
     optional: false
-    help_text: The Group ID, also known as Workspace ID
+    help_text: The Group ID, also known as Workspace ID.
   power_bi_resource_id:
     type: string
     default_value:
     title: Power BI Dashboard or Report ID
     optional: false
-    help_text: The Dashboard or Report ID
+    help_text: The Dashboard or Report ID.
   power_bi_resource_type:
     type: string
     default_value:
     title: Power BI resource type, meaning report or dashboard
     optional: false
-    help_text: The resource type, meaning report or dashboard
+    help_text: The resource type, meaning report or dashboard.
   power_bi_page_name:
     type: string
     default_value:
     title: Power BI report page name
     optional: true
-    help_text: Display a specific page (i.e. tab name) within a given Power BI report to display
+    help_text: |
+      Display a specific page (i.e. tab name) within a given Power BI report to display. Note that this is NOT the name shown the report. You can the value of this in the URL when you are viewing the page, and this starts with `ReportSection50033...a22c`.
   screenly_render_notification:
     type: string
     default_value: "1"
