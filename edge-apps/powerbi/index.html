@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,7 +35,7 @@
 
             // Configuration settings for embedding
             var embedConfiguration = {
-                type: screenly.settings.power_bi_resource_type,
+                type: screenly.settings.power_bi_resource_type.toLowerCase(),
                 tokenType: models.TokenType.Embed,
                 accessToken: screenly.settings.power_bi_access_token,
                 embedUrl: screenly.settings.power_bi_embed_url,

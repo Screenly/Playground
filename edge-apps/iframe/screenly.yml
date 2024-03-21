@@ -1,5 +1,4 @@
 ---
-user_version: v1.0.0
 author: Screenly, Inc.
 description: Screenly iframe Edge App
 entrypoint: index.html
@@ -8,4 +7,9 @@ settings:
     type: string
     title: iframe
     optional: true
-    help_text: iframe URL
+    help_text: |
+      Provide an iframe URL to be embedded.
+
+      This can be provided in either the full format (`<iframe src="https://foobar.com" style="height:200px;width:300px;" title="Iframe Example"></iframe>`), or just the `src` (e.g. `https://foobar.com`).
+
+      The Edge App will automatically strip out style (e.g. height, width etc) to optimize for the best full-screen experience.
