@@ -118,7 +118,7 @@ h3 {
   align-items: center;
 }
 
-@media screen and (min-width: 480px) {
+@media screen and (width >= 480px) {
   html {
     font-size: 0.35rem;
   }
@@ -149,7 +149,7 @@ h3 {
   }
 }
 
-@media screen and (min-width: 1080px) {
+@media screen and (width >= 1080px) {
   html {
     font-size: 0.7rem;
   }
@@ -176,7 +176,7 @@ h3 {
   }
 }
 
-@media screen and (min-width: 1440px) {
+@media screen and (width >= 1440px) {
   html {
     font-size: 1rem;
   }
@@ -203,7 +203,7 @@ h3 {
   }
 }
 
-@media screen and (min-width: 2160px) {
+@media screen and (width >= 2160px) {
   html {
     font-size: 1.5rem;
   }
@@ -229,7 +229,7 @@ h3 {
   }
 }
 
-@media screen and (min-width: 800px) and (orientation: landscape) {
+@media screen and (width >= 800px) and (orientation: landscape) {
   html {
     font-size: 0.8rem;
   }
@@ -255,7 +255,7 @@ h3 {
   }
 }
 
-@media screen and (min-width: 1280px) and (orientation: landscape) {
+@media screen and (width >= 1280px) and (orientation: landscape) {
   html {
     font-size: 0.8rem;
   }
@@ -281,7 +281,7 @@ h3 {
   }
 }
 
-@media screen and (min-width: 1920px) and (orientation: landscape) {
+@media screen and (width >= 1920px) and (orientation: landscape) {
   html {
     font-size: 1rem;
   }
@@ -307,7 +307,7 @@ h3 {
   }
 }
 
-@media screen and (min-width: 2560px) and (orientation: landscape) {
+@media screen and (width >= 2560px) and (orientation: landscape) {
   html {
     font-size: 1.5rem;
   }
@@ -333,7 +333,7 @@ h3 {
   }
 }
 
-@media screen and (min-width: 3840px) and (orientation: landscape) {
+@media screen and (width: 3840px) and (orientation: landscape) {
   html {
     font-size: 1.5rem;
   }
