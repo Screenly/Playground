@@ -120,7 +120,7 @@ h3 {
 
 @media screen and (min-width: 480px) {
   html {
-    font-size: .35rem;
+    font-size: 0.35rem;
   }
 
   .content {
@@ -151,7 +151,7 @@ h3 {
 
 @media screen and (min-width: 1080px) {
   html {
-    font-size: .7rem;
+    font-size: 0.7rem;
   }
 
   .content {
@@ -182,7 +182,7 @@ h3 {
   }
 
   .content {
-    font-size: .8rem;
+    font-size: 0.8rem;
     padding: 1rem;
   }
 
@@ -220,7 +220,7 @@ h3 {
   }
 
   #time span {
-    font-size: .9rem;
+    font-size: 0.9rem;
   }
 
   .date-time img {
@@ -231,7 +231,7 @@ h3 {
 
 @media screen and (min-width: 800px) and (orientation: landscape) {
   html {
-    font-size: .8rem;
+    font-size: 0.8rem;
   }
 
   .content {
@@ -246,7 +246,7 @@ h3 {
   }
 
   #time span {
-    font-size: .9rem;
+    font-size: 0.9rem;
   }
 
   .date-time img {
@@ -257,7 +257,7 @@ h3 {
 
 @media screen and (min-width: 1280px) and (orientation: landscape) {
   html {
-    font-size: .8rem;
+    font-size: 0.8rem;
   }
 
   .content {
@@ -272,7 +272,7 @@ h3 {
   }
 
   #time span {
-    font-size: .9rem;
+    font-size: 0.9rem;
   }
 
   .date-time img {
