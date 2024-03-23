@@ -151,7 +151,7 @@ h3 {
 
 @media screen and (min-width: 1080px) {
   html {
-    font-size: .6rem;
+    font-size: .7rem;
   }
 
   .content {
@@ -309,7 +309,7 @@ h3 {
 
 @media screen and (min-width: 2560px) and (orientation: landscape) {
   html {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 
   .content {
