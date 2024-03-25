@@ -45,7 +45,6 @@ body {
   text-align: center;
 }
 
-
 .visible {
   display: inline-block;
 }
@@ -112,7 +111,7 @@ h3 {
   transition: all 0.5s ease;
 }
 
-.timer-headline{
+.timer-headline {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -136,7 +135,6 @@ h3 {
     bottom: 2rem;
     left: 1rem;
     font-size: 4rem;
-
   }
 
   .date-time img {
@@ -231,7 +229,7 @@ h3 {
 
 @media screen and (width >= 800px) and (orientation: landscape) {
   html {
-    font-size: .8rem;
+    font-size: 0.8rem;
   }
 
   .content {
