@@ -120,7 +120,7 @@ h3 {
 
 @media screen and (width >= 480px) {
   html {
-    font-size: 0.35rem;
+    font-size: 0.4rem;
   }
 
   .content {
@@ -128,7 +128,7 @@ h3 {
   }
 
   h2 {
-    font-size: 4rem;
+    font-size: 6rem;
   }
 
   .date-time {
@@ -145,17 +145,17 @@ h3 {
   }
 
   #time span {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 }
 
 @media screen and (width >= 1080px) {
   html {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
 
   .content {
-    font-size: 10rem;
+    font-size: 1rem;
     padding: 1rem;
   }
 
@@ -163,7 +163,7 @@ h3 {
     position: absolute;
     bottom: 2rem;
     left: 1rem;
-    font-size: 2.5rem;
+    font-size: 3rem;
   }
 
   #time span {
@@ -178,7 +178,7 @@ h3 {
 
 @media screen and (width >= 1440px) {
   html {
-    font-size: 1rem;
+    font-size: 1.25rem;
   }
 
   .content {
@@ -190,7 +190,7 @@ h3 {
     position: absolute;
     bottom: 2rem;
     left: 1rem;
-    font-size: 2.5rem;
+    font-size: 3rem;
   }
 
   #time span {
@@ -198,14 +198,14 @@ h3 {
   }
 
   .date-time img {
-    width: 2rem;
+    width: 2.5rem;
     height: auto;
   }
 }
 
 @media screen and (width >= 2160px) {
   html {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 
   .content {
@@ -231,7 +231,7 @@ h3 {
 
 @media screen and (width >= 800px) and (orientation: landscape) {
   html {
-    font-size: 0.8rem;
+    font-size: .8rem;
   }
 
   .content {
@@ -272,7 +272,7 @@ h3 {
   }
 
   #time span {
-    font-size: 0.9rem;
+    font-size: 1.5rem;
   }
 
   .date-time img {
@@ -309,7 +309,7 @@ h3 {
 
 @media screen and (width >= 2560px) and (orientation: landscape) {
   html {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 
   .content {
@@ -320,7 +320,7 @@ h3 {
     position: absolute;
     bottom: 2rem;
     left: 1rem;
-    font-size: 2.5rem;
+    font-size: 3rem;
   }
 
   #time span {
