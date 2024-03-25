@@ -18,7 +18,7 @@
 html,
 body {
   height: 100%;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 body {
@@ -36,7 +36,7 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   position: relative;
-  padding: 1.5rem 1rem 2.5rem;
+  padding: 1rem;
   height: 100%;
 }
 
@@ -45,27 +45,16 @@ body {
   text-align: center;
 }
 
-.upgrade-banner {
-  background: #7732b7;
-  border-radius: 60px;
-  color: #fff;
-  display: none;
-  font-size: 0.6rem;
-  padding: 10px 20px;
-  text-decoration: none;
-  width: fit-content;
-}
-
 .visible {
   display: inline-block;
 }
 
 #date {
-  margin-left: 10px;
+  margin-left: 0.625rem;
 }
 
 #time {
-  margin-left: 10px;
+  margin-left: 0.625rem;
 }
 
 #time span {
@@ -83,7 +72,6 @@ h2 {
   font-size: 3rem;
   font-weight: bold;
   padding: 1rem;
-  top: 5rem;
 }
 
 h3 {
@@ -98,7 +86,6 @@ h3 {
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  background-image: url("clear.jpg");
   background-size: 100%;
 }
 
@@ -120,10 +107,252 @@ h3 {
 .container-hour,
 .container-minute,
 .container-second {
-  width: 300px;
+  width: 18.75rem;
   transition: all 0.5s ease;
 }
 
-.waiting {
-  height: 50vh;
+.timer-headline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (width >= 480px) {
+  html {
+    font-size: 0.4rem;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  h2 {
+    font-size: 6rem;
+  }
+
+  .date-time {
+    position: absolute;
+    bottom: 2rem;
+    left: 1rem;
+    font-size: 4rem;
+  }
+
+  .date-time img {
+    width: 3rem;
+    height: auto;
+  }
+
+  #time span {
+    font-size: 2.5rem;
+  }
+}
+
+@media screen and (width >= 1080px) {
+  html {
+    font-size: 0.8rem;
+  }
+
+  .content {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .date-time {
+    position: absolute;
+    bottom: 2rem;
+    left: 1rem;
+    font-size: 3rem;
+  }
+
+  #time span {
+    font-size: 2rem;
+  }
+
+  .date-time img {
+    width: 2.5rem;
+    height: auto;
+  }
+}
+
+@media screen and (width >= 1440px) {
+  html {
+    font-size: 1.25rem;
+  }
+
+  .content {
+    font-size: 0.8rem;
+    padding: 1rem;
+  }
+
+  .date-time {
+    position: absolute;
+    bottom: 2rem;
+    left: 1rem;
+    font-size: 3rem;
+  }
+
+  #time span {
+    font-size: 2rem;
+  }
+
+  .date-time img {
+    width: 2.5rem;
+    height: auto;
+  }
+}
+
+@media screen and (width >= 2160px) {
+  html {
+    font-size: 2rem;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .date-time {
+    position: absolute;
+    bottom: 2rem;
+    left: 1rem;
+    font-size: 1.5rem;
+  }
+
+  #time span {
+    font-size: 0.9rem;
+  }
+
+  .date-time img {
+    width: 1.5rem;
+    height: auto;
+  }
+}
+
+@media screen and (width >= 800px) and (orientation: landscape) {
+  html {
+    font-size: 0.8rem;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .date-time {
+    position: absolute;
+    bottom: 2rem;
+    left: 1rem;
+    font-size: 1.5rem;
+  }
+
+  #time span {
+    font-size: 0.9rem;
+  }
+
+  .date-time img {
+    width: 1.5rem;
+    height: auto;
+  }
+}
+
+@media screen and (width >= 1280px) and (orientation: landscape) {
+  html {
+    font-size: 0.8rem;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .date-time {
+    position: absolute;
+    bottom: 2rem;
+    left: 1rem;
+    font-size: 2rem;
+  }
+
+  #time span {
+    font-size: 1.5rem;
+  }
+
+  .date-time img {
+    width: 1.5rem;
+    height: auto;
+  }
+}
+
+@media screen and (width >= 1920px) and (orientation: landscape) {
+  html {
+    font-size: 1rem;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .date-time {
+    position: absolute;
+    bottom: 2rem;
+    left: 1rem;
+    font-size: 2.5rem;
+  }
+
+  #time span {
+    font-size: 1.5rem;
+  }
+
+  .date-time img {
+    width: 2rem;
+    height: auto;
+  }
+}
+
+@media screen and (width >= 2560px) and (orientation: landscape) {
+  html {
+    font-size: 1.25rem;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .date-time {
+    position: absolute;
+    bottom: 2rem;
+    left: 1rem;
+    font-size: 3rem;
+  }
+
+  #time span {
+    font-size: 1.5rem;
+  }
+
+  .date-time img {
+    width: 2rem;
+    height: auto;
+  }
+}
+
+@media screen and (width >= 3840px) and (orientation: landscape) {
+  html {
+    font-size: 1.5rem;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .date-time {
+    position: absolute;
+    bottom: 2rem;
+    left: 1rem;
+    font-size: 2.5rem;
+  }
+
+  #time span {
+    font-size: 1.5rem;
+  }
+
+  .date-time img {
+    width: 2rem;
+    height: auto;
+  }
 }
