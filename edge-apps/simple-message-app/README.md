@@ -25,7 +25,7 @@ $ screenly edge-app version promote --revision=X
 To configure the heading of the message app, utilize the `message_head` settings.
 
 ```bash
-$ Screenly edge-app setting set message_head='This is message head'
+$ screenly edge-app setting set message_head='This is message head'
 # A relatively long console output...
 Edge app setting successfully set.
 ```
@@ -36,7 +36,7 @@ The message app's heading should be defined as a string in the format: "This is 
 To define the content of the message app's body, utilize the `message_body` settings.
 
 ```bash
-$ Screenly edge-app setting set message_body='This is message body'
+$ screenly edge-app setting set message_body='This is message body'
 # A relatively long console output...
 Edge app setting successfully set.
 ```
