@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Simple Message App</title>
+	<script src="screenly.js?version=1"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://playground.srly.io/bootstrap/theme/playground-theme.css">
+	<link rel="stylesheet" href="static/styles/style.css">
+</head>
+
+<body>
+	<main>
+		<div class="container">
+			<div class="px-4 py-5 my-5 text-center">
+				<h1 class="display-5 fw-bold message-head">Simple Message App</h1>
+				<hr>
+				<p class="message-content">A simple message app allows users to display text on a screen, making it a basic tool
+					for digital signage. Users can input and edit both the heading and message body directly from the Screenly
+					dashboard.</p>
+			</div>
+		</div>
+	</main>
+
+	<script>
+		document.querySelector('.message-head').innerText = screenly.settings.message_head;
+		document.querySelector('.message-content').innerText = screenly.settings.message_body;
+	</script>
+</body>
+
+</html>

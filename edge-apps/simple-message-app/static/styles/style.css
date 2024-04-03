@@ -1,0 +1,29 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+@font-face {
+	font-family: Aeonik;
+	font-style: normal;
+	font-weight: normal;
+	src: url('static/fonts/Aeonik-Regular.otf') format('opentype');
+}
+
+html,
+body {
+	height: 100%;
+	font-size: 1rem;
+	font-family: Aeonik,sans-serif;
+	background-color: azure;
+	color: black;
+}
+
+h1 {
+	font-size: 5rem;
+}
+
+p {
+	font-size: 3rem;
+}
