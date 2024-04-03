@@ -2,7 +2,7 @@
 
 A simple message app allows users to display text on a screen, making it a basic tool for digital signage. Users can input and edit both the heading and message body directly from the Screenly dashboard.
 
-![Countdown Timer Screen](./static/images/simple_message_screen.jpg)
+![Simple Message App](./static/images/simple_message_screen.jpg)
 
 ## tl;dr
 
