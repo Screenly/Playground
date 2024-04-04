@@ -1,5 +1,7 @@
 # Flying Toasters
 
+![](static/img/flyingToasters.jpg)
+
 Immerse yourself in a delightful slice of digital nostalgia with the Flying Toasters Screen Saver, now reimagined for the Screenly Edge platform.
 This app brings the iconic Flying Toasters screensaver, a cherished relic from the After Dark software series of the late '80s, into the modern era, allowing you to adorn your displays with whimsical toasters and slices of toast in flight, just as they did on the screens of vintage Macintosh computers.
 

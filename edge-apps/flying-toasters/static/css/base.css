@@ -6,7 +6,7 @@
 }
 
 @font-face {
-  font-family: 'ChicagoFLF';
+  font-family: ChicagoFLF;
   src: url('../fonts/ChicagoFLF.ttf') format('truetype'); /* Safari, Android, iOS */
 }
 
@@ -16,7 +16,7 @@ body {
   margin: 0;
   height: 100%;
   width: 100%;
-  font-family: ChicagoFLF, Times New Roman, Georgia, serif;
+  font-family: ChicagoFLF, 'Times New Roman', Georgia, serif;
   overflow: hidden;
 }
 
