@@ -1,0 +1,110 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+@font-face {
+	font-family: Aeonik;
+	font-style: normal;
+	font-weight: normal;
+	src: url('static/fonts/Aeonik-Regular.otf') format('opentype');
+}
+
+html,
+body {
+	height: 100%;
+	font-size: 1rem;
+	font-family: Aeonik, sans-serif;
+	background-color: azure;
+	color: black;
+}
+
+h1 {
+	font-size: 5rem;
+}
+
+p {
+	font-size: 3rem;
+}
+
+@media (width >= 800px) and (orientation: landscape) {
+	h1 {
+		font-size: 3.5rem;
+	}
+
+	p {
+		font-size: 2.5rem;
+	}
+
+}
+
+@media (width >= 1280px) and (orientation: landscape) {
+	h1 {
+		font-size: 4rem;
+	}
+
+	p {
+		font-size: 3rem;
+	}
+}
+
+@media (width >= 1920px) and (orientation: landscape) {
+	h1 {
+		font-size: 4.5rem;
+	}
+
+	p {
+		font-size: 3.5rem;
+	}
+}
+
+@media (width >= 3840px) and (orientation: landscape) {
+	h1 {
+		font-size: 5.5rem;
+	}
+
+	p {
+		font-size: 4.5rem;
+	}
+}
+
+@media (width >= 4096px) and (orientation: landscape) {
+	h1 {
+		font-size: 6rem;
+	}
+
+	p {
+		font-size: 5rem;
+	}
+}
+
+@media screen and (width >= 720px) and (orientation: portrait) {
+	h1 {
+		font-size: 3rem;
+	}
+
+	p {
+		font-size: 2.5rem;
+	}
+}
+
+@media screen and (width >= 1080px) and (orientation: portrait) {
+	h1 {
+		font-size: 3.5rem;
+	}
+
+	p {
+		font-size: 2.5rem;
+	}
+}
+
+@media screen and (width >= 2160px) and (orientation: portrait) {
+	h1 {
+		font-size: 3.5rem;
+	}
+
+	p {
+		font-size: 2.5rem;
+	}
+}

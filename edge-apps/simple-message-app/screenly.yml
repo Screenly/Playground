@@ -1,0 +1,20 @@
+---
+app_id:
+user_version: v1.0.0
+description: Screenly Simple Message App
+icon: https://playground.srly.io/edge-apps/simple-message-app/static/images/icon.svg
+author: Screenly, Inc.
+entrypoint: index.html
+settings:
+  message_body:
+    type: string
+    default_value: A simple message app allows users to display text on a screen, making it a basic tool for digital signage. Users can input and edit both the heading and message body directly from the Screenly dashboard.
+    title: message_body
+    optional: false
+    help_text: This text will be the content of the message
+  message_head:
+    type: string
+    default_value: Simple Message App
+    title: message_head
+    optional: false
+    help_text: This text will serve as the title of the message
