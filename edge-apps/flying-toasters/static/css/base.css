@@ -1,9 +1,7 @@
 /* apply a natural box layout model to all elements */
 *,
-*:before,
-*:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -18,7 +16,7 @@ body {
   margin: 0;
   height: 100%;
   width: 100%;
-  font-family: 'ChicagoFLF', 'Times New Roman', 'Georgia', serif;
+  font-family: ChicagoFLF, Times New Roman, Georgia, serif;
   overflow: hidden;
 }
 
@@ -34,12 +32,12 @@ body {
     width: 1px;
 }
 
-.clearfix:before,
-.clearfix:after {
+.clearfix::before,
+.clearfix::after {
     content: " ";
     display: table;
 }
 
-.clearfix:after {
+.clearfix::after {
     clear: both;
 }
