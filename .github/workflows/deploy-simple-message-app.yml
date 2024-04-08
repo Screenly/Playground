@@ -8,8 +8,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      APP_ID: '01HTM83W3S10ZRW58C20JWYDKZ'
-
+      APP_ID: '01HTYXDZVA532Z1GN4CX5Z7VH7'
       APP_PATH: 'edge-apps/simple-message-app'
 
     steps:
