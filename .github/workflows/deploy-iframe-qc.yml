@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP_ID: '01HSGG4DJ6D2WE9GN0V7E4TSP1'
-      INSTALLATION_ID: ''
+      INSTALLATION_ID: '01HSGG5616M1JFA6Q0Z258NA4A'
 
       APP_PATH: 'edge-apps/iframe'
 

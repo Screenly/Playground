@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP_ID: '01HS8ZQP09W71PAMEZ65GH6SVV'
-      INSTALLATION_ID: ''
+      INSTALLATION_ID: '01HS8ZRGW789VHMJX3N2RVM794'
 
       APP_PATH: 'edge-apps/countdown-timer'
 
