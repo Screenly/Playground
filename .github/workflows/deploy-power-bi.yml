@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP_ID: '01HRCB5Z5TZZFT6J37RNVQYC38'
-      INSTALLATION_ID: ''
+      INSTALLATION_ID: '01HRCBDACKA1DFNK5T1GZVX67D'
 
       APP_PATH: 'edge-apps/powerbi'
 

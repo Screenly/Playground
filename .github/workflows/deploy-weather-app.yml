@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP_ID: '01HKT8GYC2WW2SJTCSER92APDB'
-      INSTALLATION_ID: ''
+      INSTALLATION_ID: '01HKT8HE932HJ3WM7Q0SDHTN1N'
       APP_PATH: 'edge-apps/weather'
 
     steps:

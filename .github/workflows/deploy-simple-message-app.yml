@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP_ID: '01HTYXDZVA532Z1GN4CX5Z7VH7'
-      INSTALLATION_ID: ''
+      INSTALLATION_ID: '01HTYXKF5Z6BCV7ZPB773K00Z1'
       APP_PATH: 'edge-apps/simple-message-app'
 
     steps:

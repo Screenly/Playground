@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP_ID: '01HKT5KJPAHVGYJSFQF80BCJYQ'
-      INSTALLATION_ID: ''
+      INSTALLATION_ID: '01HKT5QZ2H4CZ0AHFTXVQ0BQ9A'
       APP_PATH: 'edge-apps/rss-reader'
 
     steps:

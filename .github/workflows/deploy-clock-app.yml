@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP_ID: '01HKT2K8GVE8P6RE36QFKPG5G1'
-      INSTALLATION_ID: ''
+      INSTALLATION_ID: '01HKT2KZKZA270VKF3Z9PDKVJS'
 
       APP_PATH: 'edge-apps/clock'
 
