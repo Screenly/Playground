@@ -1,6 +1,7 @@
 ---
 app_id: 01HXF4KGCCWNAK1TQRBTTS4X47
 description: Displays TFL Bus Status.
+con: 'https://playground.srly.io/edge-apps/tfl-bus-status/static/images/icon.svg'
 author: Screenly, Inc.
 entrypoint: index.html
 settings:
