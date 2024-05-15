@@ -21,7 +21,7 @@ Step 2. **Download and Open Edge App Playground**
 
 Step 3. **Enter tfl-bus-status Edge App Directory**
 
-`$ cd edge-apps/tfl-bus-status `
+`$ cd edge-apps/tfl-bus-status`
 
 Step 4. **Create a New tfl-bus-status Edge App:**
 

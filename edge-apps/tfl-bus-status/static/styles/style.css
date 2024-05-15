@@ -102,104 +102,93 @@ h3 {
 	margin-left: 10px;
 }
 
-
 .destination {
 	margin-left: 1rem;
 	align-items: left;
 }
-
 
 .bus-item>div {
 	display: flex;
 	align-items: center;
 }
 
-
-.onTime {
+.on-Time {
 	background-color: #28a745;
 	color: white;
 	padding: 10px 30px;
 	border-radius: 19px;
 	white-space: nowrap;
 	box-sizing: border-box;
-	/* width: 250px; */
 	text-align: center;
 }
 
-.hasDelayed {
+.has-Delayed {
 	background-color: #d11515;
 	color: white;
 	padding: 10px 30px;
 	border-radius: 19px;
 	white-space: nowrap;
 	box-sizing: border-box;
-	/* width: 250px; */
 	text-align: center;
 }
 
-.severeDelay {
+.severe-Delay {
 	background-color: #d11515;
 	color: white;
 	padding: 10px 30px;
 	border-radius: 19px;
 	white-space: nowrap;
 	box-sizing: border-box;
-	/* width: 250px; */
 	text-align: center;
 }
 
-.verySevereDelay {
+.very-SevereDelay {
 	background-color: #8B0000;
 	color: white;
 	padding: 10px 30px;
 	border-radius: 19px;
 	white-space: nowrap;
 	box-sizing: border-box;
-	/* width: 250px; */
 	text-align: center;
 }
 
-.minorDelay {
+.minor-Delay {
 	background-color: #FFFF00;
 	color: black;
 	padding: 10px 30px;
 	border-radius: 19px;
 	white-space: nowrap;
 	box-sizing: border-box;
-	/* width: 250px; */
 	text-align: center;
 }
 
-.moderateDelay {
+.moderate-Delay {
 	background-color: #FFA500;
 	color: white;
 	padding: 10px 30px;
 	border-radius: 19px;
 	white-space: nowrap;
 	box-sizing: border-box;
-	/* width: 250px; */
 	text-align: center;
 }
 
-.serviceClosed {
+.service-Closed {
 	background-color: #808080;
 	color: white;
 	padding: 10px 30px;
 	border-radius: 19px;
 	white-space: nowrap;
 	box-sizing: border-box;
-	/* width: 250px; */
 	text-align: center;
 }
 
-.unknownStatus {
+.unknown-Status {
 	background-color: #D3D3D3;
 	color: black;
 	padding: 10px 30px;
 	border-radius: 19px;
 	white-space: nowrap;
 	box-sizing: border-box;
-	/* width: 250px; */
 	text-align: center;
 }
 
@@ -234,7 +223,7 @@ h3 {
 		position: relative;
 	}
 
-	.onTime, .hasDelayed, .severeDelay, .verySevereDelay, .minorDelay, .moderateDelay, .serviceClosed, .unknownStatus {
+	.on-Time, .has-Delayed, .severe-Delay, .very-SevereDelay, .minor-Delay, .moderate-Delay, .service-Closed, .unknown-Status {
 		border-radius: 25px;
 		width: 18rem;
 
@@ -270,7 +259,7 @@ h3 {
 		position: relative;
 	}
 
-	.onTime, .hasDelayed, .severeDelay, .verySevereDelay, .minorDelay, .moderateDelay, .serviceClosed, .unknownStatus {
+	.on-Time, .has-Delayed, .severe-Delay, .very-SevereDelay, .minor-Delay, .moderate-Delay, .service-Closed, .unknown-Status {
 		border-radius: 25px;
 		width: 18rem;
 	}
@@ -314,7 +303,7 @@ h3 {
 		display: none;
 	}
 
-	.onTime, .hasDelayed, .severeDelay, .verySevereDelay, .minorDelay, .moderateDelay, .serviceClosed, .unknownStatus {
+	.on-Time, .has-Delayed, .severe-Delay, .very-SevereDelay, .minor-Delay, .moderate-Delay, .service-Closed, .unknown-Status {
 		width: 18rem;
 		border-radius: 25px;
 	}
@@ -355,7 +344,7 @@ h3 {
 		display: none;
 	}
 
-	.onTime, .hasDelayed, .severeDelay, .verySevereDelay, .minorDelay, .moderateDelay, .serviceClosed, .unknownStatus {
+	.on-Time, .has-Delayed, .severe-Delay, .very-SevereDelay, .minor-Delay, .moderate-Delay, .service-Closed, .unknown-Status {
 		width: 45rem;
 		border-radius: 35px;
 
@@ -366,11 +355,6 @@ h3 {
 		border-radius: 35px;
 		margin-left: 30px;
 	}
-
-	/* .container {
-		overflow: hidden;
-	} */
-
 }
 
 @media (width >=4096px) and (orientation: landscape) {
@@ -402,7 +386,7 @@ h3 {
 		display: none;
 	}
 
-	.onTime, .hasDelayed, .severeDelay, .verySevereDelay, .minorDelay, .moderateDelay, .serviceClosed, .unknownStatus {
+	.on-Time, .has-Delayed, .severe-Delay, .very-SevereDelay, .minor-Delay, .moderate-Delay, .service-Closed, .unknown-Status {
 		width: 45rem;
 		border-radius: 35px;
 	}
@@ -435,7 +419,7 @@ h3 {
 		position: relative;
 	}
 
-	.onTime, .hasDelayed, .severeDelay, .verySevereDelay, .minorDelay, .moderateDelay, .serviceClosed, .unknownStatus {
+	.on-Time, .has-Delayed, .severe-Delay, .very-SevereDelay, .minor-Delay, .moderate-Delay, .service-Closed, .unknown-Status {
 		width: 18rem;
 	}
 
@@ -469,7 +453,7 @@ h3 {
 		position: relative;
 	}
 
-	.onTime, .hasDelayed, .severeDelay, .verySevereDelay, .minorDelay, .moderateDelay, .serviceClosed, .unknownStatus {
+	.on-Time, .has-Delayed, .severe-Delay, .very-SevereDelay, .minor-Delay, .moderate-Delay, .service-Closed, .unknown-Status {
 		width: 18rem;
 
 	}
@@ -503,7 +487,7 @@ h3 {
 		position: relative;
 	}
 
-	.onTime, .hasDelayed, .severeDelay, .verySevereDelay, .minorDelay, .moderateDelay, .serviceClosed, .unknownStatus {
+	.on-Time, .has-Delayed, .severe-Delay, .very-SevereDelay, .minor-Delay, .moderate-Delay, .service-Closed, .unknown-Status {
 		width: 18rem;
 	}
 
