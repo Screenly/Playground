@@ -35,7 +35,7 @@ Step 5. **Upload the Edge App**
 
 > Wait for the upload to complete.
 
-Step 6. **Specify the TFL API and STOP ID**
+Step 6. **Specify the TFL API and STOP ID** for example: 490005186S1.
 
 Replace "API" with the actual API that obtained from [https://api-portal.tfl.gov.uk/](https://api-portal.tfl.gov.uk/)
 
@@ -61,4 +61,4 @@ Steps 9. **Assign Asset to Playlist and Device**
 * Assign the new asset to a playlist.
 * Assign the playlist to a device.
 
-Now, the iFrame Edge App has been configured, and the designated webpage/dashboard will be presented on the Screenly-connected TV/Monitor.
+Now, the TFL Bus status Edge App has been configured, and the designated webpage/dashboard will be presented on the Screenly-connected TV/Monitor.
