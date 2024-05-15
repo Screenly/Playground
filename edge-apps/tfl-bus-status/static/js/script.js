@@ -1,14 +1,8 @@
 /* global screenly */
 
 const apiUrl = 'https://api.tfl.gov.uk/' // Base URL for the TfL API
-const stopId = screenly.settings.Stop_ID
-const apiKey = screenly.settings.TFL_API
-
-// for debug local server
-// const stopId = '490005186S1';
-//  Sample STOP-ID ID490005186S1 490014050A  Replace with the ID of your desired bus stop
-// const apiKey = 'b4c24b35290947b089e509858e55f2f2';
-// Replace with your TfL API Key
+const stopId = screenly.settings.stop_id
+const apiKey = screenly.settings.tfl_api
 
 async function fetchBusData () {
   try {
@@ -37,7 +31,7 @@ async function fetchBusData () {
     if (stationTowards === 'null') {
       busStopName.innerHTML = `${stationName}`
     } else {
-      busStopName.innerHTML = `${stationName} - Towards: ${stationTowards}`}
+      busStopName.innerHTML = `${stationName} - Towards: ${stationTowards}` }
 
     if (stationPlatform === 'null') {
       busPlatform.innerHTML = `Bus Arrivals`
@@ -52,7 +46,6 @@ async function fetchBusData () {
     const bus5LineID = nextBuses[4] && nextBuses[4].lineId ? nextBuses[4].lineId : 0
     const bus6LineID = nextBuses[5] && nextBuses[5].lineId ? nextBuses[5].lineId : 0
     const bus7LineID = nextBuses[6] && nextBuses[6].lineId ? nextBuses[6].lineId : 0
-
 
     // 1st Bus Details
     // Apply BUS Line status text and CSS as per the line ID.
@@ -99,7 +92,6 @@ async function fetchBusData () {
     document.querySelector('.destination-2').innerHTML = `(${bus2Destination})`
     document.querySelector('.time-2').innerHTML = `${bus2Time} MIN`
 
-
     // 3rd bus details.
 
     // Apply BUS Line status text and CSS as per the line ID.
@@ -112,7 +104,7 @@ async function fetchBusData () {
 
     // check if the API have bus information, if not, assign zero to hide it.
     const bus3Line = nextBuses.length > 2 && nextBuses[2].lineName ? nextBuses[2].lineName : 0
-    const bus3Destination = nextBuses.length > 2 && nextBuses[2].destinationName ? nextBuses[2].destinationName : 0;
+    const bus3Destination = nextBuses.length > 2 && nextBuses[2].destinationName ? nextBuses[2].destinationName : 0
     const bus3Time = nextBuses.length > 2 && nextBuses[2].timeToStation ? Math.floor(nextBuses[2].timeToStation / 60) : 0
 
     if (bus3Line === 0 && bus3Destination === 0 && bus3Time === 0) {
@@ -145,7 +137,6 @@ async function fetchBusData () {
     document.querySelector('.destination-4').innerHTML = `(${bus4Destination})`
     document.querySelector('.time-4').innerHTML = `${bus4Time} MIN`
 
-
     // 5th bus details.
 
     // Apply BUS Line status text and CSS as per the line ID.
@@ -167,7 +158,6 @@ async function fetchBusData () {
     document.querySelector('.route-5').innerHTML = `Route ${bus5Line}&nbsp;`
     document.querySelector('.destination-5').innerHTML = `(${bus5Destination})`
     document.querySelector('.time-5').innerHTML = `${bus5Time} MIN`
-
 
     // 6th bus details.
 
@@ -237,50 +227,49 @@ function getNumberOfBuses() {
   }
 }
 
-
 // This function will return the route status message and css class name depends on the route status as Parameters
 // Status details mentioned here: https://techforum.tfl.gov.uk/t/more-information-about-statusseverity/2538/10
 
-function getStatusInfo(route_status) {
-  if (route_status === 0) {
+function getStatusInfo(routeStatus) {
+  if (routeStatus === 0) {
     return { message: 'Special Service', className: 'on-time' }
-  } else if (route_status === 1) {
+  } else if (routeStatus === 1) {
     return { message: 'Closed', className: 'service-closed' }
-  } else if (route_status === 2) {
+  } else if (routeStatus === 2) {
     return { message: 'Suspended', className: 'service-closed' }
-  } else if (route_status === 3) {
+  } else if (routeStatus === 3) {
     return { message: 'Part Suspended', className: 'service-closed' }
-  } else if (route_status === 4) {
+  } else if (routeStatus === 4) {
     return { message: 'Planned Closure', className: 'service-closed' }
-  } else if (route_status === 5) {
+  } else if (routeStatus === 5) {
     return { message: 'Part Closure', className: 'service-closed' }
-  } else if (route_status === 6) {
+  } else if (routeStatus === 6) {
     return { message: 'Severe Delays', className: 'severe-delay' }
-  } else if (route_status === 7) {
+  } else if (routeStatus === 7) {
     return { message: 'Reduced Service', className: 'has-delayed' }
-  } else if (route_status === 8) {
+  } else if (routeStatus === 8) {
     return { message: 'Bus Service', className: 'unknown-status' }
-  } else if (route_status === 9) {
+  } else if (routeStatus === 9) {
     return { message: 'Minor Delays', className: 'has-delayed' }
-  } else if (route_status === 10) {
+  } else if (routeStatus === 10) {
     return { message: 'ON TIME', className: 'on-time' }
-  } else if (route_status === 11) {
+  } else if (routeStatus === 11) {
     return { message: 'Part Closed', className: 'moderate-delay' }
-  } else if (route_status === 12) {
+  } else if (routeStatus === 12) {
     return { message: 'Exit Only', className: 'moderate-delay' }
-  } else if (route_status === 13) {
+  } else if (routeStatus === 13) {
     return { message: 'No Step Free Access', className: 'unknown-status' }
-  } else if (route_status === 14) {
+  } else if (routeStatus === 14) {
     return { message: 'Change of Frequency', className: 'unknown-status' }
-  } else if (route_status === 15) {
+  } else if (routeStatus === 15) {
     return { message: 'Diverted', className: 'unknown-status' }
-  } else if (route_status === 16) {
+  } else if (routeStatus === 16) {
     return { message: 'Not Running', className: 'has-delayed' }
-  } else if (route_status === 17) {
+  } else if (routeStatus === 17) {
     return { message: 'Issues Reported', className: 'has-delayed' }
-  } else if (route_status === 18) {
+  } else if (routeStatus === 18) {
     return { message: 'No Issues', className: 'unknown-status' }
-  } else if (route_status === 19) {
+  } else if (routeStatus === 19) {
     return { message: 'No Status', className: 'unknown-status' }
   } else {
     return { message: 'No Status', className: 'unknown-status' }
@@ -294,7 +283,3 @@ setInterval(() => {
   fetchBusData()
   // fetchAllBusLineStatuses();
 }, 30 * 1000) // refresh every 30 seconds
-
-
-
-
