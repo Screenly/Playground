@@ -31,10 +31,9 @@ async function fetchBusData () {
     if (stationTowards === 'null') {
       busStopName.innerHTML = `${stationName}`
     } else {
-      busStopName.innerHTML = `${stationName} - Towards: ${stationTowards}` }
-
-    if (stationPlatform === 'null') {
-      busPlatform.innerHTML = `Bus Arrivals`
+      busStopName.innerHTML = `${stationName} - Towards: ${stationTowards}`
+    }if (stationPlatform === 'null') {
+      busPlatform.innerHTML = 'Bus Arrivals'
     } else {
       busPlatform.innerHTML = `Bus Arrivals: Platform - ${stationPlatform}` }
 
@@ -123,7 +122,7 @@ async function fetchBusData () {
     const bus4RouteStatus = (lineData[bus4LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 22
 
     routeStatus4.innerHTML = getStatusInfo(bus4RouteStatus).message
-    routeStatus4.className = getStatusInfo(bus4RouteStatus).className;
+    routeStatus4.className = getStatusInfo(bus4RouteStatus).className
 
     const bus4Line = nextBuses.length > 3 && nextBuses[3].lineName ? nextBuses[3].lineName : 0
     const bus4Destination = nextBuses.length > 3 && nextBuses[3].destinationName ? nextBuses[3].destinationName : 0
@@ -147,7 +146,7 @@ async function fetchBusData () {
     routeStatus5.innerHTML = getStatusInfo(bus5RouteStatus).message
     routeStatus5.className = getStatusInfo(bus5RouteStatus).className
 
-    const bus5Line = nextBuses.length > 4 && nextBuses[4].lineName ? nextBuses[4].lineName : 0;
+    const bus5Line = nextBuses.length > 4 && nextBuses[4].lineName ? nextBuses[4].lineName : 0
     const bus5Destination = nextBuses.length > 4 && nextBuses[4].destinationName ? nextBuses[4].destinationName : 0
     const bus5Time = nextBuses.length > 4 && nextBuses[4].timeToStation ? Math.floor(nextBuses[4].timeToStation / 60) : 0
 
@@ -161,7 +160,7 @@ async function fetchBusData () {
 
     // 6th bus details.
 
-    //Apply BUS Line status text and CSS as per the line ID.
+    // Apply BUS Line status text and CSS as per the line ID.
     const routeStatus6 = document.getElementById('route-status-6')
     // If bus route status is not found, assign 22 as error.
     const bus6RouteStatus = (lineData[bus6LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 22
@@ -203,13 +202,12 @@ async function fetchBusData () {
     document.querySelector('.route-7').innerHTML = `Route ${bus7Line}&nbsp;`
     document.querySelector('.destination-7').innerHTML = `(${bus7Destination})`
     document.querySelector('.time-7').innerHTML = `${bus7Time} MIN`
-
   } catch (error) {
-    console.error('Error fetching bus data:', error);
+    console.error('Error fetching bus data:', error)
     const busStopName = document.querySelector('.bus-stop-name')
     const busArrival = document.querySelector('.bus-arrival')
-    busStopName.innerHTML = `Error: Check API Key and Stop ID`
-    busArrival.innerHTML = error;
+    busStopName.innerHTML = 'Error: Check API Key and Stop ID'
+    busArrival.innerHTML = error
     document.querySelector('.bus-list').classList.add('hidden')
   }
 }
@@ -219,7 +217,7 @@ This function will check if the screen is oriented portrait or landscape mode
 and then apply the number of bus information displayed.
 */
 
-function getNumberOfBuses() {
+function getNumberOfBuses () {
   if (window.matchMedia('(orientation: portrait)').matches) {
     return 7 // portrait orientation
   } else {
@@ -230,7 +228,7 @@ function getNumberOfBuses() {
 // This function will return the route status message and css class name depends on the route status as Parameters
 // Status details mentioned here: https://techforum.tfl.gov.uk/t/more-information-about-statusseverity/2538/10
 
-function getStatusInfo(routeStatus) {
+function getStatusInfo (routeStatus) {
   if (routeStatus === 0) {
     return { message: 'Special Service', className: 'on-time' }
   } else if (routeStatus === 1) {
