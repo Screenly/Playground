@@ -32,10 +32,11 @@ async function fetchBusData () {
       busStopName.innerHTML = `${stationName}`
     } else {
       busStopName.innerHTML = `${stationName} - Towards: ${stationTowards}`
-    }if (stationPlatform === 'null') {
+    } if (stationPlatform === 'null') {
       busPlatform.innerHTML = 'Bus Arrivals'
     } else {
-      busPlatform.innerHTML = `Bus Arrivals: Platform - ${stationPlatform}` }
+      busPlatform.innerHTML = `Bus Arrivals: Platform - ${stationPlatform}`
+    }
 
     // Fetch Bus Line ID and If bus is not available, assigned to Zero.
     const bus1LineID = nextBuses[0] && nextBuses[0].lineId ? nextBuses[0].lineId : 0
