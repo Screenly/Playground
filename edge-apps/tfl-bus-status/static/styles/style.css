@@ -112,7 +112,7 @@ h3 {
 	align-items: center;
 }
 
-.on-Time {
+.on-time {
 	background-color: #28a745;
 	color: white;
 	padding: 10px 30px;
@@ -122,7 +122,7 @@ h3 {
 	text-align: center;
 }
 
-.has-Delayed {
+.has-delayed {
 	background-color: #d11515;
 	color: white;
 	padding: 10px 30px;
@@ -132,7 +132,7 @@ h3 {
 	text-align: center;
 }
 
-.severe-Delay {
+.severe-delay {
 	background-color: #d11515;
 	color: white;
 	padding: 10px 30px;
@@ -142,17 +142,7 @@ h3 {
 	text-align: center;
 }
 
-.very-SevereDelay {
-	background-color: #8B0000;
-	color: white;
-	padding: 10px 30px;
-	border-radius: 19px;
-	white-space: nowrap;
-	box-sizing: border-box;
-	text-align: center;
-}
-
-.minor-Delay {
+.minor-delay {
 	background-color: #FFFF00;
 	color: black;
 	padding: 10px 30px;
@@ -162,7 +152,7 @@ h3 {
 	text-align: center;
 }
 
-.moderate-Delay {
+.moderate-delay {
 	background-color: #FFA500;
 	color: white;
 	padding: 10px 30px;
@@ -172,7 +162,7 @@ h3 {
 	text-align: center;
 }
 
-.service-Closed {
+.service-closed {
 	background-color: #808080;
 	color: white;
 	padding: 10px 30px;
@@ -182,7 +172,7 @@ h3 {
 	text-align: center;
 }
 
-.unknown-Status {
+.unknown-status {
 	background-color: #D3D3D3;
 	color: black;
 	padding: 10px 30px;
@@ -223,7 +213,7 @@ h3 {
 		position: relative;
 	}
 
-	.on-Time, .has-Delayed, .severe-Delay, .very-SevereDelay, .minor-Delay, .moderate-Delay, .service-Closed, .unknown-Status {
+	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
 		border-radius: 25px;
 		width: 18rem;
 
@@ -259,7 +249,7 @@ h3 {
 		position: relative;
 	}
 
-	.on-Time, .has-Delayed, .severe-Delay, .very-SevereDelay, .minor-Delay, .moderate-Delay, .service-Closed, .unknown-Status {
+	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
 		border-radius: 25px;
 		width: 18rem;
 	}
@@ -303,7 +293,7 @@ h3 {
 		display: none;
 	}
 
-	.on-Time, .has-Delayed, .severe-Delay, .very-SevereDelay, .minor-Delay, .moderate-Delay, .service-Closed, .unknown-Status {
+	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
 		width: 18rem;
 		border-radius: 25px;
 	}
@@ -344,7 +334,7 @@ h3 {
 		display: none;
 	}
 
-	.on-Time, .has-Delayed, .severe-Delay, .very-SevereDelay, .minor-Delay, .moderate-Delay, .service-Closed, .unknown-Status {
+	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
 		width: 45rem;
 		border-radius: 35px;
 
@@ -386,7 +376,7 @@ h3 {
 		display: none;
 	}
 
-	.on-Time, .has-Delayed, .severe-Delay, .very-SevereDelay, .minor-Delay, .moderate-Delay, .service-Closed, .unknown-Status {
+	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
 		width: 45rem;
 		border-radius: 35px;
 	}
@@ -419,7 +409,7 @@ h3 {
 		position: relative;
 	}
 
-	.on-Time, .has-Delayed, .severe-Delay, .very-SevereDelay, .minor-Delay, .moderate-Delay, .service-Closed, .unknown-Status {
+	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
 		width: 18rem;
 	}
 
@@ -453,7 +443,7 @@ h3 {
 		position: relative;
 	}
 
-	.on-Time, .has-Delayed, .severe-Delay, .very-SevereDelay, .minor-Delay, .moderate-Delay, .service-Closed, .unknown-Status {
+	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
 		width: 18rem;
 
 	}
@@ -487,7 +477,7 @@ h3 {
 		position: relative;
 	}
 
-	.on-Time, .has-Delayed, .severe-Delay, .very-SevereDelay, .minor-Delay, .moderate-Delay, .service-Closed, .unknown-Status {
+	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
 		width: 18rem;
 	}
 

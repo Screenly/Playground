@@ -64,7 +64,7 @@ async function fetchBusData() {
 
 		// Apply BUS Line status text and CSS as per the line ID.
 		const routeStatus1 = document.getElementById('route-status-1')
-		//If bus route status is not found, assign 22 as error.
+		// If bus route status is not found, assign 22 as error.
 		const bus1_route_status = (lineData[bus1LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 22
 
 		routeStatus1.innerHTML = getStatusInfo(bus1_route_status).message
@@ -80,14 +80,14 @@ async function fetchBusData() {
 		}
 
 		document.querySelector('.route-1').innerHTML = `Route ${bus1_Line}&nbsp;`
-		document.querySelector(".destination-1").innerHTML = `(${bus1_Destination})`
-		document.querySelector(".time-1").innerHTML = `${bus1_time} MIN`
+		document.querySelector('.destination-1').innerHTML = `(${bus1_Destination})`
+		document.querySelector('.time-1').innerHTML = `${bus1_time} MIN`
 
 		// 2nd Bus Details
 
 		// Apply BUS Line status text and CSS as per the line ID.
 		const routeStatus2 = document.getElementById('route-status-2')
-		//If bus route status is not found, assign 22 as error.
+		// If bus route status is not found, assign 22 as error.
 		const bus2_route_status = (lineData[bus2LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 22
 
 		routeStatus2.innerHTML = getStatusInfo(bus2_route_status).message
@@ -103,15 +103,15 @@ async function fetchBusData() {
 		}
 
 		document.querySelector('.route-2').innerHTML = `Route ${bus2_Line}&nbsp;`
-		document.querySelector(".destination-2").innerHTML = `(${bus2_Destination})`
-		document.querySelector(".time-2").innerHTML = `${bus2_time} MIN`
+		document.querySelector('.destination-2').innerHTML = `(${bus2_Destination})`
+		document.querySelector('.time-2').innerHTML = `${bus2_time} MIN`
 
 
 		// 3rd bus details.
 
 		// Apply BUS Line status text and CSS as per the line ID.
 		const routeStatus3 = document.getElementById('route-status-3')
-		//If bus route status is not found, assign 22 as error.
+		// If bus route status is not found, assign 22 as error.
 		const bus3_route_status = (lineData[bus3LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 22
 
 		routeStatus3.innerHTML = getStatusInfo(bus3_route_status).message
@@ -127,14 +127,14 @@ async function fetchBusData() {
 		}
 
 		const bus3_routeElement = document.querySelector('.route-3').innerHTML = `Route ${bus3_Line}&nbsp;`
-		const bus3_destinationElement = document.querySelector(".destination-3").innerHTML = `(${bus3_Destination})`
-		const bus3_timeElement = document.querySelector(".time-3").innerHTML = `${bus3_time} MIN`
+		const bus3_destinationElement = document.querySelector('.destination-3').innerHTML = `(${bus3_Destination})`
+		const bus3_timeElement = document.querySelector('.time-3').innerHTML = `${bus3_time} MIN`
 
 		// 4th bus details.
 
 		// Apply BUS Line status text and CSS as per the line ID.
 		const routeStatus4 = document.getElementById('route-status-4')
-		//If bus route status is not found, assign 22 as error.
+		// If bus route status is not found, assign 22 as error.
 		const bus4_route_status = (lineData[bus4LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 22
 
 		routeStatus4.innerHTML = getStatusInfo(bus4_route_status).message
@@ -149,15 +149,15 @@ async function fetchBusData() {
 		}
 
 		const bus4_routeElement = document.querySelector('.route-4').innerHTML = `Route ${bus4_Line}&nbsp;`
-		const bus4_destinationElement = document.querySelector(".destination-4").innerHTML = `(${bus4_Destination})`
-		const bus4_timeElement = document.querySelector(".time-4").innerHTML = `${bus4_time} MIN`
+		const bus4_destinationElement = document.querySelector('.destination-4').innerHTML = `(${bus4_Destination})`
+		const bus4_timeElement = document.querySelector('.time-4').innerHTML = `${bus4_time} MIN`
 
 
 		// 5th bus details.
 
 		// Apply BUS Line status text and CSS as per the line ID.
 		const routeStatus5 = document.getElementById('route-status-5')
-		//If bus route status is not found, assign 22 as error.
+		// If bus route status is not found, assign 22 as error.
 		const bus5_route_status = (lineData[bus5LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 22
 
 		routeStatus5.innerHTML = getStatusInfo(bus5_route_status).message
@@ -172,15 +172,15 @@ async function fetchBusData() {
 		}
 
 		const bus5_routeElement = document.querySelector('.route-5').innerHTML = `Route ${bus5_Line}&nbsp;`
-		const bus5_destinationElement = document.querySelector(".destination-5").innerHTML = `(${bus5_Destination})`
-		const bus5_timeElement = document.querySelector(".time-5").innerHTML = `${bus5_time} MIN`
+		const bus5_destinationElement = document.querySelector('.destination-5').innerHTML = `(${bus5_Destination})`
+		const bus5_timeElement = document.querySelector('.time-5').innerHTML = `${bus5_time} MIN`
 
 
 		// 6th bus details.
 
 		//Apply BUS Line status text and CSS as per the line ID.
 		const routeStatus6 = document.getElementById('route-status-6')
-		//If bus route status is not found, assign 22 as error.
+		// If bus route status is not found, assign 22 as error.
 		const bus6_route_status = (lineData[bus6LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 22
 
 		routeStatus6.innerHTML = getStatusInfo(bus6_route_status).message
@@ -196,14 +196,14 @@ async function fetchBusData() {
 		}
 
 		document.querySelector('.route-6').innerHTML = `Route ${bus6_Line}&nbsp;`
-		document.querySelector(".destination-6").innerHTML = `(${bus6_Destination})`
-		document.querySelector(".time-6").innerHTML = `${bus6_time} MIN`
+		document.querySelector('.destination-6').innerHTML = `(${bus6_Destination})`
+		document.querySelector('.time-6').innerHTML = `${bus6_time} MIN`
 
 		// 7th bus details
 
 		// Apply BUS Line status text and CSS as per the line ID.
 		const routeStatus7 = document.getElementById('route-status-7')
-		//If bus route status is not found, assign 22 as error.
+		// If bus route status is not found, assign 22 as error.
 		const bus7_route_status = (lineData[bus7LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 22
 
 		routeStatus7.innerHTML = getStatusInfo(bus7_route_status).message
@@ -218,8 +218,8 @@ async function fetchBusData() {
 		}
 
 		document.querySelector('.route-7').innerHTML = `Route ${bus7_Line}&nbsp;`
-		document.querySelector(".destination-7").innerHTML = `(${bus7_Destination})`
-		document.querySelector(".time-7").innerHTML = `${bus7_time} MIN`
+		document.querySelector('.destination-7').innerHTML = `(${bus7_Destination})`
+		document.querySelector('.time-7').innerHTML = `${bus7_time} MIN`
 
 	} catch (error) {
 		console.error('Error fetching bus data:', error);
@@ -231,14 +231,13 @@ async function fetchBusData() {
 	}
 }
 
-
 /*
 This function will check if the screen is oriented portrait or landscape mode
 and then apply the number of bus information displayed.
 */
 
 function getNumberOfBuses() {
-	if (window.matchMedia("(orientation: portrait)").matches) {
+	if (window.matchMedia('(orientation: portrait)').matches) {
 		return 7 // portrait orientation
 	} else {
 		return 5 // landscape orientation
@@ -246,54 +245,52 @@ function getNumberOfBuses() {
 }
 
 
-//This function will return the route status message and css class name depends on the route status as Parameters
-//Status details mentioned here: https://techforum.tfl.gov.uk/t/more-information-about-statusseverity/2538/10
-
-
+// This function will return the route status message and css class name depends on the route status as Parameters
+// Status details mentioned here: https://techforum.tfl.gov.uk/t/more-information-about-statusseverity/2538/10
 
 function getStatusInfo(route_status) {
 	if (route_status === 0) {
-			return { message: "Special Service", className: "on-Time" }
+		return { message: 'Special Service', className: 'on-time' }
 	} else if (route_status === 1) {
-			return { message: "Closed", className: "service-Closed" }
+		return { message: 'Closed', className: 'service-closed' }
 	} else if (route_status === 2) {
-			return { message: "Suspended", className: "service-Closed" }
+		return { message: 'Suspended', className: 'service-closed' }
 	} else if (route_status === 3) {
-			return { message: "Part Suspended", className: "service-Closed" }
+		return { message: 'Part Suspended', className: 'service-closed' }
 	} else if (route_status === 4) {
-			return { message: "Planned Closure", className: "service-Closed" }
+		return { message: 'Planned Closure', className: 'service-closed' }
 	} else if (route_status === 5) {
-			return { message: "Part Closure", className: "service-Closed" }
+		return { message: 'Part Closure', className: 'service-closed' }
 	} else if (route_status === 6) {
-			return { message: "Severe Delays", className: "severe-Delay" }
+		return { message: 'Severe Delays', className: 'severe-delay' }
 	} else if (route_status === 7) {
-			return { message: "Reduced Service", className: "has-Delayed" }
+		return { message: 'Reduced Service', className: 'has-delayed' }
 	} else if (route_status === 8) {
-			return { message: "Bus Service", className: "unknown-Status" }
+		return { message: 'Bus Service', className: 'unknown-status' }
 	} else if (route_status === 9) {
-			return { message: "Minor Delays", className: "has-Delayed" }
+		return { message: 'Minor Delays', className: 'has-delayed' }
 	} else if (route_status === 10) {
-			return { message: "ON TIME", className: "on-Time" }
+		return { message: 'ON TIME', className: 'on-time' }
 	} else if (route_status === 11) {
-			return { message: "Part Closed", className: "moderate-Delay" }
+		return { message: 'Part Closed', className: 'moderate-delay' }
 	} else if (route_status === 12) {
-			return { message: "Exit Only", className: "moderate-Delay" }
+		return { message: 'Exit Only', className: 'moderate-delay' }
 	} else if (route_status === 13) {
-			return { message: "No Step Free Access", className: "unknown-Status" }
+		return { message: 'No Step Free Access', className: 'unknown-status' }
 	} else if (route_status === 14) {
-			return { message: "Change of Frequency", className: "unknown-Status" }
+		return { message: 'Change of Frequency', className: 'unknown-status' }
 	} else if (route_status === 15) {
-			return { message: "Diverted", className: "unknown-Status" }
+		return { message: 'Diverted', className: 'unknown-status' }
 	} else if (route_status === 16) {
-			return { message: "Not Running", className: "has-Delayed" }
+		return { message: 'Not Running', className: 'has-delayed' }
 	} else if (route_status === 17) {
-			return { message: "Issues Reported", className: "has-Delayed" }
+		return { message: 'Issues Reported', className: 'has-delayed' }
 	} else if (route_status === 18) {
-			return { message: "No Issues", className: "unknown-Status" }
+		return { message: 'No Issues', className: 'unknown-status' }
 	} else if (route_status === 19) {
-			return { message: "No Status", className: "unknown-Status" }
+		return { message: 'No Status', className: 'unknown-status' }
 	} else {
-			return { message: "No Status", className: "unknown-Status" }
+		return { message: 'No Status', className: 'unknown-status' }
 	}
 }
 
