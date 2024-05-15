@@ -222,6 +222,7 @@ h3 {
 		width: 7rem;
 		border-radius: 25px;
 	}
+
 	.hidden {
 		display: none;
 	}
@@ -231,6 +232,7 @@ h3 {
 	.bus-icon {
 		height: 3.5rem;
 	}
+
 	.bus-stop-name {
 		margin: 0;
 		margin-left: 15px;
@@ -459,6 +461,7 @@ h3 {
 	.bus-icon {
 		height: 4rem;
 	}
+
 	.bus-stop-name {
 		margin: 0;
 		margin-left: 15px;

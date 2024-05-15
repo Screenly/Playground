@@ -10,7 +10,7 @@ const apiKey = screenly.settings.TFL_API
 // const apiKey = 'b4c24b35290947b089e509858e55f2f2';
 // Replace with your TfL API Key
 
-async function fetchBusData() {
+async function fetchBusData () {
   try {
     // Bus Route Detail API Request
     const stopStatus = await fetch(`${apiUrl}StopPoint/${stopId}/Arrivals?app_key=${apiKey}`)
@@ -19,7 +19,6 @@ async function fetchBusData() {
     // Bus Line Status API Request
     const lineStatus = await fetch(`${apiUrl}Line/Mode/bus/Status?app_key=${apiKey}`)
     const lineData = await lineStatus.json()
-
 
     // Fetch latest bus status details as per the time.
     const sortedBuses = stopData.sort((a, b) => a.timeToStation - b.timeToStation)
@@ -58,10 +57,8 @@ async function fetchBusData() {
     const bus6LineID = nextBuses[5] && nextBuses[5].lineId ? nextBuses[5].lineId : 0
     const bus7LineID = nextBuses[6] && nextBuses[6].lineId ? nextBuses[6].lineId : 0
 
-    //-----------//
 
     // 1st Bus Details
-
     // Apply BUS Line status text and CSS as per the line ID.
     const routeStatus1 = document.getElementById('route-status-1')
     // If bus route status is not found, assign 22 as error.
