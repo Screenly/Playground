@@ -97,7 +97,7 @@ async function fetchBusData () {
 
     document.querySelector('.route-2').innerHTML = `Route ${bus2Line}&nbsp;`
     document.querySelector('.destination-2').innerHTML = `(${bus2Destination})`
-    document.querySelector('.time-2').innerHTML = `${bus2time} MIN`
+    document.querySelector('.time-2').innerHTML = `${bus2Time} MIN`
 
 
     // 3rd bus details.
