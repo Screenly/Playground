@@ -1,5 +1,5 @@
 ---
-app_id: 01HXF4KGCCWNAK1TQRBTTS4X47
+app_id:
 description: Displays TFL Bus Status.
 author: Screenly, Inc.
 entrypoint: index.html

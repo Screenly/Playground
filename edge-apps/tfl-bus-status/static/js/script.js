@@ -4,15 +4,34 @@ const apiUrl = 'https://api.tfl.gov.uk/' // Base URL for the TfL API
 const stopId = screenly.settings.stop_id
 const apiKey = screenly.settings.tfl_api
 
+async function getCachedData(url, cacheKey) {
+  const cachedData = JSON.parse(localStorage.getItem(cacheKey));
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    localStorage.setItem(cacheKey, JSON.stringify(data));
+    return data;
+  } catch (error) {
+    if (cachedData) {
+      console.warn('Fetching new data failed, using cached data:', error);
+
+      return cachedData;
+    } else {
+      throw error;
+    }
+  }
+}
+
 async function fetchBusData () {
   try {
-    // Bus Route Detail API Request
-    const stopStatus = await fetch(`${apiUrl}StopPoint/${stopId}/Arrivals?app_key=${apiKey}`)
-    const stopData = await stopStatus.json()
+	    // Bus Route Detail API Request
+			const stopData = await getCachedData(`${apiUrl}StopPoint/${stopId}/Arrivals?app_key=${apiKey}`, 'stopData');
 
-    // Bus Line Status API Request
-    const lineStatus = await fetch(`${apiUrl}Line/Mode/bus/Status?app_key=${apiKey}`)
-    const lineData = await lineStatus.json()
+			// Bus Line Status API Request
+			const lineData = await getCachedData(`${apiUrl}Line/Mode/bus/Status?app_key=${apiKey}`, 'lineData');
 
     // Fetch latest bus status details as per the time.
     const sortedBuses = stopData.sort((a, b) => a.timeToStation - b.timeToStation)
@@ -51,7 +70,7 @@ async function fetchBusData () {
     // Apply BUS Line status text and CSS as per the line ID.
     const routeStatus1 = document.getElementById('route-status-1')
     // If bus route status is not found, assign 22 as error.
-    const bus1RouteStatus = (lineData[bus1LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 22
+    const bus1RouteStatus = (lineData[bus1LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 19
 
     routeStatus1.innerHTML = getStatusInfo(bus1RouteStatus).message
     routeStatus1.className = getStatusInfo(bus1RouteStatus).className
@@ -74,7 +93,7 @@ async function fetchBusData () {
     // Apply BUS Line status text and CSS as per the line ID.
     const routeStatus2 = document.getElementById('route-status-2')
     // If bus route status is not found, assign 22 as error.
-    const bus2RouteStatus = (lineData[bus2LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 22
+    const bus2RouteStatus = (lineData[bus2LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 19
 
     routeStatus2.innerHTML = getStatusInfo(bus2RouteStatus).message
     routeStatus2.className = getStatusInfo(bus2RouteStatus).className
@@ -97,7 +116,7 @@ async function fetchBusData () {
     // Apply BUS Line status text and CSS as per the line ID.
     const routeStatus3 = document.getElementById('route-status-3')
     // If bus route status is not found, assign 22 as error.
-    const bus3RouteStatus = (lineData[bus3LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 22
+    const bus3RouteStatus = (lineData[bus3LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 19
 
     routeStatus3.innerHTML = getStatusInfo(bus3RouteStatus).message
     routeStatus3.className = getStatusInfo(bus3RouteStatus).className
@@ -120,7 +139,7 @@ async function fetchBusData () {
     // Apply BUS Line status text and CSS as per the line ID.
     const routeStatus4 = document.getElementById('route-status-4')
     // If bus route status is not found, assign 22 as error.
-    const bus4RouteStatus = (lineData[bus4LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 22
+    const bus4RouteStatus = (lineData[bus4LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 19
 
     routeStatus4.innerHTML = getStatusInfo(bus4RouteStatus).message
     routeStatus4.className = getStatusInfo(bus4RouteStatus).className
@@ -142,7 +161,7 @@ async function fetchBusData () {
     // Apply BUS Line status text and CSS as per the line ID.
     const routeStatus5 = document.getElementById('route-status-5')
     // If bus route status is not found, assign 22 as error.
-    const bus5RouteStatus = (lineData[bus5LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 22
+    const bus5RouteStatus = (lineData[bus5LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 19
 
     routeStatus5.innerHTML = getStatusInfo(bus5RouteStatus).message
     routeStatus5.className = getStatusInfo(bus5RouteStatus).className
@@ -164,7 +183,7 @@ async function fetchBusData () {
     // Apply BUS Line status text and CSS as per the line ID.
     const routeStatus6 = document.getElementById('route-status-6')
     // If bus route status is not found, assign 22 as error.
-    const bus6RouteStatus = (lineData[bus6LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 22
+    const bus6RouteStatus = (lineData[bus6LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 19
 
     routeStatus6.innerHTML = getStatusInfo(bus6RouteStatus).message
     routeStatus6.className = getStatusInfo(bus6RouteStatus).className
@@ -187,7 +206,7 @@ async function fetchBusData () {
     // Apply BUS Line status text and CSS as per the line ID.
     const routeStatus7 = document.getElementById('route-status-7')
     // If bus route status is not found, assign 22 as error.
-    const bus7RouteStatus = (lineData[bus7LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 22
+    const bus7RouteStatus = (lineData[bus7LineID]?.lineStatuses?.[0]?.statusSeverity) ?? 19
 
     routeStatus7.innerHTML = getStatusInfo(bus7RouteStatus).message
     routeStatus7.className = getStatusInfo(bus7RouteStatus).className

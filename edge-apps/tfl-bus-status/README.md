@@ -39,11 +39,11 @@ Step 6. **Specify the TFL API and STOP ID** for example: 490005186S1.
 
 Replace "API" with the actual API that obtained from [https://api-portal.tfl.gov.uk/](https://api-portal.tfl.gov.uk/)
 
-`$ screenly edge-app setting set TFL_API=API`
+`$ screenly edge-app secret set tfl_api=API`
 
 and provide the STOP ID also - replace the "stopID" with actual Stop ID.
 
-`$ screenly edge-app setting set Stop_ID=stopID`
+`$ screenly edge-app setting set stop_id=stopID`
 
 
 Step 7. **Deploy the Edge App as Asset**
