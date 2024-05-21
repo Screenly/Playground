@@ -4,6 +4,7 @@ const apiUrl = 'https://api.tfl.gov.uk/' // Base URL for the TfL API
 const stopId = screenly.settings.stop_id
 const apiKey = screenly.settings.tfl_api
 
+
 async function getCachedData(url, cacheKey) {
   const cachedData = JSON.parse(localStorage.getItem(cacheKey));
   try {
@@ -28,11 +29,9 @@ async function getCachedData(url, cacheKey) {
 async function fetchBusData () {
   try {
 	    // Bus Route Detail API Request
-			const stopData = await getCachedData(`${apiUrl}StopPoint/${stopId}/Arrivals?app_key=${apiKey}`, 'stopData');
-
+		const stopData = await getCachedData(`${apiUrl}StopPoint/${stopId}/Arrivals?app_key=${apiKey}`, 'stopData');
 			// Bus Line Status API Request
-			const lineData = await getCachedData(`${apiUrl}Line/Mode/bus/Status?app_key=${apiKey}`, 'lineData');
-
+		const lineData = await getCachedData(`${apiUrl}Line/Mode/bus/Status?app_key=${apiKey}`, 'lineData');
     // Fetch latest bus status details as per the time.
     const sortedBuses = stopData.sort((a, b) => a.timeToStation - b.timeToStation)
     const nextBuses = sortedBuses.slice(0, getNumberOfBuses())
@@ -295,9 +294,8 @@ function getStatusInfo (routeStatus) {
 }
 
 fetchBusData()
-// setTimeout(fetchBusData,0000);
+screenly.signalReadyForRendering()
 
 setInterval(() => {
   fetchBusData()
-  // fetchAllBusLineStatuses();
-}, 30 * 1000) // refresh every 30 seconds
+}, 120 * 1000) // refresh every 120 seconds/ 2 Minutes.
