@@ -4,34 +4,33 @@ const apiUrl = 'https://api.tfl.gov.uk/' // Base URL for the TfL API
 const stopId = screenly.settings.stop_id
 const apiKey = screenly.settings.tfl_api
 
-
 async function getCachedData(url, cacheKey) {
-  const cachedData = JSON.parse(localStorage.getItem(cacheKey));
+  const cachedData = JSON.parse(localStorage.getItem(cacheKey))
   try {
-    const response = await fetch(url);
+    const response = await fetch(url)
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      throw new Error(`HTTP error! Status: ${response.status}`)
     }
-    const data = await response.json();
-    localStorage.setItem(cacheKey, JSON.stringify(data));
-    return data;
+    const data = await response.json()
+    localStorage.setItem(cacheKey, JSON.stringify(data))
+    return data
   } catch (error) {
     if (cachedData) {
-      console.warn('Fetching new data failed, using cached data:', error);
+      console.warn('Fetching new data failed, using cached data:', error)
 
-      return cachedData;
+      return cachedData
     } else {
-      throw error;
+      throw error
     }
   }
 }
 
-async function fetchBusData () {
+async function fetchBusData() {
   try {
-	    // Bus Route Detail API Request
-		const stopData = await getCachedData(`${apiUrl}StopPoint/${stopId}/Arrivals?app_key=${apiKey}`, 'stopData');
-			// Bus Line Status API Request
-		const lineData = await getCachedData(`${apiUrl}Line/Mode/bus/Status?app_key=${apiKey}`, 'lineData');
+    // Bus Route Detail API Request
+    const stopData = await getCachedData(`${apiUrl}StopPoint/${stopId}/Arrivals?app_key=${apiKey}`, 'stopData')
+    // Bus Line Status API Request
+    const lineData = await getCachedData(`${apiUrl}Line/Mode/bus/Status?app_key=${apiKey}`, 'lineData')
     // Fetch latest bus status details as per the time.
     const sortedBuses = stopData.sort((a, b) => a.timeToStation - b.timeToStation)
     const nextBuses = sortedBuses.slice(0, getNumberOfBuses())
@@ -236,7 +235,7 @@ This function will check if the screen is oriented portrait or landscape mode
 and then apply the number of bus information displayed.
 */
 
-function getNumberOfBuses () {
+function getNumberOfBuses() {
   if (window.matchMedia('(orientation: portrait)').matches) {
     return 7 // portrait orientation
   } else {
@@ -247,7 +246,7 @@ function getNumberOfBuses () {
 // This function will return the route status message and css class name depends on the route status as Parameters
 // Status details mentioned here: https://techforum.tfl.gov.uk/t/more-information-about-statusseverity/2538/10
 
-function getStatusInfo (routeStatus) {
+function getStatusInfo(routeStatus) {
   if (routeStatus === 0) {
     return { message: 'Special Service', className: 'on-time' }
   } else if (routeStatus === 1) {
