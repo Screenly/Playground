@@ -17,7 +17,6 @@ async function getCachedData (url, cacheKey) {
   } catch (error) {
     if (cachedData) {
       console.warn('Fetching new data failed, using cached data:', error)
-
       return cachedData
     } else {
       throw error
