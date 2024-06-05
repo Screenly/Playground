@@ -4,7 +4,7 @@ const apiUrl = 'https://api.tfl.gov.uk/' // Base URL for the TfL API
 const stopId = screenly.settings.stop_id
 const apiKey = screenly.settings.tfl_api
 
-async function getCachedData (url, cacheKey) {
+async function getCachedData(url, cacheKey) {
   const cachedData = JSON.parse(localStorage.getItem(cacheKey))
   try {
     const response = await fetch(url)
@@ -24,7 +24,7 @@ async function getCachedData (url, cacheKey) {
   }
 }
 
-async function fetchBusData () {
+async function fetchBusData() {
   try {
     // Bus Route Detail API Request
     const stopData = await getCachedData(`${apiUrl}StopPoint/${stopId}/Arrivals?app_key=${apiKey}`, 'stopData')
@@ -227,8 +227,8 @@ async function fetchBusData () {
     busArrival.innerHTML = error
     document.querySelector('.bus-list').classList.add('hidden')
   }
-	//Send signal to load the screen once content is ready.
-	screenly.signalReadyForRendering()
+  //Send signal to load the screen once content is ready.
+  screenly.signalReadyForRendering()
 }
 
 /*
@@ -236,7 +236,7 @@ This function will check if the screen is oriented portrait or landscape mode
 and then apply the number of bus information displayed.
 */
 
-function getNumberOfBuses () {
+function getNumberOfBuses() {
   if (window.matchMedia('(orientation: portrait)').matches) {
     return 7 // portrait orientation
   } else {
@@ -247,7 +247,7 @@ function getNumberOfBuses () {
 // This function will return the route status message and css class name depends on the route status as Parameters
 // Status details mentioned here: https://techforum.tfl.gov.uk/t/more-information-about-statusseverity/2538/10
 
-function getStatusInfo (routeStatus) {
+function getStatusInfo(routeStatus) {
   if (routeStatus === 0) {
     return { message: 'Special Service', className: 'on-time' }
   } else if (routeStatus === 1) {
