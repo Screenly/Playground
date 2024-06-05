@@ -27,13 +27,13 @@ Step 4. **Create a New tfl-bus-status Edge App:**
 
 `$ screenly edge-app create --name TFL_EdgeApp --in-place`
 
-> Replace "TFL_EdgeApp" with your desired app name.
+Replace "TFL_EdgeApp" with your desired app name.
 
 Step 5. **Upload the Edge App**
 
 `$ screenly edge-app upload`
 
-> Wait for the upload to complete.
+Wait for the upload to complete.
 
 Step 6. **Specify the TFL API and STOP ID** for example: 490005186S1.
 
@@ -50,7 +50,7 @@ Step 7. **Deploy the Edge App as Asset**
 
 `$ screenly edge-app version promote --latest`
 
-> This promotes the latest version of the Edge App as an asset.
+This promotes the latest version of the Edge App as an asset.
 
 Step 8. **Check the Screenly Dashboard**
 
