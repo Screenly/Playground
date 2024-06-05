@@ -227,6 +227,8 @@ async function fetchBusData () {
     busArrival.innerHTML = error
     document.querySelector('.bus-list').classList.add('hidden')
   }
+	//Send signal to load the screen once content is ready.
+	screenly.signalReadyForRendering()
 }
 
 /*
@@ -292,8 +294,6 @@ function getStatusInfo (routeStatus) {
 }
 
 fetchBusData()
-screenly.signalReadyForRendering()
-
 setInterval(() => {
   fetchBusData()
 }, 120 * 1000) // refresh every 120 seconds/ 2 Minutes.
