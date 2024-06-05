@@ -13,7 +13,7 @@ Step 1. **Log in to the Screenly account via CLI**
 
 Follow the on-screen instructions to log in to your Screenly account.
 
-   `$ screenly login`
+`$ screenly login`
 
 Step 2. **Download and Open Edge App Playground**
 
