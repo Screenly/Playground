@@ -25,7 +25,7 @@ Step 3. **Enter tfl-bus-status Edge App Directory**
 
 Step 4. **Create a New tfl-bus-status Edge App:**
 
-`$ screenly edge-app create --name TFL_EdgeApp --in-place`
+`$ screenly edge-app create --name "TFL Edge App" --in-place`
 
 Replace "TFL_EdgeApp" with your desired app name.
 
