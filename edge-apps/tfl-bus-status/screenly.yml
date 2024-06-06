@@ -1,0 +1,27 @@
+---
+app_id: 01HY2BM8FY0JBFQPGSGFRREBRK
+user_version: v1.0.0
+description: Displays TFL Bus Status.
+icon: https://playground.srly.io/edge-apps/tfl-bus-status/static/images/icon.svg
+author: Screenly, Inc.
+entrypoint: index.html
+settings:
+  tfl_api:
+    type: secret
+    title: TFL API Key
+    optional: false
+    help_text: API Key from the TFL.
+  stop_id:
+    type: string
+    default_value: 490005186S1
+    title: Bus Stop ID
+    optional: false
+    help_text: TFL Bus Stop ID.
+  screenly_render_notification:
+    type: string
+    default_value: '1'
+    title: Requires ready for rendering
+    optional: true
+    help_text: |
+      Special setting to indicate that application needs to call screenly.signalReadyForRendering before being shown on the screen.
+

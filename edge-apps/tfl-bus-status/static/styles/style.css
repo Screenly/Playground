@@ -1,0 +1,497 @@
+body {
+	font-family: sans-serif;
+	background-color: #000212;
+	color: white;
+	margin: 0;
+}
+
+.container {
+	overflow: hidden;
+	margin: 20px auto;
+	padding: 50px;
+	background-color: #000212;
+	border-radius: 8px;
+	max-width:t
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 30px;
+}
+
+.title {
+	display: flex;
+	align-items: center;
+	font-size: 2rem;
+
+}
+
+.bus-stop-name {
+	margin: 0;
+	margin-left: 15px;
+	font-size: 3rem;
+}
+
+.bus-icon {
+	height: 3rem;
+}
+
+.arrivals, .statuses {
+	margin-bottom: 10px;
+	margin-left: 10px;
+}
+
+h3 {
+	margin: 10px 0;
+	padding-top: 10px;
+	font-size: 2rem;
+	font-style: normal;
+}
+
+.stop-name, #stop-name-div {
+	font-size: 1.5rem;
+	margin-top: 20px;
+	margin-bottom: 20px;
+
+}
+
+.bus-list {
+	list-style: none;
+	padding: 0;
+	margin-bottom: 10px;
+}
+
+.bus-item {
+	display: flex;
+	font-size: 1.5rem;
+	align-items: center;
+	padding: 2.5rem;
+	border-bottom: 1px solid #444;
+	background-color: #121424;
+	position: relative;
+}
+
+.bus-item span:nth-child(3) {
+	margin-left: auto;
+}
+
+.bus-item::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 4px;
+	height: 70%;
+	background-color: #007bff;
+}
+
+.time-1, .time-2, .time-3, .time-4, .time-5, .time-6, .time-7 {
+	background-color: #007bff;
+	color: white;
+	padding: 10px;
+	box-sizing: border-box;
+	width: 200px;
+	text-align: center;
+	border-radius: 19px;
+	white-space: nowrap;
+	align-items: center;
+	justify-content: right;
+	margin-left: 10px;
+}
+
+.destination {
+	margin-left: 1rem;
+	align-items: left;
+}
+
+.bus-item>div {
+	display: flex;
+	align-items: center;
+}
+
+.on-time {
+	background-color: #28a745;
+	color: white;
+	padding: 10px 30px;
+	border-radius: 19px;
+	white-space: nowrap;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.has-delayed {
+	background-color: #d11515;
+	color: white;
+	padding: 10px 30px;
+	border-radius: 19px;
+	white-space: nowrap;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.severe-delay {
+	background-color: #d11515;
+	color: white;
+	padding: 10px 30px;
+	border-radius: 19px;
+	white-space: nowrap;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.minor-delay {
+	background-color: #FF0;
+	color: black;
+	padding: 10px 30px;
+	border-radius: 19px;
+	white-space: nowrap;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.moderate-delay {
+	background-color: #FFA500;
+	color: white;
+	padding: 10px 30px;
+	border-radius: 19px;
+	white-space: nowrap;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.service-closed {
+	background-color: #808080;
+	color: white;
+	padding: 10px 30px;
+	border-radius: 19px;
+	white-space: nowrap;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.unknown-status {
+	background-color: #D3D3D3;
+	color: black;
+	padding: 10px 30px;
+	border-radius: 19px;
+	white-space: nowrap;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.hidden {
+	display: none;
+}
+
+
+@media (width >=800px) and (orientation: landscape) {
+	.bus-icon {
+		height: 2.25rem;
+	}
+
+	.bus-arrival {
+		font-size: 1.5rem;
+	}
+
+	.bus-stop-name {
+		margin: 0;
+		margin-left: 15px;
+		font-size: 2rem;
+	}
+
+	.bus-item {
+		display: flex;
+		font-size: 1.1rem;
+		align-items: center;
+		padding: 1.75rem;
+		border-bottom: 1px solid #444;
+		background-color: #121424;
+		position: relative;
+	}
+
+	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
+		border-radius: 25px;
+		width: 18rem;
+
+	}
+
+	.time-1, .time-2, .time-3, .time-4, .time-5, .time-6, .time-7 {
+		width: 7rem;
+		border-radius: 25px;
+	}
+
+	.hidden {
+		display: none;
+	}
+}
+
+@media (width >=1280px) and (orientation: landscape) {
+	.bus-icon {
+		height: 3.5rem;
+	}
+
+	.bus-stop-name {
+		margin: 0;
+		margin-left: 15px;
+		font-size: 2.5rem;
+	}
+
+	.bus-item {
+		display: flex;
+		font-size: 1.75rem;
+		align-items: center;
+		padding: 2.5rem;
+		border-bottom: 1px solid #444;
+		background-color: #121424;
+		position: relative;
+	}
+
+	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
+		border-radius: 25px;
+		width: 18rem;
+	}
+
+	.time-1, .time-2, .time-3, .time-4, .time-5, .time-6, .time-7 {
+		width: 9rem;
+		border-radius: 25px;
+	}
+
+	.hidden {
+		display: none;
+	}
+}
+
+@media (width >=1920px) and (orientation: landscape) {
+	.bus-icon {
+		height: 3.5rem;
+	}
+
+	.bus-stop-name {
+		margin: 0;
+		margin-left: 15px;
+		font-size: 2.5rem;
+	}
+
+	.bus-item {
+		display: flex;
+		font-size: 2rem;
+		align-items: center;
+		padding: 2.5rem;
+		border-bottom: 1px solid #444;
+		background-color: #121424;
+		position: relative;
+	}
+
+	.bus-arrival {
+		font-size: 2rem;
+	}
+
+	.hidden {
+		display: none;
+	}
+
+	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
+		width: 18rem;
+		border-radius: 25px;
+	}
+
+	.time-1, .time-2, .time-3, .time-4, .time-5, .time-6, .time-7 {
+		width: 15rem;
+		border-radius: 25px;
+		margin-left: 25px;
+	}
+}
+
+@media (width >=3840px) and (orientation: landscape) {
+	.bus-icon {
+		height: 5rem;
+	}
+
+	.bus-stop-name {
+		margin: 0;
+		margin-left: 15px;
+		font-size: 5rem;
+	}
+
+	.bus-item {
+		display: flex;
+		font-size: 5rem;
+		align-items: center;
+		padding: 2.5rem;
+		border-bottom: 1px solid #444;
+		background-color: #121424;
+		position: relative;
+	}
+
+	.bus-arrival {
+		font-size: 4rem;
+	}
+
+	.hidden {
+		display: none;
+	}
+
+	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
+		width: 45rem;
+		border-radius: 35px;
+
+	}
+
+	.time-1, .time-2, .time-3, .time-4, .time-5, .time-6, .time-7 {
+		width: 25rem;
+		border-radius: 35px;
+		margin-left: 30px;
+	}
+}
+
+@media (width >=4096px) and (orientation: landscape) {
+	.bus-icon {
+		height: 5rem;
+	}
+
+	.bus-stop-name {
+		margin: 0;
+		margin-left: 15px;
+		font-size: 5rem;
+	}
+
+	.bus-item {
+		display: flex;
+		font-size: 5rem;
+		align-items: center;
+		padding: 2.5rem;
+		border-bottom: 1px solid #444;
+		background-color: #121424;
+		position: relative;
+	}
+
+	.bus-arrival {
+		font-size: 4rem;
+	}
+
+	.hidden {
+		display: none;
+	}
+
+	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
+		width: 45rem;
+		border-radius: 35px;
+	}
+
+	.time-1, .time-2, .time-3, .time-4, .time-5, .time-6, .time-7 {
+		width: 25rem;
+		border-radius: 35px;
+		margin-left: 30px;
+	}
+}
+
+@media screen and (width >=720px) and (orientation: portrait) {
+	.bus-icon {
+		height: 2.5rem;
+	}
+
+	.bus-stop-name {
+		margin: 0;
+		margin-left: 15px;
+		font-size: 2rem;
+	}
+
+	.bus-item {
+		display: flex;
+		font-size: 1.25rem;
+		align-items: center;
+		padding: 2.5rem;
+		border-bottom: 1px solid #444;
+		background-color: #121424;
+		position: relative;
+	}
+
+	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
+		width: 18rem;
+	}
+
+	.time-1, .time-2, .time-3, .time-4, .time-5, .time-6, .time-7 {
+		width: 7rem;
+	}
+
+	.hidden {
+		display: none;
+	}
+}
+
+@media screen and (width >=1080px) and (orientation: portrait) {
+	.bus-icon {
+		height: 3rem;
+	}
+
+	.bus-stop-name {
+		margin: 0;
+		margin-left: 15px;
+		font-size: 2rem;
+	}
+
+	.bus-item {
+		display: flex;
+		font-size: 1.75rem;
+		align-items: center;
+		padding: 2.7rem;
+		border-bottom: 1px solid #444;
+		background-color: #121424;
+		position: relative;
+	}
+
+	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
+		width: 18rem;
+
+	}
+
+	.time-1, .time-2, .time-3, .time-4, .time-5, .time-6, .time-7 {
+		width: 8rem;
+	}
+
+	.hidden {
+		display: none;
+	}
+}
+
+@media screen and (width >=2160px) and (orientation: portrait) {
+	.bus-icon {
+		height: 4rem;
+	}
+
+	.bus-stop-name {
+		margin: 0;
+		margin-left: 15px;
+		font-size: 4rem;
+	}
+
+	.bus-item {
+		display: flex;
+		font-size: 3rem;
+		align-items: center;
+		padding: 2.5rem;
+		border-bottom: 1px solid #444;
+		background-color: #121424;
+		position: relative;
+	}
+
+	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
+		width: 18rem;
+	}
+
+	.time-1, .time-2, .time-3, .time-4, .time-5, .time-6, .time-7 {
+		width: 15rem;
+	}
+
+	.bus-arrival {
+		font-size: 3rem;
+	}
+
+	.hidden {
+		display: none;
+	}
+}
+
