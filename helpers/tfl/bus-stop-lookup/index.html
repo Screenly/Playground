@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFL Bus Stop Lookup</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 p-4 flex flex-col min-h-screen">
+    <div class="container mx-auto flex-grow">
+        <header class="bg-blue-600 text-white text-center p-4 rounded mb-4">
+            <h1 class="text-3xl font-bold">TFL Bus Stop Lookup</h1>
+        </header>
+        <input type="text" id="search" placeholder="Search..." class="w-full p-2 mb-4 border rounded">
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white">
+                <thead>
+                    <tr>
+                        <!-- Table Headers will be injected by JavaScript -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table Data will be injected by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <footer class="bg-gray-200 text-center p-4 mt-4">
+        TFL Bus Stop data for Screenly <a href="https://www.screenly.io/developers/edge-apps/">Edge App</a>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
