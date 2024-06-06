@@ -16,9 +16,9 @@ document.addEventListener('DOMContentLoaded', function () {
           console.log('Headers:', results.meta.fields) // Log headers
           console.log('First row:', results.data[0]) // Log first row of data
 
-          // Identify column names
+          // Identify the stop name column dynamically and use Naptan_Atco for the stop code
           const stopNameField = results.meta.fields.find(field => field.toLowerCase().includes('name'))
-          const stopCodeField = results.meta.fields.find(field => field.toLowerCase().includes('code'))
+          const stopCodeField = 'Naptan_Atco'
 
           // Filter and map data
           const filteredData = results.data.map(row => {
