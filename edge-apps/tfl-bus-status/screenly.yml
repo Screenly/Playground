@@ -16,12 +16,13 @@ settings:
     default_value: 490005186S1
     title: Bus Stop ID
     optional: false
-    help_text: TFL Bus Stop ID.
+    help_text: |
+      You can find your bus stop here:
+      https://playground.srly.io/edge-apps/helpers/tfl/bus-stop-lookup/
   screenly_render_notification:
     type: string
     default_value: '1'
     title: Requires ready for rendering
     optional: true
     help_text: |
-      Special setting to indicate that application needs to call screenly.signalReadyForRendering before being shown on the screen.
-
+      Leave as is.
