@@ -1,3 +1,5 @@
+/* global Papa */
+
 document.addEventListener('DOMContentLoaded', function () {
   const searchInput = document.getElementById('search')
   const tableHead = document.querySelector('thead tr')
