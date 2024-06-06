@@ -6,7 +6,7 @@ icon: https://playground.srly.io/edge-apps/tfl-bus-status/static/images/icon.svg
 author: Screenly, Inc.
 entrypoint: index.html
 settings:
-  tfl_api:
+  tfl_api_token:
     type: secret
     title: TFL API Key
     optional: false
