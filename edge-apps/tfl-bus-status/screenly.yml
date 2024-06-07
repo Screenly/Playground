@@ -10,6 +10,7 @@ settings:
     type: secret
     title: TFL API Key
     optional: false
+    is_global: true
     help_text: API Key from the TFL.
   stop_id:
     type: string
