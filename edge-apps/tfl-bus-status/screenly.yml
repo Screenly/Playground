@@ -1,7 +1,11 @@
 ---
 app_id:
 user_version: v1.0.0
-description: Displays TFL Bus Status.
+description: |
+  Displays TFL Bus Status for a given bus stop.
+  You can find the list of all bus stops here:
+  https://playground.srly.io/edge-apps/helpers/tfl/bus-stop-lookup/
+
 icon: https://playground.srly.io/edge-apps/tfl-bus-status/static/images/icon.svg
 author: Screenly, Inc.
 entrypoint: index.html
