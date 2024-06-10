@@ -7,7 +7,7 @@ on:
       - 'master'
     paths:
       - 'edge-apps/tfl-bus-status/**'
-      - '.github/workflows/deploy-iframe-qc.yml'
+      - '.github/workflows/deploy-tfl-bus-status-qc.yml'
 
 jobs:
   deploy:
