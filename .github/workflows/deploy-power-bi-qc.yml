@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP_ID: '01HRCAW49EW573V7JCH711SP5G'
+      INSTALLATION_ID: '01HRCAWQHXDAP5XZ53KZAP2SP7'
 
       APP_PATH: 'edge-apps/powerbi'
 
@@ -40,4 +41,4 @@ jobs:
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
           # yamllint disable-line rule:line-length
-          cli_commands: edge-app version promote --latest --app-id=${{ env.APP_ID }} --path=${{ env.APP_PATH }}
+          cli_commands: edge-app version promote --latest --installation-id=${{ env.INSTALLATION_ID }} --path=${{ env.APP_PATH }}
