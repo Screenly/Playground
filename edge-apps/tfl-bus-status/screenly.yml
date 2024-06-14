@@ -27,7 +27,7 @@ settings:
       https://playground.srly.io/edge-apps/helpers/tfl/bus-stop-lookup/
   screenly_render_notification:
     type: string
-    default_value: '1'
+    default_value: "1"
     title: Requires ready for rendering
     optional: true
     help_text: |
