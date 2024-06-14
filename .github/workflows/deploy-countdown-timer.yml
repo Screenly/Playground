@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP_ID: '01HS8ZSEPGFZDKE606PD038TTB'
+      INSTALLATION_ID: '01HS8ZT7KNB3MB8EAC2YET8DB2'
 
       APP_PATH: 'edge-apps/countdown-timer'
 
@@ -35,4 +36,4 @@ jobs:
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_PRODUCTION }}
           # yamllint disable-line rule:line-length
-          cli_commands: edge-app version promote --latest --app-id=${{ env.APP_ID }} --path=${{ env.APP_PATH }}
+          cli_commands: edge-app version promote --latest --installation-id=${{ env.INSTALLATION_ID }} --path=${{ env.APP_PATH }}
