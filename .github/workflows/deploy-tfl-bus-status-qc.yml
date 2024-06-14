@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP_ID: '01J013T9F09HS3TSPWF226ND18'
+      INSTALLATION_ID: '01J019M0F9QP20SRGH8H8SJHE4'
       APP_PATH: 'edge-apps/tfl-bus-status'
 
     steps:
