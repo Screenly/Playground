@@ -1,12 +1,7 @@
 ---
-app_id:
-installation_id:
+app_id: 01HY2BM8FY0JBFQPGSGFRREBRK
 user_version: v1.0.0
-description: |
-  Displays TFL Bus Status for a given bus stop.
-  You can find the list of all bus stops here:
-  https://playground.srly.io/edge-apps/helpers/tfl/bus-stop-lookup/
-
+description: Displays TFL Bus Status.
 icon: https://playground.srly.io/edge-apps/tfl-bus-status/static/images/icon.svg
 author: Screenly, Inc.
 entrypoint: index.html
@@ -15,7 +10,6 @@ settings:
     type: secret
     title: TFL API Key
     optional: false
-    is_global: true
     help_text: API Key from the TFL.
   stop_id:
     type: string
@@ -27,7 +21,7 @@ settings:
       https://playground.srly.io/edge-apps/helpers/tfl/bus-stop-lookup/
   screenly_render_notification:
     type: string
-    default_value: "1"
+    default_value: '1'
     title: Requires ready for rendering
     optional: true
     help_text: |
