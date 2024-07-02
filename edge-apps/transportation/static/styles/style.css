@@ -348,14 +348,14 @@ h3 {
 }
 
 @media (width >=4096px) and (orientation: landscape) {
-	.bus-icon {
-		height: 5rem;
-	}
-
 	.bus-stop-name {
 		margin: 0;
 		margin-left: 15px;
 		font-size: 5rem;
+	}
+
+	.bus-icon {
+		height: 5rem;
 	}
 
 	.bus-item {
@@ -368,23 +368,23 @@ h3 {
 		position: relative;
 	}
 
-	.bus-arrival {
-		font-size: 4rem;
-	}
-
 	.hidden {
 		display: none;
 	}
 
-	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
-		width: 45rem;
-		border-radius: 35px;
+	.bus-arrival {
+		font-size: 4rem;
 	}
 
 	.time-1, .time-2, .time-3, .time-4, .time-5, .time-6, .time-7 {
 		width: 25rem;
 		border-radius: 35px;
 		margin-left: 30px;
+	}
+
+	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
+		width: 45rem;
+		border-radius: 35px;
 	}
 }
 
