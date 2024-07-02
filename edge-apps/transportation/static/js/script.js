@@ -1,12 +1,11 @@
 /* global screenly */
 const BusMonitor = (() => {
-
-  const apiUrl = 'http://api.511.org/transit/StopMonitoring'; // Base URL for the TfL API
-  const stopId = screenly.settings.stop_id;
-  const apiKey = screenly.settings.transit_api_key
-  const proxyUrl = screenly.cors_proxy_url;
+  // api info
+  // const apiUrl = 'http://api.511.org/transit/StopMonitoring'; // Base URL for the TfL API
+  // const stopId = screenly.settings.stop_id;
+  // const apiKey = screenly.settings.transit_api_key
+  // const proxyUrl = screenly.cors_proxy_url;
   const mockStopData = '../1/static/data/stops.json';
-
   async function getCachedData (url, cacheKey) {
     const cachedData = JSON.parse(localStorage.getItem(cacheKey))
     try {
@@ -26,8 +25,6 @@ const BusMonitor = (() => {
       }
     }
   }
-
-
   /*
   This function will check if the screen is oriented portrait or landscape mode
   and then apply the number of bus information displayed.
@@ -35,14 +32,9 @@ const BusMonitor = (() => {
   function getNumberOfBuses() {
     return window.matchMedia('(orientation: portrait)').matches ? 7 : 5;
   }
-
-  function getStatusInfo(routeStatus) {
-    return statusMessages[routeStatus] || { message: 'No Status', className: 'unknown-status' };
-  }
-
+  
   async function fetchBusData() {
     try {
-      // mock
       const stopPoints = await getCachedData(mockStopData, 'stopData');
       // const stopPoints = await getCachedData(`${proxyUrl}/${apiUrl}?api_key=${apiKey}&agency=AC`, 'stopData');
       const stopData = stopPoints.ServiceDelivery.StopMonitoringDelivery.MonitoredStopVisit;
@@ -66,7 +58,6 @@ const BusMonitor = (() => {
       handleError(error);
     }
   }
-
   function updateBusInfo(nextBuses) {
     for (let i = 0; i < getNumberOfBuses(); i++) {
       const busLineID = nextBuses[i]?.MonitoredVehicleJourney.LineRef || 0;
@@ -86,7 +77,6 @@ const BusMonitor = (() => {
       }
     }
   }
-
   function handleError(error) {
     console.error('Error fetching bus data:', error);
     const busStopName = document.querySelector('.bus-stop-name');
@@ -95,10 +85,8 @@ const BusMonitor = (() => {
     busArrival.innerHTML = error;
     document.querySelector('.bus-list').classList.add('hidden');
   }
-
   return {
     fetchBusData
   };
 })();
-
 BusMonitor.fetchBusData();
