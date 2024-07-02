@@ -1,7 +1,7 @@
 /* global screenly */
 const BusMonitor = (() => {
 
-  const apiUrl = 'http://api.511.org/transit'; // Base URL for the TfL API
+  const apiUrl = 'http://api.511.org/transit/StopMonitoring'; // Base URL for the TfL API
   const stopId = screenly.settings.stop_id;
   const apiKey = screenly.settings.transit_api_key
   const proxyUrl = screenly.cors_proxy_url;
@@ -42,7 +42,9 @@ const BusMonitor = (() => {
 
   async function fetchBusData() {
     try {
+      // mock
       const stopPoints = await getCachedData(mockStopData, 'stopData');
+      // const stopPoints = await getCachedData(`${proxyUrl}/${apiUrl}?api_key=${apiKey}&agency=AC`, 'stopData');
       const stopData = stopPoints.ServiceDelivery.StopMonitoringDelivery.MonitoredStopVisit;
       const sortedBuses = stopData.sort((a, b) => 
         a.MonitoredVehicleJourney.MonitoredCall.ExpectedArrivalTime - b.MonitoredVehicleJourney.MonitoredCall.ExpectedArrivalTime);
