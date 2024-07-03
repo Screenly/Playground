@@ -1,6 +1,6 @@
 ---
-app_id: 01J16GZP85W98XGW641Q7XC7ZT
-installation_id: 01J16GZPMC2FCATQGP1HWZ14K0
+app_id:
+installation_id:
 entrypoint: index.html
 description: Displays AC Bus Status.
 icon: https://playground.srly.io/edge-apps/tfl-bus-status/static/images/icon.svg
