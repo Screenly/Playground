@@ -37,7 +37,7 @@
         </script>
         <!-- End Google Tag Manager -->
 
-        <template x-if="isLoading && !fetchError">
+        <template x-if="isLoading && !error">
             <div class="error">
                 <div class="group">
                     <h2>Loading...</h2>
@@ -46,7 +46,7 @@
             </div>
         </template>
 
-        <template x-if="fetchError">
+        <template x-if="error">
             <div class="error">
                 <div class="group">
                     <h2 x-text="errorMessage"></h2>
@@ -55,7 +55,7 @@
             </div>
         </template>
 
-        <template x-if="!fetchError">
+        <template x-if="!error">
             <div class="content">
                 <section class="header">
                     <div class="location">
