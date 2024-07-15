@@ -234,7 +234,7 @@ async function refreshWeather (context) {
         setInterval(
           () => {
             refreshDateTime(context)
-          }, 1000  // 1 second
+          }, 1000 // 1 second
         )
 
         context.firstFetchComplete = true
@@ -317,7 +317,7 @@ function getWeatherData () {
       setInterval(
         () => {
           refreshWeather(this)
-        }, 1000 * 60 * 15  // 15 minutes
+        }, 1000 * 60 * 15 // 15 minutes
       )
     },
     isLoading: true,
