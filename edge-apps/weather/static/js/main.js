@@ -74,6 +74,7 @@ async function getWeatherApiData (context) {
     })
 
     context.fetchError = !isComplete
+    context.errorMessage = error.message
   }
 
   return result
@@ -88,16 +89,9 @@ function formatTime (today) {
 }
 
 function refreshDateTime (context) {
-  clearTimeout(context.clockTimer)
-
   const now = moment().utcOffset(context.tzOffset)
   context.currentTime = formatTime(now)
   context.currentDate = now.format('dddd, MMM DD')
-
-  context.clockTimer = setTimeout(
-    () => refreshDateTime(context),
-    context.clockTimerInterval
-  )
 }
 
 function findCurrentWeatherItem (list) {
@@ -222,8 +216,6 @@ const getTemp = (context, temp) => {
 }
 
 async function refreshWeather (context) {
-  clearTimeout(context.weatherTimer)
-
   const data = await getWeatherApiData(context)
 
   if (data.list !== undefined) {
@@ -234,7 +226,13 @@ async function refreshWeather (context) {
       context.city = `${name}, ${country}`
       context.tzOffset = parseInt(tzOffset / 60) // in minutes
       context.tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C'
+
       refreshDateTime(context)
+      setInterval(
+        () => {
+          refreshDateTime(context)
+        }, 1000  // 1 second
+      )
 
       context.firstFetchComplete = true
       context.isLoading = false
@@ -280,36 +278,22 @@ async function refreshWeather (context) {
       }
     })
   }
-
-  context.weatherTimer = setTimeout(
-    () => refreshWeather(context),
-    context.weatherTimerInterval
-  )
 }
 
 function getWeatherData () {
   return {
-    currentDate: '',
-    currentTime: '',
-    city: '',
-    lat: 0,
-    lng: 0,
-    currentWeatherId: 0,
-    clockTimer: null,
-    clockTimerInterval: 1000,
-    weatherTimer: null,
-    weatherTimerInterval: 1000 * 60 * 15, // 15 minutes
-    tzOffset: 0,
     bgClass: '',
-    tempScale: 'C',
-    currentWeatherIcon: '',
-    currentWeatherStatus: '',
-    currentTemp: null,
+    city: '',
+    currentDate: '',
     currentFormattedTempScale: '',
-    forecastedItems: [],
+    currentTemp: null,
+    currentTime: '',
+    currentWeatherIcon: '',
+    currentWeatherId: 0,
+    currentWeatherStatus: '',
     fetchError: false,
     firstFetchComplete: false,
-    isLoading: true,
+    forecastedItems: [],
     init: async function () {
       if (screenly.settings.override_coordinates) {
         [this.lat, this.lng] = screenly.settings.override_coordinates.split(',')
@@ -322,8 +306,18 @@ function getWeatherData () {
       this.apiKey = screenly.settings.openweathermap_api_key
 
       await refreshWeather(this)
+      setInterval(
+        () => {
+          refreshWeather(this)
+        }, 1000 * 60 * 15  // 15 minutes
+      )
     },
-    settings: {}
+    isLoading: true,
+    lat: 0,
+    lng: 0,
+    settings: {},
+    tempScale: 'C',
+    tzOffset: 0
   }
 }
 

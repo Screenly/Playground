@@ -49,7 +49,7 @@
         <template x-if="fetchError">
             <div class="error">
                 <div class="group">
-                    <h2>Waiting for Internet connection...</h2>
+                    <h2 x-text="errorMessage"></h2>
                     <div class="loader"></div>
                 </div>
             </div>
