@@ -50,11 +50,12 @@ async function getWeatherApiData (context) {
   try {
     const response = await fetch(`${endpointUrl}?${queryParams}`)
     const data = await response.json()
-    context.fetchError = false
 
     if (data.cod !== '200') {
       throw new Error(data.message)
     }
+
+    context.error = false
 
     appCache.clear()
     const { city: { name, country, timezone }, list } = data
@@ -66,6 +67,7 @@ async function getWeatherApiData (context) {
     appCache.set(result)
   } catch (error) {
     console.error(error)
+
     result = appCache.get()
 
     const requiredKeys = ['name', 'country', 'timezone', 'list']
@@ -73,7 +75,8 @@ async function getWeatherApiData (context) {
       return Object.prototype.hasOwnProperty.call(result, key)
     })
 
-    context.fetchError = !isComplete
+    context.error = !isComplete
+    context.errorMessage = error.message
   }
 
   return result
@@ -88,16 +91,9 @@ function formatTime (today) {
 }
 
 function refreshDateTime (context) {
-  clearTimeout(context.clockTimer)
-
   const now = moment().utcOffset(context.tzOffset)
   context.currentTime = formatTime(now)
   context.currentDate = now.format('dddd, MMM DD')
-
-  context.clockTimer = setTimeout(
-    () => refreshDateTime(context),
-    context.clockTimerInterval
-  )
 }
 
 function findCurrentWeatherItem (list) {
@@ -222,94 +218,90 @@ const getTemp = (context, temp) => {
 }
 
 async function refreshWeather (context) {
-  clearTimeout(context.weatherTimer)
+  try {
+    const data = await getWeatherApiData(context)
 
-  const data = await getWeatherApiData(context)
+    if (data.list !== undefined) {
+      const { name, country, timezone: tzOffset, list } = data
 
-  if (data.list !== undefined) {
-    const { name, country, timezone: tzOffset, list } = data
+      // We only want to set these values once.
+      if (!context.firstFetchComplete) {
+        context.city = `${name}, ${country}`
+        context.tzOffset = parseInt(tzOffset / 60) // in minutes
+        context.tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C'
 
-    // We only want to set these values once.
-    if (!context.firstFetchComplete) {
-      context.city = `${name}, ${country}`
-      context.tzOffset = parseInt(tzOffset / 60) // in minutes
-      context.tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C'
-      refreshDateTime(context)
+        refreshDateTime(context)
+        setInterval(
+          () => {
+            refreshDateTime(context)
+          }, 1000 // 1 second
+        )
 
-      context.firstFetchComplete = true
-      context.isLoading = false
-    }
-
-    const currentIndex = findCurrentWeatherItem(list)
-    const { dt, weather, main: { temp } } = list[currentIndex]
-
-    if (Array.isArray(weather) && weather.length > 0) {
-      const { id, description } = weather[0]
-      const { icon, bg } = getWeatherImagesById(context, id, dt)
-      if ((id !== context.currentWeatherId) || (`bg-${bg}` !== context.bgClass)) {
-        context.bgClass = `bg-${bg}`
+        context.firstFetchComplete = true
+        context.isLoading = false
       }
 
-      context.currentWeatherIcon = icons[icon]
-      context.currentWeatherStatus = description
-      context.currentTemp = getTemp(context, temp)
-      context.currentFormattedTempScale = `\u00B0${context.tempScale}`
+      const currentIndex = findCurrentWeatherItem(list)
+      const { dt, weather, main: { temp } } = list[currentIndex]
 
-      context.currentWeatherId = id
-    }
+      if (Array.isArray(weather) && weather.length > 0) {
+        const { id, description } = weather[0]
+        const { icon, bg } = getWeatherImagesById(context, id, dt)
+        if ((id !== context.currentWeatherId) || (`bg-${bg}` !== context.bgClass)) {
+          context.bgClass = `bg-${bg}`
+        }
 
-    const windowSize = 5
-    const currentWindow = list.slice(
-      currentIndex,
-      (currentIndex <= windowSize - 1)
-        ? currentIndex + windowSize
-        : list.length - 1
-    )
+        context.currentWeatherIcon = icons[icon]
+        context.currentWeatherStatus = description
+        context.currentTemp = getTemp(context, temp)
+        context.currentFormattedTempScale = `\u00B0${context.tempScale}`
 
-    context.forecastedItems = currentWindow.map((item, index) => {
-      const { dt, main: { temp }, weather } = item
-
-      const { icon } = getWeatherImagesById(context, weather[0]?.id, dt)
-      const dateTime = moment.unix(dt).utcOffset(context.tzOffset)
-
-      return {
-        id: index,
-        temp: getTemp(context, temp),
-        icon: icons[icon],
-        time: index === 0 ? 'Current' : formatTime(dateTime)
+        context.currentWeatherId = id
       }
-    })
+
+      const windowSize = 5
+      const currentWindow = list.slice(
+        currentIndex,
+        (currentIndex <= windowSize - 1)
+          ? currentIndex + windowSize
+          : list.length - 1
+      )
+
+      context.forecastedItems = currentWindow.map((item, index) => {
+        const { dt, main: { temp }, weather } = item
+
+        const { icon } = getWeatherImagesById(context, weather[0]?.id, dt)
+        const dateTime = moment.unix(dt).utcOffset(context.tzOffset)
+
+        return {
+          id: index,
+          temp: getTemp(context, temp),
+          icon: icons[icon],
+          time: index === 0 ? 'Current' : formatTime(dateTime)
+        }
+      })
+    }
+  } catch (error) {
+    context.error = true
+    context.errorMessage = error.message
   }
-
-  context.weatherTimer = setTimeout(
-    () => refreshWeather(context),
-    context.weatherTimerInterval
-  )
 }
 
 function getWeatherData () {
   return {
-    currentDate: '',
-    currentTime: '',
-    city: '',
-    lat: 0,
-    lng: 0,
-    currentWeatherId: 0,
-    clockTimer: null,
-    clockTimerInterval: 1000,
-    weatherTimer: null,
-    weatherTimerInterval: 1000 * 60 * 15, // 15 minutes
-    tzOffset: 0,
     bgClass: '',
-    tempScale: 'C',
-    currentWeatherIcon: '',
-    currentWeatherStatus: '',
-    currentTemp: null,
+    city: '',
+    currentDate: '',
     currentFormattedTempScale: '',
-    forecastedItems: [],
-    fetchError: false,
+    currentTemp: null,
+    currentTime: '',
+    currentWeatherIcon: '',
+    currentWeatherId: 0,
+    currentWeatherStatus: '',
+    error: false,
+    errorMessage: '',
     firstFetchComplete: false,
-    isLoading: true,
+    forecastedItems: [],
     init: async function () {
       if (screenly.settings.override_coordinates) {
         [this.lat, this.lng] = screenly.settings.override_coordinates.split(',')
@@ -322,8 +314,18 @@ function getWeatherData () {
       this.apiKey = screenly.settings.openweathermap_api_key
 
       await refreshWeather(this)
+      setInterval(
+        () => {
+          refreshWeather(this)
+        }, 1000 * 60 * 15 // 15 minutes
+      )
     },
-    settings: {}
+    isLoading: true,
+    lat: 0,
+    lng: 0,
+    settings: {},
+    tempScale: 'C',
+    tzOffset: 0
   }
 }
 
