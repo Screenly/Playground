@@ -1,11 +1,9 @@
 ---
-app_id:
-installation_id:
-entrypoint: index.html
-description: Displays AC Bus Status.
+app_id: 01J3PP6R6HVYT9HW9E9D4YCW7F
+installation_id: 01J3PP6RFPYKCZY5A741WFK5V1
 icon: https://playground.srly.io/edge-apps/tfl-bus-status/static/images/icon.svg
 author: Screenly, Inc.
-settings:
+settings: 
   bypass_cors:
     type: string
     default_value: 'true'
@@ -16,12 +14,10 @@ settings:
       Setting this to 'true' enables this feature.
   stop_id:
     type: string
-    default_value: 58538
+    default_value: 6000342
     title: Bus Stop ID
     optional: false
-    help_text: |
-      You can find your bus stop here:
-      https://playground.srly.io/edge-apps/he
+    help_text: Stop ID
   api_key:
     type: secret
     title: API Key
