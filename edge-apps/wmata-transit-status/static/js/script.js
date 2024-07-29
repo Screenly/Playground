@@ -1,14 +1,15 @@
+/* stylelint-disable */
+
 /* global screenly */
 
 const apiKey = screenly.settings.api_key
 const stopParams = {
-  "api_key": apiKey,
-  "StopID": screenly.settings.stop_id,
+  api_key: apiKey,
+  StopID: screenly.settings.stop_id
 }
 
-
 const stopQueryString = new URLSearchParams(stopParams).toString()
-const lineQueryString = new URLSearchParams({"api_key": apiKey}).toString()
+const lineQueryString = new URLSearchParams({ api_key: apiKey }).toString()
 const stopUrl = `https://api.wmata.com/NextBusService.svc/json/jPredictions?${stopQueryString}`
 const lineStatusUrl = `https://api.wmata.com/Incidents.svc/json/BusIncidents?${lineQueryString}`
 
@@ -38,18 +39,18 @@ async function fetchBusData () {
     const buses = stopData.Predictions
     const lineData = await getCachedData(lineStatusUrl, 'lineStatusData')
     const nextBuses = buses.slice(0, 6)
-    const stationName = buses[0] && stopData.StopName || 0
-    const stationTowards = buses[0] && buses[0]?.DirectionText || 0
+    const stationName = (buses[0] && stopData.StopName) || 0
+    const stationTowards = (buses[0] && buses[0].DirectionText) || 0
     const busStopName = document.querySelector('.bus-stop-name')
 
     busStopName.innerHTML = stationTowards === 'null' ? `${stationName}` : `${stationName} - Towards: ${stationTowards}`
 
-    for(let busIndex in buses) {
+    for (const busIndex in buses) {
       const busItemNum = parseInt(busIndex) + 1
       const routeStatusId = document.getElementById(`route-status-${busItemNum}`)
 
       const getIncidentOnRoute = () => {
-        for (let incident of lineData.BusIncidents) {
+        for (const incident of lineData.BusIncidents) {
           if (incident.RoutesAffected.includes(buses[busIndex].RouteID)) {
             return incident.IncidentType
           }
@@ -75,7 +76,7 @@ async function fetchBusData () {
   } catch (error) {
     handleError(error)
   }
-  screenly.signalReadyForRendering
+  screenly.signalReadyForRendering()
 }
 
 const handleError = (error) => {
