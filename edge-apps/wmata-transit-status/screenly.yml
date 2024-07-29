@@ -1,0 +1,25 @@
+---
+app_id: 01J3PP6R6HVYT9HW9E9D4YCW7F
+installation_id: 01J3PP6RFPYKCZY5A741WFK5V1
+icon: https://playground.srly.io/edge-apps/tfl-bus-status/static/images/icon.svg
+author: Screenly, Inc.
+settings: 
+  bypass_cors:
+    type: string
+    default_value: 'true'
+    title: Bypass CORS
+    optional: true
+    help_text: |
+      Some RSS sources require you to bypass CORS policies.
+      Setting this to 'true' enables this feature.
+  stop_id:
+    type: string
+    default_value: 6000342
+    title: Bus Stop ID
+    optional: false
+    help_text: Stop ID
+  api_key:
+    type: secret
+    title: API Key
+    optional: false
+    help_text: An example of an API key
