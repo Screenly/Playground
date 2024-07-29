@@ -1,0 +1,43 @@
+---
+name: Deploy transportation app (QC)
+
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'edge-apps/transportation/**'
+      - '.github/workflows/deploy-transportation-qc.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      APP_ID: '01J16GZP85W98XGW641Q7XC7ZT'
+      INSTALLATION_ID: '01J16GZPMC2FCATQGP1HWZ14K0'
+      APP_PATH: 'edge-apps/transportation'
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Deploy Edge App
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
+          # yamllint disable-line rule:line-length
+          cli_commands: edge-app upload --app-id=${{ env.APP_ID }} --path=${{ env.APP_PATH }}
+
+      - name: List Versions
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
+          # yamllint disable-line rule:line-length
+          cli_commands: edge-app version list --app-id=${{ env.APP_ID }}
+
+      - name: Promote Edge App
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
+          # yamllint disable-line rule:line-length
+          cli_commands: edge-app version promote --latest --installation-id=${{ env.INSTALLATION_ID }} --path=${{ env.APP_PATH }}

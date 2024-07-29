@@ -1,0 +1,2081 @@
+﻿{
+	"ServiceDelivery": {
+		"ResponseTimestamp": "2024-06-27T23:46:40Z",
+		"ProducerRef": "AC",
+		"Status": true,
+		"StopMonitoringDelivery": {
+			"version": "1.4",
+			"ResponseTimestamp": "2024-06-27T23:46:40Z",
+			"Status": true,
+			"MonitoredStopVisit": [
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "52671",
+					"MonitoredVehicleJourney": {
+						"LineRef": "217",
+						"DirectionRef": "S",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "2910020"
+						},
+						"PublishedLineName": "Mission San Jose - Milpitas",
+						"OperatorRef": "AC",
+						"OriginRef": "55477",
+						"OriginName": "Fremont BART",
+						"DestinationRef": "52671",
+						"DestinationName": "Milpitas BART VTA Bay 9",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-121.891151",
+							"Latitude": "37.4096336"
+						},
+						"Bearing": "345.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1439",
+						"MonitoredCall": {
+							"StopPointRef": "52671",
+							"StopPointName": "Milpitas BART VTA Bay 9",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Milpitas BART",
+							"AimedArrivalTime": "2024-06-27T23:37:00Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:41Z",
+							"AimedDepartureTime": "2024-06-27T23:37:00Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "53440",
+					"MonitoredVehicleJourney": {
+						"LineRef": "232",
+						"DirectionRef": "S",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "5982020"
+						},
+						"PublishedLineName": "Mission - Decoto - NewPark",
+						"OperatorRef": "AC",
+						"OriginRef": "51112",
+						"OriginName": "New Park Mall",
+						"DestinationRef": "50939",
+						"DestinationName": "Fremont BART",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.003738",
+							"Latitude": "37.5915413"
+						},
+						"Bearing": "138.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1661",
+						"MonitoredCall": {
+							"StopPointRef": "53440",
+							"StopPointName": "Mission Blvd & King Av",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "false",
+							"DestinationDisplay": "Fremont BART",
+							"AimedArrivalTime": "2024-06-27T23:46:35Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:41Z",
+							"AimedDepartureTime": "2024-06-27T23:46:35Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "57433",
+					"MonitoredVehicleJourney": {
+						"LineRef": "33",
+						"DirectionRef": "E",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "11847020"
+						},
+						"PublishedLineName": "Piedmont - Harrison - Park Blvd.",
+						"OperatorRef": "AC",
+						"OriginRef": "59988",
+						"OriginName": "Highland Way & Highland Av",
+						"DestinationRef": "57046",
+						"DestinationName": "Mountain Blvd & Moraga Av",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.248367",
+							"Latitude": "37.8003731"
+						},
+						"Bearing": "67.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1557",
+						"MonitoredCall": {
+							"StopPointRef": "57433",
+							"StopPointName": "Park Blvd & Ivy Dr",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Montclair",
+							"AimedArrivalTime": "2024-06-27T23:44:45Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:41Z",
+							"AimedDepartureTime": "2024-06-27T23:44:45Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "56687",
+					"MonitoredVehicleJourney": {
+						"LineRef": "76",
+						"DirectionRef": "W",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "13103020"
+						},
+						"PublishedLineName": "Hilltop - Market -  Cutting",
+						"OperatorRef": "AC",
+						"OriginRef": "58885",
+						"OriginName": "Del Norte BART Bay 6",
+						"DestinationRef": "56664",
+						"DestinationName": "Richmond Pkwy Transit Center (Park & Ride)",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.36261",
+							"Latitude": "37.9438477"
+						},
+						"Bearing": "359.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1467",
+						"MonitoredCall": {
+							"StopPointRef": "56687",
+							"StopPointName": "7th St & Lincoln Av",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Richmond Parkway Transit Center",
+							"AimedArrivalTime": "2024-06-27T23:41:01Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:41Z",
+							"AimedDepartureTime": "2024-06-27T23:41:01Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "52338",
+					"MonitoredVehicleJourney": {
+						"LineRef": "34",
+						"DirectionRef": "N",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "2295020"
+						},
+						"PublishedLineName": "Estudillo - Davis - Meekland",
+						"OperatorRef": "AC",
+						"OriginRef": "55055",
+						"OriginName": "Hayward BART",
+						"DestinationRef": "57064",
+						"DestinationName": "Foothill Blvd & 106th Av",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.151779",
+							"Latitude": "37.69104"
+						},
+						"Bearing": "357.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1619",
+						"MonitoredCall": {
+							"StopPointRef": "52338",
+							"StopPointName": "Farnsworth St & Avon Av",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Foothill Square",
+							"AimedArrivalTime": "2024-06-27T23:43:28Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:42Z",
+							"AimedDepartureTime": "2024-06-27T23:43:28Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "52728",
+					"MonitoredVehicleJourney": {
+						"LineRef": "40",
+						"DirectionRef": "S",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "4069020"
+						},
+						"PublishedLineName": "Foothill - Bancroft - Bay Fair",
+						"OperatorRef": "AC",
+						"OriginRef": "51828",
+						"OriginName": "11th St & Clay St",
+						"DestinationRef": "53684",
+						"DestinationName": "Bay Fair BART",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.27433",
+							"Latitude": "37.8029861"
+						},
+						"Bearing": "116.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "2227",
+						"MonitoredCall": {
+							"StopPointRef": "52728",
+							"StopPointName": "11th St & Broadway",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Bay Fair BART",
+							"AimedArrivalTime": "2024-06-27T23:45:50Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:42Z",
+							"AimedDepartureTime": "2024-06-27T23:45:50Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "57224",
+					"MonitoredVehicleJourney": {
+						"LineRef": "70",
+						"DirectionRef": "N",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "2935020"
+						},
+						"PublishedLineName": "Rheem - San Pablo Dam - Appian",
+						"OperatorRef": "AC",
+						"OriginRef": "51641",
+						"OriginName": "Richmond BART",
+						"DestinationRef": "55228",
+						"DestinationName": "Richmond Pkwy Transit Center (Park & Ride)",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.352341",
+							"Latitude": "37.9495811"
+						},
+						"Bearing": "89.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1543",
+						"MonitoredCall": {
+							"StopPointRef": "57224",
+							"StopPointName": "Rheem Av & 20th St",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Richmond Parkway Transit Center",
+							"AimedArrivalTime": "2024-06-27T23:47:10Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:42Z",
+							"AimedDepartureTime": "2024-06-27T23:47:10Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "55457",
+					"MonitoredVehicleJourney": {
+						"LineRef": "98",
+						"DirectionRef": "W",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "2725020"
+						},
+						"PublishedLineName": "Eastmont - 98th Ave. - Edgewater",
+						"OperatorRef": "AC",
+						"OriginRef": "58555",
+						"OriginName": "Eastmont Transit Center",
+						"DestinationRef": "59599",
+						"DestinationName": "San Leandro St & Coliseum BART Walkway",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.159821",
+							"Latitude": "37.7512627"
+						},
+						"Bearing": "153.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1444",
+						"MonitoredCall": {
+							"StopPointRef": "55457",
+							"StopPointName": "MacArthur Blvd & 98th Av",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Coliseum BART",
+							"AimedArrivalTime": "2024-06-27T23:46:58Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:42Z",
+							"AimedDepartureTime": "2024-06-27T23:46:58Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "56610",
+					"MonitoredVehicleJourney": {
+						"LineRef": "F",
+						"DirectionRef": "W",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "9696020"
+						},
+						"PublishedLineName": "Adeline - Market Transbay",
+						"OperatorRef": "AC",
+						"OriginRef": "52848",
+						"OriginName": "Hearst Av & Walnut St",
+						"DestinationRef": "50032",
+						"DestinationName": "Salesforce Transit Center Bay 32",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.279457",
+							"Latitude": "37.8312073"
+						},
+						"Bearing": "254.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "6141",
+						"MonitoredCall": {
+							"StopPointRef": "56610",
+							"StopPointName": "40th St & Harlan St",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "false",
+							"DestinationDisplay": "San Francisco",
+							"AimedArrivalTime": "2024-06-27T23:41:40Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:42Z",
+							"AimedDepartureTime": "2024-06-27T23:41:40Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "59239",
+					"MonitoredVehicleJourney": {
+						"LineRef": "29",
+						"DirectionRef": "E",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "491020"
+						},
+						"PublishedLineName": "Hollis - Peralta - Lakeshore",
+						"OperatorRef": "AC",
+						"OriginRef": "52785",
+						"OriginName": "Christie Av & 64th St",
+						"DestinationRef": "56557",
+						"DestinationName": "Lakeshore Av & Mandana Blvd",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.24247",
+							"Latitude": "37.8113632"
+						},
+						"Bearing": "43.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1587",
+						"MonitoredCall": {
+							"StopPointRef": "59239",
+							"StopPointName": "Lakeshore Av & Santa Ray Av",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "false",
+							"DestinationDisplay": "Mandana Blvd. & Lakeshore Ave.",
+							"AimedArrivalTime": "2024-06-27T23:37:14Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:43Z",
+							"AimedDepartureTime": "2024-06-27T23:37:14Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "55433",
+					"MonitoredVehicleJourney": {
+						"LineRef": "40",
+						"DirectionRef": "S",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "1166020"
+						},
+						"PublishedLineName": "Foothill - Bancroft - Bay Fair",
+						"OperatorRef": "AC",
+						"OriginRef": "51828",
+						"OriginName": "11th St & Clay St",
+						"DestinationRef": "53684",
+						"DestinationName": "Bay Fair BART",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.228722",
+							"Latitude": "37.7845497"
+						},
+						"Bearing": "93.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1680",
+						"MonitoredCall": {
+							"StopPointRef": "55433",
+							"StopPointName": "Foothill Blvd & 27th Av",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Bay Fair BART",
+							"AimedArrivalTime": "2024-06-27T23:44:37Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:43Z",
+							"AimedDepartureTime": "2024-06-27T23:44:37Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "59899",
+					"MonitoredVehicleJourney": {
+						"LineRef": "7",
+						"DirectionRef": "N",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "4777020"
+						},
+						"PublishedLineName": "Arlington - Shattuck - Ashby",
+						"OperatorRef": "AC",
+						"OriginRef": "53416",
+						"OriginName": "Emeryville Amtrak",
+						"DestinationRef": "52942",
+						"DestinationName": "Del Norte BART (Bay 3)",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.269218",
+							"Latitude": "37.8802795"
+						},
+						"Bearing": "351.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1590",
+						"MonitoredCall": {
+							"StopPointRef": "59899",
+							"StopPointName": "Shattuck Pl & Rose St",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "El Cerrito Del Norte BART",
+							"AimedArrivalTime": "2024-06-27T23:32:22Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:44Z",
+							"AimedDepartureTime": "2024-06-27T23:32:22Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "50335",
+					"MonitoredVehicleJourney": {
+						"LineRef": "86",
+						"DirectionRef": "S",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "10266020"
+						},
+						"PublishedLineName": "Winton - Industrial - Tennyson",
+						"OperatorRef": "AC",
+						"OriginRef": "51209",
+						"OriginName": "Hayward BART",
+						"DestinationRef": "57400",
+						"DestinationName": "South Hayward BART",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.084259",
+							"Latitude": "37.6702957"
+						},
+						"Bearing": "53.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1660",
+						"MonitoredCall": {
+							"StopPointRef": "50335",
+							"StopPointName": "D St & Atherton St",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "South Hayward BART",
+							"AimedArrivalTime": "2024-06-27T23:46:08Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:44Z",
+							"AimedDepartureTime": "2024-06-27T23:46:08Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "50522",
+					"MonitoredVehicleJourney": {
+						"LineRef": "97",
+						"DirectionRef": "N",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "6746020"
+						},
+						"PublishedLineName": "Hesperian - Alvarado - Decoto",
+						"OperatorRef": "AC",
+						"OriginRef": "50786",
+						"OriginName": "Union City BART",
+						"DestinationRef": "53332",
+						"DestinationName": "Bay Fair BART",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.097267",
+							"Latitude": "37.6319923"
+						},
+						"Bearing": "333.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "2209",
+						"MonitoredCall": {
+							"StopPointRef": "50522",
+							"StopPointName": "Hesperian Blvd & Sleepy Hollow Av",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Bay Fair BART",
+							"AimedArrivalTime": "2024-06-27T23:36:51Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:44Z",
+							"AimedDepartureTime": "2024-06-27T23:36:51Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "50464",
+					"MonitoredVehicleJourney": {
+						"LineRef": "97",
+						"DirectionRef": "S",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "4713020"
+						},
+						"PublishedLineName": "Hesperian - Alvarado - Decoto",
+						"OperatorRef": "AC",
+						"OriginRef": "53332",
+						"OriginName": "Bay Fair BART",
+						"DestinationRef": "50786",
+						"DestinationName": "Union City BART",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.106964",
+							"Latitude": "37.6474609"
+						},
+						"Bearing": "154.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1420",
+						"MonitoredCall": {
+							"StopPointRef": "50464",
+							"StopPointName": "Hesperian Blvd & La Playa Dr",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "false",
+							"DestinationDisplay": "Union City BART",
+							"AimedArrivalTime": "2024-06-27T23:46:30Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:44Z",
+							"AimedDepartureTime": "2024-06-27T23:46:30Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "56286",
+					"MonitoredVehicleJourney": {
+						"LineRef": "232",
+						"DirectionRef": "N",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "3949020"
+						},
+						"PublishedLineName": "Mission - Decoto - NewPark",
+						"OperatorRef": "AC",
+						"OriginRef": "50939",
+						"OriginName": "Fremont BART",
+						"DestinationRef": "51112",
+						"DestinationName": "New Park Mall",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.016052",
+							"Latitude": "37.5354919"
+						},
+						"Bearing": "122.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1663",
+						"MonitoredCall": {
+							"StopPointRef": "56286",
+							"StopPointName": "Cedar Blvd & Smith Av",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "false",
+							"DestinationDisplay": "NewPark Mall",
+							"AimedArrivalTime": "2024-06-27T23:46:48Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:45Z",
+							"AimedDepartureTime": "2024-06-27T23:46:48Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "52166",
+					"MonitoredVehicleJourney": {
+						"LineRef": "73",
+						"DirectionRef": "E",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "7257020"
+						},
+						"PublishedLineName": "73rd Ave. - Coliseum - Airport",
+						"OperatorRef": "AC",
+						"OriginRef": "50275",
+						"OriginName": "Oakland International Airport",
+						"DestinationRef": "55599",
+						"DestinationName": "Eastmont Transit Center",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.200279",
+							"Latitude": "37.7293472"
+						},
+						"Bearing": "24.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1304",
+						"MonitoredCall": {
+							"StopPointRef": "52166",
+							"StopPointName": "Hegenberger Rd & Hegenberger Pl",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "false",
+							"DestinationDisplay": "Eastmont Transit Center",
+							"AimedArrivalTime": "2024-06-27T23:48:13Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:45Z",
+							"AimedDepartureTime": "2024-06-27T23:48:13Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "53899",
+					"MonitoredVehicleJourney": {
+						"LineRef": "73",
+						"DirectionRef": "W",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "5793020"
+						},
+						"PublishedLineName": "73rd Ave. - Coliseum - Airport",
+						"OperatorRef": "AC",
+						"OriginRef": "55599",
+						"OriginName": "Eastmont Transit Center",
+						"DestinationRef": "50275",
+						"DestinationName": "Oakland International Airport",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.196274",
+							"Latitude": "37.74786"
+						},
+						"Bearing": "172.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1341",
+						"MonitoredCall": {
+							"StopPointRef": "53899",
+							"StopPointName": "Hegenberger Rd & Collins Dr",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "false",
+							"DestinationDisplay": "Oakland Airport",
+							"AimedArrivalTime": "2024-06-27T23:46:51Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:45Z",
+							"AimedDepartureTime": "2024-06-27T23:46:51Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "58266",
+					"MonitoredVehicleJourney": {
+						"LineRef": "97",
+						"DirectionRef": "N",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "9967020"
+						},
+						"PublishedLineName": "Hesperian - Alvarado - Decoto",
+						"OperatorRef": "AC",
+						"OriginRef": "50786",
+						"OriginName": "Union City BART",
+						"DestinationRef": "53332",
+						"DestinationName": "Bay Fair BART",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.047714",
+							"Latitude": "37.5946045"
+						},
+						"Bearing": "288.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1414",
+						"MonitoredCall": {
+							"StopPointRef": "58266",
+							"StopPointName": "Alvarado-Niles Rd & Medallion Dr",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Bay Fair BART",
+							"AimedArrivalTime": "2024-06-27T23:43:38Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:45Z",
+							"AimedDepartureTime": "2024-06-27T23:43:38Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "58788",
+					"MonitoredVehicleJourney": {
+						"LineRef": "18",
+						"DirectionRef": "S",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "5693020"
+						},
+						"PublishedLineName": "Solano - Shattuck - MLK Jr.",
+						"OperatorRef": "AC",
+						"OriginRef": "51769",
+						"OriginName": "Monroe St & Jackson St",
+						"DestinationRef": "55833",
+						"DestinationName": "8th St & Oak St (Lake Merritt BART)",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.268059",
+							"Latitude": "37.8315277"
+						},
+						"Bearing": "183.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "7021",
+						"MonitoredCall": {
+							"StopPointRef": "58788",
+							"StopPointName": "Martin Luther King Jr Way & 40th St",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Lake Merritt BART",
+							"AimedArrivalTime": "2024-06-27T23:24:00Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:46Z",
+							"AimedDepartureTime": "2024-06-27T23:24:00Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "50447",
+					"MonitoredVehicleJourney": {
+						"LineRef": "35",
+						"DirectionRef": "S",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "7037020"
+						},
+						"PublishedLineName": "Estudillo - Davis -  Lewelling",
+						"OperatorRef": "AC",
+						"OriginRef": "57064",
+						"OriginName": "Foothill Blvd & 106th Av",
+						"DestinationRef": "53520",
+						"DestinationName": "Bay Fair BART",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.1567",
+							"Latitude": "37.725647"
+						},
+						"Bearing": "243.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1618",
+						"MonitoredCall": {
+							"StopPointRef": "50447",
+							"StopPointName": "Hays St & Davis St",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Bay Fair BART",
+							"AimedArrivalTime": "2024-06-27T23:47:16Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:46Z",
+							"AimedDepartureTime": "2024-06-27T23:47:16Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "50542",
+					"MonitoredVehicleJourney": {
+						"LineRef": "51A",
+						"DirectionRef": "N",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "5978020"
+						},
+						"PublishedLineName": "Broadway - Santa Clara",
+						"OperatorRef": "AC",
+						"OriginRef": "51333",
+						"OriginName": "Fruitvale BART",
+						"DestinationRef": "50484",
+						"DestinationName": "Keith Av & College Av",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.276489",
+							"Latitude": "37.7827225"
+						},
+						"Bearing": "1.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "8015",
+						"MonitoredCall": {
+							"StopPointRef": "50542",
+							"StopPointName": "Webster St & Willie Stargell Av",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Rockridge BART",
+							"AimedArrivalTime": "2024-06-27T23:49:01Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:46Z",
+							"AimedDepartureTime": "2024-06-27T23:49:01Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "55241",
+					"MonitoredVehicleJourney": {
+						"LineRef": "52",
+						"DirectionRef": "N",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "9681020"
+						},
+						"PublishedLineName": "UC Village - Cedar - UC Campus",
+						"OperatorRef": "AC",
+						"OriginRef": "56888",
+						"OriginName": "Bancroft Way & Telegraph Av",
+						"DestinationRef": "51783",
+						"DestinationName": "Monroe St & 10th St",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.282516",
+							"Latitude": "37.8761406"
+						},
+						"Bearing": "354.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1581",
+						"MonitoredCall": {
+							"StopPointRef": "55241",
+							"StopPointName": "Cedar St & Sacramento St",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "University Village, Albany",
+							"AimedArrivalTime": "2024-06-27T23:46:42Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:46Z",
+							"AimedDepartureTime": "2024-06-27T23:46:42Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "52247",
+					"MonitoredVehicleJourney": {
+						"LineRef": "12",
+						"DirectionRef": "N",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "8610020"
+						},
+						"PublishedLineName": "MLK Jr. - Temescal - Grand",
+						"OperatorRef": "AC",
+						"OriginRef": "50292",
+						"OriginName": "Alice St & 2nd St",
+						"DestinationRef": "51784",
+						"DestinationName": "Gilman St & 6th St",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.252075",
+							"Latitude": "37.8086319"
+						},
+						"Bearing": "97.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "7023",
+						"MonitoredCall": {
+							"StopPointRef": "52247",
+							"StopPointName": "Grand Av & Euclid Av",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Northwest Berkeley",
+							"AimedArrivalTime": "2024-06-27T23:44:31Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:47Z",
+							"AimedDepartureTime": "2024-06-27T23:44:31Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "58658",
+					"MonitoredVehicleJourney": {
+						"LineRef": "18",
+						"DirectionRef": "N",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "12776020"
+						},
+						"PublishedLineName": "Solano - Shattuck - MLK Jr.",
+						"OperatorRef": "AC",
+						"OriginRef": "55833",
+						"OriginName": "8th St & Oak St (Lake Merritt BART)",
+						"DestinationRef": "51769",
+						"DestinationName": "Monroe St & Jackson St",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.265335",
+							"Latitude": "37.79702"
+						},
+						"Bearing": "295.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "7038",
+						"MonitoredCall": {
+							"StopPointRef": "58658",
+							"StopPointName": "8th St & Jackson St",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "University Village, Albany",
+							"AimedArrivalTime": "2024-06-27T23:44:47Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:48Z",
+							"AimedDepartureTime": "2024-06-27T23:44:47Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "50733",
+					"MonitoredVehicleJourney": {
+						"LineRef": "60",
+						"DirectionRef": "E",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "762020"
+						},
+						"PublishedLineName": "CSUEB - Southland - Tennyson",
+						"OperatorRef": "AC",
+						"OriginRef": "55661",
+						"OriginName": "South Hayward BART",
+						"DestinationRef": "58777",
+						"DestinationName": "West Loop Rd & CSU East Bay Library",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.073898",
+							"Latitude": "37.6709175"
+						},
+						"Bearing": "120.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1415",
+						"MonitoredCall": {
+							"StopPointRef": "50733",
+							"StopPointName": "2nd St & Walpert St (Rear Of Hayward High School)",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Cal State East Bay",
+							"AimedArrivalTime": "2024-06-27T23:36:51Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:48Z",
+							"AimedDepartureTime": "2024-06-27T23:36:51Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "52271",
+					"MonitoredVehicleJourney": {
+						"LineRef": "72M",
+						"DirectionRef": "N",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "6668020"
+						},
+						"PublishedLineName": "Macdonald - San Pablo",
+						"OperatorRef": "AC",
+						"OriginRef": "51632",
+						"OriginName": "2nd St & Washington St",
+						"DestinationRef": "58600",
+						"DestinationName": "Tewksbury Av & Castro St",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.295784",
+							"Latitude": "37.8808289"
+						},
+						"Bearing": "346.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1535",
+						"MonitoredCall": {
+							"StopPointRef": "52271",
+							"StopPointName": "San Pablo Av & Harrison St",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Point Richmond",
+							"AimedArrivalTime": "2024-06-27T23:43:26Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:48Z",
+							"AimedDepartureTime": "2024-06-27T23:43:26Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "50766",
+					"MonitoredVehicleJourney": {
+						"LineRef": "200",
+						"DirectionRef": "N",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "7116020"
+						},
+						"PublishedLineName": "Decoto - Newark Blvd. - Mowry",
+						"OperatorRef": "AC",
+						"OriginRef": "53000",
+						"OriginName": "Fremont BART",
+						"DestinationRef": "50798",
+						"DestinationName": "Union City BART",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-121.988983",
+							"Latitude": "37.5481682"
+						},
+						"Bearing": "215.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1611",
+						"MonitoredCall": {
+							"StopPointRef": "50766",
+							"StopPointName": "Mowry Av & Argonaut Way",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "false",
+							"DestinationDisplay": "Union City BART",
+							"AimedArrivalTime": "2024-06-27T23:46:44Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:49Z",
+							"AimedDepartureTime": "2024-06-27T23:46:44Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "55777",
+					"MonitoredVehicleJourney": {
+						"LineRef": "6",
+						"DirectionRef": "S",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "12599020"
+						},
+						"PublishedLineName": "Berkeley - Telegraph - Oakland",
+						"OperatorRef": "AC",
+						"OriginRef": "52842",
+						"OriginName": "Addison St & Oxford St",
+						"DestinationRef": "51636",
+						"DestinationName": "10th St & Washington St",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.269493",
+							"Latitude": "37.8095512"
+						},
+						"Bearing": "137.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1350",
+						"MonitoredCall": {
+							"StopPointRef": "55777",
+							"StopPointName": "Uptown Transit Center",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Downtown Oakland",
+							"AimedArrivalTime": "2024-06-27T23:49:00Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:49Z",
+							"AimedDepartureTime": "2024-06-27T23:49:00Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "55455",
+					"MonitoredVehicleJourney": {
+						"LineRef": "76",
+						"DirectionRef": "W",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "7035020"
+						},
+						"PublishedLineName": "Hilltop - Market -  Cutting",
+						"OperatorRef": "AC",
+						"OriginRef": "58885",
+						"OriginName": "Del Norte BART Bay 6",
+						"DestinationRef": "56664",
+						"DestinationName": "Richmond Pkwy Transit Center (Park & Ride)",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.328957",
+							"Latitude": "37.9793205"
+						},
+						"Bearing": "3.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1542",
+						"MonitoredCall": {
+							"StopPointRef": "55455",
+							"StopPointName": "Hilltop Mall",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Richmond Parkway Transit Center",
+							"AimedArrivalTime": "2024-06-27T23:42:57Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:49Z",
+							"AimedDepartureTime": "2024-06-27T23:42:57Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "50467",
+					"MonitoredVehicleJourney": {
+						"LineRef": "14",
+						"DirectionRef": "W",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "11768020"
+						},
+						"PublishedLineName": "14th St - San Antonio - High St",
+						"OperatorRef": "AC",
+						"OriginRef": "55886",
+						"OriginName": "Fruitvale BART",
+						"DestinationRef": "53193",
+						"DestinationName": "West Oakland BART",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.300774",
+							"Latitude": "37.8095741"
+						},
+						"Bearing": "212.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1672",
+						"MonitoredCall": {
+							"StopPointRef": "50467",
+							"StopPointName": "Wood St & 8th St",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "West Oakland BART",
+							"AimedArrivalTime": "2024-06-27T23:45:23Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:50Z",
+							"AimedDepartureTime": "2024-06-27T23:45:23Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "52725",
+					"MonitoredVehicleJourney": {
+						"LineRef": "217",
+						"DirectionRef": "S",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "9336020"
+						},
+						"PublishedLineName": "Mission San Jose - Milpitas",
+						"OperatorRef": "AC",
+						"OriginRef": "55477",
+						"OriginName": "Fremont BART",
+						"DestinationRef": "52671",
+						"DestinationName": "Milpitas BART VTA Bay 9",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-121.957817",
+							"Latitude": "37.5612907"
+						},
+						"Bearing": "142.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1631",
+						"MonitoredCall": {
+							"StopPointRef": "52725",
+							"StopPointName": "Mission Blvd & Las Palmas Av",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "false",
+							"DestinationDisplay": "Milpitas BART",
+							"AimedArrivalTime": "2024-06-27T23:47:24Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:50Z",
+							"AimedDepartureTime": "2024-06-27T23:47:24Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "55011",
+					"MonitoredVehicleJourney": {
+						"LineRef": "99",
+						"DirectionRef": "S",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "13968020"
+						},
+						"PublishedLineName": "Mission - Decoto - Fremont Blvd.",
+						"OperatorRef": "AC",
+						"OriginRef": "50511",
+						"OriginName": "Hayward BART",
+						"DestinationRef": "51008",
+						"DestinationName": "Fremont BART",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.006577",
+							"Latitude": "37.5578842"
+						},
+						"Bearing": "124.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1649",
+						"MonitoredCall": {
+							"StopPointRef": "55011",
+							"StopPointName": "Fremont Blvd & Central Av",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "false",
+							"DestinationDisplay": "Fremont BART",
+							"AimedArrivalTime": "2024-06-27T23:48:54Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:50Z",
+							"AimedDepartureTime": "2024-06-27T23:48:54Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "52818",
+					"MonitoredVehicleJourney": {
+						"LineRef": "12",
+						"DirectionRef": "S",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "11850020"
+						},
+						"PublishedLineName": "MLK Jr. - Temescal - Grand",
+						"OperatorRef": "AC",
+						"OriginRef": "50404",
+						"OriginName": "Gilman St & 7th St",
+						"DestinationRef": "50292",
+						"DestinationName": "Alice St & 2nd St",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.253334",
+							"Latitude": "37.8349724"
+						},
+						"Bearing": "133.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "8018",
+						"MonitoredCall": {
+							"StopPointRef": "52818",
+							"StopPointName": "Pleasant Valley Av & Gilbert St",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "false",
+							"DestinationDisplay": "Oakland Amtrak at Jack London Square",
+							"AimedArrivalTime": "2024-06-27T23:39:43Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:51Z",
+							"AimedDepartureTime": "2024-06-27T23:39:43Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "51027",
+					"MonitoredVehicleJourney": {
+						"LineRef": "20",
+						"DirectionRef": "W",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "418020"
+						},
+						"PublishedLineName": "Dimond - Fruitvale - South Shore",
+						"OperatorRef": "AC",
+						"OriginRef": "55595",
+						"OriginName": "Fruitvale Av & MacArthur Blvd",
+						"DestinationRef": "58900",
+						"DestinationName": "Martin Luther King Jr Way & 11th St",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.237312",
+							"Latitude": "37.7707596"
+						},
+						"Bearing": "213.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1333",
+						"MonitoredCall": {
+							"StopPointRef": "51027",
+							"StopPointName": "Park St & Clement Av",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Downtown Oakland",
+							"AimedArrivalTime": "2024-06-27T23:47:19Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:51Z",
+							"AimedDepartureTime": "2024-06-27T23:47:19Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "58459",
+					"MonitoredVehicleJourney": {
+						"LineRef": "39",
+						"DirectionRef": "E",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "10653020"
+						},
+						"PublishedLineName": "Skyline - Dimond - Fruitvale",
+						"OperatorRef": "AC",
+						"OriginRef": "53201",
+						"OriginName": "Seminary Av & Div 4 Gate",
+						"DestinationRef": "57766",
+						"DestinationName": "Skyline Blvd & Balmoral Dr (Skyline High School)",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.175476",
+							"Latitude": "37.8015442"
+						},
+						"Bearing": "133.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1676",
+						"MonitoredCall": {
+							"StopPointRef": "58459",
+							"StopPointName": "Skyline Blvd & Rishell Rd",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "false",
+							"DestinationDisplay": "Skyline High School",
+							"AimedArrivalTime": "2024-06-27T23:47:58Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:51Z",
+							"AimedDepartureTime": "2024-06-27T23:47:58Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "58400",
+					"MonitoredVehicleJourney": {
+						"LineRef": "40",
+						"DirectionRef": "S",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "12551020"
+						},
+						"PublishedLineName": "Foothill - Bancroft - Bay Fair",
+						"OperatorRef": "AC",
+						"OriginRef": "51828",
+						"OriginName": "11th St & Clay St",
+						"DestinationRef": "57000",
+						"DestinationName": "Eastmont Transit Center",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.244347",
+							"Latitude": "37.7906075"
+						},
+						"Bearing": "62.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "2223",
+						"MonitoredCall": {
+							"StopPointRef": "58400",
+							"StopPointName": "Foothill Blvd & 16th Av",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Eastmont Transit Center",
+							"AimedArrivalTime": "2024-06-27T23:48:18Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:51Z",
+							"AimedDepartureTime": "2024-06-27T23:48:18Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "52855",
+					"MonitoredVehicleJourney": {
+						"LineRef": "45",
+						"DirectionRef": "W",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "9059020"
+						},
+						"PublishedLineName": "Seminary - Sobrante Park",
+						"OperatorRef": "AC",
+						"OriginRef": "51358",
+						"OriginName": "Foothill Blvd & 106th Av",
+						"DestinationRef": "52000",
+						"DestinationName": "Eastmont Transit Center",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.195885",
+							"Latitude": "37.7449493"
+						},
+						"Bearing": "6.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1327",
+						"MonitoredCall": {
+							"StopPointRef": "52855",
+							"StopPointName": "Hegenberger Rd & Baldwin St",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Eastmont Transit Center",
+							"AimedArrivalTime": "2024-06-27T23:45:37Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:51Z",
+							"AimedDepartureTime": "2024-06-27T23:45:37Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "57885",
+					"MonitoredVehicleJourney": {
+						"LineRef": "57",
+						"DirectionRef": "E",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "6388020"
+						},
+						"PublishedLineName": "40th St. - MacArthur",
+						"OperatorRef": "AC",
+						"OriginRef": "51163",
+						"OriginName": "Christie Av & 65th St",
+						"DestinationRef": "51416",
+						"DestinationName": "Foothill Blvd & 108th Av",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.231743",
+							"Latitude": "37.8022957"
+						},
+						"Bearing": "133.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "2252",
+						"MonitoredCall": {
+							"StopPointRef": "57885",
+							"StopPointName": "MacArthur Blvd & Beaumont Av",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Foothill Square",
+							"AimedArrivalTime": "2024-06-27T23:49:48Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:52Z",
+							"AimedDepartureTime": "2024-06-27T23:49:48Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "58111",
+					"MonitoredVehicleJourney": {
+						"LineRef": "72",
+						"DirectionRef": "S",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "12471020"
+						},
+						"PublishedLineName": "Hilltop - CCC - San Pablo",
+						"OperatorRef": "AC",
+						"OriginRef": "57888",
+						"OriginName": "Hilltop Mall",
+						"DestinationRef": "51632",
+						"DestinationName": "2nd St & Washington St",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.333916",
+							"Latitude": "37.9536667"
+						},
+						"Bearing": "163.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1514",
+						"MonitoredCall": {
+							"StopPointRef": "58111",
+							"StopPointName": "San Pablo Av & Tulare Av",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Jack London Square",
+							"AimedArrivalTime": "2024-06-27T23:43:40Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:52Z",
+							"AimedDepartureTime": "2024-06-27T23:43:40Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "52835",
+					"MonitoredVehicleJourney": {
+						"LineRef": "96",
+						"DirectionRef": "E",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "12798020"
+						},
+						"PublishedLineName": "Alameda Pt. - 14th Ave. - Dimond",
+						"OperatorRef": "AC",
+						"OriginRef": "52142",
+						"OriginName": "W Midway Av & Monarch St",
+						"DestinationRef": "55997",
+						"DestinationName": "Montana St & Fruitvale Av",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.294655",
+							"Latitude": "37.7829361"
+						},
+						"Bearing": "178.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1362",
+						"MonitoredCall": {
+							"StopPointRef": "52835",
+							"StopPointName": "W Atlantic Av & Orion St",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "false",
+							"DestinationDisplay": "Dimond District",
+							"AimedArrivalTime": "2024-06-27T23:45:25Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:52Z",
+							"AimedDepartureTime": "2024-06-27T23:45:25Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "54475",
+					"MonitoredVehicleJourney": {
+						"LineRef": "14",
+						"DirectionRef": "W",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "12956020"
+						},
+						"PublishedLineName": "14th St - San Antonio - High St",
+						"OperatorRef": "AC",
+						"OriginRef": "55886",
+						"OriginName": "Fruitvale BART",
+						"DestinationRef": "53193",
+						"DestinationName": "West Oakland BART",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.2062",
+							"Latitude": "37.7804222"
+						},
+						"Bearing": "36.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1340",
+						"MonitoredCall": {
+							"StopPointRef": "54475",
+							"StopPointName": "High St & Brookdale Av",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "West Oakland BART",
+							"AimedArrivalTime": "2024-06-27T23:44:35Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:53Z",
+							"AimedDepartureTime": "2024-06-27T23:44:35Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "50287",
+					"MonitoredVehicleJourney": {
+						"LineRef": "36",
+						"DirectionRef": "N",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "7744020"
+						},
+						"PublishedLineName": "Dwight - Shellmound - Adeline",
+						"OperatorRef": "AC",
+						"OriginRef": "51731",
+						"OriginName": "West Oakland BART",
+						"DestinationRef": "53278",
+						"DestinationName": "Piedmont Ave & Bancroft Way",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.288437",
+							"Latitude": "37.8038292"
+						},
+						"Bearing": "105.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1586",
+						"MonitoredCall": {
+							"StopPointRef": "50287",
+							"StopPointName": "Adeline St & 10th St",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "false",
+							"DestinationDisplay": "U.C. Campus",
+							"AimedArrivalTime": "2024-06-27T23:43:29Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:53Z",
+							"AimedDepartureTime": "2024-06-27T23:43:29Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "51179",
+					"MonitoredVehicleJourney": {
+						"LineRef": "67",
+						"DirectionRef": "N",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "6634020"
+						},
+						"PublishedLineName": "Spruce - Oxford",
+						"OperatorRef": "AC",
+						"OriginRef": "51096",
+						"OriginName": "Allston Way & Shattuck Av",
+						"DestinationRef": "56277",
+						"DestinationName": "Spruce St & Grizzly Peak Blvd",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.26693",
+							"Latitude": "37.879425"
+						},
+						"Bearing": "358.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "5121",
+						"MonitoredCall": {
+							"StopPointRef": "51179",
+							"StopPointName": "Oxford St & Rose St",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "false",
+							"DestinationDisplay": "Spruce St. & Grizzly Peak Blvd.",
+							"AimedArrivalTime": "2024-06-27T23:45:47Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:53Z",
+							"AimedDepartureTime": "2024-06-27T23:45:47Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "58335",
+					"MonitoredVehicleJourney": {
+						"LineRef": "88",
+						"DirectionRef": "S",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "3298020"
+						},
+						"PublishedLineName": "Sacramento - Market",
+						"OperatorRef": "AC",
+						"OriginRef": "54139",
+						"OriginName": "Center St & Shattuck Av (Downtown Berkeley BART)",
+						"DestinationRef": "55474",
+						"DestinationName": "Madison St & 9th St",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.280441",
+							"Latitude": "37.8595238"
+						},
+						"Bearing": "170.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "7036",
+						"MonitoredCall": {
+							"StopPointRef": "58335",
+							"StopPointName": "Sacramento St & Ward St",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Lake Merritt BART",
+							"AimedArrivalTime": "2024-06-27T23:44:19Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:53Z",
+							"AimedDepartureTime": "2024-06-27T23:44:19Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "53067",
+					"MonitoredVehicleJourney": {
+						"LineRef": "210",
+						"DirectionRef": "S",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "7484020"
+						},
+						"PublishedLineName": "Fremont Blvd. - Mission San Jose",
+						"OperatorRef": "AC",
+						"OriginRef": "53208",
+						"OriginName": "Union Landing Transit Center",
+						"DestinationRef": "55526",
+						"DestinationName": "Ohlone College-Key C",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.008385",
+							"Latitude": "37.5588722"
+						},
+						"Bearing": "123.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1410",
+						"MonitoredCall": {
+							"StopPointRef": "53067",
+							"StopPointName": "Fremont Blvd & Peralta Blvd",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Ohlone College",
+							"AimedArrivalTime": "2024-06-27T23:50:00Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:54Z",
+							"AimedDepartureTime": "2024-06-27T23:50:00Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "55326",
+					"MonitoredVehicleJourney": {
+						"LineRef": "54",
+						"DirectionRef": "E",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "12868020"
+						},
+						"PublishedLineName": "35th Ave. - Merritt College",
+						"OperatorRef": "AC",
+						"OriginRef": "55550",
+						"OriginName": "Fruitvale BART",
+						"DestinationRef": "51777",
+						"DestinationName": "Campus Dr & Merritt College",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.199539",
+							"Latitude": "37.7943382"
+						},
+						"Bearing": "49.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1303",
+						"MonitoredCall": {
+							"StopPointRef": "55326",
+							"StopPointName": "35th Av & Wisconsin St",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "false",
+							"DestinationDisplay": "Merritt College",
+							"AimedArrivalTime": "2024-06-27T23:40:55Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:54Z",
+							"AimedDepartureTime": "2024-06-27T23:40:55Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "57255",
+					"MonitoredVehicleJourney": {
+						"LineRef": "62",
+						"DirectionRef": "W",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "11628020"
+						},
+						"PublishedLineName": "7th St. - San Antonio - 23rd Av.",
+						"OperatorRef": "AC",
+						"OriginRef": "55522",
+						"OriginName": "Fruitvale BART",
+						"DestinationRef": "53191",
+						"DestinationName": "West Oakland BART",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.24588",
+							"Latitude": "37.797493"
+						},
+						"Bearing": "227.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "8023",
+						"MonitoredCall": {
+							"StopPointRef": "57255",
+							"StopPointName": "8th Av & E 18th St",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "West Oakland BART",
+							"AimedArrivalTime": "2024-06-27T23:46:32Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:54Z",
+							"AimedDepartureTime": "2024-06-27T23:46:32Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "56054",
+					"MonitoredVehicleJourney": {
+						"LineRef": "72",
+						"DirectionRef": "N",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "13325020"
+						},
+						"PublishedLineName": "Hilltop - CCC - San Pablo",
+						"OperatorRef": "AC",
+						"OriginRef": "51632",
+						"OriginName": "2nd St & Washington St",
+						"DestinationRef": "57888",
+						"DestinationName": "Hilltop Mall",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.324455",
+							"Latitude": "37.9342461"
+						},
+						"Bearing": "338.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1541",
+						"MonitoredCall": {
+							"StopPointRef": "56054",
+							"StopPointName": "San Pablo Av & I-80 Fwy",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "false",
+							"DestinationDisplay": "Hilltop Mall",
+							"AimedArrivalTime": "2024-06-27T23:25:56Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:54Z",
+							"AimedDepartureTime": "2024-06-27T23:25:56Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "54145",
+					"MonitoredVehicleJourney": {
+						"LineRef": "73",
+						"DirectionRef": "E",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "5385020"
+						},
+						"PublishedLineName": "73rd Ave. - Coliseum - Airport",
+						"OperatorRef": "AC",
+						"OriginRef": "50275",
+						"OriginName": "Oakland International Airport",
+						"DestinationRef": "55599",
+						"DestinationName": "Eastmont Transit Center",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.18663",
+							"Latitude": "37.7593651"
+						},
+						"Bearing": "41.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1338",
+						"MonitoredCall": {
+							"StopPointRef": "54145",
+							"StopPointName": "73rd Av & Orral St",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Eastmont Transit Center",
+							"AimedArrivalTime": "2024-06-27T23:45:38Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:54Z",
+							"AimedDepartureTime": "2024-06-27T23:45:38Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "52640",
+					"MonitoredVehicleJourney": {
+						"LineRef": "O",
+						"DirectionRef": "E",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "9876020"
+						},
+						"PublishedLineName": "Santa Clara - Encinal Transbay",
+						"OperatorRef": "AC",
+						"OriginRef": "50028",
+						"OriginName": "Salesforce Transit Center Bay 28",
+						"DestinationRef": "55355",
+						"DestinationName": "Fruitvale BART",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.291153",
+							"Latitude": "37.8031731"
+						},
+						"Bearing": "34.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "6115",
+						"MonitoredCall": {
+							"StopPointRef": "52640",
+							"StopPointName": "5th St & Market St",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "false",
+							"DestinationDisplay": "Fruitvale BART",
+							"AimedArrivalTime": "2024-06-27T23:46:00Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:54Z",
+							"AimedDepartureTime": "2024-06-27T23:46:00Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "52593",
+					"MonitoredVehicleJourney": {
+						"LineRef": "1T",
+						"DirectionRef": "N",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "13817020"
+						},
+						"PublishedLineName": "International - E. 14th",
+						"OperatorRef": "AC",
+						"OriginRef": "52541",
+						"OriginName": "San Leandro BART",
+						"DestinationRef": "52574",
+						"DestinationName": "Uptown Oakland NB",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-122.268387",
+							"Latitude": "37.801506"
+						},
+						"Bearing": "289.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "2313",
+						"MonitoredCall": {
+							"StopPointRef": "52593",
+							"StopPointName": "Harrison NB",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Uptown Oakland",
+							"AimedArrivalTime": "2024-06-27T23:43:00Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:55Z",
+							"AimedDepartureTime": "2024-06-27T23:43:00Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				},
+				{
+					"RecordedAtTime": "2024-06-27T23:46:24Z",
+					"MonitoringRef": "52296",
+					"MonitoredVehicleJourney": {
+						"LineRef": "239",
+						"DirectionRef": "N",
+						"FramedVehicleJourneyRef": {
+							"DataFrameRef": "2024-06-27",
+							"DatedVehicleJourneyRef": "3241020"
+						},
+						"PublishedLineName": "Grimmer - Warm Springs",
+						"OperatorRef": "AC",
+						"OriginRef": "53755",
+						"OriginName": "N Milpitas Blvd & Dixon Rd",
+						"DestinationRef": "52798",
+						"DestinationName": "Fremont BART",
+						"Monitored": true,
+						"InCongestion": null,
+						"VehicleLocation": {
+							"Longitude": "-121.93222",
+							"Latitude": "37.5068741"
+						},
+						"Bearing": "257.0000000000",
+						"Occupancy": "seatsAvailable",
+						"VehicleRef": "1403",
+						"MonitoredCall": {
+							"StopPointRef": "52296",
+							"StopPointName": "S Grimmer Blvd & Parkmeadow Dr",
+							"VehicleLocationAtStop": "",
+							"VehicleAtStop": "true",
+							"DestinationDisplay": "Fremont BART",
+							"AimedArrivalTime": "2024-06-27T23:45:27Z",
+							"ExpectedArrivalTime": "2024-06-27T23:46:55Z",
+							"AimedDepartureTime": "2024-06-27T23:45:27Z",
+							"ExpectedDepartureTime": null,
+							"Distances": ""
+						}
+					}
+				}
+			]
+		}
+	}
+}
