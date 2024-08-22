@@ -23,7 +23,13 @@ It's essential to include the dependency above or else the app will not be displ
 To deploy the example, run the following command:
 
 ```bash
-screenly edge-app upload
+screenly edge-app deploy
+```
+
+To install the app, you need to create an instance:
+
+```bash
+screenly edge-app instance create
 ```
 
 ## Using the `generateQrCode` function

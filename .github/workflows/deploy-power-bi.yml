@@ -13,9 +13,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      APP_ID: '01HRCB5Z5TZZFT6J37RNVQYC38'
-      INSTALLATION_ID: '01HRCBDACKA1DFNK5T1GZVX67D'
-
       APP_PATH: 'edge-apps/powerbi'
 
     steps:
@@ -27,18 +24,4 @@ jobs:
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_PRODUCTION }}
           # yamllint disable-line rule:line-length
-          cli_commands: edge-app upload --app-id=${{ env.APP_ID }} --path=${{ env.APP_PATH }}
-
-      - name: List Versions
-        uses: screenly/cli@master
-        with:
-          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_PRODUCTION }}
-          # yamllint disable-line rule:line-length
-          cli_commands: edge-app version list --app-id=${{ env.APP_ID }}
-
-      - name: Promote Edge App
-        uses: screenly/cli@master
-        with:
-          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_PRODUCTION }}
-          # yamllint disable-line rule:line-length
-          cli_commands: edge-app version promote --latest --installation-id=${{ env.INSTALLATION_ID }} --path=${{ env.APP_PATH }}
+          cli_commands: edge-app deploy --path=${{ env.APP_PATH }}
