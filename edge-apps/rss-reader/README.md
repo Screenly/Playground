@@ -51,9 +51,10 @@ $ screenly edge-app deploy
 ```
 
 Install the app
-    
+
 ```bash
 $ screenly edge-app instance create
+Edge app instance successfully created.
 ```
 
 

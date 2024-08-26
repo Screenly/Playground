@@ -35,7 +35,7 @@ Step 5. **Upload the Edge App**
 `$ screenly edge-app deploy`
 
 > Wait for the upload to complete.
-> 
+>
 
 Step 6 **Install the Edge App**
 
