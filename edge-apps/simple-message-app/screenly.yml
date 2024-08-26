@@ -1,7 +1,6 @@
 ---
 syntax: manifest_v1
 id: 01HTYXDZVA532Z1GN4CX5Z7VH7
-user_version: v1.0.0
 description: Screenly Simple Message App
 icon: https://playground.srly.io/edge-apps/simple-message-app/static/images/icon.svg
 author: Screenly, Inc.

@@ -1,6 +1,5 @@
 ---
 syntax: manifest_v1
-user_version: ''
 description: A sample QR code generator app
 icon: ''
 author: Screenly, Inc.
