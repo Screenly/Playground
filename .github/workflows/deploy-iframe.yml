@@ -2,12 +2,13 @@
 name: Deploy iframe app
 
 on:
-  push:
-    branches:
-      - 'master'
-    paths:
-      - 'edge-apps/iframe/**'
-      - '.github/workflows/deploy-iframe.yml'
+  workflow_dispatch:
+#  push:
+#    branches:
+#      - 'master'
+#    paths:
+#      - 'edge-apps/iframe/**'
+#      - '.github/workflows/deploy-iframe.yml'
 
 jobs:
   deploy:

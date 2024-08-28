@@ -2,12 +2,13 @@
 name: Deploy Power BI
 
 on:
-  push:
-    branches:
-      - 'master'
-    paths:
-      - 'edge-apps/powerbi/**'
-      - '.github/workflows/deploy-power-bi.yml'
+  workflow_dispatch:
+#  push:
+#    branches:
+#      - 'master'
+#    paths:
+#      - 'edge-apps/powerbi/**'
+#      - '.github/workflows/deploy-power-bi.yml'
 
 jobs:
   deploy:

@@ -2,12 +2,14 @@
 name: Deploy tfl bus status app
 
 on:
-  push:
-    branches:
-      - 'master'
-    paths:
-      - 'edge-apps/tfl-bus-status/**'
-      - '.github/workflows/deploy-tfl-bus-status.yml'
+  workflow_dispatch:
+
+#  push:
+#    branches:
+#      - 'master'
+#    paths:
+#      - 'edge-apps/tfl-bus-status/**'
+#      - '.github/workflows/deploy-tfl-bus-status.yml'
 
 jobs:
   deploy:
