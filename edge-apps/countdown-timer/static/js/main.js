@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const { getNearestCity } = OfflineGeocodeCity
   const allTimezones = moment.tz.names()
 
-  async function initApp() {
+  async function initApp () {
     let clockTimer
     const { metadata, settings } = screenly
     const latitude = metadata.coordinates[0]
@@ -47,13 +47,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const initDateTime = async () => {
       clearTimeout(clockTimer)
       const timezone = await getTimezone()
-      const locale = await getLocale();
+      const locale = await getLocale()
       const momentObject = moment().tz(timezone)
       if (locale) {
         momentObject.locale(locale) // Set the locale if available
       }
 
-      const dayOfMonth = momentObject.format('D'); // Get the day of the month
+      const dayOfMonth = momentObject.format('D') // Get the day of the month
 
       document.querySelector('.date-text').innerText = momentObject.format('ddd').toUpperCase()
       document.querySelector('.date-number').innerText = dayOfMonth // Set the inner text to the numeric day of the month
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.documentElement.style.setProperty('--theme-color-background', backgroundColor)
 
     // Function to determine the image format based on the initial bytes
-    function getImageFormat(buffer) {
+    function getImageFormat (buffer) {
       const arr = new Uint8Array(buffer).subarray(0, 4)
       let header = ''
       for (let i = 0; i < arr.length; i++) {
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     }
 
-    function setLogoImage() {
+    function setLogoImage () {
       // Brand logo fetch from the setting as without the URL extension, and here we are fining and inserting right extension as per the received image header.
       const logoElement = document.getElementById('brandLogo')
       const defaultLogo = './static/img/Screenly.svg'
