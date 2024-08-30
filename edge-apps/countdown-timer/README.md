@@ -1,8 +1,8 @@
 # Screenly Countdown Timer App
 
-![Countdown Timer Screen](./static/images/countdown_timer_screen.jpg)
+![Countdown Timer Screen](./static/img/TimerPreview.png)
 
-## tl;dr
+## Installation
 
 ```bash
 $ cd edge-apps/countdown-timer
