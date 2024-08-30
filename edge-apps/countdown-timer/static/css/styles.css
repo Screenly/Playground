@@ -1,6 +1,6 @@
+/* stylelint-disable */
 @font-face {
-  font-family: 'Aeonik';
-
+  font-family: Aeonik;
   src: url('../font/Aeonik-Regular.woff2') format('woff2'),
 			url('../font/Aeonik-Regular.woff') format('woff');
 
