@@ -24,3 +24,19 @@ settings:
     help_text: |
       You can find your bus stop here:
       https://playground.srly.io/edge-apps/helpers/tfl/bus-stop-lookup/
+<<<<<<< HEAD
+=======
+  sentry_dsn:
+    type: secret
+    title: Sentry Client Key
+    optional: true
+    is_global: true
+    help_text: Sentry Client Key from Sentry SDK.
+  screenly_render_notification:
+    type: string
+    default_value: "1"
+    title: Requires ready for rendering
+    optional: true
+    help_text: |
+      Leave as is.
+>>>>>>> 2154fe3 (adding sentry dsn as setting)
