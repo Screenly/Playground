@@ -5,6 +5,7 @@ author: Screenly, Inc.
 description: |
   Displays Power BI dashboards and reports with big focus on security.
 icon: 'https://playground.srly.io/edge-apps/powerbi/static/images/icon.svg'
+ready_signal: true
 settings:
   azure_ad_client_id:
     type: string
@@ -61,10 +62,3 @@ settings:
     help_text: |
       Display a specific page (i.e. tab name) within a given Power BI report to display. Note that this is NOT the name shown in the report.
       You can the value of this in the URL when you are viewing the page, and this starts with `ReportSection50033...a22c`.
-  screenly_render_notification:
-    type: string
-    default_value: "1"
-    title: "Requires ready for rendering"
-    help_text: |
-      Special setting to indicate that application needs to call screenly.signalReadyForRendering before being shown on the screen.
-    optional: true
