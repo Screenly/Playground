@@ -1,6 +1,7 @@
 ---
 syntax: manifest_v1
 id: 01J014HW843KTC13XKXV3ABD04
+ready_signal: true
 description: |
   Displays TFL Bus Status for a given bus stop.
   You can find the list of all bus stops here:
@@ -23,10 +24,3 @@ settings:
     help_text: |
       You can find your bus stop here:
       https://playground.srly.io/edge-apps/helpers/tfl/bus-stop-lookup/
-  screenly_render_notification:
-    type: string
-    default_value: "1"
-    title: Requires ready for rendering
-    optional: true
-    help_text: |
-      Leave as is.
