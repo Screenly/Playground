@@ -232,7 +232,6 @@ async function fetchBusData () {
   if (typeof screenly !== 'undefined' && typeof screenly.signalReadyForRendering === 'function') {
     screenly.signalReadyForRendering()
   }
-
 }
 
 /*
