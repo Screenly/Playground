@@ -1,10 +1,9 @@
 ---
-user_version: ''
+syntax: manifest_v1
 description: A sample QR code generator app
 icon: ''
 author: Screenly, Inc.
 homepage_url: ''
-entrypoint: index.html
 settings:
   enable_utm:
     type: string

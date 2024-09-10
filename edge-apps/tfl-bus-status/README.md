@@ -31,11 +31,15 @@ Replace "TFL_EdgeApp" with your desired app name.
 
 Step 5. **Upload the Edge App**
 
-`$ screenly edge-app upload`
+`$ screenly edge-app deploy`
 
 Wait for the upload to complete.
 
-Step 6. **Specify the TFL API and STOP ID** for example: 490005186S1.
+Step 6 **Create an Instance**
+
+`$ screenly edge-app instance create`
+
+Step 7. **Specify the TFL API and STOP ID** for example: 490005186S1.
 
 Replace "API" with the actual API that obtained from [https://api-portal.tfl.gov.uk/](https://api-portal.tfl.gov.uk/)
 
@@ -45,12 +49,6 @@ and provide the STOP ID also - replace the "stopID" with actual Stop ID.
 
 `$ screenly edge-app setting set stop_id=stopID`
 
-
-Step 7. **Deploy the Edge App as Asset**
-
-`$ screenly edge-app version promote --latest`
-
-This promotes the latest version of the Edge App as an asset.
 
 Step 8. **Check the Screenly Dashboard**
 

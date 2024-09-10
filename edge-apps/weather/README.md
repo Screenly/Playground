@@ -9,7 +9,7 @@ $ cd edge-apps/weather
 $ screenly edge-app create \
     --name=EDGE_APP_NAME \
     --in-place
-$ screenly edge-app upload
+$ screenly edge-app deploy
+$ screenly edge-app instance create
 $ screenly edge-app secret set openweathermap_api_key=MY_API_KEY
-$ screenly edge-app version promote revision=X
 ```
