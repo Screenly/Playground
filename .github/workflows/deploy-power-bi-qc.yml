@@ -2,6 +2,7 @@
 name: Deploy Power BI (QC)
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - 'master'
@@ -24,4 +25,4 @@ jobs:
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
           # yamllint disable-line rule:line-length
-          cli_commands: edge-app deploy --path=${{ env.APP_PATH }}
+          cli_commands: RUST_LOG=debug edge-app deploy --path=${{ env.APP_PATH }}
