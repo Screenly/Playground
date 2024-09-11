@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - 'master'
+      - 'fix/prombi_debug'
     paths:
       - 'edge-apps/powerbi/**'
       - '.github/workflows/deploy-power-bi-qc.yml'
