@@ -227,11 +227,7 @@ async function fetchBusData () {
     busArrival.innerHTML = error
     document.querySelector('.bus-list').classList.add('hidden')
   }
-
-  // Send signal to load the screen once content is ready, if the function exists.
-  if (typeof screenly !== 'undefined' && typeof screenly.signalReadyForRendering === 'function') {
-    screenly.signalReadyForRendering()
-  }
+  screenly.signalReadyForRendering()
 }
 
 /*
