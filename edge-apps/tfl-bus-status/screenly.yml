@@ -30,10 +30,3 @@ settings:
     optional: true
     is_global: true
     help_text: Sentry Client Key from Sentry SDK.
-  screenly_render_notification:
-    type: string
-    default_value: "1"
-    title: Requires ready for rendering
-    optional: true
-    help_text: |
-      Leave as is.
