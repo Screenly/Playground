@@ -29,4 +29,4 @@ settings:
     title: Sentry Client Key
     optional: true
     is_global: true
-    help_text: Sentry Client Key from Sentry SDK.
+    help_text: Sentry Client Key from Sentry SDK for error capturing.
