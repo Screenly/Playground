@@ -3,9 +3,9 @@
 const apiUrl = 'https://api.tfl.gov.uk/' // Base URL for the TfL API
 const stopId = screenly.settings.stop_id
 const apiKey = screenly.settings.tfl_api_token
-const sentryDsn =  screenly.settings.sentry_dsn
+const sentryDsn = screenly.settings.sentry_dsn
 
-//Initiate Sentry.
+// Initiate Sentry.
 if (sentryDsn) {
   Sentry.init({
     dsn: sentryDsn
