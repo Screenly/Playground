@@ -11,8 +11,8 @@ $ cd edge-apps/asset-metadata
 $ screenly edge-app create \
     --name my-asset-metadata \
     --in-place
-$ screenly edge-app upload
+$ screenly edge-app deploy
 [...]
+$ screenly edge-app instance create
 $ screenly edge-app secret set google_maps_api_key=Your_API_KEY
-$ screenly edge-app version promote revision=X
 ```

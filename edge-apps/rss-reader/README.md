@@ -47,8 +47,16 @@ so you need to copy the necessary files first. To do so, run the following comma
 $ screenly edge-app create \
     --name=my-rss-reader-app \
     --in-place
-$ screenly edge-app upload
+$ screenly edge-app deploy
 ```
+
+Install the app
+
+```bash
+$ screenly edge-app instance create
+Edge app instance successfully created.
+```
+
 
 Configure the feed:
 

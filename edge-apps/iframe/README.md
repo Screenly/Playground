@@ -32,11 +32,16 @@ Step 4. **Create a New iFrame Edge App:**
 
 Step 5. **Upload the Edge App**
 
-`$ screenly edge-app upload`
+`$ screenly edge-app deploy`
 
 > Wait for the upload to complete.
+>
 
-Step 6. **Specify the iFrame URL**
+Step 6 **Install the Edge App**
+
+`$ screenly edge-app instance create`
+
+Step 7. **Specify the iFrame URL**
 
 Replace "WEBPAGE_URL" with the actual URL you want to display in the iFrame.
 
@@ -44,12 +49,6 @@ Replace "WEBPAGE_URL" with the actual URL you want to display in the iFrame.
 or
 
 `$ screenly edge-app setting set iframe='<iframe src="WEBPAGE_URL" title="programiz pro website" height="500" width="500" ></iframe>`
-
-Step 7. **Deploy the Edge App as Asset**
-
-`$ screenly edge-app version promote --latest`
-
-> This promotes the latest version of the Edge App as an asset.
 
 Step 8. **Check the Screenly Dashboard**
 

@@ -13,9 +13,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      APP_ID: '01HKT8ENYZFTNN5D6SJ38P9328'
-      INSTALLATION_ID: '01HKT8GHXJKTEVSCT90MDSB6E0'
       APP_PATH: 'edge-apps/weather'
+      MANIFEST_FILE_NAME: 'screenly_qc.yml'
 
     steps:
       - name: Checkout Code
@@ -26,18 +25,4 @@ jobs:
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
           # yamllint disable-line rule:line-length
-          cli_commands: edge-app upload --app-id=${{ env.APP_ID }} --path=${{ env.APP_PATH }}
-
-      - name: Get Revisions
-        uses: screenly/cli@master
-        with:
-          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
-          # yamllint disable-line rule:line-length
-          cli_commands: edge-app version list --app-id=${{ env.APP_ID }}
-
-      - name: Promote Edge App
-        uses: screenly/cli@master
-        with:
-          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
-          # yamllint disable-line rule:line-length
-          cli_commands: edge-app version promote --latest --installation-id=${{ env.INSTALLATION_ID }} --path=${{ env.APP_PATH }}
+          cli_commands: edge-app deploy --path=${{ env.APP_PATH }}

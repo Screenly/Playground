@@ -9,9 +9,10 @@ $ cd edge-apps/countdown-timer
 $ screenly edge-app create \
     --name countdown-timer \
     --in-place
-$ screenly edge-app upload
+$ screenly edge-app deploy
 [...] # You can tweak settings here.
-$ screenly edge-app version promote --revision=X
+# To install an app, you need to create an instance.
+$ screenly edge-app instance create
 
 # Alternatively, you can use --latest in place of --revision.
 ```

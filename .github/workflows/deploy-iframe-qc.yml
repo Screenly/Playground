@@ -13,10 +13,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      APP_ID: '01HSGG4DJ6D2WE9GN0V7E4TSP1'
-      INSTALLATION_ID: '01HSGG5616M1JFA6Q0Z258NA4A'
-
       APP_PATH: 'edge-apps/iframe'
+      MANIFEST_FILE_NAME: 'screenly_qc.yml'
 
     steps:
       - name: Checkout Code
@@ -27,18 +25,4 @@ jobs:
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
           # yamllint disable-line rule:line-length
-          cli_commands: edge-app upload --app-id=${{ env.APP_ID }} --path=${{ env.APP_PATH }}
-
-      - name: List Versions
-        uses: screenly/cli@master
-        with:
-          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
-          # yamllint disable-line rule:line-length
-          cli_commands: edge-app version list --app-id=${{ env.APP_ID }}
-
-      - name: Promote Edge App
-        uses: screenly/cli@master
-        with:
-          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
-          # yamllint disable-line rule:line-length
-          cli_commands: edge-app version promote --latest --installation-id=${{ env.INSTALLATION_ID }} --path=${{ env.APP_PATH }}
+          cli_commands: edge-app deploy --path=${{ env.APP_PATH }}
