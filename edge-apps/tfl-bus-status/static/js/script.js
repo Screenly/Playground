@@ -1,16 +1,17 @@
-/* global screenly */
+/* global screenly, Sentry */
 
 const apiUrl = 'https://api.tfl.gov.uk/' // Base URL for the TfL API
 const stopId = screenly.settings.stop_id
 const apiKey = screenly.settings.tfl_api_token
 const sentryDsn =  screenly.settings.sentry_dsn
 
+//Initiate Sentry.
 if (sentryDsn) {
-	Sentry.init({
-		dsn: sentryDsn
-	});
+  Sentry.init({
+    dsn: sentryDsn
+  })
 } else {
-	console.warn('Sentry DSN is not defined. Sentry will not be initialized.');
+  console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
 }
 
 async function getCachedData (url, cacheKey) {
