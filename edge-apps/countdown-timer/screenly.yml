@@ -41,3 +41,9 @@ settings:
     title: target_timestamp
     optional: false
     help_text: Countdown timer value (Format YYYY-MM-DDTHH:MM:SS).
+  sentry_dsn:
+    type: secret
+    title: Sentry Client Key
+    optional: true
+    is_global: true
+    help_text: Sentry Client Key from Sentry SDK for error capturing.
