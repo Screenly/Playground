@@ -111,8 +111,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // brand details fetching  from settings
     // check if the color fetched from the settings are white, if it's : it will set to default color and fall back to default also the color is not available.
 
-    const primaryColor = (!screenly.settings.screenly_color_accent || screenly.settings.screenly_color_accent === '#ffffff') ? '#972eff' : screenly.settings.screenly_color_accent;
-    const secondaryColor = (!screenly.settings.screenly_color_light || screenly.settings.screenly_color_light === '#ffffff') ? '#adafbe' : screenly.settings.screenly_color_light;
+    const primaryColor = (!screenly.settings.screenly_color_accent || screenly.settings.screenly_color_accent === '#ffffff') ? '#972eff' : screenly.settings.screenly_color_accent
+    const secondaryColor = (!screenly.settings.screenly_color_light || screenly.settings.screenly_color_light === '#ffffff') ? '#adafbe' : screenly.settings.screenly_color_light
 
     document.documentElement.style.setProperty('--theme-color-primary', primaryColor)
     document.documentElement.style.setProperty('--theme-color-secondary', secondaryColor)
