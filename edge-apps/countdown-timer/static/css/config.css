@@ -8,7 +8,7 @@
 :root {
 	--theme-color-primary: #972EFF;
 	--theme-color-secondary: #ADAFBE;
-	--theme--color-tertiary: #FFFFFF;
+	--theme-color-tertiary: #FFFFFF;
 	--theme-color-background: #C9CDD0;
 }
 
@@ -48,7 +48,7 @@ body {
 	@apply 4k-portrait:rounded-[7rem] 4k-portrait:gap-[2rem];
 	@apply 4k-landscape:rounded-[7rem] 4k-landscape:gap-[2rem];;
 	background-color: var(--theme-color-primary);
-	color: var(--theme--color-tertiary);
+	color: var(--theme-color-tertiary);
 }
 
 .primary-card-message{
@@ -63,7 +63,7 @@ body {
 
 	@apply 4k-portrait:text-[8rem];
 	@apply 4k-landscape:text-[7rem];
-	color: var(--theme--color-tertiary);
+	color: var(--theme-color-tertiary);
 }
 
 .primary-card-number {
@@ -79,7 +79,7 @@ body {
 	@apply 4k-portrait:text-[75rem];
 	@apply 4k-landscape-alt:text-[65rem];
 	@apply 4k-landscape:text-[70rem];
-	color: var(--theme--color-tertiary);
+	color: var(--theme-color-tertiary);
 }
 
 .primary-card-text {
@@ -92,7 +92,7 @@ body {
 
 	@apply 4k-portrait:text-[10rem];
 	@apply 4k-landscape:text-[10rem];
-	color: var(--theme--color-tertiary);
+	color: var(--theme-color-tertiary);
 }
 
 .secondary-container {
@@ -127,7 +127,7 @@ body {
 
 	@apply 4k-portrait:rounded-[7rem];
 	@apply 4k-landscape:rounded-[7rem];
-	background-color: var(--theme--color-tertiary);
+	background-color: var(--theme-color-tertiary);
 }
 
 .clock-icon{
