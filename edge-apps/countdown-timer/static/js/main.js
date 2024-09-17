@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
   }
 
-  async function initApp() {
+  async function initApp () {
     let clockTimer
     const { metadata, settings } = screenly
     const latitude = metadata.coordinates[0]
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.documentElement.style.setProperty('--theme-color-background', backgroundColor)
 
     // Function to determine the image format based on the initial bytes
-    function getImageFormat(buffer) {
+    function getImageFormat (buffer) {
       const arr = new Uint8Array(buffer).subarray(0, 4)
       let header = ''
       for (let i = 0; i < arr.length; i++) {
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     }
 
-    function setLogoImage() {
+    function setLogoImage () {
       // Brand logo fetch from the setting as without the URL extension, and here we are fining and inserting right extension as per the received image header.
       const logoElement = document.getElementById('brandLogo')
       const defaultLogo = './static/img/Screenly.svg'
