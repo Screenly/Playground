@@ -111,12 +111,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     // brand details fetching  from settings
     // check if the color fetched from the settings are white, if it's : it will set to default color and fall back to default also the color is not available.
 
-    const primaryColor = (settings.color_accent === '#FFFFFF' ? '#972EFF' : settings.color_accent) || '#972EFF'
-    const secondaryColor = (settings.color_light === '#FFFFFF' ? '#ADAFBE' : settings.color_light) || '#ADAFBE'
+    const primaryColor = (!screenly.settings.screenly_color_accent || screenly.settings.screenly_color_accent === '#ffffff') ? '#972eff' : screenly.settings.screenly_color_accent;
+    const secondaryColor = (!screenly.settings.screenly_color_light || screenly.settings.screenly_color_light === '#ffffff') ? '#adafbe' : screenly.settings.screenly_color_light;
 
     document.documentElement.style.setProperty('--theme-color-primary', primaryColor)
-    document.documentElement.style.setProperty('--theme-color-tertiary', tertiaryColor)
     document.documentElement.style.setProperty('--theme-color-secondary', secondaryColor)
+    document.documentElement.style.setProperty('--theme-color-tertiary', tertiaryColor)
     document.documentElement.style.setProperty('--theme-color-background', backgroundColor)
 
     // Function to determine the image format based on the initial bytes
@@ -144,8 +144,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     function setLogoImage () {
       // Brand logo fetch from the setting as without the URL extension, and here we are fining and inserting right extension as per the received image header.
       const logoElement = document.getElementById('brandLogo')
-      const defaultLogo = './static/img/Screenly.svg'
-      const logoUrl = settings.logo_dark
+      const defaultLogo = 'static/img/Screenly.svg'
+      const logoUrl = screenly.settings.screenly_logo_dark
       if (logoUrl) {
         fetch(logoUrl)
           .then(response => {
