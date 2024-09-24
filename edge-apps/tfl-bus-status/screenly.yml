@@ -24,3 +24,9 @@ settings:
     help_text: |
       You can find your bus stop here:
       https://playground.srly.io/edge-apps/helpers/tfl/bus-stop-lookup/
+  sentry_dsn:
+    type: secret
+    title: Sentry Client Key
+    optional: true
+    is_global: true
+    help_text: Sentry Client Key from Sentry SDK for error capturing.
