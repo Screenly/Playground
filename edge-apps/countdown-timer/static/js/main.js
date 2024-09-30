@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function setLogoImage () {
       // Brand logo fetch from the setting as without the URL extension, and here we are fining and inserting right extension as per the received image header.
-      const logoElement = document.getElementById('brandLogo')
+      const logoElement = document.getElementById('brand-logo')
       const defaultLogo = 'static/img/Screenly.svg'
       const logoUrl = screenly.settings.screenly_logo_dark
       if (logoUrl) {
