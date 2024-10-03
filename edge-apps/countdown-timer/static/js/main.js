@@ -111,74 +111,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     // brand details fetching  from settings
     // check if the color fetched from the settings are white, if it's : it will set to default color and fall back to default also the color is not available.
 
-    const primaryColor = (!screenly.settings.screenly_color_accent || screenly.settings.screenly_color_accent === '#ffffff') ? '#972eff' : screenly.settings.screenly_color_accent
-    const secondaryColor = (!screenly.settings.screenly_color_light || screenly.settings.screenly_color_light === '#ffffff') ? '#adafbe' : screenly.settings.screenly_color_light
+    const primaryColor = (!screenly.settings.screenly_color_accent || screenly.settings.screenly_color_accent.toLowerCase() === '#ffffff') ? '#972eff' : screenly.settings.screenly_color_accent
+    const secondaryColor = (!screenly.settings.screenly_color_light || screenly.settings.screenly_color_light.toLowerCase() === '#ffffff') ? '#adafbe' : screenly.settings.screenly_color_light
 
     document.documentElement.style.setProperty('--theme-color-primary', primaryColor)
     document.documentElement.style.setProperty('--theme-color-secondary', secondaryColor)
     document.documentElement.style.setProperty('--theme-color-tertiary', tertiaryColor)
     document.documentElement.style.setProperty('--theme-color-background', backgroundColor)
 
-    // Function to determine the image format based on the initial bytes
-    function getImageFormat (buffer) {
-      const arr = new Uint8Array(buffer).subarray(0, 4)
-      let header = ''
-      for (let i = 0; i < arr.length; i++) {
-        header += arr[i].toString(16)
-      }
-
-      switch (header) {
-        case '89504e47':
-          return 'image/png'
-        case 'ffd8ffe0':
-        case 'ffd8ffe1':
-        case 'ffd8ffe2':
-          return 'image/jpeg'
-        case '3c3f786d':
-          return 'image/svg+xml'
-        default:
-          return 'unknown'
-      }
-    }
-
-    function setLogoImage () {
-      // Brand logo fetch from the setting as without the URL extension, and here we are fining and inserting right extension as per the received image header.
-      const logoElement = document.getElementById('brand-logo')
-      const defaultLogo = 'static/img/Screenly.svg'
-      const logoUrl = screenly.settings.screenly_logo_dark
-      if (logoUrl) {
-        fetch(logoUrl)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok')
-            }
-            return response.arrayBuffer()
-          })
-          .then(buffer => {
-            const format = getImageFormat(buffer)
-            let formattedUrl = defaultLogo
-
-            if (format === 'image/png') {
-              formattedUrl = logoUrl + '.png'
-            } else if (format === 'image/jpeg') {
-              formattedUrl = logoUrl + '.jpg'
-            } else if (format === 'image/svg+xml') {
-              formattedUrl = logoUrl + '.svg'
-            }
-
-            logoElement.src = formattedUrl
-          })
-          .catch(error => {
-            console.error('Error fetching the image:', error)
-            logoElement.src = defaultLogo
-          })
-      } else {
-        logoElement.src = defaultLogo
-      }
-    }
-
-    // Call the function to set the logo image
-    setLogoImage()
+    // Brand Image Setting
+    const defaultLogo = 'static/img/Screenly.svg'; // Fallback logo
+    const darkLogoUrl = screenly.settings.screenly_logo_dark || defaultLogo
+    document.getElementById('brand-logo').src = darkLogoUrl
 
     // Change the color of circles inside SVG objects
     const svgObjects = document.querySelectorAll('#svgObject1, #svgObject2, #svgObject3')
