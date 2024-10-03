@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.documentElement.style.setProperty('--theme-color-background', backgroundColor)
 
     // Brand Image Setting
-    const defaultLogo = 'static/img/Screenly.svg'; // Fallback logo
+    const defaultLogo = 'static/img/Screenly.svg' // Fallback logo
     const darkLogoUrl = screenly.settings.screenly_logo_dark || defaultLogo
     document.getElementById('brand-logo').src = darkLogoUrl
 
