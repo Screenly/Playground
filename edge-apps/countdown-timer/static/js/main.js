@@ -128,6 +128,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Function to fetch and process the image
     async function fetchImage (fileUrl) {
+      // eslint-disable-next-line no-useless-catch
       try {
         const response = await fetch(fileUrl)
         if (!response.ok) {
