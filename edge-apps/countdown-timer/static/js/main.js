@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
   }
 
-  async function initApp() {
+  async function initApp () {
     let clockTimer
     const { metadata, settings } = screenly
     const latitude = metadata.coordinates[0]
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const defaultLogo = 'static/img/Screenly.svg'
 
     // Function to fetch and process the image
-    async function fetchImage(fileUrl) {
+    async function fetchImage (fileUrl) {
       try {
         const response = await fetch(fileUrl)
 
@@ -155,14 +155,16 @@ document.addEventListener('DOMContentLoaded', async () => {
           svgReader.onloadend = function () {
             const base64 = btoa(unescape(encodeURIComponent(svgReader.result)))
             imgElement.src = 'data:image/svg+xml;base64,' + base64
-          };
-        } else if (hex === '89504E47' || hex.startsWith('FFD8FF')) {  // Checking PNG or JPEG/JPG magic number
+          }
+        } else if (hex === '89504E47' || hex.startsWith('FFD8FF')) {
+          // Checking PNG or JPEG/JPG magic number
           imgElement.src = fileUrl
         } else {
           throw new Error('Unknown image type')
         }
       } catch (error) {
-        throw error  // Rethrow the error to be caught in the main logic
+        throw error
+        // Rethrow the error to be caught in the main logic
       }
     }
 
