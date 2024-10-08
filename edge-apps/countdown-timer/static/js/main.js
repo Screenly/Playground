@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
   }
 
-  async function initApp () {
+  async function initApp() {
     let clockTimer
     const { metadata, settings } = screenly
     const latitude = metadata.coordinates[0]
@@ -120,9 +120,64 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.documentElement.style.setProperty('--theme-color-background', backgroundColor)
 
     // Brand Image Setting
-    const defaultLogo = 'static/img/Screenly.svg' // Fallback logo
-    const darkLogoUrl = screenly.settings.screenly_logo_dark || defaultLogo
-    document.getElementById('brand-logo').src = darkLogoUrl
+
+    const imgElement = document.getElementById('brand-logo')
+    const corsUrl = screenly.cors_proxy_url + '/' + screenly.settings.screenly_logo_dark
+    const fallbackUrl = screenly.settings.screenly_logo_dark
+    const defaultLogo = 'static/img/Screenly.svg'
+
+    // Function to fetch and process the image
+    async function fetchImage(fileUrl) {
+      try {
+        const response = await fetch(fileUrl)
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch image from ${fileUrl}, status: ${response.status}`)
+        }
+
+        const blob = await response.blob()
+        const buffer = await blob.arrayBuffer()
+        const uintArray = new Uint8Array(buffer)
+
+        // Get the first 4 bytes for magic number detection
+        const hex = Array.from(uintArray.slice(0, 4))
+          .map(b => b.toString(16).padStart(2, '0'))
+          .join('').toUpperCase()
+
+        // Convert the first few bytes to ASCII for text-based formats like SVG
+        const ascii = String.fromCharCode.apply(null, uintArray.slice(0, 100)) // Check first 100 chars for XML/SVG tags
+
+        // Determine file type based on MIME type, magic number, or ASCII text
+        if (ascii.startsWith('<?xml') || ascii.startsWith('<svg')) {
+          // Convert to Base64 and display if SVG
+          const svgReader = new FileReader()
+          svgReader.readAsText(blob)
+          svgReader.onloadend = function () {
+            const base64 = btoa(unescape(encodeURIComponent(svgReader.result)))
+            imgElement.src = 'data:image/svg+xml;base64,' + base64
+          };
+        } else if (hex === '89504E47' || hex.startsWith('FFD8FF')) {  // Checking PNG or JPEG/JPG magic number
+          imgElement.src = fileUrl
+        } else {
+          throw new Error('Unknown image type')
+        }
+      } catch (error) {
+        throw error  // Rethrow the error to be caught in the main logic
+      }
+    }
+
+    // First, try to fetch the image using the CORS proxy URL
+    try {
+      await fetchImage(corsUrl)
+    } catch (error) {
+      // If CORS fails, try the fallback URL
+      try {
+        await fetchImage(fallbackUrl)
+      } catch (fallbackError) {
+        // If fallback fails, use the default logo
+        imgElement.src = defaultLogo
+      }
+    }
 
     // Change the color of circles inside SVG objects
     const svgObjects = document.querySelectorAll('#svgObject1, #svgObject2, #svgObject3')
