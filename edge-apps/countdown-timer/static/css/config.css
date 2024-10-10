@@ -1,0 +1,243 @@
+/* stylelint-disable */
+@import url('./fonts.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--theme-color-primary: #972EFF;
+	--theme-color-secondary: #ADAFBE;
+	--theme-color-tertiary: #FFFFFF;
+	--theme-color-background: #C9CDD0;
+}
+
+body {
+	@apply h-screen font-aeonik;
+}
+
+.main-container {
+	@apply flex flex-row p-10 gap-10 h-full;
+	@apply portrait:flex-col;
+	@apply rpi-touch-portrait:gap-[1.5rem] rpi-touch-portrait:p-[1rem];
+
+	@apply hd-alt-portrait:p-[1.5rem];
+	@apply rpi-touch-landscape:gap-[1.5rem] rpi-touch-landscape:p-[1rem];
+
+	@apply hd-portrait:p-[2rem];
+	@apply hd-alt-landscape:p-[1.5rem];
+
+	@apply hd-landscape:p-[2rem];
+
+	@apply 4k-portrait:gap-[5rem] 4k-portrait:p-[4.5rem];;
+	@apply 4k-landscape:gap-[5rem] 4k-landscape:p-[4.5rem];
+	background-color: var(--theme-color-background);
+}
+
+.primary-card {
+	@apply flex flex-col justify-center items-center w-1/2 p-10 gap-12 leading-none;
+	@apply portrait:w-full portrait:h-1/2;
+	/* border-radius: 2.5rem; */
+	@apply rpi-touch-portrait:rounded-[1rem] rpi-touch-portrait:gap-[1rem];
+	@apply rpi-touch-landscape:gap-[1.5rem];
+	@apply hd-alt-portrait:rounded-[2rem];
+	@apply hd-portrait:rounded-[3rem] hd-portrait:gap-[2rem];
+	@apply hd-alt-landscape:rounded-[2rem] hd-landscape:gap-[2rem];
+	@apply hd-landscape:rounded-[3rem];
+
+	@apply 4k-portrait:rounded-[7rem] 4k-portrait:gap-[2rem];
+	@apply 4k-landscape:rounded-[7rem] 4k-landscape:gap-[2rem];;
+	background-color: var(--theme-color-primary);
+	color: var(--theme-color-tertiary);
+}
+
+.primary-card-message{
+	@apply leading-none;
+
+	@apply rpi-touch-portrait:text-[1.75rem];
+	@apply hd-alt-portrait:text-[3rem];
+	@apply rpi-touch-landscape:text-[1.75rem];
+	@apply hd-portrait:text-[4rem];
+	@apply hd-alt-landscape:text-[2.5rem];
+	@apply hd-landscape:text-[4rem];
+
+	@apply 4k-portrait:text-[8rem];
+	@apply 4k-landscape:text-[7rem];
+	color: var(--theme-color-tertiary);
+}
+
+.primary-card-number {
+	@apply leading-none;
+
+	@apply rpi-touch-portrait:text-[15rem];
+	@apply hd-alt-portrait:text-[24rem];
+	@apply rpi-touch-landscape:text-[14.5rem];
+	@apply hd-portrait:text-[35rem];
+	@apply hd-alt-landscape:text-[22rem];
+	@apply hd-landscape:text-[34rem];
+
+	@apply 4k-portrait:text-[75rem];
+	@apply 4k-landscape-alt:text-[65rem];
+	@apply 4k-landscape:text-[70rem];
+	color: var(--theme-color-tertiary);
+}
+
+.primary-card-text {
+	@apply rpi-touch-portrait:text-[2rem];
+	@apply hd-alt-portrait:text-[3rem];
+	@apply rpi-touch-landscape:text-[1.75rem];
+	@apply hd-portrait:text-[4.5rem];
+	@apply hd-alt-landscape:text-[3rem];
+	@apply hd-landscape:text-[4.5rem];
+
+	@apply 4k-portrait:text-[10rem];
+	@apply 4k-landscape:text-[10rem];
+	color: var(--theme-color-tertiary);
+}
+
+.secondary-container {
+	@apply w-1/2 flex flex-col gap-8 justify-between;
+	@apply portrait:w-full portrait:h-1/2;
+
+	@apply rpi-touch-portrait:gap-[1rem];
+	@apply rpi-touch-landscape:gap-[1rem];
+	@apply 4k-portrait:gap-[5rem];
+	@apply 4k-landscape:gap-[6rem];
+}
+
+.row-container {
+	@apply flex flex-row justify-between gap-8 flex-auto h-1/2;
+	@apply rpi-touch-portrait:gap-[1rem];
+	@apply rpi-touch-landscape:gap-[1rem];
+	@apply hd-alt-portrait:gap-[1rem];
+	@apply hd-portrait:gap-[1.5rem];
+	@apply 4k-portrait:gap-[5rem];
+	@apply 4k-landscape:gap-[5rem];
+}
+
+.secondary-card {
+	@apply flex flex-col justify-center items-center w-full h-auto gap-2;
+	/* border-radius: 2.5rem; */
+	@apply rpi-touch-portrait:rounded-[1rem];
+	@apply hd-alt-portrait:rounded-[1.5rem];
+	@apply rpi-touch-landscape:rounded-[1rem];
+	@apply hd-portrait:rounded-[3rem];
+	@apply hd-alt-landscape:rounded-[1.5rem];
+	@apply hd-landscape:rounded-[3rem];
+
+	@apply 4k-portrait:rounded-[7rem];
+	@apply 4k-landscape:rounded-[7rem];
+	background-color: var(--theme-color-tertiary);
+}
+
+.clock-icon{
+	@apply rpi-touch-portrait:h-[1.5rem];
+	@apply hd-alt-portrait:h-[2.5rem];
+	@apply rpi-touch-landscape:h-[1.5rem];
+	@apply hd-portrait:h-[3.5rem];
+	@apply hd-alt-landscape:h-[2.5rem];
+	@apply hd-landscape:h-[4rem];
+
+	@apply 4k-portrait:h-[7rem];
+	@apply 4k-landscape:h-[7rem];
+}
+
+.secondary-card-number {
+	/* @apply leading-none; */
+	/* font-size: 140px; */
+	@apply rpi-touch-portrait:text-[3.5rem];
+	@apply hd-alt-portrait:text-[5.25rem];
+	@apply rpi-touch-landscape:text-[4rem];
+	@apply hd-portrait:text-[8.5rem];
+	@apply hd-alt-landscape:text-[6.5rem];
+  @apply hd-landscape:text-[9.5rem];
+
+	@apply 4k-portrait:text-[20rem];
+	@apply 4k-landscape:text-[20rem];
+	color: var(--theme-color-primary);
+}
+
+.secondary-card-label {
+	/* @apply leading-none; */
+	/* font-size: 40px; */
+	@apply rpi-touch-portrait:text-[1rem];
+	@apply hd-alt-portrait:text-[1.75rem];
+	@apply rpi-touch-landscape:text-[1.25rem];
+	@apply hd-portrait:text-[3rem];
+	@apply hd-alt-landscape:text-[2rem];
+	@apply hd-landscape:text-[3rem];
+
+	@apply 4k-portrait:text-[5rem];
+	@apply 4k-landscape:text-[5rem];
+	color: var(--theme-color-secondary);
+}
+
+.brand-logo {
+	/* width: 225.5px; */
+	@apply rpi-touch-portrait:w-[5rem];
+	@apply hd-alt-portrait:w-[7rem];
+	@apply rpi-touch-landscape:w-[5rem];
+	@apply hd-portrait:w-[11rem];
+	@apply hd-alt-landscape:w-[7rem];
+	@apply hd-landscape:w-[11rem];
+
+	@apply 4k-portrait:w-[25rem];
+	@apply 4k-landscape:w-[25rem];
+}
+
+.info-text {
+	/* font-size: 20px; */
+	color: var(--theme-color-primary);
+	@apply rpi-touch-portrait:text-[.75rem];
+	@apply hd-alt-portrait:text-[1rem];
+	@apply rpi-touch-landscape:text-[.75rem];
+	@apply hd-portrait:text-[1.5rem];
+	@apply hd-alt-landscape:text-[1rem];
+	@apply hd-landscape:text-[1.5rem];
+
+	@apply 4k-portrait:text-[3rem];
+	@apply 4k-landscape:text-[3rem];
+}
+
+.info-card {
+	@apply justify-center align-middle gap-10;
+	@apply rpi-touch-portrait:gap-[1rem];
+	@apply hd-alt-portrait:gap-[2rem];
+	@apply rpi-touch-landscape:gap-[1rem];
+	@apply hd-portrait:gap-[2rem];
+	@apply hd-alt-landscape:gap-[2rem];
+	@apply hd-landscape:gap-[3rem];
+	@apply 4k-portrait:gap-[5rem];
+	@apply 4k-landscape:gap-[5rem];
+}
+
+.date-card {
+	@apply gap-1;
+}
+
+.date-number {
+	@apply leading-none;
+	font-size: 10rem;
+	@apply rpi-touch-portrait:text-[5rem];
+	@apply hd-alt-portrait:text-[10rem];
+	@apply rpi-touch-landscape:text-[5rem];
+	@apply hd-portrait:text-[14rem];
+	@apply hd-alt-landscape:text-[10rem];
+
+	@apply 4k-portrait:text-[25rem];
+	@apply 4k-landscape:text-[25rem];
+	color: var(--theme-color-primary);
+}
+
+.date-text {
+	font-size: 88px;
+	@apply rpi-touch-portrait:text-[2.5rem];
+	@apply hd-alt-portrait:text-[5rem];
+	@apply rpi-touch-landscape:text-[2.5rem];
+	@apply hd-portrait:text-[7rem];
+	@apply hd-alt-landscape:text-[5rem];
+
+	@apply 4k-portrait:text-[12rem];
+	@apply 4k-landscape:text-[12rem];
+	color: var(--theme-color-secondary);
+}
