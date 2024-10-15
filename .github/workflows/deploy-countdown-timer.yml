@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP_PATH: 'edge-apps/countdown-timer'
+      RUST_LOG: debug
 
     steps:
       - name: Checkout Code
