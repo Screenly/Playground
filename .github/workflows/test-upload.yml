@@ -1,0 +1,30 @@
+---
+name: Deploy Countdown Timer (QC)
+
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'edge-apps/countdown-timer/**'
+      - '.github/workflows/deploy-countdown-timer-qc.yml'
+  pull_request:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      APP_PATH: 'edge-apps/countdown-timer'
+      MANIFEST_FILE_NAME: 'screenly_qc.yml'
+      RUST_LOG: 'debug'
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Deploy Edge App
+        uses: screenly/cli@feature/upload_logs_as_artifacts
+        with:
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
+          # yamllint disable-line rule:line-length
+          cli_commands: edge-app list
