@@ -22,7 +22,7 @@ settings:
   override_locale:
     type: string
     default_value: en
-    title: Override locale
+    title: Override Locale
     optional: true
     help_text: Specify a supported locale value (e.g., en_US).
   override_timezone:
