@@ -1,0 +1,918 @@
+/* stylelint-disable */
+
+
+@font-face {
+    font-family: 'Aeonik';
+    src: url('../font/Aeonik-Regular.woff2') format('woff2'),
+        url('../font/Aeonik-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    margin: 0rem;
+    padding: 0rem;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 14px;
+}
+
+:root {
+    --theme-color-primary: #972EFF;
+    --theme-color-secondary: #ADAFBE;
+    --theme--color-tertiary: #FFFFFF;
+    --theme-color-background: #C9CDD0;
+}
+
+
+body {
+    height: 100dvh;
+    font-family: 'Aeonik', sans-serif;
+}
+
+
+.main-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    height: 100%;
+    padding: 2rem;
+    /* height: 100dvh; */
+    background-color: var(--theme-color-background);
+}
+
+
+.primary-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    border-radius: 3rem;
+    gap: 2rem;
+    line-height: 1;
+    background-color: var(--theme-color-primary);
+    color: var(--theme--color-tertiary);
+}
+
+
+.primary-card-clock {
+    line-height: 1;
+    font-size: 8rem;
+    color: var(--theme--color-tertiary);
+}
+
+
+.secondary-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: space-between;
+}
+
+
+.row-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2rem;
+    height: 50%;
+}
+
+
+.secondary-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    gap: 2rem;
+    border-radius: 3.481rem;
+    background-color: var(--theme--color-tertiary);
+}
+
+
+.secondary-card-number-container {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+    align-items: baseline;
+}
+
+.secondary-card-time-am-pm {
+    font-size: 4rem;
+    color: var(--theme-color-secondary);
+}
+
+.secondary-card-number {
+    font-size: 14.5rem;
+    color: var(--theme-color-primary);
+}
+
+.secondary-card-label {
+    font-size: 3rem;
+    color: var(--theme-color-secondary);
+}
+
+.brand-logo {
+    width: 12rem;
+}
+
+
+.info-text {
+    font-size: 1.75rem;
+    color: var(--theme-color-primary);
+}
+
+
+.info-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+
+}
+
+.date-card {
+    gap: 0.25rem;
+}
+
+
+.date-number {
+    line-height: 1;
+    font-size: 10rem;
+    color: var(--theme-color-primary);
+}
+
+.date-text {
+    font-size: 5rem;
+    color: var(--theme-color-secondary);
+}
+
+
+/* ---------Clock Start ------------ */
+
+.clock-container {
+    width: 36.43rem; /* 510px / 14 */
+    height: 36.43rem; /* 510px / 14 */
+    background: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+}
+
+.clock-container .clock {
+    width: 30rem; /* 420px / 14 */
+    height: 30rem; /* 420px / 14 */
+    border-radius: 50%;
+    margin: auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.clock .number_hours,
+.clock .seconds_bar {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.number_hours span {
+    position: absolute;
+    transform: rotate(calc(var(--index) * 30deg));
+    inset: 0.43rem; /* 6px / 14 */
+    text-align: center;
+}
+
+.seconds_bar span {
+    position: absolute;
+
+    /* 360deg / 60 = 6deg */
+    transform: rotate(calc(var(--index) * 45deg));
+    inset: -1.43rem; /* -20px / 14 */
+    text-align: center;
+}
+
+.clock .seconds_bar span p {
+    width: 0.21rem; /* 3px / 14 */
+    display: inline-block;
+    border-radius: 0.14rem; /* 2px / 14 */
+}
+
+.clock .seconds_bar span:nth-child(5n) p {
+    background: var(--theme-color-primary);
+    width: 0.36rem; /* 5px / 14 */
+    height: 1.29rem; /* 18px / 14 */
+    transform: translateY(0.07rem); /* 1px / 14 */
+}
+
+.hands_box {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hands_box .hand {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+}
+
+.hands_box .hour {
+    width: 20rem; /* 280px / 14 */
+    height: 20rem; /* 280px / 14 */
+}
+
+.hands_box .hour i {
+    width: 0.5rem; /* 7px / 14 */
+    height: 9.86rem; /* 138px / 14 */
+    background: #ffffff;
+    position: absolute;
+    box-shadow: 0px 0px 2.14rem 0px rgb(0 0 0 / 97%); /* 30px / 14 */
+}
+
+.hands_box .hour i::before {
+    content: "";
+    position: absolute;
+    height: 7.5rem; /* 105px / 14 */
+    width: 1.07rem; /* 15px / 14 */
+    bottom: 2.14rem; /* 30px / 14 */
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 1.43rem; /* 20px / 14 */
+    background: var(--theme-color-primary);
+    z-index: 2;
+    box-shadow: 0px 0px 1.71rem 0px rgb(0 0 0 / 26%); /* 24px / 14 */
+}
+
+.hands_box .hour i::after {
+    content: "";
+    position: absolute;
+    height: 8.21rem; /* 115px / 14 */
+    width: 1.86rem; /* 26px / 14 */
+    bottom: 1.79rem; /* 25px / 14 */
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 1.79rem; /* 25px / 14 */
+    background: #ffffff;
+    z-index: 1;
+}
+
+.hands_box .minute {
+    width: 27.14rem; /* 380px / 14 */
+    height: 27.14rem; /* 380px / 14 */
+}
+
+.hands_box .minute::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.79rem; /* 25px / 14 */
+    height: 1.79rem; /* 25px / 14 */
+    background: #fff;
+    border-radius: 1.79rem; /* 25px / 14 */
+    z-index: 999;
+}
+
+.hands_box .minute i {
+    width: 0.5rem; /* 7px / 14 */
+    height: 13.57rem; /* 190px / 14 */
+    background: #fff;
+    position: absolute;
+    box-shadow: 0px 0px 2.14rem 0px rgb(0 0 0 / 97%); /* 30px / 14 */
+}
+
+.hands_box .minute i::before {
+    content: "";
+    width: 1.86rem; /* 26px / 14 */
+    height: 14.71rem; /* 206px / 14 */
+    background: #ffffff;
+    position: absolute;
+    bottom: 1.79rem; /* 25px / 14 */
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 1.79rem; /* 25px / 14 */
+    z-index: 1;
+    box-shadow: 0px 0px 1.71rem 0px rgb(0 0 0 / 26%); /* 24px / 14 */
+}
+
+.hands_box .minute i::after {
+    content: "";
+    width: 1.07rem; /* 15px / 14 */
+    height: 13.93rem; /* 195px / 14 */
+    background: var(--theme-color-primary);
+    position: absolute;
+    bottom: 2.21rem; /* 31px / 14 */
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 1.43rem; /* 20px / 14 */
+    z-index: 2;
+}
+
+.hands_box .second {
+    width: 30rem; /* 420px / 14 */
+    height: 34.29rem; /* 480px / 14 */
+}
+
+.hands_box .second::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.14rem; /* 16px / 14 */
+    height: 1.14rem; /* 16px / 14 */
+    background: #F7410A;
+    border-radius: 1.79rem; /* 25px / 14 */
+}
+
+.hands_box .second::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0.57rem; /* 8px / 14 */
+    height: 0.57rem; /* 8px / 14 */
+    background: var(--theme-color-primary);
+    border-radius: 1.79rem; /* 25px / 14 */
+}
+
+.hands_box .second i {
+    width: 0.29rem; /* 4px / 14 */
+    /* half of parent height*/
+    height: calc(15rem + 3.57rem); /* 210px + 50px / 14 */
+    background: #F7410A;
+    position: relative;
+    border-radius: 0.14rem; /* 2px / 14 */
+}
+
+.hands_box .second i::before {
+    content: '';
+    width: 0.29rem; /* 4px / 14 */
+    height: 3.21rem; /* 45px / 14 */
+    background: #F7410A;
+    position: absolute;
+    bottom: -2.93rem; /* 41px / 14 */
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 0.36rem; /* 5px / 14 */
+}
+
+
+/*---------Clock End-----------*/
+
+
+/* Media Query */
+
+@media (orientation: portrait) {
+    .main-container {
+        flex-direction: column;
+    }
+    .primary-card {
+        width: 100%;
+        height: 50%;
+    }
+    .secondary-container {
+        width: 100%;
+        height: 50%;
+    }
+}
+
+/* 480px 720px Clock Container need to fix */
+/*TODO: Fix the Clock Circle issue : When Scale to .5, circle change to oval*/
+
+
+  @media screen and (width >=480px) and (orientation: portrait) {
+
+    .main-container {
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .primary-card {
+        border-radius: 2rem;
+    }
+
+
+.clock-container {
+    transform: scale(.7);
+}
+
+    .secondary-container {
+        gap: 1rem;
+    }
+
+    .row-container {
+        gap: 1rem;
+    }
+
+    .secondary-card {
+        border-radius: 2rem;
+    }
+
+    .secondary-card-number-container {
+        gap: 1rem;
+    }
+
+    .secondary-card-number {
+        font-size: 8rem;
+    }
+    .secondary-card-time-am-pm {
+        font-size: 3rem;
+    }
+
+    .brand-logo {
+        width: 5rem;
+    }
+
+    .info-text {
+        font-size: 1rem;
+    }
+
+    .info-card {
+        gap: 1.5rem;
+    }
+
+    .date-text {
+        font-size: 3.5rem;
+    }
+    .date-number {
+        font-size: 7rem;
+    }
+
+}
+
+
+ @media screen and (width >=720px) and (orientation: portrait) {
+
+    .main-container {
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .primary-card {
+        border-radius: 2rem;
+    }
+
+
+.clock-container {
+    transform: scale(1);
+}
+
+    .secondary-container {
+        gap: 1rem;
+    }
+
+    .row-container {
+        gap: 1rem;
+    }
+
+    .secondary-card {
+        border-radius: 2rem;
+    }
+
+    .secondary-card-number-container {
+        gap: 1rem;
+    }
+
+    .secondary-card-number {
+        font-size: 14rem;
+    }
+    .secondary-card-time-am-pm {
+        font-size: 4rem;
+    }
+
+    .brand-logo {
+        width: 9rem;
+    }
+
+    .info-text {
+        font-size: 1.25rem;
+    }
+
+    .info-card {
+        gap: 1.5rem;
+    }
+
+    .date-text {
+        font-size: 6rem;
+    }
+    .date-number {
+        font-size: 10rem;
+    }
+
+}
+
+
+
+
+@media screen and (width >=800px) and (orientation: landscape) {
+    .main-container {
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .primary-card {
+        border-radius: 2rem;
+    }
+
+
+.clock-container {
+    transform: scale(.5);
+}
+
+
+
+    .secondary-container {
+        gap: 1rem;
+    }
+
+    .row-container {
+        gap: 1rem;
+    }
+
+    .secondary-card {
+        border-radius: 2rem;
+    }
+
+    .secondary-card-number-container {
+        gap: 1rem;
+    }
+
+    .secondary-card-number {
+        font-size: 8rem;
+    }
+    .secondary-card-time-am-pm {
+        font-size: 2.5rem;
+    }
+
+    .brand-logo {
+        width: 5rem;
+    }
+
+    .info-text {
+        font-size: .75rem;
+    }
+
+    .info-card {
+        gap: 1.5rem;
+    }
+
+    .date-text {
+        font-size: 3.4rem;
+    }
+    .date-number {
+        font-size: 7rem;
+    }
+
+}
+
+
+@media screen and (width >=1080px) and (orientation: portrait) {
+    .main-container {
+        gap: 3rem;
+        padding: 3rem;
+    }
+
+    .primary-card {
+        border-radius: 4rem;
+    }
+
+    .clock-container {
+        transform: scale(1.25);
+    }
+
+    .secondary-container {
+        gap: 3rem;
+    }
+
+    .row-container {
+        gap: 3rem;
+    }
+
+    .secondary-card {
+        border-radius: 4rem;
+    }
+
+    .secondary-card-number-container {
+        gap: 1rem;
+    }
+
+    .secondary-card-number {
+        font-size: 20rem;
+    }
+    .secondary-card-time-am-pm {
+        font-size: 5rem;
+    }
+
+    .brand-logo {
+        width: 12rem;
+    }
+
+    .info-text {
+        font-size: 2rem;
+    }
+
+    .info-card {
+        gap: 3rem;
+    }
+
+    .date-text {
+        font-size: 10rem;
+    }
+    .date-number {
+        font-size: 16rem;
+    }
+}
+
+@media screen and (width >=1280px) and (orientation: landscape) {
+    .main-container {
+        gap: 2rem;
+        padding: 2rem;
+    }
+
+    .primary-card {
+        border-radius: 2rem;
+    }
+
+    .clock-container {
+        transform: scale(.80);
+    }
+
+    .secondary-container {
+        gap: 2rem;
+    }
+
+    .row-container {
+        gap: 2rem;
+    }
+
+    .secondary-card {
+        border-radius: 2.5rem;
+    }
+
+    .secondary-card-number-container {
+        gap: 1rem;
+    }
+
+    .secondary-card-number {
+        font-size: 12rem;
+    }
+    .secondary-card-time-am-pm {
+        font-size: 3rem;
+    }
+
+    .brand-logo {
+        width: 8rem;
+    }
+
+    .info-text {
+        font-size: 1.25rem;
+    }
+
+    .info-card {
+        gap: 3rem;
+    }
+
+    .date-text {
+        font-size: 5rem;
+    }
+    .date-number {
+        font-size: 12rem;
+    }
+
+}
+
+@media screen and (width >=1920px) and (orientation: landscape) {
+
+    .main-container {
+        gap: 2.5rem;
+        padding: 2.5rem;
+    }
+
+    .primary-card {
+        border-radius: 4rem;
+    }
+
+    .clock-container {
+        transform: scale(1.25);
+    }
+
+    .secondary-container {
+        gap: 2.5rem;
+    }
+
+    .row-container {
+        gap: 2.4rem;
+    }
+
+    .secondary-card {
+        border-radius: 4rem;
+    }
+
+    .secondary-card-number-container {
+        gap: 1rem;
+    }
+
+    .secondary-card-number {
+        font-size: 18rem;
+    }
+    .secondary-card-time-am-pm {
+        font-size: 4rem;
+    }
+
+    .brand-logo {
+        width: 13rem;
+    }
+
+    .info-text {
+        font-size: 1.75rem;
+    }
+
+    .info-card {
+        gap: 3rem;
+    }
+
+    .date-text {
+        font-size: 7rem;
+    }
+    .date-number {
+        font-size: 18rem;
+    }
+
+}
+
+@media screen and (width >=2160px) and (orientation: portrait) {
+
+    .main-container {
+        gap: 5rem;
+        padding: 5rem;
+    }
+
+    .primary-card {
+        border-radius: 8rem;
+    }
+
+    .clock-container {
+        transform: scale(2.7);
+    }
+
+    .secondary-container {
+        gap: 5rem;
+    }
+
+    .row-container {
+        gap: 6rem;
+    }
+
+    .secondary-card {
+        border-radius: 8rem;
+    }
+
+    .secondary-card-number {
+        font-size: 45rem;
+    }
+    .secondary-card-time-am-pm {
+        font-size: 10rem;
+    }
+
+    .brand-logo {
+        width: 22rem;
+    }
+
+    .info-text {
+        font-size: 3.75rem;
+    }
+
+    .info-card {
+        gap: 5rem;
+    }
+
+    .date-text {
+        font-size: 17rem;
+    }
+    .date-number {
+        font-size: 34rem;
+    }
+
+
+}
+
+@media screen and (width >=3840px) and (orientation: landscape) {
+    .main-container {
+        gap: 5rem;
+        padding: 5rem;
+    }
+
+    .primary-card {
+        border-radius: 8rem;
+    }
+
+    .clock-container {
+        transform: scale(2.7);
+    }
+
+    .secondary-container {
+        gap: 5rem;
+    }
+
+    .row-container {
+        gap: 6rem;
+    }
+
+    .secondary-card {
+        border-radius: 8rem;
+    }
+
+    .secondary-card-number {
+        font-size: 36rem;
+    }
+    .secondary-card-time-am-pm {
+        font-size: 10rem;
+    }
+
+    .brand-logo {
+        width: 30rem;
+    }
+
+    .info-text {
+        font-size: 3.75rem;
+    }
+
+    .info-card {
+        gap: 5rem;
+    }
+
+    .date-text {
+        font-size: 17rem;
+    }
+    .date-number {
+        font-size: 34rem;
+    }
+}
+
+@media screen and (width >=4096px) and (orientation: landscape) {
+
+    .main-container {
+        gap: 5rem;
+        padding: 5rem;
+    }
+
+    .primary-card {
+        border-radius: 8rem;
+    }
+
+    .clock-container {
+        transform: scale(2.8);
+    }
+
+    .secondary-container {
+        gap: 5rem;
+    }
+
+    .row-container {
+        gap: 6rem;
+    }
+
+    .secondary-card {
+        border-radius: 8rem;
+    }
+
+    .secondary-card-number {
+        font-size: 39rem;
+    }
+    .secondary-card-time-am-pm {
+        font-size: 11rem;
+    }
+
+    .brand-logo {
+        width: 30rem;
+    }
+
+    .info-text {
+        font-size: 3.75rem;
+    }
+
+    .info-card {
+        gap: 5rem;
+    }
+
+    .date-text {
+        font-size: 17rem;
+    }
+    .date-number {
+        font-size: 34rem;
+    }
+}
+
+
