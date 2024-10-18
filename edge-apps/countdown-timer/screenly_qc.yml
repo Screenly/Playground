@@ -1,10 +1,10 @@
 ---
 syntax: manifest_v1
 id: 01HS8ZQP09W71PAMEZ65GH6SVV
-ready_signal: true
 description: Screenly Countdown Edge App
 icon: https://playground.srly.io/edge-apps/countdown-timer/static/images/icon.svg
 author: Screenly, Inc.
+ready_signal: true
 settings:
   countdown_headline:
     type: string
@@ -22,7 +22,7 @@ settings:
   override_locale:
     type: string
     default_value: en
-    title: Override locale
+    title: Override Locale
     optional: true
     help_text: Specify a supported locale value (e.g., en_US).
   override_timezone:
@@ -31,6 +31,12 @@ settings:
     title: Override Timezone
     optional: true
     help_text: Specify a supported timezone value (e.g., Europe/London).
+  sentry_dsn:
+    type: secret
+    title: Sentry Client Key
+    optional: true
+    help_text: Sentry Client Key from Sentry SDK for error capturing.
+    is_global: true
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z
@@ -41,6 +47,6 @@ settings:
   target_timestamp:
     type: string
     default_value: 2025-01-01T00:00:00
-    title: Target Countdown Date & Time.
+    title: Countdown Target
     optional: false
     help_text: "Format: YYYY-MM-DDTHH:MM:SS"
