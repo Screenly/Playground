@@ -57,82 +57,82 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
     const initDateTime = async () => {
-      clearTimeout(clockTimer);
-      const timezone = await getTimezone();
-      const locale = await getLocale();
-      const momentObject = moment().tz(timezone);
+      clearTimeout(clockTimer)
+      const timezone = await getTimezone()
+      const locale = await getLocale()
+      const momentObject = moment().tz(timezone)
 
       if (locale) {
-        momentObject.locale(locale); // Set the locale if available
+        momentObject.locale(locale) // Set the locale if available
       }
 
-      const dayOfMonth = momentObject.format('D'); // Get the day of the month
+      const dayOfMonth = momentObject.format('D') // Get the day of the month
 
       // Check if the locale prefers a 24-hour format by checking 'LT'
-      const is24HourFormat = moment.localeData(locale).longDateFormat('LT').includes('H');
+      const is24HourFormat = moment.localeData(locale).longDateFormat('LT').includes('H')
       // Format time based on the locale's preference
       const formattedTime = is24HourFormat
         ? momentObject.format('HH:mm') // 24-hour format
-        : momentObject.format('hh:mm'); // 12-hour format
+        : momentObject.format('hh:mm') // 12-hour format
 
       // Handle AM/PM for 12-hour format
-      const periodElement = document.querySelector('.secondary-card-time-am-pm');
+      const periodElement = document.querySelector('.secondary-card-time-am-pm')
       if (is24HourFormat) {
-        periodElement.innerText = ''; // Clear AM/PM value in 24-hour format
-        periodElement.style.display = 'none'; // Optionally hide the element
+        periodElement.innerText = '' // Clear AM/PM value in 24-hour format
+        periodElement.style.display = 'none' // Optionally hide the element
       } else {
-        const period = momentObject.format('A'); // Get AM/PM for 12-hour format
+        const period = momentObject.format('A') // Get AM/PM for 12-hour format
         periodElement.innerText = period;
-        periodElement.style.display = 'inline'; // Ensure it's visible
+        periodElement.style.display = 'inline' // Ensure it's visible
       }
 
-      document.querySelector('.date-text').innerText = momentObject.format('ddd').toUpperCase();
-      document.querySelector('.date-number').innerText = dayOfMonth; // Set the inner text to the numeric day of the month
+      document.querySelector('.date-text').innerText = momentObject.format('ddd').toUpperCase()
+      document.querySelector('.date-number').innerText = dayOfMonth // Set the inner text to the numeric day of the month
 
       // Set time in card
       document.querySelector('.secondary-card-number').innerText = formattedTime;
       ///// Set Clock Time
 
-      const numberHours = document.querySelector('.number_hours');
-      const secondsBar = document.querySelector('.seconds_bar');
+      const numberHours = document.querySelector('.number_hours')
+      const secondsBar = document.querySelector('.seconds_bar')
 
-      const barElement = [];
+      const barElement = []
 
       for (let i = 1; i <= 60; i++) {
-        barElement.push(`<span style="--index:${i}"><p></p></span>`);
+        barElement.push(`<span style="--index:${i}"><p></p></span>`)
       }
-      secondsBar.insertAdjacentHTML("afterbegin", barElement.join(""));
+      secondsBar.insertAdjacentHTML("afterbegin", barElement.join(""))
 
       // Time
-      const handHours = document.querySelector('.hand.hour');
-      const handMinutes = document.querySelector('.hand.minute');
-      const handSeconds = document.querySelector('.hand.second');
+      const handHours = document.querySelector('.hand.hour')
+      const handMinutes = document.querySelector('.hand.minute')
+      const handSeconds = document.querySelector('.hand.second')
 
       // Update clock hands every second
       const updateClockHands = () => {
 
-        const momentObject = moment().tz(timezone); // Fetch real-time updates
-        const currentHours = momentObject.format('HH'); // 24-hour format
-        const currentMinutes = momentObject.format('mm'); // Minutes
-        const currentSeconds = momentObject.format('ss'); // Seconds
+        const momentObject = moment().tz(timezone) // Fetch real-time updates
+        const currentHours = momentObject.format('HH') // 24-hour format
+        const currentMinutes = momentObject.format('mm') // Minutes
+        const currentSeconds = momentObject.format('ss') // Seconds
 
         // Set rotations for the hands
-        handHours.style.transform = `rotate(${currentHours * 30 + currentMinutes / 2}deg)`;
-        handMinutes.style.transform = `rotate(${currentMinutes * 6}deg)`;
-        handSeconds.style.transform = `rotate(${currentSeconds * 6}deg)`;
+        handHours.style.transform = `rotate(${currentHours * 30 + currentMinutes / 2}deg)`
+        handMinutes.style.transform = `rotate(${currentMinutes * 6}deg)`
+        handSeconds.style.transform = `rotate(${currentSeconds * 6}deg)`
       }
 
       updateClockHands(); // Call once initially
 
       // Call updateClockHands every second
-      setInterval(updateClockHands, 1000);
+      setInterval(updateClockHands, 1000)
 
       // Set a timeout to call initDateTime every 10 seconds for date update
-      clockTimer = setTimeout(initDateTime, 10000);
+      clockTimer = setTimeout(initDateTime, 10000)
     };
 
     initDateTime() // Initialize the app
-    setInterval(initDateTime,1000);   // Call initDateTime every second
+    setInterval(initDateTime,1000)   // Call initDateTime every second
   }
 
 
