@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         periodElement.style.display = 'none' // Optionally hide the element
       } else {
         const period = momentObject.format('A') // Get AM/PM for 12-hour format
-        periodElement.innerText = period;
+        periodElement.innerText = period
         periodElement.style.display = 'inline' // Ensure it's visible
       }
 
@@ -88,10 +88,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.querySelector('.date-number').innerText = dayOfMonth // Set the inner text to the numeric day of the month
 
       // Set time in card
-      document.querySelector('.secondary-card-number').innerText = formattedTime;
+      document.querySelector('.secondary-card-number').innerText = formattedTime
       // Set Clock Time
 
-      const numberHours = document.querySelector('.number-hours')
+      // const numberHours = document.querySelector('.number-hours')
       const secondsBar = document.querySelector('.seconds-bar')
 
       const barElement = []
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       for (let i = 1; i <= 60; i++) {
         barElement.push(`<span style="--index:${i}"><p></p></span>`)
       }
-      secondsBar.insertAdjacentHTML("afterbegin", barElement.join(""))
+      secondsBar.insertAdjacentHTML('afterbegin', barElement.join(''))
 
       // Time
       const handHours = document.querySelector('.hand.hour')
@@ -108,7 +108,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Update clock hands every second
       const updateClockHands = () => {
-
         const momentObject = moment().tz(timezone) // Fetch real-time updates
         const currentHours = momentObject.format('HH') // 24-hour format
         const currentMinutes = momentObject.format('mm') // Minutes
@@ -120,17 +119,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         handSeconds.style.transform = `rotate(${currentSeconds * 6}deg)`
       }
 
-      updateClockHands(); // Call once initially
+      updateClockHands() // Call once initially
 
       // Call updateClockHands every second
       setInterval(updateClockHands, 1000)
 
       // Set a timeout to call initDateTime every 1 seconds for date and clock update
       clockTimer = setTimeout(initDateTime, 1000)
-    };
+    }
 
     initDateTime() // Initialize the app
-    //setInterval(initDateTime,1000)   // Call initDateTime every second
   }
 
   await initApp()
@@ -156,7 +154,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const defaultLogo = 'static/img/Screenly.svg'
 
   // Function to fetch and process the image
-  async function fetchImage(fileUrl) {
+  async function fetchImage (fileUrl) {
     try {
       const response = await fetch(fileUrl)
       if (!response.ok) {
@@ -211,4 +209,3 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Signal that the screen is ready for rendering
   screenly.signalReadyForRendering()
 })
-
