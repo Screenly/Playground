@@ -25,6 +25,7 @@ settings:
     title: Enable Analytics
     optional: true
     help_text: Whether to enable analytics or not
+    is_global: true
   limit:
     type: string
     default_value: '4'
@@ -49,3 +50,4 @@ settings:
     title: Google Tag Manager ID
     optional: true
     help_text: Specify a Google Tag Manager ID
+    is_global: true

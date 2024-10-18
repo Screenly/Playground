@@ -18,6 +18,7 @@ settings:
     title: enable_analytics
     optional: true
     help_text: Whether to disable Sentry and Google Analytics integrations
+    is_global: true
   override_locale:
     type: string
     default_value: en
@@ -36,6 +37,7 @@ settings:
     title: tag_manager_id
     optional: true
     help_text: Specify a Google Tag Manager ID
+    is_global: true
   target_timestamp:
     type: string
     default_value: 2025-01-01T00:00:00
