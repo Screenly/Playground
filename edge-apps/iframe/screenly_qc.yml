@@ -7,7 +7,7 @@ author: Screenly, Inc.
 settings:
   iframe:
     type: string
-    title: iframe
+    title: iFrame URL
     optional: false
     help_text: |
       Provide an iframe URL to be embedded.

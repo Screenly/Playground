@@ -9,26 +9,26 @@ settings:
   countdown_headline:
     type: string
     default_value: New Year Countdown
-    title: countdown_headline
+    title: Countdown Headline
     optional: false
     help_text: Countdown header text value.
   enable_analytics:
     type: string
     default_value: 'true'
-    title: enable_analytics
+    title: Enable Analytics
     optional: true
     help_text: Whether to disable Sentry and Google Analytics integrations
     is_global: true
   override_locale:
     type: string
     default_value: en
-    title: override_locale
+    title: Override Locale
     optional: true
     help_text: Specify a supported locale value (e.g., en_US).
   override_timezone:
     type: string
     default_value: ''
-    title: override_timezone
+    title: Override Timezone
     optional: true
     help_text: Specify a supported timezone value (e.g., Europe/London).
   sentry_dsn:
@@ -40,13 +40,13 @@ settings:
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z
-    title: tag_manager_id
+    title: Tag Manager ID
     optional: true
     help_text: Specify a Google Tag Manager ID
     is_global: true
   target_timestamp:
     type: string
     default_value: 2025-01-01T00:00:00
-    title: target_timestamp
+    title: Countdown Target
     optional: false
-    help_text: Countdown timer value (Format YYYY-MM-DDTHH:MM:SS).
+    help_text: Target timestamp in ISO format (YYYY-MM-DDTHH:MM:SS)
