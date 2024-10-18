@@ -49,4 +49,4 @@ settings:
     default_value: 2025-01-01T00:00:00
     title: Countdown Target
     optional: false
-    help_text: "Format: YYYY-MM-DDTHH:MM:SS"
+    help_text: Target timestamp in ISO format (YYYY-MM-DDTHH:MM:SS)
