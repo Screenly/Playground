@@ -75,7 +75,7 @@
   height: 9.86rem;
   background: #fff;
   position: absolute;
-  box-shadow: 0px 0px 2.14rem 0px rgb(0 0 0 / 97%);
+  box-shadow: 0 0 2.14rem 0 rgb(0 0 0 / 97%);
 }
 
 .hands-box .hour i::before {
@@ -89,7 +89,7 @@
   border-radius: 1.43rem;
   background: var(--theme-color-primary);
   z-index: 2;
-  box-shadow: 0px 0px 1.71rem 0px rgb(0 0 0 / 26%);
+  box-shadow: 0 0 1.71rem 0 rgb(0 0 0 / 26%);
 }
 
 .hands-box .hour i::after {
@@ -127,21 +127,21 @@
   height: 13.57rem;
   background: #fff;
   position: absolute;
-  box-shadow: 0px 0px 2.14rem 0px rgb(0 0 0 / 97%);
+  box-shadow: 0 0 2.14rem 0 rgb(0 0 0 / 97%);
 }
 
 .hands-box .minute i::before {
   content: "";
   width: 1.86rem;
   height: 14.71rem;
-  background: #ffffff;
+  background: #fff;
   position: absolute;
   bottom: 1.79rem;
   left: 50%;
   transform: translateX(-50%);
   border-radius: 1.79rem;
   z-index: 1;
-  box-shadow: 0px 0px 1.71rem 0px rgb(0 0 0 / 26%);
+  box-shadow: 0 0 1.71rem 0 rgb(0 0 0 / 26%);
 }
 
 .hands-box .minute i::after {
@@ -204,7 +204,7 @@
   border-radius: 0.36rem;
 }
 
-/*---------Clock End-----------*/
+/* ---------Clock End----------- */
 
 .primary-card-clock {
   line-height: 1;
