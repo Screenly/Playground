@@ -7,18 +7,20 @@ settings:
   enable_analytics:
     type: string
     default_value: 'true'
-    title: enable_analytics
+    title: Enable Analytics
     optional: true
     help_text: Whether to enable analytics or not
+    is_global: true
   instagram_api_token:
     type: secret
-    title: instagram_api_token
+    title: Instagram API Token
     optional: false
     help_text: |
       Specify an API key so that you'll have access to all the necessary data.
   tag_manager_id:
     type: string
     default_value: ''
-    title: tag_manager_id
+    title: Tag Manager ID
     optional: true
     help_text: Specify a Google Tag Manager ID
+    is_global: true
