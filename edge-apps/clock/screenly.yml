@@ -2,8 +2,9 @@
 syntax: manifest_v1
 id: 01HKT2K8GVE8P6RE36QFKPG5G1
 description: Screenly Clock Edge App
-icon: 'https://playground.srly.io/edge-apps/clock/static/images/icon.svg'
+icon: https://playground.srly.io/edge-apps/clock/static/images/icon.svg
 author: Screenly, Inc.
+ready_signal: true
 settings:
   enable_analytics:
     type: string
@@ -12,18 +13,18 @@ settings:
     optional: true
     help_text: Whether to disable Sentry and Google Analytics integrations
     is_global: true
+  override_locale:
+    type: string
+    default_value: en
+    title: Override Locale
+    optional: true
+    help_text: Specify a supported locale value (e.g., en_US).
   override_timezone:
     type: string
     default_value: ''
     title: Override Timezone
     optional: true
     help_text: Specify a supported timezone value (e.g., Europe/London).
-  override_locale:
-    type: string
-    default_value: ''
-    title: Override Locale
-    optional: true
-    help_text: Specify a supported locale value (e.g., en_US).
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z

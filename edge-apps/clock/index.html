@@ -1,57 +1,59 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Screenly Clock App</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="static/styles/main.css" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="static/css/common.css" rel="stylesheet">
+	<link href="static/css/style.css" rel="stylesheet">
+
 </head>
 
 <body>
-    <script src="screenly.js?version=1"></script>
-
-    <!-- Google Tag Manager -->
-    <script>
-        const {
-          enable_analytics: enableAnalytics,
-          tag_manager_id: tagManagerId,
-        } = screenly.settings;
-
-        if (enableAnalytics === 'true') {
-            (function(w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    'gtm.start': new Date().getTime(),
-                    event: 'gtm.js'
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != 'dataLayer' ? '&l=' + l : '';
-                j.async = true;
-                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', tagManagerId);
-        }
-    </script>
-    <!-- End Google Tag Manager -->
-
-    <div class="content">
-        <div class="date-time">
-            <div class="date">
-                <img src="static/images/icons/calendar.svg" alt="calendar icon" />
-                <span id="date"></span>
-            </div>
-            <div id="time">
+	<div class="main-container">
+		<div class="primary-card">
+			<div class="clock-container">
+        <div class="clock">
+            <div class="seconds-bar"></div>
+            <div class="number-hours"></div>
+            <div class="hands-box">
+                <div class="hand hour"><i></i></div>
+                <div class="hand minute"><i></i></div>
+                <div class="hand second"><i></i></div>
             </div>
         </div>
     </div>
+		</div>
+		<div class="secondary-container">
+			<div class="row-container">
+				<div class="secondary-card">
+					<div class="secondary-card-number-container">
+						<span class="secondary-card-number"></span>
+						<span class="secondary-card-time-am-pm"></span>
+					</div>
+				</div>
+			</div>
+			<div class="row-container">
+				<div class="secondary-card info-card">
+					<img id="brand-logo" src="static/img/Screenly.svg" class="brand-logo" alt="Brand Logo" />
+					<span class="info-text">Powered by Screenly</span>
+				</div>
+				<div class="secondary-card">
+					<div class="secondary-card date-card">
+						<span class="date-text"></span>
+						<span class="date-number"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <script src="static/js/moment-with-locales.min.js"></script>
-    <script src="static/js/tz.min.js"></script>
-    <script src="static/js/moment-timezone-with-data.min.js"></script>
-    <script src="static/js/country-locale-map.1.18.5.min.js"></script>
-    <script src="static/js/offline-geocode-city-1.0.2.min.js"></script>
-    <script src="static/js/main.js"></script>
+	<script src="screenly.js?version=1"></script>
+	<script src="static/js/country-locale-map.1.18.5.min.js"></script>
+	<script src="static/js/moment-with-locales.min.js"></script>
+	<script src="static/js/moment-timezone-with-data.min.js"></script>
+	<script src="static/js/offline-geocode-city-1.0.2.min.js"></script>
+	<script src="static/js/tz.min.js"></script>
+	<script src="https://browser.sentry-cdn.com/8.30.0/bundle.tracing.min.js" integrity="sha384-whi3vRW+DIBqY2lQQ6oghGXbbA0sL5NJxUL6CMC+LRJ0b4A64Qn7/6YhpeR0+3Nq" crossorigin="anonymous"></script>
+	<script src="static/js/main.js"></script>
 </body>
 </html>
