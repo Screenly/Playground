@@ -47,6 +47,6 @@ settings:
   target_timestamp:
     type: string
     default_value: 2025-01-01T00:00:00
-    title: Target Countdown Date & Time (Format YYYY-MM-DDTHH:MM:SS).
+    title: Target Countdown Date & Time.
     optional: false
     help_text: Target Countdown Date & Time (Format YYYY-MM-DDTHH:MM:SS).
