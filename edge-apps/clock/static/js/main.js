@@ -91,8 +91,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.querySelector('.secondary-card-number').innerText = formattedTime;
       // Set Clock Time
 
-      const numberHours = document.querySelector('.number_hours')
-      const secondsBar = document.querySelector('.seconds_bar')
+      const numberHours = document.querySelector('.number-hours')
+      const secondsBar = document.querySelector('.seconds-bar')
 
       const barElement = []
 
@@ -125,15 +125,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Call updateClockHands every second
       setInterval(updateClockHands, 1000)
 
-      // Set a timeout to call initDateTime every 10 seconds for date update
-      clockTimer = setTimeout(initDateTime, 10000)
+      // Set a timeout to call initDateTime every 1 seconds for date and clock update
+      clockTimer = setTimeout(initDateTime, 1000)
     };
 
     initDateTime() // Initialize the app
-    setInterval(initDateTime,1000)   // Call initDateTime every second
+    //setInterval(initDateTime,1000)   // Call initDateTime every second
   }
-
-
 
   await initApp()
 
