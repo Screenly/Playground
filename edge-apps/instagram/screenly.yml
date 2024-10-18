@@ -10,6 +10,7 @@ settings:
     title: Enable Analytics
     optional: true
     help_text: Whether to enable analytics or not
+    is_global: true
   instagram_api_token:
     type: secret
     title: Instagram API Token
@@ -22,3 +23,4 @@ settings:
     title: Tag Manager ID
     optional: true
     help_text: Specify a Google Tag Manager ID
+    is_global: true
