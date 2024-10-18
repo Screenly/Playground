@@ -9,7 +9,7 @@ settings:
   countdown_headline:
     type: string
     default_value: New Year Countdown
-    title: Countdown Headline Text
+    title: Countdown Headline
     optional: false
     help_text: Countdown header text value.
   enable_analytics:
