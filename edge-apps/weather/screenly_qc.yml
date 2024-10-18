@@ -11,6 +11,7 @@ settings:
     title: Enable Analytics
     optional: true
     help_text: Whether to enable analytics or not
+    is_global: true
   openweathermap_api_key:
     type: secret
     title: Openweathermap API Key
@@ -24,6 +25,7 @@ settings:
     title: Google Tag Manager ID
     optional: true
     help_text: Specify a Google Tag Manager ID
+    is_global: true
   override_coordinates:
     type: string
     default_value: ''

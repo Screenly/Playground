@@ -11,6 +11,7 @@ settings:
     title: Enable Analytics
     optional: true
     help_text: Whether to disable Sentry and Google Analytics integrations
+    is_global: true
   override_timezone:
     type: string
     default_value: ''
@@ -29,3 +30,4 @@ settings:
     title: Google Tag Manager ID
     optional: true
     help_text: Specify a Google Tag Manager ID
+    is_global: true
