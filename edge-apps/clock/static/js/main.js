@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const allTimezones = moment.tz.names()
 
   const sentryDsn = screenly.settings.sentry_dsn
-  //Initiate Sentry.
+  // Initiate Sentry.
   if (sentryDsn) {
     Sentry.init({
       dsn: sentryDsn
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
   }
 
-  async function initApp() {
+  async function initApp () {
     let clockTimer
     const { metadata, settings } = screenly
     const latitude = metadata.coordinates[0]
@@ -54,8 +54,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       return tzlookup(latitude, longitude)
     }
 
-
-
     const initDateTime = async () => {
       clearTimeout(clockTimer)
       const timezone = await getTimezone()
@@ -91,7 +89,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Set time in card
       document.querySelector('.secondary-card-number').innerText = formattedTime;
-      ///// Set Clock Time
+      // Set Clock Time
 
       const numberHours = document.querySelector('.number_hours')
       const secondsBar = document.querySelector('.seconds_bar')
