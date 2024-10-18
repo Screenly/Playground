@@ -43,4 +43,4 @@ settings:
     default_value: 2025-01-01T00:00:00
     title: Target Countdown Date & Time.
     optional: false
-    help_text: Countdown timer value (Format YYYY-MM-DDTHH:MM:SS).
+    help_text: "Format: YYYY-MM-DDTHH:MM:SS"
