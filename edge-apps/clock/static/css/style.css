@@ -5,10 +5,8 @@
 
 .clock-container {
   width: 36.43rem;
-  /* 510px / 14 */
   height: 36.43rem;
-  /* 510px / 14 */
-  background: #ffffff;
+  background: #fff;
   border-radius: 50%;
   display: flex;
   justify-self: center;
@@ -17,9 +15,7 @@
 
 .clock-container .clock {
   width: 30rem;
-  /* 420px / 14 */
   height: 30rem;
-  /* 420px / 14 */
   border-radius: 50%;
   margin: auto;
   position: relative;
@@ -38,30 +34,22 @@
 
 .seconds-bar span {
   position: absolute;
-
-  /* 360deg / 60 = 6deg */
   transform: rotate(calc(var(--index) * 45deg));
   inset: -1.43rem;
-  /* -20px / 14 */
   text-align: center;
 }
 
 .clock .seconds-bar span p {
   width: 0.21rem;
-  /* 3px / 14 */
   display: inline-block;
   border-radius: 0.14rem;
-  /* 2px / 14 */
 }
 
 .clock .seconds-bar span:nth-child(5n) p {
   background: var(--theme-color-primary);
   width: 0.36rem;
-  /* 5px / 14 */
   height: 1.29rem;
-  /* 18px / 14 */
   transform: translateY(0.07rem);
-  /* 1px / 14 */
 }
 
 .hands-box {
@@ -79,63 +67,47 @@
 
 .hands-box .hour {
   width: 20rem;
-  /* 280px / 14 */
   height: 20rem;
-  /* 280px / 14 */
 }
 
 .hands-box .hour i {
   width: 0.5rem;
-  /* 7px / 14 */
   height: 9.86rem;
-  /* 138px / 14 */
-  background: #ffffff;
+  background: #fff;
   position: absolute;
   box-shadow: 0px 0px 2.14rem 0px rgb(0 0 0 / 97%);
-  /* 30px / 14 */
 }
 
 .hands-box .hour i::before {
   content: "";
   position: absolute;
   height: 7.5rem;
-  /* 105px / 14 */
   width: 1.07rem;
-  /* 15px / 14 */
   bottom: 2.14rem;
-  /* 30px / 14 */
   left: 50%;
   transform: translateX(-50%);
   border-radius: 1.43rem;
-  /* 20px / 14 */
   background: var(--theme-color-primary);
   z-index: 2;
   box-shadow: 0px 0px 1.71rem 0px rgb(0 0 0 / 26%);
-  /* 24px / 14 */
 }
 
 .hands-box .hour i::after {
   content: "";
   position: absolute;
   height: 8.21rem;
-  /* 115px / 14 */
   width: 1.86rem;
-  /* 26px / 14 */
   bottom: 1.79rem;
-  /* 25px / 14 */
   left: 50%;
   transform: translateX(-50%);
   border-radius: 1.79rem;
-  /* 25px / 14 */
-  background: #ffffff;
+  background: #fff;
   z-index: 1;
 }
 
 .hands-box .minute {
   width: 27.14rem;
-  /* 380px / 14 */
   height: 27.14rem;
-  /* 380px / 14 */
 }
 
 .hands-box .minute::before {
@@ -144,67 +116,50 @@
   top: 50%;
   transform: translateY(-50%);
   width: 1.79rem;
-  /* 25px / 14 */
   height: 1.79rem;
-  /* 25px / 14 */
   background: #fff;
   border-radius: 1.79rem;
-  /* 25px / 14 */
   z-index: 999;
 }
 
 .hands-box .minute i {
   width: 0.5rem;
-  /* 7px / 14 */
   height: 13.57rem;
-  /* 190px / 14 */
   background: #fff;
   position: absolute;
   box-shadow: 0px 0px 2.14rem 0px rgb(0 0 0 / 97%);
-  /* 30px / 14 */
 }
 
 .hands-box .minute i::before {
   content: "";
   width: 1.86rem;
-  /* 26px / 14 */
   height: 14.71rem;
-  /* 206px / 14 */
   background: #ffffff;
   position: absolute;
   bottom: 1.79rem;
-  /* 25px / 14 */
   left: 50%;
   transform: translateX(-50%);
   border-radius: 1.79rem;
-  /* 25px / 14 */
   z-index: 1;
   box-shadow: 0px 0px 1.71rem 0px rgb(0 0 0 / 26%);
-  /* 24px / 14 */
 }
 
 .hands-box .minute i::after {
   content: "";
   width: 1.07rem;
-  /* 15px / 14 */
   height: 13.93rem;
-  /* 195px / 14 */
   background: var(--theme-color-primary);
   position: absolute;
   bottom: 2.21rem;
-  /* 31px / 14 */
   left: 50%;
   transform: translateX(-50%);
   border-radius: 1.43rem;
-  /* 20px / 14 */
   z-index: 2;
 }
 
 .hands-box .second {
   width: 30rem;
-  /* 420px / 14 */
   height: 34.29rem;
-  /* 480px / 14 */
 }
 
 .hands-box .second::before {
@@ -213,12 +168,9 @@
   top: 50%;
   transform: translateY(-50%);
   width: 1.14rem;
-  /* 16px / 14 */
   height: 1.14rem;
-  /* 16px / 14 */
   background: #F7410A;
   border-radius: 1.79rem;
-  /* 25px / 14 */
 }
 
 .hands-box .second::after {
@@ -227,40 +179,29 @@
   top: 50%;
   transform: translateY(-50%);
   width: 0.57rem;
-  /* 8px / 14 */
   height: 0.57rem;
-  /* 8px / 14 */
   background: var(--theme-color-primary);
   border-radius: 1.79rem;
-  /* 25px / 14 */
 }
 
 .hands-box .second i {
   width: 0.29rem;
-  /* 4px / 14 */
-  /* half of parent height*/
   height: calc(15rem + 3.57rem);
-  /* 210px + 50px / 14 */
   background: #F7410A;
   position: relative;
   border-radius: 0.14rem;
-  /* 2px / 14 */
 }
 
 .hands-box .second i::before {
   content: '';
   width: 0.29rem;
-  /* 4px / 14 */
   height: 3.21rem;
-  /* 45px / 14 */
   background: #F7410A;
   position: absolute;
   bottom: -2.93rem;
-  /* 41px / 14 */
   left: 50%;
   transform: translateX(-50%);
   border-radius: 0.36rem;
-  /* 5px / 14 */
 }
 
 /*---------Clock End-----------*/
@@ -330,11 +271,11 @@
 /* Media Query */
 
 /* 480px 720px Clock Container need to fix */
-/*TODO: Fix the Clock Circle issue : When Scale to .5, circle change to oval*/
+
+/* TODO: Fix the Clock Circle issue : When Scale to .5, circle change to oval */
 
 
 @media screen and (min-width: 480px) and (orientation: portrait) {
-
   .clock-container {
     transform: scale(.7);
   }
@@ -375,8 +316,6 @@
 }
 
 @media screen and (min-width: 720px) and (orientation: portrait) {
-
-
   .clock-container {
     transform: scale(1);
   }
@@ -416,7 +355,6 @@
 }
 
 @media screen and (min-width: 800px) and (orientation: landscape) {
-
   .clock-container {
     transform: scale(.5);
   }
@@ -457,8 +395,6 @@
 }
 
 @media screen and (min-width: 1080px) and (orientation: portrait) {
-
-
   .clock-container {
     transform: scale(1.25);
   }
@@ -497,7 +433,6 @@
 }
 
 @media screen and (min-width: 1280px) and (orientation: landscape) {
-
   .clock-container {
     transform: scale(.90);
   }
@@ -537,8 +472,6 @@
 }
 
 @media screen and (min-width: 1920px) and (orientation: landscape) {
-
-
   .clock-container {
     transform: scale(1.25);
   }
@@ -578,7 +511,6 @@
 }
 
 @media screen and (min-width: 2160px) and (orientation: portrait) {
-
   .clock-container {
     transform: scale(2.7);
   }
@@ -614,7 +546,6 @@
 }
 
 @media screen and (min-width: 3840px) and (orientation: landscape) {
-
   .clock-container {
     transform: scale(2.7);
   }
@@ -649,7 +580,6 @@
 }
 
 @media screen and (min-width: 4096px) and (orientation: landscape) {
-
   .clock-container {
     transform: scale(2.8);
   }

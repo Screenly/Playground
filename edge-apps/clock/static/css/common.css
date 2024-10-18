@@ -2,7 +2,7 @@
 
 /* Global Fonts */
 @font-face {
-  font-family: 'Aeonik';
+  font-family: Aeonik;
   src: url('../font/Aeonik-Regular.woff2') format('woff2'),
     url('../font/Aeonik-Regular.woff') format('woff');
   font-weight: normal;
@@ -15,7 +15,7 @@ html {
 }
 
 body {
-  font-family: 'Aeonik', sans-serif;
+  font-family: Aeonik, sans-serif;
   height: 100vh;
 }
 
@@ -23,14 +23,14 @@ body {
 :root {
   --theme-color-primary: #972EFF;
   --theme-color-secondary: #ADAFBE;
-  --theme-color-tertiary: #FFFFFF;
+  --theme-color-tertiary: #FFF;
   --theme-color-background: #C9CDD0;
 }
 
 /* Reset */
 * {
-  margin: 0rem;
-  padding: 0rem;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -94,7 +94,6 @@ body {
 /* Media Query */
 
 @media (orientation: portrait) {
-
   .main-container {
     flex-direction: column;
   }
@@ -111,10 +110,10 @@ body {
 }
 
 /* 480px 720px Clock Container need to fix */
-/*TODO: Fix the Clock Circle issue : When Scale to .5, circle change to oval*/
+
+/* TODO: Fix the Clock Circle issue : When Scale to .5, circle change to oval */
 
 @media screen and (min-width: 480px) and (orientation: portrait) {
-
   .main-container {
     gap: 1rem;
     padding: 1rem;
@@ -139,7 +138,6 @@ body {
 }
 
 @media screen and (min-width: 720px) and (orientation: portrait) {
-
   .main-container {
     gap: 1rem;
     padding: 1rem;
@@ -164,7 +162,6 @@ body {
 }
 
 @media screen and (min-width: 800px) and (orientation: landscape) {
-
   .main-container {
     gap: 1rem;
     padding: 1rem;
@@ -237,7 +234,6 @@ body {
 }
 
 @media screen and (min-width: 1920px) and (orientation: landscape) {
-
   .main-container {
     gap: 2.5rem;
     padding: 2.5rem;
@@ -261,7 +257,6 @@ body {
 }
 
 @media screen and (min-width: 2160px) and (orientation: portrait) {
-
   .main-container {
     gap: 5rem;
     padding: 5rem;
@@ -309,7 +304,6 @@ body {
 }
 
 @media screen and (min-width: 4096px) and (orientation: landscape) {
-
   .main-container {
     gap: 5rem;
     padding: 5rem;
