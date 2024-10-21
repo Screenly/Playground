@@ -1,0 +1,426 @@
+/* Specific Layout & Module Styles */
+
+
+
+.primary-card {
+  flex: 1;
+  background-color: var(--theme-color-tertiary);
+  color: #000;
+}
+
+.secondary-container {
+  width: 25%;
+
+}
+
+
+
+
+*/
+
+.primary-card-clock {
+  line-height: 1;
+  font-size: 8rem;
+  color: var(--theme-color-tertiary);
+}
+
+
+.secondary-card-number-container {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  align-items: baseline;
+}
+
+
+.secondary-card-number {
+  font-size: 14.5rem;
+  color: var(--theme-color-primary);
+  letter-spacing: 1rem;
+}
+
+.secondary-card-time-am-pm {
+  font-size: 4rem;
+  color: var(--theme-color-secondary);
+}
+
+.info-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+}
+
+.brand-logo {
+  width: 12rem;
+}
+
+
+.info-text {
+  font-size: 1.75rem;
+  color: var(--theme-color-primary);
+}
+
+.date-card {
+  gap: 0.25rem;
+}
+
+
+.date-text {
+  font-size: 5rem;
+  color: var(--theme-color-secondary);
+}
+
+
+.date-number {
+  line-height: 1;
+  font-size: 10rem;
+  color: var(--theme-color-primary);
+}
+
+
+/* Media Query */
+
+/* 480px 720px Clock Container need to fix */
+
+/* TODO: Fix the Clock Circle issue : When Scale to .5, circle change to oval */
+
+
+@media screen and (min-width: 480px) and (orientation: portrait) {
+  .clock-container {
+    transform: scale(.7);
+  }
+
+  .secondary-card-number-container {
+    gap: 1rem;
+  }
+
+  .secondary-card-number {
+    font-size: 8rem;
+    letter-spacing: .5rem;
+  }
+
+  .secondary-card-time-am-pm {
+    font-size: 2.5rem;
+  }
+
+  .brand-logo {
+    width: 5rem;
+  }
+
+  .info-text {
+    font-size: 1rem;
+  }
+
+  .info-card {
+    gap: 1.5rem;
+  }
+
+  .date-text {
+    font-size: 3.5rem;
+  }
+
+  .date-number {
+    font-size: 7rem;
+  }
+
+}
+
+@media screen and (min-width: 720px) and (orientation: portrait) {
+  .clock-container {
+    transform: scale(1);
+  }
+
+  .secondary-card-number-container {
+    gap: 1rem;
+  }
+
+  .secondary-card-number {
+    font-size: 11rem;
+  }
+
+  .secondary-card-time-am-pm {
+    font-size: 3rem;
+  }
+
+  .brand-logo {
+    width: 9rem;
+  }
+
+  .info-text {
+    font-size: 1.25rem;
+  }
+
+  .info-card {
+    gap: 1.5rem;
+  }
+
+  .date-text {
+    font-size: 6rem;
+  }
+
+  .date-number {
+    font-size: 10rem;
+  }
+
+}
+
+@media screen and (min-width: 800px) and (orientation: landscape) {
+  .clock-container {
+    transform: scale(.5);
+  }
+
+  .secondary-card-number-container {
+    gap: 1rem;
+  }
+
+  .secondary-card-number {
+    font-size: 6rem;
+    letter-spacing: .5rem;
+  }
+
+  .secondary-card-time-am-pm {
+    font-size: 2em;
+  }
+
+  .brand-logo {
+    width: 5rem;
+  }
+
+  .info-text {
+    font-size: .75rem;
+  }
+
+  .info-card {
+    gap: 1.5rem;
+  }
+
+  .date-text {
+    font-size: 3.4rem;
+  }
+
+  .date-number {
+    font-size: 7rem;
+  }
+
+}
+
+@media screen and (min-width: 1080px) and (orientation: portrait) {
+  .clock-container {
+    transform: scale(1.25);
+  }
+
+  .secondary-card-number-container {
+    gap: 1rem;
+  }
+
+  .secondary-card-number {
+    font-size: 17rem;
+  }
+
+  .secondary-card-time-am-pm {
+    font-size: 4rem;
+  }
+
+  .brand-logo {
+    width: 12rem;
+  }
+
+  .info-text {
+    font-size: 2rem;
+  }
+
+  .info-card {
+    gap: 3rem;
+  }
+
+  .date-text {
+    font-size: 10rem;
+  }
+
+  .date-number {
+    font-size: 16rem;
+  }
+}
+
+@media screen and (min-width: 1280px) and (orientation: landscape) {
+  .clock-container {
+    transform: scale(.90);
+  }
+
+  .secondary-card-number-container {
+    gap: 1rem;
+  }
+
+  .secondary-card-number {
+    font-size: 10rem;
+  }
+
+  .secondary-card-time-am-pm {
+    font-size: 3rem;
+  }
+
+  .brand-logo {
+    width: 8.5rem;
+  }
+
+  .info-text {
+    font-size: 1.5rem;
+  }
+
+  .info-card {
+    gap: 3rem;
+  }
+
+  .date-text {
+    font-size: 5.5rem;
+  }
+
+  .date-number {
+    font-size: 13rem;
+  }
+
+}
+
+@media screen and (min-width: 1920px) and (orientation: landscape) {
+  .clock-container {
+    transform: scale(1.25);
+  }
+
+  .secondary-card-number-container {
+    gap: 1rem;
+  }
+
+  .secondary-card-number {
+    font-size: 16rem;
+  }
+
+  .secondary-card-time-am-pm {
+    font-size: 4.5rem;
+  }
+
+  .brand-logo {
+    width: 13rem;
+  }
+
+  .info-text {
+    font-size: 1.75rem;
+  }
+
+  .info-card {
+    gap: 3rem;
+  }
+
+  .date-text {
+    font-size: 7rem;
+  }
+
+  .date-number {
+    font-size: 18rem;
+  }
+
+}
+
+@media screen and (min-width: 2160px) and (orientation: portrait) {
+  .clock-container {
+    transform: scale(2.7);
+  }
+
+  .secondary-card-number {
+    font-size: 40rem;
+  }
+
+  .secondary-card-time-am-pm {
+    font-size: 9rem;
+  }
+
+  .brand-logo {
+    width: 22rem;
+  }
+
+  .info-text {
+    font-size: 3.75rem;
+  }
+
+  .info-card {
+    gap: 5rem;
+  }
+
+  .date-text {
+    font-size: 17rem;
+  }
+
+  .date-number {
+    font-size: 34rem;
+  }
+
+}
+
+@media screen and (min-width: 3840px) and (orientation: landscape) {
+  .clock-container {
+    transform: scale(2.7);
+  }
+
+  .secondary-card-number {
+    font-size: 36rem;
+  }
+
+  .secondary-card-time-am-pm {
+    font-size: 10rem;
+  }
+
+  .brand-logo {
+    width: 30rem;
+  }
+
+  .info-text {
+    font-size: 3.75rem;
+  }
+
+  .info-card {
+    gap: 5rem;
+  }
+
+  .date-text {
+    font-size: 17rem;
+  }
+
+  .date-number {
+    font-size: 34rem;
+  }
+}
+
+@media screen and (min-width: 4096px) and (orientation: landscape) {
+  .clock-container {
+    transform: scale(2.8);
+  }
+
+  .secondary-card-number {
+    font-size: 39rem;
+  }
+
+  .secondary-card-time-am-pm {
+    font-size: 11rem;
+  }
+
+  .brand-logo {
+    width: 30rem;
+  }
+
+  .info-text {
+    font-size: 3.75rem;
+  }
+
+  .info-card {
+    gap: 5rem;
+  }
+
+  .date-text {
+    font-size: 17rem;
+  }
+
+  .date-number {
+    font-size: 34rem;
+  }
+}
