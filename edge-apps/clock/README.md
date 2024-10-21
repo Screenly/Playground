@@ -1,5 +1,7 @@
 # Screenly Clock App
 
+![Clock Screen](./static/img/Clock-Preview.png)
+
 ## tl;dr
 
 ```bash
