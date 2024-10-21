@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       override_timezone: 'Asia/Kolkata' // Example timezone override
      //override_timezone: 'Europe/Berlin'
     },
-    cors_proxy_url: 'https://cors-proxy.example.com', // Example CORS proxy URL
+    cors_proxy_url: 'https://cors-anywhere.herokuapp.com', // Example CORS proxy URL
     signalReadyForRendering: () => {
       console.log('Screenly is ready for rendering.');
     }
@@ -170,6 +170,7 @@ try {
     imgElement.src = defaultLogo
   }
 }
+
 
 // Signal that the screen is ready for rendering
 screenly.signalReadyForRendering()
