@@ -1,9 +1,4 @@
-@font-face {
-  font-family: Barlow;
-  font-style: normal;
-  font-weight: normal;
-  src: url("../fonts/Barlow-Regular.woff") format("woff");
-}
+
 
 body {
   font-family: Barlow, sans-serif;
