@@ -10,21 +10,25 @@
   <link href="static/css/main.css" rel="stylesheet">
   <link href="static/css/style.css" rel="stylesheet">
 
-
 </head>
 
-<body>
+<body x-data="rss">
 
+  <script src="static/js/alpinejs-3.13.0.min.js" defer></script>
 
   <div class="main-container">
-    <div class="primary-card">
-      <!-- Primary Container -->
-      <!-- First RSS fetched Content will be displayed here -->
-    </div>
-    <div class="primary-card">
-      <!-- Primary Container -->
-      <!-- First RSS fetched Content will be displayed here -->
-    </div>
+    <template x-if="!fetchError">
+      <template x-for="entry in entries">
+        <div class="primary-card">
+          <!-- Primary Container -->
+          <!-- First RSS fetched Content will be displayed here -->
+          <h1 x-text="entry.title"></h1>
+          <p x-text="entry.pubDate"></p>
+          <p x-text="entry.contentSnippet"></p>
+        </div>
+      </template>
+    </template>
+
     <div class="secondary-container">
       <div class="row-container">
         <div class="secondary-card">
@@ -60,6 +64,8 @@
   <script src="https://browser.sentry-cdn.com/8.30.0/bundle.tracing.min.js"
     integrity="sha384-whi3vRW+DIBqY2lQQ6oghGXbbA0sL5NJxUL6CMC+LRJ0b4A64Qn7/6YhpeR0+3Nq"
     crossorigin="anonymous"></script>
+
+  <script src="static/js/app.js"></script>
   <script src="static/js/main.js"></script>
 </body>
 
