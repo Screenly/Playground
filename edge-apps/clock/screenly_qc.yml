@@ -21,7 +21,7 @@ settings:
     help_text: Specify a supported timezone value (e.g., Europe/London).
   override_locale:
     type: string
-    default_value: ''
+    default_value: en
     title: Override Locale
     optional: true
     help_text: Specify a supported locale value (e.g., en_US).
