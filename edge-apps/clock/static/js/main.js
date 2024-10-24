@@ -4,7 +4,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
   const { getNearestCity } = OfflineGeocodeCity
   const allTimezones = moment.tz.names()
-
   const sentryDsn = screenly.settings.sentry_dsn
   // Initiate Sentry.
   if (sentryDsn) {
@@ -22,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const longitude = metadata.coordinates[1]
     const defaultLocale = navigator?.languages?.length
       ? navigator.languages[0]
-      : navigator.language
+      : navigator.language || 'en'
 
     const getLocale = async () => {
       const overrideLocale = settings?.override_locale
