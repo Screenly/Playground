@@ -1,0 +1,766 @@
+/* stylelint-disable media-feature-range-notation */
+
+/* Specific Layout & Module Styles */
+
+/* ---------Clock Element------------ */
+
+.clock-container {
+  width: 36.43rem;
+  height: 36.43rem;
+  background: #EAECF3;
+  border-radius: 50%;
+  display: flex;
+  justify-self: center;
+  align-items: center;
+}
+
+.clock-container .clock {
+  width: 30rem;
+  height: 30rem;
+  border-radius: 50%;
+  margin: auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clock .number-hours,
+.clock .seconds-bar {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.seconds-bar span {
+  position: absolute;
+  transform: rotate(calc(var(--index) * 45deg));
+  inset: -1.43rem;
+  text-align: center;
+}
+
+.clock .seconds-bar span p {
+  width: 0.21rem;
+  display: inline-block;
+  border-radius: 0.14rem;
+}
+
+.clock .seconds-bar span:nth-child(5n) p {
+  background: var(--theme-color-primary);
+  width: 0.36rem;
+  height: 1.29rem;
+  transform: translateY(0.07rem);
+}
+
+.hands-box {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hands-box .hand {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+}
+
+.hands-box .hour {
+  width: 20rem;
+  height: 20rem;
+}
+
+.hands-box .hour i {
+  width: 0.5rem;
+  height: 9.86rem;
+  background: #fff;
+  position: absolute;
+  box-shadow: 0 0 2.14rem 0 rgb(0 0 0 / 97%);
+}
+
+.hands-box .hour i::before {
+  content: "";
+  position: absolute;
+  height: 7.5rem;
+  width: 1.07rem;
+  bottom: 2.14rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 1.43rem;
+  background: var(--theme-color-primary);
+  z-index: 2;
+  box-shadow: 0 0 1.71rem 0 rgb(0 0 0 / 26%);
+}
+
+.hands-box .hour i::after {
+  content: "";
+  position: absolute;
+  height: 8.21rem;
+  width: 1.86rem;
+  bottom: 1.79rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 1.79rem;
+  background: #fff;
+  z-index: 1;
+}
+
+.hands-box .minute {
+  width: 27.14rem;
+  height: 27.14rem;
+}
+
+.hands-box .minute::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.79rem;
+  height: 1.79rem;
+  background: #fff;
+  border-radius: 1.79rem;
+  z-index: 999;
+}
+
+.hands-box .minute i {
+  width: 0.5rem;
+  height: 13.57rem;
+  background: #fff;
+  position: absolute;
+  box-shadow: 0 0 2.14rem 0 rgb(0 0 0 / 97%);
+}
+
+.hands-box .minute i::before {
+  content: "";
+  width: 1.86rem;
+  height: 14.71rem;
+  background: #fff;
+  position: absolute;
+  bottom: 1.79rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 1.79rem;
+  z-index: 1;
+  box-shadow: 0 0 1.71rem 0 rgb(0 0 0 / 26%);
+}
+
+.hands-box .minute i::after {
+  content: "";
+  width: 1.07rem;
+  height: 13.93rem;
+  background: var(--theme-color-primary);
+  position: absolute;
+  bottom: 2.21rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 1.43rem;
+  z-index: 2;
+}
+
+.hands-box .second {
+  width: 30rem;
+  height: 34.29rem;
+}
+
+.hands-box .second::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.14rem;
+  height: 1.14rem;
+  background: #1E1E1E;
+  border-radius: 1.79rem;
+}
+
+.hands-box .second::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.57rem;
+  height: 0.57rem;
+  background: var(--theme-color-primary);
+  border-radius: 1.79rem;
+}
+
+.hands-box .second i {
+  width: 0.29rem;
+  height: calc(15rem + 3.57rem);
+  background: #1E1E1E;
+  position: relative;
+  border-radius: 0.14rem;
+}
+
+.hands-box .second i::before {
+  content: '';
+  width: 0.29rem;
+  height: 3.21rem;
+  background: #1E1E1E;
+  position: absolute;
+  bottom: -2.93rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 0.36rem;
+}
+
+/* ---------Clock End----------- */
+
+
+.primary-card-clock {
+  line-height: 1;
+  font-size: 8rem;
+  color: var(--theme-color-tertiary);
+}
+
+
+.secondary-card-number-container {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  align-items: baseline;
+}
+
+
+.secondary-card-number {
+  font-size: 14.5rem;
+  color: var(--theme-color-primary);
+  letter-spacing: 1rem;
+}
+
+
+.info-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+}
+
+.brand-logo {
+  width: 12rem;
+}
+
+
+.info-text {
+  font-size: 1.75rem;
+  color: var(--theme-color-primary);
+}
+
+.date-card {
+  gap: 0.25rem;
+}
+
+
+.date-text {
+  font-size: 5rem;
+  color: var(--theme-color-secondary);
+}
+
+
+.date-number {
+  line-height: 1;
+  font-size: 11rem;
+  color: var(--theme-color-primary);
+}
+
+
+.primary-card {
+  width: 100%;
+}
+
+.primary-container {
+  width: 65%;
+}
+
+.secondary-container {
+  width: 35%;
+}
+
+.primary-card.message-body {
+  background-color: var(--theme-color-tertiary);
+  color: black;
+}
+
+.row-container {
+  height: 35%;
+}
+
+.clock-card {
+  width: 31.5%;
+}
+
+.clock-div {
+  transform: scale(.35);
+}
+
+.message-head-content {
+  font-size: 7rem;
+  font-weight: bold;
+  margin: 5rem;
+  line-height: 1.25;
+}
+
+.primary-card.message-head {
+  align-items: flex-start;
+  justify-content: normal;
+}
+
+.message-body-content {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 5rem;
+  line-height: 1.25;
+}
+
+.primary-card.message-body {
+  align-items: flex-start;
+  justify-content: normal;
+
+}
+
+
+
+/* Media Query */
+
+/* 480px 720px Clock Container need to fix */
+
+/* TODO: Fix the Clock Circle issue : When Scale to .5, circle change to oval */
+
+
+@media screen and (min-width: 480px) and (orientation: portrait) {
+  /* .clock-container {
+    transform: scale(.7);
+  }
+
+  .secondary-card-number-container {
+    gap: 1rem;
+  }
+
+  .secondary-card-number {
+    font-size: 8rem;
+    letter-spacing: .5rem;
+  }
+
+  .secondary-card-time-am-pm {
+    font-size: 2.5rem;
+  }
+
+  */
+
+
+  .message-head-content {
+    font-size: 2.5rem;
+    margin: 2rem;
+  }
+
+  .message-body-content {
+    font-size: 1rem;
+    margin: 2rem;
+  }
+
+  .brand-logo {
+    width: 5rem;
+  }
+
+  .info-text {
+    font-size: .8rem;
+  }
+
+  .info-card {
+    gap: 1.5rem;
+  }
+
+  .date-text {
+    font-size: 3rem;
+  }
+
+  .date-number {
+    font-size: 6rem;
+  }
+
+
+  .clock-div {
+    transform: scale(.2);
+  }
+
+
+
+
+
+}
+
+
+
+
+
+
+/* @media screen and (min-width: 720px) and (orientation: portrait) {
+  .clock-container {
+    transform: scale(1);
+  }
+
+  .secondary-card-number-container {
+    gap: 1rem;
+  }
+
+  .secondary-card-number {
+    font-size: 11rem;
+  }
+
+  .secondary-card-time-am-pm {
+    font-size: 3rem;
+  }
+
+  .brand-logo {
+    width: 9rem;
+  }
+
+  .info-text {
+    font-size: 1.25rem;
+  }
+
+  .info-card {
+    gap: 1.5rem;
+  }
+
+  .date-text {
+    font-size: 6rem;
+  }
+
+  .date-number {
+    font-size: 10rem;
+  }
+
+} */
+
+@media screen and (min-width: 800px) and (orientation: landscape) {
+  .message-head-content {
+    font-size: 3rem;
+    margin: 2rem;
+  }
+
+  .message-body-content {
+    font-size: 1.3rem;
+    margin: 2rem;
+  }
+
+  .brand-logo {
+    width: 5rem;
+  }
+
+  .info-text {
+    font-size: .75rem;
+  }
+
+  .info-card {
+    gap: 1.2rem;
+  }
+
+  .date-text {
+    font-size: 2.5rem;
+  }
+
+  .date-number {
+    font-size: 5rem;
+  }
+
+  .clock-div {
+    transform: scale(.2);
+  }
+
+}
+
+/* @media screen and (min-width: 1080px) and (orientation: portrait) {
+  .clock-container {
+    transform: scale(1.25);
+  }
+
+  .secondary-card-number-container {
+    gap: 1rem;
+  }
+
+  .secondary-card-number {
+    font-size: 17rem;
+  }
+
+  .secondary-card-time-am-pm {
+    font-size: 4rem;
+  }
+
+  .brand-logo {
+    width: 12rem;
+  }
+
+  .info-text {
+    font-size: 2rem;
+  }
+
+  .info-card {
+    gap: 3rem;
+  }
+
+  .date-text {
+    font-size: 10rem;
+  }
+
+  .date-number {
+    font-size: 16rem;
+  }
+} */
+
+@media screen and (min-width: 1280px) and (orientation: landscape) {
+
+
+  .message-head-content {
+    font-size: 5rem;
+    margin: 3rem;
+  }
+
+  .message-body-content {
+    font-size: 2rem;
+    margin: 3rem;
+  }
+
+  .brand-logo {
+    width: 7rem;
+  }
+
+  .info-text {
+    font-size: 1rem;
+  }
+
+  .info-card {
+    gap: 1.2rem;
+  }
+
+  .date-text {
+    font-size: 4rem;
+  }
+
+  .date-number {
+    font-size: 7rem;
+  }
+
+  .clock-div {
+    transform: scale(.3);
+  }
+
+
+
+}
+
+@media screen and (min-width: 1920px) and (orientation: landscape) {
+
+  .message-head-content {
+    font-size: 8rem;
+    margin: 4rem;
+  }
+
+  .message-body-content {
+    font-size: 3.2rem;
+    margin: 4rem;
+  }
+
+  .brand-logo {
+    width: 11rem;
+  }
+
+  .info-text {
+    font-size: 1.75rem;
+  }
+
+  .info-card {
+    gap: 2.5rem;
+  }
+
+  .date-text {
+    font-size: 6rem;
+  }
+
+  .date-number {
+    font-size: 12rem;
+  }
+
+  .clock-div {
+    transform: scale(.45);
+  }
+
+
+}
+
+/* @media screen and (min-width: 2160px) and (orientation: portrait) {
+  .clock-container {
+    transform: scale(2.7);
+  }
+
+  .secondary-card-number {
+    font-size: 40rem;
+  }
+
+  .secondary-card-time-am-pm {
+    font-size: 9rem;
+  }
+
+  .brand-logo {
+    width: 22rem;
+  }
+
+  .info-text {
+    font-size: 3.75rem;
+  }
+
+  .info-card {
+    gap: 5rem;
+  }
+
+  .date-text {
+    font-size: 17rem;
+  }
+
+  .date-number {
+    font-size: 34rem;
+  }
+
+} */
+
+@media screen and (min-width: 3840px) and (orientation: landscape) {
+  .main-container {
+    gap: 6rem;
+    padding: 6rem;
+  }
+
+  .primary-container {
+    gap: 6rem;
+  }
+
+  .message-head-content {
+    font-size: 16rem;
+    margin: 10rem;
+  }
+
+  .row-container {
+    height: 45%;
+  }
+
+  .brand-logo {
+    width: 18rem;
+  }
+
+  .info-text {
+    font-size: 3rem;
+  }
+
+  .info-card {
+    gap: 3.5rem;
+  }
+
+  .date-text {
+    font-size: 10rem;
+  }
+
+  .date-number {
+    font-size: 20rem;
+  }
+
+  .clock-card {
+    width: 100%;
+  }
+
+  .clock-div {
+    transform: scale(.8);
+  }
+
+  .message-body-content {
+    font-size: 6rem;
+    margin: 10rem;
+  }
+
+
+}
+
+
+@media screen and (min-width: 4096px) and (orientation: landscape) {
+
+  .main-container {
+    gap: 6rem;
+    padding: 6rem;
+  }
+
+  .primary-container {
+    gap: 6rem;
+  }
+
+  .message-head-content {
+    font-size: 17rem;
+    margin: 10rem;
+  }
+
+  .row-container {
+    height: 45%;
+  }
+
+  .brand-logo {
+    width: 18rem;
+  }
+
+  .info-text {
+    font-size: 3rem;
+  }
+
+  .info-card {
+    gap: 3.5rem;
+  }
+
+  .date-text {
+    font-size: 10rem;
+  }
+
+  .date-number {
+    font-size: 20rem;
+  }
+
+  .clock-card {
+    width: 100%;
+  }
+
+  .clock-div {
+    transform: scale(.8);
+  }
+
+  .message-body-content {
+    font-size: 6rem;
+    margin: 10rem;
+  }
+
+
+}
+
+/* ............. */
+
+/* ToDo: Fix Portrait Order issue  */
+/* Move flexbox to grid */
+
+@media (orientation: portrait) {
+
+
+  .main-container {
+    flex-direction: column;
+    display: flex;
+  }
+
+  .primary-container {
+    width: 100%;
+    order: 1;
+  }
+
+  .secondary-container {
+    width: 100%;
+    order: 2;
+  }
+
+  .row-container {
+    order: 3;
+  }
+}
