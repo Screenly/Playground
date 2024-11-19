@@ -188,17 +188,12 @@ body {
     gap: 1.5rem;
   }
 
-
   .primary-card {
     border-radius: 2rem;
   }
 
   .secondary-container {
     gap: 1rem;
-  }
-
-  .primary-container {
-    gap: 1.5rem;
   }
 
   .row-container {
