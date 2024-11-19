@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (theme === 'light') {
     logoUrl = screenly.cors_proxy_url + '/' + screenly.settings.screenly_logo_light
     fallbackUrl = screenly.settings.screenly_logo_light
-  } else if (theme === 'dark' ){
+  } else if (theme === 'dark') {
     logoUrl = screenly.cors_proxy_url + '/' + screenly.settings.screenly_logo_dark
     fallbackUrl = screenly.settings.screenly_logo_dark
   }

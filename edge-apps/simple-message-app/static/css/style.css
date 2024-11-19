@@ -506,8 +506,6 @@
 } */
 
 @media screen and (min-width: 1280px) and (orientation: landscape) {
-
-
   .message-head-content {
     font-size: 5rem;
     margin: 3rem;
@@ -547,7 +545,6 @@
 }
 
 @media screen and (min-width: 1920px) and (orientation: landscape) {
-
   .message-head-content {
     font-size: 8rem;
     margin: 4rem;
@@ -677,7 +674,6 @@
 
 
 @media screen and (min-width: 4096px) and (orientation: landscape) {
-
   .main-container {
     gap: 6rem;
     padding: 6rem;
@@ -735,11 +731,10 @@
 /* ............. */
 
 /* ToDo: Fix Portrait Order issue  */
+
 /* Move flexbox to grid */
 
 @media (orientation: portrait) {
-
-
   .main-container {
     flex-direction: column;
     display: flex;
