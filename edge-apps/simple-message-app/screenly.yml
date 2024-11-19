@@ -15,7 +15,10 @@ settings:
     is_global: true
   message_body:
     type: string
-    default_value: A simple message app allows users to display text on a screen, making it a basic tool for digital signage. Users can input and edit both the heading and message body directly from the Screenly dashboard.
+    default_value: |
+      A simple message app allows users to display text on a screen, making it a
+      basic tool for digital signage. Users can input and edit both the heading
+      and message body directly from the Screenly dashboard.
     title: Message Body
     optional: false
     help_text: This text will be the content of the message
@@ -49,4 +52,6 @@ settings:
     default_value: light
     title: Theme
     optional: false
-    help_text: Determines the visual theme for the application. Options are 'light' or 'dark'.
+    help_text: |
+      Determines the visual theme for the application.
+      Options are 'light' or 'dark'.
