@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   async function initApp () {
-    //let clockTimer
+    // let clockTimer
     const { metadata, settings } = screenly
     const latitude = metadata.coordinates[0]
     const longitude = metadata.coordinates[1]
@@ -59,7 +59,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     const initDateTime = async () => {
-      //clearTimeout(clockTimer)
       const timezone = await getTimezone()
       const locale = await getLocale()
       const momentObject = moment().tz(timezone)
@@ -71,7 +70,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.querySelector('.date-text').innerText = momentObject.format('ddd').toUpperCase() // Set the text to the day name
       document.querySelector('.date-number').innerText = momentObject.format('DD') // Set the  text to the numeric day of the month
 
-      //Clock Elements
+      // Clock Elements
       const secondsBar = document.querySelector('.seconds-bar')
       const barElement = []
       for (let i = 1; i <= 60; i++) {
@@ -112,7 +111,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const tertiaryColor = '#FFFFFF'
   const backgroundColor = '#C9CDD0'
 
-  //Theme Selection
+  // Theme Selection
   const theme = screenly.settings.theme
 
   // Brand details fetching from settings
@@ -138,12 +137,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (theme === 'light') {
     logoUrl = screenly.cors_proxy_url + '/' + screenly.settings.screenly_logo_light
     fallbackUrl = screenly.settings.screenly_logo_light
-    console.log("we are light logo")
   } else if (theme === 'dark' ){
     logoUrl = screenly.cors_proxy_url + '/' + screenly.settings.screenly_logo_dark
     fallbackUrl = screenly.settings.screenly_logo_dark
-    console.log("we are dark logo")
   }
+
   const defaultLogo = 'static/img/Screenly.svg'
 
   // Function to fetch and process the image

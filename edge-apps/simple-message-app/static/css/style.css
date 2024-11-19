@@ -281,6 +281,8 @@
 .primary-card.message-body {
   background-color: var(--theme-color-tertiary);
   color: black;
+  align-items: flex-start;
+  justify-content: normal;
 }
 
 .row-container {
@@ -313,13 +315,6 @@
   margin: 5rem;
   line-height: 1.25;
 }
-
-.primary-card.message-body {
-  align-items: flex-start;
-  justify-content: normal;
-
-}
-
 
 
 /* Media Query */
