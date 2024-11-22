@@ -138,20 +138,20 @@ document.addEventListener('DOMContentLoaded', async () => {
    const defaultLogo = 'static/img/Screenly.svg' // Fall back screenly logo
 
    // Define settings
-   const lightLogo = screenly.settings.screenly_logo_light
-   const darkLogo = screenly.settings.screenly_logo_dark
+   const lightLogo = screenly.settings.screenly_logo_light;
+   const darkLogo = screenly.settings.screenly_logo_dark;
 
    // Set logo URLs based on theme
-   if (theme === 'light') {
-       logoUrl = lightLogo
-                 ? `${screenly.cors_proxy_url}/${lightLogo}`
-                 : `${screenly.cors_proxy_url}/${darkLogo}`
-       fallbackUrl = lightLogo || darkLogo;
-   } else if (theme === 'dark') {
-       logoUrl = darkLogo
-                 ? `${screenly.cors_proxy_url}/${darkLogo}`
-                 : `${screenly.cors_proxy_url}/${lightLogo}`
-       fallbackUrl = darkLogo || lightLogo;
+   if (theme === "light") {
+     logoUrl = lightLogo
+       ? `${screenly.cors_proxy_url}/${lightLogo}`
+       : `${screenly.cors_proxy_url}/${darkLogo}`;
+     fallbackUrl = lightLogo || darkLogo;
+   } else if (theme === "dark") {
+     logoUrl = darkLogo
+       ? `${screenly.cors_proxy_url}/${darkLogo}`
+       : `${screenly.cors_proxy_url}/${lightLogo}`;
+     fallbackUrl = darkLogo || lightLogo;
    }
 
   // Function to fetch and process the image
