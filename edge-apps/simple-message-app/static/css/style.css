@@ -319,31 +319,21 @@
 
 .primary-container {
   width: 100%;
-  grid-row-start: 1;
-  grid-column-start: 1;
-  grid-row-end: 5;
-  grid-column-end: 9;
-
+  grid-area: 1 / 1 / 5 / 9;
 }
 
 .secondary-container {
   width: 100%;
   border-radius: 3rem;
   background-color: #fff;
-  grid-row-start: 1;
-  grid-column-start: 9;
-
-  grid-row-end: 7;
-  grid-column-end: 13;
+  grid-area: 1 / 9 / 7 / 13;
 }
 
 .row-container {
   height: 100%;
-  grid-row-start: 5;
-  grid-column-start: 1;
-  grid-row-end: 7;
-  grid-column-end: 9;
+  grid-area: 5 / 1 / 7 / 9;
 }
+
 
 @media (orientation: portrait) {
  .main-container {
