@@ -268,29 +268,11 @@
 
 .primary-card {
   width: 100%;
-}
-
-.primary-container {
-  width: 65%;
-}
-
-.secondary-container {
-  width: 35%;
-}
-
-.primary-card.message-body {
-  background-color: var(--theme-color-tertiary);
-  color: black;
-  align-items: flex-start;
-  justify-content: normal;
-}
-
-.row-container {
-  height: 35%;
+  height: 100%;
 }
 
 .clock-card {
-  width: 31.5%;
+  width: 31.321%;
 }
 
 .clock-div {
@@ -317,120 +299,99 @@
 }
 
 
-/* Media Query */
-
-/* 480px 720px Clock Container need to fix */
-
-/* TODO: Fix the Clock Circle issue : When Scale to .5, circle change to oval */
-
-
-@media screen and (min-width: 480px) and (orientation: portrait) {
-  /* .clock-container {
-    transform: scale(.7);
-  }
-
-  .secondary-card-number-container {
-    gap: 1rem;
-  }
-
-  .secondary-card-number {
-    font-size: 8rem;
-    letter-spacing: .5rem;
-  }
-
-  .secondary-card-time-am-pm {
-    font-size: 2.5rem;
-  }
-
-  */
-
-
-  .message-head-content {
-    font-size: 2.5rem;
-    margin: 2rem;
-  }
-
-  .message-body-content {
-    font-size: 1rem;
-    margin: 2rem;
-  }
-
-  .brand-logo {
-    width: 5rem;
-  }
-
-  .info-text {
-    font-size: .8rem;
-  }
-
-  .info-card {
-    gap: 1.5rem;
-  }
-
-  .date-text {
-    font-size: 3rem;
-  }
-
-  .date-number {
-    font-size: 6rem;
-  }
-
-
-  .clock-div {
-    transform: scale(.2);
-  }
-
-
-
-
-
+.message-body {
+  display: flex;
+  align-items: flex-start;
+  justify-content: normal;
 }
 
 
+/* Grid Setup */
 
+.main-container-grid{
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 2rem;
+  height: 100%;
+  width: 100%;
+}
 
+.primary-container {
+  width: 100%;
+  grid-row-start: 1;
+  grid-column-start: 1;
+  grid-row-end: 5;
+  grid-column-end: 9;
 
+}
 
-/* @media screen and (min-width: 720px) and (orientation: portrait) {
-  .clock-container {
-    transform: scale(1);
+.secondary-container {
+  width: 100%;
+  border-radius: 3rem;
+  background-color: #fff;
+  grid-row-start: 1;
+  grid-column-start: 9;
+
+  grid-row-end: 7;
+  grid-column-end: 13;
+}
+
+.row-container {
+  height: 100%;
+  grid-row-start: 5;
+  grid-column-start: 1;
+  grid-row-end: 7;
+  grid-column-end: 9;
+}
+
+@media (orientation: portrait) {
+ .main-container {
+    flex-direction: column;
+    display: flex;
   }
 
-  .secondary-card-number-container {
+  .primary-container {
+    width: 100%;
+    height: 50%;
+  }
+
+  .secondary-container {
+    width: 100%;
+    height: 30%;
+  }
+
+  .row-container {
+    width: 100%;
+    height: 20%;
+  }
+
+}
+
+/* Media Query */
+
+@media screen and (min-width: 480px) and (orientation: portrait) {
+  .main-container {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .row-container {
     gap: 1rem;
   }
 
-  .secondary-card-number {
-    font-size: 11rem;
+  .primary-container {
+    height: 50%;
   }
 
-  .secondary-card-time-am-pm {
-    font-size: 3rem;
+  .primary-card,
+  .secondary-card,
+  .secondary-container
+   {
+    border-radius: 1.5rem;
   }
 
-  .brand-logo {
-    width: 9rem;
-  }
 
-  .info-text {
-    font-size: 1.25rem;
-  }
-
-  .info-card {
-    gap: 1.5rem;
-  }
-
-  .date-text {
-    font-size: 6rem;
-  }
-
-  .date-number {
-    font-size: 10rem;
-  }
-
-} */
-
-@media screen and (min-width: 800px) and (orientation: landscape) {
   .message-head-content {
     font-size: 3rem;
     margin: 2rem;
@@ -442,78 +403,56 @@
   }
 
   .brand-logo {
-    width: 5rem;
+    width: 4.5rem;
   }
 
   .info-text {
-    font-size: .75rem;
+    font-size: .6rem;
   }
 
   .info-card {
-    gap: 1.2rem;
-  }
-
-  .date-text {
-    font-size: 2.5rem;
-  }
-
-  .date-number {
-    font-size: 5rem;
-  }
-
-  .clock-div {
-    transform: scale(.2);
-  }
-
-}
-
-/* @media screen and (min-width: 1080px) and (orientation: portrait) {
-  .clock-container {
-    transform: scale(1.25);
-  }
-
-  .secondary-card-number-container {
     gap: 1rem;
   }
 
-  .secondary-card-number {
-    font-size: 17rem;
-  }
-
-  .secondary-card-time-am-pm {
-    font-size: 4rem;
-  }
-
-  .brand-logo {
-    width: 12rem;
-  }
-
-  .info-text {
-    font-size: 2rem;
-  }
-
-  .info-card {
-    gap: 3rem;
-  }
-
   .date-text {
-    font-size: 10rem;
+    font-size: 3rem;
   }
 
   .date-number {
-    font-size: 16rem;
+    font-size: 5rem;
   }
-} */
 
-@media screen and (min-width: 1280px) and (orientation: landscape) {
+  .clock-container {
+    transform: scale(.55);
+  }
+}
+
+
+
+@media screen and (min-width: 720px) and (orientation: portrait) {
+  .main-container {
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .row-container {
+    gap: 2rem;
+  }
+
+  .primary-card,
+  .secondary-card,
+  .secondary-container{
+    border-radius: 2rem;
+  }
+
   .message-head-content {
     font-size: 5rem;
-    margin: 3rem;
+    margin: 2.5rem;
   }
 
   .message-body-content {
     font-size: 2rem;
-    margin: 3rem;
+    margin: 2.5rem;
   }
 
   .brand-logo {
@@ -525,131 +464,331 @@
   }
 
   .info-card {
-    gap: 1.2rem;
+    gap: 1.5rem;
   }
 
   .date-text {
-    font-size: 4rem;
+    font-size: 4.5rem;
   }
 
   .date-number {
     font-size: 7rem;
   }
 
-  .clock-div {
-    transform: scale(.3);
+  .clock-container {
+    transform: scale(.85);
+  }
+
+}
+
+@media screen and (min-width: 800px) and (orientation: landscape) {
+  .main-container {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .row-container {
+    gap: 1rem;
+  }
+
+  .primary-card,
+  .secondary-card,
+  .secondary-container{
+    border-radius: 1.5rem;
+  }
+
+  .message-head-content {
+    font-size: 3rem;
+    margin: 2rem;
+  }
+
+  .message-body-content {
+    font-size: 1.25rem;
+    margin: 2rem 1.5rem;
+  }
+
+  .brand-logo {
+    width: 4.5rem;
+  }
+
+  .info-text {
+    font-size: .6rem;
+  }
+
+  .info-card {
+    gap: 1rem;
+  }
+
+  .date-text {
+    font-size: 3rem;
+  }
+
+  .date-number {
+    font-size: 5.5rem;
+  }
+
+  .clock-container {
+    transform: scale(.6);
+  }
+
+}
+
+@media screen and (min-width: 1080px) and (orientation: portrait) {
+  .main-container {
+    gap: 3rem;
+    padding: 3rem;
+  }
+
+  .row-container {
+    gap: 3rem;
+  }
+
+  .primary-card,
+  .secondary-card,
+  .secondary-container{
+    border-radius: 2.5rem;
+  }
+
+  .message-head-content {
+    font-size: 7rem;
+    margin: 4rem;
+  }
+
+  .message-body-content {
+    font-size: 3rem;
+    margin: 3.5rem;
   }
 
 
+  .brand-logo {
+    width: 10rem;
+  }
+
+  .info-text {
+    font-size: 1.5rem;
+  }
+
+  .info-card {
+    gap: 1.5rem;
+  }
+
+  .date-text {
+    font-size: 8rem;
+  }
+
+  .date-number {
+    font-size: 11rem;
+  }
+
+  .clock-container {
+    transform: scale(1.3);
+  }
+}
+
+@media screen and (min-width: 1280px) and (orientation: landscape) {
+  .main-container {
+    gap: 1.75rem;
+    padding: 1.75rem;
+  }
+
+  .row-container {
+    gap: 1.75rem;
+  }
+
+  .primary-card,
+  .secondary-card,
+  .secondary-container{
+    border-radius: 1.5rem;
+  }
+
+  .message-head-content {
+    font-size: 5rem;
+    margin: 2.5rem;
+  }
+
+  .message-body-content {
+    font-size: 2rem;
+    margin: 2.5rem 2rem;
+  }
+
+  .brand-logo {
+    width: 7rem;
+  }
+
+  .info-text {
+    font-size: 1rem;
+  }
+
+  .info-card {
+    gap: 1rem;
+  }
+
+  .date-text {
+    font-size: 5rem;
+  }
+
+  .date-number {
+    font-size: 7rem;
+  }
+
+  .clock-container {
+    transform: scale(.85);
+  }
 
 }
 
 @media screen and (min-width: 1920px) and (orientation: landscape) {
-  .message-head-content {
-    font-size: 8rem;
-    margin: 4rem;
+  .main-container {
+    gap: 2.5rem;
+    padding: 2.5rem;
   }
 
-  .message-body-content {
-    font-size: 3.2rem;
-    margin: 4rem;
-  }
-
-  .brand-logo {
-    width: 11rem;
-  }
-
-  .info-text {
-    font-size: 1.75rem;
-  }
-
-  .info-card {
+  .row-container {
     gap: 2.5rem;
   }
 
-  .date-text {
-    font-size: 6rem;
+  .primary-card,
+  .secondary-card,
+  .secondary-container{
+    border-radius: 2rem;
   }
 
-  .date-number {
-    font-size: 12rem;
+  .message-head-content {
+    font-size: 7rem;
+    margin: 3.5rem 4.5rem;
   }
 
-  .clock-div {
-    transform: scale(.45);
-  }
-
-
-}
-
-/* @media screen and (min-width: 2160px) and (orientation: portrait) {
-  .clock-container {
-    transform: scale(2.7);
-  }
-
-  .secondary-card-number {
-    font-size: 40rem;
-  }
-
-  .secondary-card-time-am-pm {
-    font-size: 9rem;
+  .message-body-content {
+    font-size: 3.15rem;
+    margin: 3.5rem 3.5rem;
   }
 
   .brand-logo {
-    width: 22rem;
+    width: 10rem;
   }
 
   .info-text {
-    font-size: 3.75rem;
+    font-size: 1.2rem;
   }
 
   .info-card {
-    gap: 5rem;
+    gap: 2rem;
   }
 
   .date-text {
-    font-size: 17rem;
+    font-size: 8rem;
   }
 
   .date-number {
-    font-size: 34rem;
+    font-size: 10rem;
   }
 
-} */
+  .clock-container {
+    transform: scale(1.25);
+  }
+
+}
+
+@media screen and (min-width: 2160px) and (orientation: portrait) {
+  .main-container {
+    gap: 6rem;
+    padding: 6rem;
+  }
+
+  .row-container {
+    gap: 6rem;
+  }
+
+  .primary-card,
+  .secondary-card,
+  .secondary-container{
+    border-radius: 5rem;
+  }
+
+  .message-head-content {
+    font-size: 15rem;
+    margin: 8rem;
+  }
+
+  .message-body-content {
+    font-size: 6rem;
+    margin: 8rem;
+  }
+
+
+  .brand-logo {
+    width: 23rem;
+  }
+
+  .info-text {
+    font-size: 3rem;
+  }
+
+  .info-card {
+    gap: 4.5rem;
+  }
+
+  .date-text {
+    font-size: 18rem;
+  }
+
+  .date-number {
+    font-size: 24rem;
+  }
+
+  .clock-card {
+    width: 100%;
+  }
+
+  .clock-container {
+    transform: scale(2.2);
+  }
+
+}
+
+
+/* current one  */
 
 @media screen and (min-width: 3840px) and (orientation: landscape) {
   .main-container {
-    gap: 6rem;
-    padding: 6rem;
+    gap: 4.5rem;
+    padding: 4.5rem;
   }
 
-  .primary-container {
-    gap: 6rem;
+  .row-container {
+    gap: 4.5rem;
+  }
+
+  .primary-card,
+  .secondary-card,
+  .secondary-container{
+    border-radius: 4rem;
   }
 
   .message-head-content {
+    font-size: 15rem;
+    margin: 6rem 6rem;
+  }
+
+  .message-body-content {
+    font-size: 6.5rem;
+    margin: 6rem 6rem;
+  }
+
+  .brand-logo {
+    width: 20rem;
+  }
+
+  .info-text {
+    font-size: 2.5rem;
+  }
+
+  .info-card {
+    gap: 3rem;
+  }
+
+  .date-text {
     font-size: 16rem;
-    margin: 10rem;
-  }
-
-  .row-container {
-    height: 45%;
-  }
-
-  .brand-logo {
-    width: 18rem;
-  }
-
-  .info-text {
-    font-size: 3rem;
-  }
-
-  .info-card {
-    gap: 3.5rem;
-  }
-
-  .date-text {
-    font-size: 10rem;
   }
 
   .date-number {
@@ -660,97 +799,7 @@
     width: 100%;
   }
 
-  .clock-div {
-    transform: scale(.8);
-  }
-
-  .message-body-content {
-    font-size: 6rem;
-    margin: 10rem;
-  }
-
-
-}
-
-
-@media screen and (min-width: 4096px) and (orientation: landscape) {
-  .main-container {
-    gap: 6rem;
-    padding: 6rem;
-  }
-
-  .primary-container {
-    gap: 6rem;
-  }
-
-  .message-head-content {
-    font-size: 17rem;
-    margin: 10rem;
-  }
-
-  .row-container {
-    height: 45%;
-  }
-
-  .brand-logo {
-    width: 18rem;
-  }
-
-  .info-text {
-    font-size: 3rem;
-  }
-
-  .info-card {
-    gap: 3.5rem;
-  }
-
-  .date-text {
-    font-size: 10rem;
-  }
-
-  .date-number {
-    font-size: 20rem;
-  }
-
-  .clock-card {
-    width: 100%;
-  }
-
-  .clock-div {
-    transform: scale(.8);
-  }
-
-  .message-body-content {
-    font-size: 6rem;
-    margin: 10rem;
-  }
-
-
-}
-
-/* ............. */
-
-/* ToDo: Fix Portrait Order issue  */
-
-/* Move flexbox to grid */
-
-@media (orientation: portrait) {
-  .main-container {
-    flex-direction: column;
-    display: flex;
-  }
-
-  .primary-container {
-    width: 100%;
-    order: 1;
-  }
-
-  .secondary-container {
-    width: 100%;
-    order: 2;
-  }
-
-  .row-container {
-    order: 3;
+  .clock-container {
+    transform: scale(2.5);
   }
 }

@@ -9,11 +9,23 @@
 </head>
 
 <body>
-  <div class="main-container">
+  <div class="main-container main-container-grid">
+    <!-- Primary Container with Message Head -->
     <div class="primary-container">
       <div class="primary-card message-head">
         <span class="message-head-content">Simple Message App.</span>
       </div>
+    </div>
+    <!-- Secondary Container for message body -->
+    <div class="secondary-container">
+        <div class="message-body">
+          <span class="message-body-content">A simple message app allows users to display text on a screen, making it a
+            basic tool
+            for digital signage. Users can input and edit both the heading and message body directly from the Screenly
+            dashboard. </span>
+        </div>
+      </div>
+      <!-- Row Container with modules -->
       <div class="row-container">
         <div class="secondary-card info-card">
           <img id="brand-logo" src="static/img/Screenly.svg" class="brand-logo" alt="Brand Logo" />
@@ -38,15 +50,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="secondary-container">
-      <div class="primary-card message-body">
-        <span class="message-body-content">A simple message app allows users to display text on a screen, making it a
-          basic tool
-          for digital signage. Users can input and edit both the heading and message body directly from the Screenly
-          dashboard. </span>
-      </div>
-    </div>
   </div>
 
   <script src="screenly.js?version=1"></script>
