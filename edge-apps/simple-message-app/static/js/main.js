@@ -142,12 +142,12 @@ document.addEventListener('DOMContentLoaded', async () => {
    const darkLogo = screenly.settings.screenly_logo_dark;
 
    // Set logo URLs based on theme
-   if (theme === "light") {
+   if (theme === 'light') {
      logoUrl = lightLogo
        ? `${screenly.cors_proxy_url}/${lightLogo}`
        : `${screenly.cors_proxy_url}/${darkLogo}`;
      fallbackUrl = lightLogo || darkLogo;
-   } else if (theme === "dark") {
+   } else if (theme === 'dark') {
      logoUrl = darkLogo
        ? `${screenly.cors_proxy_url}/${darkLogo}`
        : `${screenly.cors_proxy_url}/${lightLogo}`;
