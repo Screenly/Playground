@@ -650,7 +650,7 @@
 
   .message-body-content {
     font-size: 3.15rem;
-    margin: 3.5rem 3.5rem;
+    margin: 3.5rem;
   }
 
   .brand-logo {
@@ -757,12 +757,12 @@
 
   .message-head-content {
     font-size: 15rem;
-    margin: 6rem 6rem;
+    margin: 6rem;
   }
 
   .message-body-content {
     font-size: 6.5rem;
-    margin: 6rem 6rem;
+    margin: 6rem;
   }
 
   .brand-logo {
