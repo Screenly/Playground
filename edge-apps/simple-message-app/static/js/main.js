@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const backgroundColor = '#C9CDD0'
 
   // Theme Selection
-  const theme = screenly.settings.theme ? screenly.settings.theme : "light"
+  const theme = screenly.settings.theme ? screenly.settings.theme : 'light'
 
   // Brand details fetching from settings
   const primaryColor = (!screenly.settings.screenly_color_accent || screenly.settings.screenly_color_accent.toLowerCase() === '#ffffff') ? '#972eff' : screenly.settings.screenly_color_accent
@@ -130,29 +130,29 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.documentElement.style.setProperty('--theme-color-background', backgroundColor)
 
    // Get the logo image element
-   const imgElement = document.getElementById('brand-logo')
+  const imgElement = document.getElementById('brand-logo')
 
    // Initialize variables
-   let logoUrl = ''; // Logo URL
-   let fallbackUrl = ''; // Fallback logo if CORS URL fails
-   const defaultLogo = 'static/img/Screenly.svg' // Fall back screenly logo
+  let logoUrl = '' // Logo URL
+  let fallbackUrl = '' // Fallback logo if CORS URL fails
+  const defaultLogo = 'static/img/Screenly.svg' // Fall back screenly logo
 
    // Define settings
-   const lightLogo = screenly.settings.screenly_logo_light;
-   const darkLogo = screenly.settings.screenly_logo_dark;
+  const lightLogo = screenly.settings.screenly_logo_light;
+  const darkLogo = screenly.settings.screenly_logo_dark;
 
-   // Set logo URLs based on theme
-   if (theme === 'light') {
-     logoUrl = lightLogo
-       ? `${screenly.cors_proxy_url}/${lightLogo}`
-       : `${screenly.cors_proxy_url}/${darkLogo}`;
-     fallbackUrl = lightLogo || darkLogo;
-   } else if (theme === 'dark') {
-     logoUrl = darkLogo
-       ? `${screenly.cors_proxy_url}/${darkLogo}`
-       : `${screenly.cors_proxy_url}/${lightLogo}`;
-     fallbackUrl = darkLogo || lightLogo;
-   }
+  // Set logo URLs based on theme
+  if (theme === 'light') {
+    logoUrl = lightLogo
+      ? `${screenly.cors_proxy_url}/${lightLogo}`
+      : `${screenly.cors_proxy_url}/${darkLogo}`;
+    fallbackUrl = lightLogo || darkLogo;
+  } else if (theme === 'dark') {
+    logoUrl = darkLogo
+      ? `${screenly.cors_proxy_url}/${darkLogo}`
+      : `${screenly.cors_proxy_url}/${lightLogo}`;
+    fallbackUrl = darkLogo || lightLogo;
+  }
 
   // Function to fetch and process the image
   async function fetchImage (fileUrl) {
