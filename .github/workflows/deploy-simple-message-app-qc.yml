@@ -1,12 +1,12 @@
 ---
-name: Deploy Simple Message App (QC)
+name: Deploy simple message app (QC)
 
 on:
   push:
     branches:
       - 'master'
     paths:
-      - 'edge-apps/tfl-bus-status/**'
+      - 'edge-apps/simple-message-app/**'
       - '.github/workflows/deploy-simple-message-app-qc.yml'
 
 jobs:
