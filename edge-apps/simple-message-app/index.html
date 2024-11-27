@@ -1,32 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 
 <head>
-	<meta charset="utf-8">
-	<title>Simple Message App</title>
-	<script src="screenly.js?version=1"></script>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="https://playground.srly.io/bootstrap/theme/playground-theme.css">
-	<link rel="stylesheet" href="static/styles/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="static/css/common.css" rel="stylesheet">
+  <link href="static/css/style.css" rel="stylesheet">
 </head>
 
 <body>
-	<main>
-		<div class="container">
-			<div class="px-4 py-5 my-5 text-center">
-				<h1 class="display-5 fw-bold message-head">Simple Message App</h1>
-				<hr>
-				<p class="message-content">A simple message app allows users to display text on a screen, making it a basic tool
-					for digital signage. Users can input and edit both the heading and message body directly from the Screenly
-					dashboard.</p>
-			</div>
-		</div>
-	</main>
+  <div class="main-container main-container-grid">
+    <!-- Primary Container with Message Head -->
+    <div class="primary-container">
+      <div class="primary-card message-head">
+        <span class="message-head-content">Simple Message App.</span>
+      </div>
+    </div>
+    <!-- Secondary Container for message body -->
+    <div class="secondary-container">
+        <div class="message-body">
+          <span class="message-body-content">A simple message app allows users to display text on a screen, making it a
+            basic tool
+            for digital signage. Users can input and edit both the heading and message body directly from the Screenly
+            dashboard. </span>
+        </div>
+      </div>
+      <!-- Row Container with modules -->
+      <div class="row-container">
+        <div class="secondary-card info-card">
+          <img id="brand-logo" src="static/img/Screenly.svg" class="brand-logo" alt="Brand Logo" />
+          <span class="info-text">Powered by Screenly</span>
+        </div>
+        <div class="secondary-card date-card">
+          <span class="date-text">MON</span>
+          <span class="date-number">05</span>
+        </div>
+        <div class="secondary-card clock-card">
+          <div class="clock-div">
+            <div class="clock-container">
+              <div class="clock">
+                <div class="seconds-bar"></div>
+                <div class="hands-box">
+                  <div class="hand hour"><i></i></div>
+                  <div class="hand minute"><i></i></div>
+                  <div class="hand second"><i></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
 
-	<script>
-		document.querySelector('.message-head').innerText = screenly.settings.message_header;
-		document.querySelector('.message-content').innerText = screenly.settings.message_body;
-	</script>
+  <script src="screenly.js?version=1"></script>
+  <script src="static/js/country-locale-map.1.18.5.min.js"></script>
+  <script src="static/js/moment-with-locales.min.js"></script>
+  <script src="static/js/moment-timezone-with-data.min.js"></script>
+  <script src="static/js/offline-geocode-city-1.0.2.min.js"></script>
+  <script src="static/js/tz.min.js"></script>
+  <script src="https://browser.sentry-cdn.com/8.30.0/bundle.tracing.min.js"
+    integrity="sha384-whi3vRW+DIBqY2lQQ6oghGXbbA0sL5NJxUL6CMC+LRJ0b4A64Qn7/6YhpeR0+3Nq"
+    crossorigin="anonymous"></script>
+  <script src="static/js/main.js"></script>
 </body>
 
 </html>

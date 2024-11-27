@@ -2,7 +2,7 @@
 
 A simple message app allows users to display text on a screen, making it a basic tool for digital signage. Users can input and edit both the heading and message body directly from the Screenly dashboard.
 
-![Simple Message App](./static/images/simple_message_screen.jpg)
+![Simple Message App](./static/img/message-app-preview.png)
 
 ## tl;dr
 
@@ -39,3 +39,35 @@ $ screenly edge-app setting set message_body='This is message body'
 # A relatively long console output...
 Edge app setting successfully set.
 ```
+
+### `theme`
+
+Specifies the application's theme color and logo style. Available options are 'light' or 'dark'.
+
+This setting determines the overall theme appearance and adjusts the logo accordingly and you can change your default value in the Screenly settings page.
+
+```bash
+$ screenly edge-app setting set theme='light'
+# A relatively long console output...
+Edge app setting successfully set.
+```
+
+### `override_timezone`
+
+For instance, if you want to clock app to display the current date and time in London,
+run the following command:
+
+```bash
+$ screenly edge-app setting set override_timezone='Europe/Paris'
+# A relatively long console output...
+Edge app setting successfully set.
+
+$ screenly edge-app setting set override_locale='fr'
+# A relatively long console output...
+Edge app setting successfully set.
+```
+
+See [this page](https://momentjs.com/) for the list of all possible values for the time zone.
+Alternatively, you can call `moment.locales()`, which returns all the supported locale values.
+
+Setting invalid values for the timezone won't crash the app itself, it'll just fall back to the default time.
