@@ -23,6 +23,6 @@ jobs:
       - name: Deploy Edge App
         uses: screenly/cli@master
         with:
-          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_PRODUCTION }}
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
           # yamllint disable-line rule:line-length
           cli_commands: edge-app deploy --path=${{ env.APP_PATH }}
