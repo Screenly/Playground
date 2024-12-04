@@ -1,7 +1,7 @@
 /* global Alpine, RSSParser, screenly */
 
 class AppCache {
-  constructor({ keyName }) {
+  constructor ({ keyName }) {
     this.keyName = keyName
 
     if (localStorage.getItem(this.keyName) === null) {
@@ -13,17 +13,17 @@ class AppCache {
     }
   }
 
-  clear() {
+  clear () {
     this.data = []
     localStorage.removeItem(this.keyName)
   }
 
-  add(data) {
+  add (data) {
     this.data.push(data)
     localStorage.setItem(this.keyName, JSON.stringify(this.data))
   }
 
-  getAll() {
+  getAll () {
     return this.data
   }
 }
@@ -58,8 +58,9 @@ const getRssData = function () {
     entries: [],
     settings: {
       cacheInterval: 1800,
-      limit: 2,
-      rssUrl: 'https://api.codetabs.com/v1/proxy/?quest=http://feeds.bbci.co.uk/news/rss.xml',
+      limit: 4,
+     // rssUrl: 'https://api.codetabs.com/v1/proxy/?quest=http://feeds.bbci.co.uk/news/rss.xml',
+      rssUrl: 'https://api.codetabs.com/v1/proxy/?quest=https://feeds.feedburner.com/ndtvnews-top-stories',
       rssTitle: 'BBC News'
     },
     isLoading: true,
@@ -81,6 +82,7 @@ const getRssData = function () {
       this.settings.rssTitle = settings?.rss_title || this.settings.rssTitle
       this.corsProxy = screenly.cors_proxy_url
 
+
       console.log(`CORS Proxy URL: ${this.corsProxy}`)
     },
     init: async function () {
@@ -94,22 +96,40 @@ const getRssData = function () {
         const lambda = async () => {
           try {
             const response = (await getApiResponse(this)).slice(0, this.settings.limit)
-            console.log(response)
+            // console.log(response)
             this.fetchError = false
             appCache.clear()
             const entries = response.map(
               ({ title, pubDate, content, contentSnippet }) => {
-                return { title, pubDate, content, contentSnippet }
+                // Format pubDate using moment.js
+               // const formattedPubDate = moment(pubDate).format('ddd MMM DD YYYY HH:mm');
+                //return { title, pubDate: formattedPubDate, content, contentSnippet };
+                // console.log(pubDate);
+                return { title, pubDate, content, contentSnippet };
+
               }
             )
 
             this.entries = entries
+
+            // Store the pubDate in local storage for main.js to use
+            localStorage.setItem('pubDate-0', entries[0].pubDate);
+            localStorage.setItem('pubDate-1', entries[1].pubDate);
+            localStorage.setItem('pubDate-2', entries[2].pubDate);
+            localStorage.setItem('pubDate-3', entries[3].pubDate);
 
             entries.forEach(async (entry) => {
               appCache.add(entry)
             })
 
             this.isLoading = false
+
+            // Signal ready after content is loaded successfully
+            // if (typeof screenly !== 'undefined') {
+              console.log('Content fetched successfully, signaling ready for rendering')
+            // screenly.signalReadyForRendering()
+            // }
+
           } catch (err) {
             console.error(err)
             const entries = appCache.getAll()
@@ -119,6 +139,9 @@ const getRssData = function () {
               this.fetchError = false
               this.entries = entries
               this.isLoading = false
+              // Signal ready when using cached content
+              //  screenly.signalReadyForRendering()
+
             }
           }
         }
