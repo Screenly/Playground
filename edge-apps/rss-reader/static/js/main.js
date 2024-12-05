@@ -120,18 +120,18 @@ const getRssData = function () {
               document.dispatchEvent(new Event('rssDataLoaded'))
             }
           }
-        };
+        }
 
         lambda()
         return lambda
       })(), this.settings.cacheInterval * msPerSecond)
     },
-  };
-};
+  }
+}
 
 document.addEventListener('alpine:init', () => {
   Alpine.data('rss', getRssData)
-});
+})
 
 // Listen for RSS data loaded event before initializing the rest
 document.addEventListener('rssDataLoaded', async () => {
@@ -162,7 +162,7 @@ document.addEventListener('rssDataLoaded', async () => {
   //     override_timezone: 'Asia/Kolkata',
   //     // override_timezone: 'Europe/Berlin',
   //     rss_title: 'NDTV NEWS',
-  //     theme: 'light',
+  //     theme: 'light'
   //   },
   //   cors_proxy_url: 'https://cors-proxy.example.com',
   //   signalReadyForRendering: () => {
@@ -170,7 +170,7 @@ document.addEventListener('rssDataLoaded', async () => {
   //   },
   // };
 
-  async function timeAndLocale() {
+  async function timeAndLocale () {
     const { metadata, settings } = screenly
     const latitude = metadata.coordinates[0]
     const longitude = metadata.coordinates[1]
@@ -192,7 +192,7 @@ document.addEventListener('rssDataLoaded', async () => {
       const data = await getNearestCity(latitude, longitude)
       const countryCode = data.countryIso2.toUpperCase()
       return clm.getLocaleByAlpha2(countryCode) || defaultLocale
-    };
+    }
 
     const getTimezone = async () => {
       const overrideTimezone = settings?.override_timezone
@@ -205,7 +205,7 @@ document.addEventListener('rssDataLoaded', async () => {
       }
 
       return tzlookup(latitude, longitude)
-    };
+    }
 
     const initDateTime = async () => {
       const timezone = await getTimezone()
@@ -229,12 +229,12 @@ document.addEventListener('rssDataLoaded', async () => {
       document.querySelector('.content-timestamp-1').innerText = pubDate1
       document.querySelector('.content-timestamp-2').innerText = pubDate2
       document.querySelector('.content-timestamp-3').innerText = pubDate3
-    };
+    }
 
-    initDateTime()
+    initDateTime ()
   }
 
-  await timeAndLocale()
+  await timeAndLocale ()
 
   // constant colors
   const tertiaryColor = '#FFFFFF'
@@ -338,7 +338,7 @@ document.addEventListener('rssDataLoaded', async () => {
 
   document.querySelectorAll('.rss-tittle').forEach(element => {
     element.innerText = screenly.settings.rss_title;
-  });
+  })
 
   screenly.signalReadyForRendering()
-});
+})
