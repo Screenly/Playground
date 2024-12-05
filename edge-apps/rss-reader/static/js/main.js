@@ -147,28 +147,6 @@ document.addEventListener('rssDataLoaded', async () => {
     console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
   }
 
-  // const screenly = {
-  //   metadata: {
-  //     coordinates: [11.27985, 76.2363243],
-  //   },
-  //   settings: {
-  //     screenly_color_accent: '#972eff',
-  //     screenly_color_light: '#ff00ff',
-  //     screenly_color_dark: '#00ff00',
-  //     screenly_logo_dark: 'https://example.com/logo.png',
-  //     sentry_dsn: null,
-  //     override_locale: 'en-gb',
-  //     override_timezone: 'Asia/Kolkata',
-  //     // override_timezone: 'Europe/Berlin',
-  //     rss_title: 'NDTV NEWS',
-  //     theme: 'light'
-  //   },
-  //   cors_proxy_url: 'https://cors-proxy.example.com',
-  //   signalReadyForRendering: () => {
-  //     console.log('Screenly is ready for rendering.');
-  //   },
-  // };
-
   async function timeAndLocale () {
     const { metadata, settings } = screenly
     const latitude = metadata.coordinates[0]
