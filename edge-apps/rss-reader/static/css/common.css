@@ -1,3 +1,5 @@
+/* stylelint-disable */
+
 /* Common Styles */
 
 /* Global Fonts */
@@ -94,7 +96,6 @@ body {
 /* Media Query */
 
 @media (orientation: portrait) {
-
   .main-container {
     flex-direction: column;
   }
@@ -112,7 +113,6 @@ body {
 
 
 @media screen and (min-width: 480px) and (orientation: portrait) {
-
   .main-container {
     gap: 1rem;
     padding: 1rem;
@@ -137,7 +137,6 @@ body {
 }
 
 @media screen and (min-width: 720px) and (orientation: portrait) {
-
   .main-container {
     gap: 1rem;
     padding: 1rem;
@@ -162,7 +161,6 @@ body {
 }
 
 @media screen and (min-width: 800px) and (orientation: landscape) {
-
   .main-container {
     gap: 1rem;
     padding: 1rem;
@@ -235,7 +233,6 @@ body {
 }
 
 @media screen and (min-width: 1920px) and (orientation: landscape) {
-
   .main-container {
     gap: 2.5rem;
     padding: 2.5rem;
@@ -259,7 +256,6 @@ body {
 }
 
 @media screen and (min-width: 2160px) and (orientation: portrait) {
-
   .main-container {
     gap: 5rem;
     padding: 5rem;
@@ -307,7 +303,6 @@ body {
 }
 
 @media screen and (min-width: 4096px) and (orientation: landscape) {
-
   .main-container {
     gap: 5rem;
     padding: 5rem;

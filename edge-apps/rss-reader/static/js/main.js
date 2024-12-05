@@ -140,6 +140,16 @@ document.addEventListener('rssDataLoaded', async () => {
   const { getNearestCity } = OfflineGeocodeCity
   const allTimezones = moment.tz.names()
 
+  const sentryDsn = screenly.settings.sentry_dsn
+  // Initiate Sentry.
+  if (sentryDsn) {
+    Sentry.init({
+      dsn: sentryDsn
+    })
+  } else {
+    console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
+  }
+
   // const screenly = {
   //   metadata: {
   //     coordinates: [11.27985, 76.2363243],
