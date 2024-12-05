@@ -1,422 +1,607 @@
+/* Specific Layout & Module Styles */
 
+/* Modified Common CSS */
 
-body {
-  font-family: Barlow, sans-serif;
-}
-
-a {
-  color: #fff;
-}
-
-header {
-  padding: 0;
-  border-bottom: 1px solid #d9d9d9;
-}
-
-footer {
-  border-top: 0;
-}
-
-#feeds-container > #grid {
-  display: grid;
-  column-gap: 1rem;
-  row-gap: 1rem;
-}
-
-.feed-date {
-  opacity: 0.8;
-}
-
-.feed-image {
-  width: 100%;
+.primary-container {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
   height: 100%;
-  object-fit: cover;
-  margin-top: 4rem;
+  gap: 2rem;
+  background-color: var(--theme-color-background);
 }
 
-.feed-container {
-  border-bottom: 0.5px solid #d9d9d9;
+.primary-card {
+  flex: 1;
+  background-color: var(--theme-color-tertiary);
+  color: #000;
+  justify-content: space-between;
+  align-items: normal;
+  width: 100%;
+  height: 30%;
+  border-radius: 3rem;
+  gap: 1rem;
+  padding: 2rem;
+  border-radius: 2rem;
 }
 
-.feed-description {
+.secondary-container {
+  width: 25%;
+}
+
+/* App Specified CSS */
+
+.content-heading {
+  font-size: 1.8rem;
+  font-weight: 600;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box;
   -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  line-height: 1.3;
+  height: calc(1.3em * 2);
+
 }
 
-.content {
-  align-self: center;
-}
-
-.loader-wrapper {
-  height: 100%;
-}
-
-.loader-group {
-  scale: 1;
-}
-
-.loader-text {
+.rss-tittle {
   font-size: 1rem;
-  margin-bottom: 1.5rem;
   font-weight: 600;
 }
 
-.loader-icon {
-  border: 7px solid #f3f3f3;
-  border-top: 7px solid transparent;
-  border-radius: 100%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s ease-in-out infinite;
+.content-p {
+  font-size: 1.5rem;
+  padding: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 4;
+  line-height: 1.2;
+  height: calc(1.2em * 4);
+
 }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
+.content-timestamp {
+  font-size: 1.5rem;
 }
 
-@media (min-width: 800px)
-  and (orientation: landscape) {
-  h1 {
-    font-size: 1.6rem;
+.secondary-card-number-container {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  align-items: baseline;
+}
+
+.secondary-card-number {
+  font-size: 14.5rem;
+  color: var(--theme-color-primary);
+  letter-spacing: 1rem;
+}
+
+
+.info-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+}
+
+.brand-logo {
+  width: 8rem;
+}
+
+
+.info-text {
+  font-size: 1rem;
+  color: var(--theme-color-primary);
+}
+
+.date-card {
+  gap: 0.25rem;
+}
+
+
+.date-text {
+  font-size: 5rem;
+  color: var(--theme-color-secondary);
+}
+
+.date-number {
+  line-height: 1;
+  font-size: 10rem;
+  color: var(--theme-color-primary);
+}
+
+
+/* Media Query */
+
+
+@media (orientation: portrait) {
+  .main-container {
+    flex-direction: column;
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
   }
 
-  h2 {
+  .primary-container {
+    width: 100%;
+    height: 35%;
+    flex-direction: row;
+    gap: 2rem;
+  }
+
+  .secondary-container {
+    width: 100%;
+    height: 25%;
+    flex-direction: row;
+    gap: 2rem;
+  }
+
+  .primary-card {
+    height: 100%;
+  }
+
+  .row-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  .content-heading {
+    -webkit-line-clamp: 3;
+    height: calc(1.3em * 3);
+  }
+
+  .content-p {
+    -webkit-line-clamp: 6;
+    height: calc(1.2em * 6);
+  }
+
+}
+
+
+
+@media screen and (min-width: 480px) and (orientation: portrait) {
+  .main-container {
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .row-container,
+  .primary-container,
+  .secondary-container {
+    gap: 1.5rem;
+  }
+
+  .primary-card,
+  .secondary-card,
+  .secondary-container {
+    border-radius: 1rem;
+  }
+
+  .primary-card {
+    gap: .5rem;
+    padding: 1.5rem;
+  }
+
+  .content-heading {
+    font-size: 1.3rem;
+
+  }
+
+  .content-p {
+    font-size: .9rem;
+  }
+
+  .rss-tittle,
+  .content-timestamp {
+    font-size: .9rem;
+  }
+
+  .brand-logo {
+    width: 5rem;
+  }
+
+  .info-text {
     font-size: 1rem;
   }
 
-  footer.container p {
-    font-size: 0.625rem;
+  .info-card {
+    gap: 1.5rem;
   }
 
-  .feed-description {
-    font-size: 0.78rem;
-    margin-bottom: 0.84rem;
-    line-height: 17.5px;
+  .date-text {
+    font-size: 3.5rem;
   }
 
-  .feed-date {
-    font-size: 0.625rem;
-    line-height: 11.25px;
-  }
-
-  #feeds-container > #grid {
-    column-gap: 1.25rem;
-    row-gap: 1.25rem;
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .header {
-    padding: 10.63px 0;
-    max-height: 56.25px;
-  }
-
-  .container {
-    max-width: 760px;
-  }
-
-  .content {
-    padding: 0;
+  .date-number {
+    font-size: 7rem;
   }
 }
 
-@media (min-width: 1280px)
-  and (orientation: landscape) {
-  h1 {
-    font-size: 2.5rem;
+
+
+@media screen and (min-width: 720px) and (orientation: portrait) {
+  .main-container {
+    gap: 2.5rem;
+    padding: 2.5rem;
   }
 
-  footer.container p {
-    font-size: 1.25rem;
+  .row-container,
+  .primary-container,
+  .secondary-container {
+    gap: 2.5rem;
   }
 
-  h2 {
-    font-size: 1.6rem;
-    margin-bottom: 1.5rem;
-    line-height: 30px;
+  .primary-card {
+    padding: 2rem;
   }
 
-  .feed-description {
-    font-size: 1.25rem;
-    margin-bottom: 1.5rem;
-    line-height: 28px;
+  .primary-card,
+  .secondary-card,
+  .secondary-container {
+    border-radius: 2rem;
   }
 
-  .feed-date {
-    font-size: 1rem;
-    line-height: 18px;
-  }
-
-  #feeds-container > #grid {
-    column-gap: 2rem;
-    row-gap: 2rem;
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .header {
-    padding: 17px 0;
-    max-height: 90px;
-  }
-
-  .container {
-    max-width: 1216px;
-  }
-
-  .content {
-    padding: 0;
-  }
-
-  .loader-group {
-    scale: 1.6;
-  }
-}
-
-@media (min-width: 1920px)
-  and (orientation: landscape) {
-  h1 {
-    font-size: 2.5rem;
-  }
-
-  h2 {
-    font-size: 1.6rem;
-    margin-bottom: 1.5rem;
-    line-height: 30px;
-  }
-
-  .container {
-    max-width: 1320px;
-  }
-
-  #feeds-container > #grid {
-    column-gap: 1.75rem;
-  }
-
-  .loader-group {
-    scale: 2.4;
-  }
-}
-
-@media (min-width: 3840px)
-  and (orientation: landscape) {
-  h1 {
-    font-size: 5rem;
-  }
-
-  h2 {
-    font-size: 3.2rem;
-    margin-bottom: 3rem;
-    line-height: 60px;
-  }
-
-  footer.container p {
-    font-size: 2.5rem;
-  }
-
-  .feed-description {
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
-    line-height: 56px;
-  }
-
-  .feed-date {
+  .content-heading {
     font-size: 2rem;
-    line-height: 36px;
-    margin-bottom: 2rem;
   }
 
-  .container {
-    max-width: 2640px;
+  .rss-tittle,
+  .content-timestamp {
+    font-size: 1.2rem;
   }
 
-  .header {
-    padding: 34px 0;
-    max-height: 190px;
+  .content-p {
+    font-size: 1.5rem;
   }
 
-  #feeds-container > #grid {
-    column-gap: 4rem;
-    row-gap: 4rem;
+  .brand-logo {
+    width: 9rem;
   }
 
-  .loader-group {
-    scale: 4.8;
+  .info-text {
+    font-size: 1.25rem;
   }
+
+  .info-card {
+    gap: 1.5rem;
+  }
+
+  .date-text {
+    font-size: 6rem;
+  }
+
+  .date-number {
+    font-size: 10rem;
+  }
+
 }
 
-@media (min-width: 4096px)
-  and (orientation: landscape) {
-  h1 {
-    font-size: 4.5rem;
+@media screen and (min-width: 800px) and (orientation: landscape) {
+  .primary-container {
+    gap: 1rem;
   }
 
-  h2 {
-    font-size: 4rem;
+  .secondary-container {
+    width: 30%;
   }
 
-  p {
-    font-size: 2.25rem;
+  .primary-card,
+  .secondary-card,
+  .secondary-container {
+    border-radius: 1.5rem;
   }
 
-  #feeds-container > #grid {
-    column-gap: 3.25rem;
-    row-gap: 1.5rem;
+  .primary-card {
+    padding: 1.5rem;
+    gap: .5rem;
   }
 
-  .loader-group {
-    scale: 5.12;
-  }
-}
-
-@media screen and (min-width: 720px)
-  and (orientation: portrait) {
-  h1 {
-    font-size: 2.5rem;
+  .content-heading {
+    font-size: 1.3rem;
   }
 
-  h2 {
-    font-size: 1.6rem;
-    margin-bottom: 1.5rem;
-    line-height: 30px;
+  .rss-tittle,
+  .content-timestamp {
+    font-size: .9rem;
   }
 
-  p {
+  .content-p {
     font-size: 1.1rem;
   }
 
-  .container {
-    min-width: 700px;
+  .brand-logo {
+    width: 5rem;
   }
 
-  .header {
-    padding: 17px 0;
-    max-height: 90px;
+  .info-text {
+    font-size: .75rem;
   }
 
-  .feed-description {
-    font-size: 1.25rem;
-    margin-bottom: 1.5rem;
-    line-height: 28px;
+  .info-card {
+    gap: 1.5rem;
   }
 
-  .feed-date {
-    font-size: 1rem;
-    line-height: 18px;
-    margin-bottom: 1rem;
+  .date-text {
+    font-size: 3.4rem;
   }
 
-  #feeds-container > #grid {
-    row-gap: 2.25rem;
+  .date-number {
+    font-size: 7rem;
   }
 
-  .content {
-    padding: 0;
-  }
-
-  .loader-group {
-    scale: 1.5;
-  }
 }
 
-@media screen and (min-width: 1080px)
-  and (orientation: portrait) {
-  h1 {
-    font-size: 2.5rem;
+@media screen and (min-width: 1080px) and (orientation: portrait) {
+
+
+  .main-container {
+    gap: 3.5rem;
+    padding: 3.5rem;
   }
 
-  h2 {
-    font-size: 1.6rem;
-    margin-bottom: 1.5rem;
-    line-height: 30px;
+  .row-container,
+  .primary-container,
+  .secondary-container {
+    gap: 3.5rem;
   }
 
-  p {
-    font-size: 1rem;
+  .primary-card {
+    padding: 2.5rem;
+    gap: 1.5rem;
   }
 
-  .header {
-    padding: 17px 0;
-    max-height: 100px;
+  .content-heading {
+    font-size: 3rem;
   }
 
-  .feed-description {
-    font-size: 1.25rem;
-    margin-bottom: 1.5rem;
-    line-height: 28px;
-  }
-
-  .feed-date {
-    font-size: 1rem;
-    line-height: 18px;
-    margin-bottom: 1rem;
-  }
-
-  .container {
-    max-width: 900px;
-  }
-
-  #feeds-container > #grid {
-    row-gap: 2.25rem;
-  }
-
-  .loader-group {
-    scale: 2.25;
-  }
-}
-
-@media screen and (min-width: 2160px)
-  and (orientation: portrait) {
-  h1 {
-    font-size: 5rem;
-  }
-
-  h2 {
-    font-size: 3.2rem;
-    margin-bottom: 3rem;
-    line-height: 60px;
-  }
-
-  p {
-    font-size: 2.5rem;
-  }
-
-  .feed-description {
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
-    line-height: 56px;
-  }
-
-  .feed-date {
+  .rss-tittle,
+  .content-timestamp {
     font-size: 2rem;
-    line-height: 36px;
-    margin-bottom: 2rem;
   }
 
-  .header {
-    padding: 34px 0;
-    max-height: 190px;
+  .content-p {
+    font-size: 2.4rem;
   }
 
-  #feeds-container > #grid {
-    row-gap: 4rem;
+  .brand-logo {
+    width: 12rem;
   }
 
-  .container {
-    max-width: 1793px;
+  .info-text {
+    font-size: 2rem;
   }
 
-  .content {
-    margin: 14rem auto;
+  .info-card {
+    gap: 3rem;
   }
 
-  .loader-group {
-    scale: 4.5;
+  .date-text {
+    font-size: 10rem;
+  }
+
+  .date-number {
+    font-size: 16rem;
+  }
+}
+
+@media screen and (min-width: 1280px) and (orientation: landscape) {
+  .primary-container {
+    gap: 2rem;
+  }
+
+  .primary-card {
+    gap: .8rem;
+    padding: 2rem;
+  }
+
+  .content-heading {
+    font-size: 1.9rem;
+  }
+
+  .rss-tittle,
+  .content-timestamp {
+    font-size: 1.5rem;
+  }
+
+  .content-p {
+    font-size: 1.6rem;
+  }
+
+  .content-timestamp {
+    padding-top: 0rem;
+  }
+
+
+  .brand-logo {
+    width: 8.5rem;
+  }
+
+  .info-text {
+    font-size: 1.5rem;
+  }
+
+  .info-card {
+    gap: 3rem;
+  }
+
+  .date-text {
+    font-size: 5.5rem;
+  }
+
+  .date-number {
+    font-size: 13rem;
+  }
+}
+
+ @media screen and (min-width: 1920px) and (orientation: landscape) {
+
+  .primary-card {
+    gap: 1rem;
+    padding: 3rem;
+  }
+  .primary-card,
+  .secondary-card,
+  .secondary-container {
+    border-radius: 3rem;
+  }
+
+  .content-heading {
+    font-size: 3rem;
+  }
+
+  .rss-tittle,
+  .content-timestamp {
+    font-size: 2rem;
+  }
+
+  .content-p {
+    font-size: 2.5rem;
+  }
+
+  .brand-logo {
+    width: 13rem;
+  }
+
+  .info-text {
+    font-size: 1.75rem;
+  }
+
+  .info-card {
+    gap: 3rem;
+  }
+
+  .date-text {
+    font-size: 7rem;
+  }
+
+  .date-number {
+    font-size: 18rem;
+  }
+
+}
+
+ @media screen and (min-width: 2160px) and (orientation: portrait) {
+  .main-container {
+    gap: 7rem;
+    padding: 7rem;
+  }
+
+  .row-container,
+  .primary-container,
+  .secondary-container {
+    gap: 7rem;
+  }
+
+  .primary-card,
+  .secondary-card,
+  .secondary-container {
+    border-radius: 5rem;
+  }
+
+  .primary-card {
+    padding: 6rem;
+    gap: 4rem;
+  }
+
+  .content-heading {
+    font-size: 6.5rem;
+  }
+
+  .rss-tittle,
+  .content-timestamp {
+    font-size: 4rem;
+  }
+
+  .content-p {
+    font-size: 4.5rem;
+
+  }
+
+  .brand-logo {
+    width: 22rem;
+  }
+
+  .info-text {
+    font-size: 3.75rem;
+  }
+
+  .info-card {
+    gap: 5rem;
+  }
+
+  .date-text {
+    font-size: 17rem;
+  }
+
+  .date-number {
+    font-size: 34rem;
+  }
+
+}
+
+ @media screen and (min-width: 3840px) and (orientation: landscape) {
+
+  .main-container {
+    gap: 7rem;
+    padding: 7rem;
+  }
+
+  .row-container,
+  .primary-container,
+  .secondary-container {
+    gap: 7rem;
+  }
+
+  .primary-card,
+  .secondary-card,
+  .secondary-container {
+    border-radius: 5rem;
+  }
+
+  .primary-card {
+    padding: 6rem;
+    gap: 3rem;
+  }
+
+  .content-heading {
+    font-size: 6rem;
+    height: 17rem;
+  }
+
+  .rss-tittle, .content-timestamp {
+    font-size: 4rem;
+  }
+
+  .content-p {
+    height: 22rem;
+    font-size: 4.5rem;
+  }
+
+  .content-timestamp {
+    padding-top: 0rem;
+  }
+
+  .brand-logo {
+    width: 30rem;
+  }
+
+  .info-text {
+    font-size: 3.75rem;
+  }
+
+  .info-card {
+    gap: 5rem;
+  }
+
+  .date-text {
+    font-size: 17rem;
+  }
+
+  .date-number {
+    font-size: 34rem;
   }
 }
