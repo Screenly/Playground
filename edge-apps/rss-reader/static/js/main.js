@@ -2,7 +2,7 @@
 /* eslint-disable-next-line no-unused-vars, no-useless-catch */
 
 class AppCache {
-  constructor({ keyName }) {
+  constructor ({ keyName }) {
     this.keyName = keyName
 
     if (localStorage.getItem(this.keyName) === null) {
@@ -14,17 +14,17 @@ class AppCache {
     }
   }
 
-  clear() {
+  clear () {
     this.data = []
     localStorage.removeItem(this.keyName)
   }
 
-  add(data) {
+  add (data) {
     this.data.push(data)
     localStorage.setItem(this.keyName, JSON.stringify(this.data))
   }
 
-  getAll() {
+  getAll () {
     return this.data
   }
 }
@@ -38,7 +38,7 @@ const processUrl = (context) => {
   } else {
     return rssUrl
   }
-};
+}
 
 const getApiResponse = (context) => {
   return new Promise((resolve, reject) => {
@@ -59,7 +59,7 @@ const getRssData = function () {
     settings: {
       cacheInterval: 1800,
       rssUrl: 'http://feeds.bbci.co.uk/news/rss.xml',
-      rssTitle: 'BBC News',
+      rssTitle: 'BBC News'
     },
     isLoading: true,
     fetchError: false,
@@ -88,7 +88,7 @@ const getRssData = function () {
             appCache.clear()
             const entries = response.map(({ title, pubDate, content, contentSnippet }) => {
               return { title, pubDate, content, contentSnippet }
-            });
+            })
 
             this.entries = entries
 
@@ -99,11 +99,9 @@ const getRssData = function () {
 
             entries.forEach(entry => {
               appCache.add(entry)
-            });
+            })
 
-            this.isLoading = false;
-            if (typeof screenly !== 'undefined') {
-            }
+            this.isLoading = false
 
             // Dispatch event to signal RSS data is loaded
             document.dispatchEvent(new Event('rssDataLoaded'))
