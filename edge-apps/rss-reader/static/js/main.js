@@ -105,7 +105,6 @@ const getRssData = function () {
 
             // Dispatch event to signal RSS data is loaded
             document.dispatchEvent(new Event('rssDataLoaded'))
-
           } catch (err) {
             console.error(err)
             const entries = appCache.getAll()
@@ -125,7 +124,7 @@ const getRssData = function () {
         lambda()
         return lambda
       })(), this.settings.cacheInterval * msPerSecond)
-    },
+    }
   }
 }
 
@@ -231,10 +230,10 @@ document.addEventListener('rssDataLoaded', async () => {
       document.querySelector('.content-timestamp-3').innerText = pubDate3
     }
 
-    initDateTime ()
+    initDateTime()
   }
 
-  await timeAndLocale ()
+  await timeAndLocale()
 
   // constant colors
   const tertiaryColor = '#FFFFFF'
@@ -284,7 +283,7 @@ document.addEventListener('rssDataLoaded', async () => {
   }
 
   // Function to fetch and process the image
-  async function fetchImage(fileUrl) {
+  async function fetchImage (fileUrl) {
     try {
       const response = await fetch(fileUrl)
       if (!response.ok) {
@@ -337,7 +336,7 @@ document.addEventListener('rssDataLoaded', async () => {
   }
 
   document.querySelectorAll('.rss-tittle').forEach(element => {
-    element.innerText = screenly.settings.rss_title;
+    element.innerText = screenly.settings.rss_title
   })
 
   screenly.signalReadyForRendering()
