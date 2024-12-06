@@ -2,7 +2,7 @@
 syntax: manifest_v1
 id: 01HKT59B49Z343B7C2H9JVH51B
 description: Screenly RSS Reader App
-icon: 'https://playground.srly.io/edge-apps/rss-reader/static/images/icon.svg'
+icon: https://playground.srly.io/edge-apps/rss-reader/static/img/icon.svg
 author: Screenly, Inc.
 settings:
   bypass_cors:
@@ -26,28 +26,42 @@ settings:
     optional: true
     help_text: Whether to enable analytics or not
     is_global: true
-  limit:
+  override_locale:
     type: string
-    default_value: '4'
-    title: Limit
-    optional: false
-    help_text: Specify the number of feeds to include in the page.
+    default_value: en
+    title: Override Locale
+    optional: true
+    help_text: Specify a supported locale value (e.g., en_US).
+  override_timezone:
+    type: string
+    default_value: ''
+    title: Override Timezone
+    optional: true
+    help_text: Specify a supported timezone value (e.g., Europe/London).
   rss_title:
     type: string
-    default_value: 'BBC News'
+    default_value: BBC News
     title: RSS Title
     optional: false
     help_text: The title of the website where the feeds were derived
   rss_url:
     type: string
-    default_value: 'http://feeds.bbci.co.uk/news/rss.xml'
+    default_value: http://feeds.bbci.co.uk/news/rss.xml
     title: RSS URL
     optional: false
     help_text: Specify the URL to where to get the data from.
   tag_manager_id:
     type: string
-    default_value: 'GTM-P98SPZ9Z'
+    default_value: GTM-P98SPZ9Z
     title: Google Tag Manager ID
     optional: true
     help_text: Specify a Google Tag Manager ID
     is_global: true
+  theme:
+    type: string
+    default_value: light
+    title: Theme
+    optional: false
+    help_text: |-
+      Determines the visual theme for the application.
+      Options are 'light' or 'dark'.
