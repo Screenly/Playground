@@ -192,7 +192,7 @@ document.addEventListener('rssDataLoaded', async () => {
       if (locale) {
         momentObject.locale(locale)
       }
-      const dayOfMonth = momentObject.format('D')
+      const dayOfMonth = momentObject.format('DD')
       document.querySelector('.date-text').innerText = momentObject.format('ddd').toUpperCase()
       document.querySelector('.date-number').innerText = dayOfMonth
 
