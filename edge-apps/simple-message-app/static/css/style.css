@@ -405,7 +405,7 @@
   }
 
   .date-text {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 
   .date-number {
@@ -458,7 +458,7 @@
   }
 
   .date-text {
-    font-size: 4.5rem;
+    font-size: 3.5rem;
   }
 
   .date-number {
@@ -510,7 +510,7 @@
   }
 
   .date-text {
-    font-size: 3rem;
+    font-size: 2.75rem;
   }
 
   .date-number {
@@ -563,7 +563,7 @@
   }
 
   .date-text {
-    font-size: 8rem;
+    font-size: 5.5rem;
   }
 
   .date-number {
@@ -614,7 +614,7 @@
   }
 
   .date-text {
-    font-size: 5rem;
+    font-size: 3.5rem;
   }
 
   .date-number {
@@ -666,7 +666,7 @@
   }
 
   .date-text {
-    font-size: 8rem;
+    font-size: 5rem;
   }
 
   .date-number {
@@ -719,7 +719,7 @@
   }
 
   .date-text {
-    font-size: 18rem;
+    font-size: 12rem;
   }
 
   .date-number {
@@ -735,9 +735,6 @@
   }
 
 }
-
-
-/* current one  */
 
 @media screen and (min-width: 3840px) and (orientation: landscape) {
   .main-container {
@@ -778,11 +775,11 @@
   }
 
   .date-text {
-    font-size: 16rem;
+    font-size: 12rem;
   }
 
   .date-number {
-    font-size: 20rem;
+    font-size: 24rem;
   }
 
   .clock-card {
