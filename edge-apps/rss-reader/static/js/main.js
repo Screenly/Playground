@@ -197,15 +197,13 @@ document.addEventListener('rssDataLoaded', async () => {
       document.querySelector('.date-number').innerText = dayOfMonth
 
       const format = moment.localeData(locale).longDateFormat('LT').includes('A') ? 'ddd MMM DD YYYY hh:mm A' : 'ddd MMM DD YYYY HH:mm'
-      const pubDate0 = moment(localStorage.getItem('pubDate-0')).tz(timezone).locale(locale).format(format)
-      const pubDate1 = moment(localStorage.getItem('pubDate-1')).tz(timezone).locale(locale).format(format)
-      const pubDate2 = moment(localStorage.getItem('pubDate-2')).tz(timezone).locale(locale).format(format)
-      const pubDate3 = moment(localStorage.getItem('pubDate-3')).tz(timezone).locale(locale).format(format)
+      const pubDates = ['pubDate-0', 'pubDate-1', 'pubDate-2', 'pubDate-3'].map(dateKey => {
+        return moment(localStorage.getItem(dateKey)).tz(timezone).locale(locale).format(format)
+      })
 
-      document.querySelector('.content-timestamp-0').innerText = pubDate0
-      document.querySelector('.content-timestamp-1').innerText = pubDate1
-      document.querySelector('.content-timestamp-2').innerText = pubDate2
-      document.querySelector('.content-timestamp-3').innerText = pubDate3
+      pubDates.forEach((pubDate, index) => {
+        document.querySelector(`.content-timestamp-${index}`).innerText = pubDate
+      })
     }
 
     initDateTime()
