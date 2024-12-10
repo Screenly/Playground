@@ -218,7 +218,7 @@ document.addEventListener('rssDataLoaded', async () => {
   const backgroundColor = '#C9CDD0'
 
   // Theme Selection
-  const theme = screenly.settings.theme ? screenly.settings.theme : 'light'
+  const theme = screenly.settings.theme || 'light'
 
   // Brand details fetching from settings
   const primaryColor = (!screenly.settings.screenly_color_accent || screenly.settings.screenly_color_accent.toLowerCase() === '#ffffff') ? '#972eff' : screenly.settings.screenly_color_accent
