@@ -93,7 +93,8 @@ const getRssData = function () {
             this.entries = entries
 
             // Store pubDates in localStorage with same interval as appCache
-            for (let i = 0; i < 4; i++) {
+            const MAX_ENTRIES = 4
+            for (let i = 0; i < MAX_ENTRIES; i++) {
               localStorage.setItem(`pubDate-${i}`, entries[i].pubDate)
             }
 
