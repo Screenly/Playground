@@ -312,7 +312,7 @@ document.addEventListener('rssDataLoaded', async () => {
     }
   }
 
-  document.querySelectorAll('.rss-tittle').forEach(element => {
+  document.querySelectorAll('.rss-title').forEach(element => {
     element.innerText = screenly.settings.rss_title
   })
 
