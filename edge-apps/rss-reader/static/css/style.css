@@ -44,7 +44,7 @@
 
 }
 
-.rss-tittle {
+.rss-title {
   font-size: 1rem;
   font-weight: 600;
 }
@@ -195,7 +195,7 @@
     font-size: .9rem;
   }
 
-  .rss-tittle,
+  .rss-title,
   .content-timestamp {
     font-size: .9rem;
   }
@@ -249,7 +249,7 @@
     font-size: 2rem;
   }
 
-  .rss-tittle,
+  .rss-title,
   .content-timestamp {
     font-size: 1.2rem;
   }
@@ -304,7 +304,7 @@
     font-size: 1.3rem;
   }
 
-  .rss-tittle,
+  .rss-title,
   .content-timestamp {
     font-size: .9rem;
   }
@@ -356,7 +356,7 @@
     font-size: 3rem;
   }
 
-  .rss-tittle,
+  .rss-title,
   .content-timestamp {
     font-size: 2rem;
   }
@@ -400,7 +400,7 @@
     font-size: 1.9rem;
   }
 
-  .rss-tittle,
+  .rss-title,
   .content-timestamp {
     font-size: 1.5rem;
   }
@@ -445,7 +445,7 @@
     font-size: 3rem;
   }
 
-  .rss-tittle,
+  .rss-title,
   .content-timestamp {
     font-size: 2rem;
   }
@@ -503,7 +503,7 @@
     font-size: 6.5rem;
   }
 
-  .rss-tittle,
+  .rss-title,
   .content-timestamp {
     font-size: 4rem;
   }
@@ -563,7 +563,7 @@
     height: 17rem;
   }
 
-  .rss-tittle, .content-timestamp {
+  .rss-title, .content-timestamp {
     font-size: 4rem;
   }
 
