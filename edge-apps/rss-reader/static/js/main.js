@@ -57,7 +57,6 @@ const getApiResponse = (context) => {
     parser.parseURL(url, (err, feed) => {
       if (err) {
         reject(err)
-        Sentry.captureException("RSS Parser Error",err)
       }
       resolve(feed.items)
     })
