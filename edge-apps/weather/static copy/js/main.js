@@ -1,4 +1,15 @@
-/* global Alpine, icons, moment, screenly */
+/* global Alpine, icons, moment */
+
+// Create dummy screenly object for testing
+const screenly = {
+  settings: {
+    override_coordinates: '',
+    openweathermap_api_key: '80163e913abb64e776b0e37676708cd1'
+  },
+  metadata: {
+    coordinates: ['9.9710336', '76.2258925'] // Default to London coordinates
+  }
+};
 
 class AppCache {
   constructor ({ keyName }) {
@@ -94,6 +105,7 @@ function refreshDateTime (context) {
   const now = moment().utcOffset(context.tzOffset)
   context.currentTime = formatTime(now)
   context.currentDate = now.format('dddd, MMM DD')
+
 }
 
 function findCurrentWeatherItem (list) {
@@ -252,11 +264,15 @@ async function refreshWeather (context) {
         }
 
         context.currentWeatherIcon = icons[icon]
+        console.log("currentWeatherIcon", context.currentWeatherIcon)
         context.currentWeatherStatus = description
         context.currentTemp = getTemp(context, temp)
+        console.log("currentTemp", context.currentTemp)
         context.currentFormattedTempScale = `\u00B0${context.tempScale}`
-
+        console.log("currentFormattedTempScale", context.currentFormattedTempScale)
         context.currentWeatherId = id
+        console.log("currentWeatherId", context.currentWeatherId)
+
       }
 
       const windowSize = 5
@@ -279,7 +295,10 @@ async function refreshWeather (context) {
           icon: icons[icon],
           time: index === 0 ? 'Current' : formatTime(dateTime)
         }
+
       })
+      console.log("forecastedItems", context.forecastedItems)
+      // console.log("forecastedItems", context.forecastedItems[0])
     }
   } catch (error) {
     context.error = true
