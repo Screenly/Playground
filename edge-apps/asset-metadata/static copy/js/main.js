@@ -2,6 +2,35 @@
 /* eslint-disable no-new */
 
 // eslint-disable-next-line no-unused-vars
+
+const screenly = {
+  settings: {
+  },
+  metadata: {
+    coordinates: ['9.9710336', '76.2258925'],
+    hostname: 'My host name',
+    hardware: 'Raspberry Pi 3B',
+    location: 'Kerala, India',
+    screenly_version: 'Screenly 2 Player',
+    screen_name: 'My screen name',
+    //tags: ['Autumn', 'blue', 'Yellow', 'Green', 'Red', 'Purple']
+    tags: ['Autumn', 'blue', 'Yellow', 'Green', 'Red', 'Purple', 'Sweden', 'Autumn', 'Blue', 'Yellow', 'Green', 'Red', 'Purple', 'Sweden', 'Autumn', 'Blue', 'Yellow', 'Green', 'Red', 'Purple', 'Sweden', 'Autumn', 'blue', 'L`Oreal', 'Ferrari', 'Facebook', 'Bank of America', 'Gillette', 'Starbucks','Loius Vuitton', 'MasterCard','IBM']
+  }
+
+};
+
+const labelChipContainer = document.querySelector('.label-chip-container');
+screenly.metadata.tags.forEach(label => {
+  const chip = document.createElement('div');
+  chip.classList.add('label-chip');
+  chip.innerHTML = `<span class="label-chip-text-label">${label}</span>`;
+  labelChipContainer.appendChild(chip);
+});
+
+
+
+
+
 function initMap() {
   const markerSvg = `<svg width="72" height="84" viewBox="0 0 72 84" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_3318_19697)">
@@ -37,7 +66,7 @@ function initMap() {
     streetViewControl: false,
     zoomControl: false,
     // eslint-disable-next-line
-    styles: [{'featureType':'all','elementType':'labels.text.fill','stylers':[{'color':'#ffffff'},{'weight':'0.20'},{'lightness':'28'},{'saturation':'23'},{'visibility':'off'}]},{'featureType':'all','elementType':'labels.text.stroke','stylers':[{'color':'#494949'},{'lightness':13},{'visibility':'off'}]},{'featureType':'all','elementType':'labels.icon','stylers':[{'visibility':'off'}]},{'featureType':'administrative','elementType':'geometry.fill','stylers':[{'color':'#000000'}]},{'featureType':'administrative','elementType':'geometry.stroke','stylers':[{'color':'#144b53'},{'lightness':14},{'weight':1.4}]},{'featureType':'landscape','elementType':'all','stylers':[{'color':'#08304b'}]},{'featureType':'poi','elementType':'geometry','stylers':[{'color':'#0c4152'},{'lightness':5}]},{'featureType':'road.highway','elementType':'geometry.fill','stylers':[{'color':'#000000'}]},{'featureType':'road.highway','elementType':'geometry.stroke','stylers':[{'color':'#0b434f'},{'lightness':25}]},{'featureType':'road.arterial','elementType':'geometry.fill','stylers':[{'color':'#000000'}]},{'featureType':'road.arterial','elementType':'geometry.stroke','stylers':[{'color':'#0b3d51'},{'lightness':16}]},{'featureType':'road.local','elementType':'geometry','stylers':[{'color':'#000000'}]},{'featureType':'transit','elementType':'all','stylers':[{'color':'#146474'}]},{'featureType':'water','elementType':'all','stylers':[{'color':'#021019'}]}]
+    styles: [{ 'featureType': 'all', 'elementType': 'labels.text.fill', 'stylers': [{ 'color': '#ffffff' }, { 'weight': '0.20' }, { 'lightness': '28' }, { 'saturation': '23' }, { 'visibility': 'off' }] }, { 'featureType': 'all', 'elementType': 'labels.text.stroke', 'stylers': [{ 'color': '#494949' }, { 'lightness': 13 }, { 'visibility': 'off' }] }, { 'featureType': 'all', 'elementType': 'labels.icon', 'stylers': [{ 'visibility': 'off' }] }, { 'featureType': 'administrative', 'elementType': 'geometry.fill', 'stylers': [{ 'color': '#000000' }] }, { 'featureType': 'administrative', 'elementType': 'geometry.stroke', 'stylers': [{ 'color': '#144b53' }, { 'lightness': 14 }, { 'weight': 1.4 }] }, { 'featureType': 'landscape', 'elementType': 'all', 'stylers': [{ 'color': '#08304b' }] }, { 'featureType': 'poi', 'elementType': 'geometry', 'stylers': [{ 'color': '#0c4152' }, { 'lightness': 5 }] }, { 'featureType': 'road.highway', 'elementType': 'geometry.fill', 'stylers': [{ 'color': '#000000' }] }, { 'featureType': 'road.highway', 'elementType': 'geometry.stroke', 'stylers': [{ 'color': '#0b434f' }, { 'lightness': 25 }] }, { 'featureType': 'road.arterial', 'elementType': 'geometry.fill', 'stylers': [{ 'color': '#000000' }] }, { 'featureType': 'road.arterial', 'elementType': 'geometry.stroke', 'stylers': [{ 'color': '#0b3d51' }, { 'lightness': 16 }] }, { 'featureType': 'road.local', 'elementType': 'geometry', 'stylers': [{ 'color': '#000000' }] }, { 'featureType': 'transit', 'elementType': 'all', 'stylers': [{ 'color': '#146474' }] }, { 'featureType': 'water', 'elementType': 'all', 'stylers': [{ 'color': '#021019' }] }]
   }
   const mapElement = document.getElementById('map')
   const map = new google.maps.Map(mapElement, mapOptions)
