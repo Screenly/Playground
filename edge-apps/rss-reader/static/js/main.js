@@ -1,6 +1,16 @@
 /* global clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry, Alpine, RSSParser */
 /* eslint-disable-next-line no-unused-vars, no-useless-catch */
 
+// Initialize Sentry first to capture errors
+const sentryDsn = screenly?.settings?.sentry_dsn
+if (sentryDsn) {
+  Sentry.init({
+    dsn: sentryDsn
+  })
+} else {
+  console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
+}
+
 class AppCache {
   constructor ({ keyName }) {
     this.keyName = keyName
@@ -137,16 +147,6 @@ document.addEventListener('alpine:init', () => {
 document.addEventListener('rssDataLoaded', async () => {
   const { getNearestCity } = OfflineGeocodeCity
   const allTimezones = moment.tz.names()
-
-  const sentryDsn = screenly.settings.sentry_dsn
-  // Initiate Sentry.
-  if (sentryDsn) {
-    Sentry.init({
-      dsn: sentryDsn
-    })
-  } else {
-    console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
-  }
 
   async function timeAndLocale () {
     const { metadata, settings } = screenly
