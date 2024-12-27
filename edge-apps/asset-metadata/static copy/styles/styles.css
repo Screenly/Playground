@@ -101,6 +101,7 @@
   gap: .2rem;
   flex-wrap: wrap;
   overflow: hidden;
+  padding-right: 1rem;
 }
 
 .label-chip {
@@ -209,9 +210,7 @@
   .label-chip {
     font-size: .6rem;
   }
-
 }
-
 
 
 @media screen and (min-width: 720px) and (min-height: 1280px) and (orientation: portrait) {
@@ -260,10 +259,8 @@
   }
 
   .label-chip {
-    font-size: .8rem;
+    font-size: .9rem;
   }
-
-
 }
 
 @media screen and (min-width: 800px) and (min-height: 480px) and (orientation: landscape) {
@@ -292,4 +289,313 @@
     font-size: .8rem;
   }
 
+  .label-chip-container {
+    height: 7rem;
+  }
+
+  .label-chip {
+    font-size: .7rem;
+    border-radius: .3rem;
+  }
 }
+
+
+
+@media screen and (min-width: 1080px) and (min-height: 1920px) and (orientation: portrait) {
+  .main-container-grid {
+    gap: 2.5rem;
+    padding: 2.5rem;
+  }
+
+  .host-name-card,
+  .screen-name-card,
+  .hardware-name-card,
+  .brand-logo-card,
+  .version-name-card,
+  .coordinates-card,
+  .labels-name-card {
+    border-radius: 2rem;
+  }
+
+  .host-name-card,
+  .screen-name-card,
+  .hardware-name-card,
+  .version-name-card,
+  .coordinates-card,
+  .labels-name-card {
+    padding-left: 4rem;
+    gap: 2.5rem;
+  }
+
+  .icon-card-icon {
+    width: 4.5rem;
+  }
+
+  .icon-card-text {
+    font-size: 3rem;
+  }
+
+  .label-chip-container {
+    height: 10rem;
+    gap:.4rem;
+  }
+
+  .label-chip {
+    font-size: 1.8rem;
+  }
+
+  .brand-logo {
+    width: 10rem;
+  }
+
+  .info-text {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 1280px) and (min-height: 720px) and (orientation: landscape) {
+  .main-container-grid {
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .host-name-card,
+  .screen-name-card,
+  .hardware-name-card,
+  .brand-logo-card,
+  .version-name-card,
+  .coordinates-card,
+  .labels-name-card {
+    border-radius: 1.2rem;
+  }
+
+  .host-name-card,
+  .screen-name-card,
+  .hardware-name-card,
+  .version-name-card,
+  .coordinates-card,
+  .labels-name-card {
+    padding-left: 3rem;
+  }
+
+  .primary-card {
+    gap: 2.5rem;
+  }
+
+  .icon-card-icon {
+    width: 3rem;
+  }
+
+  .icon-card-text {
+    font-size: 2rem;
+  }
+
+  .label-chip-container {
+    height: 7rem;
+    gap:.3rem;
+  }
+
+  .label-chip {
+    font-size: .85rem;
+  }
+
+  .brand-logo {
+    width: 6rem;
+  }
+
+  .info-text {
+    font-size: 1rem;
+  }
+
+}
+
+
+@media screen and (min-width: 1920px) and (min-height: 1080px) and (orientation: landscape) {
+  .main-container-grid {
+    gap: 2.5rem;
+    padding: 2.5rem;
+  }
+
+  .host-name-card,
+  .screen-name-card,
+  .hardware-name-card,
+  .brand-logo-card,
+  .version-name-card,
+  .coordinates-card,
+  .labels-name-card {
+    border-radius: 2.2rem;
+  }
+
+  .host-name-card,
+  .screen-name-card,
+  .hardware-name-card,
+  .version-name-card,
+  .coordinates-card,
+  .labels-name-card {
+    padding-left: 4rem;
+  }
+
+  .icon-card-icon {
+    width: 4.5rem;
+  }
+
+  .icon-card-text {
+    font-size: 3rem;
+  }
+
+  .label-chip-container {
+    height: 10rem;
+    gap:.3rem;
+    padding-right: 1rem;
+  }
+
+  .label-chip {
+    font-size: 1.5rem;
+  }
+
+  .brand-logo {
+    width: 10rem;
+  }
+
+  .info-text {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 2160px) and (min-height: 3840px) and (orientation: portrait) {
+  .main-container-grid {
+    gap: 5rem;
+    padding: 5rem;
+  }
+
+  .host-name-card,
+  .screen-name-card,
+  .hardware-name-card,
+  .brand-logo-card,
+  .version-name-card,
+  .coordinates-card,
+  .labels-name-card {
+    border-radius: 3rem;
+  }
+
+  .host-name-card,
+  .screen-name-card,
+  .hardware-name-card,
+  .version-name-card,
+  .coordinates-card,
+  .labels-name-card {
+    padding-left: 8rem;
+    gap: 5rem;
+  }
+
+  .icon-card-icon {
+    width: 9rem;
+  }
+
+  .icon-card-text {
+    font-size: 7rem;
+  }
+
+  .icon-card {
+    gap: 3rem;
+  }
+
+  .label-chip-container {
+    height: 18rem;
+    gap:.9rem;
+  }
+
+  .label-chip {
+    font-size: 3rem;
+  }
+
+  .brand-logo {
+    width: 20rem;
+  }
+
+  .info-text {
+    font-size: 3rem;
+  }
+
+  .brand-logo-card {
+    gap: 3rem;
+  }
+
+}
+
+
+@media screen and (min-width: 3840px) and (min-height: 2160px) and (orientation: landscape) {
+  .main-container-grid {
+    gap: 5rem;
+    padding: 5rem;
+  }
+
+  .host-name-card,
+  .screen-name-card,
+  .hardware-name-card,
+  .brand-logo-card,
+  .version-name-card,
+  .coordinates-card,
+  .labels-name-card {
+    border-radius: 4rem;
+  }
+
+  .host-name-card,
+  .screen-name-card,
+  .hardware-name-card,
+  .version-name-card,
+  .coordinates-card,
+  .labels-name-card {
+    padding-left: 8rem;
+    gap: 5rem;
+  }
+
+  .icon-card-icon {
+    width: 7rem;
+  }
+
+  .icon-card-text {
+    font-size: 6rem;
+  }
+
+  .icon-card {
+    gap: 3rem;
+  }
+
+  .label-chip-container {
+    height: 17rem;
+    gap:.9rem;
+    padding-right: 1rem;
+  }
+
+  .label-chip {
+    font-size: 3rem;
+  }
+
+  .brand-logo {
+    width: 20rem;
+  }
+
+  .info-text {
+    font-size: 3rem;
+  }
+
+  .brand-logo-card {
+    gap: 3rem;
+  }
+}
+
+
+@media screen and (min-width: 4096px) and (orientation: landscape) {
+  .label-chip-container {
+    height: 19rem;
+    gap:.9rem;
+    padding-right: 2rem;
+  }
+
+  .label-chip {
+    font-size: 3.5rem;
+  }
+
+}
+
