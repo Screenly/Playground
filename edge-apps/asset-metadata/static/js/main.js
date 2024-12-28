@@ -12,15 +12,14 @@ if (sentryDsn) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-
-  async function initApp() {
+  async function initApp () {
     const {
       coordinates,
       hostname,
       hardware,
       screenly_version: screenlyVersion,
       screen_name: screenName,
-      tags,
+      tags
     } = screenly.metadata
 
     document.querySelector('.host-name-text').innerText = hostname
@@ -29,10 +28,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.querySelector('.version-name-text').innerText = screenlyVersion
     document.querySelector('.coordinates-name-text').innerText = formatCoordinates(coordinates)
 
-
     // Raw Coordinates coverting to formatted coordinates
-    function formatCoordinates(coordinates) {
-      const [lat, lng] = coordinates;
+    function formatCoordinates (coordinates) {
+      const [lat, lng] = coordinates
       const formatQuantity = (coordinate, type) => {
         return `${Math.abs(coordinate).toFixed(4)}\u00B0`
       }
@@ -48,7 +46,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       return `${formatLatitude(lat)}, ${formatLongitude(lng)}`
     }
 
-
     // Labels
     const labelChipContainer = document.querySelector('.label-chip-container')
     tags.forEach(label => {
@@ -57,8 +54,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       chip.innerHTML = `<span class="label-chip-text-label">${label}</span>`
       labelChipContainer.appendChild(chip)
     })
-
-
 
     // constant colors
     const tertiaryColor = '#FFFFFF'
@@ -108,7 +103,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Function to fetch and process the image
-    async function fetchImage(fileUrl) {
+    async function fetchImage (fileUrl) {
       try {
         const response = await fetch(fileUrl)
         if (!response.ok) {
@@ -163,11 +158,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // SVG Icon color update
 
-    function changeSvgColor(svgObject, color) {
-      const svgDoc = svgObject.contentDocument;
-      const circle = svgDoc.querySelector('circle');
+    function changeSvgColor (svgObject, color) {
+      const svgDoc = svgObject.contentDocument
+      const circle = svgDoc.querySelector('circle')
       if (circle) {
-        circle.setAttribute('fill', color);
+        circle.setAttribute('fill', color)
       }
     }
 
