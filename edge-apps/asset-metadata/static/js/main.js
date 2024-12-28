@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       tags,
     } = screenly.metadata
 
-
     document.querySelector('.host-name-text').innerText = hostname
     document.querySelector('.screen-name-text').innerText = screenName
     document.querySelector('.hardware-name-text').innerText = hardware

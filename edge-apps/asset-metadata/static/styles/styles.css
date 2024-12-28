@@ -1,3 +1,4 @@
+/* stylelint-disable media-feature-range-notation */
 
 /* Modifiers */
 
@@ -134,7 +135,6 @@
     gap: 1rem;
   }
 
-
   .host-name-card {
     grid-column: 1/5;
     grid-row: 1;
@@ -164,6 +164,7 @@
     grid-row: 4;
     height: 100%;
   }
+
   .coordinates-card {
     grid-column: 1/7;
     grid-row: 5;
@@ -210,7 +211,7 @@
 
   .label-chip-container {
     min-height: auto;
-    max-height: 3.8rem;    min-height: auto;
+    max-height: 3.8rem;
     overflow: hidden;
   }
 
