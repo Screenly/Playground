@@ -1,38 +1,15 @@
-/* global clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry */
+/* global screenly, Sentry */
 /* eslint-disable-next-line no-unused-vars, no-useless-catch */
 
-
-// const screenly = {
-//   settings: {
-//     screenly_color_accent: '#972eff',
-//     screenly_color_light: '#0032A0',
-//     screenly_color_dark: '#0032A0',
-//     screenly_logo_light: 'static/images/Screenly.svg',
-//     screenly_logo_dark: 'static/images/Screenly.svg',
-//   },
-//   metadata: {
-//     coordinates: ['99.9710336', '76.2258925'],
-//     hostname: 'srly-6dq81qetw7imzcb',
-//     hardware: 'Screenly Player Max',
-//     location: 'Kerala, India',
-//     screenly_version: '3.8.2-x86',
-//     screen_name: 'Salman-Max02',
-//    // tags: ['Autumn', 'blue', 'Yellow']
-//    tags: ['Autumn', 'blue', 'Yellow', 'Green', 'Red', 'Purple', 'Sweden', 'Autumn', 'Blue', 'L`Oreal', 'Ferrari', 'Facebook', 'Bank of America', 'Gillette', 'Starbucks', 'Loius Vuitton', 'MasterCard', 'IBM']
-//   }
-// };
-
-
-// const sentryDsn = screenly.settings.sentry_dsn
-// // Initiate Sentry.
-// if (sentryDsn) {
-//   Sentry.init({
-//     dsn: sentryDsn
-//   })
-// } else {
-//   console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
-// }
-
+const sentryDsn = screenly.settings.sentry_dsn
+// Initiate Sentry.
+if (sentryDsn) {
+  Sentry.init({
+    dsn: sentryDsn
+  })
+} else {
+  console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
 
@@ -214,5 +191,4 @@ document.addEventListener('DOMContentLoaded', async () => {
   } catch (error) {
     console.error('Failed to initialize app:', error)
   }
-
 })
