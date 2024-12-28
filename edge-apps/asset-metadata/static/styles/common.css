@@ -5,8 +5,8 @@
 /* Global Fonts */
 @font-face {
   font-family: Aeonik;
-  src: url('../fonts/Aeonik-Regular.woff2') format('woff2'),
-    url('../fonts/Aeonik-Regular.woff') format('woff');
+  src: url('../font/Aeonik-Regular.woff2') format('woff2'),
+    url('../font/Aeonik-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }

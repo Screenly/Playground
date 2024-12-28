@@ -67,6 +67,14 @@
   align-items: center;
 }
 
+.head-text {
+  font-weight: bold;
+}
+
+.icon-card-text {
+  letter-spacing: 1px;
+}
+
 .info-text {
   color: var(--theme-color-primary);
 }
@@ -87,7 +95,6 @@
 }
 
 .labels-name-card {
-  /* background-color: tomato; */
   grid-column: 6/13;
   grid-row: 3;
   align-items: flex-start;
@@ -102,6 +109,7 @@
   flex-wrap: wrap;
   overflow: hidden;
   padding-right: 1rem;
+  height: auto;
 }
 
 .label-chip {
@@ -117,7 +125,6 @@
 
 
 @media (orientation: portrait) {
-
   .main-container-grid {
     width: 100%;
     padding: 1em;
@@ -157,7 +164,6 @@
     grid-row: 4;
     height: 100%;
   }
-
   .coordinates-card {
     grid-column: 1/7;
     grid-row: 5;
@@ -194,7 +200,6 @@
     font-size: 1.3rem;
   }
 
-
   .brand-logo {
     width: 3.5rem;
   }
@@ -204,11 +209,15 @@
   }
 
   .label-chip-container {
-    height: 3.5rem;
+    min-height: auto;
+    max-height: 3.8rem;    min-height: auto;
+    overflow: hidden;
   }
 
   .label-chip {
     font-size: .6rem;
+    padding: .5rem;
+    border-radius: .3rem;
   }
 }
 
@@ -251,15 +260,18 @@
   }
 
   .info-text {
-    font-size: .9rem;
+    font-size: 1rem;
   }
 
   .label-chip-container {
-    height: 6.5rem;
+    /* height: 7rem; */
+    min-height: auto;
+    max-height: 7rem;
+    overflow: hidden;
   }
 
   .label-chip {
-    font-size: .9rem;
+    font-size: 1rem;
   }
 }
 
@@ -290,7 +302,9 @@
   }
 
   .label-chip-container {
-    height: 7rem;
+    min-height: auto;
+    max-height: 4rem;
+    overflow: hidden;
   }
 
   .label-chip {
@@ -336,12 +350,17 @@
   }
 
   .label-chip-container {
-    height: 10rem;
+    min-height: auto;
+    max-height: 11rem;
+    overflow: hidden;
     gap:.4rem;
   }
 
   .label-chip {
     font-size: 1.8rem;
+    border-radius: .5rem;
+    padding: .7rem;
+    padding-right: 1rem;
   }
 
   .brand-logo {
@@ -378,10 +397,6 @@
     padding-left: 3rem;
   }
 
-  .primary-card {
-    gap: 2.5rem;
-  }
-
   .icon-card-icon {
     width: 3rem;
   }
@@ -391,8 +406,11 @@
   }
 
   .label-chip-container {
-    height: 7rem;
+    min-height: auto;
+    max-height: 7rem;
+    overflow: hidden;
     gap:.3rem;
+    padding-right: 1.5rem;
   }
 
   .label-chip {
@@ -423,7 +441,7 @@
   .version-name-card,
   .coordinates-card,
   .labels-name-card {
-    border-radius: 2.2rem;
+    border-radius: 2rem;
   }
 
   .host-name-card,
@@ -433,7 +451,9 @@
   .coordinates-card,
   .labels-name-card {
     padding-left: 4rem;
+    gap: 2rem;
   }
+
 
   .icon-card-icon {
     width: 4.5rem;
@@ -444,13 +464,16 @@
   }
 
   .label-chip-container {
-    height: 10rem;
+    min-height: auto;
+    max-height: 10rem;
+    overflow: hidden;
     gap:.3rem;
-    padding-right: 1rem;
+    padding-right: 2rem;
   }
 
   .label-chip {
     font-size: 1.5rem;
+    padding: .7rem;
   }
 
   .brand-logo {
@@ -501,12 +524,16 @@
   }
 
   .label-chip-container {
-    height: 18rem;
+    min-height: auto;
+    max-height: 20rem;
+    overflow: hidden;
     gap:.9rem;
   }
 
   .label-chip {
-    font-size: 3rem;
+    font-size: 3.5rem;
+    padding: 1rem;
+    border-radius: .9rem;
   }
 
   .brand-logo {
@@ -563,13 +590,17 @@
   }
 
   .label-chip-container {
-    height: 17rem;
+    min-height: auto;
+    max-height: 21rem;
+    overflow: hidden;
     gap:.9rem;
     padding-right: 1rem;
   }
 
   .label-chip {
-    font-size: 3rem;
+    font-size: 3.5rem;
+    border-radius: .8rem;
+    padding: 1.2rem;
   }
 
   .brand-logo {
@@ -588,14 +619,8 @@
 
 @media screen and (min-width: 4096px) and (orientation: landscape) {
   .label-chip-container {
-    height: 19rem;
     gap:.9rem;
     padding-right: 2rem;
   }
-
-  .label-chip {
-    font-size: 3.5rem;
-  }
-
 }
 

@@ -1,6 +1,6 @@
 ---
 syntax: manifest_v1
-id:
+id: 01JG766TCQ7WK4KP3QX9FBGJMR
 description: Displays the screen metadata like position on Google map, coordinates, hostname, etc.
 icon: https://playground.srly.io/edge-apps/asset-metadata/static/images/icon.svg
 author: Screenly, Inc.
@@ -11,18 +11,16 @@ settings:
     default_value: 'true'
     title: enable_analytics
     optional: true
-    is_global: true
     help_text: Whether to enable analytics or not
-  sentry_dsn:
-    type: secret
-    title: Sentry Client Key
-    optional: true
-    help_text: Sentry Client Key from Sentry SDK for error capturing.
-    is_global: true
   tag_manager_id:
     type: string
     default_value: ''
     title: tag_manager_id
     optional: true
-    is_global: true
     help_text: Specify a Google Tag Manager ID
+  sentry_dsn:
+    type: secret
+    title: Sentry Client Key
+    optional: true
+    is_global: true
+    help_text: Sentry Client Key from Sentry SDK for error capturing.
