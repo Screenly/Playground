@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.querySelector('.version-name-text').innerText = screenlyVersion
     document.querySelector('.coordinates-name-text').innerText = formatCoordinates(coordinates)
 
-    // Raw Coordinates coverting to formatted coordinates
+    // Raw Coordinates converting to formatted coordinates
     function formatCoordinates (coordinates) {
       const [lat, lng] = coordinates
       const formatQuantity = (coordinate, type) => {
