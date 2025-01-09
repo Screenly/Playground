@@ -1,10 +1,9 @@
 /* global Alpine, icons, moment, clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry */
 /* eslint-disable-next-line no-unused-vars, no-useless-catch */
 
-
-//AppCache from main.js
+// AppCache
 class AppCache {
-  constructor ({ keyName }) {
+  constructor({ keyName }) {
     this.keyName = keyName
 
     if (localStorage.getItem(this.keyName) === null) {
@@ -16,30 +15,28 @@ class AppCache {
     }
   }
 
-  clear () {
+  clear() {
     this.data = {}
     localStorage.removeItem(this.keyName)
   }
 
-  set (data) {
+  set(data) {
     this.data = data
     localStorage.setItem(this.keyName, JSON.stringify(this.data))
   }
 
-  get () {
+  get() {
     return this.data
   }
 }
 
-
- // getWeatherApiData from main.js
- async function getWeatherApiData (context) {
+// getWeatherApiData from main.js
+async function getWeatherApiData(context) {
   const stringifyQueryParams = (params) => {
     return Object.entries(params).map(
       ([key, value]) => `${key}=${value}`
     ).join('&')
   }
-
 
   const endpointUrl = 'https://api.openweathermap.org/data/2.5/forecast'
 
@@ -91,7 +88,7 @@ class AppCache {
 }
 
 
-function formatTime (today) {
+function formatTime(today) {
   const locale = navigator?.languages?.length
     ? navigator.languages[0]
     : navigator.language
@@ -105,7 +102,7 @@ function formatTime (today) {
 }
 
 
-function refreshDateTime (context) {
+function refreshDateTime(context) {
   const now = moment().utcOffset(context.tzOffset)
   context.currentTime = formatTime(now)
   context.currentDate = now.format('dddd, MMM DD')
@@ -113,7 +110,7 @@ function refreshDateTime (context) {
 
 
 
-function findCurrentWeatherItem (list) {
+function findCurrentWeatherItem(list) {
   const currentUTC = Math.round(new Date().getTime() / 1000)
   let itemIndex = 0
 
@@ -133,7 +130,7 @@ function findCurrentWeatherItem (list) {
   return itemIndex
 }
 
-function checkIfNight (context, dt) {
+function checkIfNight(context, dt) {
   const dateTime = moment.unix(dt).utcOffset(context.tzOffset)
   const hrs = dateTime.hour()
 
@@ -141,13 +138,13 @@ function checkIfNight (context, dt) {
 }
 
 
-function checkIfInRange (ranges, code) {
+function checkIfInRange(ranges, code) {
   return ranges.reduce(
     (acc, range) => acc || (code >= range[0] && code <= range[1])
   )
 }
 
-function getWeatherImagesById (context, id = 800, dt) {
+function getWeatherImagesById(context, id = 800, dt) {
   // List of codes - https://openweathermap.org/weather-conditions
   // To do - Refactor
   const isNight = checkIfNight(context, dt)
@@ -231,120 +228,120 @@ function getWeatherImagesById (context, id = 800, dt) {
 const countriesUsingFahrenheit = ['US', 'BS', 'KY', 'LR', 'PW', 'FM', 'MH']
 const celsiusToFahrenheit = (temp) => ((1.8 * temp) + 32)
 const getTemp = (context, temp) => {
-return Math.round(
-  context.tempScale === 'C' ? temp : celsiusToFahrenheit(temp)
-)
+  return Math.round(
+    context.tempScale === 'C' ? temp : celsiusToFahrenheit(temp)
+  )
 }
 
 
-async function refreshWeather (context) {
-try {
-  const data = await getWeatherApiData(context)
-  if (data.list !== undefined) {
-    const { name, country, timezone: tzOffset, list } = data
-    // We only want to set these values once.
-    if (!context.firstFetchComplete) {
-      context.city = `${name}, ${country}`
-      context.tzOffset = parseInt(tzOffset / 60) // in minutes
-      context.tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C'
+async function refreshWeather(context) {
+  try {
+    const data = await getWeatherApiData(context)
+    if (data.list !== undefined) {
+      const { name, country, timezone: tzOffset, list } = data
+      // We only want to set these values once.
+      if (!context.firstFetchComplete) {
+        context.city = `${name}, ${country}`
+        context.tzOffset = parseInt(tzOffset / 60) // in minutes
+        context.tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C'
 
-      refreshDateTime(context)
-      setInterval(
-        () => {
-          refreshDateTime(context)
-        }, 1000 // 1 second
+        refreshDateTime(context)
+        setInterval(
+          () => {
+            refreshDateTime(context)
+          }, 1000 // 1 second
+        )
+
+        context.firstFetchComplete = true
+        context.isLoading = false
+      }
+
+      const currentIndex = findCurrentWeatherItem(list)
+      const { dt, weather, main: { temp } } = list[currentIndex]
+
+      if (Array.isArray(weather) && weather.length > 0) {
+        const { id, description } = weather[0]
+        const { icon, bg } = getWeatherImagesById(context, id, dt)
+        if ((id !== context.currentWeatherId) || (`bg-${bg}` !== context.bgClass)) {
+          context.bgClass = `bg-${bg}`
+        }
+
+        context.currentWeatherIcon = icons[icon]
+        context.currentWeatherStatus = description
+        context.currentTemp = getTemp(context, temp)
+        context.currentFormattedTempScale = `\u00B0${context.tempScale}`
+        context.currentWeatherId = id
+
+      }
+
+      const windowSize = window.matchMedia('(orientation: portrait)').matches ? 4 : 7;
+      const currentWindow = list.slice(
+        currentIndex + 1,
+        currentIndex + 1 + windowSize
       )
 
-      context.firstFetchComplete = true
-      context.isLoading = false
+
+      context.forecastedItems = currentWindow.map((item, index) => {
+        const { dt, main: { temp }, weather } = item
+
+        const { icon } = getWeatherImagesById(context, weather[0]?.id, dt)
+        const dateTime = moment.unix(dt).utcOffset(context.tzOffset)
+
+        return {
+          id: index,
+          temp: getTemp(context, temp),
+          icon: icons[icon],
+          time: formatTime(dateTime)
+        }
+
+      })
     }
-
-    const currentIndex = findCurrentWeatherItem(list)
-    const { dt, weather, main: { temp } } = list[currentIndex]
-
-    if (Array.isArray(weather) && weather.length > 0) {
-      const { id, description } = weather[0]
-      const { icon, bg } = getWeatherImagesById(context, id, dt)
-      if ((id !== context.currentWeatherId) || (`bg-${bg}` !== context.bgClass)) {
-        context.bgClass = `bg-${bg}`
-      }
-
-      context.currentWeatherIcon = icons[icon]
-      context.currentWeatherStatus = description
-      context.currentTemp = getTemp(context, temp)
-      context.currentFormattedTempScale = `\u00B0${context.tempScale}`
-      context.currentWeatherId = id
-
-    }
-
-    const windowSize = window.matchMedia('(orientation: portrait)').matches ? 4 : 7;
-    const currentWindow = list.slice(
-      currentIndex + 1,
-      currentIndex + 1 + windowSize
-    )
-
-
-    context.forecastedItems = currentWindow.map((item, index) => {
-      const { dt, main: { temp }, weather } = item
-
-      const { icon } = getWeatherImagesById(context, weather[0]?.id, dt)
-      const dateTime = moment.unix(dt).utcOffset(context.tzOffset)
-
-      return {
-        id: index,
-        temp: getTemp(context, temp),
-        icon: icons[icon],
-        time: formatTime(dateTime)
-      }
-
-    })
+  } catch (error) {
+    context.error = true
+    context.errorMessage = error.message
   }
-} catch (error) {
-  context.error = true
-  context.errorMessage = error.message
-}
 }
 
-function getWeatherData () {
-return {
-  bgClass: '',
-  city: '',
-  currentDate: '',
-  currentFormattedTempScale: '',
-  currentTemp: null,
-  currentTime: '',
-  currentWeatherIcon: '',
-  currentWeatherId: 0,
-  currentWeatherStatus: '',
-  error: false,
-  errorMessage: '',
-  firstFetchComplete: false,
-  forecastedItems: [],
-  init: async function () {
-    if (screenly.settings.override_coordinates) {
-      [this.lat, this.lng] = screenly.settings.override_coordinates.split(',')
-    }
+function getWeatherData() {
+  return {
+    bgClass: '',
+    city: '',
+    currentDate: '',
+    currentFormattedTempScale: '',
+    currentTemp: null,
+    currentTime: '',
+    currentWeatherIcon: '',
+    currentWeatherId: 0,
+    currentWeatherStatus: '',
+    error: false,
+    errorMessage: '',
+    firstFetchComplete: false,
+    forecastedItems: [],
+    init: async function () {
+      if (screenly.settings.override_coordinates) {
+        [this.lat, this.lng] = screenly.settings.override_coordinates.split(',')
+      }
 
-    if (!this.lat || !this.lng) {
-      [this.lat, this.lng] = screenly.metadata?.coordinates
-    }
+      if (!this.lat || !this.lng) {
+        [this.lat, this.lng] = screenly.metadata?.coordinates
+      }
 
-    this.apiKey = screenly.settings.openweathermap_api_key
+      this.apiKey = screenly.settings.openweathermap_api_key
 
-    await refreshWeather(this)
-    setInterval(
-      () => {
-        refreshWeather(this)
-      }, 1000 * 60 * 15 // 15 minutes
-    )
-  },
-  isLoading: true,
-  lat: 0,
-  lng: 0,
-  settings: {},
-  tempScale: 'C',
-  tzOffset: 0
-}
+      await refreshWeather(this)
+      setInterval(
+        () => {
+          refreshWeather(this)
+        }, 1000 * 60 * 15 // 15 minutes
+      )
+    },
+    isLoading: true,
+    lat: 0,
+    lng: 0,
+    settings: {},
+    tempScale: 'C',
+    tzOffset: 0
+  }
 }
 
 
@@ -363,7 +360,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
   }
 
-  async function timeAndDate () {
+  async function timeAndDate() {
     const { metadata, settings } = screenly
     const latitude = metadata.coordinates[0]
     const longitude = metadata.coordinates[1]
@@ -467,7 +464,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const defaultLogo = 'static/img/Screenly.svg'
 
   // Function to fetch and process the image
-  async function fetchImage (fileUrl) {
+  async function fetchImage(fileUrl) {
     try {
       const response = await fetch(fileUrl)
       if (!response.ok) {
