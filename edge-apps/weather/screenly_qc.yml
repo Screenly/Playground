@@ -18,7 +18,7 @@ settings:
     optional: false
     is_global: true
     help_text: |
-      Specify an API key so that you'll have access to all the necessary weather data.
+      Specify OpenWeatherMap API key.
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z
