@@ -1,4 +1,5 @@
 /* stylelint-disable media-feature-range-notation */
+
 /* Modifiers */
 
 .main-container {
@@ -181,7 +182,7 @@
   letter-spacing: 0.1rem;
 }
 
-/* brand logo  card*/
+/* brand logo  card */
 
 .brand-logo {
   width: 4.5rem;
@@ -204,7 +205,6 @@
 
 
 @media (orientation: portrait) {
-
   .main-container {
     width: 100%;
     padding: 1em;
@@ -543,10 +543,6 @@
   }
 
   .temperature-text-number {
-    font-size: 30rem;
-  }
-
-  .temperature-text-number {
     font-size: 32rem;
   }
 
@@ -712,7 +708,6 @@
 }
 
 @media screen and (min-width: 4096px) and (orientation: landscape) {
-
   .date-text, .date-number {
     font-size: 19rem;
   }
