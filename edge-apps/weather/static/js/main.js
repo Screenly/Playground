@@ -3,7 +3,7 @@
 
 // AppCache
 class AppCache {
-  constructor({ keyName }) {
+  constructor ({ keyName }) {
     this.keyName = keyName
 
     if (localStorage.getItem(this.keyName) === null) {
@@ -15,23 +15,23 @@ class AppCache {
     }
   }
 
-  clear() {
+  clear () {
     this.data = {}
     localStorage.removeItem(this.keyName)
   }
 
-  set(data) {
+  set (data) {
     this.data = data
     localStorage.setItem(this.keyName, JSON.stringify(this.data))
   }
 
-  get() {
+  get () {
     return this.data
   }
 }
 
 // getWeatherApiData from main.js
-async function getWeatherApiData(context) {
+async function getWeatherApiData (context) {
   const stringifyQueryParams = (params) => {
     return Object.entries(params).map(
       ([key, value]) => `${key}=${value}`
@@ -47,7 +47,6 @@ async function getWeatherApiData(context) {
     cnt: 10,
     appid: context.apiKey
   })
-
 
   let result
   const appCache = new AppCache({ keyName: 'weather' })
@@ -88,29 +87,24 @@ async function getWeatherApiData(context) {
 }
 
 
-function formatTime(today) {
+function formatTime (today) {
   const locale = navigator?.languages?.length
     ? navigator.languages[0]
     : navigator.language
 
-
-  // const locale = 'en'
   moment.locale(locale)
-  // console.log(locale)
   console.log(moment(today).format('LT'))
   return moment(today).format('LT')
 }
 
 
-function refreshDateTime(context) {
+function refreshDateTime (context) {
   const now = moment().utcOffset(context.tzOffset)
   context.currentTime = formatTime(now)
   context.currentDate = now.format('dddd, MMM DD')
 }
 
-
-
-function findCurrentWeatherItem(list) {
+function findCurrentWeatherItem (list) {
   const currentUTC = Math.round(new Date().getTime() / 1000)
   let itemIndex = 0
 
@@ -130,25 +124,24 @@ function findCurrentWeatherItem(list) {
   return itemIndex
 }
 
-function checkIfNight(context, dt) {
+function checkIfNight (context, dt) {
   const dateTime = moment.unix(dt).utcOffset(context.tzOffset)
   const hrs = dateTime.hour()
 
   return hrs <= 5 || hrs >= 20
 }
 
-
-function checkIfInRange(ranges, code) {
+function checkIfInRange (ranges, code) {
   return ranges.reduce(
     (acc, range) => acc || (code >= range[0] && code <= range[1])
   )
 }
 
-function getWeatherImagesById(context, id = 800, dt) {
+function getWeatherImagesById (context, id = 800, dt) {
   // List of codes - https://openweathermap.org/weather-conditions
   // To do - Refactor
-  const isNight = checkIfNight(context, dt)
-  const hasNightBg = checkIfInRange([[200, 399], [500, 699], [800, 804]], id)
+  const isNight = checkIfNight (context, dt)
+  const hasNightBg = checkIfInRange ([[200, 399], [500, 699], [800, 804]], id)
   let icon
   let bg
 
@@ -233,10 +226,9 @@ const getTemp = (context, temp) => {
   )
 }
 
-
-async function refreshWeather(context) {
+async function refreshWeather (context) {
   try {
-    const data = await getWeatherApiData(context)
+    const data = await getWeatherApiData (context)
     if (data.list !== undefined) {
       const { name, country, timezone: tzOffset, list } = data
       // We only want to set these values once.
@@ -280,7 +272,6 @@ async function refreshWeather(context) {
         currentIndex + 1 + windowSize
       )
 
-
       context.forecastedItems = currentWindow.map((item, index) => {
         const { dt, main: { temp }, weather } = item
 
@@ -302,7 +293,7 @@ async function refreshWeather(context) {
   }
 }
 
-function getWeatherData() {
+function getWeatherData () {
   return {
     bgClass: '',
     city: '',
@@ -344,9 +335,7 @@ function getWeatherData() {
   }
 }
 
-
-
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener ('DOMContentLoaded', async () => {
   const { getNearestCity } = OfflineGeocodeCity
   const allTimezones = moment.tz.names()
 
@@ -360,7 +349,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
   }
 
-  async function timeAndDate() {
+  async function timeAndDate () {
     const { metadata, settings } = screenly
     const latitude = metadata.coordinates[0]
     const longitude = metadata.coordinates[1]
@@ -516,13 +505,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-
-
   // Signal that the screen is ready for rendering
   screenly.signalReadyForRendering()
 })
-
-
 
 document.addEventListener('alpine:init', () => {
   Alpine.data('weather', getWeatherData)
