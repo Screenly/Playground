@@ -1,16 +1,5 @@
-/* body {
-  font-family: Aeonik, sans-serif;
-  height: 100vh;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-} */
-
+/* stylelint-disable media-feature-range-notation */
 /* Modifiers */
-
 
 .main-container {
   height: 100%;
@@ -79,11 +68,6 @@
   color: var(--theme-color-tertiary);
 }
 
-.weather-icon-svg {
-  scale: 2.5;
-  /* Fix Scale to Width */
-}
-
 .weather-description {
   font-size: 2rem;
 }
@@ -148,6 +132,7 @@
 
 
 /* Weather Card */
+
 .weather-card {
   grid-column: 1/4;
   grid-row: 2;
@@ -162,7 +147,6 @@
   line-height: 0;
   gap: 1rem;
   height: 100%;
-  /* background-color: #000; */
 }
 
 .weather-card-content-item {
@@ -184,7 +168,6 @@
 
 .weather-card-weather-icon {
   width: 5rem;
-  /* scale: 1.5; */
 }
 
 
@@ -194,7 +177,6 @@
 
 
 .weather-card-content-item-temperature-text {
-  /* align-items: center; */
   display: flex;
   letter-spacing: 0.1rem;
 }
@@ -247,7 +229,6 @@
 
   .weather-card-content {
     height: 100%;
-    /* padding: 2.5rem; */
     gap: 2.5rem;
     overflow: hidden;
     justify-content: space-around;
