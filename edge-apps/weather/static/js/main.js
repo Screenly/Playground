@@ -86,7 +86,6 @@ async function getWeatherApiData (context) {
   return result
 }
 
-
 function formatTime (today) {
   const locale = navigator?.languages?.length
     ? navigator.languages[0]
@@ -96,7 +95,6 @@ function formatTime (today) {
   console.log(moment(today).format('LT'))
   return moment(today).format('LT')
 }
-
 
 function refreshDateTime (context) {
   const now = moment().utcOffset(context.tzOffset)
@@ -140,8 +138,8 @@ function checkIfInRange (ranges, code) {
 function getWeatherImagesById (context, id = 800, dt) {
   // List of codes - https://openweathermap.org/weather-conditions
   // To do - Refactor
-  const isNight = checkIfNight (context, dt)
-  const hasNightBg = checkIfInRange ([[200, 399], [500, 699], [800, 804]], id)
+  const isNight = checkIfNight(context, dt)
+  const hasNightBg = checkIfInRange([[200, 399], [500, 699], [800, 804]], id)
   let icon
   let bg
 
@@ -206,7 +204,6 @@ function getWeatherImagesById (context, id = 800, dt) {
   }
 }
 
-
 /**
 * Countries using F scale
 * United States
@@ -228,7 +225,7 @@ const getTemp = (context, temp) => {
 
 async function refreshWeather (context) {
   try {
-    const data = await getWeatherApiData (context)
+    const data = await getWeatherApiData(context)
     if (data.list !== undefined) {
       const { name, country, timezone: tzOffset, list } = data
       // We only want to set these values once.
@@ -263,10 +260,9 @@ async function refreshWeather (context) {
         context.currentTemp = getTemp(context, temp)
         context.currentFormattedTempScale = `\u00B0${context.tempScale}`
         context.currentWeatherId = id
-
       }
 
-      const windowSize = window.matchMedia('(orientation: portrait)').matches ? 4 : 7;
+      const windowSize = window.matchMedia('(orientation: portrait)').matches ? 4 : 7
       const currentWindow = list.slice(
         currentIndex + 1,
         currentIndex + 1 + windowSize
@@ -284,7 +280,6 @@ async function refreshWeather (context) {
           icon: icons[icon],
           time: formatTime(dateTime)
         }
-
       })
     }
   } catch (error) {
@@ -335,7 +330,7 @@ function getWeatherData () {
   }
 }
 
-document.addEventListener ('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const { getNearestCity } = OfflineGeocodeCity
   const allTimezones = moment.tz.names()
 
@@ -373,7 +368,6 @@ document.addEventListener ('DOMContentLoaded', async () => {
 
       return clm.getLocaleByAlpha2(countryCode) || defaultLocale
     }
-
 
     const getTimezone = async () => {
       const overrideTimezone = settings?.override_timezone
@@ -424,9 +418,7 @@ document.addEventListener ('DOMContentLoaded', async () => {
 
       document.querySelector('.date-text').innerText = momentObject.format('ddd').toUpperCase()
       document.querySelector('.date-number').innerText = dayOfMonth // Set the inner text to the numeric day of the month
-
     }
-
     initDateTime() // Initialize the app
   }
 
@@ -453,7 +445,7 @@ document.addEventListener ('DOMContentLoaded', async () => {
   const defaultLogo = 'static/img/Screenly.svg'
 
   // Function to fetch and process the image
-  async function fetchImage(fileUrl) {
+  async function fetchImage (fileUrl) {
     try {
       const response = await fetch(fileUrl)
       if (!response.ok) {
