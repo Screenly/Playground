@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       const latString = `${Math.abs(lat).toFixed(4)}\u00B0`
       const latDirection = lat > 0 ? 'N' : 'S'
       const lngString = `${Math.abs(lng).toFixed(4)}\u00B0`
-      const lngDirection =  lng > 0 ? 'E' : 'W'
-      
+      const lngDirection = lng > 0 ? 'E' : 'W'
+
       return `${latString} ${latDirection}, ${lngString} ${lngDirection}`
     }
 
