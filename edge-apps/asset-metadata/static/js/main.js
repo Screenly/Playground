@@ -31,19 +31,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Raw Coordinates converting to formatted coordinates
     function formatCoordinates (coordinates) {
       const [lat, lng] = coordinates
-      const formatQuantity = (coordinate, type) => {
-        return `${Math.abs(coordinate).toFixed(4)}\u00B0`
-      }
-      const formatLatitude = (lat) => {
-        const direction = lat > 0 ? 'N' : 'S'
-        return `${formatQuantity(lat)} ${direction}`
-      }
-      const formatLongitude = (lng) => {
-        const direction = lng > 0 ? 'E' : 'W'
-        return `${formatQuantity(lng)} ${direction}`
-      }
-
-      return `${formatLatitude(lat)}, ${formatLongitude(lng)}`
+      const latString = `${Math.abs(lat).toFixed(4)}\u00B0`
+      const latDirection = lat > 0 ? 'N' : 'S'
+      const lngString = `${Math.abs(lng).toFixed(4)}\u00B0`
+      const lngDirection =  lng > 0 ? 'E' : 'W'
+      
+      return `${latString} ${latDirection}, ${lngString} ${lngDirection}`
     }
 
     // Labels
