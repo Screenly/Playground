@@ -114,6 +114,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Convert the first few bytes to ASCII for text-based formats like SVG
         const ascii = String.fromCharCode.apply(null, uintArray.slice(0, 100)) // Check first 100 chars for XML/SVG tags
+        const pngMagicNumber = '89504E47'
+        const jpegMagicNumber = 'FFD8FF'
 
         // Determine file type based on MIME type, magic number, or ASCII text
         if (ascii.startsWith('<?xml') || ascii.startsWith('<svg')) {
@@ -124,7 +126,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const base64 = btoa(unescape(encodeURIComponent(svgReader.result)))
             imgElement.src = 'data:image/svg+xml;base64,' + base64
           }
-        } else if (hex === '89504E47' || hex.startsWith('FFD8FF')) {
+        } else if (hex === pngMagicNumber || hex === jpegMagicNumber) {
           // Checking PNG or JPEG/JPG magic number
           imgElement.src = fileUrl
         } else {
