@@ -41,12 +41,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Labels
     const labelChipContainer = document.querySelector('.label-chip-container')
+    const fragment = document.createDocumentFragment()
     tags.forEach(label => {
       const chip = document.createElement('div')
       chip.classList.add('label-chip')
       chip.innerHTML = `<span class="label-chip-text-label">${label}</span>`
-      labelChipContainer.appendChild(chip)
+      fragment.appendChild(chip)
     })
+    labelChipContainer.appendChild(fragment)
 
     // constant colors
     const tertiaryColor = '#FFFFFF'
