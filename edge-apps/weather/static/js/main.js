@@ -98,7 +98,10 @@ function formatTime (today) {
 
 function refreshDateTime (context) {
   const now = moment().utcOffset(context.tzOffset)
-  context.currentTime = formatTime(now)
+
+  context.currentHour = now.format('HH')
+  context.currentMinute = now.format('mm')
+
   context.currentDate = now.format('dddd, MMM DD')
 }
 
@@ -295,7 +298,8 @@ function getWeatherData () {
     currentDate: '',
     currentFormattedTempScale: '',
     currentTemp: null,
-    currentTime: '',
+    currentHour: '',
+    currentMinute: '',
     currentWeatherIcon: '',
     currentWeatherId: 0,
     currentWeatherStatus: '',
@@ -414,7 +418,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Set time in card
       document.querySelector('.time-text-hour').innerText = formattedTime.split(':')[0]
       document.querySelector('.time-text-minutes').innerText = formattedTime.split(':')[1]
-      // document.querySelector('.time-text-separator').innerText = ':'
 
       document.querySelector('.date-text').innerText = momentObject.format('ddd').toUpperCase()
       document.querySelector('.date-number').innerText = dayOfMonth // Set the inner text to the numeric day of the month
