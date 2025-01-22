@@ -27,20 +27,23 @@
 
   <div class= "time-date-card">
     <div class="secondary-card time-card">
-    <div class="time-card" id="time">
-       <div class="time-text-container">
-        <span class="time-text-hour" x-text="currentHour"></span>
-        <span class="time-text-separator">:</span>
-        <span class="time-text-minutes" x-text="currentMinute"></span>
-       </div>
-       <div class="time-ampm-container">
-        <span class="time-ampm"></span>
+      <div class="time-card" id="time">
+        <div class="time-text-container">
+          <span class="time-text-hour" x-text="timeHour"></span>
+          <span class="time-text-separator">:</span>
+          <span class="time-text-minutes" x-text="timeMinutes"></span>
         </div>
+        <div class="time-ampm-container">
+          <span class="time-ampm"
+            x-text="timeAmPm"
+            x-show="showAmPm"
+          ></span>
+        </div>
+      </div>
     </div>
-  </div>
     <div class="date-card" id="date">
-      <span class="date-text"></span>
-      <span class="date-number"></span>
+      <span class="date-text" x-text="dateText"></span>
+      <span class="date-number" x-text="dateNumber"></span>
     </div>
   </div>
 

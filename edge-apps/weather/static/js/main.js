@@ -96,15 +96,6 @@ function formatTime (today) {
   return moment(today).format('LT')
 }
 
-function refreshDateTime (context) {
-  const now = moment().utcOffset(context.tzOffset)
-
-  context.currentHour = now.format('HH')
-  context.currentMinute = now.format('mm')
-
-  context.currentDate = now.format('dddd, MMM DD')
-}
-
 function findCurrentWeatherItem (list) {
   const currentUTC = Math.round(new Date().getTime() / 1000)
   let itemIndex = 0
@@ -237,13 +228,6 @@ async function refreshWeather (context) {
         context.tzOffset = parseInt(tzOffset / 60) // in minutes
         context.tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C'
 
-        refreshDateTime(context)
-        setInterval(
-          () => {
-            refreshDateTime(context)
-          }, 1000 // 1 second
-        )
-
         context.firstFetchComplete = true
         context.isLoading = false
       }
@@ -298,8 +282,6 @@ function getWeatherData () {
     currentDate: '',
     currentFormattedTempScale: '',
     currentTemp: null,
-    currentHour: '',
-    currentMinute: '',
     currentWeatherIcon: '',
     currentWeatherId: 0,
     currentWeatherStatus: '',
@@ -307,6 +289,12 @@ function getWeatherData () {
     errorMessage: '',
     firstFetchComplete: false,
     forecastedItems: [],
+    timeHour: '',
+    timeMinutes: '',
+    timeAmPm: '',
+    dateText: '',
+    dateNumber: '',
+    showAmPm: true,
     init: async function () {
       if (screenly.settings.override_coordinates) {
         [this.lat, this.lng] = screenly.settings.override_coordinates.split(',')
@@ -318,12 +306,75 @@ function getWeatherData () {
 
       this.apiKey = screenly.settings.openweathermap_api_key
 
+      await this.initDateTime()
+      setInterval(() => this.initDateTime(), 1000)
+
       await refreshWeather(this)
       setInterval(
         () => {
           refreshWeather(this)
         }, 1000 * 60 * 15 // 15 minutes
       )
+    },
+    getLocale: async function () {
+      const { settings } = screenly
+      const defaultLocale = navigator?.languages?.length
+        ? navigator.languages[0]
+        : navigator.language
+
+      const overrideLocale = settings?.override_locale
+
+      if (overrideLocale) {
+        if (moment.locales().includes(overrideLocale)) {
+          return overrideLocale
+        } else {
+          console.warn(`Invalid locale: ${overrideLocale}. Using defaults.`)
+        }
+      }
+
+      const data = await OfflineGeocodeCity.getNearestCity(this.lat, this.lng)
+      const countryCode = data.countryIso2.toUpperCase()
+
+      return clm.getLocaleByAlpha2(countryCode) || defaultLocale
+    },
+    getTimezone: async function () {
+      const { settings } = screenly
+      const allTimezones = moment.tz.names()
+      const overrideTimezone = settings?.override_timezone
+
+      if (overrideTimezone) {
+        if (allTimezones.includes(overrideTimezone)) {
+          return overrideTimezone
+        } else {
+          console.warn(`Invalid timezone: ${overrideTimezone}. Using defaults.`)
+        }
+      }
+
+      return tzlookup(this.lat, this.lng)
+    },
+    initDateTime: async function () {
+      const timezone = await this.getTimezone()
+      const locale = await this.getLocale()
+      const momentObject = moment().tz(timezone)
+
+      if (locale) {
+        momentObject.locale(locale)
+      }
+
+      const dayOfMonth = momentObject.format('D')
+      const is24HourFormat = moment.localeData(locale).longDateFormat('LT').includes('H')
+
+      const formattedTime = is24HourFormat
+        ? momentObject.format('HH:mm')
+        : momentObject.format('hh:mm')
+
+      // Update time values
+      this.timeHour = formattedTime.split(':')[0]
+      this.timeMinutes = formattedTime.split(':')[1]
+      this.showAmPm = !is24HourFormat
+      this.timeAmPm = is24HourFormat ? '' : momentObject.format('A')
+      this.dateText = momentObject.format('ddd').toUpperCase()
+      this.dateNumber = dayOfMonth
     },
     isLoading: true,
     lat: 0,
@@ -335,9 +386,6 @@ function getWeatherData () {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const { getNearestCity } = OfflineGeocodeCity
-  const allTimezones = moment.tz.names()
-
   const sentryDsn = screenly.settings.sentry_dsn
   // Initiate Sentry.
   if (sentryDsn) {
@@ -347,85 +395,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   } else {
     console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
   }
-
-  async function timeAndDate () {
-    const { metadata, settings } = screenly
-    const latitude = metadata.coordinates[0]
-    const longitude = metadata.coordinates[1]
-    const defaultLocale = navigator?.languages?.length
-      ? navigator.languages[0]
-      : navigator.language
-
-    const getLocale = async () => {
-      const overrideLocale = settings?.override_locale
-
-      if (overrideLocale) {
-        if (moment.locales().includes(overrideLocale)) {
-          return overrideLocale
-        } else {
-          console.warn(`Invalid locale: ${overrideLocale}. Using defaults.`)
-        }
-      }
-
-      const data = await getNearestCity(latitude, longitude)
-      const countryCode = data.countryIso2.toUpperCase()
-
-      return clm.getLocaleByAlpha2(countryCode) || defaultLocale
-    }
-
-    const getTimezone = async () => {
-      const overrideTimezone = settings?.override_timezone
-      if (overrideTimezone) {
-        if (allTimezones.includes(overrideTimezone)) {
-          return overrideTimezone
-        } else {
-          console.warn(`Invalid timezone: ${overrideTimezone}. Using defaults.`)
-        }
-      }
-
-      return tzlookup(latitude, longitude)
-    }
-
-    const initDateTime = async () => {
-      const timezone = await getTimezone()
-      const locale = await getLocale()
-      const momentObject = moment().tz(timezone)
-
-      if (locale) {
-        momentObject.locale(locale) // Set the locale if available
-      }
-
-      const dayOfMonth = momentObject.format('D') // Get the day of the month
-
-      // Check if the locale prefers a 24-hour format by checking 'LT'
-      const is24HourFormat = moment.localeData(locale).longDateFormat('LT').includes('H')
-      // Format time based on the locale's preference
-      const formattedTime = is24HourFormat
-        ? momentObject.format('HH:mm') // 24-hour format
-        : momentObject.format('hh:mm') // 12-hour format
-
-      // Handle AM/PM for 12-hour format
-      const periodElement = document.querySelector('.time-ampm')
-      if (is24HourFormat) {
-        periodElement.innerText = '' // Clear AM/PM value in 24-hour format
-        periodElement.style.display = 'none' // Optionally hide the element
-      } else {
-        const period = momentObject.format('A') // Get AM/PM for 12-hour format
-        periodElement.innerText = period
-        periodElement.style.display = 'inline' // Ensure it's visible
-      }
-
-      // Set time in card
-      document.querySelector('.time-text-hour').innerText = formattedTime.split(':')[0]
-      document.querySelector('.time-text-minutes').innerText = formattedTime.split(':')[1]
-
-      document.querySelector('.date-text').innerText = momentObject.format('ddd').toUpperCase()
-      document.querySelector('.date-number').innerText = dayOfMonth // Set the inner text to the numeric day of the month
-    }
-    initDateTime() // Initialize the app
-  }
-
-  await timeAndDate()
 
   // constant colors
   const tertiaryColor = '#FFFFFF'
