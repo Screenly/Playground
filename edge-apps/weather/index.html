@@ -16,10 +16,10 @@
 
   <div class="primary-card main-weather-card">
     <div class="temperature-card">
-      <div class="temperature-text" id="current-temp">
+      <div class="temperature-text">
         <span class="temperature-text-number" x-text="currentTemp"></span>
       </div>
-      <div class="temperature-unit" id="current-temp-scale">
+      <div class="temperature-unit">
         <span class="temperature-unit-text" x-text="currentFormattedTempScale"></span>
       </div>
     </div>
@@ -27,7 +27,7 @@
 
   <div class= "time-date-card">
     <div class="secondary-card time-card">
-      <div class="time-card" id="time">
+      <div class="time-card">
         <div class="time-text-container">
           <span class="time-text-hour" x-text="timeHour"></span>
           <span class="time-text-separator">:</span>
@@ -41,7 +41,7 @@
         </div>
       </div>
     </div>
-    <div class="date-card" id="date">
+    <div class="date-card">
       <span class="date-text" x-text="dateText"></span>
       <span class="date-number" x-text="dateNumber"></span>
     </div>
@@ -49,7 +49,7 @@
 
 
   <div class="secondary-card weather-card">
-    <div class="weather-card-content" id="weather-item-list">
+    <div class="weather-card-content">
       <template x-for="item in forecastedItems" :key="item.id">
         <div class="weather-card-content-item">
           <div class="weather-card-content-item-temperature-text">
