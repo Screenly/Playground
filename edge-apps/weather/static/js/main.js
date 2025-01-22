@@ -1,6 +1,8 @@
 /* global Alpine, icons, moment, clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry */
 /* eslint-disable-next-line no-unused-vars, no-useless-catch */
 
+const DEFAULT_LOGO_URL = 'static/images/screenly.svg'
+
 // AppCache
 class AppCache {
   constructor ({ keyName }) {
@@ -295,6 +297,59 @@ function getWeatherData () {
     dateText: '',
     dateNumber: '',
     showAmPm: true,
+    brandLogo: DEFAULT_LOGO_URL,
+    async fetchImage(fileUrl) {
+      try {
+        const response = await fetch(fileUrl)
+        if (!response.ok) {
+          throw new Error(`Failed to fetch image from ${fileUrl}, status: ${response.status}`)
+        }
+
+        const blob = await response.blob()
+        const buffer = await blob.arrayBuffer()
+        const uintArray = new Uint8Array(buffer)
+
+        // Get the first 4 bytes for magic number detection
+        const hex = Array.from(uintArray.slice(0, 4))
+          .map(b => b.toString(16).padStart(2, '0'))
+          .join('').toUpperCase()
+
+        // Convert the first few bytes to ASCII for text-based formats like SVG
+        const ascii = String.fromCharCode.apply(null, uintArray.slice(0, 100))
+
+        if (ascii.startsWith('<?xml') || ascii.startsWith('<svg')) {
+          return new Promise((resolve) => {
+            const svgReader = new FileReader()
+            svgReader.readAsText(blob)
+            svgReader.onloadend = () => {
+              const base64 = btoa(unescape(encodeURIComponent(svgReader.result)))
+              resolve('data:image/svg+xml;base64,' + base64)
+            }
+          })
+        } else if (hex === '89504E47' || hex.startsWith('FFD8FF')) {
+          return fileUrl
+        } else {
+          throw new Error('Unknown image type')
+        }
+      } catch (error) {
+        console.error('Error fetching image:', error)
+        throw error
+      }
+    },
+    async initBrandLogo() {
+      const corsUrl = screenly.cors_proxy_url + '/' + screenly.settings.screenly_logo_dark
+      const fallbackUrl = screenly.settings.screenly_logo_dark
+
+      try {
+        this.brandLogo = await this.fetchImage(corsUrl)
+      } catch (error) {
+        try {
+          this.brandLogo = await this.fetchImage(fallbackUrl)
+        } catch (fallbackError) {
+          this.brandLogo = DEFAULT_LOGO_URL
+        }
+      }
+    },
     init: async function () {
       if (screenly.settings.override_coordinates) {
         [this.lat, this.lng] = screenly.settings.override_coordinates.split(',')
@@ -315,6 +370,8 @@ function getWeatherData () {
           refreshWeather(this)
         }, 1000 * 60 * 15 // 15 minutes
       )
+
+      await this.initBrandLogo()
     },
     getLocale: async function () {
       const { settings } = screenly
@@ -412,66 +469,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.documentElement.style.setProperty('--theme-color-secondary', secondaryColor)
   document.documentElement.style.setProperty('--theme-color-tertiary', tertiaryColor)
   document.documentElement.style.setProperty('--theme-color-background', backgroundColor)
-
-  // Brand Image Setting
-
-  const imgElement = document.getElementById('brand-logo')
-  const corsUrl = screenly.cors_proxy_url + '/' + screenly.settings.screenly_logo_dark
-  const fallbackUrl = screenly.settings.screenly_logo_dark
-  const defaultLogo = 'static/img/Screenly.svg'
-
-  // Function to fetch and process the image
-  async function fetchImage (fileUrl) {
-    try {
-      const response = await fetch(fileUrl)
-      if (!response.ok) {
-        throw new Error(`Failed to fetch image from ${fileUrl}, status: ${response.status}`)
-      }
-
-      const blob = await response.blob()
-      const buffer = await blob.arrayBuffer()
-      const uintArray = new Uint8Array(buffer)
-
-      // Get the first 4 bytes for magic number detection
-      const hex = Array.from(uintArray.slice(0, 4))
-        .map(b => b.toString(16).padStart(2, '0'))
-        .join('').toUpperCase()
-
-      // Convert the first few bytes to ASCII for text-based formats like SVG
-      const ascii = String.fromCharCode.apply(null, uintArray.slice(0, 100)) // Check first 100 chars for XML/SVG tags
-
-      // Determine file type based on MIME type, magic number, or ASCII text
-      if (ascii.startsWith('<?xml') || ascii.startsWith('<svg')) {
-        // Convert to Base64 and display if SVG
-        const svgReader = new FileReader()
-        svgReader.readAsText(blob)
-        svgReader.onloadend = function () {
-          const base64 = btoa(unescape(encodeURIComponent(svgReader.result)))
-          imgElement.src = 'data:image/svg+xml;base64,' + base64
-        }
-      } else if (hex === '89504E47' || hex.startsWith('FFD8FF')) {
-        // Checking PNG or JPEG/JPG magic number
-        imgElement.src = fileUrl
-      } else {
-        throw new Error('Unknown image type')
-      }
-    } catch (error) {
-      console.error('Error fetching image:', error)
-    }
-  }
-
-  // First, try to fetch the image using the CORS proxy URL
-  try {
-    await fetchImage(corsUrl)
-  } catch (error) {
-    // If CORS fails, try the fallback URL
-    try {
-      await fetchImage(fallbackUrl)
-    } catch (fallbackError) {
-      // If fallback fails, use the default logo
-      imgElement.src = defaultLogo
-    }
-  }
 
   // Signal that the screen is ready for rendering
   screenly.signalReadyForRendering()
