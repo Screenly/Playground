@@ -385,6 +385,10 @@ function getWeatherData () {
   }
 }
 
+document.addEventListener('alpine:init', () => {
+  Alpine.data('weather', getWeatherData)
+})
+
 document.addEventListener('DOMContentLoaded', async () => {
   const sentryDsn = screenly.settings.sentry_dsn
   // Initiate Sentry.
@@ -471,8 +475,4 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Signal that the screen is ready for rendering
   screenly.signalReadyForRendering()
-})
-
-document.addEventListener('alpine:init', () => {
-  Alpine.data('weather', getWeatherData)
 })
