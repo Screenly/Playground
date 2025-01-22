@@ -298,7 +298,7 @@ function getWeatherData () {
     dateNumber: '',
     showAmPm: true,
     brandLogo: DEFAULT_LOGO_URL,
-    async fetchImage(fileUrl) {
+    async fetchImage (fileUrl) {
       try {
         const response = await fetch(fileUrl)
         if (!response.ok) {
@@ -336,7 +336,7 @@ function getWeatherData () {
         throw error
       }
     },
-    async initBrandLogo() {
+    async initBrandLogo () {
       const corsUrl = screenly.cors_proxy_url + '/' + screenly.settings.screenly_logo_dark
       const fallbackUrl = screenly.settings.screenly_logo_dark
 
