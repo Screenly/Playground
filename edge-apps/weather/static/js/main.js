@@ -197,10 +197,10 @@ function getWeatherImagesById (context, id = 800, dt) {
   return {
     icon: isNight && hasNightPair(icon) ? `${icon}-night` : icon,
     bg: isNight && hasNightBg ? `${bg}-night` : bg
-  };
+  }
 
   // Helper function to check if an icon has a night pair
-  function hasNightPair(icon) {
+  function hasNightPair (icon) {
     const noNightPairIcons = [
       'chancesleet',
       'cloudy',
@@ -210,7 +210,7 @@ function getWeatherImagesById (context, id = 800, dt) {
       'haze',
       'snow',
       'windy'
-    ];
+    ]
     return !noNightPairIcons.includes(icon)
   }
 }
