@@ -211,7 +211,7 @@ function getWeatherImagesById (context, id = 800, dt) {
       'snow',
       'windy'
     ];
-    return !noNightPairIcons.includes(icon);
+    return !noNightPairIcons.includes(icon)
   }
 }
 
