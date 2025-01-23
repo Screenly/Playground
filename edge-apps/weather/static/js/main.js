@@ -94,8 +94,9 @@ function formatTime (today) {
     : navigator.language
 
   moment.locale(locale)
-  console.log(moment(today).format('LT'))
-  return moment(today).format('LT')
+  const is24HourFormat = moment.localeData(locale).longDateFormat('LT').includes('H')
+
+  return moment(today).format(is24HourFormat ? 'HH:mm' : 'hh:mm A')
 }
 
 function findCurrentWeatherItem (list) {
