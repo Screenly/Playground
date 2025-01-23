@@ -195,8 +195,23 @@ function getWeatherImagesById (context, id = 800, dt) {
   }
 
   return {
-    icon: isNight ? `${icon}-night` : icon,
+    icon: isNight && hasNightPair(icon) ? `${icon}-night` : icon,
     bg: isNight && hasNightBg ? `${bg}-night` : bg
+  };
+
+  // Helper function to check if an icon has a night pair
+  function hasNightPair(icon) {
+    const noNightPairIcons = [
+      'chancesleet',
+      'cloudy',
+      'drizzle',
+      'fewdrops',
+      'fog',
+      'haze',
+      'snow',
+      'windy'
+    ];
+    return !noNightPairIcons.includes(icon);
   }
 }
 
@@ -259,8 +274,8 @@ async function refreshWeather (context) {
 
       context.forecastedItems = currentWindow.map((item, index) => {
         const { dt, main: { temp }, weather } = item
-
         const { icon } = getWeatherImagesById(context, weather[0]?.id, dt)
+        console.log(icon)
         const dateTime = moment.unix(dt).utcOffset(context.tzOffset)
 
         return {
