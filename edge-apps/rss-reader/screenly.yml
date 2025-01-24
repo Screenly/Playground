@@ -4,6 +4,7 @@ id: 01HKT5KJPAHVGYJSFQF80BCJYQ
 description: Screenly RSS Reader App
 icon: https://playground.srly.io/edge-apps/rss-reader/static/img/icon.svg
 author: Screenly, Inc.
+ready_signal: true
 settings:
   bypass_cors:
     type: string
