@@ -435,17 +435,15 @@ function getWeatherData () {
       }
 
       const dayOfMonth = momentObject.format('D')
-      const is24HourFormat = moment.localeData(locale).longDateFormat('LT').includes('H')
-
-      const formattedTime = is24HourFormat
-        ? momentObject.format('HH:mm')
-        : momentObject.format('hh:mm')
+      const formattedTime = formatTime(momentObject)
+      const [hours, minutes] = formattedTime.split(' ')[0].split(':')
+      const ampm = formattedTime.split(' ')[1] || ''
 
       // Update time values
-      this.timeHour = formattedTime.split(':')[0]
-      this.timeMinutes = formattedTime.split(':')[1]
-      this.showAmPm = !is24HourFormat
-      this.timeAmPm = is24HourFormat ? '' : momentObject.format('A')
+      this.timeHour = hours
+      this.timeMinutes = minutes
+      this.showAmPm = !!ampm
+      this.timeAmPm = ampm
       this.dateText = momentObject.format('ddd').toUpperCase()
       this.dateNumber = dayOfMonth
     },
