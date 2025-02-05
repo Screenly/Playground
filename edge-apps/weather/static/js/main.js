@@ -88,15 +88,33 @@ async function getWeatherApiData (context) {
   return result
 }
 
-function formatTime (today) {
-  const locale = navigator?.languages?.length
-    ? navigator.languages[0]
-    : navigator.language
-
+function formatTime (today, locale) {
   moment.locale(locale)
   const is24HourFormat = moment.localeData(locale).longDateFormat('LT').includes('H')
 
   return moment(today).format(is24HourFormat ? 'HH:mm' : 'hh:mm A')
+}
+
+async function getLocale (lat, lng) {
+  const { settings } = screenly
+  const defaultLocale = navigator?.languages?.length
+    ? navigator.languages[0]
+    : navigator.language
+
+  const overrideLocale = settings?.override_locale
+
+  if (overrideLocale) {
+    if (moment.locales().includes(overrideLocale)) {
+      return overrideLocale
+    } else {
+      console.warn(`Invalid locale: ${overrideLocale}. Using defaults.`)
+    }
+  }
+
+  const data = await OfflineGeocodeCity.getNearestCity(lat, lng)
+  const countryCode = data.countryIso2.toUpperCase()
+
+  return clm.getLocaleByAlpha2(countryCode) || defaultLocale
 }
 
 function findCurrentWeatherItem (list) {
@@ -273,19 +291,19 @@ async function refreshWeather (context) {
         currentIndex + 1 + windowSize
       )
 
-      context.forecastedItems = currentWindow.map((item, index) => {
+      context.forecastedItems = await Promise.all(currentWindow.map(async (item, index) => {
         const { dt, main: { temp }, weather } = item
         const { icon } = getWeatherImagesById(context, weather[0]?.id, dt)
-        console.log(icon)
         const dateTime = moment.unix(dt).utcOffset(context.tzOffset)
+        const locale = await getLocale(context.lat, context.lng)
 
         return {
           id: index,
           temp: getTemp(context, temp),
           icon: icons[icon],
-          time: formatTime(dateTime)
+          time: formatTime(dateTime, locale)
         }
-      })
+      }))
     }
   } catch (error) {
     context.error = true
@@ -389,45 +407,12 @@ function getWeatherData () {
 
       await this.initBrandLogo()
     },
-    getLocale: async function () {
-      const { settings } = screenly
-      const defaultLocale = navigator?.languages?.length
-        ? navigator.languages[0]
-        : navigator.language
-
-      const overrideLocale = settings?.override_locale
-
-      if (overrideLocale) {
-        if (moment.locales().includes(overrideLocale)) {
-          return overrideLocale
-        } else {
-          console.warn(`Invalid locale: ${overrideLocale}. Using defaults.`)
-        }
-      }
-
-      const data = await OfflineGeocodeCity.getNearestCity(this.lat, this.lng)
-      const countryCode = data.countryIso2.toUpperCase()
-
-      return clm.getLocaleByAlpha2(countryCode) || defaultLocale
-    },
     getTimezone: async function () {
-      const { settings } = screenly
-      const allTimezones = moment.tz.names()
-      const overrideTimezone = settings?.override_timezone
-
-      if (overrideTimezone) {
-        if (allTimezones.includes(overrideTimezone)) {
-          return overrideTimezone
-        } else {
-          console.warn(`Invalid timezone: ${overrideTimezone}. Using defaults.`)
-        }
-      }
-
       return tzlookup(this.lat, this.lng)
     },
     initDateTime: async function () {
       const timezone = await this.getTimezone()
-      const locale = await this.getLocale()
+      const locale = await getLocale(this.lat, this.lng)
       const momentObject = moment().tz(timezone)
 
       if (locale) {
@@ -435,7 +420,7 @@ function getWeatherData () {
       }
 
       const dayOfMonth = momentObject.format('D')
-      const formattedTime = formatTime(momentObject)
+      const formattedTime = formatTime(momentObject, locale)
       const [hours, minutes] = formattedTime.split(' ')[0].split(':')
       const ampm = formattedTime.split(' ')[1] || ''
 
