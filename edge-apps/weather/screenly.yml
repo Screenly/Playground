@@ -36,16 +36,10 @@ settings:
       If not specified, the app will attempt to use the device's coordinates.
   override_locale:
     type: string
-    default_value: en
+    default_value: ''
     title: Override Locale
     optional: true
     help_text: Specify a supported locale value (e.g., en_US).
-  override_timezone:
-    type: string
-    default_value: ''
-    title: Override Timezone
-    optional: true
-    help_text: Specify a supported timezone value (e.g., Europe/London).
   sentry_dsn:
     type: secret
     title: Sentry DSN
