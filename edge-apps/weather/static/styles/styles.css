@@ -5,9 +5,9 @@
 .main-container {
   height: 100%;
   width: 100%;
-  padding: 1em;
+  /* padding: 1em; */
   display: grid;
-  gap: 1rem;
+  /* gap: 1rem; */
   grid-template-rows: 1.75fr 1fr;
   grid-template-columns: 1.5fr .25fr .25fr .25fr .25fr;
 
@@ -23,7 +23,7 @@
 
 
 .main-weather-card, .time-date-card, .weather-card, .info-card {
-  border-radius: 1rem;
+  /* border-radius: 1rem; */
   gap: 1rem
 }
 
@@ -49,7 +49,7 @@
 
 .temperature-text {
   color: var(--theme-color-tertiary);
-  font-size: 12rem;
+  font-size: 27rem;
 }
 
 .temperature-degree-sign {
@@ -57,7 +57,7 @@
 }
 
 .temperature-unit {
-  font-size: 5rem;
+  font-size: 10rem;
 }
 
 .weather-icon {
@@ -84,7 +84,7 @@
 .time-card, .date-card {
   height: 50%;
   width: 100%;
-  border-radius: 1rem;
+  /* border-radius: 1rem; */
 
 }
 
@@ -100,12 +100,12 @@
 }
 
 .time-text-hour, .time-text-minutes, .time-text-separator {
-  font-size: 4.5rem;
+  font-size: 10rem;
   color: var(--theme-color-primary);
 }
 
 .time-ampm {
-  font-size: 1.5rem;
+  font-size: 3rem;
   color: var(--theme-color-secondary);
 }
 
@@ -114,18 +114,19 @@
 .date-card {
   background-color: var(--theme-color-tertiary);
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 1rem;
 }
 
 .date-text {
-  font-size: 3.5rem;
+  font-size: 7rem;
   color: var(--theme-color-secondary);
 }
 
 .date-number {
-  font-size: 3.5rem;
+  font-size: 7rem;
   color: var(--theme-color-primary);
 }
 
@@ -160,20 +161,20 @@
 }
 
 .weather-card-temperature-text {
-  font-size: 1.3rem;
+  font-size: 2.3rem;
 }
 
 .weather-card-temperature-degree-sign {
-  font-size: 1.5rem;
+  font-size: 2.4rem;
 }
 
 .weather-card-weather-icon {
-  width: 5rem;
+  width: 12rem;
 }
 
 
 .weather-card-content-item-temperature-time {
-  font-size: 1.3rem;
+  font-size: 2rem;
 }
 
 
@@ -185,11 +186,11 @@
 /* brand logo  card */
 
 .brand-logo {
-  width: 4.5rem;
+  width: 8rem;
 }
 
 .info-text {
-  font-size: .6rem;
+  font-size: 1.2rem;
 }
 
 
@@ -197,7 +198,7 @@
   color: var(--theme-color-primary);
   grid-column: 4/6;
   grid-row: 2;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 
@@ -291,12 +292,132 @@
   .info-card, .time-text-separator {
     display: none;
   }
+}
+
+
+/* 4K Landscape - 4096 × 2160 */
+@media screen and (max-width: 4096px) and (max-height: 2160px) {
+  .time-date-card{
+    gap: var(--4k-gap);
+  }
+
+  .temperature-text {
+    font-size: 65rem;
+  }
+
+  .temperature-unit {
+    font-size: 20rem;
+  }
+
+  .time-text-hour, .time-text-minutes, .time-text-separator {
+    font-size: 20rem;
+    letter-spacing: 1rem;
+  }
+
+  .time-ampm {
+    font-size: 7rem;
+  }
+
+  .date-card  {
+    gap: 5rem
+  }
+
+  .date-text, .date-number {
+    font-size: 17rem;
+  }
+
+  .weather-card-content-item {
+    gap: 2rem;
+  }
+
+  .weather-card-temperature-text {
+    font-size: 7rem;
+  }
+
+  .weather-card-temperature-degree-sign {
+   font-size: 8rem;
+  }
+
+  .weather-card-weather-icon {
+    width: 27rem;
+  }
+
+  .weather-card-content-item-temperature-time {
+    font-size: 5rem;
+  }
+
+  .info-card {
+    gap : 4rem;
+  }
+
+  .brand-logo {
+    width: 20rem;
+  }
+
+  .info-text {
+    font-size: 3rem;
+ }
 
 
 }
 
+/* 4K Portrait - 2160 × 4096 */
+@media screen and (max-width: 2160px) and (max-height: 4096px) {
 
-@media screen and (min-width: 480px) and (min-height: 800px) and (orientation: portrait) {
+}
+
+/* 4K Landscape - 3840 × 2160 */
+@media screen and (max-width: 3840px) and (max-height: 2160px) {
+
+}
+
+/* 4K Portrait - 2160 × 3840 */
+@media screen and (max-width: 2160px) and (max-height: 3840px) {
+
+}
+
+/* Full HD Landscape - 1920 × 1080 */
+@media screen and (max-width: 1920px) and (max-height: 1080px) {
+
+.time-date-card{
+  gap: var(--hd-gap);
+}
+
+.weather-card-weather-icon {
+  width: 11rem;
+}
+}
+
+/* Full HD Portrait - 1080 × 1920 */
+@media screen and (max-width: 1080px) and (max-height: 1920px) {
+
+}
+
+/* HD Landscape - 1280 × 720 */
+@media screen and (max-width: 1280px) and (max-height: 720px) {
+
+}
+
+/* HD Portrait - 720 × 1280 */
+@media screen and (max-width: 720px) and (max-height: 1280px) {
+
+}
+
+/* Raspberry Pi Touch Display - Landscape 800 × 480 */
+@media screen and (max-width: 800px) and (max-height: 480px) {
+
+}
+
+/* Raspberry Pi Touch Display - Portrait 480 × 800 */
+@media screen and (max-width: 480px) and (max-height: 800px) {
+
+}
+
+
+
+
+
+/* @media screen and (min-width: 480px) and (min-height: 800px) and (orientation: portrait) {
   .temperature-text-number {
     font-size: 13rem;
   }
@@ -720,4 +841,4 @@
     width: 28rem;
   }
 
-}
+} */
