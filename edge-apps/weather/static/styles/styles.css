@@ -14,11 +14,6 @@
 .primary-card {
   width: 100%;
   line-height: unset;
-  border-radius: var(--custom-4k-border-radius-big);
-}
-
-.secondary-card {
-  border-radius: var(--custom-4k-border-radius-medium);
 }
 
 /* Custom Cards */
@@ -423,7 +418,6 @@
 /* Full HD Landscape - 1920 × 1080 */
 
 @media screen and (max-width: 1920px) and (orientation: landscape) {
-
   .time-date-card {
     gap: var(--hd-gap);
   }
@@ -571,7 +565,6 @@
 /* HD Landscape - 1280 × 720 */
 
 @media screen and (max-width: 1280px) and (orientation: landscape) {
-
   .time-date-card {
     gap: var(--custom-720-gap);
   }
@@ -628,7 +621,6 @@
 
 
 @media screen and (max-width: 1080px) and (orientation: landscape) {
-
   .weather-card-temperature-text,
   .weather-card-temperature-degree-sign {
     font-size: 1.7rem;
@@ -647,7 +639,6 @@
 /* HD Portrait - 720 × 1280 */
 
 @media screen and (max-width: 720px) and (orientation: portrait) {
-
   .temperature-text-number {
     font-size: 20rem;
   }
@@ -696,7 +687,6 @@
 /* Raspberry Pi Touch Display - Landscape 800 × 480 */
 
 @media screen and (max-width: 800px) and (orientation: landscape) {
-
   .time-date-card {
     gap: var(--pi-gap);
   }
