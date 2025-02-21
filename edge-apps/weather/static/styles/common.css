@@ -16,9 +16,17 @@ html {
   font-size: 14px;
 }
 
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: Aeonik, sans-serif;
   height: 100vh;
+  background-color: var(--theme-color-background);
 }
 
 /* Colors (Theme) */
@@ -29,7 +37,7 @@ body {
   --theme-color-background: #C9CDD0;
 }
 
-/* Padding, Gap, Border-Radius, Font-Size */
+/* Padding, Gap, Border-Radius*/
 :root {
  --4k-padding: 5.714rem;
  --4k-gap: 5.714rem;
@@ -46,20 +54,11 @@ body {
  --720-border-radius-big: 2.429rem;
  --720-border-radius-medium: 1.714rem;
 
- --pi-padding: 1.714rem;
+ --pi-padding: 1rem;
  --pi-gap: 1rem;
  --pi-border-radius-big: 1.571rem;
  --pi-border-radius-medium: 1.143rem
 }
-
-
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 
 /* Components */
 .main-container {
@@ -147,7 +146,7 @@ body {
 /* Default styles apply to large screens */
 
 /* 4K Landscape - 4096 × 2160 */
-@media screen and (max-width: 4096px) and (max-height: 2160px) {
+@media screen and (max-width: 4096px) and (orientation: landscape) {
   .main-container {
     gap: var(--4k-gap);
     padding: var(--4k-padding);
@@ -160,284 +159,150 @@ body {
   .secondary-card{
     border-radius: var(--4k-border-radius-medium);
   }
-
 }
 
 /* 4K Portrait - 2160 × 4096 */
-@media screen and (max-width: 2160px) and (max-height: 4096px) {
+@media screen and (max-width: 2160px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--4k-gap);
+    padding: var(--4k-padding);
+  }
 
+  .primary-card {
+    border-radius: var(--4k-border-radius-big);
+  }
+
+  .secondary-card{
+    border-radius: var(--4k-border-radius-medium);
+  }
 }
 
 /* 4K Landscape - 3840 × 2160 */
-@media screen and (max-width: 3840px) and (max-height: 2160px) {
+@media screen and (max-width: 3840px) and (orientation: landscape) {
+  .main-container {
+    gap: var(--4k-gap);
+    padding: var(--4k-padding);
+  }
 
+  .primary-card {
+    border-radius: var(--4k-border-radius-big);
+  }
+
+  .secondary-card{
+    border-radius: var(--4k-border-radius-medium);
+  }
 }
 
 /* 4K Portrait - 2160 × 3840 */
-@media screen and (max-width: 2160px) and (max-height: 3840px) {
+@media screen and (max-width: 2160px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--4k-gap);
+    padding: var(--4k-padding);
+  }
 
+  .primary-card {
+    border-radius: var(--4k-border-radius-big);
+  }
+
+  .secondary-card{
+    border-radius: var(--4k-border-radius-medium);
+  }
 }
 
 /* Full HD Landscape - 1920 × 1080 */
-@media screen and (max-width: 1920px) and (max-height: 1080px) {
+@media screen and (max-width: 1920px) and (orientation: landscape) {
+  .main-container {
+    gap: var(--hd-gap);
+    padding: var(--hd-padding);
+  }
 
-.main-container {
-  gap: var(--hd-gap);
-  padding: var(--hd-padding);
-}
+  .primary-card {
+    border-radius: var(--hd-border-radius-big);
+  }
 
-.primary-card {
-  border-radius: var(--hd-border-radius-big);
-}
-
-.secondary-card{
-  border-radius: var(--hd-border-radius-medium);
-}
-
+  .secondary-card{
+    border-radius: var(--hd-border-radius-medium);
+  }
 }
 
 /* Full HD Portrait - 1080 × 1920 */
-@media screen and (max-width: 1080px) and (max-height: 1920px) {
+@media screen and (max-width: 1080px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--hd-gap);
+    padding: var(--hd-padding);
+  }
 
+  .primary-card {
+    border-radius: var(--hd-border-radius-big);
+  }
+
+  .secondary-card{
+    border-radius: var(--hd-border-radius-medium);
+  }
 }
 
-/* HD Landscape - 1280 × 720 */
-@media screen and (max-width: 1280px) and (max-height: 720px) {
 
+/* HD Landscape - 1280 × 720 */
+@media screen and (max-width: 1280px) and (orientation: landscape) {
+  .main-container {
+    gap: var(--720-gap);
+    padding: var(--720-padding);
+  }
+
+  .primary-card {
+    border-radius: var(--720-border-radius-big);
+  }
+
+  .secondary-card{
+    border-radius: var(--720-border-radius-medium);
+  }
 }
 
 /* HD Portrait - 720 × 1280 */
-@media screen and (max-width: 720px) and (max-height: 1280px) {
+@media screen and (max-width: 720px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--720-gap);
+    padding: var(--720-padding);
+  }
 
+  .primary-card {
+    border-radius: var(--720-border-radius-big);
+  }
+
+  .secondary-card{
+    border-radius: var(--720-border-radius-medium);
+  }
 }
 
 /* Raspberry Pi Touch Display - Landscape 800 × 480 */
-@media screen and (max-width: 800px) and (max-height: 480px) {
+@media screen and (max-width: 800px) and (orientation: landscape) {
+  .main-container {
+    gap: var(--pi-gap);
+    padding: var(--pi-padding);
+  }
+
+  .primary-card {
+    border-radius: var(--pi-border-radius-big);
+  }
+
+  .secondary-card{
+    border-radius: var(--pi-border-radius-medium);
+  }
 
 }
 
 /* Raspberry Pi Touch Display - Portrait 480 × 800 */
-@media screen and (max-width: 480px) and (max-height: 800px) {
-
-}
-
-
-
-
-/* @media screen and (min-width: 720px) and (orientation: portrait) {
+@media screen and (max-width: 480px) and (orientation: portrait) {
   .main-container {
-    gap: 1rem;
-    padding: 1rem;
+    gap: var(--pi-gap);
+    padding: var(--pi-padding);
   }
 
   .primary-card {
-    border-radius: 2rem;
+    border-radius: var(--pi-border-radius-big);
   }
 
-  .secondary-container {
-    gap: 1rem;
-  }
-
-  .row-container {
-    gap: 1rem;
-  }
-
-  .secondary-card {
-    border-radius: 2rem;
-  }
-
-}
-
-@media screen and (min-width: 800px) and (orientation: landscape) {
-  .main-container {
-    gap: 1.5rem;
-    padding: 1rem;
-  }
-
-  .primary-container {
-    gap: 1.5rem;
-  }
-
-  .primary-card {
-    border-radius: 2rem;
-  }
-
-  .secondary-container {
-    gap: 1rem;
-  }
-
-  .row-container {
-    gap: 1rem;
-  }
-
-  .secondary-card {
-    border-radius: 2rem;
-  }
-
-}
-
-@media screen and (min-width: 1080px) and (orientation: portrait) {
-  .main-container {
-    gap: 3rem;
-    padding: 3rem;
-  }
-
-  .primary-container {
-    gap: 3rem;
-  }
-
-  .primary-card {
-    border-radius: 4rem;
-  }
-
-  .secondary-container {
-    gap: 3rem;
-  }
-
-  .row-container {
-    gap: 3rem;
-  }
-
-  .secondary-card {
-    border-radius: 4rem;
-  }
-
-}
-
-@media screen and (min-width: 1280px) and (orientation: landscape) {
-  .main-container {
-    gap: 2rem;
-    padding: 2rem;
-  }
-
-  .primary-container {
-    gap: 2rem;
-  }
-
-  .primary-card {
-    border-radius: 2rem;
-  }
-
-  .secondary-container {
-    gap: 2rem;
-  }
-
-  .row-container {
-    gap: 2rem;
-  }
-
-  .secondary-card {
-    border-radius: 2.5rem;
-  }
-
-}
-
-@media screen and (min-width: 1920px) and (orientation: landscape) {
-  .main-container {
-    gap: 2.5rem;
-    padding: 2.5rem;
-  }
-
-  .primary-container {
-    gap: 2.5rem;
-  }
-
-  .primary-card {
-    border-radius: 2.5rem;
-  }
-
-  .secondary-container {
-    gap: 2.5rem;
-  }
-
-  .row-container {
-    gap: 2.5rem;
-  }
-
-  .secondary-card {
-    border-radius: 2.5rem;
+  .secondary-card{
+    border-radius: var(--pi-border-radius-medium);
   }
 }
-
-@media screen and (min-width: 2160px) and (orientation: portrait) {
-  .main-container {
-    gap: 5rem;
-    padding: 5rem;
-  }
-
-  .primary-container {
-    gap: 5rem;
-  }
-
-  .primary-card {
-    border-radius: 8rem;
-  }
-
-  .secondary-container {
-    gap: 5rem;
-  }
-
-  .row-container {
-    gap: 6rem;
-  }
-
-  .secondary-card {
-    border-radius: 8rem;
-  }
-
-}
-
-@media screen and (min-width: 3840px) and (orientation: landscape) {
-  .main-container {
-    gap: 5rem;
-    padding: 5rem;
-  }
-
-  .primary-container {
-    gap: 5rem;
-  }
-
-  .primary-card {
-    border-radius: 8rem;
-  }
-
-  .secondary-container {
-    gap: 5rem;
-  }
-
-  .row-container {
-    gap: 6rem;
-  }
-
-  .secondary-card {
-    border-radius: 8rem;
-  }
-}
-
-@media screen and (min-width: 4096px) and (orientation: landscape) {
-  .main-container {
-    gap: 5rem;
-    padding: 5rem;
-  }
-
-  .primary-container {
-    gap: 5rem;
-  }
-
-
-  .primary-card {
-    border-radius: 7rem;
-  }
-
-  .secondary-container {
-    gap: 5rem;
-  }
-
-  .row-container {
-    gap: 6rem;
-  }
-
-  .secondary-card {
-    border-radius: 7rem;
-  }
-} */

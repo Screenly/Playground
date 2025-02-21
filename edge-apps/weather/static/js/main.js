@@ -101,14 +101,20 @@ async function getLocale (lat, lng) {
     ? navigator.languages[0]
     : navigator.language
 
-  moment.locale(locale)
-  return moment(today).format('LT')
-}
+  const overrideLocale = settings?.override_locale
 
-function refreshDateTime (context) {
-  const now = moment().utcOffset(context.tzOffset)
-  context.currentTime = formatTime(now)
-  context.currentDate = now.format('dddd, MMM DD')
+  if (overrideLocale) {
+    if (moment.locales().includes(overrideLocale)) {
+      return overrideLocale
+    } else {
+      console.warn(`Invalid locale: ${overrideLocale}. Using defaults.`)
+    }
+  }
+
+  const data = await OfflineGeocodeCity.getNearestCity(lat, lng)
+  const countryCode = data.countryIso2.toUpperCase()
+
+  return clm.getLocaleByAlpha2(countryCode) || defaultLocale
 }
 
 function findCurrentWeatherItem (list) {

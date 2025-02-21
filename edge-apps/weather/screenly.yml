@@ -36,7 +36,7 @@ settings:
       If not specified, the app will attempt to use the device's coordinates.
   override_locale:
     type: string
-    default_value: ''
+    default_value: 'en'
     title: Override Locale
     optional: true
     help_text: Specify a supported locale value (e.g., en_US).
@@ -44,4 +44,5 @@ settings:
     type: secret
     title: Sentry DSN
     optional: true
+    is_global: true
     help_text: Specify a Sentry DSN to enable error tracking.
