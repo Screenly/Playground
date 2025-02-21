@@ -35,29 +35,28 @@ body {
   --theme-color-secondary: #ADAFBE;
   --theme-color-tertiary: #FFF;
   --theme-color-background: #C9CDD0;
-}
 
-/* Padding, Gap, Border-Radius*/
-:root {
- --4k-padding: 5.714rem;
- --4k-gap: 5.714rem;
- --4k-border-radius-big: 6.857rem;
- --4k-border-radius-medium: 5.429rem;
+  /* Padding, Gap, Border-Radius */
 
- --hd-padding: 2.857rem;
- --hd-gap: 2.857rem;
- --hd-border-radius-big: 3.429rem;
- --hd-border-radius-medium: 2.714rem;
+  --custom-4k-padding: 5.714rem;
+  --custom-4k-gap: 5.714rem;
+  --custom-4k-border-radius-big: 6.857rem;
+  --custom-4k-border-radius-medium: 5.429rem;
 
- --720-padding: 2.286rem;
- --720-gap: 2.286rem;
- --720-border-radius-big: 2.429rem;
- --720-border-radius-medium: 1.714rem;
+  --hd-padding: 2.857rem;
+  --hd-gap: 2.857rem;
+  --hd-border-radius-big: 3.429rem;
+  --hd-border-radius-medium: 2.714rem;
 
- --pi-padding: 1rem;
- --pi-gap: 1rem;
- --pi-border-radius-big: 1.571rem;
- --pi-border-radius-medium: 1.143rem
+  --custom-720-padding: 2.286rem;
+  --custom-720-gap: 2.286rem;
+  --custom-720-border-radius-big: 2.429rem;
+  --custom-720-border-radius-medium: 1.714rem;
+
+  --pi-padding: 1rem;
+  --pi-gap: 1rem;
+  --pi-border-radius-big: 1.571rem;
+  --pi-border-radius-medium: 1.143rem
 }
 
 /* Components */
@@ -69,7 +68,6 @@ body {
   padding: 2rem;
   background-color: var(--theme-color-background);
 }
-
 
 .primary-card {
   display: flex;
@@ -85,7 +83,6 @@ body {
   color: var(--theme-color-tertiary);
 }
 
-
 .primary-container {
   width: 50%;
   display: flex;
@@ -93,8 +90,6 @@ body {
   gap: 2.5rem;
   justify-content: space-between;
 }
-
-
 
 .secondary-container {
   width: 50%;
@@ -148,64 +143,64 @@ body {
 /* 4K Landscape - 4096 × 2160 */
 @media screen and (max-width: 4096px) and (orientation: landscape) {
   .main-container {
-    gap: var(--4k-gap);
-    padding: var(--4k-padding);
+    gap: var(--custom-4k-gap);
+    padding: var(--custom-4k-padding);
   }
 
   .primary-card {
-    border-radius: var(--4k-border-radius-big);
+    border-radius: var(--custom-4k-border-radius-big);
   }
 
-  .secondary-card{
-    border-radius: var(--4k-border-radius-medium);
+  .secondary-card {
+    border-radius: var(--custom-4k-border-radius-medium);
   }
 }
 
 /* 4K Portrait - 2160 × 4096 */
 @media screen and (max-width: 2160px) and (orientation: portrait) {
   .main-container {
-    gap: var(--4k-gap);
-    padding: var(--4k-padding);
+    gap: var(--custom-4k-gap);
+    padding: var(--custom-4k-padding);
   }
 
   .primary-card {
-    border-radius: var(--4k-border-radius-big);
+    border-radius: var(--custom-4k-border-radius-big);
   }
 
-  .secondary-card{
-    border-radius: var(--4k-border-radius-medium);
+  .secondary-card {
+    border-radius: var(--custom-4k-border-radius-medium);
   }
 }
 
 /* 4K Landscape - 3840 × 2160 */
 @media screen and (max-width: 3840px) and (orientation: landscape) {
   .main-container {
-    gap: var(--4k-gap);
-    padding: var(--4k-padding);
+    gap: var(--custom-4k-gap);
+    padding: var(--custom-4k-padding);
   }
 
   .primary-card {
-    border-radius: var(--4k-border-radius-big);
+    border-radius: var(--custom-4k-border-radius-big);
   }
 
-  .secondary-card{
-    border-radius: var(--4k-border-radius-medium);
+  .secondary-card {
+    border-radius: var(--custom-4k-border-radius-medium);
   }
 }
 
 /* 4K Portrait - 2160 × 3840 */
 @media screen and (max-width: 2160px) and (orientation: portrait) {
   .main-container {
-    gap: var(--4k-gap);
-    padding: var(--4k-padding);
+    gap: var(--custom-4k-gap);
+    padding: var(--custom-4k-padding);
   }
 
   .primary-card {
-    border-radius: var(--4k-border-radius-big);
+    border-radius: var(--custom-4k-border-radius-big);
   }
 
-  .secondary-card{
-    border-radius: var(--4k-border-radius-medium);
+  .secondary-card {
+    border-radius: var(--custom-4k-border-radius-medium);
   }
 }
 
@@ -220,7 +215,7 @@ body {
     border-radius: var(--hd-border-radius-big);
   }
 
-  .secondary-card{
+  .secondary-card {
     border-radius: var(--hd-border-radius-medium);
   }
 }
@@ -236,7 +231,7 @@ body {
     border-radius: var(--hd-border-radius-big);
   }
 
-  .secondary-card{
+  .secondary-card {
     border-radius: var(--hd-border-radius-medium);
   }
 }
@@ -245,32 +240,32 @@ body {
 /* HD Landscape - 1280 × 720 */
 @media screen and (max-width: 1280px) and (orientation: landscape) {
   .main-container {
-    gap: var(--720-gap);
-    padding: var(--720-padding);
+    gap: var(--custom-720-gap);
+    padding: var(--custom-720-padding);
   }
 
   .primary-card {
-    border-radius: var(--720-border-radius-big);
+    border-radius: var(--custom-720-border-radius-big);
   }
 
-  .secondary-card{
-    border-radius: var(--720-border-radius-medium);
+  .secondary-card {
+    border-radius: var(--custom-720-border-radius-medium);
   }
 }
 
 /* HD Portrait - 720 × 1280 */
 @media screen and (max-width: 720px) and (orientation: portrait) {
   .main-container {
-    gap: var(--720-gap);
-    padding: var(--720-padding);
+    gap: var(--custom-720-gap);
+    padding: var(--custom-720-padding);
   }
 
   .primary-card {
-    border-radius: var(--720-border-radius-big);
+    border-radius: var(--custom-720-border-radius-big);
   }
 
-  .secondary-card{
-    border-radius: var(--720-border-radius-medium);
+  .secondary-card {
+    border-radius: var(--custom-720-border-radius-medium);
   }
 }
 
@@ -285,7 +280,7 @@ body {
     border-radius: var(--pi-border-radius-big);
   }
 
-  .secondary-card{
+  .secondary-card {
     border-radius: var(--pi-border-radius-medium);
   }
 
@@ -302,7 +297,7 @@ body {
     border-radius: var(--pi-border-radius-big);
   }
 
-  .secondary-card{
+  .secondary-card {
     border-radius: var(--pi-border-radius-medium);
   }
 }
