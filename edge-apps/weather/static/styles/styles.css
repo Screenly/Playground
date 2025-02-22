@@ -442,12 +442,12 @@
   }
 
   .date-card {
-    gap: 3rem;
+    gap: 2rem;
   }
 
   .date-number,
   .date-text {
-    font-size: 10rem;
+    font-size: 8rem;
     letter-spacing: .5rem;
   }
 
@@ -500,7 +500,8 @@
     font-size: 10rem;
   }
 
-  .time-text-hour, .time-text-minutes {
+  .time-text-hour,
+  .time-text-minutes {
     font-size: 11rem;
   }
 
@@ -593,7 +594,7 @@
 
   .date-number,
   .date-text {
-    font-size: 6rem;
+    font-size: 5rem;
     letter-spacing: .3rem;
   }
 
@@ -701,17 +702,21 @@
 
   .time-text-hour, .time-text-minutes, .time-text-separator {
     font-size: 3.5rem;
-    letter-spacing: .2rem;
+    letter-spacing: .1rem;
   }
 
   .time-ampm {
     font-size: 1.2rem;
   }
 
+  .date-card {
+    gap: .5rem;
+}
+
   .date-number,
   .date-text {
-    font-size: 4rem;
-    letter-spacing: .2rem;
+    font-size: 3rem;
+    letter-spacing: .1rem;
   }
 
   .weather-card-temperature-text,
