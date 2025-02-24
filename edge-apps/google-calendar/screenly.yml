@@ -1,0 +1,21 @@
+---
+syntax: manifest_v1
+description: Screenly Google Calendar Edge App
+icon: https://playground.srly.io/edge-apps/google-calendar/static/img/icon.svg
+author: Screenly, Inc.
+ready_signal: true
+settings:
+  enable_analytics:
+    type: string
+    default_value: 'true'
+    title: Enable Analytics
+    optional: true
+    help_text: Whether to disable Sentry and Google Analytics integrations
+    is_global: true
+  tag_manager_id:
+    type: string
+    default_value: GTM-P98SPZ9Z
+    title: Google Tag Manager ID
+    optional: true
+    help_text: Specify a Google Tag Manager ID
+    is_global: true
