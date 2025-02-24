@@ -431,13 +431,13 @@
   }
 
   .time-ampm {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 
   .time-text-hour,
   .time-text-minutes,
   .time-text-separator {
-    font-size: 10rem;
+    font-size: 9rem;
     letter-spacing: .5rem;
   }
 
@@ -447,7 +447,7 @@
 
   .date-number,
   .date-text {
-    font-size: 8rem;
+    font-size: 6rem;
     letter-spacing: .5rem;
   }
 
