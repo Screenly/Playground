@@ -1,86 +1,104 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="static/css/common.css" rel="stylesheet">
-	<link href="static/css/style.css" rel="stylesheet">
+  <link href="static/css/common.css" rel="stylesheet">
+  <link href="static/css/style.css" rel="stylesheet">
 
-    <title>Google Calendar App</title>
+  <title>Google Calendar App</title>
 </head>
 <body>
-	<div class="main-container">
-		<div class="secondary-container">
-			<div class="row-container">
-				<div class="secondary-card calendar-overview-card">
-                    <div class="calendar-top">
-                        <h1 class="calendar-date"><span class="date-number-box">21</span> February</h1>
-                        <p class="calendar-event">Nothing scheduled on this date</p>
-                    </div>
-                    <div class="calendar-bottom">
-                        <h1 class="calendar-time">10:13 PM</h1>
-                    </div>
-				</div>
-			</div>
-			<div class="row-container">
-				<div class="secondary-card info-card">
-					<img id="brand-logo" src="static/img/screenly.svg" class="brand-logo" alt="Brand Logo" />
-					<span class="info-text">Powered by Screenly</span>
-				</div>
-			</div>
-		</div>
-		<div class="primary-card">
-			<div class="calendar">
-				<div class="calendar-header">February 2025</div>
-				<div class="calendar-weekdays">
-					<div>Mon</div>
-					<div>Tue</div>
-					<div>Wed</div>
-					<div>Thu</div>
-					<div>Fri</div>
-					<div>Sat</div>
-					<div>Sun</div>
-				</div>
-				<div class="calendar-grid">
-					<div class="calendar-cell other-month">29</div>
-					<div class="calendar-cell other-month">30</div>
-					<div class="calendar-cell other-month">31</div>
-					<div class="calendar-cell">1</div>
-					<div class="calendar-cell">2</div>
-					<div class="calendar-cell">3</div>
-					<div class="calendar-cell">4</div>
-					<div class="calendar-cell">5</div>
-					<div class="calendar-cell">6</div>
-					<div class="calendar-cell">7</div>
-					<div class="calendar-cell">8</div>
-					<div class="calendar-cell">9</div>
-					<div class="calendar-cell">10</div>
-					<div class="calendar-cell">11</div>
-					<div class="calendar-cell">12</div>
-					<div class="calendar-cell">13</div>
-					<div class="calendar-cell">14</div>
-					<div class="calendar-cell">15</div>
-					<div class="calendar-cell">16</div>
-					<div class="calendar-cell">17</div>
-					<div class="calendar-cell">18</div>
-					<div class="calendar-cell">19</div>
-					<div class="calendar-cell">20</div>
-					<div class="calendar-cell">21</div>
-					<div class="calendar-cell">22</div>
-					<div class="calendar-cell">23</div>
-					<div class="calendar-cell">24</div>
-					<div class="calendar-cell">25</div>
-					<div class="calendar-cell">26</div>
-					<div class="calendar-cell">27</div>
-					<div class="calendar-cell">28</div>
-					<div class="calendar-cell other-month">1</div>
-					<div class="calendar-cell other-month">2</div>
-					<div class="calendar-cell other-month">3</div>
-					<div class="calendar-cell other-month">4</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="main-container" id="app">
+    <div class="secondary-container">
+      <div class="row-container">
+        <div class="secondary-card calendar-overview-card">
+          <div class="calendar-top">
+            <h1 class="calendar-date">
+              <span class="date-number-box">
+                {{ currentDate }}
+              </span>
+              {{ currentMonth }}
+            </h1>
+            <p class="calendar-event">
+              <template v-if="events.length > 0">
+                {{ events[0] }}
+              </template>
+              <template v-else>
+                Nothing scheduled on this date
+              </template>
+            </p>
+          </div>
+          <div class="calendar-bottom">
+            <h1 class="calendar-time">
+              {{ currentTime }}
+            </h1>
+          </div>
+        </div>
+      </div>
+      <div class="row-container">
+        <div class="secondary-card info-card">
+          <img id="brand-logo" src="static/img/screenly.svg" class="brand-logo" alt="Brand Logo" />
+          <span class="info-text">Powered by Screenly</span>
+        </div>
+      </div>
+    </div>
+    <div class="primary-card">
+      <div class="calendar">
+        <div class="calendar-header">February 2025</div>
+        <div class="calendar-weekdays">
+          <div>Mon</div>
+          <div>Tue</div>
+          <div>Wed</div>
+          <div>Thu</div>
+          <div>Fri</div>
+          <div>Sat</div>
+          <div>Sun</div>
+        </div>
+        <div class="calendar-grid">
+          <div class="calendar-cell other-month">29</div>
+          <div class="calendar-cell other-month">30</div>
+          <div class="calendar-cell other-month">31</div>
+          <div class="calendar-cell">1</div>
+          <div class="calendar-cell">2</div>
+          <div class="calendar-cell">3</div>
+          <div class="calendar-cell">4</div>
+          <div class="calendar-cell">5</div>
+          <div class="calendar-cell">6</div>
+          <div class="calendar-cell">7</div>
+          <div class="calendar-cell">8</div>
+          <div class="calendar-cell">9</div>
+          <div class="calendar-cell">10</div>
+          <div class="calendar-cell">11</div>
+          <div class="calendar-cell">12</div>
+          <div class="calendar-cell">13</div>
+          <div class="calendar-cell">14</div>
+          <div class="calendar-cell">15</div>
+          <div class="calendar-cell">16</div>
+          <div class="calendar-cell">17</div>
+          <div class="calendar-cell">18</div>
+          <div class="calendar-cell">19</div>
+          <div class="calendar-cell">20</div>
+          <div class="calendar-cell">21</div>
+          <div class="calendar-cell">22</div>
+          <div class="calendar-cell">23</div>
+          <div class="calendar-cell">24</div>
+          <div class="calendar-cell">25</div>
+          <div class="calendar-cell">26</div>
+          <div class="calendar-cell">27</div>
+          <div class="calendar-cell">28</div>
+          <div class="calendar-cell other-month">1</div>
+          <div class="calendar-cell other-month">2</div>
+          <div class="calendar-cell other-month">3</div>
+          <div class="calendar-cell other-month">4</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="screenly.js?version=1"></script>
+  <script src="static/js/vue-3.5.13.js"></script>
+  <script src="static/js/main.js"></script>
 </body>
 </html>
