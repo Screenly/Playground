@@ -4,6 +4,7 @@ import {
   getCurrentFormattedTime,
   generateCalendarDays
 } from './utils.js'
+import { fetchCalendarEvents } from './googleCalendar.js'
 
 // Import components
 import CalendarOverview from './components/CalendarOverview.js'
@@ -26,19 +27,24 @@ const App = defineComponent({
     const currentTime = ref(getCurrentFormattedTime())
     const calendarDays = ref(generateCalendarDays(currentYear.value, currentMonth.value))
     const weekDays = ref(['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'])
+    const events = ref([])
 
-    // TODO: Fetch the events from the Google Calendar API.
-    // Limit to 5 events for better visibility in kiosk mode
-    const allEvents = [
-      'Daily Scrum',
-      'Sprint Review'
-    ]
-    const events = ref(allEvents.slice(0, 5))
+    // Fetch calendar events
+    const updateEvents = async () => {
+      const fetchedEvents = await fetchCalendarEvents()
+      events.value = fetchedEvents
+    }
 
-    // Update time every minutes
+    // Initial events fetch
+    updateEvents()
+
+    // Update time every minute
     setInterval(() => {
       currentTime.value = getCurrentFormattedTime()
     }, 60 * 1000)
+
+    // Update events every second
+    setInterval(updateEvents, 1000)
 
     return {
       currentYear,
