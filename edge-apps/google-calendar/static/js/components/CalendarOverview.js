@@ -1,7 +1,7 @@
 /* global Vue */
-const { defineComponent } = Vue
-
 import { html } from '../utils.js'
+
+const { defineComponent } = Vue
 
 export default defineComponent({
   name: 'CalendarOverview',
