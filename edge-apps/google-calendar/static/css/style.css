@@ -145,6 +145,117 @@
 
 /* TODO: Fix the Clock Circle issue : When Scale to .5, circle change to oval */
 
+@media screen and (max-width: 1280px) {
+  /* Calendar Grid Styles */
+  .calendar {
+    width: 90%;
+    gap: 1rem;
+  }
+
+  .calendar-header {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .calendar-weekdays {
+    font-size: 1.2rem;
+    gap: 0.3rem;
+  }
+
+  .calendar-grid {
+    gap: 0.3rem;
+  }
+
+  .calendar-cell {
+    padding: 2rem 0.3rem;
+    margin: 0.3rem 0.8rem;
+    font-size: 1.6rem;
+  }
+
+  /* Calendar Overview Card */
+  .calendar-overview-card {
+    padding: 2rem;
+  }
+
+  .calendar-top {
+    gap: 1.2rem;
+  }
+
+  .calendar-date {
+    font-size: 2rem;
+  }
+
+  .date-number-box {
+    padding: 0.3rem 0.4rem;
+  }
+
+  .calendar-event {
+    font-size: 1.6rem;
+  }
+
+  .calendar-time {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (min-width: 3840px) {
+  /* Calendar Grid Styles */
+  .calendar {
+    width: 85%;
+    gap: 3rem;
+  }
+
+  .calendar-header {
+    font-size: 5rem;
+    margin-bottom: 4rem;
+  }
+
+  .calendar-weekdays {
+    font-size: 3.5rem;
+    gap: 1rem;
+  }
+
+  .calendar-grid {
+    gap: 1rem;
+  }
+
+  .calendar-cell {
+    padding: 6rem 1rem;
+    margin: 0.9rem 2.5rem;
+    font-size: 4.5rem;
+    border-radius: 1rem;
+  }
+
+  .calendar-cell.current-day {
+    border-width: 6px;
+  }
+
+  /* Calendar Overview Card */
+  .calendar-overview-card {
+    padding: 6rem;
+  }
+
+  .calendar-top {
+    gap: 3.4rem;
+  }
+
+  .calendar-date {
+    font-size: 5rem;
+  }
+
+  .date-number-box {
+    padding: 0.8rem 1.2rem;
+    border-radius: 1rem;
+  }
+
+  .calendar-event {
+    font-size: 4rem;
+  }
+
+  .calendar-time {
+    font-size: 5rem;
+  }
+}
 
 @media screen and (min-width: 480px) and (orientation: portrait) {
   .clock-container {
@@ -481,5 +592,87 @@
 
   .date-number {
     font-size: 34rem;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  /* Adjust layout for smaller screens */
+  .primary-card {
+    width: 70%;
+  }
+
+  .secondary-container {
+    width: 30%;
+  }
+
+  /* Calendar Grid Styles */
+  .calendar {
+    width: 95%;
+    gap: 0.5rem;
+  }
+
+  .calendar-header {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .calendar-weekdays {
+    font-size: 0.9rem;
+    gap: 0.2rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .calendar-grid {
+    gap: 0.2rem;
+  }
+
+  .calendar-cell {
+    padding: 1.2rem 0.2rem;
+    margin: 0.2rem 0.4rem;
+    font-size: 1.2rem;
+    border-radius: 0.3rem;
+  }
+
+  .calendar-cell.current-day {
+    border-width: 2px;
+  }
+
+  /* Calendar Overview Card */
+  .calendar-overview-card {
+    padding: 1.5rem;
+  }
+
+  .calendar-top {
+    gap: 0.8rem;
+  }
+
+  .calendar-date {
+    font-size: 1.5rem;
+  }
+
+  .date-number-box {
+    padding: 0.2rem 0.3rem;
+    border-radius: 0.3rem;
+  }
+
+  .calendar-event {
+    font-size: 1.2rem;
+  }
+
+  .calendar-event p {
+    margin: 0 0 0.3rem;
+  }
+
+  .calendar-time {
+    font-size: 1.5rem;
+  }
+
+  /* Info Card */
+  .info-text {
+    font-size: 1rem;
+  }
+
+  .brand-logo {
+    width: 4rem;
   }
 }
