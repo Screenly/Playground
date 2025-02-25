@@ -121,6 +121,16 @@
   opacity: 0.5;
 }
 
+.calendar-cell.current-day {
+  background-color: var(--theme-color-tertiary);
+  color: var(--theme-color-primary);
+  border: 3px solid var(--theme-color-primary);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
 /* Media Query */
 
 /* 480px 720px Clock Container need to fix */
