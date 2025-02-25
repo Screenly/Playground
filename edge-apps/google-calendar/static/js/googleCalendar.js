@@ -1,4 +1,4 @@
-// Google Calendar API configuration
+/* global screenly */
 const CALENDAR_ID = 'primary'
 
 export const fetchCalendarEvents = async () => {

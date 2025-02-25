@@ -1,4 +1,4 @@
-const { createApp, ref, defineComponent } = Vue
+/* global screenly, Vue */
 import {
   html,
   getCurrentFormattedTime,
@@ -11,6 +11,8 @@ import CalendarOverview from './components/CalendarOverview.js'
 import InfoCard from './components/InfoCard.js'
 import CalendarGrid from './components/CalendarGrid.js'
 
+const { createApp, ref, defineComponent } = Vue
+
 // Create root component
 const App = defineComponent({
   components: {
@@ -18,7 +20,7 @@ const App = defineComponent({
     InfoCard,
     CalendarGrid
   },
-  setup() {
+  setup () {
     const now = new Date()
     const currentYear = ref(now.getFullYear())
     const currentMonth = ref(now.getMonth())
@@ -81,7 +83,7 @@ const App = defineComponent({
       />
     </div>
   `,
-  mounted() {
+  mounted () {
     try {
       screenly.signalReadyForRendering()
     } catch (error) {
