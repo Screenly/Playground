@@ -23,7 +23,9 @@
             </h1>
             <p class="calendar-event">
               <template v-if="events.length > 0">
-                {{ events[0] }}
+                <p v-for="event in events" :key="event">
+                  {{ event }}
+                </p>
               </template>
               <template v-else>
                 Nothing scheduled on this date

@@ -72,11 +72,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const currentTime = ref(getCurrentFormattedTime())
       const calendarDays = ref(generateCalendarDays(currentYear.value, currentMonth.value))
       const weekDays = ref(['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'])
-      const events = ref([
-        // TODO: Fetch the events from the Google Calendar API
+
+      // TODO: Fetch the events from the Google Calendar API.
+      // Limit to 5 events for better visibility in kiosk mode
+      const allEvents = [
         'Backlog Grooming',
         'Sprint Planning',
-      ])
+        'Daily Scrum',
+        'Sprint Review',
+        'Sprint Retrospective',
+      ]
+      const events = ref(allEvents.slice(0, 5))
 
       // Update time every minutes
       setInterval(() => {

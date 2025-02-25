@@ -66,6 +66,14 @@
   font-size: 2rem;
 }
 
+.calendar-event p {
+  margin: 0 0 0.5rem 0;
+}
+
+.calendar-event p:last-child {
+  margin-bottom: 0;
+}
+
 .calendar-time {
   font-size: 2.5rem;
 }
