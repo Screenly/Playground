@@ -1,5 +1,7 @@
-const { defineComponent } = Vue
+/* global Vue */
 import { html } from '../utils.js'
+
+const { defineComponent } = Vue
 
 export default defineComponent({
   name: 'InfoCard',

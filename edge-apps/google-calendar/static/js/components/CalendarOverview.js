@@ -1,4 +1,6 @@
+/* global Vue */
 const { defineComponent } = Vue
+
 import { html } from '../utils.js'
 
 export default defineComponent({

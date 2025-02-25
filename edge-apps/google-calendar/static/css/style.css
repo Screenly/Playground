@@ -67,7 +67,7 @@
 }
 
 .calendar-event p {
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.5rem;
 }
 
 .calendar-event p:last-child {
@@ -133,7 +133,7 @@
   background-color: var(--theme-color-tertiary);
   color: var(--theme-color-primary);
   border: 3px solid var(--theme-color-primary);
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 15px rgb(0 0 0 / 10%);
   transform: scale(1.05);
   font-weight: bold;
   transition: all 0.3s ease;
