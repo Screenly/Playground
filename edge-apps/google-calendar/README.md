@@ -1,5 +1,11 @@
 # Screenly Google Calendar App
 
+## Prerequisites
+
+- Node.js (v22.0.0+)
+- npm (v10.9.0+)
+- Screenly Edge App CLI (v1.0.3+)
+
 ## Getting Started
 
 ```bash
