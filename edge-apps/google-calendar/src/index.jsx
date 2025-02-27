@@ -24,16 +24,16 @@ const App = () => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    // Update time every minute
+    // Update time every 30 seconds
     const timeInterval = setInterval(() => {
       setCurrentTime(getCurrentFormattedTime());
-    }, 60 * 1000);
+    }, 30 * 1000);
 
-    // Update events every second
+    // Update events every minute
     const eventsInterval = setInterval(async () => {
       const fetchedEvents = await fetchCalendarEvents();
       setEvents(fetchedEvents);
-    }, 1000);
+    }, 60 * 1000);
 
     // Initial events fetch
     fetchCalendarEvents().then(setEvents);
