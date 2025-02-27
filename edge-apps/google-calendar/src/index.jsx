@@ -3,13 +3,13 @@ import { useState, useEffect } from 'react';
 import {
   getCurrentFormattedTime,
   generateCalendarDays
-} from './utils';
-import CalendarGrid from './components/calendar-grid';
-import CalendarOverview from './components/calendar-overview';
-import InfoCard from './components/info-card';
-import { fetchCalendarEvents } from './events';
-import './css/common.css';
-import './css/style.css';
+} from '@/utils';
+import CalendarGrid from '@/components/calendar-grid';
+import CalendarOverview from '@/components/calendar-overview';
+import InfoCard from '@/components/info-card';
+import { fetchCalendarEvents } from '@/events';
+import '@/css/common.css';
+import '@/css/style.css';
 
 // Main App Component
 const App = () => {

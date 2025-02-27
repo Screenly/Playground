@@ -80,12 +80,7 @@ module.exports = {
 
   resolve: {
     alias: {
-      '@/store': path.resolve(__dirname, 'src/assets/ts/store.ts'),
-      '@/main': path.resolve(__dirname, 'src/assets/ts/main.ts'),
-      '@/components': path.resolve(__dirname, 'src/assets/ts/components'),
-      '@/features': path.resolve(__dirname, 'src/assets/ts/features'),
-      '@/scss': path.resolve(__dirname, 'src/assets/scss'),
-      '@/vendor': path.resolve(__dirname, 'src/lib/vendor'),
+      '@': path.resolve(__dirname, 'src'),
     },
     extensions: ['.js', '.jsx'],
   },
