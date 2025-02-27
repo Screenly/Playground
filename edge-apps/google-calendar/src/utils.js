@@ -1,10 +1,18 @@
+import tzlookup from '@photostructure/tz-lookup';
+
+const getTimeZone = () => {
+  const [latitude, longitude] = window.screenly.metadata.coordinates;
+  return tzlookup(latitude, longitude);
+};
+
 export const getCurrentFormattedTime = () => {
   return new Date().toLocaleTimeString(
     'en-US',
     {
       hour: '2-digit',
       minute: '2-digit',
-      hour12: true
+      hour12: true,
+      timeZone: getTimeZone()
     }
   );
 };
