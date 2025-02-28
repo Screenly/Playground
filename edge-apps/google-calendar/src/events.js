@@ -1,37 +1,45 @@
+import ICAL from 'ical.js';
+
 export const fetchCalendarEvents = async () => {
   try {
-    const timeMin = new Date();
-    timeMin.setHours(0, 0, 0, 0);
+    const { ical_url: icalUrl } = window.screenly.settings;
+    const corsProxy = screenly.cors_proxy_url;
+    const icalUrlWithProxy = `${corsProxy}/${icalUrl}`;
 
-    const timeMax = new Date(timeMin);
-    timeMax.setHours(23, 59, 59, 999);
-
-    const { google_calendar_api_key: googleCalendarApiKey } = window.screenly.settings;
-
-    const params = new URLSearchParams({
-      timeMin: timeMin.toISOString(),
-      timeMax: timeMax.toISOString(),
-      maxResults: 5,
-      singleEvents: true,
-      orderBy: 'startTime'
-    });
-
-    const response = await fetch(
-      `https://www.googleapis.com/calendar/v3/calendars/primary/events?${params}`,
-      {
-        headers: {
-          Authorization: `Bearer ${googleCalendarApiKey}`,
-          Accept: 'application/json'
-        }
-      }
-    );
+    const response = await fetch(icalUrlWithProxy);
 
     if (!response.ok) {
-      throw new Error('Failed to fetch calendar events');
+      throw new Error('Failed to fetch iCal feed');
     }
 
-    const data = await response.json();
-    return data.items.map(event => event.summary);
+    const icalData = await response.text();
+    const jcalData = ICAL.parse(icalData);
+    const vcalendar = new ICAL.Component(jcalData);
+    const vevents = vcalendar.getAllSubcomponents('vevent');
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    const events = vevents
+      .map(vevent => {
+        const event = new ICAL.Event(vevent);
+        const startDate = event.startDate.toJSDate();
+
+        return {
+          summary: event.summary,
+          startDate: startDate
+        };
+      })
+      .filter(event => {
+        return event.startDate >= today && event.startDate < tomorrow;
+      })
+      .sort((a, b) => a.startDate - b.startDate)
+      .slice(0, 5)
+      .map(event => event.summary);
+
+    return events;
   } catch (error) {
     console.error('Error fetching calendar events:', error);
     return [];
