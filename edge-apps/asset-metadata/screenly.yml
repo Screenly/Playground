@@ -1,24 +1,36 @@
 ---
+syntax: manifest_v1
+id: 01JH83JQZ2FX46WG5H7FFEAGFE
 description: Displays the screen metadata like position on Google map, coordinates, hostname, etc.
-icon: 'https://playground.srly.io/edge-apps/asset-metadata/static/images/icon.svg'
+icon: https://playground.srly.io/edge-apps/asset-metadata/static/images/icon.svg
 author: Screenly, Inc.
-entrypoint: index.html
+ready_signal: true
 settings:
   enable_analytics:
     type: string
     default_value: 'true'
     title: enable_analytics
     optional: true
+    is_global: true
     help_text: Whether to enable analytics or not
-  google_maps_api_key:
+  sentry_dsn:
     type: secret
-    title: google_maps_api_key
-    optional: false
-    help_text: |
-      Specify a commercial Google Maps API key. Required due to the app's map feature.
+    title: Sentry Client Key
+    optional: true
+    help_text: Sentry Client Key from Sentry SDK for error capturing.
+    is_global: true
   tag_manager_id:
     type: string
     default_value: ''
     title: tag_manager_id
     optional: true
+    is_global: true
     help_text: Specify a Google Tag Manager ID
+  theme:
+    type: string
+    default_value: light
+    title: Theme
+    optional: false
+    help_text: |-
+      Determines the visual theme for the application.
+      Options are 'light' or 'dark'.

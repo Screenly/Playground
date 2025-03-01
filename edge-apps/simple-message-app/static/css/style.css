@@ -743,7 +743,6 @@
   }
 }
 
-
 /* Raspberry Pi Touch Display - Portrait 480 × 800 */
 
 @media screen and (max-width: 480px) and (orientation: portrait) {
@@ -776,7 +775,6 @@
   .info-text {
     font-size: .7rem;
   }
-
 
   .date-text {
     font-size: 2.5rem;
