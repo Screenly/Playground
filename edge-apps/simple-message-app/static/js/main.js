@@ -1,5 +1,19 @@
 /* global clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry */
 /* eslint-disable-next-line no-unused-vars, no-useless-catch */
+const screenly = {
+  metadata: {
+    coordinates: [0, 0]  // Default coordinates
+  },
+  settings: {
+    sentry_dsn: null,
+     message_header: 'Attention all viewers from our planet. Attention all viewers from our planet. Attention all viewers from our planet. Attention all viewers from our planet. Attention all viewers from our planet. Attention all viewers from our planet. Attention all viewers from our planet. Attention all viewers from our planet.',
+     message_body: 'We are currently experiencing technical difficulties with our digital signal transmission. Our team is working diligently to resolve the issue. We apologize for any inconvenience and appreciate your patience. Please stay tuned for updates. Thank you for your understanding. We are currently experiencing technical difficulties with our digital signal transmission. Our team is working diligently to resolve the issue. We apologize for any inconvenience and appreciate your patience. Please stay tuned for updates. Thank you for your understanding.',
+    // message_header: '',
+    // message_body: '',
+    override_locale: 'en',
+    override_timezone: 'india/mumbai'
+  }
+}
 document.addEventListener('DOMContentLoaded', async () => {
   const { getNearestCity } = OfflineGeocodeCity
   const allTimezones = moment.tz.names()
