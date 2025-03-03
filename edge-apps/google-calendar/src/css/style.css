@@ -143,6 +143,10 @@
   color: var(--theme-color-accent);
 }
 
+.calendar-cell:nth-last-child(-n+7) {  /* Remove bottom border for last row */
+  border-bottom: none;
+}
+
 .calendar-cell.other-month:nth-child(7n+1) {  /* Sundays from other months */
   color: var(--theme-color-secondary);
 }
