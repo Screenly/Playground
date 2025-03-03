@@ -62,3 +62,34 @@ export const generateCalendarDays = (year, month) => {
 
   return days;
 };
+
+export const initializeThemeColors = () => {
+  const {
+    theme_primary_color: themePrimaryColor,
+    theme_secondary_color: themeSecondaryColor,
+    theme_tertiary_color: themeTertiaryColor,
+    theme_background_color: themeBackgroundColor,
+    theme_accent_color: themeAccentColor,
+    theme_text_color: themeTextColor
+  } = window.screenly.settings;
+
+  // Only override CSS variables if theme colors are provided in settings
+  if (themePrimaryColor) {
+    document.documentElement.style.setProperty('--theme-color-primary', themePrimaryColor);
+  }
+  if (themeSecondaryColor) {
+    document.documentElement.style.setProperty('--theme-color-secondary', themeSecondaryColor);
+  }
+  if (themeTertiaryColor) {
+    document.documentElement.style.setProperty('--theme-color-tertiary', themeTertiaryColor);
+  }
+  if (themeBackgroundColor) {
+    document.documentElement.style.setProperty('--theme-color-background', themeBackgroundColor);
+  }
+  if (themeAccentColor) {
+    document.documentElement.style.setProperty('--theme-color-accent', themeAccentColor);
+  }
+  if (themeTextColor) {
+    document.documentElement.style.setProperty('--theme-color-text', themeTextColor);
+  }
+};

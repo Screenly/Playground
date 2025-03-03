@@ -99,7 +99,7 @@
   font-weight: bold;
   text-transform: uppercase;
   margin-bottom: 2rem;
-  color: #000;
+  color: var(--theme-color-text);
 }
 
 .calendar-weekdays {
@@ -111,7 +111,7 @@
   margin-bottom: 0.5rem;
   font-size: 1.714rem;  /* 24px */
   text-transform: uppercase;
-  color: #000;
+  color: var(--theme-color-text);
 }
 
 .calendar-grid {

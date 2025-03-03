@@ -25,3 +25,39 @@ settings:
     title: iCal URL
     optional: false
     help_text: Specify the URL to the iCal feed
+  theme_primary_color:
+    type: string
+    title: Theme Primary Color
+    optional: true
+    help_text: Override the primary theme color (in hex format, e.g. #7E2CD2)
+    default_value: '#7E2CD2'
+  theme_secondary_color:
+    type: string
+    title: Theme Secondary Color
+    optional: true
+    help_text: Override the secondary theme color (in hex format, e.g. #C9CDD0)
+    default_value: '#C9CDD0'
+  theme_tertiary_color:
+    type: string
+    title: Theme Tertiary Color
+    optional: true
+    help_text: Override the tertiary theme color (in hex format, e.g. #FFFFFF)
+    default_value: '#FFFFFF'
+  theme_background_color:
+    type: string
+    title: Theme Background Color
+    optional: true
+    help_text: Override the background theme color (in hex format, e.g. #C9CDD0)
+    default_value: '#C9CDD0'
+  theme_accent_color:
+    type: string
+    title: Theme Accent Color
+    optional: true
+    help_text: Override the accent theme color (in hex format, e.g. #F7410A)
+    default_value: '#F7410A'
+  theme_text_color:
+    type: string
+    title: Theme Text Color
+    optional: true
+    help_text: Override the text theme color (in hex format, e.g. #000000)
+    default_value: '#000000'

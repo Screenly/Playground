@@ -2,7 +2,8 @@ import { createRoot } from 'react-dom/client';
 import { useState, useEffect } from 'react';
 import {
   getCurrentFormattedTime,
-  generateCalendarDays
+  generateCalendarDays,
+  initializeThemeColors
 } from '@/utils';
 import CalendarGrid from '@/components/calendar-grid';
 import CalendarOverview from '@/components/calendar-overview';
@@ -24,6 +25,9 @@ const App = () => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
+    // Initialize theme colors
+    initializeThemeColors();
+
     // Update time every 30 seconds
     const timeInterval = setInterval(() => {
       setCurrentTime(getCurrentFormattedTime());
