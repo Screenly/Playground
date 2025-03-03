@@ -293,7 +293,6 @@
   font-size: 6rem;
   padding: 10rem;
   line-height: 1.25;
-  /* font-weight: 400; */
   display: -webkit-box;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
@@ -474,7 +473,6 @@
 /* Full HD Landscape - 1920 × 1080 */
 
 @media screen and (max-width: 1920px) and (orientation: landscape) {
-
   .main-container,
   .row-container {
     gap: var(--hd-gap);
@@ -619,7 +617,6 @@
 /* HD Landscape - 1280 × 720 */
 
 @media screen and (max-width: 1280px) and (orientation: landscape) {
-
   .main-container,
   .row-container {
     gap: var(--custom-720-gap);
@@ -733,7 +730,6 @@
 /* Raspberry Pi Touch Display - Landscape 800 × 480 */
 
 @media screen and (max-width: 800px) and (orientation: landscape) {
-
   .main-container {
     padding: var(--pi-padding);
   }
@@ -895,7 +891,6 @@
 /* HD Portrait - 720 × 1280 */
 
 @media screen and (max-width: 720px) and (orientation: portrait) {
-
   .main-container,
   .row-container {
     gap: var(--custom-720-gap);
@@ -948,7 +943,6 @@
 /* Raspberry Pi Touch Display - Portrait 480 × 800 */
 
 @media screen and (max-width: 480px) and (orientation: portrait) {
-
   .main-container,
   .row-container {
     gap: var(--pi-gap);
