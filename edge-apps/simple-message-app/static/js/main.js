@@ -1,5 +1,6 @@
 /* global clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry */
 /* eslint-disable-next-line no-unused-vars, no-useless-catch */
+
 document.addEventListener('DOMContentLoaded', async () => {
   const { getNearestCity } = OfflineGeocodeCity
   const allTimezones = moment.tz.names()
