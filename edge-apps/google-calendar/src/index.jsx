@@ -5,7 +5,7 @@ import {
   generateCalendarDays,
   initializeThemeColors
 } from '@/utils';
-import CalendarGrid from '@/components/calendar-grid';
+import MonthlyCalendarView from '@/components/monthly-calendar-view';
 import CalendarOverview from '@/components/calendar-overview';
 import InfoCard from '@/components/info-card';
 import { fetchCalendarEvents } from '@/events';
@@ -71,7 +71,7 @@ const App = () => {
           <InfoCard />
         </div>
       </div>
-      <CalendarGrid
+      <MonthlyCalendarView
         currentMonthName={currentMonthName}
         currentYear={currentYear}
         weekDays={weekDays}

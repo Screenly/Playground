@@ -1,4 +1,4 @@
-const CalendarGrid = ({ currentMonthName, currentYear, weekDays, calendarDays, currentDate }) => {
+const MonthlyCalendarView = ({ currentMonthName, currentYear, weekDays, calendarDays, currentDate }) => {
   return (
     <div className="primary-card">
       <div className="calendar">
@@ -25,4 +25,4 @@ const CalendarGrid = ({ currentMonthName, currentYear, weekDays, calendarDays, c
   );
 };
 
-export default CalendarGrid;
+export default MonthlyCalendarView;
