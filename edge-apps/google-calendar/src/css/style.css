@@ -334,6 +334,10 @@
     transform: scale(.7);
   }
 
+  .secondary-container {
+    gap: 1rem;
+  }
+
   .secondary-card-number-container {
     gap: 1rem;
   }
@@ -366,12 +370,15 @@
   .date-number {
     font-size: 7rem;
   }
-
 }
 
 @media screen and (min-width: 720px) and (orientation: portrait) {
   .clock-container {
     transform: scale(1);
+  }
+
+  .secondary-container {
+    gap: 1rem;
   }
 
   .secondary-card-number-container {
@@ -405,12 +412,15 @@
   .date-number {
     font-size: 10rem;
   }
-
 }
 
 @media screen and (min-width: 800px) and (orientation: landscape) {
   .clock-container {
     transform: scale(.5);
+  }
+
+  .secondary-container {
+    gap: 1rem;
   }
 
   .secondary-card-number-container {
@@ -445,12 +455,15 @@
   .date-number {
     font-size: 7rem;
   }
-
 }
 
 @media screen and (min-width: 1080px) and (orientation: portrait) {
   .clock-container {
     transform: scale(1.25);
+  }
+
+  .secondary-container {
+    gap: 3rem;
   }
 
   .secondary-card-number-container {
@@ -491,6 +504,10 @@
     transform: scale(.90);
   }
 
+  .secondary-container {
+    gap: 2rem;
+  }
+
   .secondary-card-number-container {
     gap: 1rem;
   }
@@ -522,12 +539,15 @@
   .date-number {
     font-size: 13rem;
   }
-
 }
 
 @media screen and (min-width: 1920px) and (orientation: landscape) {
   .clock-container {
     transform: scale(1.25);
+  }
+
+  .secondary-container {
+    gap: 2.5rem;
   }
 
   .secondary-card-number-container {
@@ -572,6 +592,10 @@
     transform: scale(2.7);
   }
 
+  .secondary-container {
+    gap: 5rem;
+  }
+
   .secondary-card-number {
     font-size: 40rem;
   }
@@ -599,7 +623,6 @@
   .date-number {
     font-size: 34rem;
   }
-
 }
 
 @media screen and (min-width: 3840px) and (orientation: landscape) {
@@ -610,6 +633,10 @@
 
   .clock-container {
     transform: scale(2.7);
+  }
+
+  .secondary-container {
+    gap: 5rem;
   }
 
   .secondary-card-number {
@@ -644,6 +671,10 @@
 @media screen and (min-width: 4096px) and (orientation: landscape) {
   .clock-container {
     transform: scale(2.8);
+  }
+
+  .secondary-container {
+    gap: 5rem;
   }
 
   .secondary-card-number {
