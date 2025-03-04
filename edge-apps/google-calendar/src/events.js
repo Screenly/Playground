@@ -26,18 +26,23 @@ export const fetchCalendarEvents = async () => {
       .map(vevent => {
         const event = new ICAL.Event(vevent);
         const startDate = event.startDate.toJSDate();
+        const endDate = event.endDate.toJSDate();
 
         return {
-          summary: event.summary,
-          startDate: startDate
+          title: event.summary,
+          description: event.description,
+          startTime: startDate.toISOString(),
+          endTime: endDate.toISOString(),
+          location: event.location,
+          isAllDay: event.startDate.isDate // true for all-day events
         };
       })
       .filter(event => {
-        return event.startDate >= today && event.startDate < tomorrow;
+        const eventStart = new Date(event.startTime);
+        return eventStart >= today && eventStart < tomorrow;
       })
-      .sort((a, b) => a.startDate - b.startDate)
-      .slice(0, 5)
-      .map(event => event.summary);
+      .sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
+      .slice(0, 5);
 
     return events;
   } catch (error) {

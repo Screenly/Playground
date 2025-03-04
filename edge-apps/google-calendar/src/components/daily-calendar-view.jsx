@@ -1,39 +1,32 @@
 import React from 'react';
-import { getCurrentFormattedTime } from '../utils';
+import { getFormattedTime } from '../utils';
 
-const DailyCalendarView = () => {
-  const mockEvents = [
-    {
-      title: "Morning Meeting",
-      startTime: "2024-03-20T01:30:00",
-      endTime: "2024-03-20T02:30:00"
-    },
-    {
-      title: "Team Standup",
-      startTime: "2024-03-20T04:00:00",
-      endTime: "2024-03-20T04:15:00"
-    },
-    {
-      title: "Team Meeting",
-      startTime: "2024-03-20T06:00:00",
-      endTime: "2024-03-20T10:00:00"
-    },
-  ];
+const DailyCalendarView = ({ now, events }) => {
+  const TOTAL_HOURS = 12; // Total number of time slots to display
+  const HOURS_BEFORE = 1; // Hours to show before current time
 
-  const timeSlots = Array.from({ length: 12 }, (_, i) => {
-    const hour = i % 12 || 12;
-    const ampm = i < 12 ? 'AM' : 'PM';
-    return {
-      time: `${hour}:00 ${ampm}`,
-      hour: i
-    };
-  });
+  const generateTimeSlots = (currentDate) => {
+    const currentHour = currentDate.getHours();
+    const startHour = currentHour - HOURS_BEFORE;
+
+    return Array.from({ length: TOTAL_HOURS }, (_, index) => {
+      const hour = (startHour + index + 24) % 24; // Ensure hour is between 0-23
+      const displayHour = hour % 12 || 12; // Convert to 12-hour format
+      const ampm = hour < 12 ? 'AM' : 'PM';
+
+      return {
+        time: `${displayHour}:00 ${ampm}`,
+        hour: hour
+      };
+    });
+  };
+
+  const timeSlots = generateTimeSlots(now);
 
   // Helper function to check if an event belongs in a time slot
   const getEventsForTimeSlot = (hour) => {
-    return mockEvents.filter(event => {
+    return events.filter(event => {
       const startHour = new Date(event.startTime).getHours();
-      // Only show events in their starting hour slot
       return startHour === hour;
     });
   };
@@ -87,7 +80,7 @@ const DailyCalendarView = () => {
                   </div>
 
                   <div>
-                    {new Date(event.startTime).toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: true})} - {new Date(event.endTime).toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: true})}
+                    {getFormattedTime(new Date(event.startTime))} - {getFormattedTime(new Date(event.endTime))}
                   </div>
                 </div>
               ))}

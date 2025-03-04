@@ -8,7 +8,7 @@ const CalendarOverview = ({ currentDate, currentMonthName, currentTime, events }
         </h1>
         <div className="calendar-event">
           {events.length > 0 ? (
-            events.map((event, index) => <p key={index}>{event}</p>)
+            events.map((event, index) => <p key={index}>{event.title}</p>)
           ) : (
             <p>Nothing scheduled on this date</p>
           )}

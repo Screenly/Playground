@@ -40,7 +40,7 @@ const App = () => {
     const eventsInterval = setInterval(async () => {
       const fetchedEvents = await fetchCalendarEvents();
       setEvents(fetchedEvents);
-    }, 60 * 1000);
+    }, 1000);
 
     // Initial events fetch
     fetchCalendarEvents().then(setEvents);
@@ -84,7 +84,10 @@ const App = () => {
         />
       )}
       {calendarMode === 'daily' && (
-        <DailyCalendarView />
+        <DailyCalendarView
+          now={now}
+          events={events}
+        />
       )}
     </div>
   );
