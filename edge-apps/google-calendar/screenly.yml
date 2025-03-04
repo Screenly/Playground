@@ -61,3 +61,9 @@ settings:
     optional: true
     help_text: Override the text theme color (in hex format, e.g. #000000)
     default_value: '#000000'
+  calendar_mode:
+    type: string
+    title: Calendar Mode
+    optional: true
+    help_text: Choose between monthly, weekly, or daily calendar view
+    default_value: 'monthly'

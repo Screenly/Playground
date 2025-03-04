@@ -11,6 +11,7 @@ import InfoCard from '@/components/info-card';
 import { fetchCalendarEvents } from '@/events';
 import '@/css/common.css';
 import '@/css/style.css';
+import DailyCalendarView from '@/components/daily-calendar-view';
 
 // Main App Component
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
   const [calendarDays] = useState(generateCalendarDays(currentYear, currentMonth));
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const [events, setEvents] = useState([]);
+  const [calendarMode] = useState(window.screenly.settings.calendar_mode || 'monthly');
 
   useEffect(() => {
     // Initialize theme colors
@@ -71,13 +73,18 @@ const App = () => {
           <InfoCard />
         </div>
       </div>
-      <MonthlyCalendarView
-        currentMonthName={currentMonthName}
-        currentYear={currentYear}
-        weekDays={weekDays}
-        calendarDays={calendarDays}
-        currentDate={currentDate}
-      />
+      {calendarMode === 'monthly' && (
+        <MonthlyCalendarView
+          currentMonthName={currentMonthName}
+          currentYear={currentYear}
+          weekDays={weekDays}
+          calendarDays={calendarDays}
+          currentDate={currentDate}
+        />
+      )}
+      {calendarMode === 'daily' && (
+        <DailyCalendarView />
+      )}
     </div>
   );
 };
