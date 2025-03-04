@@ -66,6 +66,7 @@ const App = () => {
           <CalendarOverview
             currentDate={getDate(now)}
             currentMonthName={getFormattedMonthName(now)}
+            currentYear={getYear(now)}
             currentTime={getFormattedTime(now)}
             events={events}
           />

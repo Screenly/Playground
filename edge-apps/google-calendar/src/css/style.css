@@ -59,6 +59,16 @@
 .calendar-date {
   font-size: 2.5rem;
   margin: 0;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.month-name {
+  display: inline-flex;
+  align-items: center;
+  height: 3.5rem; /* Match the circle height */
+  font-weight: bold;
 }
 
 .date-number-box {
@@ -230,7 +240,10 @@
   }
 
   .calendar-date {
-    font-size: 1.675rem;  /* 2.5rem * 0.67 */
+    font-size: 1.675rem;
+  }
+  .month-name {
+    height: 2.345rem;
   }
 
   .date-number-box {
@@ -262,6 +275,13 @@
 
   .info-card {
     gap: 2.01rem;  /* 3rem * 0.67 */
+  }
+
+  .date-number-circle {
+    width: 2.345rem;
+    height: 2.345rem;
+    padding: 0.5rem;
+    margin-right: 0.5025rem;
   }
 }
 
@@ -309,6 +329,9 @@
   .calendar-date {
     font-size: 5rem;
   }
+  .month-name {
+    height: 7rem;
+  }
 
   .date-number-box {
     padding: 0.8rem 1.2rem;  /* 0.4rem * 2, 0.6rem * 2 */
@@ -327,6 +350,13 @@
   /* Scale factor: 2x */
   .info-text {
     font-size: 3.5rem;  /* 1.75rem * 2 */
+  }
+
+  .date-number-circle {
+    width: 7rem;
+    height: 7rem;
+    padding: 1.5rem;
+    margin-right: 1.5rem;
   }
 }
 
@@ -776,7 +806,10 @@
   }
 
   .calendar-date {
-    font-size: 1.05rem;  /* 2.5rem * 0.42 */
+    font-size: 1.05rem;
+  }
+  .month-name {
+    height: 1.47rem;
   }
 
   .date-number-box {
@@ -809,6 +842,13 @@
   .calendar-cell.current-day::before {
     width: 1.47rem;  /* 3.5rem * 0.42 */
     height: 1.47rem;
+  }
+
+  .date-number-circle {
+    width: 1.47rem;
+    height: 1.47rem;
+    padding: 0.315rem;
+    margin-right: 0.315rem;
   }
 }
 
@@ -887,5 +927,21 @@
 }
 
 .calendar-event-item > div:first-child {
+  font-weight: bold;
+}
+
+.date-number-circle {
+  background-color: var(--theme-color-tertiary);
+  color: var(--theme-color-primary);
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  margin-right: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.75rem;
   font-weight: bold;
 }

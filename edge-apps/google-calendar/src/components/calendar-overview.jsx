@@ -1,11 +1,11 @@
-const CalendarOverview = ({ currentDate, currentMonthName, currentTime, events }) => {
+const CalendarOverview = ({ currentDate, currentMonthName, currentYear, currentTime, events }) => {
   return (
     <div className="secondary-card calendar-overview-card">
       <div className="calendar-top">
-        <h1 className="calendar-date">
-          <span className="date-number-box">{currentDate}</span>
-          {currentMonthName}
-        </h1>
+        <div className="calendar-date">
+          <span className="date-number-circle">{currentDate}</span>
+          <span className="month-name">{currentMonthName} {currentYear}</span>
+        </div>
         <div className="calendar-event">
           {events.length > 0 ? (
             events.map((event, index) => <p key={index}>{event.title}</p>)
