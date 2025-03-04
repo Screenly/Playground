@@ -6,6 +6,7 @@
 :root {
   --theme-color-secondary: #C9CDD0;
   --theme-color-accent: #F7410A;
+  --theme-color-text: #000000;
 }
 
 .primary-card {
