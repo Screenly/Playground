@@ -5,8 +5,8 @@ const getTimeZone = () => {
   return tzlookup(latitude, longitude);
 };
 
-export const getCurrentFormattedTime = () => {
-  return new Date().toLocaleTimeString(
+export const getFormattedTime = (date = new Date()) => {
+  return date.toLocaleTimeString(
     'en-US',
     {
       hour: '2-digit',
@@ -93,3 +93,11 @@ export const initializeThemeColors = () => {
     document.documentElement.style.setProperty('--theme-color-text', themeTextColor);
   }
 };
+
+export const getFormattedMonthName = (date) => {
+  return date.toLocaleString('default', { month: 'long' });
+};
+
+export const getYear = (date) => date.getFullYear();
+export const getMonth = (date) => date.getMonth();
+export const getDate = (date) => date.getDate();
