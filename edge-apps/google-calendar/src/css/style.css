@@ -278,9 +278,9 @@
   }
 
   .date-number-circle {
-    width: 2.345rem;
-    height: 2.345rem;
-    padding: 0.5rem;
+    width: 2.68rem;
+    height: 2.68rem;
+    padding: 0.67rem;
     margin-right: 0.5025rem;
   }
 }
@@ -353,9 +353,9 @@
   }
 
   .date-number-circle {
-    width: 7rem;
-    height: 7rem;
-    padding: 1.5rem;
+    width: 8rem;
+    height: 8rem;
+    padding: 2rem;
     margin-right: 1.5rem;
   }
 }
@@ -845,9 +845,9 @@
   }
 
   .date-number-circle {
-    width: 1.47rem;
-    height: 1.47rem;
-    padding: 0.315rem;
+    width: 1.68rem;
+    height: 1.68rem;
+    padding: 0.42rem;
     margin-right: 0.315rem;
   }
 }
@@ -933,8 +933,8 @@
 .date-number-circle {
   background-color: var(--theme-color-tertiary);
   color: var(--theme-color-primary);
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
   margin-right: 0.75rem;
   display: inline-flex;
@@ -942,6 +942,6 @@
   justify-content: center;
   text-align: center;
   vertical-align: middle;
-  padding: 0.75rem;
+  padding: 1rem;
   font-weight: bold;
 }
