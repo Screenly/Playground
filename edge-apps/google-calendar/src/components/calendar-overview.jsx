@@ -1,4 +1,16 @@
+import React, { useEffect, useState } from 'react';
+
 const CalendarOverview = ({ currentDate, currentMonthName, currentYear, currentTime, events }) => {
+  const [formattedTime, setFormattedTime] = useState('');
+
+  useEffect(() => {
+    const updateTime = async () => {
+      const time = await currentTime;
+      setFormattedTime(time);
+    };
+    updateTime();
+  }, [currentTime]);
+
   return (
     <div className="secondary-card calendar-overview-card">
       <div className="calendar-top">
@@ -15,7 +27,7 @@ const CalendarOverview = ({ currentDate, currentMonthName, currentYear, currentT
         </div>
       </div>
       <div className="calendar-bottom">
-        <h1 className="calendar-time">{currentTime}</h1>
+        <h1 className="calendar-time">{formattedTime}</h1>
       </div>
     </div>
   );

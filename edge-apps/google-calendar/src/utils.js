@@ -1,17 +1,32 @@
 import tzlookup from '@photostructure/tz-lookup';
+import clm from 'country-locale-map';
+import { getNearestCity } from 'offline-geocode-city';
 
 const getTimeZone = () => {
   const [latitude, longitude] = window.screenly.metadata.coordinates;
   return tzlookup(latitude, longitude);
 };
 
-export const getFormattedTime = (date = new Date()) => {
+export async function getLocale() {
+  const [lat, lng] = window.screenly.metadata.coordinates;
+
+  const defaultLocale = navigator?.languages?.length
+    ? navigator.languages[0].replace('_', '-')
+    : navigator.language.replace('_', '-');
+
+  const data = await getNearestCity(lat, lng);
+  const countryCode = data.countryIso2.toUpperCase();
+
+  const locale = clm.getLocaleByAlpha2(countryCode) || defaultLocale;
+  return locale.replace('_', '-');
+}
+
+export const getFormattedTime = async (date = new Date()) => {
   return date.toLocaleTimeString(
-    'en-US',
+    await getLocale(),
     {
       hour: '2-digit',
       minute: '2-digit',
-      hour12: true,
       timeZone: getTimeZone()
     }
   );

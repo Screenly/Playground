@@ -24,19 +24,19 @@ const App = () => {
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const [events, setEvents] = useState([]);
   const [calendarMode] = useState(window.screenly.settings.calendar_mode || 'monthly');
+  const [currentTime, setCurrentTime] = useState('');
 
-  const updateDateTime = () => {
-    setNow(new Date());
+  const updateDateTime = async () => {
+    const newNow = new Date();
+    setNow(newNow);
+    const time = await getFormattedTime(newNow);
+    setCurrentTime(time);
   };
 
   useEffect(() => {
-    // Initialize theme colors
     initializeThemeColors();
 
-    // Update time and date every second
     const timeInterval = setInterval(updateDateTime, 1000);
-
-    // Update events every minute
     const eventsInterval = setInterval(async () => {
       const fetchedEvents = await fetchCalendarEvents();
       setEvents(fetchedEvents);
@@ -44,6 +44,8 @@ const App = () => {
 
     // Initial events fetch
     fetchCalendarEvents().then(setEvents);
+
+    setCurrentTime(getFormattedTime(now));
 
     // Signal ready for rendering
     try {
@@ -67,7 +69,7 @@ const App = () => {
             currentDate={getDate(now)}
             currentMonthName={getFormattedMonthName(now)}
             currentYear={getYear(now)}
-            currentTime={getFormattedTime(now)}
+            currentTime={currentTime}
             events={events}
           />
         </div>

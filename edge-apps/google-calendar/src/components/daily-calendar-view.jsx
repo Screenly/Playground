@@ -1,27 +1,35 @@
-import React from 'react';
-import { getFormattedTime } from '../utils';
+import React, { useEffect, useState } from 'react';
+import { getFormattedTime, getLocale } from '../utils';
 
 const DailyCalendarView = ({ now, events }) => {
   const TOTAL_HOURS = 12; // Total number of time slots to display
   const HOURS_BEFORE = 1; // Hours to show before current time
+  const [formattedStartTime, setFormattedStartTime] = useState('');
+  const [formattedEndTime, setFormattedEndTime] = useState('');
+  const [timeSlots, setTimeSlots] = useState([]);
 
-  const generateTimeSlots = (currentDate) => {
-    const currentHour = currentDate.getHours();
-    const startHour = currentHour - HOURS_BEFORE;
+  useEffect(() => {
+    const generateTimeSlots = async (currentDate) => {
+      const currentHour = currentDate.getHours();
+      const startHour = currentHour - HOURS_BEFORE;
+      const locale = await getLocale();
 
-    return Array.from({ length: TOTAL_HOURS }, (_, index) => {
-      const hour = (startHour + index + 24) % 24; // Ensure hour is between 0-23
-      const displayHour = hour % 12 || 12; // Convert to 12-hour format
-      const ampm = hour < 12 ? 'AM' : 'PM';
+      return Promise.all(Array.from({ length: TOTAL_HOURS }, async (_, index) => {
+        const hour = (startHour + index + 24) % 24; // Ensure hour is between 0-23
+        const slotTime = new Date(currentDate);
+        slotTime.setHours(hour, 0, 0, 0);
 
-      return {
-        time: `${displayHour}:00 ${ampm}`,
-        hour: hour
-      };
-    });
-  };
+        const formattedTime = await getFormattedTime(slotTime);
 
-  const timeSlots = generateTimeSlots(now);
+        return {
+          time: formattedTime,
+          hour: hour
+        };
+      }));
+    };
+
+    generateTimeSlots(now).then(setTimeSlots);
+  }, [now]);
 
   // Helper function to check if an event belongs in a time slot
   const getEventsForTimeSlot = (hour) => {
@@ -59,6 +67,12 @@ const DailyCalendarView = ({ now, events }) => {
     };
   };
 
+  const formatEventTimes = async (event) => {
+    const start = await getFormattedTime(new Date(event.startTime));
+    const end = await getFormattedTime(new Date(event.endTime));
+    return `${start} - ${end}`;
+  };
+
   return (
     <div className="primary-card">
       <div className="daily-calendar">
@@ -80,7 +94,7 @@ const DailyCalendarView = ({ now, events }) => {
                   </div>
 
                   <div>
-                    {getFormattedTime(new Date(event.startTime))} - {getFormattedTime(new Date(event.endTime))}
+                    <TimeDisplay event={event} />
                   </div>
                 </div>
               ))}
@@ -90,6 +104,22 @@ const DailyCalendarView = ({ now, events }) => {
       </div>
     </div>
   );
+};
+
+// Helper component to handle async time formatting
+const TimeDisplay = ({ event }) => {
+  const [timeString, setTimeString] = useState('');
+
+  useEffect(() => {
+    const updateTime = async () => {
+      const start = await getFormattedTime(new Date(event.startTime));
+      const end = await getFormattedTime(new Date(event.endTime));
+      setTimeString(`${start} - ${end}`);
+    };
+    updateTime();
+  }, [event]);
+
+  return <>{timeString}</>;
 };
 
 export default DailyCalendarView;
