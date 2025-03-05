@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 const CalendarOverview = ({ currentDate, currentMonthName, currentYear, currentTime, events }) => {
   const [formattedTime, setFormattedTime] = useState('');
+  const [filteredEvents, setFilteredEvents] = useState([]);
 
   useEffect(() => {
     const updateTime = async () => {
@@ -11,6 +12,20 @@ const CalendarOverview = ({ currentDate, currentMonthName, currentYear, currentT
     updateTime();
   }, [currentTime]);
 
+  useEffect(() => {
+    // Filter events for next 24 hours
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setHours(now.getHours() + 24);
+
+    const upcomingEvents = events.filter(event => {
+      const eventStart = new Date(event.startTime);
+      return eventStart >= now && eventStart < tomorrow;
+    });
+
+    setFilteredEvents(upcomingEvents);
+  }, [events]);
+
   return (
     <div className="secondary-card calendar-overview-card">
       <div className="calendar-top">
@@ -19,10 +34,10 @@ const CalendarOverview = ({ currentDate, currentMonthName, currentYear, currentT
           <span className="month-name">{currentMonthName} {currentYear}</span>
         </div>
         <div className="calendar-event">
-          {events.length > 0 ? (
-            events.map((event, index) => <p key={index}>{event.title}</p>)
+          {filteredEvents.length > 0 ? (
+            filteredEvents.map((event, index) => <p key={index}>{event.title}</p>)
           ) : (
-            <p>Nothing scheduled on this date</p>
+            <p>Nothing scheduled in next 24 hours</p>
           )}
         </div>
       </div>
