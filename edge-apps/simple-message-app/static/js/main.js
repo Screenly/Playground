@@ -110,14 +110,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   // constant colors
   const tertiaryColor = '#FFFFFF'
   const backgroundColor = '#C9CDD0'
+  const defaultPrimaryColor = '#7E2CD2'
+  let secondaryColor = '#454BD2'
 
   // Theme Selection
   const theme = screenly.settings.theme ? screenly.settings.theme : 'light'
 
   // Brand details fetching from settings
-  const primaryColor = (!screenly.settings.screenly_color_accent || screenly.settings.screenly_color_accent.toLowerCase() === '#ffffff') ? '#972eff' : screenly.settings.screenly_color_accent
+  const primaryColor = (!screenly.settings.screenly_color_accent || screenly.settings.screenly_color_accent.toLowerCase() === '#ffffff') ? defaultPrimaryColor : screenly.settings.screenly_color_accent
 
-  let secondaryColor = '#adafbe'
   if (theme === 'light') {
     secondaryColor = (!screenly.settings.screenly_color_light || screenly.settings.screenly_color_light.toLowerCase() === '#ffffff') ? '#adafbe' : screenly.settings.screenly_color_light
   } else if (theme === 'dark') {

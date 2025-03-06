@@ -5,8 +5,8 @@
 /* Global Fonts */
 @font-face {
   font-family: Aeonik;
-  src: url('../font/Aeonik-Regular.woff2') format('woff2'),
-    url('../font/Aeonik-Regular.woff') format('woff');
+  src: url('../fonts/Aeonik-Regular.woff2') format('woff2'),
+    url('../fonts/Aeonik-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -16,19 +16,6 @@ html {
   font-size: 14px;
 }
 
-body {
-  font-family: Aeonik, sans-serif;
-  height: 100vh;
-}
-
-/* Colors (Theme) */
-:root {
-  --theme-color-primary: #972EFF;
-  --theme-color-secondary: #ADAFBE;
-  --theme-color-tertiary: #FFF;
-  --theme-color-background: #C9CDD0;
-}
-
 /* Reset */
 * {
   margin: 0;
@@ -36,9 +23,41 @@ body {
   box-sizing: border-box;
 }
 
+body {
+  font-family: Aeonik, sans-serif;
+  height: 100vh;
+  background-color: var(--theme-color-background);
+}
+
+/* Colors (Theme) */
+:root {
+  --theme-color-primary: #7E2CD2;
+  --theme-color-secondary: #454BD2;
+  --theme-color-tertiary: #FFF;
+  --theme-color-background: #C9CDD0;
+  --theme-color-card: #F2F5F7;
+
+  /* Padding, Gap, Border-Radius */
+
+  --custom-4k-padding: 5.714rem;
+  --custom-4k-gap: 5.714rem;
+  --custom-4k-border-radius-big: 6.857rem;
+  --custom-4k-border-radius-medium: 5.429rem;
+  --hd-padding: 2.857rem;
+  --hd-gap: 2.857rem;
+  --hd-border-radius-big: 3.429rem;
+  --hd-border-radius-medium: 2.714rem;
+  --custom-720-padding: 2.286rem;
+  --custom-720-gap: 2.286rem;
+  --custom-720-border-radius-big: 2.429rem;
+  --custom-720-border-radius-medium: 1.714rem;
+  --pi-padding: 1rem;
+  --pi-gap: 1rem;
+  --pi-border-radius-big: 1.571rem;
+  --pi-border-radius-medium: 1.143rem
+}
 
 /* Components */
-
 .main-container {
   display: flex;
   flex-direction: row;
@@ -47,7 +66,6 @@ body {
   padding: 2rem;
   background-color: var(--theme-color-background);
 }
-
 
 .primary-card {
   display: flex;
@@ -63,7 +81,6 @@ body {
   color: var(--theme-color-tertiary);
 }
 
-
 .primary-container {
   width: 50%;
   display: flex;
@@ -71,8 +88,6 @@ body {
   gap: 2.5rem;
   justify-content: space-between;
 }
-
-
 
 .secondary-container {
   width: 50%;
@@ -121,253 +136,166 @@ body {
   }
 }
 
-/* 480px 720px Clock Container need to fix */
+/* Default styles apply to large screens */
 
-/* TODO: Fix the Clock Circle issue : When Scale to .5, circle change to oval */
-
-@media screen and (min-width: 480px) and (orientation: portrait) {
+/* 4K Landscape - 4096 × 2160 */
+@media screen and (max-width: 4096px) and (orientation: landscape) {
   .main-container {
-    gap: 1rem;
-    padding: 1rem;
+    gap: var(--custom-4k-gap);
+    padding: var(--custom-4k-padding);
   }
-
-  .primary-container {
-    gap: 1rem;
-  }
-
 
   .primary-card {
-    border-radius: 2rem;
-  }
-
-  .secondary-container {
-    gap: 1rem;
-  }
-
-  .row-container {
-    gap: 1rem;
+    border-radius: var(--custom-4k-border-radius-big);
   }
 
   .secondary-card {
-    border-radius: 2rem;
+    border-radius: var(--custom-4k-border-radius-medium);
+  }
+}
+
+/* 4K Portrait - 2160 × 4096 */
+@media screen and (max-width: 2160px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--custom-4k-gap);
+    padding: var(--custom-4k-padding);
+  }
+
+  .primary-card {
+    border-radius: var(--custom-4k-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--custom-4k-border-radius-medium);
+  }
+}
+
+/* 4K Landscape - 3840 × 2160 */
+@media screen and (max-width: 3840px) and (orientation: landscape) {
+  .main-container {
+    gap: var(--custom-4k-gap);
+    padding: var(--custom-4k-padding);
+  }
+
+  .primary-card {
+    border-radius: var(--custom-4k-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--custom-4k-border-radius-medium);
+  }
+}
+
+/* 4K Portrait - 2160 × 3840 */
+@media screen and (max-width: 2160px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--custom-4k-gap);
+    padding: var(--custom-4k-padding);
+  }
+
+  .primary-card {
+    border-radius: var(--custom-4k-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--custom-4k-border-radius-medium);
+  }
+}
+
+/* Full HD Landscape - 1920 × 1080 */
+@media screen and (max-width: 1920px) and (orientation: landscape) {
+  .main-container {
+    gap: var(--hd-gap);
+    padding: var(--hd-padding);
+  }
+
+  .primary-card {
+    border-radius: var(--hd-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--hd-border-radius-medium);
+  }
+}
+
+/* Full HD Portrait - 1080 × 1920 */
+@media screen and (max-width: 1080px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--hd-gap);
+    padding: var(--hd-padding);
+  }
+
+  .primary-card {
+    border-radius: var(--hd-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--hd-border-radius-medium);
+  }
+}
+
+
+/* HD Landscape - 1280 × 720 */
+@media screen and (max-width: 1280px) and (orientation: landscape) {
+  .main-container {
+    gap: var(--custom-720-gap);
+    padding: var(--custom-720-padding);
+  }
+
+  .primary-card {
+    border-radius: var(--custom-720-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--custom-720-border-radius-medium);
+  }
+}
+
+/* HD Portrait - 720 × 1280 */
+@media screen and (max-width: 720px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--custom-720-gap);
+    padding: var(--custom-720-padding);
+  }
+
+  .primary-card {
+    border-radius: var(--custom-720-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--custom-720-border-radius-medium);
+  }
+}
+
+/* Raspberry Pi Touch Display - Landscape 800 × 480 */
+@media screen and (max-width: 800px) and (orientation: landscape) {
+  .main-container {
+    gap: var(--pi-gap);
+    padding: var(--pi-padding);
+  }
+
+  .primary-card {
+    border-radius: var(--pi-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--pi-border-radius-medium);
   }
 
 }
 
-@media screen and (min-width: 720px) and (orientation: portrait) {
+/* Raspberry Pi Touch Display - Portrait 480 × 800 */
+@media screen and (max-width: 480px) and (orientation: portrait) {
   .main-container {
-    gap: 1rem;
-    padding: 1rem;
+    gap: var(--pi-gap);
+    padding: var(--pi-padding);
   }
 
   .primary-card {
-    border-radius: 2rem;
-  }
-
-  .secondary-container {
-    gap: 1rem;
-  }
-
-  .row-container {
-    gap: 1rem;
+    border-radius: var(--pi-border-radius-big);
   }
 
   .secondary-card {
-    border-radius: 2rem;
-  }
-
-}
-
-@media screen and (min-width: 800px) and (orientation: landscape) {
-  .main-container {
-    gap: 1.5rem;
-    padding: 1rem;
-  }
-
-  .primary-container {
-    gap: 1.5rem;
-  }
-
-  .primary-card {
-    border-radius: 2rem;
-  }
-
-  .secondary-container {
-    gap: 1rem;
-  }
-
-  .row-container {
-    gap: 1rem;
-  }
-
-  .secondary-card {
-    border-radius: 2rem;
-  }
-
-}
-
-@media screen and (min-width: 1080px) and (orientation: portrait) {
-  .main-container {
-    gap: 3rem;
-    padding: 3rem;
-  }
-
-  .primary-container {
-    gap: 3rem;
-  }
-
-  .primary-card {
-    border-radius: 4rem;
-  }
-
-  .secondary-container {
-    gap: 3rem;
-  }
-
-  .row-container {
-    gap: 3rem;
-  }
-
-  .secondary-card {
-    border-radius: 4rem;
-  }
-
-}
-
-@media screen and (min-width: 1280px) and (orientation: landscape) {
-  .main-container {
-    gap: 2rem;
-    padding: 2rem;
-  }
-
-  .primary-container {
-    gap: 2rem;
-  }
-
-  .primary-card {
-    border-radius: 2rem;
-  }
-
-  .secondary-container {
-    gap: 2rem;
-  }
-
-  .row-container {
-    gap: 2rem;
-  }
-
-  .secondary-card {
-    border-radius: 2.5rem;
-  }
-
-}
-
-@media screen and (min-width: 1920px) and (orientation: landscape) {
-  .main-container {
-    gap: 2.5rem;
-    padding: 2.5rem;
-  }
-
-  .primary-container {
-    gap: 2.5rem;
-  }
-
-  .primary-card {
-    border-radius: 2.5rem;
-  }
-
-  .secondary-container {
-    gap: 2.5rem;
-  }
-
-  .row-container {
-    gap: 2.5rem;
-  }
-
-  .secondary-card {
-    border-radius: 2.5rem;
-  }
-}
-
-@media screen and (min-width: 2160px) and (orientation: portrait) {
-  .main-container {
-    gap: 5rem;
-    padding: 5rem;
-  }
-
-  .primary-container {
-    gap: 5rem;
-  }
-
-  .primary-card {
-    border-radius: 8rem;
-  }
-
-  .secondary-container {
-    gap: 5rem;
-  }
-
-  .row-container {
-    gap: 6rem;
-  }
-
-  .secondary-card {
-    border-radius: 8rem;
-  }
-
-}
-
-@media screen and (min-width: 3840px) and (orientation: landscape) {
-  .main-container {
-    gap: 5rem;
-    padding: 5rem;
-  }
-
-  .primary-container {
-    gap: 5rem;
-  }
-
-  .primary-card {
-    border-radius: 8rem;
-  }
-
-  .secondary-container {
-    gap: 5rem;
-  }
-
-  .row-container {
-    gap: 6rem;
-  }
-
-  .secondary-card {
-    border-radius: 8rem;
-  }
-}
-
-@media screen and (min-width: 4096px) and (orientation: landscape) {
-  .main-container {
-    gap: 5rem;
-    padding: 5rem;
-  }
-
-  .primary-container {
-    gap: 5rem;
-  }
-
-
-  .primary-card {
-    border-radius: 7rem;
-  }
-
-  .secondary-container {
-    gap: 5rem;
-  }
-
-  .row-container {
-    gap: 6rem;
-  }
-
-  .secondary-card {
-    border-radius: 7rem;
+    border-radius: var(--pi-border-radius-medium);
   }
 }
