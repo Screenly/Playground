@@ -1,41 +1,65 @@
+:root {
+	--box-border-radius: 3.5rem;
+	--box-padding: 1.5rem 4rem;
+	--box-font-size: 3rem;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100vh;
+	overflow: hidden;
+}
+
 body {
-	font-family: sans-serif;
-	background-color: #000212;
-	color: white;
+	background-color: var(--theme-color-card);
+	color: #000;
 	margin: 0;
 }
 
 .container {
 	overflow: hidden;
-	margin: 20px auto;
-	padding: 50px;
-	background-color: #000212;
-	border-radius: 8px;
-	max-width:t
+	/* border-radius: 8px; */
+	width: 100%;
 }
 
 .header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 30px;
+	padding: 5rem 10rem 2rem 1rem;
+	font-family: Aeonik Medium;
+
 }
 
 .title {
 	display: flex;
 	align-items: center;
-	font-size: 2rem;
-
+	font-size: 6rem;
+	font-weight: 900;
+	padding-left: 2em;
 }
 
 .bus-stop-name {
 	margin: 0;
 	margin-left: 15px;
-	font-size: 3rem;
+	/* font-size: 6rem; */
+	font-weight: 600;
+	color: #000;
+}
+
+.bus-arrival {
+	/* font-size: 5rem; */
+	font-weight: 600;
 }
 
 .bus-icon {
-	height: 3rem;
+	height: 8rem;
+	padding-right: 1em;
+}
+
+.brand-logo {
+	width: 10rem;
 }
 
 .arrivals, .statuses {
@@ -69,7 +93,8 @@ h3 {
 	align-items: center;
 	padding: 2.5rem;
 	border-bottom: 1px solid #444;
-	background-color: #121424;
+	/* background-color: #121424; */
+
 	position: relative;
 }
 
@@ -115,39 +140,21 @@ h3 {
 .on-time {
 	background-color: #28a745;
 	color: white;
-	padding: 10px 30px;
-	border-radius: 19px;
-	white-space: nowrap;
-	box-sizing: border-box;
-	text-align: center;
 }
 
 .has-delayed {
 	background-color: #d11515;
 	color: white;
-	padding: 10px 30px;
-	border-radius: 19px;
-	white-space: nowrap;
-	box-sizing: border-box;
-	text-align: center;
 }
 
 .severe-delay {
 	background-color: #d11515;
 	color: white;
-	padding: 10px 30px;
-	border-radius: 19px;
-	white-space: nowrap;
-	box-sizing: border-box;
-	text-align: center;
 }
 
 .minor-delay {
 	background-color: #FF0;
 	color: black;
-	padding: 10px 30px;
-	border-radius: 19px;
-	white-space: nowrap;
 	box-sizing: border-box;
 	text-align: center;
 }
@@ -155,343 +162,247 @@ h3 {
 .moderate-delay {
 	background-color: #FFA500;
 	color: white;
-	padding: 10px 30px;
-	border-radius: 19px;
-	white-space: nowrap;
-	box-sizing: border-box;
-	text-align: center;
 }
 
 .service-closed {
 	background-color: #808080;
 	color: white;
-	padding: 10px 30px;
-	border-radius: 19px;
-	white-space: nowrap;
-	box-sizing: border-box;
-	text-align: center;
 }
 
 .unknown-status {
 	background-color: #D3D3D3;
 	color: black;
-	padding: 10px 30px;
-	border-radius: 19px;
+}
+
+
+.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
+	padding: var(--box-padding);
+	border-radius: var(--box-border-radius);
+	font-size: var(--box-font-size);
 	white-space: nowrap;
 	box-sizing: border-box;
 	text-align: center;
+	text-transform: capitalize;
+}
+
+.arrival-time {
+	padding: var(--box-padding);
+	border-radius: var(--box-border-radius);
+	font-size: var(--box-font-size);
+	white-space: nowrap;
+	box-sizing: border-box;
+	text-align: center;
+	background-color: #027BFF;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+	text-transform: uppercase;
+}
+
+.clock-icon {
+	width: 4rem;
 }
 
 .hidden {
 	display: none;
 }
 
-
-@media (width >=800px) and (orientation: landscape) {
-	.bus-icon {
-		height: 2.25rem;
-	}
-
-	.bus-arrival {
-		font-size: 1.5rem;
-	}
-
-	.bus-stop-name {
-		margin: 0;
-		margin-left: 15px;
-		font-size: 2rem;
-	}
-
-	.bus-item {
-		display: flex;
-		font-size: 1.1rem;
-		align-items: center;
-		padding: 1.75rem;
-		border-bottom: 1px solid #444;
-		background-color: #121424;
-		position: relative;
-	}
-
-	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
-		border-radius: 25px;
-		width: 18rem;
-
-	}
-
-	.time-1, .time-2, .time-3, .time-4, .time-5, .time-6, .time-7 {
-		width: 7rem;
-		border-radius: 25px;
-	}
-
-	.hidden {
-		display: none;
-	}
+.content-table {
+	border-collapse: collapse;
+	/* margin: 25px 0; */
+	font-size: 4.3rem;
+	min-width: 400px;
+	overflow: hidden;
+	/* border-radius: 5px 5px 0 0; */
+	width: 100%;
 }
 
-@media (width >=1280px) and (orientation: landscape) {
+.content-table thead tr {
+	background-color: var(--theme-color-primary);
+	color: #fff;
+	text-align: left;
+	font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+	padding: 12px 15px;
+}
+
+/* .content-table tbody tr {
+	border-bottom: 1px solid #ddd;
+} */
+
+/* .content-table tbody tr:nth-of-type(even) {
+	background-color: #f3f3f3;
+} */
+
+.content-table tbody tr {
+	border-left: 30px solid var(--theme-color-secondary);
+}
+
+.content-table thead tr {
+	border-left: 30px solid var(--theme-color-primary);
+}
+
+.content-table tbody tr td {
+	border-right: 1px solid var(--theme-color-background);
+}
+
+/* .content-table tbody tr td:last-child {
+    border-right: none;
+} */
+
+.content-table thead tr th {
+	border-right: 2px solid var(--theme-color-tertiary);
+}
+
+.content-table thead tr th:last-child {
+	border-right: none;
+}
+
+.content-table th,
+.content-table td {
+	padding: 3.5rem;
+}
+
+tr {
+	height: 9.5rem;
+}
+
+
+/* .content-table thead tr th, */
+/* .content-table tbody tr td {
+	padding-left: 10rem;
+} */
+
+.content-table tbody tr td:nth-child(1),
+.content-table tbody tr td:nth-child(3),
+.content-table tbody tr td:nth-child(4),
+.content-table tbody tr td:nth-child(5),
+.content-table thead tr th:nth-child(1),
+.content-table thead tr th:nth-child(3),
+.content-table thead tr th:nth-child(4),
+.content-table thead tr th:nth-child(5),
+.content-table tbody tr {
+	text-align: center;
+	font-weight: bold;
+}
+
+.content-table thead tr th:nth-child(1),
+.content-table tbody tr td:nth-child(1) {
+	width: 15%;
+}
+
+.content-table thead tr th:nth-child(2),
+.content-table tbody tr td:nth-child(2) {
+	width: 30%;
+}
+
+.content-table thead tr th:nth-child(3),
+.content-table tbody tr td:nth-child(3) {
+	width: 30%;
+}
+
+.content-table thead tr th:nth-child(1),
+.content-table tbody tr td:nth-child(1),
+.content-table thead tr th:nth-child(4),
+.content-table tbody tr td:nth-child(4),
+.content-table thead tr th:nth-child(5),
+.content-table tbody tr td:nth-child(5) {
+	text-align: left;
+	font-family: Aeonik Medium;
+	padding-left: 10rem;
+}
+
+
+.content-table thead tr th:nth-child(2),
+.content-table tbody tr td:nth-child(2) {
+	text-align: left;
+}
+
+.content-table thead tr th:nth-child(5),
+.content-table tbody tr td:nth-child(5) {
+	text-align: left;
+	font-family: Aeonik Medium;
+	padding-left: 10rem;
+	padding-right: 10rem;
+}
+
+.footer {
+	background-color: var(--theme-color-primary);
+	width: 100%;
+	height: 10rem;
+	align-content: center;
+	padding: 10px 0;
+	overflow: hidden;
+	position: fixed;
+	bottom: 0;
+}
+
+.footer-text {
+	color: var(--theme-color-tertiary);
+	font-size: 4rem;
+	padding: 1rem;
+	text-align: center;
+}
+
+
+
+@media (orientation: portrait) {
+
+	body {
+		background-color: var(--theme-color-background);
+	}
+
+	.header {
+		background-color: var(--theme-color-tertiary);
+		border-radius: 6.857rem 6.857rem 0 0;
+	}
+
+	.body-container {
+		padding: var(--custom-4k-padding);
+		border-radius: 2rem;
+	}
+
+	.content-table {
+		background-color: var(--theme-color-card);
+	}
+
+	.footer {
+		position: unset;
+		border-radius: 0 0 6.857rem 6.857rem;
+		height: 15rem;
+	}
+
+	.content-table thead tr th:nth-child(3),
+	.content-table tbody tr td:nth-child(3) {
+		display: none;
+	}
+
+	tr {
+		height: 15.4rem;
+	}
+
 	.bus-icon {
-		height: 3.5rem;
+		height: 7rem;
 	}
 
-	.bus-stop-name {
-		margin: 0;
-		margin-left: 15px;
-		font-size: 2.5rem;
-	}
-
-	.bus-item {
-		display: flex;
-		font-size: 1.75rem;
-		align-items: center;
-		padding: 2.5rem;
-		border-bottom: 1px solid #444;
-		background-color: #121424;
-		position: relative;
-	}
-
-	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
-		border-radius: 25px;
-		width: 18rem;
-	}
-
-	.time-1, .time-2, .time-3, .time-4, .time-5, .time-6, .time-7 {
+	.brand-logo {
 		width: 9rem;
-		border-radius: 25px;
+		margin-left: 10rem;
 	}
 
-	.hidden {
-		display: none;
-	}
-}
-
-@media (width >=1920px) and (orientation: landscape) {
-	.bus-icon {
-		height: 3.5rem;
-	}
-
-	.bus-stop-name {
-		margin: 0;
-		margin-left: 15px;
-		font-size: 2.5rem;
-	}
-
-	.bus-item {
-		display: flex;
-		font-size: 2rem;
-		align-items: center;
-		padding: 2.5rem;
-		border-bottom: 1px solid #444;
-		background-color: #121424;
-		position: relative;
-	}
-
-	.bus-arrival {
-		font-size: 2rem;
-	}
-
-	.hidden {
-		display: none;
-	}
-
-	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
-		width: 18rem;
-		border-radius: 25px;
-	}
-
-	.time-1, .time-2, .time-3, .time-4, .time-5, .time-6, .time-7 {
-		width: 15rem;
-		border-radius: 25px;
-		margin-left: 25px;
-	}
-}
-
-@media (width >=3840px) and (orientation: landscape) {
-	.bus-icon {
-		height: 5rem;
-	}
-
-	.bus-stop-name {
-		margin: 0;
-		margin-left: 15px;
+	.title {
 		font-size: 5rem;
 	}
 
-	.bus-item {
-		display: flex;
-		font-size: 5rem;
-		align-items: center;
-		padding: 2.5rem;
-		border-bottom: 1px solid #444;
-		background-color: #121424;
-		position: relative;
+	.content-table {
+		font-size: 3.8rem;
 	}
 
-	.bus-arrival {
-		font-size: 4rem;
-	}
-
-	.hidden {
-		display: none;
-	}
-
-	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
-		width: 45rem;
-		border-radius: 35px;
-
-	}
-
-	.time-1, .time-2, .time-3, .time-4, .time-5, .time-6, .time-7 {
-		width: 25rem;
-		border-radius: 35px;
-		margin-left: 30px;
-	}
 }
 
-@media (width >=4096px) and (orientation: landscape) {
-	.bus-icon {
-		height: 5rem;
-	}
-
-	.bus-stop-name {
-		margin: 0;
-		margin-left: 15px;
-		font-size: 5rem;
-	}
-
-	.bus-item {
-		display: flex;
-		font-size: 5rem;
-		align-items: center;
-		padding: 2.5rem;
-		border-bottom: 1px solid #444;
-		background-color: #121424;
-		position: relative;
-	}
-
-	.bus-arrival {
-		font-size: 4rem;
-	}
-
-	.hidden {
-		display: none;
-	}
-
-	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
-		width: 45rem;
-		border-radius: 35px;
-	}
-
-	.time-1, .time-2, .time-3, .time-4, .time-5, .time-6, .time-7 {
-		width: 25rem;
-		border-radius: 35px;
-		margin-left: 30px;
-	}
-}
-
-@media screen and (width >=720px) and (orientation: portrait) {
-	.bus-icon {
-		height: 2.5rem;
-	}
-
-	.bus-stop-name {
-		margin: 0;
-		margin-left: 15px;
-		font-size: 2rem;
-	}
-
-	.bus-item {
-		display: flex;
-		font-size: 1.25rem;
-		align-items: center;
-		padding: 2.5rem;
-		border-bottom: 1px solid #444;
-		background-color: #121424;
-		position: relative;
-	}
-
-	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
-		width: 18rem;
-	}
-
-	.time-1, .time-2, .time-3, .time-4, .time-5, .time-6, .time-7 {
-		width: 7rem;
-	}
-
-	.hidden {
-		display: none;
-	}
-}
-
-@media screen and (width >=1080px) and (orientation: portrait) {
-	.bus-icon {
-		height: 3rem;
-	}
-
-	.bus-stop-name {
-		margin: 0;
-		margin-left: 15px;
-		font-size: 2rem;
-	}
-
-	.bus-item {
-		display: flex;
-		font-size: 1.75rem;
-		align-items: center;
-		padding: 2.7rem;
-		border-bottom: 1px solid #444;
-		background-color: #121424;
-		position: relative;
-	}
-
-	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
-		width: 18rem;
-
-	}
-
-	.time-1, .time-2, .time-3, .time-4, .time-5, .time-6, .time-7 {
-		width: 8rem;
-	}
-
-	.hidden {
-		display: none;
-	}
-}
-
-@media screen and (width >=2160px) and (orientation: portrait) {
-	.bus-icon {
-		height: 4rem;
-	}
-
-	.bus-stop-name {
-		margin: 0;
-		margin-left: 15px;
-		font-size: 4rem;
-	}
-
-	.bus-item {
-		display: flex;
-		font-size: 3rem;
-		align-items: center;
-		padding: 2.5rem;
-		border-bottom: 1px solid #444;
-		background-color: #121424;
-		position: relative;
-	}
-
-	.on-time, .has-delayed, .severe-delay, .minor-delay, .moderate-delay, .service-closed, .unknown-status {
-		width: 18rem;
-	}
-
-	.time-1, .time-2, .time-3, .time-4, .time-5, .time-6, .time-7 {
-		width: 15rem;
-	}
-
-	.bus-arrival {
-		font-size: 3rem;
-	}
-
-	.hidden {
-		display: none;
-	}
-}
 
