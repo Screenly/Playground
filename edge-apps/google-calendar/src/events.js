@@ -4,7 +4,8 @@ export const fetchCalendarEvents = async () => {
   try {
     const { ical_url: icalUrl } = window.screenly.settings;
     const corsProxy = screenly.cors_proxy_url;
-    const icalUrlWithProxy = `${corsProxy}/${icalUrl}`;
+    const bypassCors = Boolean(JSON.parse(screenly.settings.bypass_cors));
+    const icalUrlWithProxy = bypassCors ? `${corsProxy}/${icalUrl}` : icalUrl;
 
     const response = await fetch(icalUrlWithProxy);
 
