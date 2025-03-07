@@ -16,6 +16,7 @@ import { fetchCalendarEvents } from '@/events';
 import '@/css/common.css';
 import '@/css/style.css';
 import DailyCalendarView from '@/components/daily-calendar-view';
+import AnalogClock from '@/components/analog-clock';
 
 // Main App Component
 const App = () => {
@@ -65,13 +66,17 @@ const App = () => {
     <div className="main-container">
       <div className="secondary-container">
         <div className="row-container">
-          <CalendarOverview
-            currentDate={getDate(now)}
-            currentMonthName={getFormattedMonthName(now)}
-            currentYear={getYear(now)}
-            currentTime={currentTime}
-            events={events}
-          />
+          {calendarMode === 'monthly' ? (
+            <CalendarOverview
+              currentDate={getDate(now)}
+              currentMonthName={getFormattedMonthName(now)}
+              currentYear={getYear(now)}
+              currentTime={currentTime}
+              events={events}
+            />
+          ) : (
+            <AnalogClock now={now} />
+          )}
         </div>
         <div className="row-container">
           <InfoCard />
