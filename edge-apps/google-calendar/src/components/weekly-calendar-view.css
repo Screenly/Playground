@@ -26,11 +26,12 @@
   flex: 1;
   text-align: center;
   font-weight: bold;
-  color: #000000;
-  font-size: 1.5rem; /* 24px for 1920x1080 */
+  color: var(--theme-color-text);
+  font-size: 1.5rem;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .weekly-view .week-body {
@@ -48,13 +49,13 @@
 .weekly-view .time-label {
   width: 7rem;
   padding: 0.5rem;
-  margin-right: 1rem; /* Add margin for 1920x1080 */
+  margin-right: 1rem;
   text-align: right;
-  color: #000000;
+  color: var(--theme-color-text);
   flex-shrink: 0;
   white-space: nowrap;
-  font-size: 1.125rem; /* 18px for 1920x1080 */
-  transform: translateY(25%); /* Adjust this value to move labels down */
+  font-size: 1.125rem;
+  transform: translateY(25%);
 }
 
 .weekly-view .day-column {
@@ -98,10 +99,12 @@
   opacity: 0.9;
 }
 
-.date-number {
-  font-size: 0.8em;
-  color: #666;
-  margin-top: 4px;
+.weekly-view .month-year-header {
+  text-align: left;
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: var(--theme-color-text);
+  padding: 0.5rem 0 1rem 1.5rem;  /* Added left padding */
 }
 
 /* Responsive adjustments */
@@ -122,6 +125,17 @@
 
   .weekly-view .weekly-calendar {
     padding: 1rem;
+  }
+
+  .current-date {
+    min-width: 1.75rem;
+    height: 1.75rem;
+    padding: 0 0.25rem;
+  }
+
+  .weekly-view .month-year-header {
+    font-size: 1.5rem;
+    padding-left: 1rem;
   }
 }
 
@@ -147,6 +161,17 @@
   .weekly-view .weekly-calendar {
     padding: 0.75rem;
   }
+
+  .current-date {
+    min-width: 1.5rem;
+    height: 1.5rem;
+    padding: 0 0.1875rem;
+  }
+
+  .weekly-view .month-year-header {
+    font-size: 1.25rem;
+    padding-left: 0.75rem;
+  }
 }
 
 /* 3840x2160 (4K - scale factor ≈ 2) */
@@ -168,4 +193,27 @@
   .weekly-view .weekly-calendar {
     padding: 3rem;
   }
+
+  .current-date {
+    min-width: 4rem;
+    height: 4rem;
+    padding: 0 0.75rem;
+  }
+
+  .weekly-view .month-year-header {
+    font-size: 3.5rem;
+    padding-left: 3rem;
+  }
+}
+
+.current-date {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.375rem;
+  border-radius: 50%;
+  background-color: var(--theme-color-primary);
+  color: var(--theme-color-tertiary);
 }

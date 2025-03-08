@@ -74,6 +74,16 @@ const WeeklyCalendarView = ({ now, events }) => {
     return date.getDate();
   };
 
+  // Add function to check if a date is today
+  const isToday = (dayIndex) => {
+    const date = new Date(getStartOfWeek(now));
+    date.setDate(date.getDate() + dayIndex);
+    const today = new Date(now);
+    return date.getDate() === today.getDate() &&
+           date.getMonth() === today.getMonth() &&
+           date.getFullYear() === today.getFullYear();
+  };
+
   const getEventStyle = (event) => {
     const startTime = new Date(event.startTime);
     const endTime = new Date(event.endTime);
@@ -101,15 +111,29 @@ const WeeklyCalendarView = ({ now, events }) => {
     };
   };
 
+  // Update function to get formatted month and year with uppercase month
+  const getMonthYearDisplay = () => {
+    const date = new Date(now);
+    const monthYear = date.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+    // Split by space, uppercase the month, keep year as is, then join
+    const [month, year] = monthYear.split(' ');
+    return `${month.toUpperCase()} ${year}`;
+  };
+
   return (
     <div className="primary-card weekly-view">
       <div className="weekly-calendar">
+        <div className="month-year-header">
+          {getMonthYearDisplay()}
+        </div>
         <div className="week-header">
           <div className="time-label-spacer"></div>
           {DAYS_OF_WEEK.map((day, index) => (
             <div key={index} className="day-header">
-              <div>{day}</div>
-              <div className="date-number">{getHeaderDate(index)}</div>
+              <span>{day} </span>
+              <span className={isToday(index) ? 'current-date' : ''}>
+                {getHeaderDate(index)}
+              </span>
             </div>
           ))}
         </div>
