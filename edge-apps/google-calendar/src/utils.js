@@ -22,10 +22,21 @@ export async function getLocale() {
 }
 
 export const getFormattedTime = async (date = new Date()) => {
+  const hourCycles = new Intl.Locale(await getLocale()).hourCycles;
+  let hourFormat = 'numeric';
+
+  if (hourCycles.length === 1) {
+    if (hourCycles[0] === 'h12') {
+      hourFormat = 'numeric';
+    } else {
+      hourFormat = '2-digit';
+    }
+  }
+
   return date.toLocaleTimeString(
     await getLocale(),
     {
-      hour: '2-digit',
+      hour: hourFormat,
       minute: '2-digit',
       timeZone: getTimeZone()
     }
