@@ -17,6 +17,7 @@ import '@/css/common.css';
 import '@/css/style.css';
 import DailyCalendarView from '@/components/daily-calendar-view';
 import AnalogClock from '@/components/analog-clock';
+import WeeklyCalendarView from '@/components/weekly-calendar-view';
 
 // Main App Component
 const App = () => {
@@ -93,6 +94,12 @@ const App = () => {
       )}
       {calendarMode === 'daily' && (
         <DailyCalendarView
+          now={now}
+          events={events}
+        />
+      )}
+      {calendarMode === 'weekly' && (
+        <WeeklyCalendarView
           now={now}
           events={events}
         />

@@ -1,0 +1,171 @@
+/* .weekly-view.primary-card {
+  height: 100%;
+  display: flex;
+} */
+
+.weekly-view .weekly-calendar {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem; /* Add padding for 1920x1080 */
+}
+
+.weekly-view .week-header {
+  display: flex;
+  padding: 0.5rem 0 1rem;
+  border-bottom: 1px solid var(--theme-color-secondary);
+}
+
+.weekly-view .time-label-spacer {
+  width: 7rem;
+  flex-shrink: 0;
+}
+
+.weekly-view .day-header {
+  flex: 1;
+  text-align: center;
+  font-weight: bold;
+  color: #000000;
+  font-size: 1.5rem; /* 24px for 1920x1080 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.weekly-view .week-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.weekly-view .week-row {
+  display: flex;
+  flex: 1;
+  position: relative;
+}
+
+.weekly-view .time-label {
+  width: 7rem;
+  padding: 0.5rem;
+  margin-right: 1rem; /* Add margin for 1920x1080 */
+  text-align: right;
+  color: #000000;
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-size: 1.125rem; /* 18px for 1920x1080 */
+  transform: translateY(25%); /* Adjust this value to move labels down */
+}
+
+.weekly-view .day-column {
+  flex: 1;
+  position: relative;
+  border-left: 1px solid var(--theme-color-secondary);
+}
+
+.weekly-view .hour-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--theme-color-secondary);
+  opacity: 0.5;
+}
+
+.weekly-view .calendar-event-item {
+  position: absolute;
+  left: 0.2rem;
+  right: 0.2rem;
+  background-color: var(--theme-color-primary);
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  font-size: 0.8rem;
+  overflow: hidden;
+  color: var(--theme-color-tertiary);
+}
+
+.weekly-view .event-title {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.weekly-view .event-time {
+  font-size: 0.7rem;
+  opacity: 0.9;
+}
+
+.date-number {
+  font-size: 0.8em;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 1280px) {
+  .weekly-view .time-label {
+    width: 5.5rem;
+    margin-right: 0.75rem; /* Scale down for 1280x720 */
+    font-size: 0.875rem;
+  }
+
+  .weekly-view .time-label-spacer {
+    width: 5.5rem;
+  }
+
+  .weekly-view .day-header {
+    font-size: 1rem; /* ~16px */
+  }
+
+  .weekly-view .weekly-calendar {
+    padding: 1rem;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .weekly-view .time-label {
+    width: 4.5rem;
+    margin-right: 0.5rem; /* Scale down for 800x480 */
+    font-size: 0.75rem;
+  }
+
+  .weekly-view .time-label-spacer {
+    width: 4.5rem;
+  }
+
+  .weekly-view .calendar-event-item {
+    font-size: 0.7rem;
+  }
+
+  .weekly-view .day-header {
+    font-size: 0.75rem; /* ~12px */
+  }
+
+  .weekly-view .weekly-calendar {
+    padding: 0.75rem;
+  }
+}
+
+/* 3840x2160 (4K - scale factor ≈ 2) */
+@media screen and (min-width: 3840px) {
+  .weekly-view .day-header {
+    font-size: 3rem; /* ~48px */
+  }
+
+  .weekly-view .time-label {
+    width: 14rem;
+    margin-right: 2rem; /* Scale up for 4K */
+    font-size: 2.25rem;
+  }
+
+  .weekly-view .time-label-spacer {
+    width: 14rem;
+  }
+
+  .weekly-view .weekly-calendar {
+    padding: 3rem;
+  }
+}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getFormattedTime, getLocale } from '../utils';
+import { fetchCalendarEvents } from '../events';
 
 const DailyCalendarView = ({ now, events }) => {
   const TOTAL_HOURS = 12; // Total number of time slots to display

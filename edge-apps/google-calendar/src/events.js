@@ -5,6 +5,7 @@ export const fetchCalendarEvents = async () => {
     const { ical_url: icalUrl } = window.screenly.settings;
     const corsProxy = screenly.cors_proxy_url;
     const bypassCors = Boolean(JSON.parse(screenly.settings.bypass_cors));
+    const viewMode = screenly.settings.calendar_mode;
     const icalUrlWithProxy = bypassCors ? `${corsProxy}/${icalUrl}` : icalUrl;
 
     const response = await fetch(icalUrlWithProxy);
@@ -19,9 +20,23 @@ export const fetchCalendarEvents = async () => {
     const vevents = vcalendar.getAllSubcomponents('vevent');
 
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
+    let startDate, endDate;
+
+    if (viewMode === 'daily') {
+      // For daily view, start from current hour today
+      startDate = new Date(today);
+      endDate = new Date(today);
+      endDate.setDate(endDate.getDate() + 1);
+      endDate.setHours(0, 0, 0, 0);
+    } else {
+      // For weekly view, show full week
+      startDate = new Date(today);
+      startDate.setDate(today.getDate() - today.getDay());
+      startDate.setHours(0, 0, 0, 0);
+
+      endDate = new Date(startDate);
+      endDate.setDate(startDate.getDate() + 7);
+    }
 
     const events = vevents
       .map(vevent => {
@@ -35,17 +50,23 @@ export const fetchCalendarEvents = async () => {
           startTime: startDate.toISOString(),
           endTime: endDate.toISOString(),
           location: event.location,
-          isAllDay: event.startDate.isDate // true for all-day events
+          isAllDay: event.startDate.isDate
         };
       })
       .filter(event => {
         const eventStart = new Date(event.startTime);
-        return eventStart >= today && eventStart < tomorrow;
+        if (viewMode === 'daily') {
+          // For daily view, only show events after current hour
+          return eventStart >= startDate && eventStart < endDate;
+        } else {
+          // For weekly view, show all events in the week
+          return eventStart >= startDate && eventStart < endDate;
+        }
       })
-      .sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
-      .slice(0, 5);
+      .sort((a, b) => new Date(a.startTime) - new Date(b.startTime));
 
-    return events;
+    // Only limit number of events for daily view
+    return viewMode === 'daily' ? events.slice(0, 5) : events;
   } catch (error) {
     console.error('Error fetching calendar events:', error);
     return [];
