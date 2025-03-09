@@ -67,7 +67,7 @@
 .month-name {
   display: inline-flex;
   align-items: center;
-  height: 3.5rem; /* Match the circle height */
+  height: 3.5rem;
   font-weight: bold;
 }
 
@@ -798,36 +798,39 @@
 
   /* Calendar Overview Card */
   .calendar-overview-card {
-    padding: 1.5rem;
+    padding: 1.25rem;
   }
 
   .calendar-top {
-    gap: 0.714rem;  /* 1.7rem * 0.42 */
+    gap: 0.7rem;
   }
 
   .calendar-date {
-    font-size: 1.05rem;
-  }
-  .month-name {
-    height: 1.47rem;
+    font-size: 1.05rem;  /* ~0.42x of 2.5rem */
   }
 
-  .date-number-box {
-    padding: 0.168rem 0.252rem;  /* 0.4rem * 0.42, 0.6rem * 0.42 */
-    border-radius: 0.21rem;  /* 0.5rem * 0.42 */
-    margin-right: 0.315rem;  /* 0.75rem * 0.42 */
+  .month-name {
+    height: 1.47rem;  /* ~0.42x of 3.5rem */
+    font-size: 1.05rem;  /* Match calendar-date */
   }
 
   .calendar-event {
-    font-size: 0.84rem;  /* 2rem * 0.42 */
+    font-size: 0.85rem;  /* Increased from 0.74rem for better readability */
   }
 
   .calendar-event p {
-    margin: 0 0 0.21rem;  /* 0.5rem * 0.42 */
+    margin: 0 0 0.21rem;
   }
 
   .calendar-time {
-    font-size: 1.05rem;  /* 2.5rem * 0.42 */
+    font-size: 1.05rem;  /* ~0.42x of 2.5rem */
+  }
+
+  .calendar-overview-card .calendar-date .date-number-circle {
+    width: 1.47rem;  /* ~0.42x of 3.5rem */
+    height: 1.47rem;  /* ~0.42x of 3.5rem */
+    margin-right: 0.32rem;  /* ~0.42x of 0.75rem */
+    font-size: 0.84rem;  /* Proportional to container size */
   }
 
   /* Info Card */
@@ -842,13 +845,6 @@
   .calendar-cell.current-day::before {
     width: 1.47rem;  /* 3.5rem * 0.42 */
     height: 1.47rem;
-  }
-
-  .date-number-circle {
-    width: 1.68rem;
-    height: 1.68rem;
-    padding: 0.42rem;
-    margin-right: 0.315rem;
   }
 }
 
@@ -930,18 +926,48 @@
   font-weight: bold;
 }
 
+/* Base styles for date-number-circle */
 .date-number-circle {
   background-color: var(--theme-color-tertiary);
   color: var(--theme-color-primary);
-  width: 4rem;
-  height: 4rem;
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 50%;
-  margin-right: 0.75rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  vertical-align: middle;
-  padding: 1rem;
+  margin-right: 0.75rem;
   font-weight: bold;
+}
+
+@media screen and (min-width: 1280px) and (orientation: landscape) {
+  .date-number-circle {
+    width: 2.35rem;
+    height: 2.35rem;
+    margin-right: 0.5rem;
+  }
+}
+
+@media screen and (min-width: 1920px) and (orientation: landscape) {
+  .date-number-circle {
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-right: 0.75rem;
+  }
+}
+
+@media screen and (min-width: 3840px) and (orientation: landscape) {
+  .date-number-circle {
+    width: 7rem;
+    height: 7rem;
+    margin-right: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 4096px) and (orientation: landscape) {
+  .date-number-circle {
+    width: 8rem;
+    height: 8rem;
+    margin-right: 2rem;
+  }
 }
