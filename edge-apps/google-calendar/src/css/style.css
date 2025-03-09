@@ -852,7 +852,7 @@
 .daily-calendar {
   height: 100%;
   width: 100%;
-  padding: 3rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
 }
@@ -865,10 +865,10 @@
 }
 
 .time-label {
-  width: 7rem;
+  width: 6rem;
   color: var(--theme-color-text);
-  font-size: 1.2rem;
-  padding-right: 1rem;
+  font-size: 1rem;
+  padding-right: 0.75rem;
   text-align: right;
   flex-shrink: 0;
   position: relative;
@@ -879,12 +879,13 @@
   flex: 1;
   position: relative;
   height: 100%;
+  min-width: 0;
 }
 
 .hour-line {
   position: absolute;
-  top: 50%; /* Center vertically */
-  transform: translateY(-50%); /* Adjust for perfect centering */
+  top: 50%;
+  transform: translateY(-50%);
   left: 0;
   right: 0;
   height: 1px;
@@ -892,38 +893,111 @@
   z-index: 1;
 }
 
-/* Media Queries */
-@media screen and (max-width: 768px) {
-  .time-label {
-    width: 5rem;
-    font-size: 1rem;
-  }
-}
-
 .calendar-event-item {
   position: absolute;
   background-color: var(--theme-color-primary);
   color: var(--theme-color-tertiary);
-  padding: 0.75rem;
-  border-radius: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
   margin: 0.25rem;
   font-size: 1rem;
   z-index: 2;
   left: 0;
   right: 0.5rem;
-  min-height: 3.85rem; /* Ensure minimum height for short events */
+  min-height: 3.2rem;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;  /* Align content to top */
 }
 
 .calendar-event-item > div {
   white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .calendar-event-item > div:first-child {
   font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+/* Scale for 800x480 (Scale factor: 0.42x) */
+@media screen and (max-width: 800px) {
+  .daily-calendar {
+    padding: 0.84rem;  /* 2rem * 0.42 */
+  }
+
+  .time-label {
+    width: 2.52rem;  /* 6rem * 0.42 */
+    font-size: 0.42rem;  /* 1rem * 0.42 */
+    padding-right: 0.315rem;  /* 0.75rem * 0.42 */
+  }
+
+  .calendar-event-item {
+    padding: 0.21rem;
+    border-radius: 0.168rem;
+    margin: 0.105rem;
+    font-size: 0.42rem;
+    right: 0.21rem;
+    min-height: 1.344rem;  /* 3.2rem * 0.42 */
+  }
+
+  .calendar-event-item > div:first-child {
+    margin-bottom: 0.105rem;  /* 0.25rem * 0.42 */
+  }
+}
+
+/* Scale for 1280x720 (Scale factor: 0.67x) */
+@media screen and (min-width: 801px) and (max-width: 1919px) {
+  .daily-calendar {
+    padding: 1.34rem;  /* 2rem * 0.67 */
+  }
+
+  .time-label {
+    width: 4.02rem;  /* 6rem * 0.67 */
+    font-size: 0.67rem;  /* 1rem * 0.67 */
+    padding-right: 0.5025rem;  /* 0.75rem * 0.67 */
+  }
+
+  .calendar-event-item {
+    padding: 0.335rem;
+    border-radius: 0.268rem;
+    margin: 0.1675rem;
+    font-size: 0.67rem;
+    right: 0.335rem;
+    min-height: 2.144rem;  /* 3.2rem * 0.67 */
+  }
+
+  .calendar-event-item > div:first-child {
+    margin-bottom: 0.1675rem;  /* 0.25rem * 0.67 */
+  }
+}
+
+/* Scale for 3840x2160 (Scale factor: 2x) */
+@media screen and (min-width: 3840px) {
+  .daily-calendar {
+    padding: 4rem;  /* 2rem * 2 */
+  }
+
+  .time-label {
+    width: 12rem;  /* 6rem * 2 */
+    font-size: 2rem;  /* 1rem * 2 */
+    padding-right: 1.5rem;  /* 0.75rem * 2 */
+  }
+
+  .calendar-event-item {
+    padding: 1rem;
+    border-radius: 0.8rem;
+    margin: 0.5rem;
+    font-size: 2rem;
+    right: 1rem;
+    min-height: 6.4rem;  /* 3.2rem * 2 */
+  }
+
+  .calendar-event-item > div:first-child {
+    margin-bottom: 0.5rem;  /* 0.25rem * 2 */
+  }
 }
 
 /* Base styles for date-number-circle */
