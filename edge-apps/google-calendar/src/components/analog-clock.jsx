@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { getTimeZone } from '../utils';
 import './analog-clock.css';
 
 const AnalogClock = ({ now }) => {
@@ -6,9 +7,12 @@ const AnalogClock = ({ now }) => {
 
   useEffect(() => {
     const updateClockHands = () => {
-      const hours = now.getHours();
-      const minutes = now.getMinutes();
-      const seconds = now.getSeconds();
+      const timeZone = getTimeZone();
+      const localTime = new Date(now.toLocaleString('en-US', { timeZone }));
+
+      const hours = localTime.getHours();
+      const minutes = localTime.getMinutes();
+      const seconds = localTime.getSeconds();
 
       setHands({
         hours: hours * 30 + minutes / 2, // 30 degrees per hour + adjustment for minutes
