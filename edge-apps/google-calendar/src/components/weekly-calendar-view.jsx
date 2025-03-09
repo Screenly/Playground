@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getFormattedTime, getLocale } from '../utils';
+import { getFormattedTime, getLocale, getTimeZone } from '../utils';
 import './weekly-calendar-view.css';
 import { fetchCalendarEvents } from '../events';
 
@@ -11,24 +11,38 @@ const WeeklyCalendarView = ({ now, events }) => {
   useEffect(() => {
     const generateTimeSlots = async () => {
       const locale = await getLocale();
-      const currentHour = now.getHours();
+      const timezone = getTimeZone();
 
-      // Calculate start hour to ensure we always show 12 hours
-      const hoursUntilMidnight = 24 - currentHour;
-      const startHour = currentHour - (WINDOW_HOURS - hoursUntilMidnight);
+      // Get timezone adjusted hour
+      const currentHour = new Date(now).toLocaleString('en-US', {
+        hour: 'numeric',
+        hour12: false,
+        timeZone: timezone
+      });
+
+      const startHour = parseInt(currentHour) - 1; // Start 1 hour before current hour
 
       return Promise.all(Array.from({ length: WINDOW_HOURS }, async (_, index) => {
-        const hour = (startHour + index + 24) % 24; // Add 24 before modulo to handle negative hours
+        const hour = (startHour + index) % 24;
+
+        // Skip slots at or after midnight
+        if (hour === 0 || (startHour + index) >= 24) {
+          return null;
+        }
+
         const slotTime = new Date(now);
         slotTime.setHours(hour, 0, 0, 0);
 
-        const formattedTime = await getFormattedTime(slotTime);
+        const formattedTime = slotTime.toLocaleTimeString(locale, {
+          hour: 'numeric',
+          minute: '2-digit'
+        });
 
         return {
           time: formattedTime,
           hour: hour
         };
-      }));
+      })).then(slots => slots.filter(Boolean)); // Remove null entries
     };
 
     generateTimeSlots().then(setTimeSlots);
@@ -43,27 +57,48 @@ const WeeklyCalendarView = ({ now, events }) => {
   };
 
   const getEventsForTimeSlot = (hour, dayOffset) => {
+    const timezone = getTimeZone();
     const targetDate = new Date(getStartOfWeek(now));
     targetDate.setDate(targetDate.getDate() + dayOffset);
     targetDate.setHours(hour, 0, 0, 0);
 
-    return events.filter(event => {
-      const eventStart = new Date(event.startTime);
-      const eventEnd = new Date(event.endTime);
-      const eventDayOfWeek = eventStart.getDay();
-      const eventHour = eventStart.getHours();
+    // Get timezone adjusted current hour
+    const currentHour = parseInt(new Date(now).toLocaleString('en-US', {
+      hour: 'numeric',
+      hour12: false,
+      timeZone: timezone
+    }));
 
-      // Get the current hour and calculate start hour
-      const currentHour = now.getHours();
-      const hoursUntilMidnight = 24 - currentHour;
-      const startHour = currentHour - (WINDOW_HOURS - hoursUntilMidnight);
+    // Start 2 hours before current hour
+    const startHour = (currentHour - 2 + 24) % 24;
+
+    return events.filter(event => {
+      // Get timezone adjusted event hour
+      const eventStart = new Date(event.startTime);
+      const eventHour = parseInt(eventStart.toLocaleString('en-US', {
+        hour: 'numeric',
+        hour12: false,
+        timeZone: timezone
+      }));
+
+      const eventDayOfWeek = new Date(event.startTime).toLocaleString('en-US', {
+        weekday: 'long',
+        timeZone: timezone
+      });
+      const dayOfWeekIndex = DAYS_OF_WEEK.findIndex(day =>
+        day.toLowerCase().startsWith(eventDayOfWeek.toLowerCase().slice(0, 3))
+      );
+
+      // Check if event is within the same day and before midnight
+      const isBeforeMidnight = hour < 24;
 
       // Check if event starts within our 12-hour window
       const isInWindow = eventHour >= startHour && eventHour < (startHour + WINDOW_HOURS);
 
-      return eventDayOfWeek === dayOffset &&
+      return dayOfWeekIndex === dayOffset &&
              eventHour === hour &&
-             isInWindow;
+             isInWindow &&
+             isBeforeMidnight;
     });
   };
 
@@ -83,6 +118,7 @@ const WeeklyCalendarView = ({ now, events }) => {
            date.getMonth() === today.getMonth() &&
            date.getFullYear() === today.getFullYear();
   };
+
 
   const getEventStyle = (event) => {
     const startTime = new Date(event.startTime);
@@ -170,8 +206,22 @@ const TimeDisplay = ({ event }) => {
 
   useEffect(() => {
     const updateTime = async () => {
-      const start = await getFormattedTime(new Date(event.startTime));
-      const end = await getFormattedTime(new Date(event.endTime));
+      const locale = await getLocale();
+      const timezone = getTimeZone();
+
+      // Format start and end times with timezone adjustment
+      const start = new Date(event.startTime).toLocaleTimeString(locale, {
+        hour: 'numeric',
+        minute: '2-digit',
+        timeZone: timezone
+      });
+
+      const end = new Date(event.endTime).toLocaleTimeString(locale, {
+        hour: 'numeric',
+        minute: '2-digit',
+        timeZone: timezone
+      });
+
       setTimeString(`${start} - ${end}`);
     };
     updateTime();

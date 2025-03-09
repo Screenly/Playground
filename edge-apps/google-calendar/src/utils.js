@@ -2,7 +2,7 @@ import tzlookup from '@photostructure/tz-lookup';
 import clm from 'country-locale-map';
 import { getNearestCity } from 'offline-geocode-city';
 
-const getTimeZone = () => {
+export const getTimeZone = () => {
   const [latitude, longitude] = window.screenly.metadata.coordinates;
   return tzlookup(latitude, longitude);
 };
