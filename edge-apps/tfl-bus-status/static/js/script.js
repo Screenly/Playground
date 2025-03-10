@@ -107,7 +107,7 @@ function busData() {
       let platformText = '';
       if (platform) {
         const match = platform.match(/[A-Z0-9]+$/);
-        platformText = match ? ` (Platform ${match[0]})` : ` (${platform})`;
+        platformText = match ? ` (Stop ${match[0]})` : ` (${platform})`;
       }
 
       // Combine name and platform without trimming or truncation
@@ -119,7 +119,7 @@ function busData() {
       // Extract just the platform letter/number if possible
       const match = name.match(/[A-Z0-9]+$/);
       if (match) {
-        return `(Platform ${match[0]})`;
+        return `(Stop ${match[0]})`;
       }
       // If no match, truncate and format
       return name.length > 15 ? `(${name.substring(0, 12)}...)` : `(${name})`;
@@ -243,26 +243,26 @@ function busData() {
 
     getStatusMessage(statusSeverity) {
       const statusMap = {
-        0: 'SPECIAL SERVICE',
-        1: 'CLOSED',
-        2: 'SUSPENDED',
-        3: 'PART SUSPENDED',
-        4: 'PLANNED CLOSURE',
-        5: 'PART CLOSURE',
-        6: 'SEVERE DELAYS',
-        7: 'REDUCED SERVICE',
-        8: 'BUS SERVICE',
-        9: 'MINOR DELAYS',
-        10: 'ON TIME',
-        11: 'PART CLOSED',
-        12: 'EXIT ONLY',
-        13: 'NO STEP FREE ACCESS',
-        14: 'CHANGE OF FREQUENCY',
-        15: 'DIVERTED',
-        16: 'NOT RUNNING',
-        17: 'ISSUES REPORTED',
-        18: 'NO ISSUES',
-        19: 'NO STATUS'
+        0: 'ON TIME', // SPECIAL SERVICE
+        1: 'CLOSED', // CLOSED
+        2: 'SUSP', // SUSPENDED
+        3: 'PART SUSP', // PART SUSPENDED
+        4: 'PLAN CLOS', // PLANNED CLOSURE
+        5: 'PART CLOS', // PART CLOSURE
+        6: 'SEV DELAY', // SEVERE DELAY
+        7: 'DELAY', // REDUCED SERVICE
+        8: 'BUS REPL', // BUS SERVICE
+        9: 'MIN DELAY', // MINOR DELAY
+        10: 'ON TIME', // ON TIME
+        11: 'PART CLOS', // PART CLOSED
+        12: 'EXIT ONLY', // EXIT ONLY
+        13: 'NO STEP', // NO STEP FREE ACCESS
+        14: 'FREQ CHG', // CHANGE OF FREQ
+        15: 'DIVERTED', // DIVERTED
+        16: 'NOT RUNNING', // NOT RUNNING
+        17: 'ISSUES REPORTED', // ISSUES REPORTED
+        18: 'ON TIME', // ON TIME
+        19: 'NO STATUS' // NO STATUS
       }
       return statusMap[statusSeverity] || 'NO STATUS'
     },
