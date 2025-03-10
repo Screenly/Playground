@@ -25,9 +25,9 @@ const DailyCalendarView = ({ now, events }) => {
 
           return {
             time: formattedTime,
-            hour: hour,
+            hour: hour
           }
-        }),
+        })
       )
     }
 
@@ -66,7 +66,7 @@ const DailyCalendarView = ({ now, events }) => {
 
     return {
       top: `${topOffset}%`,
-      height: `${height}%`,
+      height: `${height}%`
     }
   }
 
@@ -92,7 +92,7 @@ const DailyCalendarView = ({ now, events }) => {
                 >
                   <div
                     style={{
-                      marginBottom: '0.5rem',
+                      marginBottom: '0.5rem'
                     }}
                   >
                     {event.title}

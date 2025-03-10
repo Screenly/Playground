@@ -5,7 +5,7 @@ import './weekly-calendar-view.css'
 const WeeklyCalendarView = ({ now, events }) => {
   const DAYS_OF_WEEK = useMemo(
     () => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-    [],
+    []
   )
   const [timeSlots, setTimeSlots] = useState([])
   const [locale, setLocale] = useState(null)
@@ -18,13 +18,13 @@ const WeeklyCalendarView = ({ now, events }) => {
       new Date(now).toLocaleString('en-US', {
         hour: 'numeric',
         hour12: false,
-        timeZone: timezone,
-      }),
+        timeZone: timezone
+      })
     )
     return {
       current: hour,
       start: hour - 1,
-      windowStart: (hour - 2 + 24) % 24,
+      windowStart: (hour - 2 + 24) % 24
     }
   }, [now, timezone])
 
@@ -58,9 +58,9 @@ const WeeklyCalendarView = ({ now, events }) => {
         slots.push({
           time: baseDate.toLocaleTimeString(userLocale, {
             hour: 'numeric',
-            minute: '2-digit',
+            minute: '2-digit'
           }),
-          hour: hour,
+          hour: hour
         })
       }
 
@@ -81,17 +81,17 @@ const WeeklyCalendarView = ({ now, events }) => {
         eventStart.toLocaleString('en-US', {
           hour: 'numeric',
           hour12: false,
-          timeZone: timezone,
-        }),
+          timeZone: timezone
+        })
       )
 
       const eventDayOfWeek = eventStart.toLocaleString('en-US', {
         weekday: 'long',
-        timeZone: timezone,
+        timeZone: timezone
       })
 
       const dayIndex = DAYS_OF_WEEK.findIndex((day) =>
-        day.toLowerCase().startsWith(eventDayOfWeek.toLowerCase().slice(0, 3)),
+        day.toLowerCase().startsWith(eventDayOfWeek.toLowerCase().slice(0, 3))
       )
 
       const key = `${dayIndex}-${eventHour}`
@@ -119,7 +119,7 @@ const WeeklyCalendarView = ({ now, events }) => {
         return isBeforeMidnight && isInWindow
       })
     },
-    [eventDayIndices, currentHourInfo],
+    [eventDayIndices, currentHourInfo]
   )
 
   // Memoize header date calculation
@@ -129,7 +129,7 @@ const WeeklyCalendarView = ({ now, events }) => {
       date.setDate(date.getDate() + dayIndex)
       return date.getDate()
     },
-    [weekStart],
+    [weekStart]
   )
 
   // Memoize today check
@@ -144,7 +144,7 @@ const WeeklyCalendarView = ({ now, events }) => {
         date.getFullYear() === today.getFullYear()
       )
     },
-    [weekStart, now],
+    [weekStart, now]
   )
 
   // Cache event style calculations
@@ -166,7 +166,7 @@ const WeeklyCalendarView = ({ now, events }) => {
 
       styles.set(event.startTime, {
         top: `${topOffset}%`,
-        height: `${height}%`,
+        height: `${height}%`
       })
     })
 
@@ -179,7 +179,7 @@ const WeeklyCalendarView = ({ now, events }) => {
     const date = new Date(now)
     const monthYear = date.toLocaleDateString(locale, {
       month: 'long',
-      year: 'numeric',
+      year: 'numeric'
     })
     const [month, year] = monthYear.split(' ')
     return `${month.toUpperCase()} ${year}`
@@ -240,13 +240,13 @@ const TimeDisplay = React.memo(({ startTime, endTime, locale, timezone }) => {
     const start = new Date(startTime).toLocaleTimeString(locale, {
       hour: 'numeric',
       minute: '2-digit',
-      timeZone: timezone,
+      timeZone: timezone
     })
 
     const end = new Date(endTime).toLocaleTimeString(locale, {
       hour: 'numeric',
       minute: '2-digit',
-      timeZone: timezone,
+      timeZone: timezone
     })
 
     return `${start} - ${end}`

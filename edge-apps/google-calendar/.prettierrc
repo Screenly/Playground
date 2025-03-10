@@ -6,7 +6,7 @@
         "singleQuote": true,
         "jsxSingleQuote": false,
         "semi": false,
-        "trailingComma": "all"
+        "trailingComma": "none"
       }
     },
     {

@@ -7,7 +7,7 @@ import {
   getFormattedMonthName,
   getYear,
   getMonth,
-  getDate,
+  getDate
 } from '@/utils'
 import MonthlyCalendarView from '@/components/monthly-calendar-view'
 import CalendarOverview from '@/components/calendar-overview'
@@ -23,12 +23,12 @@ import WeeklyCalendarView from '@/components/weekly-calendar-view'
 const App = () => {
   const [now, setNow] = useState(new Date())
   const [calendarDays] = useState(
-    generateCalendarDays(getYear(now), getMonth(now)),
+    generateCalendarDays(getYear(now), getMonth(now))
   )
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
   const [events, setEvents] = useState([])
   const [calendarMode] = useState(
-    window.screenly.settings.calendar_mode || 'monthly',
+    window.screenly.settings.calendar_mode || 'monthly'
   )
   const [currentTime, setCurrentTime] = useState('')
 

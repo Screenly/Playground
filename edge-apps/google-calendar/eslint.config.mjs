@@ -6,13 +6,14 @@ export default [
   {
     rules: {
       "no-unused-vars": "error",
-      "no-undef": "error"
+      "no-undef": "error",
+      "space-before-function-paren": "error"
     },
     languageOptions: {
       globals: {
         screenly: "readonly",
-        ...globals.browser,
-      },
-    },
+        ...globals.browser
+      }
+    }
   }
 ];

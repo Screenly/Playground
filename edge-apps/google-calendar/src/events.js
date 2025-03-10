@@ -65,7 +65,7 @@ export const fetchCalendarEvents = async () => {
           title: event.summary,
           startTime: eventStart.toISOString(),
           endTime: eventEnd.toISOString(),
-          isAllDay: event.startDate.isDate,
+          isAllDay: event.startDate.isDate
         })
       })
 

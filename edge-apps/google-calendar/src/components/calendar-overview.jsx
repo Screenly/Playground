@@ -5,7 +5,7 @@ const CalendarOverview = ({
   currentMonthName,
   currentYear,
   currentTime,
-  events,
+  events
 }) => {
   const [formattedTime, setFormattedTime] = useState('')
   const [filteredEvents, setFilteredEvents] = useState([])

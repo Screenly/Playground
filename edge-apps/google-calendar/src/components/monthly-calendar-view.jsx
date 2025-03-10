@@ -3,7 +3,7 @@ const MonthlyCalendarView = ({
   currentYear,
   weekDays,
   calendarDays,
-  currentDate,
+  currentDate
 }) => {
   return (
     <div className="primary-card">

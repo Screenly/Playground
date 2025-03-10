@@ -17,7 +17,7 @@ const AnalogClock = ({ now }) => {
       setHands({
         hours: hours * 30 + minutes / 2, // 30 degrees per hour + adjustment for minutes
         minutes: minutes * 6, // 6 degrees per minute
-        seconds: seconds * 6, // 6 degrees per second
+        seconds: seconds * 6 // 6 degrees per second
       })
     }
 
