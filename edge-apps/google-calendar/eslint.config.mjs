@@ -11,7 +11,6 @@ export default [
     },
     languageOptions: {
       globals: {
-        screenly: "readonly",
         ...globals.browser
       }
     }

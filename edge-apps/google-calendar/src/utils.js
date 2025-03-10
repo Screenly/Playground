@@ -7,7 +7,7 @@ export const getTimeZone = () => {
   return tzlookup(latitude, longitude)
 }
 
-export async function getLocale() {
+export async function getLocale () {
   const [lat, lng] = window.screenly.metadata.coordinates
 
   const defaultLocale = navigator?.languages?.length

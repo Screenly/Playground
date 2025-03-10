@@ -1,3 +1,5 @@
+/* global screenly */
+
 import ICAL from 'ical.js'
 
 export const fetchCalendarEvents = async () => {
