@@ -21,9 +21,9 @@ $ screenly edge-app instance create
 Run the following on a terminal to build the Edge App:
 
 ```bash
-$ npm install
-$ npm run build
-$ screenly edge-app deploy --path dist/
+npm install
+npm run build
+screenly edge-app deploy --path dist/
 ```
 
 ## Development
@@ -31,15 +31,15 @@ $ screenly edge-app deploy --path dist/
 Run the following on a terminal to start the development server:
 
 ```bash
-$ npm install
-$ npm run dev
+npm install
+npm run dev
 ```
 
 Run the following on a second terminal to start the Edge App server:
 
 ```bash
-$ screenly edge-app run --generate-mock-data --path dist/
-$ screenly edge-app run --path dist/
+screenly edge-app run --generate-mock-data --path dist/
+screenly edge-app run --path dist/
 ```
 
 ## Linting
