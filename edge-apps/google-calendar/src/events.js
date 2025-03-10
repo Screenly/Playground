@@ -19,53 +19,64 @@ export const fetchCalendarEvents = async () => {
     const vcalendar = new ICAL.Component(jcalData);
     const vevents = vcalendar.getAllSubcomponents('vevent');
 
+    // Create date objects once
     const today = new Date();
-    let startDate, endDate;
+    const startDate = new Date(today);
+    const endDate = new Date(today);
 
     if (viewMode === 'daily') {
       // For daily view, start from current hour today
-      startDate = new Date(today);
-      endDate = new Date(today);
       endDate.setDate(endDate.getDate() + 1);
       endDate.setHours(0, 0, 0, 0);
     } else {
       // For weekly view, show full week
-      startDate = new Date(today);
-      startDate.setDate(today.getDate() - today.getDay());
+      const currentDay = startDate.getDay();
+      startDate.setDate(startDate.getDate() - currentDay);
       startDate.setHours(0, 0, 0, 0);
 
-      endDate = new Date(startDate);
+      endDate.setTime(startDate.getTime());
       endDate.setDate(startDate.getDate() + 7);
     }
 
-    const events = vevents
-      .map(vevent => {
+    // Pre-calculate the timestamp for faster comparisons
+    const startTimestamp = startDate.getTime();
+    const endTimestamp = endDate.getTime();
+
+    // Process events in chunks to prevent blocking
+    const chunkSize = 50;
+    const events = [];
+
+    for (let i = 0; i < vevents.length; i += chunkSize) {
+      const chunk = vevents.slice(i, i + chunkSize);
+
+      chunk.forEach(vevent => {
         const event = new ICAL.Event(vevent);
-        const startDate = event.startDate.toJSDate();
-        const endDate = event.endDate.toJSDate();
+        const eventStart = event.startDate.toJSDate();
+        const eventTimestamp = eventStart.getTime();
 
-        return {
-          title: event.summary,
-          description: event.description,
-          startTime: startDate.toISOString(),
-          endTime: endDate.toISOString(),
-          location: event.location,
-          isAllDay: event.startDate.isDate
-        };
-      })
-      .filter(event => {
-        const eventStart = new Date(event.startTime);
-        if (viewMode === 'daily') {
-          // For daily view, only show events after current hour
-          return eventStart >= startDate && eventStart < endDate;
-        } else {
-          // For weekly view, show all events in the week
-          return eventStart >= startDate && eventStart < endDate;
+        // Quick timestamp comparison before proceeding
+        if (eventTimestamp >= endTimestamp || eventTimestamp < startTimestamp) {
+          return;
         }
-      })
-      .sort((a, b) => new Date(a.startTime) - new Date(b.startTime));
 
-    // Only limit number of events for daily view
+        const eventEnd = event.endDate.toJSDate();
+
+        events.push({
+          title: event.summary,
+          startTime: eventStart.toISOString(),
+          endTime: eventEnd.toISOString(),
+          isAllDay: event.startDate.isDate
+        });
+      });
+
+      // Allow other operations to process
+      await new Promise(resolve => setTimeout(resolve, 0));
+    }
+
+    // Sort events once
+    events.sort((a, b) => a.startTime.localeCompare(b.startTime));
+
+    // Only limit events for daily view
     return viewMode === 'daily' ? events.slice(0, 5) : events;
   } catch (error) {
     console.error('Error fetching calendar events:', error);
