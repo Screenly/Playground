@@ -3,7 +3,10 @@ import { getFormattedTime, getLocale, getTimeZone } from '../utils';
 import './weekly-calendar-view.css';
 
 const WeeklyCalendarView = ({ now, events }) => {
-  const DAYS_OF_WEEK = useMemo(() => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], []);
+  const DAYS_OF_WEEK = useMemo(
+    () => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    [],
+  );
   const [timeSlots, setTimeSlots] = useState([]);
   const [locale, setLocale] = useState(null);
   const WINDOW_HOURS = 12;
@@ -11,15 +14,17 @@ const WeeklyCalendarView = ({ now, events }) => {
 
   // Cache current hour calculation
   const currentHourInfo = useMemo(() => {
-    const hour = parseInt(new Date(now).toLocaleString('en-US', {
-      hour: 'numeric',
-      hour12: false,
-      timeZone: timezone
-    }));
+    const hour = parseInt(
+      new Date(now).toLocaleString('en-US', {
+        hour: 'numeric',
+        hour12: false,
+        timeZone: timezone,
+      }),
+    );
     return {
       current: hour,
       start: hour - 1,
-      windowStart: (hour - 2 + 24) % 24
+      windowStart: (hour - 2 + 24) % 24,
     };
   }, [now, timezone]);
 
@@ -45,7 +50,7 @@ const WeeklyCalendarView = ({ now, events }) => {
         const hour = (currentHourInfo.start + i) % 24;
 
         // Skip slots at or after midnight
-        if (hour === 0 || (currentHourInfo.start + i) >= 24) {
+        if (hour === 0 || currentHourInfo.start + i >= 24) {
           continue;
         }
 
@@ -53,9 +58,9 @@ const WeeklyCalendarView = ({ now, events }) => {
         slots.push({
           time: baseDate.toLocaleTimeString(userLocale, {
             hour: 'numeric',
-            minute: '2-digit'
+            minute: '2-digit',
           }),
-          hour: hour
+          hour: hour,
         });
       }
 
@@ -70,21 +75,23 @@ const WeeklyCalendarView = ({ now, events }) => {
     if (!events) return new Map();
 
     const indices = new Map();
-    events.forEach(event => {
+    events.forEach((event) => {
       const eventStart = new Date(event.startTime);
-      const eventHour = parseInt(eventStart.toLocaleString('en-US', {
-        hour: 'numeric',
-        hour12: false,
-        timeZone: timezone
-      }));
+      const eventHour = parseInt(
+        eventStart.toLocaleString('en-US', {
+          hour: 'numeric',
+          hour12: false,
+          timeZone: timezone,
+        }),
+      );
 
       const eventDayOfWeek = eventStart.toLocaleString('en-US', {
         weekday: 'long',
-        timeZone: timezone
+        timeZone: timezone,
       });
 
-      const dayIndex = DAYS_OF_WEEK.findIndex(day =>
-        day.toLowerCase().startsWith(eventDayOfWeek.toLowerCase().slice(0, 3))
+      const dayIndex = DAYS_OF_WEEK.findIndex((day) =>
+        day.toLowerCase().startsWith(eventDayOfWeek.toLowerCase().slice(0, 3)),
       );
 
       const key = `${dayIndex}-${eventHour}`;
@@ -98,35 +105,47 @@ const WeeklyCalendarView = ({ now, events }) => {
   }, [events, DAYS_OF_WEEK, timezone]);
 
   // Optimized event filtering using cached indices
-  const getEventsForTimeSlot = useCallback((hour, dayOffset) => {
-    const key = `${dayOffset}-${hour}`;
-    const slotEvents = eventDayIndices.get(key) || [];
+  const getEventsForTimeSlot = useCallback(
+    (hour, dayOffset) => {
+      const key = `${dayOffset}-${hour}`;
+      const slotEvents = eventDayIndices.get(key) || [];
 
-    return slotEvents.filter(event => {
-      const isBeforeMidnight = hour < 24;
-      const isInWindow = hour >= currentHourInfo.windowStart &&
-                        hour < (currentHourInfo.windowStart + WINDOW_HOURS);
+      return slotEvents.filter((event) => {
+        const isBeforeMidnight = hour < 24;
+        const isInWindow =
+          hour >= currentHourInfo.windowStart &&
+          hour < currentHourInfo.windowStart + WINDOW_HOURS;
 
-      return isBeforeMidnight && isInWindow;
-    });
-  }, [eventDayIndices, currentHourInfo]);
+        return isBeforeMidnight && isInWindow;
+      });
+    },
+    [eventDayIndices, currentHourInfo],
+  );
 
   // Memoize header date calculation
-  const getHeaderDate = useCallback((dayIndex) => {
-    const date = new Date(weekStart);
-    date.setDate(date.getDate() + dayIndex);
-    return date.getDate();
-  }, [weekStart]);
+  const getHeaderDate = useCallback(
+    (dayIndex) => {
+      const date = new Date(weekStart);
+      date.setDate(date.getDate() + dayIndex);
+      return date.getDate();
+    },
+    [weekStart],
+  );
 
   // Memoize today check
-  const isToday = useCallback((dayIndex) => {
-    const date = new Date(weekStart);
-    date.setDate(date.getDate() + dayIndex);
-    const today = new Date(now);
-    return date.getDate() === today.getDate() &&
-           date.getMonth() === today.getMonth() &&
-           date.getFullYear() === today.getFullYear();
-  }, [weekStart, now]);
+  const isToday = useCallback(
+    (dayIndex) => {
+      const date = new Date(weekStart);
+      date.setDate(date.getDate() + dayIndex);
+      const today = new Date(now);
+      return (
+        date.getDate() === today.getDate() &&
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear()
+      );
+    },
+    [weekStart, now],
+  );
 
   // Cache event style calculations
   const eventStyles = useMemo(() => {
@@ -134,20 +153,21 @@ const WeeklyCalendarView = ({ now, events }) => {
 
     if (!events) return styles;
 
-    events.forEach(event => {
+    events.forEach((event) => {
       const startTime = new Date(event.startTime);
       const endTime = new Date(event.endTime);
 
       const startMinutes = startTime.getMinutes();
-      const topOffset = startMinutes === 0 ? 50 : (startMinutes / 60) * 100 + 50;
+      const topOffset =
+        startMinutes === 0 ? 50 : (startMinutes / 60) * 100 + 50;
 
       const durationHours = endTime.getHours() - startTime.getHours();
       const durationMinutes = endTime.getMinutes() - startTime.getMinutes();
-      const height = (durationHours + (durationMinutes / 60)) * 100;
+      const height = (durationHours + durationMinutes / 60) * 100;
 
       styles.set(event.startTime, {
         top: `${topOffset}%`,
-        height: `${height}%`
+        height: `${height}%`,
       });
     });
 
@@ -158,7 +178,10 @@ const WeeklyCalendarView = ({ now, events }) => {
   const monthYearDisplay = useMemo(() => {
     if (!locale) return '';
     const date = new Date(now);
-    const monthYear = date.toLocaleDateString(locale, { month: 'long', year: 'numeric' });
+    const monthYear = date.toLocaleDateString(locale, {
+      month: 'long',
+      year: 'numeric',
+    });
     const [month, year] = monthYear.split(' ');
     return `${month.toUpperCase()} ${year}`;
   }, [now, locale]);
@@ -168,9 +191,7 @@ const WeeklyCalendarView = ({ now, events }) => {
   return (
     <div className="primary-card weekly-view">
       <div className="weekly-calendar">
-        <div className="month-year-header">
-          {monthYearDisplay}
-        </div>
+        <div className="month-year-header">{monthYearDisplay}</div>
         <div className="week-header">
           <div className="time-label-spacer"></div>
           {DAYS_OF_WEEK.map((day, index) => (
@@ -183,13 +204,13 @@ const WeeklyCalendarView = ({ now, events }) => {
           ))}
         </div>
         <div className="week-body">
-          {timeSlots.map(slot => (
+          {timeSlots.map((slot) => (
             <div key={slot.hour} className="week-row">
               <div className="time-label">{slot.time}</div>
               {DAYS_OF_WEEK.map((_, dayIndex) => (
                 <div key={`${dayIndex}-${slot.hour}`} className="day-column">
                   <div className="hour-line"></div>
-                  {getEventsForTimeSlot(slot.hour, dayIndex).map(event => (
+                  {getEventsForTimeSlot(slot.hour, dayIndex).map((event) => (
                     <div
                       key={event.startTime}
                       className="calendar-event-item"
@@ -220,13 +241,13 @@ const TimeDisplay = React.memo(({ startTime, endTime, locale, timezone }) => {
     const start = new Date(startTime).toLocaleTimeString(locale, {
       hour: 'numeric',
       minute: '2-digit',
-      timeZone: timezone
+      timeZone: timezone,
     });
 
     const end = new Date(endTime).toLocaleTimeString(locale, {
       hour: 'numeric',
       minute: '2-digit',
-      timeZone: timezone
+      timeZone: timezone,
     });
 
     return `${start} - ${end}`;

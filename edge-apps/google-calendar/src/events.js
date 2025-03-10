@@ -49,7 +49,7 @@ export const fetchCalendarEvents = async () => {
     for (let i = 0; i < vevents.length; i += chunkSize) {
       const chunk = vevents.slice(i, i + chunkSize);
 
-      chunk.forEach(vevent => {
+      chunk.forEach((vevent) => {
         const event = new ICAL.Event(vevent);
         const eventStart = event.startDate.toJSDate();
         const eventTimestamp = eventStart.getTime();
@@ -65,12 +65,12 @@ export const fetchCalendarEvents = async () => {
           title: event.summary,
           startTime: eventStart.toISOString(),
           endTime: eventEnd.toISOString(),
-          isAllDay: event.startDate.isDate
+          isAllDay: event.startDate.isDate,
         });
       });
 
       // Allow other operations to process
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise((resolve) => setTimeout(resolve, 0));
     }
 
     // Sort events once

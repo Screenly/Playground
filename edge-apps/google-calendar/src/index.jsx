@@ -7,7 +7,7 @@ import {
   getFormattedMonthName,
   getYear,
   getMonth,
-  getDate
+  getDate,
 } from '@/utils';
 import MonthlyCalendarView from '@/components/monthly-calendar-view';
 import CalendarOverview from '@/components/calendar-overview';
@@ -22,10 +22,14 @@ import WeeklyCalendarView from '@/components/weekly-calendar-view';
 // Main App Component
 const App = () => {
   const [now, setNow] = useState(new Date());
-  const [calendarDays] = useState(generateCalendarDays(getYear(now), getMonth(now)));
+  const [calendarDays] = useState(
+    generateCalendarDays(getYear(now), getMonth(now)),
+  );
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const [events, setEvents] = useState([]);
-  const [calendarMode] = useState(window.screenly.settings.calendar_mode || 'monthly');
+  const [calendarMode] = useState(
+    window.screenly.settings.calendar_mode || 'monthly',
+  );
   const [currentTime, setCurrentTime] = useState('');
 
   const updateDateTime = async () => {
@@ -93,16 +97,10 @@ const App = () => {
         />
       )}
       {calendarMode === 'daily' && (
-        <DailyCalendarView
-          now={now}
-          events={events}
-        />
+        <DailyCalendarView now={now} events={events} />
       )}
       {calendarMode === 'weekly' && (
-        <WeeklyCalendarView
-          now={now}
-          events={events}
-        />
+        <WeeklyCalendarView now={now} events={events} />
       )}
     </div>
   );

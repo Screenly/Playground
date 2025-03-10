@@ -33,14 +33,11 @@ export const getFormattedTime = async (date = new Date()) => {
     }
   }
 
-  return date.toLocaleTimeString(
-    await getLocale(),
-    {
-      hour: hourFormat,
-      minute: '2-digit',
-      timeZone: getTimeZone()
-    }
-  );
+  return date.toLocaleTimeString(await getLocale(), {
+    hour: hourFormat,
+    minute: '2-digit',
+    timeZone: getTimeZone(),
+  });
 };
 
 export const getDaysInMonth = (year, month) => {
@@ -61,7 +58,7 @@ export const generateCalendarDays = (year, month) => {
   for (let i = firstDay - 1; i >= 0; i--) {
     days.push({
       day: daysInPrevMonth - i,
-      isCurrentMonth: false
+      isCurrentMonth: false,
     });
   }
 
@@ -69,7 +66,7 @@ export const generateCalendarDays = (year, month) => {
   for (let i = 1; i <= daysInMonth; i++) {
     days.push({
       day: i,
-      isCurrentMonth: true
+      isCurrentMonth: true,
     });
   }
 
@@ -82,7 +79,7 @@ export const generateCalendarDays = (year, month) => {
   for (let i = 1; i <= (needsExtraRow ? remainingDaysInLastRow : 0); i++) {
     days.push({
       day: i,
-      isCurrentMonth: false
+      isCurrentMonth: false,
     });
   }
 
@@ -96,27 +93,45 @@ export const initializeThemeColors = () => {
     theme_tertiary_color: themeTertiaryColor,
     theme_background_color: themeBackgroundColor,
     theme_accent_color: themeAccentColor,
-    theme_text_color: themeTextColor
+    theme_text_color: themeTextColor,
   } = window.screenly.settings;
 
   // Only override CSS variables if theme colors are provided in settings
   if (themePrimaryColor) {
-    document.documentElement.style.setProperty('--theme-color-primary', themePrimaryColor);
+    document.documentElement.style.setProperty(
+      '--theme-color-primary',
+      themePrimaryColor,
+    );
   }
   if (themeSecondaryColor) {
-    document.documentElement.style.setProperty('--theme-color-secondary', themeSecondaryColor);
+    document.documentElement.style.setProperty(
+      '--theme-color-secondary',
+      themeSecondaryColor,
+    );
   }
   if (themeTertiaryColor) {
-    document.documentElement.style.setProperty('--theme-color-tertiary', themeTertiaryColor);
+    document.documentElement.style.setProperty(
+      '--theme-color-tertiary',
+      themeTertiaryColor,
+    );
   }
   if (themeBackgroundColor) {
-    document.documentElement.style.setProperty('--theme-color-background', themeBackgroundColor);
+    document.documentElement.style.setProperty(
+      '--theme-color-background',
+      themeBackgroundColor,
+    );
   }
   if (themeAccentColor) {
-    document.documentElement.style.setProperty('--theme-color-accent', themeAccentColor);
+    document.documentElement.style.setProperty(
+      '--theme-color-accent',
+      themeAccentColor,
+    );
   }
   if (themeTextColor) {
-    document.documentElement.style.setProperty('--theme-color-text', themeTextColor);
+    document.documentElement.style.setProperty(
+      '--theme-color-text',
+      themeTextColor,
+    );
   }
 };
 

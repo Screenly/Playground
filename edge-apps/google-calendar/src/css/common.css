@@ -5,7 +5,8 @@
 /* Global Fonts */
 @font-face {
   font-family: Aeonik;
-  src: url('../fonts/Aeonik-Regular.woff2') format('woff2'),
+  src:
+    url('../fonts/Aeonik-Regular.woff2') format('woff2'),
     url('../fonts/Aeonik-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
@@ -31,10 +32,10 @@ body {
 
 /* Colors (Theme) */
 :root {
-  --theme-color-primary: #7E2CD2;
-  --theme-color-secondary: #454BD2;
-  --theme-color-tertiary: #FFF;
-  --theme-color-background: #C9CDD0;
+  --theme-color-primary: #7e2cd2;
+  --theme-color-secondary: #454bd2;
+  --theme-color-tertiary: #fff;
+  --theme-color-background: #c9cdd0;
 
   /* Padding, Gap, Border-Radius */
 
@@ -53,7 +54,7 @@ body {
   --pi-padding: 1rem;
   --pi-gap: 1rem;
   --pi-border-radius-big: 1.571rem;
-  --pi-border-radius-medium: 1.143rem
+  --pi-border-radius-medium: 1.143rem;
 }
 
 /* Components */
@@ -103,7 +104,6 @@ body {
   gap: 2rem;
   height: 50%;
 }
-
 
 .secondary-card {
   display: flex;
@@ -233,7 +233,6 @@ body {
   }
 }
 
-
 /* HD Landscape - 1280 × 720 */
 @media screen and (max-width: 1280px) and (orientation: landscape) {
   .main-container {
@@ -280,7 +279,6 @@ body {
   .secondary-card {
     border-radius: var(--pi-border-radius-medium);
   }
-
 }
 
 /* Raspberry Pi Touch Display - Portrait 480 × 800 */

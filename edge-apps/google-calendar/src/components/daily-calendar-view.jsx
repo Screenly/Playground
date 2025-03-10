@@ -15,18 +15,20 @@ const DailyCalendarView = ({ now, events }) => {
       const startHour = currentHour - HOURS_BEFORE;
       const locale = await getLocale();
 
-      return Promise.all(Array.from({ length: TOTAL_HOURS }, async (_, index) => {
-        const hour = (startHour + index + 24) % 24; // Ensure hour is between 0-23
-        const slotTime = new Date(currentDate);
-        slotTime.setHours(hour, 0, 0, 0);
+      return Promise.all(
+        Array.from({ length: TOTAL_HOURS }, async (_, index) => {
+          const hour = (startHour + index + 24) % 24; // Ensure hour is between 0-23
+          const slotTime = new Date(currentDate);
+          slotTime.setHours(hour, 0, 0, 0);
 
-        const formattedTime = await getFormattedTime(slotTime);
+          const formattedTime = await getFormattedTime(slotTime);
 
-        return {
-          time: formattedTime,
-          hour: hour
-        };
-      }));
+          return {
+            time: formattedTime,
+            hour: hour,
+          };
+        }),
+      );
     };
 
     generateTimeSlots(now).then(setTimeSlots);
@@ -34,7 +36,7 @@ const DailyCalendarView = ({ now, events }) => {
 
   // Helper function to check if an event belongs in a time slot
   const getEventsForTimeSlot = (hour) => {
-    return events.filter(event => {
+    return events.filter((event) => {
       const startHour = new Date(event.startTime).getHours();
       return startHour === hour;
     });
@@ -57,14 +59,14 @@ const DailyCalendarView = ({ now, events }) => {
     // Calculate duration in hours and minutes
     const durationHours = endHour - startHour;
     const durationMinutes = endMinutes - startMinutes;
-    const totalDuration = durationHours + (durationMinutes / 60);
+    const totalDuration = durationHours + durationMinutes / 60;
 
     // Calculate height based on duration
     const height = totalDuration * 100;
 
     return {
       top: `${topOffset}%`,
-      height: `${height}%`
+      height: `${height}%`,
     };
   };
 
@@ -88,9 +90,11 @@ const DailyCalendarView = ({ now, events }) => {
                   className="calendar-event-item"
                   style={getEventStyle(event)}
                 >
-                  <div style={{
-                    marginBottom: '0.5rem'
-                  }}>
+                  <div
+                    style={{
+                      marginBottom: '0.5rem',
+                    }}
+                  >
                     {event.title}
                   </div>
 

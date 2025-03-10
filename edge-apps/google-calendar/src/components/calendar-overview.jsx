@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-const CalendarOverview = ({ currentDate, currentMonthName, currentYear, currentTime, events }) => {
+const CalendarOverview = ({
+  currentDate,
+  currentMonthName,
+  currentYear,
+  currentTime,
+  events,
+}) => {
   const [formattedTime, setFormattedTime] = useState('');
   const [filteredEvents, setFilteredEvents] = useState([]);
 
@@ -18,7 +24,7 @@ const CalendarOverview = ({ currentDate, currentMonthName, currentYear, currentT
     const tomorrow = new Date(now);
     tomorrow.setHours(now.getHours() + 24);
 
-    const upcomingEvents = events.filter(event => {
+    const upcomingEvents = events.filter((event) => {
       const eventStart = new Date(event.startTime);
       return eventStart >= now && eventStart < tomorrow;
     });
@@ -31,11 +37,15 @@ const CalendarOverview = ({ currentDate, currentMonthName, currentYear, currentT
       <div className="calendar-top">
         <div className="calendar-date">
           <span className="date-number-circle">{currentDate}</span>
-          <span className="month-name">{currentMonthName} {currentYear}</span>
+          <span className="month-name">
+            {currentMonthName} {currentYear}
+          </span>
         </div>
         <div className="calendar-event">
           {filteredEvents.length > 0 ? (
-            filteredEvents.map((event, index) => <p key={index}>{event.title}</p>)
+            filteredEvents.map((event, index) => (
+              <p key={index}>{event.title}</p>
+            ))
           ) : (
             <p>Nothing scheduled in next 24 hours</p>
           )}

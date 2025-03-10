@@ -17,7 +17,7 @@ const AnalogClock = ({ now }) => {
       setHands({
         hours: hours * 30 + minutes / 2, // 30 degrees per hour + adjustment for minutes
         minutes: minutes * 6, // 6 degrees per minute
-        seconds: seconds * 6 // 6 degrees per second
+        seconds: seconds * 6, // 6 degrees per second
       });
     };
 
@@ -34,17 +34,24 @@ const AnalogClock = ({ now }) => {
   return (
     <div className="secondary-card calendar-overview-card">
       <div className="clock">
-        <div className="seconds-bar">
-          {timeMarkers}
-        </div>
+        <div className="seconds-bar">{timeMarkers}</div>
         <div className="hands-box">
-          <div className="hand hour" style={{ transform: `rotate(${hands.hours}deg)` }}>
+          <div
+            className="hand hour"
+            style={{ transform: `rotate(${hands.hours}deg)` }}
+          >
             <i></i>
           </div>
-          <div className="hand minute" style={{ transform: `rotate(${hands.minutes}deg)` }}>
+          <div
+            className="hand minute"
+            style={{ transform: `rotate(${hands.minutes}deg)` }}
+          >
             <i></i>
           </div>
-          <div className="hand second" style={{ transform: `rotate(${hands.seconds}deg)` }}>
+          <div
+            className="hand second"
+            style={{ transform: `rotate(${hands.seconds}deg)` }}
+          >
             <i></i>
           </div>
         </div>

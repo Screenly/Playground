@@ -41,3 +41,9 @@ Run the following on a second terminal to start the Edge App server:
 $ screenly edge-app run --generate-mock-data --path dist/
 $ screenly edge-app run --path dist/
 ```
+
+## Formatting Code
+
+```bash
+$ npx prettier src/ --write
+```
