@@ -1,0 +1,75 @@
+---
+syntax: manifest_v1
+id: 01JN23EC946NKCSYF5D64V4D53
+description: Screenly Google Calendar Edge App
+icon: https://playground.srly.io/edge-apps/google-calendar/static/img/icon.svg
+author: Screenly, Inc.
+ready_signal: true
+settings:
+  bypass_cors:
+    type: string
+    title: Bypass CORS
+    optional: true
+    help_text: Bypass CORS for the iCal URL
+    default_value: 'false'
+  calendar_mode:
+    type: string
+    title: Calendar Mode
+    optional: true
+    help_text: Choose between monthly, weekly, or daily calendar view
+    default_value: 'monthly'
+  enable_analytics:
+    type: string
+    default_value: 'true'
+    title: Enable Analytics
+    optional: true
+    help_text: Whether to disable Sentry and Google Analytics integrations
+    is_global: true
+  ical_url:
+    type: secret
+    title: iCal URL
+    optional: false
+    help_text: Specify the URL to the iCal feed
+  tag_manager_id:
+    type: string
+    default_value: GTM-P98SPZ9Z
+    title: Google Tag Manager ID
+    optional: true
+    help_text: Specify a Google Tag Manager ID
+    is_global: true
+  theme_primary_color:
+    type: string
+    title: Theme Primary Color
+    optional: true
+    help_text: Override the primary theme color (in hex format, e.g. #7E2CD2)
+    default_value: '#7E2CD2'
+  theme_secondary_color:
+    type: string
+    title: Theme Secondary Color
+    optional: true
+    help_text: Override the secondary theme color (in hex format, e.g. #C9CDD0)
+    default_value: '#C9CDD0'
+  theme_tertiary_color:
+    type: string
+    title: Theme Tertiary Color
+    optional: true
+    help_text: Override the tertiary theme color (in hex format, e.g. #FFFFFF)
+    default_value: '#FFFFFF'
+  theme_background_color:
+    type: string
+    title: Theme Background Color
+    optional: true
+    help_text: Override the background theme color (in hex format, e.g. #C9CDD0)
+    default_value: '#C9CDD0'
+  theme_accent_color:
+    type: string
+    title: Theme Accent Color
+    optional: true
+    help_text: Override the accent theme color (in hex format, e.g. #F7410A)
+    default_value: '#F7410A'
+  theme_text_color:
+    type: string
+    title: Theme Text Color
+    optional: true
+    help_text: Override the text theme color (in hex format, e.g. #000000)
+    default_value: '#000000'
