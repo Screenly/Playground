@@ -6,17 +6,17 @@ const MonthlyCalendarView = ({
   currentDate
 }) => {
   return (
-    <div className="primary-card">
-      <div className="calendar">
-        <div className="calendar-header">
+    <div className='primary-card'>
+      <div className='calendar'>
+        <div className='calendar-header'>
           {currentMonthName} {currentYear}
         </div>
-        <div className="calendar-weekdays">
+        <div className='calendar-weekdays'>
           {weekDays.map((day, index) => (
             <div key={index}>{day}</div>
           ))}
         </div>
-        <div className="calendar-grid">
+        <div className='calendar-grid'>
           {calendarDays.map((day, index) => (
             <div
               key={index}

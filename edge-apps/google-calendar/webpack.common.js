@@ -1,13 +1,13 @@
-const path = require('path');
-const CopyWebpackPlugin = require("copy-webpack-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const RemovePlugin = require('remove-files-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const webpack = require('webpack');
+const path = require('path')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const RemovePlugin = require('remove-files-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const webpack = require('webpack')
 
 module.exports = {
   entry: {
-    'index': './src/index.jsx',
+    index: './src/index.jsx'
   },
 
   module: {
@@ -15,7 +15,7 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/,
+        exclude: /node_modules/
       },
       {
         test: /\.(js|jsx|mjs)$/,
@@ -35,7 +35,7 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
-          'sass-loader',
+          'sass-loader'
         ]
       }
     ]
@@ -43,23 +43,23 @@ module.exports = {
 
   plugins: [
     new webpack.ProvidePlugin({
-      React: 'react',
+      React: 'react'
     }),
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: "screenly.yml",
-          to: "screenly.yml",
+          from: 'screenly.yml',
+          to: 'screenly.yml'
         },
         {
-          from: "instance.yml",
-          to: "instance.yml",
+          from: 'instance.yml',
+          to: 'instance.yml'
         },
         {
-          from: "src/img",
-          to: "img",
+          from: 'src/img',
+          to: 'img'
         }
-      ],
+      ]
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
@@ -80,17 +80,17 @@ module.exports = {
 
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
+      '@': path.resolve(__dirname, 'src')
     },
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx']
   },
 
   watchOptions: {
-    ignored: /node_modules/,
+    ignored: /node_modules/
   },
 
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
   }
-};
+}

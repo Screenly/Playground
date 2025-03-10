@@ -27,32 +27,32 @@ const AnalogClock = ({ now }) => {
   // Generate time markers
   const timeMarkers = Array.from({ length: 60 }, (_, i) => (
     <span key={i} style={{ '--index': i + 1 }}>
-      <p className={i % 5 === 4 ? 'major-mark' : ''}></p>
+      <p className={i % 5 === 4 ? 'major-mark' : ''} />
     </span>
   ))
 
   return (
-    <div className="secondary-card calendar-overview-card">
-      <div className="clock">
-        <div className="seconds-bar">{timeMarkers}</div>
-        <div className="hands-box">
+    <div className='secondary-card calendar-overview-card'>
+      <div className='clock'>
+        <div className='seconds-bar'>{timeMarkers}</div>
+        <div className='hands-box'>
           <div
-            className="hand hour"
+            className='hand hour'
             style={{ transform: `rotate(${hands.hours}deg)` }}
           >
-            <i></i>
+            <i />
           </div>
           <div
-            className="hand minute"
+            className='hand minute'
             style={{ transform: `rotate(${hands.minutes}deg)` }}
           >
-            <i></i>
+            <i />
           </div>
           <div
-            className="hand second"
+            className='hand second'
             style={{ transform: `rotate(${hands.seconds}deg)` }}
           >
-            <i></i>
+            <i />
           </div>
         </div>
       </div>

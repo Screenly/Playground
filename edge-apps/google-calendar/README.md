@@ -41,3 +41,13 @@ Run the following on a second terminal to start the Edge App server:
 $ screenly edge-app run --generate-mock-data --path dist/
 $ screenly edge-app run --path dist/
 ```
+
+## Linting
+
+We use [standard](https://standardjs.com/) to lint the codebase.
+
+```bash
+$ npx standard --fix # Automatically fixes linting errors.
+```
+
+Some rules are not automatically fixable, so you will need to fix them manually.

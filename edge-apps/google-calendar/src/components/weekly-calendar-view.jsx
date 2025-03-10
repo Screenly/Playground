@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react'
-import { getFormattedTime, getLocale, getTimeZone } from '../utils'
+import { getLocale, getTimeZone } from '../utils'
 import './weekly-calendar-view.css'
 
 const WeeklyCalendarView = ({ now, events }) => {
@@ -60,7 +60,7 @@ const WeeklyCalendarView = ({ now, events }) => {
             hour: 'numeric',
             minute: '2-digit'
           }),
-          hour: hour
+          hour
         })
       }
 
@@ -188,13 +188,13 @@ const WeeklyCalendarView = ({ now, events }) => {
   if (!locale) return null
 
   return (
-    <div className="primary-card weekly-view">
-      <div className="weekly-calendar">
-        <div className="month-year-header">{monthYearDisplay}</div>
-        <div className="week-header">
-          <div className="time-label-spacer"></div>
+    <div className='primary-card weekly-view'>
+      <div className='weekly-calendar'>
+        <div className='month-year-header'>{monthYearDisplay}</div>
+        <div className='week-header'>
+          <div className='time-label-spacer' />
           {DAYS_OF_WEEK.map((day, index) => (
-            <div key={day} className="day-header">
+            <div key={day} className='day-header'>
               <span>{day} </span>
               <span className={isToday(index) ? 'current-date' : ''}>
                 {getHeaderDate(index)}
@@ -202,20 +202,20 @@ const WeeklyCalendarView = ({ now, events }) => {
             </div>
           ))}
         </div>
-        <div className="week-body">
+        <div className='week-body'>
           {timeSlots.map((slot) => (
-            <div key={slot.hour} className="week-row">
-              <div className="time-label">{slot.time}</div>
+            <div key={slot.hour} className='week-row'>
+              <div className='time-label'>{slot.time}</div>
               {DAYS_OF_WEEK.map((_, dayIndex) => (
-                <div key={`${dayIndex}-${slot.hour}`} className="day-column">
-                  <div className="hour-line"></div>
+                <div key={`${dayIndex}-${slot.hour}`} className='day-column'>
+                  <div className='hour-line' />
                   {getEventsForTimeSlot(slot.hour, dayIndex).map((event) => (
                     <div
                       key={event.startTime}
-                      className="calendar-event-item"
+                      className='calendar-event-item'
                       style={eventStyles.get(event.startTime)}
                     >
-                      <div className="event-title">{event.title}</div>
+                      <div className='event-title'>{event.title}</div>
                       <TimeDisplay
                         startTime={event.startTime}
                         endTime={event.endTime}
@@ -252,7 +252,7 @@ const TimeDisplay = React.memo(({ startTime, endTime, locale, timezone }) => {
     return `${start} - ${end}`
   }, [startTime, endTime, locale, timezone])
 
-  return <span className="event-time">{timeString}</span>
+  return <span className='event-time'>{timeString}</span>
 })
 
 export default React.memo(WeeklyCalendarView)

@@ -1,34 +1,28 @@
 import React, { useEffect, useState } from 'react'
-import { getFormattedTime, getLocale } from '../utils'
-import { fetchCalendarEvents } from '../events'
+import { getFormattedTime } from '../utils'
 
 const DailyCalendarView = ({ now, events }) => {
   const TOTAL_HOURS = 12 // Total number of time slots to display
   const HOURS_BEFORE = 1 // Hours to show before current time
-  const [formattedStartTime, setFormattedStartTime] = useState('')
-  const [formattedEndTime, setFormattedEndTime] = useState('')
   const [timeSlots, setTimeSlots] = useState([])
 
   useEffect(() => {
     const generateTimeSlots = async (currentDate) => {
       const currentHour = currentDate.getHours()
       const startHour = currentHour - HOURS_BEFORE
-      const locale = await getLocale()
 
-      return Promise.all(
-        Array.from({ length: TOTAL_HOURS }, async (_, index) => {
-          const hour = (startHour + index + 24) % 24 // Ensure hour is between 0-23
-          const slotTime = new Date(currentDate)
-          slotTime.setHours(hour, 0, 0, 0)
+      return Promise.all(Array.from({ length: TOTAL_HOURS }, async (_, index) => {
+        const hour = (startHour + index + 24) % 24 // Ensure hour is between 0-23
+        const slotTime = new Date(currentDate)
+        slotTime.setHours(hour, 0, 0, 0)
 
-          const formattedTime = await getFormattedTime(slotTime)
+        const formattedTime = await getFormattedTime(slotTime)
 
-          return {
-            time: formattedTime,
-            hour: hour
-          }
-        })
-      )
+        return {
+          time: formattedTime,
+          hour
+        }
+      }))
     }
 
     generateTimeSlots(now).then(setTimeSlots)
@@ -36,7 +30,7 @@ const DailyCalendarView = ({ now, events }) => {
 
   // Helper function to check if an event belongs in a time slot
   const getEventsForTimeSlot = (hour) => {
-    return events.filter((event) => {
+    return events.filter(event => {
       const startHour = new Date(event.startTime).getHours()
       return startHour === hour
     })
@@ -59,7 +53,7 @@ const DailyCalendarView = ({ now, events }) => {
     // Calculate duration in hours and minutes
     const durationHours = endHour - startHour
     const durationMinutes = endMinutes - startMinutes
-    const totalDuration = durationHours + durationMinutes / 60
+    const totalDuration = durationHours + (durationMinutes / 60)
 
     // Calculate height based on duration
     const height = totalDuration * 100
@@ -70,30 +64,23 @@ const DailyCalendarView = ({ now, events }) => {
     }
   }
 
-  const formatEventTimes = async (event) => {
-    const start = await getFormattedTime(new Date(event.startTime))
-    const end = await getFormattedTime(new Date(event.endTime))
-    return `${start} - ${end}`
-  }
-
   return (
-    <div className="primary-card">
-      <div className="daily-calendar">
+    <div className='primary-card'>
+      <div className='daily-calendar'>
         {timeSlots.map((slot, index) => (
-          <div key={index} className="time-slot">
-            <div className="time-label">{slot.time}</div>
-            <div className="time-content">
-              <div className="hour-line"></div>
+          <div key={index} className='time-slot'>
+            <div className='time-label'>{slot.time}</div>
+            <div className='time-content'>
+              <div className='hour-line' />
               {getEventsForTimeSlot(slot.hour).map((event, eventIndex) => (
                 <div
                   key={eventIndex}
-                  className="calendar-event-item"
+                  className='calendar-event-item'
                   style={getEventStyle(event)}
                 >
-                  <div
-                    style={{
-                      marginBottom: '0.5rem'
-                    }}
+                  <div style={{
+                    marginBottom: '0.5rem'
+                  }}
                   >
                     {event.title}
                   </div>

@@ -68,22 +68,24 @@ const App = () => {
   }, [])
 
   return (
-    <div className="main-container">
-      <div className="secondary-container">
-        <div className="row-container">
-          {calendarMode === 'monthly' ? (
-            <CalendarOverview
-              currentDate={getDate(now)}
-              currentMonthName={getFormattedMonthName(now)}
-              currentYear={getYear(now)}
-              currentTime={currentTime}
-              events={events}
-            />
-          ) : (
-            <AnalogClock now={now} />
-          )}
+    <div className='main-container'>
+      <div className='secondary-container'>
+        <div className='row-container'>
+          {calendarMode === 'monthly'
+            ? (
+              <CalendarOverview
+                currentDate={getDate(now)}
+                currentMonthName={getFormattedMonthName(now)}
+                currentYear={getYear(now)}
+                currentTime={currentTime}
+                events={events}
+              />
+              )
+            : (
+              <AnalogClock now={now} />
+              )}
         </div>
-        <div className="row-container">
+        <div className='row-container'>
           <InfoCard />
         </div>
       </div>
