@@ -6,7 +6,7 @@
 :root {
   --theme-color-secondary: #c9cdd0;
   --theme-color-accent: #f7410a;
-  --theme-color-text: #000000;
+  --theme-color-text: #000;
 }
 
 .primary-card {
@@ -162,12 +162,12 @@
   border-bottom: none;
 }
 
-.calendar-cell.other-month:nth-child(7n + 1) {
-  /* Sundays from other months */
+.calendar-cell.other-month {
   color: var(--theme-color-secondary);
 }
 
-.calendar-cell.other-month {
+.calendar-cell.other-month:nth-child(7n + 1) {
+  /* Sundays from other months */
   color: var(--theme-color-secondary);
 }
 
@@ -247,6 +247,7 @@
   .calendar-date {
     font-size: 1.675rem;
   }
+
   .month-name {
     height: 2.345rem;
   }
@@ -334,6 +335,7 @@
   .calendar-date {
     font-size: 5rem;
   }
+
   .month-name {
     height: 7rem;
   }
@@ -723,10 +725,6 @@
 
   .brand-logo {
     width: 30rem;
-  }
-
-  .info-text {
-    font-size: 3.75rem;
   }
 
   .info-card {
