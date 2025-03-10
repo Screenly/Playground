@@ -47,7 +47,7 @@ screenly edge-app run --path dist/
 We use [standard](https://standardjs.com/) to lint the codebase.
 
 ```bash
-$ npx standard --fix # Automatically fixes linting errors.
+npx standard --fix # Automatically fixes linting errors.
 ```
 
 Some rules are not automatically fixable, so you will need to fix them manually.
