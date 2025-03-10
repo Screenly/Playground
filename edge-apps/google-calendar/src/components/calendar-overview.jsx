@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 
 const CalendarOverview = ({
   currentDate,
@@ -7,30 +7,30 @@ const CalendarOverview = ({
   currentTime,
   events,
 }) => {
-  const [formattedTime, setFormattedTime] = useState('');
-  const [filteredEvents, setFilteredEvents] = useState([]);
+  const [formattedTime, setFormattedTime] = useState('')
+  const [filteredEvents, setFilteredEvents] = useState([])
 
   useEffect(() => {
     const updateTime = async () => {
-      const time = await currentTime;
-      setFormattedTime(time);
-    };
-    updateTime();
-  }, [currentTime]);
+      const time = await currentTime
+      setFormattedTime(time)
+    }
+    updateTime()
+  }, [currentTime])
 
   useEffect(() => {
     // Filter events for next 24 hours
-    const now = new Date();
-    const tomorrow = new Date(now);
-    tomorrow.setHours(now.getHours() + 24);
+    const now = new Date()
+    const tomorrow = new Date(now)
+    tomorrow.setHours(now.getHours() + 24)
 
     const upcomingEvents = events.filter((event) => {
-      const eventStart = new Date(event.startTime);
-      return eventStart >= now && eventStart < tomorrow;
-    });
+      const eventStart = new Date(event.startTime)
+      return eventStart >= now && eventStart < tomorrow
+    })
 
-    setFilteredEvents(upcomingEvents);
-  }, [events]);
+    setFilteredEvents(upcomingEvents)
+  }, [events])
 
   return (
     <div className="secondary-card calendar-overview-card">
@@ -55,7 +55,7 @@ const CalendarOverview = ({
         <h1 className="calendar-time">{formattedTime}</h1>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CalendarOverview;
+export default CalendarOverview

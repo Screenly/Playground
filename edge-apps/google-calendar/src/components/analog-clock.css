@@ -122,7 +122,7 @@
 }
 
 /* 1280x720 (scale factor ≈ 0.67) */
-@media screen and (max-width: 1280px) {
+@media screen and (width <= 1280px) {
   .clock {
     width: min(100%, 16rem); /* 24rem * 0.67 */
   }
@@ -161,7 +161,7 @@
 }
 
 /* 800x480 (scale factor ≈ 0.42) */
-@media screen and (max-width: 800px) {
+@media screen and (width <= 800px) {
   .clock {
     width: min(
       100%,
@@ -203,7 +203,7 @@
 }
 
 /* 3840x2160 (4K - scale factor ≈ 2) */
-@media screen and (min-width: 3840px) {
+@media screen and (width >= 3840px) {
   .clock {
     width: min(100%, 48rem); /* 24rem * 2 */
   }

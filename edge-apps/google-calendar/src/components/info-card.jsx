@@ -9,7 +9,7 @@ const InfoCard = () => {
       />
       <span className="info-text">Powered by Screenly</span>
     </div>
-  );
-};
+  )
+}
 
-export default InfoCard;
+export default InfoCard

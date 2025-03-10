@@ -121,7 +121,7 @@
 }
 
 /* 1280x720 (Scale factor ≈ 0.67x) */
-@media screen and (max-width: 1280px) {
+@media screen and (width <= 1280px) {
   .weekly-view .weekly-calendar {
     padding: 1rem;
   }
@@ -171,7 +171,7 @@
 }
 
 /* 800x480 (Scale factor ≈ 0.42x) */
-@media screen and (max-width: 800px) {
+@media screen and (width <= 800px) {
   .weekly-view .weekly-calendar {
     padding: 0.63rem;
   }
@@ -221,7 +221,7 @@
 }
 
 /* 3840x2160 (4K - Scale factor ≈ 2x) */
-@media screen and (min-width: 3840px) {
+@media screen and (width >= 3840px) {
   .weekly-view .weekly-calendar {
     padding: 3rem;
   }

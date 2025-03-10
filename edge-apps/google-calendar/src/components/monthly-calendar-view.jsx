@@ -32,7 +32,7 @@ const MonthlyCalendarView = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MonthlyCalendarView;
+export default MonthlyCalendarView
