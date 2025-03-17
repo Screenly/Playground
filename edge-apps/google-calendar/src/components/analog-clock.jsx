@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { getTimeZone } from '../utils'
-import './analog-clock.css'
+import { getTimeZone } from '@/utils'
+import '@/components/analog-clock.css'
 
 const AnalogClock = ({ now }) => {
   const [hands, setHands] = useState({ hours: 0, minutes: 0, seconds: 0 })

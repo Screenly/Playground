@@ -25,11 +25,11 @@ settings:
     optional: true
     help_text: Whether to disable Sentry and Google Analytics integrations
     is_global: true
-  ical_url:
+  api_key:
     type: secret
-    title: iCal URL
+    title: Screenly API Key
     optional: false
-    help_text: Specify the URL to the iCal feed
+    help_text: Specify the Screenly API Key
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react'
-import { getLocale, getTimeZone } from '../utils'
-import './weekly-calendar-view.css'
+import { getLocale, getTimeZone } from '@/utils'
+import '@/components/weekly-calendar-view.css'
 
 const WeeklyCalendarView = ({ now, events }) => {
   const DAYS_OF_WEEK = useMemo(

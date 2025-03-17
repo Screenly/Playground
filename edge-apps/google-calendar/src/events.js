@@ -1,32 +1,24 @@
-/* global screenly */
-
-import ICAL from 'ical.js'
+import {
+  GOOGLE_ACCESS_TOKEN_URL,
+  GOOGLE_CALENDAR_API_BASE_URL,
+  CONTENT_TYPE_JSON,
+  VIEW_MODE,
+  DAILY_VIEW_EVENT_LIMIT
+} from '@/constants'
 
 export const fetchCalendarEvents = async () => {
   try {
-    const { ical_url: icalUrl } = window.screenly.settings
-    const corsProxy = screenly.cors_proxy_url
-    const bypassCors = Boolean(JSON.parse(screenly.settings.bypass_cors))
-    const viewMode = screenly.settings.calendar_mode
-    const icalUrlWithProxy = bypassCors ? `${corsProxy}/${icalUrl}` : icalUrl
+    const {
+      api_key: apiKey,
+      calendar_mode: viewMode
+    } = window.screenly.settings
 
-    const response = await fetch(icalUrlWithProxy)
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch iCal feed')
-    }
-
-    const icalData = await response.text()
-    const jcalData = ICAL.parse(icalData)
-    const vcalendar = new ICAL.Component(jcalData)
-    const vevents = vcalendar.getAllSubcomponents('vevent')
-
-    // Create date objects once
+    // Create date objects for filtering
     const today = new Date()
     const startDate = new Date(today)
     const endDate = new Date(today)
 
-    if (viewMode === 'daily') {
+    if (viewMode === VIEW_MODE.DAILY) {
       // For daily view, start from current hour today
       endDate.setDate(endDate.getDate() + 1)
       endDate.setHours(0, 0, 0, 0)
@@ -40,46 +32,41 @@ export const fetchCalendarEvents = async () => {
       endDate.setDate(startDate.getDate() + 7)
     }
 
-    // Pre-calculate the timestamp for faster comparisons
-    const startTimestamp = startDate.getTime()
-    const endTimestamp = endDate.getTime()
+    const response = await fetch(GOOGLE_ACCESS_TOKEN_URL, {
+      method: 'GET',
+      headers: {
+        'Content-Type': CONTENT_TYPE_JSON,
+        Authorization: `Token ${apiKey}`
+      }
+    })
 
-    // Process events in chunks to prevent blocking
-    const chunkSize = 50
-    const events = []
-
-    for (let i = 0; i < vevents.length; i += chunkSize) {
-      const chunk = vevents.slice(i, i + chunkSize)
-
-      chunk.forEach((vevent) => {
-        const event = new ICAL.Event(vevent)
-        const eventStart = event.startDate.toJSDate()
-        const eventTimestamp = eventStart.getTime()
-
-        // Quick timestamp comparison before proceeding
-        if (eventTimestamp >= endTimestamp || eventTimestamp < startTimestamp) {
-          return
-        }
-
-        const eventEnd = event.endDate.toJSDate()
-
-        events.push({
-          title: event.summary,
-          startTime: eventStart.toISOString(),
-          endTime: eventEnd.toISOString(),
-          isAllDay: event.startDate.isDate
-        })
-      })
-
-      // Allow other operations to process
-      await new Promise((resolve) => setTimeout(resolve, 0))
+    if (!response.ok) {
+      throw new Error('Failed to fetch Google token')
     }
 
-    // Sort events once
-    events.sort((a, b) => a.startTime.localeCompare(b.startTime))
+    const data = await response.json()
+    const { access_token: accessToken } = data
+
+    // Add timeMin and timeMax parameters to only fetch relevant events
+    const calendarUrl = `${GOOGLE_CALENDAR_API_BASE_URL}/primary/events?timeMin=${startDate.toISOString()}&timeMax=${endDate.toISOString()}&orderBy=startTime&singleEvents=true`
+    const calendarResponse = await fetch(calendarUrl, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    })
+    const calendarData = await calendarResponse.json()
+
+    const events = calendarData.items || []
+    const eventsFormatted = events.map((event) => ({
+      title: event.summary,
+      startTime: event.start.dateTime || event.start.date,
+      endTime: event.end.dateTime || event.end.date,
+      isAllDay: !event.start.dateTime
+    }))
 
     // Only limit events for daily view
-    return viewMode === 'daily' ? events.slice(0, 5) : events
+    return viewMode === VIEW_MODE.DAILY ? eventsFormatted.slice(1, DAILY_VIEW_EVENT_LIMIT) : eventsFormatted
   } catch (error) {
     console.error('Error fetching calendar events:', error)
     return []

@@ -26,28 +26,11 @@ npm run build
 screenly edge-app deploy --path dist/
 ```
 
-For this Edge App, you will need to configure the iCal URL to be used.
-Please follow the instructions below to get the iCal URL.
-
-### Getting the iCal URL
-
-- Go to your [Google Calendar](https://google.com/calendar).
-- On the left sidebar, under "My calendars", select the calendar you want
-  to use.
-- Click on the three dots on the right side of the calendar and select
-  "Settings and sharing".
-- Scroll down until you see "Secret address in iCal format".
-  Click on the copy button to the right.
-- A "Security warning" will appear, saying that
-  "[you] should not give the secret address to other people".
-  Click "OK" to continue.
-- The secret address will be copied to your clipboard, which you can use
-  into the Edge App settings.
-
-### Setting the iCal URL
+See [this page](https://support.screenly.io/hc/en-us/articles/35897560148371-How-to-Generate-a-Screenly-API-Token)
+for instructions on how to generate a Screenly API Key, if you don't have one yet.
 
 ```bash
-screenly edge-app settings set ical_url=<YOUR_ICAL_URL>
+screenly edge-app settings set api_key=<YOUR_SCREENLY_API_KEY>
 ```
 
 ## Development
