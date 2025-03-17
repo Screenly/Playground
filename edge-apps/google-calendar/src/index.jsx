@@ -46,7 +46,7 @@ const App = () => {
     const eventsInterval = setInterval(async () => {
       const fetchedEvents = await fetchCalendarEvents()
       setEvents(fetchedEvents)
-    }, 1000)
+    }, 5000)
 
     // Initial events fetch
     fetchCalendarEvents().then(setEvents)
