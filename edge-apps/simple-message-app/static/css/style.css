@@ -235,6 +235,7 @@
   justify-content: center;
   align-items: center;
   gap: 2rem;
+  background-color: var(--theme-color-card);
 
 }
 
@@ -250,8 +251,8 @@
 
 .date-card {
   gap: 0.25rem;
+  background-color: var(--theme-color-card);
 }
-
 
 .date-text {
   font-size: 5rem;
@@ -271,19 +272,17 @@
   height: 100%;
 }
 
-.clock-card {
-  width: 31.321%;
-}
-
-.clock-div {
-  transform: scale(.35);
-}
-
 .message-head-content {
-  font-size: 7rem;
+  font-size: 14rem;
+  padding: 10rem;
   font-weight: bold;
-  margin: 5rem;
   line-height: 1.25;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 4;
+  height: calc(1.15em* 5);
+  overflow: hidden;
 }
 
 .primary-card.message-head {
@@ -292,10 +291,15 @@
 }
 
 .message-body-content {
-  font-size: 3rem;
-  font-weight: bold;
-  margin: 5rem;
+  font-size: 6rem;
+  padding: 10rem;
   line-height: 1.25;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 17;
+  height: calc(1.14em* 20);
+  overflow: hidden;
 }
 
 
@@ -305,38 +309,48 @@
   justify-content: normal;
 }
 
+.clock-card {
+  background-color: var(--theme-color-card);
+}
+
 
 /* Grid Setup */
 
-.main-container-grid{
+.main-container-grid {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  gap: 2rem;
+  grid-template-rows: 2fr .5fr .125fr .25fr .125fr .25fr .5fr;
+  grid-template-columns: 3fr .25fr .5fr .5fr .5fr;
+  gap: var(--custom-4k-gap);
   height: 100%;
   width: 100%;
 }
 
+
 .primary-container {
   width: 100%;
-  grid-area: 1 / 1 / 5 / 9;
+  grid-area: 1 / 1 / 4 / 3;
 }
 
 .secondary-container {
   width: 100%;
   border-radius: 3rem;
   background-color: #fff;
-  grid-area: 1 / 9 / 7 / 13;
+  grid-area: 1 / 3 / 8 / 6;
 }
 
 .row-container {
   height: 100%;
-  grid-area: 5 / 1 / 7 / 9;
+  grid-area: 4 / 1 / 8 / 3;
+  gap: var(--custom-4k-gap);
 }
 
 
+
+
+/* Media Query Portrait */
+
 @media (orientation: portrait) {
- .main-container {
+  .main-container {
     flex-direction: column;
     display: flex;
   }
@@ -355,314 +369,178 @@
     width: 100%;
     height: 20%;
   }
-
 }
+
 
 /* Media Query */
 
-@media screen and (min-width: 480px) and (orientation: portrait) {
-  .main-container {
-    gap: 1rem;
-    padding: 1rem;
+/* 4K Landscape - 4096 × 2160 */
+
+@media screen and (max-width: 4096px) and (orientation: landscape) {
+  .secondary-container {
+    border-radius: var(--custom-4k-border-radius-medium);
   }
 
   .row-container {
-    gap: 1rem;
-  }
-
-  .primary-container {
-    height: 50%;
-  }
-
-  .primary-card,
-  .secondary-card,
-  .secondary-container
-   {
-    border-radius: 1.5rem;
-  }
-
-
-  .message-head-content {
-    font-size: 3rem;
-    margin: 2rem;
-  }
-
-  .message-body-content {
-    font-size: 1.3rem;
-    margin: 2rem;
-  }
-
-  .brand-logo {
-    width: 4.5rem;
-  }
-
-  .info-text {
-    font-size: .6rem;
-  }
-
-  .info-card {
-    gap: 1rem;
-  }
-
-  .date-text {
-    font-size: 2.5rem;
-  }
-
-  .date-number {
-    font-size: 5rem;
-  }
-
-  .clock-container {
-    transform: scale(.55);
-  }
-}
-
-
-
-@media screen and (min-width: 720px) and (orientation: portrait) {
-  .main-container {
-    gap: 2rem;
-    padding: 2rem;
-  }
-
-  .row-container {
-    gap: 2rem;
-  }
-
-  .primary-card,
-  .secondary-card,
-  .secondary-container{
-    border-radius: 2rem;
+    gap: var(--custom-4k-gap);
   }
 
   .message-head-content {
-    font-size: 5rem;
-    margin: 2.5rem;
+    font-size: 14rem;
+    padding: 10rem;
   }
 
   .message-body-content {
-    font-size: 2rem;
-    margin: 2.5rem;
-  }
-
-  .brand-logo {
-    width: 7rem;
-  }
-
-  .info-text {
-    font-size: 1rem;
+    font-size: 6rem;
+    padding: 9rem;
   }
 
   .info-card {
-    gap: 1.5rem;
+    gap: 3rem;
   }
 
-  .date-text {
+  .brand-logo {
+    width: 23rem;
+  }
+
+  .info-text {
     font-size: 3.5rem;
   }
 
-  .date-number {
-    font-size: 7rem;
-  }
-
-  .clock-container {
-    transform: scale(.85);
-  }
-
-}
-
-@media screen and (min-width: 800px) and (orientation: landscape) {
-  .main-container {
-    gap: 1rem;
-    padding: 1rem;
-  }
-
-  .row-container {
-    gap: 1rem;
-  }
-
-  .primary-card,
-  .secondary-card,
-  .secondary-container{
-    border-radius: 1.5rem;
-  }
-
-  .message-head-content {
-    font-size: 3rem;
-    margin: 2rem;
-  }
-
-  .message-body-content {
-    font-size: 1.25rem;
-    margin: 2rem 1.5rem;
-  }
-
-  .brand-logo {
-    width: 4.5rem;
-  }
-
-  .info-text {
-    font-size: .6rem;
-  }
-
-  .info-card {
-    gap: 1rem;
-  }
-
   .date-text {
-    font-size: 2.75rem;
+    font-size: 12rem;
   }
 
   .date-number {
-    font-size: 5.5rem;
+    font-size: 24rem;
   }
-
-  .clock-container {
-    transform: scale(.6);
-  }
-
 }
 
-@media screen and (min-width: 1080px) and (orientation: portrait) {
+/* 4K Landscape - 3840 × 2160 */
+
+@media screen and (max-width: 3840px) and (orientation: landscape) {
+  .message-head-content {
+    padding: 9rem;
+  }
+}
+
+
+/* QHD/WQHD Monitors - 2560×1440 */
+@media screen and (max-width: 2560px) and (orientation: landscape) {
   .main-container {
-    gap: 3rem;
-    padding: 3rem;
+    gap: var(--hd-gap);
+    padding: var(--hd-padding);
   }
 
   .row-container {
-    gap: 3rem;
+    gap: var(--hd-gap);
   }
 
-  .primary-card,
-  .secondary-card,
-  .secondary-container{
-    border-radius: 2.5rem;
+  .primary-card {
+    border-radius: var(--hd-border-radius-big);
+  }
+
+  .secondary-container, .secondary-card {
+    border-radius: var(--hd-border-radius-medium);
   }
 
   .message-head-content {
     font-size: 7rem;
-    margin: 4rem;
+    padding: 6rem;
   }
 
   .message-body-content {
-    font-size: 3rem;
-    margin: 3.5rem;
+    font-size: 3.2rem;
+    padding: 4rem;
   }
-
 
   .brand-logo {
     width: 10rem;
+  }
+
+  .info-text {
+    font-size: 2.5rem;
+  }
+
+  .date-text {
+    font-size: 6rem;
+  }
+
+  .date-number {
+    font-size: 12rem;
+  }
+
+  .clock-div {
+    transform: scale(0.5);
+  }
+}
+
+/* Full HD Landscape - 1920 × 1080 */
+
+@media screen and (max-width: 1920px) and (orientation: landscape) {
+  .main-container,
+  .row-container {
+    gap: var(--hd-gap);
+  }
+
+  .secondary-container {
+    border-radius: var(--hd-border-radius-medium);
+  }
+
+  .message-head-content {
+    padding: 5rem;
+    font-size: 7rem;
+  }
+
+  .message-body-content {
+    font-size: 3rem;
+    padding: 4rem;
+    -webkit-line-clamp: 17;
+    height: calc(1.13em* 20);
+  }
+
+  .brand-logo {
+    width: 10rem;
+  }
+
+  .info-card {
+    gap: 2rem;
   }
 
   .info-text {
     font-size: 1.5rem;
   }
 
-  .info-card {
-    gap: 1.5rem;
-  }
-
   .date-text {
-    font-size: 5.5rem;
+    font-size: 6rem;
   }
 
   .date-number {
-    font-size: 11rem;
+    font-size: 12rem;
   }
 
-  .clock-container {
-    transform: scale(1.3);
+  .clock-card {
+    width: 31.55%;
+  }
+
+  .clock-div {
+    transform: scale(0.45);
   }
 }
 
-@media screen and (min-width: 1280px) and (orientation: landscape) {
-  .main-container {
-    gap: 1.75rem;
-    padding: 1.75rem;
-  }
+/* Custom resolution - 1680 × 962 (Landscape) */
 
-  .row-container {
-    gap: 1.75rem;
-  }
-
-  .primary-card,
-  .secondary-card,
-  .secondary-container{
-    border-radius: 1.5rem;
-  }
-
+@media screen and (max-width: 1680px) and (orientation: landscape) {
   .message-head-content {
-    font-size: 5rem;
-    margin: 2.5rem;
+    padding: 4rem;
+    font-size: 6rem;
   }
 
   .message-body-content {
-    font-size: 2rem;
-    margin: 2.5rem 2rem;
-  }
-
-  .brand-logo {
-    width: 7rem;
-  }
-
-  .info-text {
-    font-size: 1rem;
-  }
-
-  .info-card {
-    gap: 1rem;
-  }
-
-  .date-text {
-    font-size: 3.5rem;
-  }
-
-  .date-number {
-    font-size: 7rem;
-  }
-
-  .clock-container {
-    transform: scale(.85);
-  }
-
-}
-
-@media screen and (min-width: 1920px) and (orientation: landscape) {
-  .main-container {
-    gap: 2.5rem;
-    padding: 2.5rem;
-  }
-
-  .row-container {
-    gap: 2.5rem;
-  }
-
-  .primary-card,
-  .secondary-card,
-  .secondary-container{
-    border-radius: 2rem;
-  }
-
-  .message-head-content {
-    font-size: 7rem;
-    margin: 3.5rem 4.5rem;
-  }
-
-  .message-body-content {
-    font-size: 3.15rem;
-    margin: 3.5rem;
-  }
-
-  .brand-logo {
-    width: 10rem;
-  }
-
-  .info-text {
-    font-size: 1.2rem;
-  }
-
-  .info-card {
-    gap: 2rem;
+    font-size: 2.5rem;
+    padding: 3rem;
+    -webkit-line-clamp: 18;
+    height: calc(1.13em* 21);
   }
 
   .date-text {
@@ -673,120 +551,448 @@
     font-size: 10rem;
   }
 
-  .clock-container {
-    transform: scale(1.25);
+
+  .clock-card {
+    width: 31.3%;
+  }
+}
+
+
+/* HD+ - 1600×900, 1440×900 */
+
+@media screen and (max-width: 1600px) and (orientation: landscape) {
+  .message-head-content {
+    font-size: 5.5rem;
+  }
+
+  .message-body-content {
+    font-size: 2.3rem;
+  }
+}
+
+/* Laptop Standard - 1366×768 */
+@media screen and (max-width: 1366px) and (orientation: landscape) {
+  .main-container {
+    padding: var(--custom-720-padding);
+  }
+
+  .main-container,
+  .row-container {
+    gap: var(--custom-720-gap);
+  }
+
+  .primary-card {
+    border-radius: var(--custom-720-border-radius-big);
+  }
+
+  .secondary-container {
+    border-radius: var(--custom-720-border-radius-medium);
+  }
+
+  .message-head-content {
+    font-size: 5rem;
+  }
+
+  .message-body-content {
+    font-size: 1.95rem;
+    height: calc(1.15em* 21);
+  }
+
+  .brand-logo {
+    width: 7rem;
+  }
+
+  .info-text {
+    font-size: 1.3rem;
+  }
+
+  .date-text {
+    font-size: 4rem;
+  }
+
+  .date-number {
+    font-size: 8rem;
+  }
+
+  .clock-div {
+    transform: scale(0.3);
+  }
+}
+
+/* HD Landscape - 1280 × 720 */
+
+@media screen and (max-width: 1280px) and (orientation: landscape) {
+  .main-container,
+  .row-container {
+    gap: var(--custom-720-gap);
+  }
+
+  .primary-card {
+    border-radius: var(--custom-720-border-radius-big);
+  }
+
+  .secondary-container{
+    border-radius: var(--custom-720-border-radius-medium);
+  }
+
+  .message-head-content {
+    -webkit-line-clamp: 4;
+    height: calc(1.15em* 5);
+    padding: 3rem;
+    font-size: 4.5rem;
+  }
+
+  .message-body-content {
+    font-size: 2rem;
+    padding: 2.5rem;
+    -webkit-line-clamp: 17;
+    height: calc(1.13em* 20);
+  }
+
+  .info-card {
+    gap: 1rem;
+  }
+
+  .brand-logo {
+    width: 7rem;
+  }
+
+  .info-text {
+    font-size: 1rem;
+  }
+
+  .date-text {
+    font-size: 4rem;
+  }
+
+  .date-number {
+    font-size: 8rem;
+  }
+
+  .clock-div {
+    transform: scale(0.35);
+  }
+}
+
+
+@media screen and (max-width: 1080px) and (orientation: landscape) {
+  .message-head-content {
+    -webkit-line-clamp: 4;
+    height: calc(1.15em* 5);
+    padding: 6rem;
+    font-size: 4.5rem;
+  }
+
+  .message-body-content {
+    font-size: 2rem;
+    padding: 2.5rem;
+    -webkit-line-clamp: 17;
+    height: calc(1.13em* 20);
   }
 
 }
 
-@media screen and (min-width: 2160px) and (orientation: portrait) {
-  .main-container {
-    gap: 6rem;
-    padding: 6rem;
-  }
 
-  .row-container {
-    gap: 6rem;
-  }
+/* Tablets & Small Laptops - 1024×768 & 1024×600 */
 
-  .primary-card,
-  .secondary-card,
-  .secondary-container{
-    border-radius: 5rem;
-  }
-
+@media screen and (max-width: 1024px) and (orientation: landscape) {
   .message-head-content {
-    font-size: 15rem;
-    margin: 8rem;
+    font-size: 3.2rem;
+    padding: 3rem;
   }
 
   .message-body-content {
+    font-size: 1.5rem;
+    height: calc(1.16em* 20);
+  }
+
+  .clock-card {
+    width: 29.8%;
+  }
+
+  .brand-logo {
+    width: 5rem;
+  }
+
+  .info-text {
+    font-size: 1rem;
+  }
+
+  .date-text {
+    font-size: 3rem;
+  }
+
+  .date-number {
     font-size: 6rem;
-    margin: 8rem;
+  }
+
+  .clock-div {
+    transform: scale(.25);
+  }
+}
+
+
+/* Raspberry Pi Touch Display - Landscape 800 × 480 */
+
+@media screen and (max-width: 800px) and (orientation: landscape) {
+  .main-container {
+    padding: var(--pi-padding);
+  }
+
+  .main-container,
+  .row-container {
+    gap: var(--pi-gap);
+  }
+
+  .primary-card {
+    border-radius: var(--pi-border-radius-big);
+  }
+
+  .secondary-container, .secondary-card {
+    border-radius: var(--pi-border-radius-medium);
   }
 
 
+  .message-head-content {
+    -webkit-line-clamp: 4;
+    height: calc(1.20em* 5);
+    padding: 2.5rem;
+    font-size: 3rem;
+  }
+
+  .message-body-content {
+    font-size: 1.25rem;
+    padding: 2.5rem;
+    -webkit-line-clamp: 18;
+    height: calc(1.12em* 22);
+  }
+
+  .info-card {
+    gap: 1rem;
+  }
+
   .brand-logo {
-    width: 23rem;
+    width: 5rem;
+  }
+
+  .info-text {
+    font-size: .7rem;
+  }
+
+
+  .date-text {
+    font-size: 2.5rem;
+  }
+
+  .date-number {
+    font-size: 5rem;
+  }
+
+  .clock-card {
+    width: 31.5%;
+  }
+
+  .clock-div {
+    transform: scale(0.2);
+  }
+}
+
+/* Portrait */
+
+/* 4K Portrait - 2160 × 4096 */
+
+@media screen and (max-width: 2160px) and (orientation: portrait) {
+  .secondary-container {
+    border-radius: var(--custom-4k-border-radius-medium);
+  }
+
+  .message-head-content {
+    -webkit-line-clamp: 6;
+    height: calc(1.15em* 7);
+  }
+
+  .message-body-content {
+    padding: 6rem;
+    -webkit-line-clamp: 9;
+    height: calc(1.13em* 11);
+  }
+
+  .info-card {
+    gap: 5rem;
+  }
+
+  .brand-logo {
+    width: 22rem;
   }
 
   .info-text {
     font-size: 3rem;
   }
 
-  .info-card {
-    gap: 4.5rem;
-  }
-
   .date-text {
-    font-size: 12rem;
+    font-size: 10rem;
   }
 
   .date-number {
-    font-size: 24rem;
+    font-size: 23rem;
   }
 
-  .clock-card {
-    width: 100%;
-  }
-
-  .clock-container {
-    transform: scale(2.2);
+  .clock-div {
+    transform: scale(.85);
   }
 
 }
 
-@media screen and (min-width: 3840px) and (orientation: landscape) {
-  .main-container {
-    gap: 4.5rem;
-    padding: 4.5rem;
+
+/* Full HD Portrait - 1080 × 1920 */
+
+@media screen and (max-width: 1080px) and (orientation: portrait) {
+  .secondary-container {
+    border-radius: var(--hd-border-radius-medium);
   }
 
+  .main-container,
   .row-container {
-    gap: 4.5rem;
-  }
-
-  .primary-card,
-  .secondary-card,
-  .secondary-container{
-    border-radius: 4rem;
+    gap: var(--hd-gap);
   }
 
   .message-head-content {
-    font-size: 15rem;
-    margin: 6rem;
+    font-size: 7rem;
+    padding: 5rem;
   }
 
   .message-body-content {
-    font-size: 6.5rem;
-    margin: 6rem;
+    font-size: 3rem;
+    padding: 4rem;
+    -webkit-line-clamp: 8;
+    height: calc(1.13em* 10);
   }
 
   .brand-logo {
-    width: 20rem;
+    width: 10rem;
   }
 
   .info-text {
-    font-size: 2.5rem;
-  }
-
-  .info-card {
-    gap: 3rem;
+    font-size: 1.7rem;
   }
 
   .date-text {
-    font-size: 12rem;
+    font-size: 6rem;
   }
 
   .date-number {
-    font-size: 24rem;
+    font-size: 12rem;
   }
 
   .clock-card {
-    width: 100%;
+    width: 31.2%;
   }
 
-  .clock-container {
-    transform: scale(2.5);
+  .clock-div {
+    transform: scale(.45);
   }
+}
+
+/* HD Portrait - 720 × 1280 */
+
+@media screen and (max-width: 720px) and (orientation: portrait) {
+  .main-container,
+  .row-container {
+    gap: var(--custom-720-gap);
+  }
+
+  .message-head-content {
+    font-size: 4.5rem;
+    padding: 4rem;
+    -webkit-line-clamp: 6;
+    height: calc(1.17em* 7);
+  }
+
+  .message-body-content {
+    font-size: 2rem;
+    padding: 2.5rem;
+    -webkit-line-clamp: 8;
+    height: calc(1.14em* 10);
+  }
+
+  .info-card {
+    gap: 1rem;
+  }
+
+  .brand-logo {
+    width: 7rem;
+  }
+
+  .info-text {
+    font-size: 1.1rem;
+  }
+
+  .date-text {
+    font-size: 4rem;
+  }
+
+  .date-number {
+    font-size: 8rem;
+  }
+
+  .clock-card {
+    width: 30%;
+  }
+
+  .clock-div {
+    transform: scale(.3);
+  }
+}
+
+
+/* Raspberry Pi Touch Display - Portrait 480 × 800 */
+
+@media screen and (max-width: 480px) and (orientation: portrait) {
+  .main-container,
+  .row-container {
+    gap: var(--pi-gap);
+  }
+
+  .secondary-container {
+    border-radius: var(--pi-border-radius-medium);
+  }
+
+  .message-head-content {
+    font-size: 3.5rem;
+    padding: 2rem;
+    -webkit-line-clamp: 5;
+    height: calc(1.17em* 6);
+  }
+
+  .message-body-content {
+    font-size: 1.3rem;
+    padding: 1.2rem;
+    -webkit-line-clamp: 8;
+    height: calc(1.23em* 9);
+  }
+
+  .brand-logo {
+    width: 4rem;
+  }
+
+  .info-text {
+    font-size: .7rem;
+  }
+
+  .date-text {
+    font-size: 2.5rem;
+  }
+
+  .date-number {
+    font-size: 5rem;
+  }
+
+  .clock-card {
+    width: 31.23%;
+  }
+
+  .clock-div {
+    transform: scale(0.2);
+  }
+
 }
