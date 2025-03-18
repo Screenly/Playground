@@ -97,7 +97,17 @@ const getRssData = function () {
             this.fetchError = false
             appCache.clear()
             const entries = response.map(({ title, pubDate, content, contentSnippet }) => {
-              return { title, pubDate, content, contentSnippet }
+              // Process HTML content if present
+              let processedContent = contentSnippet || content || ''
+              if (content && content.includes('<')) {
+                // Strip HTML tags while preserving text content
+                processedContent = content
+                  .replace(/<[^>]*>/g, '')
+                  .replace(/\s+/g, ' ')
+                  .trim()
+              }
+
+              return { title, pubDate, content: processedContent, contentSnippet }
             })
 
             this.entries = entries
