@@ -96,9 +96,9 @@ const getRssData = function () {
             const response = (await getApiResponse(this)).slice(0, 4)
             this.fetchError = false
             appCache.clear()
-            const entries = response.map(({ title, pubDate, content, contentSnippet }) => {
+            const entries = response.map(({ title, pubDate, content }) => {
               // Process HTML content if present
-              let processedContent = contentSnippet || content || ''
+              let processedContent = content || ''
               if (content && content.includes('<')) {
                 // Strip HTML tags while preserving text content
                 processedContent = content
@@ -107,7 +107,7 @@ const getRssData = function () {
                   .trim()
               }
 
-              return { title, pubDate, content: processedContent, contentSnippet }
+              return { title, pubDate, content: processedContent }
             })
 
             this.entries = entries
