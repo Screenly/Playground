@@ -6,12 +6,6 @@ icon: https://playground.srly.io/edge-apps/google-calendar/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 settings:
-  bypass_cors:
-    type: string
-    title: Bypass CORS
-    optional: true
-    help_text: Bypass CORS for the iCal URL
-    default_value: 'false'
   calendar_mode:
     type: string
     title: Calendar Mode
