@@ -1,6 +1,27 @@
 /* global clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry */
 /* eslint-disable-next-line no-unused-vars, no-useless-catch */
 
+
+const screenly = {
+  metadata: {
+    coordinates: [11.27985,76.2363243], // Example coordinates (San Francisco)
+   //coordinates: [50.1210954,8.4717603],
+  },
+  settings: {
+    screenly_color_accent: '#972eff', // Example accent color
+    screenly_color_light: '#adafbe', // Example light color
+    screenly_logo_dark: 'https://example.com/logo.png', // Example logo URL
+    sentry_dsn: null, // Example for Sentry DSN (not initialized)
+    override_locale: 'en', // Example locale override
+    override_timezone: 'Asia/Kolkata' // Example timezone override
+   //override_timezone: 'Europe/Berlin'
+  },
+  cors_proxy_url: 'https://cors-proxy.example.com', // Example CORS proxy URL
+  signalReadyForRendering: () => {
+    console.log('Screenly is ready for rendering.');
+  }
+};
+
 document.addEventListener('DOMContentLoaded', async () => {
   const { getNearestCity } = OfflineGeocodeCity
   const allTimezones = moment.tz.names()

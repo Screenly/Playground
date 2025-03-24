@@ -5,8 +5,8 @@
 /* ---------Clock Element------------ */
 
 .clock-container {
-  width: 36.43rem;
-  height: 36.43rem;
+  width: clamp(8.5vw, 35vw, 45vw);
+  height: clamp(8.5vw, 35vw, 45vw);
   background: #fff;
   border-radius: 50%;
   display: flex;
@@ -15,8 +15,8 @@
 }
 
 .clock-container .clock {
-  width: 30rem;
-  height: 30rem;
+  width: clamp(7vw, 29vw, 38vw);
+  height: clamp(7vw, 29vw, 38vw);
   border-radius: 50%;
   margin: auto;
   position: relative;
@@ -36,21 +36,21 @@
 .seconds-bar span {
   position: absolute;
   transform: rotate(calc(var(--index) * 45deg));
-  inset: -1.43rem;
+  inset: clamp(-0.5vw, -2vw, -3vw);
   text-align: center;
 }
 
 .clock .seconds-bar span p {
-  width: 0.21rem;
+  width: clamp(0.1vw, 0.5vw, 0.5vw);
   display: inline-block;
-  border-radius: 0.14rem;
+  border-radius: clamp(0.05vw, 2vw, 2vw);
 }
 
 .clock .seconds-bar span:nth-child(5n) p {
   background: var(--theme-color-primary);
-  width: 0.36rem;
-  height: 1.29rem;
-  transform: translateY(0.07rem);
+  width: clamp(0.15vw, 0.3vw, 0.7vw);
+  height: clamp(0.5vw, 1.2vw, 2.5vw);
+  /* transform: translateY(clamp(0.03vw, 0.1vw, 0.15vw)); */
 }
 
 .hands-box {
@@ -67,48 +67,48 @@
 }
 
 .hands-box .hour {
-  width: 20rem;
-  height: 20rem;
+  width: clamp(5.2vw, 19vw, 25vw);
+  height: clamp(5.2vw, 25vw, 49vw);
 }
 
 .hands-box .hour i {
-  width: 0.5rem;
-  height: 9.86rem;
+  width: clamp(0.2vw, 0.7vw, 1vw);
+  height: clamp(5.5vw, 13vw, 39vw);
   background: #fff;
   position: absolute;
-  box-shadow: 0 0 2.14rem 0 rgb(0 0 0 / 97%);
+  box-shadow: 0 0 clamp(0.6vw, 3vw, 4.2vw) 0 rgb(0 0 0 / 97%);
 }
 
 .hands-box .hour i::before {
   content: "";
   position: absolute;
-  height: 7.5rem;
-  width: 1.07rem;
-  bottom: 2.14rem;
+  height: clamp(2vw, 10.5vw, 15vw);
+  width: clamp(0.3vw, 1.5vw, 2.1vw);
+  bottom: clamp(0.6vw, 3vw, 4.2vw);
   left: 50%;
   transform: translateX(-50%);
-  border-radius: 1.43rem;
+  border-radius: clamp(0.4vw, 2vw, 2.8vw);
   background: var(--theme-color-primary);
   z-index: 2;
-  box-shadow: 0 0 1.71rem 0 rgb(0 0 0 / 26%);
+  box-shadow: 0 0 clamp(0.5vw, 2.4vw, 3.4vw) 0 rgb(0 0 0 / 26%);
 }
 
 .hands-box .hour i::after {
   content: "";
   position: absolute;
-  height: 8.21rem;
-  width: 1.86rem;
-  bottom: 1.79rem;
+  height: clamp(2.2vw, 11.5vw, 16.1vw);
+  width: clamp(0.5vw, 2.6vw, 3.6vw);
+  bottom: clamp(0.5vw, 2.5vw, 3.5vw);
   left: 50%;
   transform: translateX(-50%);
-  border-radius: 1.79rem;
+  border-radius: clamp(0.5vw, 2.5vw, 3.5vw);
   background: #fff;
   z-index: 1;
 }
 
 .hands-box .minute {
-  width: 27.14rem;
-  height: 27.14rem;
+  width: clamp(6vw, 26vw, 34vw);
+  height: clamp(6vw, 31vw, 34vw);
 }
 
 .hands-box .minute::before {
@@ -116,51 +116,51 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 1.79rem;
-  height: 1.79rem;
+  width: clamp(0.5vw, 2.5vw, 3.5vw);
+  height: clamp(0.5vw, 2.5vw, 3.5vw);
   background: #fff;
-  border-radius: 1.79rem;
+  border-radius: clamp(0.5vw, 2.5vw, 3.5vw);
   z-index: 999;
 }
 
 .hands-box .minute i {
-  width: 0.5rem;
-  height: 13.57rem;
+  width: clamp(0.2vw, 0.7vw, 1vw);
+  height: clamp(3.5vw, 15vw, 26.6vw);
   background: #fff;
   position: absolute;
-  box-shadow: 0 0 2.14rem 0 rgb(0 0 0 / 97%);
+  box-shadow: 0 0 clamp(0.6vw, 3vw, 4.2vw) 0 rgb(0 0 0 / 97%);
 }
 
 .hands-box .minute i::before {
   content: "";
-  width: 1.86rem;
-  height: 14.71rem;
+  width: clamp(0.5vw, 2.6vw, 3.6vw);
+  height: clamp(4vw, 15.5vw, 28.7vw);
   background: #fff;
   position: absolute;
-  bottom: 1.79rem;
+  bottom: clamp(0.5vw, 2.5vw, 3.5vw);
   left: 50%;
   transform: translateX(-50%);
-  border-radius: 1.79rem;
+  border-radius: clamp(0.5vw, 2.5vw, 3.5vw);
   z-index: 1;
-  box-shadow: 0 0 1.71rem 0 rgb(0 0 0 / 26%);
+  box-shadow: 0 0 clamp(0.5vw, 2.4vw, 3.4vw) 0 rgb(0 0 0 / 26%);
 }
 
 .hands-box .minute i::after {
   content: "";
-  width: 1.07rem;
-  height: 13.93rem;
+  width: clamp(0.3vw, 1.5vw, 2.1vw);
+  height: clamp(3.8vw, 14.5vw, 27.3vw);
   background: var(--theme-color-primary);
   position: absolute;
-  bottom: 2.21rem;
+  bottom: clamp(0.6vw, 3.1vw, 4.3vw);
   left: 50%;
   transform: translateX(-50%);
-  border-radius: 1.43rem;
+  border-radius: clamp(0.4vw, 2vw, 2.8vw);
   z-index: 2;
 }
 
 .hands-box .second {
-  width: 30rem;
-  height: 34.29rem;
+  width: clamp(7vw, 29vw, 38vw);
+  height: clamp(7vw, 31vw, 38vw);
 }
 
 .hands-box .second::before {
@@ -168,10 +168,11 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 1.14rem;
-  height: 1.14rem;
+  width: clamp(0.3vw, 1.6vw, 2.2vw);
+  height: clamp(0.3vw, 1.6vw, 2.2vw);
   background: #F7410A;
-  border-radius: 1.79rem;
+  border-radius: clamp(0.5vw, 2.5vw, 3.5vw);
+  z-index: 3;
 }
 
 .hands-box .second::after {
@@ -179,30 +180,31 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 0.57rem;
-  height: 0.57rem;
+  width: clamp(0.15vw, 0.8vw, 1.1vw);
+  height: clamp(0.15vw, 0.8vw, 1.1vw);
   background: var(--theme-color-primary);
-  border-radius: 1.79rem;
+  border-radius: clamp(0.5vw, 2.5vw, 3.5vw);
+  z-index: 4;
 }
 
 .hands-box .second i {
-  width: 0.29rem;
-  height: calc(15rem + 3.57rem);
+  width: clamp(0.08vw, 0.4vw, 0.56vw);
+  height: clamp(5vw, 21vw, 36.4vw);
   background: #F7410A;
   position: relative;
-  border-radius: 0.14rem;
+  border-radius: clamp(0.04vw, 0.2vw, 0.28vw);
 }
 
 .hands-box .second i::before {
   content: '';
-  width: 0.29rem;
-  height: 3.21rem;
+  width: clamp(0.08vw, 0.4vw, 0.56vw);
+  height: clamp(0.9vw, 4.5vw, 6.3vw);
   background: #F7410A;
   position: absolute;
-  bottom: -2.93rem;
+  bottom: clamp(-0.8vw, -4.1vw, -5.7vw);
   left: 50%;
   transform: translateX(-50%);
-  border-radius: 0.36rem;
+  border-radius: clamp(0.1vw, 0.5vw, 0.7vw);
 }
 
 /* ---------Clock End----------- */
@@ -217,19 +219,22 @@
 .secondary-card-number-container {
   display: flex;
   flex-direction: row;
-  gap: 3rem;
+  /* gap: 1rem; */
   align-items: baseline;
 }
 
 
 .secondary-card-number {
-  font-size: 14.5rem;
+  /* font-size: 14.5rem; */
+  /* font-size: clamp(1rem, 11vw + 1rem, 18rem); */
+  font-size: clamp(1rem, 11vw + 5vh, 1000rem);
   color: var(--theme-color-primary);
-  letter-spacing: 1rem;
+  /* letter-spacing: 1rem; */
 }
 
 .secondary-card-time-am-pm {
-  font-size: 4rem;
+  /* font-size: 4rem; */
+  font-size: clamp(1rem, .5vw + 5vh, 1000rem);
   color: var(--theme-color-secondary);
 }
 
@@ -238,7 +243,6 @@
   justify-content: center;
   align-items: center;
   gap: 2rem;
-
 }
 
 .brand-logo {
@@ -268,6 +272,10 @@
   color: var(--theme-color-primary);
 }
 
+.clock-container {
+  /* transform: scale(var(--scale-factor)); */
+  /* transform: scale(10); */
+}
 
 /* Media Query */
 
@@ -276,7 +284,37 @@
 /* TODO: Fix the Clock Circle issue : When Scale to .5, circle change to oval */
 
 
-@media screen and (min-width: 480px) and (orientation: portrait) {
+@media (orientation: portrait) {
+  .main-container {
+    gap: clamp(1rem, 1.5vh, 5rem);
+  }
+
+  .secondary-container {
+    gap: clamp(1rem, 1.5vh, 5rem);
+  }
+
+  .row-container {
+    gap: clamp(1rem, 1.5vh, 5rem);
+  }
+
+
+  .secondary-card-number {
+    font-size: clamp(1rem, 10vw + 5vh, 18rem);
+  }
+
+  .time-container {
+    height: 45%;
+  }
+
+  .info-container {
+    height: 55%;
+  }
+
+}
+
+
+
+/* @media screen and (min-width: 480px) and (orientation: portrait) {
   .clock-container {
     transform: scale(.7);
   }
@@ -314,9 +352,9 @@
     font-size: 7rem;
   }
 
-}
+} */
 
-@media screen and (min-width: 720px) and (orientation: portrait) {
+/* @media screen and (min-width: 720px) and (orientation: portrait) {
   .clock-container {
     transform: scale(1);
   }
@@ -612,4 +650,4 @@
   .date-number {
     font-size: 34rem;
   }
-}
+} */
