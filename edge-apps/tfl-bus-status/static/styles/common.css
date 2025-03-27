@@ -30,7 +30,7 @@ html {
 }
 
 body {
-  font-family: Aeonik Regular, sans-serif;
+  font-family: 'Aeonik Regular', sans-serif;
   height: 100vh;
   background-color: var(--theme-color-background);
 }
