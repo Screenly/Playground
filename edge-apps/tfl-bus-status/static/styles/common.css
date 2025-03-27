@@ -4,7 +4,7 @@
 
 /* Global Fonts */
 @font-face {
-  font-family: Aeonik Regular;
+  font-family: 'Aeonik Regular';
   src: url('../fonts/Aeonik-Regular.woff2') format('woff2'),
     url('../fonts/Aeonik-Regular.woff') format('woff');
   font-weight: normal;
@@ -12,7 +12,7 @@
 }
 
 @font-face {
-  font-family: Aeonik Medium;
+  font-family: 'Aeonik Medium';
   src: url('../fonts/Aeonik-Medium.woff2') format('woff2'),
     url('../fonts/Aeonik-Medium.woff') format('woff');
 }

@@ -41,7 +41,7 @@ const CACHE_KEYS = {
 // Cache duration (5 minutes)
 const CACHE_DURATION = 5 * 60 * 1000
 
-function clearCacheIfStopIdChanged () {
+function clearCacheIfStopIdChanged() {
   const cachedStopId = localStorage.getItem(CACHE_KEYS.STOP_ID)
   if (cachedStopId && cachedStopId !== stopId) {
     // Clear all cache if stop ID has changed
@@ -56,7 +56,7 @@ function clearCacheIfStopIdChanged () {
   return false
 }
 
-async function getCachedData (url, cacheKey) {
+async function getCachedData(url, cacheKey) {
   try {
     // Check if stop ID has changed
 
@@ -123,18 +123,18 @@ window.busData = function () {
 
     // Add a new property to hold temporary data while fetching
 
-    formatArrivalTime (timeToStation) {
+    formatArrivalTime(timeToStation) {
       return timeToStation <= 59 ? 'DUE' : Math.floor(timeToStation / 60) + ' MIN'
     },
 
-    formatStationName (name, platform) {
+    formatStationName(name, platform) {
       if (!name) return 'Unknown Station'
 
       // Format the platform part
 
       let platformText = ''
       if (platform) {
-        const match = platform.match(/[A-Z0-9]+$/);
+        const match = platform.match(/[A-Z0-9]+$/)
         platformText = match ? ` (Stop ${match[0]})` : ` (${platform})`
       }
 
@@ -143,7 +143,7 @@ window.busData = function () {
       return `${name}${platformText}`
     },
 
-    formatPlatformName (name) {
+    formatPlatformName(name) {
       if (!name) return ''
       // Extract just the platform letter/number if possible
 
@@ -156,7 +156,7 @@ window.busData = function () {
       return name.length > 15 ? `(${name.substring(0, 12)}...)` : `(${name})`
     },
 
-    async init () {
+    async init() {
       try {
         // console.log('Initializing bus data...')
 
@@ -188,7 +188,7 @@ window.busData = function () {
       }
     },
 
-    async fetchBusData (isInitialLoad = false) {
+    async fetchBusData(isInitialLoad = false) {
       try {
         // Only show loading state on initial load
 
@@ -259,7 +259,6 @@ window.busData = function () {
         this.lastUpdate = Date.now()
 
         // console.log('UI updated with new bus data at:', new Date().toISOString());
-
       } catch (error) {
         // console.error('Error fetching bus data:', error);
 
@@ -284,12 +283,12 @@ window.busData = function () {
       }
     },
 
-    getNumberOfBuses () {
+    getNumberOfBuses() {
       return MAX_BUSES_TO_DISPLAY
       // Use the constant instead of hardcoded value
     },
 
-    getStatusMessage (statusSeverity) {
+    getStatusMessage(statusSeverity) {
       const statusMap = {
         0: 'ON TIME', // SPECIAL SERVICE
         1: 'CLOSED', // CLOSED
@@ -315,7 +314,7 @@ window.busData = function () {
       return statusMap[statusSeverity] || 'NO STATUS'
     },
 
-    getStatusClass (statusSeverity) {
+    getStatusClass(statusSeverity) {
       const classMap = {
         0: 'on-time',
         1: 'service-closed',
@@ -347,7 +346,7 @@ window.busData = function () {
 
 document.addEventListener('DOMContentLoaded', brandFetch)
 
-async function brandFetch () {
+async function brandFetch() {
   try {
     // constant colors
 
@@ -406,7 +405,7 @@ async function brandFetch () {
 
     // Function to fetch and process the image
 
-    async function fetchImage (fileUrl) {
+    async function fetchImage(fileUrl) {
       try {
         const response = await fetch(fileUrl)
         if (!response.ok) {
