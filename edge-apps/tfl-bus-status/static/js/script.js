@@ -1,5 +1,22 @@
 /* global screenly, Sentry */
 
+
+const screenly = {
+  settings: {
+    stop_id: '490000144E',
+
+    tfl_api_token: 'b4c24b35290947b089e509858e55f2f2',
+      // tfl_api_token: 'b4c24b35290947b089e509858e55f2f2'
+    // sentry_dsn: 'https://sentry.io/1234567890'
+    theme: 'dark',
+    // screenly_color_accent: '#7E2CD2',
+    // screenly_color_light: '#454BD2',
+    // screenly_color_dark: '#0032A0',
+    screenly_logo_light: 'static/images/Screenly.svg',
+    screenly_logo_dark: 'static/images/Screenly.svg',
+  }
+}
+
 // Constants for bus data configuration
 
 const MAX_BUSES_TO_DISPLAY = 15;

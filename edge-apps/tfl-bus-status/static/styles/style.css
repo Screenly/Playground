@@ -987,7 +987,11 @@ tr {
 
 @media screen and (max-width: 480px) and (orientation: portrait) {
 	.container {
-		height: 80vh;
+		height: 85vh;
+	}
+
+	.body-container {
+		padding: var(--pi-padding) var(--pi-padding) 0 var(--pi-padding);
 	}
 
 	.content-table thead tr {
@@ -1000,10 +1004,10 @@ tr {
 
 	.footer-class {
 		position: fixed;
-		bottom: var(--custom-720-padding);
-		border-radius: 0 0 var(--custom-720-border-radius-medium) var(--custom-720-border-radius-medium);
+		bottom: var(--pi-padding);
+		border-radius: 0 0 var(--pi-border-radius-medium) var(--pi-border-radius-medium);
 		height: 15rem;
-		width: calc(100% - var(--custom-720-padding) *2);
+		width: calc(100% - var(--pi-padding) *2);
 	}
 
 	.title {
@@ -1060,7 +1064,7 @@ tr {
 	}
 
 	tr {
-		height: 3rem;
+		height: 2.5rem;
 	}
 
 	.content-table th {
@@ -1068,6 +1072,6 @@ tr {
 	}
 
 	.content-table td {
-		padding: 1.2rem;
+		padding: .75rem;
 	}
 }
