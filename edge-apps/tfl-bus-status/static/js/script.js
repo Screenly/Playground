@@ -108,7 +108,8 @@ async function getCachedData (url, cacheKey) {
   }
 }
 
-function busData () {
+// Initialize the bus data component
+window.busData = function () {
   return {
     stationName: 'Loading bus information...',
     stationPlatform: '',
@@ -142,13 +143,13 @@ function busData () {
       return `${name}${platformText}`
     },
 
-    formatPlatformName(name) {
-      if (!name) return '';
+    formatPlatformName (name) {
+      if (!name) return ''
       // Extract just the platform letter/number if possible
 
       const match = name.match(/[A-Z0-9]+$/)
       if (match) {
-        return `(Stop ${match[0]})`;
+        return `(Stop ${match[0]})`
       }
       // If no match, truncate and format
 
@@ -239,7 +240,6 @@ function busData () {
         )
 
         // Process next buses and fill with empty rows if needed
-
         const newNextBuses = sortedBuses.slice(0, MAX_BUSES_TO_DISPLAY).map(bus => ({
           ...bus,
           statusSeverity: lineData[bus.lineId]?.lineStatuses?.[0]?.statusSeverity ?? 19

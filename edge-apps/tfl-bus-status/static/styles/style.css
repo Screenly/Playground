@@ -73,7 +73,6 @@ h3 {
 	font-size: 1.5rem;
 	margin-top: 1.429rem;
 	margin-bottom: 1.429rem;
-
 }
 
 .bus-list {
@@ -142,7 +141,6 @@ h3 {
 	color: black;
 }
 
-
 .status-box {
 	border-radius: var(--box-border-radius);
 	font-size: var(--box-font-size);
@@ -180,13 +178,13 @@ h3 {
 	height: 100vh;
 }
 
-tr {
-	height: 13.7rem;
-}
-
 .content-table th,
 .content-table td {
 	padding: 3.5rem;
+}
+
+tr {
+	height: 13.7rem;
 }
 
 .content-table thead tr {
@@ -195,6 +193,7 @@ tr {
 	text-align: left;
 	font-weight: bold;
 	border-left: 2.143rem solid var(--theme-color-primary);
+	height: .5rem;
 }
 
 .content-table tbody tr {
@@ -213,14 +212,8 @@ tr {
 	border-right: none;
 }
 
-.content-table thead tr {
-	height: .5rem;
-}
-
 /* Regular mode column widths */
-
 /* Column 1: Route */
-
 .content-table thead tr th:nth-child(1),
 .content-table tbody tr td:nth-child(1) {
 	width: 15%;
@@ -229,19 +222,16 @@ tr {
 }
 
 /* Column 2: Destination */
-
 .content-table thead tr th:nth-child(2),
 .content-table tbody tr td:nth-child(2) {
 	width: 30%;
 }
 
 /* Column 3: None */
-
 .content-table thead tr th:nth-child(3),
 .content-table tbody tr td:nth-child(3) {
 	width: 25%;
 }
-
 
 .content-table thead tr th:nth-child(4),
 .content-table tbody tr td:nth-child(4),
@@ -253,7 +243,7 @@ tr {
 
 .content-table thead tr th:nth-child(1),
 .content-table tbody tr td:nth-child(1) {
-	font-family: Aeonik Medium;
+	font-family: 'Aeonik Medium', sans-serif;
 }
 
 .footer-class {
@@ -274,7 +264,6 @@ tr {
 }
 
 /* Portrait mode Media Queries */
-
 @media (orientation: portrait) {
 	body {
 		background-color: var(--theme-color-background);
@@ -307,30 +296,26 @@ tr {
 	}
 
 	/* Portrait mode column width adjustments */
-
 	/* Column 1: Line Number */
-
 	.content-table thead tr th:nth-child(1),
 	.content-table tbody tr td:nth-child(1) {
 		width: 20%;
+		padding-left: 3.5rem;
 	}
 
 	/* Column 2: Destination */
-
 	.content-table thead tr th:nth-child(2),
 	.content-table tbody tr td:nth-child(2) {
 		width: 30%;
 	}
 
 	/*  Column 3  */
-
 	.content-table thead tr th:nth-child(3),
 	.content-table tbody tr td:nth-child(3) {
 		display: none;
 	}
 
 	/* Column 4: Status  */
-
 	.content-table thead tr th:nth-child(4),
 	.content-table tbody tr td:nth-child(4) {
 		width: 15%;
@@ -340,17 +325,11 @@ tr {
 	}
 
 	/* Column 5: Status - Adjusted width and padding */
-
 	.content-table thead tr th:nth-child(5),
 	.content-table tbody tr td:nth-child(5) {
 		width: 15%;
 		white-space: nowrap;
 		text-align: center;
-		padding-left: 3.5rem;
-	}
-
-	.content-table tbody tr td:nth-child(1),
-	.content-table thead tr th:nth-child(1) {
 		padding-left: 3.5rem;
 	}
 
@@ -361,10 +340,6 @@ tr {
 	.content-table th,
 	.content-table td {
 		padding: 3.5rem;
-	}
-
-	.content-table thead tr {
-		height: 3rem;
 	}
 
 	.bus-icon {
@@ -391,18 +366,13 @@ tr {
 	}
 }
 
-
 /* Media Queries */
-
-
 /* 4K Landscape - 3840 × 2160 */
-
 /* @media screen and (max-width: 3840px) and (orientation: landscape) {
 } */
 
 /* QHD/WQHD Monitors - 2560×1440 */
-
-@media screen and (max-width: 2560px) and (orientation: landscape) {
+@media (max-width: 2560px) and (orientation: landscape) {
 	.bus-icon {
 		height: 4rem;
 		padding-right: 1rem;
@@ -411,7 +381,6 @@ tr {
 	.title {
 		font-size: 4rem;
 	}
-
 
 	.brand-logo {
 		width: 6rem;
@@ -456,8 +425,7 @@ tr {
 }
 
 /* Full HD Landscape - 1920 × 1080 */
-
-@media screen and (max-width: 1920px) and (orientation: landscape) {
+@media (max-width: 1920px) and (orientation: landscape) {
 	.header {
 		padding: 2rem 5rem 2rem 3rem;
 	}
@@ -501,10 +469,6 @@ tr {
 		height: 7.2rem;
 	}
 
-	.content-table thead tr {
-		height: 1.5rem;
-	}
-
 	.content-table {
 		font-size: 2.2rem;
 	}
@@ -531,8 +495,7 @@ tr {
 }
 
 /* Custom resolution - 1680 × 962 (Landscape) */
-
-@media screen and (max-width: 1680px) and (orientation: landscape) {
+@media (max-width: 1680px) and (orientation: landscape) {
 	.content-table {
 		font-size: 2rem;
 	}
@@ -562,10 +525,8 @@ tr {
 	}
 }
 
-
 /* HD+ - 1600×900, 1440×900 */
-
-@media screen and (max-width: 1600px) and (orientation: landscape) {
+@media (max-width: 1600px) and (orientation: landscape) {
 	.title {
 		font-size: 2.5rem;
 		padding-left: 1.3em;
@@ -601,15 +562,6 @@ tr {
 		height: 5.9rem;
 	}
 
-	.content-table thead tr {
-		height: 3.5rem;
-	}
-
-	.content-table th,
-	.content-table td {
-		padding: .5rem;
-	}
-
 	.clock-icon {
 		width: 1.7rem;
 	}
@@ -619,13 +571,10 @@ tr {
 		border-radius: 3.4rem;
 		font-size: 1.5rem;
 	}
-
 }
 
 /* Laptop Standard - 1366×768 */
-
-@media screen and (max-width: 1366px) and (orientation: landscape) {
-
+@media (max-width: 1366px) and (orientation: landscape) {
 	.header {
 		padding: 1rem 4rem 1rem 3rem;
 	}
@@ -634,7 +583,6 @@ tr {
 		font-size: 2rem;
 		padding-left: 1em;
 	}
-
 
 	.brand-logo {
 		width: 3rem;
@@ -664,10 +612,8 @@ tr {
 	}
 }
 
-
 /* HD Landscape - 1280 × 720 */
-
-@media screen and (max-width: 1280px) and (orientation: landscape) {
+@media (max-width: 1280px) and (orientation: landscape) {
 	tr {
 		height: 4.8rem;
 	}
@@ -679,12 +625,10 @@ tr {
 		text-align: left;
 		padding-left: 2.5rem;
 	}
-
 }
 
 /* Tablets & Small Laptops - 1024×768 & 1024×600 */
-
-@media screen and (max-width: 1024px) and (orientation: landscape) {
+@media (max-width: 1024px) and (orientation: landscape) {
 	.content-table thead tr th {
 		border-right: 0.071rem solid var(--theme-color-background);
 	}
@@ -737,9 +681,7 @@ tr {
 }
 
 /* Raspberry Pi Touch Display - Landscape 800 × 480 */
-
-@media screen and (max-width: 800px) and (orientation: landscape) {
-
+@media (max-width: 800px) and (orientation: landscape) {
 	.header {
 		padding-right: 2rem
 	}
@@ -787,19 +729,16 @@ tr {
 	}
 
 	tr {
-		height: 2.9rem;
+		height: 3rem;
 	}
 }
 
 /* Portrait */
-
 /* 4K Portrait - 2160 × 4096 */
-
 /* @media screen and (max-width: 2160px) and (orientation: portrait) {} */
 
 /* Full HD Portrait - 1080 × 1920 */
-
-@media screen and (max-width: 1080px) and (orientation: portrait) {
+@media (max-width: 1080px) and (orientation: portrait) {
 	.body-container {
 		padding: var(--hd-padding) var(--hd-padding) 0 var(--hd-padding);
 	}
@@ -807,6 +746,7 @@ tr {
 	.header {
 		background-color: var(--theme-color-tertiary);
 		border-radius: var(--hd-border-radius-medium) var(--hd-border-radius-medium) 0 0;
+		padding: 5rem 5rem 2rem 1rem;
 	}
 
 	.container {
@@ -818,7 +758,7 @@ tr {
 		position: fixed;
 		bottom: var(--hd-padding);
 		border-radius: 0 0 var(--hd-border-radius-medium) var(--hd-border-radius-medium);
-		height: 15rem;
+		height: 8rem;
 		width: calc(100% - var(--hd-padding) *2);
 	}
 
@@ -835,10 +775,6 @@ tr {
 		margin-left: 5rem;
 	}
 
-	.header {
-		padding: 5rem 5rem 2rem 1rem;
-	}
-
 	.content-table {
 		font-size: 2rem;
 	}
@@ -851,10 +787,6 @@ tr {
 
 	.clock-icon {
 		width: 2rem;
-	}
-
-	.footer-class {
-		height: 8rem;
 	}
 
 	.footer-text {
@@ -875,8 +807,7 @@ tr {
 }
 
 /* HD Portrait - 720 × 1280 */
-
-@media screen and (max-width: 720px) and (orientation: portrait) {
+@media (max-width: 720px) and (orientation: portrait) {
 	.body-container {
 		padding: var(--custom-720-padding) var(--custom-720-padding) 0 var(--custom-720-padding);
 	}
@@ -884,6 +815,7 @@ tr {
 	.header {
 		background-color: var(--theme-color-tertiary);
 		border-radius: var(--custom-720-border-radius-medium) var(--custom-720-border-radius-medium) 0 0;
+		padding: 2rem 2rem 2rem 1rem;
 	}
 
 	.container {
@@ -895,7 +827,6 @@ tr {
 		border-left: 1.429rem solid var(--theme-color-primary);
 	}
 
-
 	.content-table tbody tr {
 		border-left: 1.429rem solid var(--theme-color-secondary);
 	}
@@ -904,7 +835,7 @@ tr {
 		position: fixed;
 		bottom: var(--custom-720-padding);
 		border-radius: 0 0 var(--custom-720-border-radius-medium) var(--custom-720-border-radius-medium);
-		height: 15rem;
+		height: 5rem;
 		width: calc(100% - var(--custom-720-padding) *2);
 	}
 
@@ -921,11 +852,8 @@ tr {
 		margin-left: 2rem;
 	}
 
-	.header {
-		padding: 2rem 2rem 2rem 1rem;
-	}
-
-	.content-table tbody tr td:nth-child(1), .content-table thead tr th:nth-child(1) {
+	.content-table tbody tr td:nth-child(1),
+	.content-table thead tr th:nth-child(1) {
 		padding-left: 1.5rem;
 	}
 
@@ -943,16 +871,14 @@ tr {
 		width: 1.4rem;
 	}
 
-	.content-table thead tr th:nth-child(4), .content-table tbody tr td:nth-child(4) {
+	.content-table thead tr th:nth-child(4),
+	.content-table tbody tr td:nth-child(4) {
 		padding-left: 2rem;
 	}
 
-	.content-table thead tr th:nth-child(5), .content-table tbody tr td:nth-child(5) {
+	.content-table thead tr th:nth-child(5),
+	.content-table tbody tr td:nth-child(5) {
 		padding-left: 2rem;
-	}
-
-	.footer-class {
-		height: 5rem;
 	}
 
 	.footer-text {
@@ -972,10 +898,8 @@ tr {
 	}
 }
 
-
 /* Raspberry Pi Touch Display - Portrait 480 × 800 */
-
-@media screen and (max-width: 480px) and (orientation: portrait) {
+@media (max-width: 480px) and (orientation: portrait) {
 	.container {
 		height: 85vh;
 	}
@@ -996,7 +920,7 @@ tr {
 		position: fixed;
 		bottom: var(--pi-padding);
 		border-radius: 0 0 var(--pi-border-radius-medium) var(--pi-border-radius-medium);
-		height: 15rem;
+		height: 3rem;
 		width: calc(100% - var(--pi-padding) *2);
 	}
 
@@ -1017,7 +941,8 @@ tr {
 		padding: 1rem 2rem 1rem 1rem;
 	}
 
-	.content-table tbody tr td:nth-child(1), .content-table thead tr th:nth-child(1) {
+	.content-table tbody tr td:nth-child(1),
+	.content-table thead tr th:nth-child(1) {
 		padding-left: 1.5rem;
 	}
 
@@ -1037,16 +962,14 @@ tr {
 		width: 1rem;
 	}
 
-	.content-table thead tr th:nth-child(4), .content-table tbody tr td:nth-child(4) {
+	.content-table thead tr th:nth-child(4),
+	.content-table tbody tr td:nth-child(4) {
 		padding-left: 1rem;
 	}
 
-	.content-table thead tr th:nth-child(5), .content-table tbody tr td:nth-child(5) {
+	.content-table thead tr th:nth-child(5),
+	.content-table tbody tr td:nth-child(5) {
 		padding-left: 1rem;
-	}
-
-	.footer-class {
-		height: 3rem;
 	}
 
 	.footer-text {
@@ -1054,7 +977,7 @@ tr {
 	}
 
 	tr {
-		height: 2rem;
+		height: 3rem;
 	}
 
 	.content-table th {
