@@ -1054,7 +1054,7 @@ tr {
 	}
 
 	tr {
-		height: 2.5rem;
+		height: 2rem;
 	}
 
 	.content-table th {
@@ -1062,6 +1062,6 @@ tr {
 	}
 
 	.content-table td {
-		padding: .75rem;
+		padding: .7rem;
 	}
 }

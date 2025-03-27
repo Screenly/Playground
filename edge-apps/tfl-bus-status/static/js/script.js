@@ -2,13 +2,13 @@
 
 // Constants for bus data configuration
 
-const MAX_BUSES_TO_DISPLAY = 15;
+const MAX_BUSES_TO_DISPLAY = 15
 const EMPTY_BUS_DATA = {
   lineName: null,
   destinationName: null,
   timeToStation: null,
   statusSeverity: null
-};
+}
 
 // Base URL for the TfL API
 
@@ -41,7 +41,7 @@ const CACHE_KEYS = {
 // Cache duration (5 minutes)
 const CACHE_DURATION = 5 * 60 * 1000
 
-function clearCacheIfStopIdChanged() {
+function clearCacheIfStopIdChanged () {
   const cachedStopId = localStorage.getItem(CACHE_KEYS.STOP_ID)
   if (cachedStopId && cachedStopId !== stopId) {
     // Clear all cache if stop ID has changed
@@ -56,7 +56,7 @@ function clearCacheIfStopIdChanged() {
   return false
 }
 
-async function getCachedData(url, cacheKey) {
+async function getCachedData (url, cacheKey) {
   try {
     // Check if stop ID has changed
 
@@ -85,7 +85,7 @@ async function getCachedData(url, cacheKey) {
       } else if (response.status === 429) {
         throw new Error('Check TFL API Key')
       } else {
-        throw new Error(`Unable to fetch data.`)
+        throw new Error('Unable to fetch data.')
       }
     }
     const data = await response.json()
@@ -108,7 +108,7 @@ async function getCachedData(url, cacheKey) {
   }
 }
 
-function busData() {
+function busData () {
   return {
     stationName: 'Loading bus information...',
     stationPlatform: '',
@@ -122,40 +122,40 @@ function busData() {
 
     // Add a new property to hold temporary data while fetching
 
-    formatArrivalTime(timeToStation) {
+    formatArrivalTime (timeToStation) {
       return timeToStation <= 59 ? 'DUE' : Math.floor(timeToStation / 60) + ' MIN'
     },
 
-    formatStationName(name, platform) {
-      if (!name) return 'Unknown Station';
+    formatStationName (name, platform) {
+      if (!name) return 'Unknown Station'
 
       // Format the platform part
 
-      let platformText = '';
+      let platformText = ''
       if (platform) {
         const match = platform.match(/[A-Z0-9]+$/);
-        platformText = match ? ` (Stop ${match[0]})` : ` (${platform})`;
+        platformText = match ? ` (Stop ${match[0]})` : ` (${platform})`
       }
 
       // Combine name and platform without trimming or truncation
 
-      return `${name}${platformText}`;
+      return `${name}${platformText}`
     },
 
     formatPlatformName(name) {
       if (!name) return '';
       // Extract just the platform letter/number if possible
 
-      const match = name.match(/[A-Z0-9]+$/);
+      const match = name.match(/[A-Z0-9]+$/)
       if (match) {
         return `(Stop ${match[0]})`;
       }
       // If no match, truncate and format
 
-      return name.length > 15 ? `(${name.substring(0, 12)}...)` : `(${name})`;
+      return name.length > 15 ? `(${name.substring(0, 12)}...)` : `(${name})`
     },
 
-    async init() {
+    async init () {
       try {
         // console.log('Initializing bus data...')
 
@@ -178,7 +178,7 @@ function busData() {
           this.fetchBusData(false)
         }, 30 * 1000)
       } catch (error) {
-        //console.error('Initialization error:', error)
+        // console.error('Initialization error:', error)
 
         this.error = error.message
         this.stationName = 'Error: Check API Key and Stop ID'
@@ -187,7 +187,7 @@ function busData() {
       }
     },
 
-    async fetchBusData(isInitialLoad = false) {
+    async fetchBusData (isInitialLoad = false) {
       try {
         // Only show loading state on initial load
 
@@ -253,15 +253,15 @@ function busData() {
 
         // Update the UI directly for better responsiveness
 
-        this.stationName = newStationName;
-        this.stationPlatform = '';
-        this.nextBuses = newNextBuses;
-        this.lastUpdate = Date.now();
+        this.stationName = newStationName
+        this.stationPlatform = ''
+        this.nextBuses = newNextBuses
+        this.lastUpdate = Date.now()
 
-        //console.log('UI updated with new bus data at:', new Date().toISOString());
+        // console.log('UI updated with new bus data at:', new Date().toISOString());
 
       } catch (error) {
-        //console.error('Error fetching bus data:', error);
+        // console.error('Error fetching bus data:', error);
 
         Sentry.captureException(error)
         this.error = error.message
@@ -284,12 +284,12 @@ function busData() {
       }
     },
 
-    getNumberOfBuses() {
-      return MAX_BUSES_TO_DISPLAY;
+    getNumberOfBuses () {
+      return MAX_BUSES_TO_DISPLAY
       // Use the constant instead of hardcoded value
     },
 
-    getStatusMessage(statusSeverity) {
+    getStatusMessage (statusSeverity) {
       const statusMap = {
         0: 'ON TIME', // SPECIAL SERVICE
         1: 'CLOSED', // CLOSED
@@ -315,7 +315,7 @@ function busData() {
       return statusMap[statusSeverity] || 'NO STATUS'
     },
 
-    getStatusClass(statusSeverity) {
+    getStatusClass (statusSeverity) {
       const classMap = {
         0: 'on-time',
         1: 'service-closed',
@@ -347,7 +347,7 @@ function busData() {
 
 document.addEventListener('DOMContentLoaded', brandFetch)
 
-async function brandFetch() {
+async function brandFetch () {
   try {
     // constant colors
 
@@ -406,7 +406,7 @@ async function brandFetch() {
 
     // Function to fetch and process the image
 
-    async function fetchImage(fileUrl) {
+    async function fetchImage (fileUrl) {
       try {
         const response = await fetch(fileUrl)
         if (!response.ok) {
@@ -451,7 +451,9 @@ async function brandFetch() {
       await fetchImage(logoUrl).catch(async () => {
         await fetchImage(fallbackUrl).catch(() => {
           imgElement.src = defaultLogo
-          return new Promise(resolve => imgElement.onload = resolve)
+          return new Promise(resolve => {
+            imgElement.onload = resolve
+          })
         })
       })
 
