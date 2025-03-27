@@ -728,8 +728,6 @@ tr {
 }
 
 /* Portrait */
-/* 4K Portrait - 2160 × 4096 */
-/* @media screen and (max-width: 2160px) and (orientation: portrait) {} */
 
 /* Full HD Portrait - 1080 × 1920 */
 @media screen and (max-width: 1080px) and (orientation: portrait) {
