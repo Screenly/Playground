@@ -1,3 +1,5 @@
+/* stylelint-disable media-feature-range-notation */
+
 :root {
 	--box-border-radius: 3.5rem;
 	--box-padding: 1.5rem;
@@ -178,13 +180,13 @@ h3 {
 	height: 100vh;
 }
 
+tr {
+	height: 13.7rem;
+}
+
 .content-table th,
 .content-table td {
 	padding: 3.5rem;
-}
-
-tr {
-	height: 13.7rem;
 }
 
 .content-table thead tr {
@@ -213,6 +215,7 @@ tr {
 }
 
 /* Regular mode column widths */
+
 /* Column 1: Route */
 .content-table thead tr th:nth-child(1),
 .content-table tbody tr td:nth-child(1) {
@@ -296,7 +299,13 @@ tr {
 		height: 19.5rem;
 	}
 
+	.content-table th,
+	.content-table td {
+		padding: 3.5rem;
+	}
+
 	/* Portrait mode column width adjustments */
+
 	/* Column 1: Line Number */
 	.content-table thead tr th:nth-child(1),
 	.content-table tbody tr td:nth-child(1) {
@@ -334,11 +343,6 @@ tr {
 		padding-left: 3.5rem;
 	}
 
-	.content-table th,
-	.content-table td {
-		padding: 3.5rem;
-	}
-
 	.bus-icon {
 		height: 7rem;
 	}
@@ -360,9 +364,6 @@ tr {
 }
 
 /* Media Queries */
-/* 4K Landscape - 3840 × 2160 */
-/* @media screen and (max-width: 3840px) and (orientation: landscape) {
-} */
 
 /* QHD/WQHD Monitors - 2560×1440 */
 @media screen and (max-width: 2560px) and (orientation: landscape) {
@@ -441,6 +442,10 @@ tr {
 		font-size: 2.2rem;
 	}
 
+	tr {
+		height: 7.2rem;
+	}
+
 	.content-table th,
 	.content-table td {
 		padding: 1rem;
@@ -465,10 +470,6 @@ tr {
 	.content-table tbody tr td:nth-child(5) {
 		text-align: left;
 		padding-left: 4rem;
-	}
-
-	tr {
-		height: 7.2rem;
 	}
 
 	.clock-icon {
@@ -525,6 +526,10 @@ tr {
 		padding-left: 1.3em;
 	}
 
+	tr {
+		height: 5.9rem;
+	}
+
 	.content-table tbody tr {
 		border-left: .9rem solid var(--theme-color-secondary);
 	}
@@ -549,10 +554,6 @@ tr {
 	.content-table thead tr th:nth-child(2),
 	.content-table tbody tr td:nth-child(2) {
 		padding-left: 2rem;
-	}
-
-	tr {
-		height: 5.9rem;
 	}
 
 	.clock-icon {
@@ -622,6 +623,10 @@ tr {
 
 /* Tablets & Small Laptops - 1024×768 & 1024×600 */
 @media screen and (max-width: 1024px) and (orientation: landscape) {
+	tr {
+		height: 5rem;
+	}
+
 	.content-table th,
 	.content-table td {
 		padding: 1.7rem;
@@ -667,10 +672,6 @@ tr {
 	.clock-icon {
 		width: 1.2rem;
 	}
-
-	tr {
-		height: 5rem;
-	}
 }
 
 /* Raspberry Pi Touch Display - Landscape 800 × 480 */
@@ -681,6 +682,10 @@ tr {
 
 	.brand-logo {
 		width: 2rem;
+	}
+
+	tr {
+		height: 3rem;
 	}
 
 	.content-table th,
@@ -720,10 +725,6 @@ tr {
 	.clock-icon {
 		width: 1rem;
 	}
-
-	tr {
-		height: 3rem;
-	}
 }
 
 /* Portrait */
@@ -745,6 +746,10 @@ tr {
 	.container {
 		height: 85vh;
 		overflow: hidden;
+	}
+
+	tr {
+		height: 8rem;
 	}
 
 	.footer-class {
@@ -793,10 +798,6 @@ tr {
 	.footer-text {
 		font-size: 2rem;
 	}
-
-	tr {
-		height: 8rem;
-	}
 }
 
 /* HD Portrait - 720 × 1280 */
@@ -814,6 +815,10 @@ tr {
 	.container {
 		height: 80vh;
 		overflow: hidden;
+	}
+
+	tr {
+		height: 6rem;
 	}
 
 	.content-table thead tr {
@@ -885,10 +890,6 @@ tr {
 	.footer-text {
 		font-size: 1.5rem;
 	}
-
-	tr {
-		height: 6rem;
-	}
 }
 
 /* Raspberry Pi Touch Display - Portrait 480 × 800 */
@@ -899,6 +900,10 @@ tr {
 
 	.body-container {
 		padding: var(--pi-padding) var(--pi-padding) 0 var(--pi-padding);
+	}
+
+	tr {
+		height: 4rem;
 	}
 
 	.content-table thead tr {
@@ -975,9 +980,5 @@ tr {
 
 	.footer-text {
 		font-size: 1rem;
-	}
-
-	tr {
-		height: 4rem;
 	}
 }
