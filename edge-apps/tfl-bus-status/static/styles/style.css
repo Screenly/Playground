@@ -27,8 +27,7 @@ body {
 	justify-content: space-between;
 	align-items: center;
 	padding: 5rem 10rem 2rem 1rem;
-	font-family: Aeonik Medium;
-
+	font-family: 'Aeonik Medium', sans-serif;
 }
 
 .title {
@@ -181,24 +180,25 @@ h3 {
 	height: 100vh;
 }
 
+tr {
+	height: 13.7rem;
+}
+
+.content-table th,
+.content-table td {
+	padding: 3.5rem;
+}
+
 .content-table thead tr {
 	background-color: var(--theme-color-primary);
 	color: #fff;
 	text-align: left;
 	font-weight: bold;
-}
-
-.content-table th,
-.content-table td {
-	padding: 0.857rem 1.071rem;
+	border-left: 2.143rem solid var(--theme-color-primary);
 }
 
 .content-table tbody tr {
 	border-left: 2.143rem solid var(--theme-color-secondary);
-}
-
-.content-table thead tr {
-	border-left: 2.143rem solid var(--theme-color-primary);
 }
 
 .content-table tbody tr td {
@@ -211,15 +211,6 @@ h3 {
 
 .content-table thead tr th:last-child {
 	border-right: none;
-}
-
-.content-table th,
-.content-table td {
-	padding: 3.5rem;
-}
-
-tr {
-	height: 13.7rem;
 }
 
 .content-table thead tr {
@@ -291,7 +282,6 @@ tr {
 
 	.body-container {
 		padding: var(--custom-4k-padding) var(--custom-4k-padding) 0 var(--custom-4k-padding);
-		/* border-radius: 2rem; */
 	}
 
 	.container {
