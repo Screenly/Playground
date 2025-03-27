@@ -45,12 +45,12 @@
 								<td></td>
 								<td>
 									<template x-if="bus.statusSeverity !== null">
-										<span :class="getStatusClass(bus.statusSeverity)" x-text="getStatusMessage(bus.statusSeverity)"></span>
+										<span :class="getStatusClass(bus.statusSeverity)" class="status-box" x-text="getStatusMessage(bus.statusSeverity)"></span>
 									</template>
 								</td>
 								<td>
 									<template x-if="bus.timeToStation !== null">
-										<span class="arrival-time">
+										<span class="arrival-time status-box">
 											<img src="static/images/clock-icon.svg" alt="Clock" class="clock-icon">
 											<span x-text="formatArrivalTime(bus.timeToStation)"></span>
 										</span>
@@ -63,7 +63,7 @@
 			</table>
 		</div>
 		<footer>
-			<div class="footer">
+			<div class="footer-class">
 				<p class="footer-text">Powered by Screenly</p>
 			</div>
 		</footer>
