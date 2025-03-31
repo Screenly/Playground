@@ -78,15 +78,12 @@ async function getCachedData (url, cacheKey) {
 
     const response = await fetch(url)
     if (!response.ok) {
-      if (response.status === 401) {
-        throw new Error('Check TFL API Key')
-      } else if (response.status === 404) {
-        throw new Error('Invalid stop ID.')
-      } else if (response.status === 429) {
-        throw new Error('Check TFL API Key')
-      } else {
-        throw new Error('Unable to fetch data.')
+      const errorMessages = {
+        401: 'Check TFL API Key',
+        404: 'Invalid stop ID.',
+        429: 'Check TFL API Key'
       }
+      throw new Error(errorMessages[response.status] || 'Unable to fetch data.')
     }
     const data = await response.json()
 
@@ -124,7 +121,8 @@ window.busData = function () {
     // Add a new property to hold temporary data while fetching
 
     formatArrivalTime (timeToStation) {
-      return timeToStation <= 59 ? 'DUE' : Math.floor(timeToStation / 60) + ' MIN'
+      const DUE_THRESHOLD = 59;
+      return timeToStation <= DUE_THRESHOLD ? 'DUE' : Math.floor(timeToStation / 60) + ' MIN'
     },
 
     formatStationName (name, platform) {
