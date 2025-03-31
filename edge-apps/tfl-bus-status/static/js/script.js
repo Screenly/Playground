@@ -281,11 +281,6 @@ window.busData = function () {
       }
     },
 
-    getNumberOfBuses () {
-      return MAX_BUSES_TO_DISPLAY
-      // Use the constant instead of hardcoded value
-    },
-
     getStatusMessage (statusSeverity) {
       const statusMap = {
         0: 'ON TIME', // SPECIAL SERVICE
@@ -342,9 +337,9 @@ window.busData = function () {
 
 // Initialize brand settings when DOM is ready
 
-document.addEventListener('DOMContentLoaded', brandFetch)
+document.addEventListener('DOMContentLoaded', fetchBrand)
 
-async function brandFetch () {
+async function fetchBrand () {
   try {
     // constant colors
 
