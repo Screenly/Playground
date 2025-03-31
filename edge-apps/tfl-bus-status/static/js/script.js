@@ -121,7 +121,7 @@ window.busData = function () {
     // Add a new property to hold temporary data while fetching
 
     formatArrivalTime (timeToStation) {
-      const DUE_THRESHOLD = 59;
+      const DUE_THRESHOLD = 59
       return timeToStation <= DUE_THRESHOLD ? 'DUE' : Math.floor(timeToStation / 60) + ' MIN'
     },
 
