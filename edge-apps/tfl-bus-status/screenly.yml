@@ -30,3 +30,11 @@ settings:
     optional: true
     is_global: true
     help_text: Sentry Client Key from Sentry SDK for error capturing.
+  theme:
+    type: string
+    default_value: light
+    title: Theme
+    optional: false
+    help_text: |-
+      Determines the visual theme for the application.
+      Options are 'light' or 'dark'.
