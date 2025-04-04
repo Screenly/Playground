@@ -1,6 +1,7 @@
 ---
-app_id:
+syntax: manifest_v1
+id:
 entrypoint: index.html
-icon: 'https://playground.srly.io/edge-apps/clock/static/img/toaster.svg'
+icon: 'https://playground.srly.io/edge-apps/flying-toasters/static/img/icon.svg'
 author: Bryan Braun
 settings:

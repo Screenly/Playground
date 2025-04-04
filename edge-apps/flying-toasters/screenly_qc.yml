@@ -1,0 +1,7 @@
+---
+syntax: manifest_v1
+id:
+entrypoint: index.html
+icon: 'https://playground.srly.io/edge-apps/clock/static/img/toaster.svg'
+author: Bryan Braun
+settings:
