@@ -13,9 +13,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      APP_ID: '01HRCAW49EW573V7JCH711SP5G'
-
       APP_PATH: 'edge-apps/powerbi'
+      MANIFEST_FILE_NAME: 'screenly_qc.yml'
 
     steps:
       - name: Checkout Code
@@ -26,18 +25,4 @@ jobs:
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
           # yamllint disable-line rule:line-length
-          cli_commands: edge-app upload --app-id=${{ env.APP_ID }} --path=${{ env.APP_PATH }}
-
-      - name: List Versions
-        uses: screenly/cli@master
-        with:
-          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
-          # yamllint disable-line rule:line-length
-          cli_commands: edge-app version list --app-id=${{ env.APP_ID }}
-
-      - name: Promote Edge App
-        uses: screenly/cli@master
-        with:
-          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
-          # yamllint disable-line rule:line-length
-          cli_commands: edge-app version promote --latest --app-id=${{ env.APP_ID }} --path=${{ env.APP_PATH }}
+          cli_commands: edge-app deploy --path=${{ env.APP_PATH }}

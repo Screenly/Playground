@@ -47,8 +47,16 @@ so you need to copy the necessary files first. To do so, run the following comma
 $ screenly edge-app create \
     --name=my-rss-reader-app \
     --in-place
-$ screenly edge-app upload
+$ screenly edge-app deploy
 ```
+
+Install the app
+
+```bash
+$ screenly edge-app instance create
+Edge app instance successfully created.
+```
+
 
 Configure the feed:
 
@@ -76,3 +84,27 @@ Here's a table that contains a list of some RSS feed URLs, and whether the CORS 
 | `https://www.reddit.com/.rss`                         | Yes           | true        |
 | `https://rss.nytimes.com/services/xml/rss/nyt/US.xml` | No            | false       |
 | `http://rss.sciam.com/sciam/60secsciencepodcast`      | Yes           | true        |
+
+
+## Tweaking the time and locale settings
+
+### `override_timezone`
+
+For instance, if you want to set the RSS feed update date and time  as per the current date and time in London,
+
+run the following command after setting the timer:
+
+```bash
+$ screenly edge-app setting set override_timezone='Europe/London'
+# A relatively long console output...
+Edge app setting successfully set.
+
+$ screenly edge-app setting set override_locale='en-gb'
+# A relatively long console output...
+Edge app setting successfully set.
+```
+
+See [this page](https://momentjs.com/) for the list of all possible values for the time zone.
+Alternatively, you can call `moment.locales()`, which returns all the supported locale values.
+
+Setting invalid values for the timezone won't crash the app itself, it'll just fall back to the default time.

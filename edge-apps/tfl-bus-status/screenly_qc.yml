@@ -1,0 +1,40 @@
+---
+syntax: manifest_v1
+id: 01J013T9F09HS3TSPWF226ND18
+ready_signal: true
+description: |
+  Displays TFL Bus Status for a given bus stop.
+  You can find the list of all bus stops here:
+  https://playground.srly.io/edge-apps/helpers/tfl/bus-stop-lookup/
+
+icon: https://playground.srly.io/edge-apps/tfl-bus-status/static/images/icon.svg
+author: Screenly, Inc.
+settings:
+  tfl_api_token:
+    type: secret
+    title: TFL API Key
+    optional: false
+    is_global: true
+    help_text: API Key from the TFL.
+  stop_id:
+    type: string
+    default_value: 490005186S1
+    title: Bus Stop ID
+    optional: false
+    help_text: |
+      You can find your bus stop here:
+      https://playground.srly.io/edge-apps/helpers/tfl/bus-stop-lookup/
+  sentry_dsn:
+    type: secret
+    title: Sentry Client Key
+    optional: true
+    is_global: true
+    help_text: Sentry Client Key from Sentry SDK for error capturing.
+  theme:
+    type: string
+    default_value: light
+    title: Theme
+    optional: false
+    help_text: |-
+      Determines the visual theme for the application.
+      Options are 'light' or 'dark'.

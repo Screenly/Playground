@@ -1,18 +1,17 @@
 # Screenly Asset Metadata
 
+![Screenly Asset Metadata App Preview](static/images/asset-metadata-app-preview.jpg)
 
+This Edge App displays the screen metadata - Hostname, Screen Name, Position , Hardware name, Firmware version, Labels, etc.
 
-## tl;dr
-
-To use this Edge App, you need to retrieve a Google Maps [API key](https://developers.google.com/maps/documentation/javascript/get-api-key). It's important that you set it as 'unrestricted' for the Edge App to be able to use it.
+## Installation
 
 ```bash
 $ cd edge-apps/asset-metadata
 $ screenly edge-app create \
     --name my-asset-metadata \
     --in-place
-$ screenly edge-app upload
+$ screenly edge-app deploy
 [...]
-$ screenly edge-app secret set google_maps_api_key=Your_API_KEY
-$ screenly edge-app version promote revision=X
+$ screenly edge-app instance create
 ```

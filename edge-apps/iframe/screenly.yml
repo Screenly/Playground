@@ -1,12 +1,13 @@
 ---
+syntax: manifest_v1
+id: 01HSGGB40HC05XK0M1WDDVEHAH
 description: Screenly iframe Edge App
 icon: 'https://playground.srly.io/edge-apps/iframe/static/images/icon.svg'
 author: Screenly, Inc.
-entrypoint: index.html
 settings:
   iframe:
     type: string
-    title: iframe
+    title: iFrame URL
     optional: false
     help_text: |
       Provide an iframe URL to be embedded.

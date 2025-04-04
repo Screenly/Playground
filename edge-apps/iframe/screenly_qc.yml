@@ -1,0 +1,17 @@
+---
+syntax: manifest_v1
+id: 01HSGG4DJ6D2WE9GN0V7E4TSP1
+description: Screenly iframe Edge App
+icon: 'https://playground.srly.io/edge-apps/iframe/static/images/icon.svg'
+author: Screenly, Inc.
+settings:
+  iframe:
+    type: string
+    title: iFrame URL
+    optional: false
+    help_text: |
+      Provide an iframe URL to be embedded.
+
+      This can be provided in either the full format (`<iframe src="https://foobar.com" style="height:200px;width:300px;" title="Iframe Example"></iframe>`), or just the `src` (e.g. `https://foobar.com`).
+
+      The Edge App will automatically strip out style (e.g. height, width etc) to optimize for the best full-screen experience.

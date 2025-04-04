@@ -1,5 +1,9 @@
-/* global Alpine, icons, moment, screenly */
+/* global Alpine, icons, moment, clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry */
+/* eslint-disable-next-line no-unused-vars, no-useless-catch */
 
+const DEFAULT_LOGO_URL = 'static/images/screenly.svg'
+
+// AppCache
 class AppCache {
   constructor ({ keyName }) {
     this.keyName = keyName
@@ -28,6 +32,7 @@ class AppCache {
   }
 }
 
+// getWeatherApiData from main.js
 async function getWeatherApiData (context) {
   const stringifyQueryParams = (params) => {
     return Object.entries(params).map(
@@ -36,6 +41,7 @@ async function getWeatherApiData (context) {
   }
 
   const endpointUrl = 'https://api.openweathermap.org/data/2.5/forecast'
+
   const queryParams = stringifyQueryParams({
     lat: context.lat,
     lon: context.lng,
@@ -50,11 +56,12 @@ async function getWeatherApiData (context) {
   try {
     const response = await fetch(`${endpointUrl}?${queryParams}`)
     const data = await response.json()
-    context.fetchError = false
 
     if (data.cod !== '200') {
       throw new Error(data.message)
     }
+
+    context.error = false
 
     appCache.clear()
     const { city: { name, country, timezone }, list } = data
@@ -66,6 +73,7 @@ async function getWeatherApiData (context) {
     appCache.set(result)
   } catch (error) {
     console.error(error)
+
     result = appCache.get()
 
     const requiredKeys = ['name', 'country', 'timezone', 'list']
@@ -73,31 +81,40 @@ async function getWeatherApiData (context) {
       return Object.prototype.hasOwnProperty.call(result, key)
     })
 
-    context.fetchError = !isComplete
+    context.error = !isComplete
+    context.errorMessage = error.message
   }
 
   return result
 }
 
-function formatTime (today) {
-  const locale = navigator?.languages?.length
-    ? navigator.languages[0]
-    : navigator.language
+function formatTime (today, locale) {
   moment.locale(locale)
-  return moment(today).format('LT')
+  const is24HourFormat = moment.localeData(locale).longDateFormat('LT').includes('H')
+
+  return moment(today).format(is24HourFormat ? 'HH:mm' : 'hh:mm A')
 }
 
-function refreshDateTime (context) {
-  clearTimeout(context.clockTimer)
+async function getLocale (lat, lng) {
+  const { settings } = screenly
+  const defaultLocale = navigator?.languages?.length
+    ? navigator.languages[0]
+    : navigator.language
 
-  const now = moment().utcOffset(context.tzOffset)
-  context.currentTime = formatTime(now)
-  context.currentDate = now.format('dddd, MMM DD')
+  const overrideLocale = settings?.override_locale
 
-  context.clockTimer = setTimeout(
-    () => refreshDateTime(context),
-    context.clockTimerInterval
-  )
+  if (overrideLocale) {
+    if (moment.locales().includes(overrideLocale)) {
+      return overrideLocale
+    } else {
+      console.warn(`Invalid locale: ${overrideLocale}. Using defaults.`)
+    }
+  }
+
+  const data = await OfflineGeocodeCity.getNearestCity(lat, lng)
+  const countryCode = data.countryIso2.toUpperCase()
+
+  return clm.getLocaleByAlpha2(countryCode) || defaultLocale
 }
 
 function findCurrentWeatherItem (list) {
@@ -197,21 +214,36 @@ function getWeatherImagesById (context, id = 800, dt) {
   }
 
   return {
-    icon: isNight ? `${icon}-night` : icon,
+    icon: isNight && hasNightPair(icon) ? `${icon}-night` : icon,
     bg: isNight && hasNightBg ? `${bg}-night` : bg
+  }
+
+  // Helper function to check if an icon has a night pair
+  function hasNightPair (icon) {
+    const noNightPairIcons = [
+      'chancesleet',
+      'cloudy',
+      'drizzle',
+      'fewdrops',
+      'fog',
+      'haze',
+      'snow',
+      'windy'
+    ]
+    return !noNightPairIcons.includes(icon)
   }
 }
 
 /**
-  * Countries using F scale
-  * United States
-  * Bahamas.
-  * Cayman Islands.
-  * Liberia.
-  * Palau.
-  * The Federated States of Micronesia.
-  * Marshall Islands.
-  */
+* Countries using F scale
+* United States
+* Bahamas.
+* Cayman Islands.
+* Liberia.
+* Palau.
+* The Federated States of Micronesia.
+* Marshall Islands.
+*/
 
 const countriesUsingFahrenheit = ['US', 'BS', 'KY', 'LR', 'PW', 'FM', 'MH']
 const celsiusToFahrenheit = (temp) => ((1.8 * temp) + 32)
@@ -222,94 +254,136 @@ const getTemp = (context, temp) => {
 }
 
 async function refreshWeather (context) {
-  clearTimeout(context.weatherTimer)
+  try {
+    const data = await getWeatherApiData(context)
+    if (data.list !== undefined) {
+      const { name, country, timezone: tzOffset, list } = data
+      // We only want to set these values once.
+      if (!context.firstFetchComplete) {
+        context.city = `${name}, ${country}`
+        context.tzOffset = parseInt(tzOffset / 60) // in minutes
+        context.tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C'
 
-  const data = await getWeatherApiData(context)
-
-  if (data.list !== undefined) {
-    const { name, country, timezone: tzOffset, list } = data
-
-    // We only want to set these values once.
-    if (!context.firstFetchComplete) {
-      context.city = `${name}, ${country}`
-      context.tzOffset = parseInt(tzOffset / 60) // in minutes
-      context.tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C'
-      refreshDateTime(context)
-
-      context.firstFetchComplete = true
-      context.isLoading = false
-    }
-
-    const currentIndex = findCurrentWeatherItem(list)
-    const { dt, weather, main: { temp } } = list[currentIndex]
-
-    if (Array.isArray(weather) && weather.length > 0) {
-      const { id, description } = weather[0]
-      const { icon, bg } = getWeatherImagesById(context, id, dt)
-      if ((id !== context.currentWeatherId) || (`bg-${bg}` !== context.bgClass)) {
-        context.bgClass = `bg-${bg}`
+        context.firstFetchComplete = true
+        context.isLoading = false
       }
 
-      context.currentWeatherIcon = icons[icon]
-      context.currentWeatherStatus = description
-      context.currentTemp = getTemp(context, temp)
-      context.currentFormattedTempScale = `\u00B0${context.tempScale}`
+      const currentIndex = findCurrentWeatherItem(list)
+      const { dt, weather, main: { temp } } = list[currentIndex]
 
-      context.currentWeatherId = id
-    }
+      if (Array.isArray(weather) && weather.length > 0) {
+        const { id, description } = weather[0]
+        const { icon, bg } = getWeatherImagesById(context, id, dt)
+        if ((id !== context.currentWeatherId) || (`bg-${bg}` !== context.bgClass)) {
+          context.bgClass = `bg-${bg}`
+        }
 
-    const windowSize = 5
-    const currentWindow = list.slice(
-      currentIndex,
-      (currentIndex <= windowSize - 1)
-        ? currentIndex + windowSize
-        : list.length - 1
-    )
-
-    context.forecastedItems = currentWindow.map((item, index) => {
-      const { dt, main: { temp }, weather } = item
-
-      const { icon } = getWeatherImagesById(context, weather[0]?.id, dt)
-      const dateTime = moment.unix(dt).utcOffset(context.tzOffset)
-
-      return {
-        id: index,
-        temp: getTemp(context, temp),
-        icon: icons[icon],
-        time: index === 0 ? 'Current' : formatTime(dateTime)
+        context.currentWeatherIcon = icons[icon]
+        context.currentWeatherStatus = description
+        context.currentTemp = getTemp(context, temp)
+        context.currentFormattedTempScale = `\u00B0${context.tempScale}`
+        context.currentWeatherId = id
       }
-    })
+
+      const windowSize = window.matchMedia('(orientation: portrait)').matches ? 4 : 7
+      const currentWindow = list.slice(
+        currentIndex + 1,
+        currentIndex + 1 + windowSize
+      )
+
+      context.forecastedItems = await Promise.all(currentWindow.map(async (item, index) => {
+        const { dt, main: { temp }, weather } = item
+        const { icon } = getWeatherImagesById(context, weather[0]?.id, dt)
+        const dateTime = moment.unix(dt).utcOffset(context.tzOffset)
+        const locale = await getLocale(context.lat, context.lng)
+
+        return {
+          id: index,
+          temp: getTemp(context, temp),
+          icon: icons[icon],
+          time: formatTime(dateTime, locale)
+        }
+      }))
+    }
+  } catch (error) {
+    context.error = true
+    context.errorMessage = error.message
   }
-
-  context.weatherTimer = setTimeout(
-    () => refreshWeather(context),
-    context.weatherTimerInterval
-  )
 }
 
 function getWeatherData () {
   return {
-    currentDate: '',
-    currentTime: '',
-    city: '',
-    lat: 0,
-    lng: 0,
-    currentWeatherId: 0,
-    clockTimer: null,
-    clockTimerInterval: 1000,
-    weatherTimer: null,
-    weatherTimerInterval: 1000 * 60 * 15, // 15 minutes
-    tzOffset: 0,
     bgClass: '',
-    tempScale: 'C',
-    currentWeatherIcon: '',
-    currentWeatherStatus: '',
-    currentTemp: null,
+    city: '',
+    currentDate: '',
     currentFormattedTempScale: '',
-    forecastedItems: [],
-    fetchError: false,
+    currentTemp: null,
+    currentWeatherIcon: '',
+    currentWeatherId: 0,
+    currentWeatherStatus: '',
+    error: false,
+    errorMessage: '',
     firstFetchComplete: false,
-    isLoading: true,
+    forecastedItems: [],
+    timeHour: '',
+    timeMinutes: '',
+    timeAmPm: '',
+    dateText: '',
+    dateNumber: '',
+    showAmPm: true,
+    brandLogo: DEFAULT_LOGO_URL,
+    async fetchImage (fileUrl) {
+      try {
+        const response = await fetch(fileUrl)
+        if (!response.ok) {
+          throw new Error(`Failed to fetch image from ${fileUrl}, status: ${response.status}`)
+        }
+
+        const blob = await response.blob()
+        const buffer = await blob.arrayBuffer()
+        const uintArray = new Uint8Array(buffer)
+
+        // Get the first 4 bytes for magic number detection
+        const hex = Array.from(uintArray.slice(0, 4))
+          .map(b => b.toString(16).padStart(2, '0'))
+          .join('').toUpperCase()
+
+        // Convert the first few bytes to ASCII for text-based formats like SVG
+        const ascii = String.fromCharCode.apply(null, uintArray.slice(0, 100))
+
+        if (ascii.startsWith('<?xml') || ascii.startsWith('<svg')) {
+          return new Promise((resolve) => {
+            const svgReader = new FileReader()
+            svgReader.readAsText(blob)
+            svgReader.onloadend = () => {
+              const base64 = btoa(unescape(encodeURIComponent(svgReader.result)))
+              resolve('data:image/svg+xml;base64,' + base64)
+            }
+          })
+        } else if (hex === '89504E47' || hex.startsWith('FFD8FF')) {
+          return fileUrl
+        } else {
+          throw new Error('Unknown image type')
+        }
+      } catch (error) {
+        console.error('Error fetching image:', error)
+        throw error
+      }
+    },
+    async initBrandLogo () {
+      const corsUrl = screenly.cors_proxy_url + '/' + screenly.settings.screenly_logo_dark
+      const fallbackUrl = screenly.settings.screenly_logo_dark
+
+      try {
+        this.brandLogo = await this.fetchImage(corsUrl)
+      } catch (error) {
+        try {
+          this.brandLogo = await this.fetchImage(fallbackUrl)
+        } catch (fallbackError) {
+          this.brandLogo = DEFAULT_LOGO_URL
+        }
+      }
+    },
     init: async function () {
       if (screenly.settings.override_coordinates) {
         [this.lat, this.lng] = screenly.settings.override_coordinates.split(',')
@@ -321,12 +395,80 @@ function getWeatherData () {
 
       this.apiKey = screenly.settings.openweathermap_api_key
 
+      await this.initDateTime()
+      setInterval(() => this.initDateTime(), 1000)
+
       await refreshWeather(this)
+      setInterval(
+        () => {
+          refreshWeather(this)
+        }, 1000 * 60 * 15 // 15 minutes
+      )
+
+      await this.initBrandLogo()
     },
-    settings: {}
+    getTimezone: async function () {
+      return tzlookup(this.lat, this.lng)
+    },
+    initDateTime: async function () {
+      const timezone = await this.getTimezone()
+      const locale = await getLocale(this.lat, this.lng)
+      const momentObject = moment().tz(timezone)
+
+      if (locale) {
+        momentObject.locale(locale)
+      }
+
+      const dayOfMonth = momentObject.format('D')
+      const formattedTime = formatTime(momentObject, locale)
+      const [hours, minutes] = formattedTime.split(' ')[0].split(':')
+      const ampm = formattedTime.split(' ')[1] || ''
+
+      // Update time values
+      this.timeHour = hours
+      this.timeMinutes = minutes
+      this.showAmPm = !!ampm
+      this.timeAmPm = ampm
+      this.dateText = momentObject.format('ddd').toUpperCase()
+      this.dateNumber = dayOfMonth
+    },
+    isLoading: true,
+    lat: 0,
+    lng: 0,
+    settings: {},
+    tempScale: 'C',
+    tzOffset: 0
   }
 }
 
 document.addEventListener('alpine:init', () => {
   Alpine.data('weather', getWeatherData)
+})
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const sentryDsn = screenly.settings.sentry_dsn
+  // Initiate Sentry.
+  if (sentryDsn) {
+    Sentry.init({
+      dsn: sentryDsn
+    })
+  } else {
+    console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
+  }
+
+  // constant colors
+  const tertiaryColor = '#FFFFFF'
+  const backgroundColor = '#C9CDD0'
+
+  // Brand details fetching from settings
+  const primaryColor = (!screenly.settings.screenly_color_accent || screenly.settings.screenly_color_accent.toLowerCase() === '#ffffff') ? '#7e2cd2' : screenly.settings.screenly_color_accent
+  const secondaryColor = (!screenly.settings.screenly_color_light || screenly.settings.screenly_color_light.toLowerCase() === '#ffffff') ? '#454bd2' : screenly.settings.screenly_color_light
+
+  document.documentElement.style.setProperty('--theme-color-primary', primaryColor)
+  document.documentElement.style.setProperty('--theme-color-secondary', secondaryColor)
+  document.documentElement.style.setProperty('--theme-color-tertiary', tertiaryColor)
+  document.documentElement.style.setProperty('--theme-color-background', backgroundColor)
+
+  // Signal that the screen is ready for rendering
+  screenly.signalReadyForRendering()
 })

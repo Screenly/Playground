@@ -1,0 +1,74 @@
+---
+syntax: manifest_v1
+id: 01HKT59B49Z343B7C2H9JVH51B
+description: Screenly RSS Reader App
+icon: https://playground.srly.io/edge-apps/rss-reader/static/img/icon.svg
+author: Screenly, Inc.
+ready_signal: true
+settings:
+  bypass_cors:
+    type: string
+    default_value: 'true'
+    title: Bypass CORS
+    optional: true
+    help_text: |
+      Some RSS sources require you to bypass CORS policies.
+      Setting this to 'true' enables this feature.
+  cache_interval:
+    type: string
+    default_value: '1800'
+    title: Cache Interval
+    optional: false
+    help_text: Specify the interval (in seconds) used to periodically cache feeds.
+  enable_analytics:
+    type: string
+    default_value: 'true'
+    title: Enable Analytics
+    optional: true
+    help_text: Whether to enable analytics or not
+    is_global: true
+  override_locale:
+    type: string
+    default_value: en
+    title: Override Locale
+    optional: true
+    help_text: Specify a supported locale value (e.g., en_US).
+  override_timezone:
+    type: string
+    default_value: ''
+    title: Override Timezone
+    optional: true
+    help_text: Specify a supported timezone value (e.g., Europe/London).
+  rss_title:
+    type: string
+    default_value: BBC News
+    title: RSS Title
+    optional: false
+    help_text: The title of the website where the feeds were derived
+  rss_url:
+    type: string
+    default_value: http://feeds.bbci.co.uk/news/rss.xml
+    title: RSS URL
+    optional: false
+    help_text: Specify the URL to where to get the data from.
+  tag_manager_id:
+    type: string
+    default_value: GTM-P98SPZ9Z
+    title: Google Tag Manager ID
+    optional: true
+    help_text: Specify a Google Tag Manager ID
+    is_global: true
+  theme:
+    type: string
+    default_value: light
+    title: Theme
+    optional: false
+    help_text: |-
+      Determines the visual theme for the application.
+      Options are 'light' or 'dark'.
+  sentry_dsn:
+    type: secret
+    title: Sentry Client Key
+    optional: true
+    help_text: Sentry Client Key from Sentry SDK for error capturing.
+    is_global: true

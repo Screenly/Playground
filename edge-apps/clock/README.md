@@ -1,5 +1,7 @@
 # Screenly Clock App
 
+![Clock Screen](./static/img/Clock-Preview.png)
+
 ## tl;dr
 
 ```bash
@@ -7,11 +9,10 @@ $ cd edge-apps/clock
 $ screenly edge-app create \
     --name my-clock-app \
     --in-place
-$ screenly edge-app upload
+$ screenly edge-app deploy
 [...] # You can tweak settings here.
-$ screenly edge-app version promote --revision=X
-
-# Alternatively, you can use --latest in place of --revision.
+# To install an app, you need to create an instance.
+$ screenly edge-app instance create
 ```
 
 ## Tweaking the settings

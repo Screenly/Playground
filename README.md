@@ -1,6 +1,6 @@
 # Screenly Playground
 
-![Playground Logo](/images/playground.png)
+![Playground Logo](/images/playground.svg)
 
 This repository holds various examples that showcases Screenly's features and API.
 
@@ -16,7 +16,8 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 * [Weather App](https://github.com/Screenly/Playground/tree/master/edge-apps/weather) - A simple weather app.
 * [iFrame App](https://github.com/Screenly/Playground/tree/master/edge-apps/iframe) - A simple iFrame app.
 * [Countdown Timer](https://github.com/Screenly/Playground/tree/master/edge-apps/countdown-timer) - A simple countdown timer app.
-
+* [Simple Message App](https://github.com/Screenly/Playground/tree/master/edge-apps/simple-message-app) - A simple message  app.
+* [TFL Bus Status App](https://github.com/Screenly/Playground/tree/master/edge-apps/tfl-bus-status) - An app to display TFL Bus Status for a given bus stop. A list of all bus stops can be found here -  [Bus Stop Lookup Tool](https://playground.srly.io/edge-apps/helpers/tfl/bus-stop-lookup/)
 
 ## Other
 

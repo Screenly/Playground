@@ -1,90 +1,67 @@
 <!DOCTYPE html>
-<!-- eslint-disable head-script-disabled */ -->
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Asset Medatada</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet">
-    <link href="static/styles/bootstrap.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="static/styles/main.css">
-
-    <script src="screenly.js?version=1"></script>
-
-    <!-- Google Tag Manager -->
-    <script>
-        const {
-            enable_analytics: enableAnalytics,
-            tag_manager_id: tagManagerId,
-        } = screenly.settings;
-
-        if (enableAnalytics === 'true') {
-            (function(w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    'gtm.start': new Date().getTime(),
-                    event: 'gtm.js'
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != 'dataLayer' ? '&l=' + l : '';
-                j.async = true;
-                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', tagManagerId);
-        }
-    </script>
-    <!-- End Google Tag Manager -->
-  </head>
-
-  <body>
-    <div class="d-flex flex-column h-100">
-      <main class="content">
-        <div id="map"></div>
-        <div class="metadata">
-          <div class="header">
-            <img src="static/images/logo.svg" alt="screenly logo" />
-            <span>Screen Metadata</span>
-          </div>
-          <div class="data">
-            <div class="metadata-item">
-              <label>Hostname:</label>
-              <div class="value hostname">Unavailable</div>
-            </div>
-            <div class="metadata-item">
-              <label>Version:</label>
-              <div class="value version">Unavailable</div>
-            </div>
-            <div class="metadata-item">
-              <label>Name:</label>
-              <div class="value name">Unavailable</div>
-            </div>
-            <div class="metadata-item">
-              <label>Coordinates:</label>
-              <div class="value coordinates">Unavailable</div>
-            </div>
-            <div class="metadata-item">
-              <label>Location:</label>
-              <div class="value location">Unavailable</div>
-            </div>
-            <div class="metadata-item">
-              <label>Hardware:</label>
-              <div class="value hardware">Unavailable</div>
-            </div>
-          </div>
-          <div class="tags">
-            <label>Labels</label>
-            <div class="value labels">
-              Unavailable
-            </div>
-          </div>
-        </div>
-      </main>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asset Metadata</title>
+  <link href="static/styles/common.css" rel="stylesheet">
+  <link href="static/styles/styles.css" rel="stylesheet">
+</head>
+<body>
+  <div  class="main-container main-container-grid">
+    <div class="primary-card host-name-card">
+      <div class="icon-card">
+        <object id="name-icon" type="image/svg+xml" data="static/images/icons/name-icon.svg" class="icon-card-icon" alt="icon"></object>
+        <span class="icon-card-text head-text">Host Name</span>
+      </div>
+      <span class="icon-card-text host-name-text"></span>
     </div>
-
-    <script src="static/js/main.js"></script>
-  </body>
+    <div class="primary-card screen-name-card">
+      <div class="icon-card">
+        <object id="name-icon" type="image/svg+xml" data="static/images/icons/name-icon.svg" class="icon-card-icon" alt="icon"></object>
+        <span class="icon-card-text head-text">Name</span>
+      </div>
+      <span class="icon-card-text screen-name-text"></span>
+    </div>
+    <div class="secondary-card hardware-name-card">
+      <div class="icon-card">
+        <object id="hardware-icon" type="image/svg+xml" data="static/images/icons/hardware-icon.svg" class="icon-card-icon" alt="icon"></object>
+        <span class="icon-card-text head-text">Hardware</span>
+      </div>
+      <span class="icon-card-text hardware-name-text"></span>
+    </div>
+    <div class="secondary-card brand-logo-card">
+      <img id="brand-logo" src="static/images/Screenly.svg" class="brand-logo" alt="Brand Logo" />
+      <span class="info-text">Powered by Screenly</span>
+    </div>
+    <div class="secondary-card version-name-card">
+      <div class="icon-card">
+        <object id="version-icon" type="image/svg+xml" data="static/images/icons/version-icon.svg" class="icon-card-icon" alt="icon"></object>
+        <span class="icon-card-text head-text">Version</span>
+      </div>
+      <span class="icon-card-text version-name-text"></span>
+    </div>
+    <div class="secondary-card coordinates-card">
+      <div class="icon-card">
+        <object id="coordinates-icon" type="image/svg+xml" data="static/images/icons/coordinates-icon.svg" class="icon-card-icon" alt="icon"></object>
+        <span class="icon-card-text head-text">Coordinates</span>
+      </div>
+      <span class="icon-card-text coordinates-name-text"></span>
+    </div>
+    <div class="secondary-card labels-name-card">
+      <div class="icon-card">
+        <object id="version-icon" type="image/svg+xml" data="static/images/icons/version-icon.svg" class="icon-card-icon" alt="icon"></object>
+        <span class="icon-card-text head-text">Labels</span>
+      </div>
+      <div class="label-chip-container">
+      </div>
+      </div>
+    </div>
+  </div>
+  <script src="screenly.js?version=1"></script>
+  <script src="https://browser.sentry-cdn.com/8.47.0/bundle.tracing.min.js"
+  integrity="sha384-wYec/atCKBIhxMeAqO4JgQzLgv7nPphrOELh1UduVUFqt5DXn0Ey8pqiYEyYvZZ3"
+  crossorigin="anonymous"></script>
+  <script src="static/js/main.js"></script>
+</body>
 </html>

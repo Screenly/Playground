@@ -1,0 +1,57 @@
+---
+syntax: manifest_v1
+id: 01HTYXDZVA532Z1GN4CX5Z7VH7
+description: Screenly Simple Message App
+icon: https://playground.srly.io/edge-apps/simple-message-app/static/images/icon.svg
+author: Screenly, Inc.
+ready_signal: true
+settings:
+  enable_analytics:
+    type: string
+    default_value: 'true'
+    title: Enable Analytics
+    optional: true
+    help_text: Whether to disable Sentry and Google Analytics integrations
+    is_global: true
+  message_body:
+    type: string
+    default_value: |
+      A simple message app allows users to display text on a screen, making it a
+      basic tool for digital signage. Users can input and edit both the heading
+      and message body directly from the Screenly dashboard.
+    title: Message Body
+    optional: false
+    help_text: This text will be the content of the message
+  message_header:
+    type: string
+    default_value: Simple Message App
+    title: Message Header
+    optional: false
+    help_text: This text will serve as the title of the message
+  override_locale:
+    type: string
+    default_value: en
+    title: Override Locale
+    optional: true
+    help_text: Specify a supported locale value (e.g., en_US).
+  override_timezone:
+    type: string
+    default_value: ''
+    title: Override Timezone
+    optional: true
+    help_text: Specify a supported timezone value (e.g., Europe/London).
+  tag_manager_id:
+    type: string
+    default_value: GTM-P98SPZ9Z
+    title: Google Tag Manager ID
+    optional: true
+    help_text: Specify a Google Tag Manager ID
+    is_global: true
+  theme:
+    type: string
+    default_value: light
+    title: Theme
+    optional: false
+    help_text: |
+      Determines the visual theme for the application.
+      Options are 'light' or 'dark'.
