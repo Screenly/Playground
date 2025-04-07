@@ -238,8 +238,6 @@ body {
   border-radius: 0.36rem;
 }
 
-/* ---------Clock End----------- */
-
 /* ---------Custom Colors----------- */
 
 .primary-container, .primary-card {
@@ -254,9 +252,7 @@ body {
   background-color: var(--theme-color-primary);
 }
 
-
-/* -------------------- */
-
+/* ---------Container Configurations----------- */
 
 
 .primary-container {
@@ -280,15 +276,26 @@ body {
   height: 100%;
 }
 
+.welcome-card {
+  align-items: flex-start;
+  justify-content: normal;
+}
+
+.info-card {
+  align-items: flex-end;
+  justify-content: normal;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+
+/* ---------Text and Element Configurations----------- */
 
 .heading-text {
   /* font-size: 14rem; */
-  font-size: clamp(1rem, 5vw + 5vh, 1000rem);
-  /* padding: 15vw 15vw 0 15vw; */
-  padding: clamp(1rem, 3vw + 3vh, 1000rem) clamp(1rem, 5vw + 5vh, 1000rem) 0 clamp(1rem, 3vw + 3vh, 1000rem)  ;
-
-
-
+  font-size: clamp(1rem, 6vw + 6vh, 1000rem);
+  padding: clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 5vw + 5vh, 1000rem) 0 clamp(1rem, 3vw + 3vh, 1000rem);
   font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 100%;
@@ -296,22 +303,28 @@ body {
 }
 
 .message-text {
-  font-size: 14rem;
-  /* letter-spacing: -0.06em; */
+  font-size: clamp(1rem, 5vw + 5vh, 1000rem);
   font-weight: 400;
-  padding: .5rem 10rem 0rem 10rem;
+  padding: clamp(1rem, 1vw + 1vh, 1000rem) clamp(1rem, 5vw + 5vh, 1000rem) 0 clamp(1rem, 3vw + 3vh, 1000rem);
   display: -webkit-box;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
   -webkit-line-clamp: 1;
-  height: calc(1.75em* .5);
+  height: calc(1.25em* 1);
   overflow: hidden;
 }
 
-.welcome-card {
-  align-items: flex-start;
-  justify-content: normal;
+
+.brand-logo {
+  padding: 0 0 clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 3vw + 3vh, 1000rem);
+  width: clamp(1rem, 9vw + 9vh, 1000rem);
 }
+
+.info-text {
+  font-size: clamp(1rem, .75vw + .75vh, 1000rem);
+  padding: 0 clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 3vw + 3vh, 1000rem) 0;
+}
+
 
 
 
