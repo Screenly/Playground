@@ -269,6 +269,7 @@ body {
 .primary-card {
   width: 100%;
   height: 100%;
+
 }
 
 .secondary-card {
@@ -293,19 +294,17 @@ body {
 /* ---------Text and Element Configurations----------- */
 
 .heading-text {
-  /* font-size: 14rem; */
   font-size: clamp(1rem, 6vw + 6vh, 1000rem);
-  padding: clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 5vw + 5vh, 1000rem) 0 clamp(1rem, 3vw + 3vh, 1000rem);
+  margin: clamp(1rem, 2.5vw + 2.5vh, 1000rem) 0 0 clamp(1rem, 3vw + 3vh, 1000rem);
   font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 100%;
-
 }
 
 .message-text {
   font-size: clamp(1rem, 5vw + 5vh, 1000rem);
   font-weight: 400;
-  padding: clamp(1rem, 1vw + 1vh, 1000rem) clamp(1rem, 5vw + 5vh, 1000rem) 0 clamp(1rem, 3vw + 3vh, 1000rem);
+  margin: 0 0 0 clamp(1rem, 3vw + 3vh, 1000rem);
   display: -webkit-box;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
@@ -316,13 +315,14 @@ body {
 
 
 .brand-logo {
-  padding: 0 0 clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 3vw + 3vh, 1000rem);
-  width: clamp(1rem, 9vw + 9vh, 1000rem);
+  margin: 0 0 clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 3vw + 3vh, 1000rem);
+  width: clamp(1rem, 6vw + 6vh, 1000rem);
 }
 
+
 .info-text {
-  font-size: clamp(1rem, .75vw + .75vh, 1000rem);
-  padding: 0 clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 3vw + 3vh, 1000rem) 0;
+  font-size: clamp(0.8rem, .70vw + .70vh, 1000rem);
+  margin: 0 clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 3vw + 3vh, 1000rem) 0;
 }
 
 
