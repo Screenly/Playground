@@ -1,0 +1,48 @@
+---
+syntax: manifest_v1
+id:
+description: Screenly Welcome App.
+icon: https://playground.srly.io/edge-apps/welcome-app/static/images/icon.svg
+author: Screenly, Inc.
+ready_signal: true
+settings:
+  enable_analytics:
+    type: string
+    default_value: 'true'
+    title: Enable Analytics
+    optional: true
+    help_text: Whether to disable Sentry and Google Analytics integrations
+    is_global: true
+  override_locale:
+    type: string
+    default_value: en
+    title: Override Locale
+    optional: true
+    help_text: Specify a supported locale value (e.g., en_US).
+  override_timezone:
+    type: string
+    default_value: ''
+    title: Override Timezone
+    optional: true
+    help_text: Specify a supported timezone value (e.g., Europe/London).
+  tag_manager_id:
+    type: string
+    default_value: GTM-P98SPZ9Z
+    title: Google Tag Manager ID
+    optional: true
+    help_text: Specify a Google Tag Manager ID
+    is_global: true
+  theme:
+    type: string
+    default_value: light
+    title: Theme
+    optional: false
+    help_text: |
+      Determines the visual theme for the application.
+      Options are 'light' or 'dark'.
+  message_body:
+    type: string
+    default_value: to the team
+    title: Message Body
+    optional: false
+    help_text: This text will serve as the body of the message
