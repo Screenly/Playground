@@ -26,11 +26,10 @@ npm run build
 screenly edge-app deploy --path dist/
 ```
 
-See [this page](https://support.screenly.io/hc/en-us/articles/35897560148371-How-to-Generate-a-Screenly-API-Token)
-for instructions on how to generate a Screenly API Key, if you don't have one yet.
+See [the section on Obtaining an Access Token](#obtaining-an-access-token) for instructions on how to generate a Google API Key, if you don't have one yet.
 
 ```bash
-screenly edge-app settings set api_key=<YOUR_SCREENLY_API_KEY>
+screenly edge-app settings set api_key=<GOOGLE_ACCESS_TOKEN>
 ```
 
 ## Development
@@ -58,3 +57,113 @@ npx standard --fix # Automatically fixes linting errors.
 ```
 
 Some rules are not automatically fixable, so you will need to fix them manually.
+
+## Obtaining an Access Token
+
+This section will be split into multiple parts:
+- Creating an OAuth client ID
+- Initiating an OAuth flow
+- Obtaining a refresh token
+- Obtaining an access token
+
+The first half requires browser interaction. The second half can be done only using the command line.
+
+#### Prerequisites
+
+- A Google Cloud Platform project
+- A Google Calendar account
+
+#### Part 1: Creating an OAuth client ID
+
+Follow the steps in the [this guide on creating an OAuth client ID](https://developers.google.com/workspace/guides/create-credentials#oauth-client-id).
+
+Once done, go to [the credentials page](https://console.cloud.google.com/apis/credentials) and find the client ID you just created. Click the download icon. A modal will appear. Click `Download JSON`. It will download a file with the name `client_secret_*.json`. The JSON file contains the following information that you will need in the next steps:
+
+- `client_id`
+- `client_secret`
+- `auth_uri` &mdash; https://accounts.google.com/o/oauth2/auth
+- `token_uri` &mdash; https://oauth2.googleapis.com/token
+
+#### Part 2: Initializing an OAuth flow
+
+In this section, you will be initializing an OAuth flow by entering the following URL in your browser:
+
+```
+https://accounts.google.com/o/oauth2/v2/auth?client_id=YOUR_CLIENT_ID
+&response_type=code
+&scope=https://www.googleapis.com/auth/calendar
+&access_type=offline
+&prompt=consent
+&redirect_uri=YOUR_REDIRECT_URI
+```
+
+You will be prompted to select a Google account. Select the account you want to use to access your Google Calendar. Follow the instructions to allow access to your Google Calendar.
+
+Once redirected to your `redirect_uri`, check the URL for a `code` parameter. This is the code you will need in the next step.
+
+#### Part 3: Obtaining a refresh token
+
+In this section, you will be obtaining a refresh token by making a request to the OAuth token endpoint.
+
+Run the following command in your terminal:
+
+```bash
+$ curl -sX POST 'https://oauth2.googleapis.com/token' \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -d 'code=CODE' \
+  -d 'client_id=YOUR_CLIENT_ID' \
+  -d 'client_secret=YOUR_CLIENT_SECRET' \
+  -d 'redirect_uri=YOUR_REDIRECT_URI' \
+  -d 'grant_type=authorization_code' | jq
+
+{
+  "access_token": "ya29.a0AZY....[REDACTED]....175",
+  "expires_in": 3599,
+  "refresh_token": "1//06o8d....[REDACTED]....nlo",
+  "scope": "https://www.googleapis.com/auth/calendar",
+  "token_type": "Bearer",
+  "refresh_token_expires_in": 604799
+}
+```
+
+The response will include a `refresh_token` that can last up to about a week and an `access_token` that can last up to 1 hour.
+
+Now that you have a `REFRESH_TOKEN` that can last up to about a week, you can use it to obtain `ACCESS_TOKEN`s if needed.
+
+> [!NOTE]
+> Running the command above the second time will give the following error:
+>
+> ```
+> {
+>   "error": "invalid_grant",
+>   "error_description": "Bad Request"
+> }
+> ```
+
+#### Part 4: Obtaining an access token
+
+If your `ACCESS_TOKEN` has expired, you can use the `REFRESH_TOKEN` to obtain a new one.
+
+Run the following command in your terminal:
+
+```bash
+$ curl -sX POST 'https://oauth2.googleapis.com/token' \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -d 'client_id=YOUR_CLIENT_ID' \
+  -d 'client_secret=YOUR_CLIENT_SECRET' \
+  -d 'refresh_token=REFRESH_TOKEN' \
+  -d 'grant_type=refresh_token' | jq
+
+{
+  "access_token": "ya29.a0AZY...[REDACTED]...175",
+  "expires_in": 3599,
+  "scope": "https://www.googleapis.com/auth/calendar",
+  "token_type": "Bearer",
+  "refresh_token_expires_in": 599935
+}
+```
+
+The response will include a new `ACCESS_TOKEN` that can last up to 1 hour.
+
+> [!NOTE]
+> Running the command above the second time will give a new `ACCESS_TOKEN` that will be valid for another hour the moment it is generated. However, the `refresh_token_expires_in` will be the same as the moment you ran the command for getting the refresh token.
