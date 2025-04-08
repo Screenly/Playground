@@ -8,7 +8,8 @@ export const fetchCalendarEvents = async () => {
   try {
     const {
       api_key: apiKey,
-      calendar_mode: viewMode
+      calendar_mode: viewMode,
+      calendar_id: calendarId
     } = window.screenly.settings
 
     // Create date objects for filtering
@@ -31,7 +32,15 @@ export const fetchCalendarEvents = async () => {
     }
 
     // Add timeMin and timeMax parameters to only fetch relevant events
-    const calendarUrl = `${GOOGLE_CALENDAR_API_BASE_URL}/primary/events?timeMin=${startDate.toISOString()}&timeMax=${endDate.toISOString()}&orderBy=startTime&singleEvents=true`
+    const params = new URLSearchParams({
+      timeMin: startDate.toISOString(),
+      timeMax: endDate.toISOString(),
+      orderBy: 'startTime',
+      singleEvents: 'true'
+    })
+    const calendarUrl = `${GOOGLE_CALENDAR_API_BASE_URL}/` +
+      `${encodeURIComponent(calendarId)}/` +
+      `events?${params.toString()}`
     const calendarResponse = await fetch(calendarUrl, {
       method: 'GET',
       headers: {
@@ -49,7 +58,9 @@ export const fetchCalendarEvents = async () => {
     }))
 
     // Only limit events for daily view
-    return viewMode === VIEW_MODE.DAILY ? eventsFormatted.slice(1, DAILY_VIEW_EVENT_LIMIT) : eventsFormatted
+    return viewMode === VIEW_MODE.DAILY
+      ? eventsFormatted.slice(1, DAILY_VIEW_EVENT_LIMIT)
+      : eventsFormatted
   } catch (error) {
     console.error('Error fetching calendar events:', error)
     return []

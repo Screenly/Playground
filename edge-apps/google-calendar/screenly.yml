@@ -24,6 +24,12 @@ settings:
     title: Google Calendar API Key
     optional: false
     help_text: Specify the Google Calendar API Key
+  calendar_id:
+    type: string
+    default_value: 'primary'
+    title: Google Calendar ID
+    optional: true
+    help_text: Specify the Google Calendar ID
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z
