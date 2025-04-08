@@ -252,6 +252,16 @@ body {
   background-color: var(--theme-color-primary);
 }
 
+.date-text {
+  color: var(--theme-color-secondary);
+  font-weight: 400;
+}
+
+.date-number {
+  color: var(--theme-color-primary);
+  font-weight: 400;
+}
+
 /* ---------Container Configurations----------- */
 
 
@@ -275,6 +285,8 @@ body {
 .secondary-card {
   width: 100%;
   height: 100%;
+  gap: unset;
+
 }
 
 .welcome-card {
@@ -287,7 +299,6 @@ body {
   justify-content: normal;
   flex-direction: row;
   justify-content: space-between;
-
 }
 
 
@@ -309,7 +320,7 @@ body {
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
   -webkit-line-clamp: 1;
-  height: calc(1.25em* 1);
+  height: calc(1.10em * 1);
   overflow: hidden;
 }
 
@@ -324,6 +335,17 @@ body {
   font-size: clamp(0.8rem, .70vw + .70vh, 1000rem);
   margin: 0 clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 3vw + 3vh, 1000rem) 0;
 }
+
+.date-text {
+  font-size: clamp(1rem, 3vw + 3vh, 1000rem);
+}
+
+.date-number {
+  font-size: clamp(1rem, 7vw + 7vh, 1000rem);
+}
+
+
+
 
 
 
