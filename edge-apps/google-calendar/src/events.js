@@ -1,7 +1,5 @@
 import {
-  GOOGLE_ACCESS_TOKEN_URL,
   GOOGLE_CALENDAR_API_BASE_URL,
-  CONTENT_TYPE_JSON,
   VIEW_MODE,
   DAILY_VIEW_EVENT_LIMIT
 } from '@/constants'
@@ -32,27 +30,12 @@ export const fetchCalendarEvents = async () => {
       endDate.setDate(startDate.getDate() + 7)
     }
 
-    const response = await fetch(GOOGLE_ACCESS_TOKEN_URL, {
-      method: 'GET',
-      headers: {
-        'Content-Type': CONTENT_TYPE_JSON,
-        Authorization: `Token ${apiKey}`
-      }
-    })
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch Google token')
-    }
-
-    const data = await response.json()
-    const { access_token: accessToken } = data
-
     // Add timeMin and timeMax parameters to only fetch relevant events
     const calendarUrl = `${GOOGLE_CALENDAR_API_BASE_URL}/primary/events?timeMin=${startDate.toISOString()}&timeMax=${endDate.toISOString()}&orderBy=startTime&singleEvents=true`
     const calendarResponse = await fetch(calendarUrl, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${accessToken}`
+        Authorization: `Bearer ${apiKey}`
       }
     })
     const calendarData = await calendarResponse.json()
