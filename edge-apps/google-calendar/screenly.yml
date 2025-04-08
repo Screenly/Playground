@@ -21,9 +21,9 @@ settings:
     is_global: true
   api_key:
     type: secret
-    title: Screenly API Key
+    title: Google Calendar API Key
     optional: false
-    help_text: Specify the Screenly API Key
+    help_text: Specify the Google Calendar API Key
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z
