@@ -542,6 +542,7 @@ body {
   flex-direction: column;
   height: 100%;
   width: 25%;
+  gap: var(--custom-4k-gap);
 }
 
 .primary-card {
@@ -595,7 +596,7 @@ body {
 
 .brand-logo {
   margin: 0 0 clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 3vw + 3vh, 1000rem);
-  width: clamp(1rem, 6vw + 6vh, 1000rem);
+  width: clamp(1rem, 6.3vw + 6.3vh, 1000rem);
 }
 
 
@@ -620,7 +621,7 @@ body {
 
 /* Media Query Portrait */
 
-/* @media (orientation: portrait) {
+@media (orientation: portrait) {
   .main-container {
     flex-direction: column;
     display: flex;
@@ -628,19 +629,41 @@ body {
 
   .primary-container {
     width: 100%;
-    height: 50%;
-  }
-
-  .secondary-container {
-    width: 100%;
-    height: 30%;
+    height: 75%;
   }
 
   .row-container {
     width: 100%;
-    height: 20%;
+    height: 25%;
+    flex-direction: row;
   }
-} */
+
+  .date-card, .clock-card {
+    height: 100%;
+    width: 50%;
+  }
+
+  .date-card {
+    order: 2;
+  }
+
+  .clock-card {
+    order: 1;
+  }
+
+
+  .welcome-card {
+    gap: clamp(1rem, 1vw + 1vh, 1000rem);
+  }
+
+  .heading-text {
+    font-size: clamp(1rem, 5vw + 5vh, 1000rem);
+  }
+
+  .message-text {
+    font-size: clamp(1rem, 3vw + 3vh, 1000rem);
+  }
+}
 
 
 /* Media Query */
@@ -658,6 +681,9 @@ body {
 @media screen and (max-width: 1920px) and (orientation: landscape) {
   .clock-div {
     transform: scale(.6);
+  }
+  .row-container {
+    gap: var(--hd-gap);
   }
 }
 
@@ -704,6 +730,9 @@ body {
  @media screen and (max-width: 800px) and (orientation: landscape) {
   .clock-div {
     transform: scale(.27);
+  }
+  .row-container {
+    gap: var(--pi-gap);
   }
  }
 
