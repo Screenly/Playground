@@ -3,8 +3,7 @@
 
 const screenly = {
   settings: {
-    message_header: 'Welcome',
-    message_body: 'to the team',
+    message_text: 'to the team',
     screenly_logo_light: 'static/img/Screenly.svg',
     screenly_logo_dark: 'static/img/Screenly.svg',
     theme: 'light',
@@ -12,7 +11,7 @@ const screenly = {
     screenly_color_light: '#adafbe',
     screenly_color_dark: '#adafbe',
     override_locale: 'en',
-    override_timezone: 'America/New_York',
+    override_timezone: 'Asia/Kolkata',
   },
   metadata: {
     coordinates: [37.774929, -122.419418]
@@ -43,9 +42,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       ? navigator.languages[0]
       : navigator.language
 
-    // Message Head and Body Screenly Settings
-    document.querySelector('.message-head-content').innerText = screenly.settings.message_header
-    document.querySelector('.message-body-content').innerText = screenly.settings.message_body
+    // Message text from Screenly Settings
+    document.querySelector('.message-text').innerText = screenly.settings.message_text
 
     const getLocale = async () => {
       const overrideLocale = settings?.override_locale
@@ -228,5 +226,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // Signal that the screen is ready for rendering
-  screenly.signalReadyForRendering()
+  // screenly.signalReadyForRendering()
 })
