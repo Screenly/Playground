@@ -1,6 +1,19 @@
 /* global Alpine, icons, moment, clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry */
 /* eslint-disable-next-line no-unused-vars, no-useless-catch */
 
+const screenly = {
+  settings: {
+    override_locale: 'en',
+    override_coordinates: '37.774929, -122.419418',
+    override_timezone: 'Asia/Kolkata',
+
+  },
+  metadata: {
+   // coordinates: [37.774929, -122.419418]
+    coordinates: [11.2855, 76.2386]
+  }
+}
+
 const DEFAULT_LOGO_URL = 'static/images/screenly.svg'
 
 // AppCache
@@ -263,7 +276,6 @@ async function refreshWeather (context) {
         context.city = `${name}, ${country}`
         context.tzOffset = parseInt(tzOffset / 60) // in minutes
         context.tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C'
-
         context.firstFetchComplete = true
         context.isLoading = false
       }

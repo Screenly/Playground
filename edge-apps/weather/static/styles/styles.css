@@ -1,5 +1,38 @@
 /* stylelint-disable media-feature-range-notation */
 
+
+/* Font Details - Inter - 600 (SemiBold) , 500(Medium) and 400(Regular) */
+
+
+@font-face {
+  font-family: Inter;
+  src: url('../fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url('../fonts/Inter-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url('../fonts/Inter-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: Inter, sans-serif;
+}
+
+
 /* Modifiers */
 
 .main-container {
@@ -29,9 +62,38 @@
   grid-row: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-direction: row;
+  /* align-items: center; */
+  align-items: normal;
+  /* flex-direction: row; */
+  flex-direction: column;
 }
+
+
+
+.location-card {
+  position: absolute;
+  top: 12rem;
+  left: 10rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--theme-color-tertiary);
+  width: fit-content;
+  font-size: 4rem;
+  color: var(--theme-color-primary);
+  border-radius: 5rem;
+  padding: 1.5rem 2.5rem;
+  margin-left: 5rem;
+}
+
+.location-icon {
+  width: 3.5rem;
+}
+
+
+
 
 .temperature-card {
   display: flex;
@@ -44,6 +106,7 @@
 
 .temperature-text-number {
   font-size: 65rem;
+  /* font-size: clamp(1rem, 10vw + 10vh, 1000rem); */
 }
 
 .temperature-degree-sign {
@@ -288,7 +351,7 @@
 
 /* 4K Landscape - 4096 × 2160 */
 
-@media screen and (max-width: 4096px) and (orientation: landscape) {
+/* @media screen and (max-width: 4096px) and (orientation: landscape) {
   .time-date-card {
     gap: var(--custom-4k-gap);
   }
@@ -351,11 +414,11 @@
     font-size: 3rem;
   }
 
-}
+} */
 
 /* 4K Portrait - 2160 × 4096 */
 
-@media screen and (max-width: 2160px) and (orientation: portrait) {
+/* @media screen and (max-width: 2160px) and (orientation: portrait) {
   .time-date-card {
     gap: var(--custom-4k-gap);
   }
@@ -402,22 +465,22 @@
   .weather-card-content-item-temperature-time {
     font-size: 5rem;
   }
-}
+} */
 
 /* 4K Landscape - 3840 × 2160 */
 
-@media screen and (max-width: 3840px) and (orientation: landscape) {
+/* @media screen and (max-width: 3840px) and (orientation: landscape) {
   .weather-card-weather-icon {
     width: 27rem;
   }
-}
+} */
 
 
 
 
 /* Full HD Landscape - 1920 × 1080 */
 
-@media screen and (max-width: 1920px) and (orientation: landscape) {
+/* @media screen and (max-width: 1920px) and (orientation: landscape) {
   .time-date-card {
     gap: var(--hd-gap);
   }
@@ -479,11 +542,11 @@
   .info-text {
     font-size: 1.4rem;
   }
-}
+} */
 
 /* Full HD Portrait - 1080 × 1920 */
 
-@media screen and (max-width: 1080px) and (orientation: portrait) {
+/* @media screen and (max-width: 1080px) and (orientation: portrait) {
   .time-date-card {
     gap: var(--hd-gap);
   }
@@ -543,11 +606,11 @@
   .date-number {
     font-size: 12rem;
   }
-}
+} */
 
 /* Custom resolution - 1680 × 962 (Landscape) */
 
-@media screen and (max-width: 1680px) and (orientation: landscape) {
+/* @media screen and (max-width: 1680px) and (orientation: landscape) {
   .weather-card-temperature-text {
     font-size: 2.5rem;
   }
@@ -560,12 +623,12 @@
     font-size: 2rem;
   }
 
-}
+} */
 
 
 /* HD Landscape - 1280 × 720 */
 
-@media screen and (max-width: 1280px) and (orientation: landscape) {
+/* @media screen and (max-width: 1280px) and (orientation: landscape) {
   .time-date-card {
     gap: var(--custom-720-gap);
   }
@@ -618,10 +681,10 @@
   .info-text {
     font-size: 1rem;
   }
-}
+} */
 
 
-@media screen and (max-width: 1080px) and (orientation: landscape) {
+/* @media screen and (max-width: 1080px) and (orientation: landscape) {
   .weather-card-temperature-text,
   .weather-card-temperature-degree-sign {
     font-size: 1.7rem;
@@ -635,11 +698,11 @@
     font-size: 1.3rem;
   }
 
-}
+} */
 
 /* HD Portrait - 720 × 1280 */
 
-@media screen and (max-width: 720px) and (orientation: portrait) {
+/* @media screen and (max-width: 720px) and (orientation: portrait) {
   .temperature-text-number {
     font-size: 20rem;
   }
@@ -683,11 +746,11 @@
     font-size: 1.7rem;
   }
 
-}
+} */
 
 /* Raspberry Pi Touch Display - Landscape 800 × 480 */
 
-@media screen and (max-width: 800px) and (orientation: landscape) {
+/* @media screen and (max-width: 800px) and (orientation: landscape) {
   .time-date-card {
     gap: var(--pi-gap);
   }
@@ -743,12 +806,12 @@
   .info-text {
     font-size: .8rem;
   }
-}
+} */
 
 
 /* Raspberry Pi Touch Display - Portrait 480 × 800 */
 
-@media screen and (max-width: 480px) and (orientation: portrait) {
+/* @media screen and (max-width: 480px) and (orientation: portrait) {
   .time-card {
     border-radius: var(--pi-border-radius-medium);
   }
@@ -799,4 +862,4 @@
   .weather-card-content-item-temperature-time {
     font-size: 0.9rem;
   }
-}
+} */
