@@ -4,12 +4,14 @@
 const screenly = {
   settings: {
     override_locale: 'en',
-    override_coordinates: '37.774929, -122.419418',
+    //override_coordinates: '37.774929, -122.419418',
+    override_coordinates: '9.9312, 76.2673',
     override_timezone: 'Asia/Kolkata',
+
 
   },
   metadata: {
-   // coordinates: [37.774929, -122.419418]
+   //coordinates: [37.774929, -122.419418]
     coordinates: [11.2855, 76.2386]
   }
 }
@@ -398,11 +400,16 @@ function getWeatherData () {
     },
     init: async function () {
       if (screenly.settings.override_coordinates) {
-        [this.lat, this.lng] = screenly.settings.override_coordinates.split(',')
+        const coordinates = screenly.settings.override_coordinates.split(',').map(coord => parseFloat(coord.trim()))
+        if (coordinates.length === 2 && !isNaN(coordinates[0]) && !isNaN(coordinates[1])) {
+          [this.lat, this.lng] = coordinates
+        } else {
+          console.warn('Invalid override_coordinates format. Expected "lat,lng"')
+        }
       }
 
       if (!this.lat || !this.lng) {
-        [this.lat, this.lng] = screenly.metadata?.coordinates
+        [this.lat, this.lng] = screenly.metadata?.coordinates || [0, 0]
       }
 
       this.apiKey = screenly.settings.openweathermap_api_key
