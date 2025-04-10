@@ -1,45 +1,20 @@
 import {
   GOOGLE_CALENDAR_API_BASE_URL,
   VIEW_MODE,
-  DAILY_VIEW_EVENT_LIMIT,
-  GOOGLE_OAUTH_TOKEN_URL
+  DAILY_VIEW_EVENT_LIMIT
 } from '@/constants'
 
-const getAccessToken = async (refreshToken, clientId, clientSecret) => {
-  const response = await fetch(GOOGLE_OAUTH_TOKEN_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: new URLSearchParams({
-      refresh_token: refreshToken,
-      client_id: clientId,
-      client_secret: clientSecret,
-      grant_type: 'refresh_token'
-    })
-  })
-  const data = await response.json()
-
-  return data.access_token
-}
-
-export const fetchCalendarEvents = async () => {
+export const fetchCalendarEvents = async (accessToken) => {
   try {
     const {
-      refresh_token: refreshToken,
       calendar_mode: viewMode,
-      calendar_id: calendarId,
-      client_id: clientId,
-      client_secret: clientSecret
+      calendar_id: calendarId
     } = window.screenly.settings
 
     // Create date objects for filtering
     const today = new Date()
     const startDate = new Date(today)
     const endDate = new Date(today)
-
-    // TODO: Only obtain new access token if it's expired.
-    const accessToken = await getAccessToken(refreshToken, clientId, clientSecret)
 
     if (viewMode === VIEW_MODE.DAILY) {
       // For daily view, start from current hour today
@@ -65,6 +40,7 @@ export const fetchCalendarEvents = async () => {
     const calendarUrl = `${GOOGLE_CALENDAR_API_BASE_URL}/` +
       `${encodeURIComponent(calendarId)}/` +
       `events?${params.toString()}`
+
     const calendarResponse = await fetch(calendarUrl, {
       method: 'GET',
       headers: {

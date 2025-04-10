@@ -1,6 +1,7 @@
 import tzlookup from '@photostructure/tz-lookup'
 import clm from 'country-locale-map'
 import { getNearestCity } from 'offline-geocode-city'
+import { GOOGLE_OAUTH_TOKEN_URL } from '@/constants'
 
 export const getTimeZone = () => {
   const [latitude, longitude] = window.screenly.metadata.coordinates
@@ -142,3 +143,21 @@ export const getFormattedMonthName = (date) => {
 export const getYear = (date) => date.getFullYear()
 export const getMonth = (date) => date.getMonth()
 export const getDate = (date) => date.getDate()
+
+export const getAccessToken = async (refreshToken, clientId, clientSecret) => {
+  const response = await fetch(GOOGLE_OAUTH_TOKEN_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: new URLSearchParams({
+      refresh_token: refreshToken,
+      client_id: clientId,
+      client_secret: clientSecret,
+      grant_type: 'refresh_token'
+    })
+  })
+  const data = await response.json()
+
+  return data.access_token
+}

@@ -5,3 +5,4 @@ export const VIEW_MODE = {
   WEEKLY: 'weekly'
 }
 export const DAILY_VIEW_EVENT_LIMIT = 5
+export const TOKEN_REFRESH_INTERVAL = 30 * 60 * 1000 // 30 minutes in milliseconds

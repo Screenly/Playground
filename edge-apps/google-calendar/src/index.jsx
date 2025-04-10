@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import {
   getFormattedTime,
   generateCalendarDays,
@@ -7,7 +7,8 @@ import {
   getFormattedMonthName,
   getYear,
   getMonth,
-  getDate
+  getDate,
+  getAccessToken
 } from '@/utils'
 import MonthlyCalendarView from '@/components/monthly-calendar-view'
 import CalendarOverview from '@/components/calendar-overview'
@@ -18,6 +19,7 @@ import '@/css/style.css'
 import DailyCalendarView from '@/components/daily-calendar-view'
 import AnalogClock from '@/components/analog-clock'
 import WeeklyCalendarView from '@/components/weekly-calendar-view'
+import { TOKEN_REFRESH_INTERVAL } from '@/constants'
 
 // Main App Component
 const App = () => {
@@ -31,6 +33,7 @@ const App = () => {
     window.screenly.settings.calendar_mode || 'monthly'
   )
   const [currentTime, setCurrentTime] = useState('')
+  const currentTokenRef = useRef('')
 
   const updateDateTime = async () => {
     const newNow = new Date()
@@ -39,17 +42,57 @@ const App = () => {
     setCurrentTime(time)
   }
 
+  // Function to refresh the access token
+  const refreshAccessToken = async () => {
+    try {
+      const {
+        refresh_token: refreshToken,
+        client_id: clientId,
+        client_secret: clientSecret
+      } = window.screenly.settings
+
+      if (refreshToken && clientId && clientSecret) {
+        const newToken = await getAccessToken(refreshToken, clientId, clientSecret)
+        currentTokenRef.current = newToken
+        return newToken
+      }
+      return null
+    } catch (error) {
+      console.error('Error refreshing access token:', error)
+      return null
+    }
+  }
+
   useEffect(() => {
     initializeThemeColors()
 
     const timeInterval = setInterval(updateDateTime, 1000)
-    const eventsInterval = setInterval(async () => {
-      const fetchedEvents = await fetchCalendarEvents()
-      setEvents(fetchedEvents)
-    }, 5000)
 
-    // Initial events fetch
-    fetchCalendarEvents().then(setEvents)
+    // Set up token refresh interval
+    const tokenInterval = setInterval(refreshAccessToken, TOKEN_REFRESH_INTERVAL)
+
+    // Initial token fetch and events setup
+    let eventsInterval
+
+    const setupEventsFetching = async () => {
+      // Get initial token
+      const token = await refreshAccessToken()
+
+      if (token) {
+        // Set up events interval only after we have a token
+        eventsInterval = setInterval(async () => {
+          const fetchedEvents = await fetchCalendarEvents(currentTokenRef.current)
+          setEvents(fetchedEvents)
+        }, 5000)
+
+        // Initial events fetch
+        const initialEvents = await fetchCalendarEvents(token)
+        setEvents(initialEvents)
+      }
+    }
+
+    // Start the setup process
+    setupEventsFetching()
 
     setCurrentTime(getFormattedTime(now))
 
@@ -63,7 +106,8 @@ const App = () => {
     // Cleanup intervals
     return () => {
       clearInterval(timeInterval)
-      clearInterval(eventsInterval)
+      clearInterval(tokenInterval)
+      if (eventsInterval) clearInterval(eventsInterval)
     }
   }, [])
 
