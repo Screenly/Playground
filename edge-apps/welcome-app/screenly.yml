@@ -40,9 +40,9 @@ settings:
     help_text: |
       Determines the visual theme for the application.
       Options are 'light' or 'dark'.
-  message_body:
+  welcome_message:
     type: string
     default_value: to the team
-    title: Message Body
+    title: Welcome Message
     optional: false
-    help_text: This text will serve as the body of the message
+    help_text: This text will serve as the welcome message.

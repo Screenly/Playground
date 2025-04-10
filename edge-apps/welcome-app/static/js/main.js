@@ -3,7 +3,7 @@
 
 const screenly = {
   settings: {
-    message_text: 'to the team',
+    welcome_message: 'to the team to the teams s',
     screenly_logo_light: 'static/img/Screenly.svg',
     screenly_logo_dark: 'static/img/Screenly.svg',
     theme: 'light',
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       : navigator.language
 
     // Message text from Screenly Settings
-    document.querySelector('.message-text').innerText = screenly.settings.message_text
+    document.querySelector('.welcome-message').innerText = screenly.settings.welcome_message
 
     const getLocale = async () => {
       const overrideLocale = settings?.override_locale
