@@ -252,7 +252,7 @@ body {
   justify-content: center; */
   position: relative;
   /* top: 12rem; */
-  top: clamp(1rem, .5vw + .5vh, 100rem);
+  top: clamp(.1rem, .5vw + .5vh, 100rem);
   /* left: 10rem; */
   /* left: clamp(1rem, 2.5vw + 2.5vh, 100rem); */
 
@@ -272,7 +272,7 @@ body {
 
 .weather-card-weather-icon {
   /* width: 29rem; */
-  width: clamp(.5rem, 6.3vw + 6.3vh, 100rem);
+  width: clamp(.5rem, 6.2vw + 6.2vh, 100rem);
 }
 
 
@@ -339,6 +339,13 @@ body {
     justify-content: space-around;
   }
 
+  .location-card {
+    position: absolute;
+    top: clamp(1rem, 3vw + 3vh, 100rem);
+    left: clamp(1rem, 3vw + 3vh, 100rem);
+    font-size: clamp(1rem, 1.2vw + 1.2vh, 100rem);
+  }
+
 
   /* -------- */
 
@@ -350,15 +357,19 @@ body {
   }
 
   .time-card {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    flex-direction: row;
+    /* justify-content: center; */
     border-radius: var(--custom-4k-border-radius-medium);
   }
 
   .time-text-container {
+    position: relative;
+    top: 10%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     gap: .5rem;
     height: 100%;
@@ -366,13 +377,22 @@ body {
   }
 
   .time-text-hour, .time-text-minutes {
-    font-size: 5rem;
+    /* font-size: 5rem; */
+    font-size: clamp(1rem, 5.5vw + 5.5vh, 100rem);
   }
 
   .time-ampm-container {
-    padding-top: 8.5rem;
-    position: absolute;
-    padding-left: 9rem;
+    /* padding-top: 8.5rem; */
+    position: relative;
+    /* padding-left: 9rem; */
+    left: clamp(1rem, 5vw + 5vh, 100rem);
+    top: -12%;
+  }
+
+  .time-ampm {
+    font-weight: 500;
+    font-size: clamp(1rem, 1.2vw + 1.2vh, 100rem);
+    vertical-align: baseline;
   }
 
   .time-card, .date-card {
@@ -385,17 +405,19 @@ body {
   }
 
   .date-text {
-    font-size: 3.5rem;
+    /* font-size: 3.5rem; */
+    font-size: clamp(1rem, 3.5vw + 3.5vh, 100rem);
   }
 
   .date-number {
-    font-size: 7rem;
+    /* font-size: 7rem; */
+    font-size: clamp(1rem, 5.5vw + 5.5vh, 100rem);
   }
-
 
   .info-card, .time-text-separator {
     display: none;
   }
+
 }
 
 
