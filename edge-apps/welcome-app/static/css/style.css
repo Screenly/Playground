@@ -237,14 +237,19 @@ body {
   border-radius: 0.36rem;
 }
 
-/* ---------Custom Colors----------- */
+/* ---------Custom Cards----------- */
 
-.primary-container, .primary-card {
+.primary-container {
   background-color: var(--theme-color-tertiary);
+  border-radius: var(--custom-4k-border-radius-big);
+  width: 75%;
 }
 
 .primary-card {
+  background-color: var(--theme-color-tertiary);
   color: var(--theme-color-primary);
+  width: 100%;
+  height: 100%;
 }
 
 .clock-card {
@@ -263,76 +268,6 @@ body {
 
 /* ---------Container Configurations----------- */
 
-
-.primary-container {
-  width: 75%;
-  border-radius: var(--custom-4k-border-radius-big);
-}
-
-.row-container {
-  flex-direction: column;
-  height: 100%;
-  width: 25%;
-}
-
-.primary-card {
-  width: 100%;
-  height: 100%;
-
-}
-
-.secondary-card {
-  width: 100%;
-  height: 100%;
-  gap: unset;
-
-}
-
-.welcome-card {
-  align-items: flex-start;
-  justify-content: normal;
-}
-
-.info-card {
-  align-items: flex-end;
-  justify-content: normal;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-
-
-/* ---------Custom Colors----------- */
-
-.primary-container, .primary-card {
-  background-color: var(--theme-color-tertiary);
-}
-
-.primary-card {
-  color: var(--theme-color-primary);
-}
-
-.clock-card {
-  background-color: var(--theme-color-primary);
-}
-
-.date-text {
-  color: var(--theme-color-secondary);
-  font-weight: 400;
-}
-
-.date-number {
-  color: var(--theme-color-primary);
-  font-weight: 400;
-}
-
-/* ---------Container Configurations----------- */
-
-
-.primary-container {
-  width: 75%;
-  border-radius: var(--custom-4k-border-radius-big);
-}
 
 .row-container {
   flex-direction: column;
@@ -341,17 +276,10 @@ body {
   gap: var(--custom-4k-gap);
 }
 
-.primary-card {
-  width: 100%;
-  height: 100%;
-
-}
-
 .secondary-card {
   width: 100%;
-  height: 50%;
+  height: 100%;
   gap: unset;
-
 }
 
 .welcome-card {
@@ -412,7 +340,6 @@ body {
 .clock-div {
   transform: scale(1.3);
 }
-
 
 
 /* Media Query Portrait */
@@ -589,8 +516,7 @@ body {
 /* Portrait */
 
 /* 4K Portrait - 4096 × 2160 */
-
-@media screen and (max-width: 4096px) and (orientation: portrait) {
+@media screen and (max-width: 3840px) and (orientation: portrait) {
   .main-container {
     gap: var(--custom-4k-gap);
     padding: var(--custom-4k-padding);
@@ -609,12 +535,11 @@ body {
   }
 
   .clock-div {
-    transform: scale(10);
+    transform: scale(1.35);
   }
 }
 
-
-/* 4K Portrait - 2560 × 1440 */
+/* QHD Portrait - 2560 × 1440 */
 
 @media screen and (max-width: 2560px) and (orientation: portrait) {
   .main-container {
@@ -635,10 +560,9 @@ body {
   }
 
   .clock-div {
-    transform: scale(.8);
+    transform: scale(.85);
   }
 }
-
 
 /* Full HD Portrait - 1080 × 1920 */
 
