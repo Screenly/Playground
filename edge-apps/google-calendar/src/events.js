@@ -59,7 +59,7 @@ export const fetchCalendarEvents = async (accessToken) => {
 
     // Only limit events for daily view
     return viewMode === VIEW_MODE.DAILY
-      ? eventsFormatted.slice(1, DAILY_VIEW_EVENT_LIMIT)
+      ? eventsFormatted.slice(0, DAILY_VIEW_EVENT_LIMIT)
       : eventsFormatted
   } catch (error) {
     console.error('Error fetching calendar events:', error)
