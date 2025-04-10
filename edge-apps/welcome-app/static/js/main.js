@@ -208,5 +208,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // Signal that the screen is ready for rendering
-  // screenly.signalReadyForRendering()
+  screenly.signalReadyForRendering()
 })
