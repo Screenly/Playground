@@ -4,14 +4,14 @@
 const screenly = {
   settings: {
     override_locale: 'en',
-    //override_coordinates: '37.774929, -122.419418',
+    // override_coordinates: '37.774929, -122.419418',
     override_coordinates: '9.9312, 76.2673',
     override_timezone: 'Asia/Kolkata',
 
 
   },
   metadata: {
-   //coordinates: [37.774929, -122.419418]
+  //  coordinates: [37.774929, -122.419418]
     coordinates: [11.2855, 76.2386]
   }
 }

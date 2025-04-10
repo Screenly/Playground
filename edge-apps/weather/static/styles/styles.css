@@ -72,52 +72,62 @@ body {
 
 .location-card {
   position: absolute;
-  top: 12rem;
-  left: 10rem;
+  /* top: 12rem; */
+  top: clamp(1rem, 2.5vw + 2.5vh, 100rem);
+  /* left: 10rem; */
+  left: clamp(1rem, 2.5vw + 2.5vh, 100rem);
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  gap: 1rem;
+  gap: clamp(1rem, .4vw + .4vh, 10rem);
   background-color: var(--theme-color-tertiary);
   width: fit-content;
-  font-size: 4rem;
+  /* font-size: 4rem; */
+  font-weight: 500;
+  font-size: clamp(1rem, .9vw + .9vh, 10rem);
   color: var(--theme-color-primary);
   border-radius: 5rem;
-  padding: 1.5rem 2.5rem;
-  margin-left: 5rem;
+  /* padding: 1.5rem 2.5rem; */
+  padding: clamp(.1rem, .2vw + .2vh, 100rem) clamp(1rem, .8vw + .8vh, 100rem);
+  /* margin-left: 5rem; */
 }
 
 .location-icon {
-  width: 3.5rem;
+  /* width: 3.5rem; */
+  width: clamp(1rem, .8vw + .8vh, 10rem);
 }
-
-
-
 
 .temperature-card {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  letter-spacing: .5rem;
+  /* letter-spacing: .5rem; */
   color: var(--theme-color-tertiary);
   line-height: 0.7;
 }
 
 .temperature-text-number {
-  font-size: 65rem;
-  /* font-size: clamp(1rem, 10vw + 10vh, 1000rem); */
+  /* font-size: 65rem; */
+  font-size: clamp(1rem, 15vw + 15vh, 1000rem);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
 }
 
 .temperature-degree-sign {
-  font-size: 5rem;
+  /* font-size: 5rem; */
+  font-size: clamp(1rem, 5vw + 5vh, 100rem);
+  font-weight: 500;
 }
 
 .temperature-unit-text {
-  font-size: 20rem;
+  /* font-size: 20rem; */
+  font-size: clamp(1rem, 5vw + 5vh, 100rem);
+  font-weight: 500;
 }
 
-.weather-icon {
+/* .weather-icon {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -128,7 +138,7 @@ body {
 
 .weather-description {
   font-size: 2rem;
-}
+} */
 
 .time-date-card {
   grid-column: 3/6;
@@ -136,12 +146,13 @@ body {
   background-color: var(--theme-color-background);
   display: flex;
   flex-direction: column;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
 }
 
 .time-card, .date-card {
   height: 50%;
   width: 100%;
-
 }
 
 
@@ -152,20 +163,33 @@ body {
   display: flex;
   justify-content: center;
   align-items: baseline;
-  gap: .5rem;
+  /* gap: .5rem; */
+}
+
+.time-text-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .time-text-hour,
 .time-text-minutes,
 .time-text-separator {
-  font-size: 20rem;
-  letter-spacing: 1rem;
+  /* font-size: 20rem; */
+  font-size: clamp(1rem, 4.5vw + 4.5vh, 100rem);
+  /* letter-spacing: 1rem; */
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  line-height: 1;
   color: var(--theme-color-primary);
 }
 
+
 .time-ampm {
-  font-size: 7rem;
+  /* font-size: 7rem; */
+  font-size: clamp(1rem, 1.7vw + 1.7vh, 100rem);
   color: var(--theme-color-secondary);
+  align-self: baseline;
 }
 
 /* Date Card */
@@ -176,20 +200,23 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 5rem
+  /* gap: 5rem; */
+  gap: clamp(1rem, .8vw + .8vh, 100rem);
+  font-weight: 400;
+  letter-spacing: .5rem;
 }
 
 .date-text {
-  font-size: 17rem;
+  /* font-size: 17rem; */
+  font-size: clamp(1rem, 3.5vw + 3.5vh, 100rem);
   color: var(--theme-color-secondary);
 }
 
 .date-number {
-  font-size: 17rem;
+  /* font-size: 17rem; */
+  font-size: clamp(1rem, 3.5vw + 3.5vh, 100rem);
   color: var(--theme-color-primary);
 }
-
-
 
 
 /* Weather Card */
@@ -219,34 +246,55 @@ body {
   height: 100%;
 }
 
+.weather-card-content-item-temperature-text {
+  display: flex;
+  /* align-items: center;
+  justify-content: center; */
+  position: relative;
+  /* top: 12rem; */
+  top: clamp(1rem, .5vw + .5vh, 100rem);
+  /* left: 10rem; */
+  /* left: clamp(1rem, 2.5vw + 2.5vh, 100rem); */
+
+}
+
 .weather-card-temperature-text {
-  font-size: 7rem;
+  /* font-size: 7rem; */
+  font-size: clamp(1rem, 1.5vw + 1.5vh, 100rem);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
 }
 
 .weather-card-temperature-degree-sign {
-  font-size: 8rem;
+  /* font-size: 8rem; */
+  font-size: clamp(1rem, 1.5vw + 1.5vh, 100rem);
 }
 
 .weather-card-weather-icon {
-  width: 29rem;
+  /* width: 29rem; */
+  width: clamp(.5rem, 6.3vw + 6.3vh, 100rem);
 }
 
 
 .weather-card-content-item-temperature-time {
-  font-size: 5rem;
+  /* font-size: 5rem; */
+  font-size: clamp(1rem, 1.1vw + 1.1vh, 100rem);
   display: flex;
-  letter-spacing: 0.1rem;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
 }
 
 
 /* brand logo  card */
 
 .brand-logo {
-  width: 20rem;
+  /* width: 20rem; */
+  width: clamp(1rem, 5vw + 5vh, 100rem);
 }
 
 .info-text {
-  font-size: 3rem;
+  /* font-size: 3rem; */
+  font-size: clamp(1rem, .7vw + .7vh, 100rem);
 }
 
 
@@ -254,7 +302,9 @@ body {
   color: var(--theme-color-primary);
   grid-column: 4/6;
   grid-row: 2;
-  gap: 4rem;
+  /* gap: 4rem; */
+  gap: clamp(1rem, .8vw + .8vh, 100rem);
+
 }
 
 
