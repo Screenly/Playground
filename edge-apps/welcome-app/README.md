@@ -1,15 +1,15 @@
 # Screenly Welcome App
 
-A simple message app allows users to display text on a screen, making it a basic tool for digital signage. Users can input and edit both the heading and message body directly from the Screenly dashboard.
+A customizable welcome screen app that lets users display a personalized greeting or message on their digital signage. Easily configure the heading and body text via the Screenly dashboard, making it ideal for receptions, events, or branded displays.
 
-![Simple Message App](./static/img/message-app-preview.png)
+![Welcome Message App](./static/img/welcome-app-preview.png)
 
 ## tl;dr
 
 ```bash
-$ cd edge-apps/countdown-timer
+$ cd edge-apps/welcome-app
 $ screenly edge-app create \
-    --name simple-message-app \
+    --name welcome-app \
     --in-place
 $ screenly edge-app deploy
 # To install an app, you need to create an instance.
@@ -19,26 +19,17 @@ $ screenly edge-app instance create
 
 ## Tweaking the settings
 
-### `message_head`
+### `welcome_message`
 
-To configure the heading of the message app, utilize the `message_head` settings.
+To configure the heading of the message app, utilize the `welcome_message` settings.
 
 ```bash
-$ screenly edge-app setting set message_head='This is message head'
+$ screenly edge-app setting set welcome_message='This is message head'
 # A relatively long console output...
 Edge app setting successfully set.
 ```
-The message app's heading should be defined as a string in the format: "This is message head".
+The welcome app's message should be defined as a string in the format: "This is message head".
 
-### `message_body`
-
-To define the content of the message app's body, utilize the `message_body` settings.
-
-```bash
-$ screenly edge-app setting set message_body='This is message body'
-# A relatively long console output...
-Edge app setting successfully set.
-```
 
 ### `theme`
 

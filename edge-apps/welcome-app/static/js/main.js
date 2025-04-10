@@ -1,24 +1,6 @@
 /* global clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry */
 /* eslint-disable-next-line no-unused-vars, no-useless-catch */
 
-const screenly = {
-  settings: {
-    welcome_message: 'to the team to the teams s',
-    screenly_logo_light: 'static/img/Screenly.svg',
-    screenly_logo_dark: 'static/img/Screenly.svg',
-    theme: 'light',
-    screenly_color_accent: '#7E2CD2',
-    screenly_color_light: '#adafbe',
-    screenly_color_dark: '#adafbe',
-    override_locale: 'en',
-    override_timezone: 'Asia/Kolkata',
-  },
-  metadata: {
-    coordinates: [37.774929, -122.419418]
-  }
-}
-
-
 document.addEventListener('DOMContentLoaded', async () => {
   const { getNearestCity } = OfflineGeocodeCity
   const allTimezones = moment.tz.names()

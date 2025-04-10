@@ -42,7 +42,7 @@ settings:
       Options are 'light' or 'dark'.
   welcome_message:
     type: string
-    default_value: to the team
+    default_value: 'to the team'
     title: Welcome Message
     optional: false
     help_text: This text will serve as the welcome message.

@@ -282,6 +282,11 @@ body {
   gap: unset;
 }
 
+.date-card, .clock-card {
+  height: 50%;
+  width: 100%;
+}
+
 .welcome-card {
   align-items: flex-start;
   justify-content: normal;
@@ -463,6 +468,9 @@ body {
     gap: var(--custom-720-gap);
   }
 
+  .clock-card {
+   height: 47%;
+  }
 
   .clock-div {
     transform: scale(.45);
