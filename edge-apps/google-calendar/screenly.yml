@@ -19,11 +19,21 @@ settings:
     optional: true
     help_text: Whether to disable Sentry and Google Analytics integrations
     is_global: true
-  api_key:
+  refresh_token:
     type: secret
-    title: Google Calendar API Key
+    title: Google OAuth Refresh Token
     optional: false
-    help_text: Specify the Google Calendar API Key
+    help_text: Specify the Google OAuth Refresh Token
+  client_id:
+    type: secret
+    title: Google OAuth Client ID
+    optional: false
+    help_text: Specify the Google OAuth Client ID
+  client_secret:
+    type: secret
+    title: Google OAuth Client Secret
+    optional: false
+    help_text: Specify the Google OAuth Client Secret
   calendar_id:
     type: string
     default_value: 'primary'

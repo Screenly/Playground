@@ -29,7 +29,7 @@ screenly edge-app deploy --path dist/
 See [the section on Obtaining an Access Token](#obtaining-an-access-token) for instructions on how to generate a Google API Key, if you don't have one yet.
 
 ```bash
-screenly edge-app settings set api_key=<GOOGLE_ACCESS_TOKEN>
+screenly edge-app settings set refresh_token=<GOOGLE_OAUTH_REFRESH_TOKEN>
 ```
 
 ## Development
