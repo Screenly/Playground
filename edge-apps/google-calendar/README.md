@@ -29,9 +29,9 @@ screenly edge-app deploy --path dist/
 See [the section on Obtaining an OAuth Client ID, Client Secret, and Refresh Token](#obtaining-an-oauth-client-id-client-secret-and-refresh-token) for instructions on how to get the refresh token, client ID, and client secret.
 
 ```bash
-screenly edge-app settings set refresh_token=<GOOGLE_OAUTH_REFRESH_TOKEN>
-screenly edge-app settings set client_id=<GOOGLE_OAUTH_CLIENT_ID>
-screenly edge-app settings set client_secret=<GOOGLE_OAUTH_CLIENT_SECRET>
+screenly edge-app setting set refresh_token=<GOOGLE_OAUTH_REFRESH_TOKEN>
+screenly edge-app setting set client_id=<GOOGLE_OAUTH_CLIENT_ID>
+screenly edge-app setting set client_secret=<GOOGLE_OAUTH_CLIENT_SECRET>
 ```
 
 ## Development
