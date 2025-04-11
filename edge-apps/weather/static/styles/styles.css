@@ -218,30 +218,30 @@ body {
   display: flex;
   position: relative;
   top: clamp(.1rem, .5vw + .5vh, 100rem);
-
-
 }
 
 .weather-card-temperature-text {
-  font-size: clamp(1rem, 1.5vw + 1.5vh, 100rem);
+  font-size: clamp(1rem, 1.2vw + 1.2vh, 100rem);
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
+  font-weight: 500;
 }
 
 .weather-card-temperature-degree-sign {
-  font-size: clamp(1rem, 1.5vw + 1.5vh, 100rem);
+  font-size: clamp(1rem, 1.3vw + 1.3vh, 100rem);
+  font-weight: 500;
 }
 
 .weather-card-weather-icon {
-  width: clamp(.5rem, 6.2vw + 6.2vh, 100rem);
+  width: clamp(.5rem, 6.4vw + 6.4vh, 100rem);
 }
 
-
 .weather-card-content-item-temperature-time {
-  font-size: clamp(1rem, 1.1vw + 1.1vh, 100rem);
+  font-size: clamp(1rem, 1vw + 1vh, 100rem);
   display: flex;
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
+  font-weight: 500;
 }
 
 
@@ -390,6 +390,15 @@ body {
   }
 }
 
+
+/* Quad HD Landscape - 1920 × 1080 */
+
+@media screen and (max-width: 1920px) and (orientation: landscape) {
+  .weather-card-weather-icon {
+    width: clamp(.5rem, 6.2vw + 6.2vh, 100rem);
+  }
+}
+
 /* HD Landscape - 1280 × 720 */
 
 @media screen and (max-width: 1280px) and (orientation: landscape) {
@@ -408,15 +417,6 @@ body {
 
   .secondary-card {
     border-radius: var(--custom-720-border-radius-medium);
-  }
-
-  .weather-card-weather-icon {
-    width: clamp(.5rem, 5.7vw + 5.7vh, 100rem);
-  }
-
-  .location-card {
-    top: clamp(1rem, 3vw + 3vh, 100rem);
-    left: clamp(1rem, 3vw + 3vh, 100rem);
   }
 }
 
@@ -451,6 +451,15 @@ body {
   .info-text {
     font-size: clamp(.7rem, .6vw + .6vh, 100rem);
   }
+
+  .weather-card-content-item-temperature-text {
+    top: clamp(.1rem, 1vw + 1vh, 100rem);
+  }
+
+  .weather-card-content-item-temperature-time {
+    position: relative;
+    bottom: clamp(.1rem, .5vw + .5vh, 100rem);
+  }
 }
 
 
@@ -471,7 +480,7 @@ body {
   }
 
   .secondary-card {
-    border-radius: var(--hd-border-radius-medium);
+    border-radius: var(--custom-4k-border-radius-medium);
   }
 }
 
@@ -494,7 +503,27 @@ body {
   }
 }
 
-@media screen and (max-width: 1280px) and (orientation: portrait) {
+@media screen and (max-width: 1920px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--hd-gap);
+    padding: var(--hd-padding);
+  }
+
+  .main-weather-card, .time-date-card, .weather-card, .info-card {
+    gap: var(--hd-gap);
+  }
+
+  .primary-card {
+    border-radius: var(--hd-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--hd-border-radius-medium);
+  }
+}
+
+
+@media screen and (max-width: 1079px) and (orientation: portrait) {
   .main-container {
     gap: var(--custom-720-gap);
     padding: var(--custom-720-padding);

@@ -1,23 +1,6 @@
 /* global Alpine, icons, moment, clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry */
 /* eslint-disable-next-line no-unused-vars, no-useless-catch */
 
-const screenly = {
-  settings: {
-    override_locale: 'en',
-    // override_coordinates: '37.774929, -122.419418',
-    override_coordinates: '9.9312, 76.2673',
-    screenly_color_accent: 'red',
-    screenly_color_light: 'green',
-    override_timezone: 'Asia/Kolkata',
-    // openweathermap_api_key: '80163e913abb64e776b0e37676708cd1',
-
-  },
-  metadata: {
-    //  coordinates: [37.774929, -122.419418]
-    coordinates: [11.2855, 76.2386]
-  }
-}
-
 const DEFAULT_LOGO_URL = 'static/images/screenly.svg'
 
 // AppCache
