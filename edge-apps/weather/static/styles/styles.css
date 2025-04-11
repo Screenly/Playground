@@ -463,7 +463,7 @@ body {
 }
 
 
-/* Portrait Mode*/
+/* Portrait Mode */
 
 @media screen and (max-width: 3840px) and (orientation: portrait) {
   .main-container {
