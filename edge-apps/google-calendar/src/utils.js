@@ -3,6 +3,8 @@
 import tzlookup from '@photostructure/tz-lookup'
 import clm from 'country-locale-map'
 import { getNearestCity } from 'offline-geocode-city'
+import * as Sentry from '@sentry/react'
+
 import { GOOGLE_OAUTH_TOKEN_URL } from '@/constants'
 
 export const getTimeZone = () => {
@@ -212,4 +214,16 @@ export const getAccessToken = async (refreshToken, clientId, clientSecret) => {
   const data = await response.json()
 
   return data.access_token
+}
+
+export const initializeSentrySettings = () => {
+  const sentryDsn = screenly.settings.sentry_dsn
+
+  if (sentryDsn) {
+    Sentry.init({
+      dsn: sentryDsn
+    })
+  } else {
+    console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
+  }
 }

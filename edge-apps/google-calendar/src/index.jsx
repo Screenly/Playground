@@ -4,6 +4,7 @@ import {
   getFormattedTime,
   generateCalendarDays,
   initializeGlobalBrandingSettings,
+  initializeSentrySettings,
   getFormattedMonthName,
   getYear,
   getMonth,
@@ -151,6 +152,8 @@ const App = () => {
     </div>
   )
 }
+
+initializeSentrySettings()
 
 const container = document.getElementById('app')
 const root = createRoot(container)

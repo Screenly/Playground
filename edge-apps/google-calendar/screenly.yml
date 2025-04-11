@@ -47,3 +47,9 @@ settings:
     optional: true
     help_text: Specify a Google Tag Manager ID
     is_global: true
+  sentry_dsn:
+    type: secret
+    title: Sentry Client Key
+    optional: true
+    help_text: Sentry Client Key from Sentry SDK for error capturing.
+    is_global: true
