@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react'
 import {
   getFormattedTime,
   generateCalendarDays,
-  initializeThemeColors,
+  initializeGlobalBrandingSettings,
   getFormattedMonthName,
   getYear,
   getMonth,
@@ -64,7 +64,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    initializeThemeColors()
+    initializeGlobalBrandingSettings()
 
     const timeInterval = setInterval(updateDateTime, 1000)
 

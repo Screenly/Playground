@@ -1,3 +1,5 @@
+/* global FileReader, screenly */
+
 import tzlookup from '@photostructure/tz-lookup'
 import clm from 'country-locale-map'
 import { getNearestCity } from 'offline-geocode-city'
@@ -87,52 +89,102 @@ export const generateCalendarDays = (year, month) => {
   return days
 }
 
-export const initializeThemeColors = () => {
-  const {
-    theme_primary_color: themePrimaryColor,
-    theme_secondary_color: themeSecondaryColor,
-    theme_tertiary_color: themeTertiaryColor,
-    theme_background_color: themeBackgroundColor,
-    theme_accent_color: themeAccentColor,
-    theme_text_color: themeTextColor
-  } = window.screenly.settings
+const fetchImage = async (fileUrl) => {
+  try {
+    const response = await fetch(fileUrl)
+    if (!response.ok) {
+      throw new Error(`Failed to fetch image from ${fileUrl}, status: ${response.status}`)
+    }
 
-  // Only override CSS variables if theme colors are provided in settings
-  if (themePrimaryColor) {
-    document.documentElement.style.setProperty(
-      '--theme-color-primary',
-      themePrimaryColor
-    )
+    const blob = await response.blob()
+    const buffer = await blob.arrayBuffer()
+    const uintArray = new Uint8Array(buffer)
+
+    // Get the first 4 bytes for magic number detection
+    const hex = Array.from(uintArray.slice(0, 4))
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('').toUpperCase()
+
+    // Convert the first few bytes to ASCII for text-based formats like SVG
+    const ascii = String.fromCharCode.apply(null, uintArray.slice(0, 100))
+
+    if (ascii.startsWith('<?xml') || ascii.startsWith('<svg')) {
+      return new Promise((resolve) => {
+        const svgReader = new FileReader()
+        svgReader.readAsText(blob)
+        svgReader.onloadend = () => {
+          const base64 = btoa(unescape(encodeURIComponent(svgReader.result)))
+          resolve('data:image/svg+xml;base64,' + base64)
+        }
+      })
+    } else if (hex === '89504E47' || hex.startsWith('FFD8FF')) {
+      return fileUrl
+    } else {
+      throw new Error('Unknown image type')
+    }
+  } catch (error) {
+    console.error('Error fetching image:', error)
+    throw error
   }
-  if (themeSecondaryColor) {
-    document.documentElement.style.setProperty(
-      '--theme-color-secondary',
-      themeSecondaryColor
-    )
+}
+
+export const initializeGlobalBrandingSettings = async () => {
+  // constant colors
+  const tertiaryColor = '#FFFFFF'
+  const backgroundColor = '#C9CDD0'
+  const defaultPrimaryColor = '#7E2CD2'
+  let secondaryColor = '#454BD2'
+
+  const theme = screenly.settings.theme ? screenly.settings.theme : 'light'
+  const primaryColor = (!screenly.settings.screenly_color_accent || screenly.settings.screenly_color_accent.toLowerCase() === '#ffffff') ? defaultPrimaryColor : screenly.settings.screenly_color_accent
+
+  if (theme === 'light') {
+    secondaryColor = (!screenly.settings.screenly_color_light || screenly.settings.screenly_color_light.toLowerCase() === '#ffffff') ? '#adafbe' : screenly.settings.screenly_color_light
+  } else if (theme === 'dark') {
+    secondaryColor = (!screenly.settings.screenly_color_dark || screenly.settings.screenly_color_dark.toLowerCase() === '#ffffff') ? '#adafbe' : screenly.settings.screenly_color_dark
   }
-  if (themeTertiaryColor) {
-    document.documentElement.style.setProperty(
-      '--theme-color-tertiary',
-      themeTertiaryColor
-    )
+
+  document.documentElement.style.setProperty('--theme-color-primary', primaryColor)
+  document.documentElement.style.setProperty('--theme-color-secondary', secondaryColor)
+  document.documentElement.style.setProperty('--theme-color-tertiary', tertiaryColor)
+  document.documentElement.style.setProperty('--theme-color-background', backgroundColor)
+
+  // Get the logo image element
+  const imgElement = document.getElementById('brand-logo')
+
+  // Initialize variables
+  let logoUrl = '' // Logo URL
+  let fallbackUrl = '' // Fallback logo if CORS URL fails
+  const defaultLogo = 'img/screenly.svg' // Fall back screenly logo
+
+  // Define settings
+  const lightLogo = screenly.settings.screenly_logo_light
+  const darkLogo = screenly.settings.screenly_logo_dark
+
+  // Set logo URLs based on theme
+  if (theme === 'light') {
+    logoUrl = lightLogo
+      ? `${screenly.cors_proxy_url}/${lightLogo}`
+      : `${screenly.cors_proxy_url}/${darkLogo}`
+    fallbackUrl = lightLogo || darkLogo
+  } else if (theme === 'dark') {
+    logoUrl = darkLogo
+      ? `${screenly.cors_proxy_url}/${darkLogo}`
+      : `${screenly.cors_proxy_url}/${lightLogo}`
+    fallbackUrl = darkLogo || lightLogo
   }
-  if (themeBackgroundColor) {
-    document.documentElement.style.setProperty(
-      '--theme-color-background',
-      themeBackgroundColor
-    )
-  }
-  if (themeAccentColor) {
-    document.documentElement.style.setProperty(
-      '--theme-color-accent',
-      themeAccentColor
-    )
-  }
-  if (themeTextColor) {
-    document.documentElement.style.setProperty(
-      '--theme-color-text',
-      themeTextColor
-    )
+
+  // First, try to fetch the image using the CORS proxy URL
+  try {
+    await fetchImage(logoUrl)
+  } catch (error) {
+    // If CORS fails, try the fallback URL
+    try {
+      await fetchImage(fallbackUrl)
+    } catch (fallbackError) {
+      // If fallback fails, use the default logo
+      imgElement.src = defaultLogo
+    }
   }
 }
 
