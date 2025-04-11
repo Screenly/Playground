@@ -540,7 +540,7 @@ body {
 
 /* QHD Portrait - 2560 × 1440 */
 
-@media screen and (max-width: 2560px) and (orientation: portrait) {
+@media screen and (max-width: 2159px) and (orientation: portrait) {
   .main-container {
     gap: var(--hd-gap);
     padding: var(--hd-padding);
