@@ -70,7 +70,7 @@ This section will be split into multiple parts:
 
 The first half requires browser interaction. The second half can be done only using the command line.
 
-### Prerequisites
+### What You Need
 
 - A Google Cloud Platform project
 - A Google Calendar account
@@ -93,14 +93,14 @@ Once done, go to [the credentials page](https://console.cloud.google.com/apis/cr
 
 - `client_id`
 - `client_secret`
-- `auth_uri` &mdash; https://accounts.google.com/o/oauth2/auth
-- `token_uri` &mdash; https://oauth2.googleapis.com/token
+- `auth_uri` &mdash; <https://accounts.google.com/o/oauth2/auth>
+- `token_uri` &mdash; <https://oauth2.googleapis.com/token>
 
 ### Part 3: Initializing an OAuth flow
 
 In this section, you will be initializing an OAuth flow by entering the following URL in your browser:
 
-```
+```plaintext
 https://accounts.google.com/o/oauth2/v2/auth?client_id=YOUR_CLIENT_ID
 &response_type=code
 &scope=https://www.googleapis.com/auth/calendar
@@ -160,7 +160,7 @@ Now that you have a `REFRESH_TOKEN`, you can use it to obtain `ACCESS_TOKEN`s if
 > [!NOTE]
 > Running the command above the second time will give the following error:
 >
-> ```
+> ```plaintext
 > {
 >   "error": "invalid_grant",
 >   "error_description": "Bad Request"
