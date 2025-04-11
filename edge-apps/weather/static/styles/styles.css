@@ -128,13 +128,13 @@ body {
 .time-card, .date-card {
   height: 50%;
   width: 100%;
+  background-color: var(--theme-color-card);
 }
 
 
 /* Time Card */
 
 .time-card {
-  background-color: var(--theme-color-tertiary);
   display: flex;
   justify-content: center;
   align-items: baseline;
@@ -166,7 +166,6 @@ body {
 /* Date Card */
 
 .date-card {
-  background-color: var(--theme-color-tertiary);
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -258,6 +257,7 @@ body {
 
 
 .info-card {
+  background-color: var(--theme-color-card);
   color: var(--theme-color-primary);
   grid-column: 4/6;
   grid-row: 2;

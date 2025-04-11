@@ -6,12 +6,14 @@ const screenly = {
     override_locale: 'en',
     // override_coordinates: '37.774929, -122.419418',
     override_coordinates: '9.9312, 76.2673',
+    screenly_color_accent: 'red',
+    screenly_color_light: 'green',
     override_timezone: 'Asia/Kolkata',
-
+    // openweathermap_api_key: '80163e913abb64e776b0e37676708cd1',
 
   },
   metadata: {
-  //  coordinates: [37.774929, -122.419418]
+    //  coordinates: [37.774929, -122.419418]
     coordinates: [11.2855, 76.2386]
   }
 }
@@ -20,7 +22,7 @@ const DEFAULT_LOGO_URL = 'static/images/screenly.svg'
 
 // AppCache
 class AppCache {
-  constructor ({ keyName }) {
+  constructor({ keyName }) {
     this.keyName = keyName
 
     if (localStorage.getItem(this.keyName) === null) {
@@ -32,23 +34,23 @@ class AppCache {
     }
   }
 
-  clear () {
+  clear() {
     this.data = {}
     localStorage.removeItem(this.keyName)
   }
 
-  set (data) {
+  set(data) {
     this.data = data
     localStorage.setItem(this.keyName, JSON.stringify(this.data))
   }
 
-  get () {
+  get() {
     return this.data
   }
 }
 
 // getWeatherApiData from main.js
-async function getWeatherApiData (context) {
+async function getWeatherApiData(context) {
   const stringifyQueryParams = (params) => {
     return Object.entries(params).map(
       ([key, value]) => `${key}=${value}`
@@ -103,14 +105,14 @@ async function getWeatherApiData (context) {
   return result
 }
 
-function formatTime (today, locale) {
+function formatTime(today, locale) {
   moment.locale(locale)
   const is24HourFormat = moment.localeData(locale).longDateFormat('LT').includes('H')
 
   return moment(today).format(is24HourFormat ? 'HH:mm' : 'hh:mm A')
 }
 
-async function getLocale (lat, lng) {
+async function getLocale(lat, lng) {
   const { settings } = screenly
   const defaultLocale = navigator?.languages?.length
     ? navigator.languages[0]
@@ -132,7 +134,7 @@ async function getLocale (lat, lng) {
   return clm.getLocaleByAlpha2(countryCode) || defaultLocale
 }
 
-function findCurrentWeatherItem (list) {
+function findCurrentWeatherItem(list) {
   const currentUTC = Math.round(new Date().getTime() / 1000)
   let itemIndex = 0
 
@@ -152,20 +154,20 @@ function findCurrentWeatherItem (list) {
   return itemIndex
 }
 
-function checkIfNight (context, dt) {
+function checkIfNight(context, dt) {
   const dateTime = moment.unix(dt).utcOffset(context.tzOffset)
   const hrs = dateTime.hour()
 
   return hrs <= 5 || hrs >= 20
 }
 
-function checkIfInRange (ranges, code) {
+function checkIfInRange(ranges, code) {
   return ranges.reduce(
     (acc, range) => acc || (code >= range[0] && code <= range[1])
   )
 }
 
-function getWeatherImagesById (context, id = 800, dt) {
+function getWeatherImagesById(context, id = 800, dt) {
   // List of codes - https://openweathermap.org/weather-conditions
   // To do - Refactor
   const isNight = checkIfNight(context, dt)
@@ -234,7 +236,7 @@ function getWeatherImagesById (context, id = 800, dt) {
   }
 
   // Helper function to check if an icon has a night pair
-  function hasNightPair (icon) {
+  function hasNightPair(icon) {
     const noNightPairIcons = [
       'chancesleet',
       'cloudy',
@@ -268,7 +270,7 @@ const getTemp = (context, temp) => {
   )
 }
 
-async function refreshWeather (context) {
+async function refreshWeather(context) {
   try {
     const data = await getWeatherApiData(context)
     if (data.list !== undefined) {
@@ -325,7 +327,7 @@ async function refreshWeather (context) {
   }
 }
 
-function getWeatherData () {
+function getWeatherData() {
   return {
     bgClass: '',
     city: '',
@@ -346,7 +348,7 @@ function getWeatherData () {
     dateNumber: '',
     showAmPm: true,
     brandLogo: DEFAULT_LOGO_URL,
-    async fetchImage (fileUrl) {
+    async fetchImage(fileUrl) {
       try {
         const response = await fetch(fileUrl)
         if (!response.ok) {
@@ -384,7 +386,7 @@ function getWeatherData () {
         throw error
       }
     },
-    async initBrandLogo () {
+    async initBrandLogo() {
       const corsUrl = screenly.cors_proxy_url + '/' + screenly.settings.screenly_logo_dark
       const fallbackUrl = screenly.settings.screenly_logo_dark
 
@@ -487,6 +489,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.documentElement.style.setProperty('--theme-color-secondary', secondaryColor)
   document.documentElement.style.setProperty('--theme-color-tertiary', tertiaryColor)
   document.documentElement.style.setProperty('--theme-color-background', backgroundColor)
+
+  // Change the color of circles inside SVG objects
+  const svgObjects = document.querySelectorAll('#location-pin-icon')
+  svgObjects.forEach(function (svgObject) {
+    svgObject.addEventListener('load', function () {
+      const svgDoc = this.contentDocument;
+      const path = svgDoc.querySelector('path')
+      if (path) {
+        path.setAttribute('fill', secondaryColor)
+      }
+    })
+  })
 
   // Signal that the screen is ready for rendering
   screenly.signalReadyForRendering()
