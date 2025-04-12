@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const iframeUrl = extractUrlFromIframeSetting(iframeSettingValue)
   const iframeElement = document.getElementById('iframe')
 
-  iframeElement.onload = function() {
+  iframeElement.onload = function () {
     screenly.signalReadyForRendering()
   }
 
