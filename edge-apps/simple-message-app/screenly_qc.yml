@@ -2,7 +2,7 @@
 syntax: manifest_v1
 id: 01JDM3BKC1C5Q5ACQGBAQHVKHR
 description: Screenly Simple Message App QC
-icon: https://playground.srly.io/edge-apps/simple-message-app/static/images/icon.svg
+icon: https://playground.srly.io/edge-apps/simple-message-app/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 settings:
