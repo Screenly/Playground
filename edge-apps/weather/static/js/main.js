@@ -402,6 +402,7 @@ function getWeatherData () {
       await this.initDateTime()
       setInterval(() => this.initDateTime(), 1000)
 
+      // Load weather data
       await refreshWeather(this)
       setInterval(
         () => {
@@ -409,7 +410,11 @@ function getWeatherData () {
         }, 1000 * 60 * 15 // 15 minutes
       )
 
+      // Load brand logo
       await this.initBrandLogo()
+
+      // Signal that the app is ready for rendering after everything is loaded
+      screenly.signalReadyForRendering ()
     },
     getTimezone: async function () {
       return tzlookup(this.lat, this.lng)
@@ -484,7 +489,4 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     })
   })
-
-  // Signal that the screen is ready for rendering
-  screenly.signalReadyForRendering()
 })
