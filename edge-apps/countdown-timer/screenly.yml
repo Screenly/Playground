@@ -2,7 +2,7 @@
 syntax: manifest_v1
 id: 01HS8ZSEPGFZDKE606PD038TTB
 description: Screenly Countdown Edge App
-icon: https://playground.srly.io/edge-apps/countdown-timer/static/images/icon.svg
+icon: https://playground.srly.io/edge-apps/countdown-timer/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 settings:
