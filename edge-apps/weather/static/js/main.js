@@ -263,7 +263,6 @@ async function refreshWeather (context) {
         context.city = `${name}, ${country}`
         context.tzOffset = parseInt(tzOffset / 60) // in minutes
         context.tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C'
-
         context.firstFetchComplete = true
         context.isLoading = false
       }
@@ -386,11 +385,16 @@ function getWeatherData () {
     },
     init: async function () {
       if (screenly.settings.override_coordinates) {
-        [this.lat, this.lng] = screenly.settings.override_coordinates.split(',')
+        const coordinates = screenly.settings.override_coordinates.split(',').map(coord => parseFloat(coord.trim()))
+        if (coordinates.length === 2 && !isNaN(coordinates[0]) && !isNaN(coordinates[1])) {
+          [this.lat, this.lng] = coordinates
+        } else {
+          console.warn('Invalid override_coordinates format. Expected "lat,lng"')
+        }
       }
 
       if (!this.lat || !this.lng) {
-        [this.lat, this.lng] = screenly.metadata?.coordinates
+        [this.lat, this.lng] = screenly.metadata?.coordinates || [0, 0]
       }
 
       this.apiKey = screenly.settings.openweathermap_api_key
@@ -468,6 +472,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.documentElement.style.setProperty('--theme-color-secondary', secondaryColor)
   document.documentElement.style.setProperty('--theme-color-tertiary', tertiaryColor)
   document.documentElement.style.setProperty('--theme-color-background', backgroundColor)
+
+  // Change the color of circles inside SVG objects
+  const svgObjects = document.querySelectorAll('#location-pin-icon')
+  svgObjects.forEach(function (svgObject) {
+    svgObject.addEventListener('load', function () {
+      const svgDoc = this.contentDocument
+      const path = svgDoc.querySelector('path')
+      if (path) {
+        path.setAttribute('fill', secondaryColor)
+      }
+    })
+  })
 
   // Signal that the screen is ready for rendering
   screenly.signalReadyForRendering()

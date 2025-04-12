@@ -1,5 +1,38 @@
 /* stylelint-disable media-feature-range-notation */
 
+
+/* Font Details - Inter - 600 (SemiBold) , 500(Medium) and 400(Regular) */
+
+
+@font-face {
+  font-family: Inter;
+  src: url('../fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url('../fonts/Inter-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url('../fonts/Inter-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: Inter, sans-serif;
+}
+
+
 /* Modifiers */
 
 .main-container {
@@ -29,42 +62,57 @@
   grid-row: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: normal;
+  flex-direction: column;
+}
+
+
+
+.location-card {
+  position: absolute;
+  top: clamp(1rem, 2.5vw + 2.5vh, 100rem);
+  left: clamp(1rem, 2.5vw + 2.5vh, 100rem);
+  display: flex;
   flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: clamp(.2rem, .4vw + .4vh, 10rem);
+  background-color: var(--theme-color-tertiary);
+  width: fit-content;
+  font-weight: 500;
+  font-size: clamp(1rem, .9vw + .9vh, 10rem);
+  color: var(--theme-color-primary);
+  border-radius: 5rem;
+  padding: clamp(.1rem, .2vw + .2vh, 100rem) clamp(1rem, .8vw + .8vh, 100rem);
+}
+
+.location-icon {
+  width: clamp(.8rem, .8vw + .8vh, 10rem);
 }
 
 .temperature-card {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  letter-spacing: .5rem;
   color: var(--theme-color-tertiary);
   line-height: 0.7;
 }
 
 .temperature-text-number {
-  font-size: 65rem;
+  font-size: clamp(1rem, 15vw + 15vh, 1000rem);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
 }
 
 .temperature-degree-sign {
-  font-size: 5rem;
+  font-size: clamp(1rem, 5vw + 5vh, 100rem);
+  font-weight: 500;
 }
 
 .temperature-unit-text {
-  font-size: 20rem;
-}
-
-.weather-icon {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  color: var(--theme-color-tertiary);
-}
-
-.weather-description {
-  font-size: 2rem;
+  font-size: clamp(1rem, 5vw + 5vh, 100rem);
+  font-weight: 500;
 }
 
 .time-date-card {
@@ -73,60 +121,69 @@
   background-color: var(--theme-color-background);
   display: flex;
   flex-direction: column;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
 }
 
 .time-card, .date-card {
   height: 50%;
   width: 100%;
-
+  background-color: var(--theme-color-card);
 }
 
 
 /* Time Card */
 
 .time-card {
-  background-color: var(--theme-color-tertiary);
   display: flex;
   justify-content: center;
   align-items: baseline;
-  gap: .5rem;
+}
+
+.time-text-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .time-text-hour,
 .time-text-minutes,
 .time-text-separator {
-  font-size: 20rem;
-  letter-spacing: 1rem;
+  font-size: clamp(1rem, 4.5vw + 4.5vh, 100rem);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  line-height: 1;
   color: var(--theme-color-primary);
 }
 
+
 .time-ampm {
-  font-size: 7rem;
+  font-size: clamp(1rem, 1.7vw + 1.7vh, 100rem);
   color: var(--theme-color-secondary);
+  align-self: baseline;
 }
 
 /* Date Card */
 
 .date-card {
-  background-color: var(--theme-color-tertiary);
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 5rem
+  gap: clamp(1rem, .8vw + .8vh, 100rem);
+  font-weight: 400;
+  letter-spacing: .5rem;
 }
 
 .date-text {
-  font-size: 17rem;
+  font-size: clamp(1rem, 3.5vw + 3.5vh, 100rem);
   color: var(--theme-color-secondary);
 }
 
 .date-number {
-  font-size: 17rem;
+  font-size: clamp(1rem, 3.5vw + 3.5vh, 100rem);
   color: var(--theme-color-primary);
 }
-
-
 
 
 /* Weather Card */
@@ -145,6 +202,7 @@
   line-height: 0;
   gap: 1rem;
   height: 100%;
+  overflow: hidden;
 }
 
 .weather-card-content-item {
@@ -156,47 +214,59 @@
   height: 100%;
 }
 
+.weather-card-content-item-temperature-text {
+  display: flex;
+  position: relative;
+  top: clamp(.1rem, .5vw + .5vh, 100rem);
+}
+
 .weather-card-temperature-text {
-  font-size: 7rem;
+  font-size: clamp(1rem, 1.2vw + 1.2vh, 100rem);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  font-weight: 500;
 }
 
 .weather-card-temperature-degree-sign {
-  font-size: 8rem;
+  font-size: clamp(1rem, 1.3vw + 1.3vh, 100rem);
+  font-weight: 500;
 }
 
 .weather-card-weather-icon {
-  width: 29rem;
+  width: clamp(.5rem, 6.4vw + 6.4vh, 100rem);
 }
 
-
 .weather-card-content-item-temperature-time {
-  font-size: 5rem;
+  font-size: clamp(1rem, 1vw + 1vh, 100rem);
   display: flex;
-  letter-spacing: 0.1rem;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  font-weight: 500;
 }
 
 
 /* brand logo  card */
 
 .brand-logo {
-  width: 20rem;
+  width: clamp(1rem, 5vw + 5vh, 100rem);
 }
 
 .info-text {
-  font-size: 3rem;
+  font-size: clamp(1rem, .7vw + .7vh, 100rem);
 }
 
 
 .info-card {
+  background-color: var(--theme-color-card);
   color: var(--theme-color-primary);
   grid-column: 4/6;
   grid-row: 2;
-  gap: 4rem;
+  gap: clamp(1rem, .8vw + .8vh, 100rem);
+
 }
 
 
 /* Media Queries */
-
 
 @media (orientation: portrait) {
   .main-container {
@@ -226,6 +296,12 @@
     justify-content: space-around;
   }
 
+  .location-card {
+    position: absolute;
+    top: clamp(1rem, 3vw + 3vh, 100rem);
+    left: clamp(1rem, 3vw + 3vh, 100rem);
+    font-size: clamp(1rem, 1.2vw + 1.2vh, 100rem);
+  }
 
   /* -------- */
 
@@ -237,29 +313,34 @@
   }
 
   .time-card {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    flex-direction: row;
     border-radius: var(--custom-4k-border-radius-medium);
   }
 
   .time-text-container {
+    position: absolute;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     gap: .5rem;
-    height: 100%;
     letter-spacing: 1rem;
   }
 
   .time-text-hour, .time-text-minutes {
-    font-size: 5rem;
+    font-size: clamp(1rem, 5.5vw + 5.5vh, 100rem);
   }
 
   .time-ampm-container {
-    padding-top: 8.5rem;
     position: absolute;
-    padding-left: 9rem;
+    padding: clamp(1rem, 8.5vw + 8.5vh, 100rem) 0 0 clamp(1rem, 10vw + 10vh, 100rem);
+  }
+
+  .time-ampm {
+    font-weight: 500;
+    font-size: clamp(1rem, 1.2vw + 1.2vh, 100rem);
+    vertical-align: baseline;
   }
 
   .time-card, .date-card {
@@ -272,531 +353,216 @@
   }
 
   .date-text {
-    font-size: 3.5rem;
+    font-size: clamp(1rem, 3.5vw + 3.5vh, 100rem);
   }
 
   .date-number {
-    font-size: 7rem;
+    font-size: clamp(1rem, 5.5vw + 5.5vh, 100rem);
   }
-
 
   .info-card, .time-text-separator {
     display: none;
   }
-}
-
-
-/* 4K Landscape - 4096 × 2160 */
-
-@media screen and (max-width: 4096px) and (orientation: landscape) {
-  .time-date-card {
-    gap: var(--custom-4k-gap);
-  }
-
-  .temperature-text-number {
-    font-size: 65rem;
-  }
-
-  .temperature-unit-text {
-    font-size: 20rem;
-  }
-
-  .time-text-hour,
-  .time-text-minutes,
-  .time-text-separator {
-    font-size: 20rem;
-    letter-spacing: 1rem;
-  }
-
-  .time-ampm {
-    font-size: 7rem;
-  }
-
-  .date-card {
-    gap: 5rem
-  }
-
-  .date-text,
-  .date-number {
-    font-size: 17rem;
-    letter-spacing: 1rem;
-  }
-
-  .weather-card-content-item {
-    gap: 2rem;
-  }
-
-  .weather-card-temperature-text,
-  .weather-card-temperature-degree-sign {
-    font-size: 7rem;
-  }
 
   .weather-card-weather-icon {
-    width: 29rem;
-  }
-
-  .weather-card-content-item-temperature-time {
-    font-size: 5rem;
-  }
-
-  .info-card {
-    gap: 4rem;
-  }
-
-  .brand-logo {
-    width: 20rem;
-  }
-
-  .info-text {
-    font-size: 3rem;
-  }
-
-}
-
-/* 4K Portrait - 2160 × 4096 */
-
-@media screen and (max-width: 2160px) and (orientation: portrait) {
-  .time-date-card {
-    gap: var(--custom-4k-gap);
-  }
-
-  .temperature-text-number {
-    font-size: 60rem;
-  }
-
-  .temperature-unit-text {
-    font-size: 20rem;
-  }
-
-  .time-text-hour,
-  .time-text-minutes {
-    font-size: 22rem;
-  }
-
-  .time-ampm {
-    font-size: 8rem;
-  }
-
-  .time-ampm-container {
-    padding-top: 35rem;
-    padding-left: 40rem;
-  }
-
-  .date-text {
-    font-size: 15rem;
-  }
-
-  .date-number {
-    font-size: 25rem;
-  }
-
-  .weather-card-temperature-text,
-  .weather-card-temperature-degree-sign {
-    font-size: 8rem;
-  }
-
-  .weather-card-weather-icon {
-    width: 32rem;
-  }
-
-  .weather-card-content-item-temperature-time {
-    font-size: 5rem;
+    width: clamp(.5rem, 7vw + 7vh, 100rem);
   }
 }
 
-/* 4K Landscape - 3840 × 2160 */
+/* Quad HD Landscape - 2560 × 1440 */
 
-@media screen and (max-width: 3840px) and (orientation: landscape) {
-  .weather-card-weather-icon {
-    width: 27rem;
+@media screen and (max-width: 2560px) and (orientation: landscape) {
+  .main-container {
+    gap: var(--hd-gap);
+    padding: var(--hd-padding);
   }
-}
 
-
-
-
-/* Full HD Landscape - 1920 × 1080 */
-
-@media screen and (max-width: 1920px) and (orientation: landscape) {
-  .time-date-card {
+  .main-weather-card, .time-date-card, .weather-card, .info-card {
     gap: var(--hd-gap);
   }
 
-  .temperature-text-number {
-    font-size: 30rem;
+  .primary-card {
+    border-radius: var(--hd-border-radius-big);
   }
 
-  .temperature-unit-text {
-    font-size: 10rem;
-  }
-
-  .time-ampm {
-    font-size: 2.5rem;
-  }
-
-  .time-text-hour,
-  .time-text-minutes,
-  .time-text-separator {
-    font-size: 9rem;
-    letter-spacing: .5rem;
-  }
-
-  .date-card {
-    gap: 2rem;
-  }
-
-  .date-number,
-  .date-text {
-    font-size: 6rem;
-    letter-spacing: .5rem;
-  }
-
-  .weather-card-content-item {
-    gap: .2rem;
-  }
-
-  .weather-card-temperature-text,
-  .weather-card-temperature-degree-sign {
-    font-size: 3rem;
-  }
-
-  .weather-card-weather-icon {
-    width: 13rem;
-  }
-
-  .weather-card-content-item-temperature-time {
-    font-size: 2rem;
-  }
-
-  .info-card {
-    gap: 2rem;
-  }
-
-  .brand-logo {
-    width: 9rem;
-  }
-
-  .info-text {
-    font-size: 1.4rem;
-  }
-}
-
-/* Full HD Portrait - 1080 × 1920 */
-
-@media screen and (max-width: 1080px) and (orientation: portrait) {
-  .time-date-card {
-    gap: var(--hd-gap);
-  }
-
-  .time-card {
+  .secondary-card {
     border-radius: var(--hd-border-radius-medium);
   }
-
-  .temperature-text-number {
-    font-size: 30rem;
-  }
-
-  .temperature-unit-text {
-    font-size: 10rem;
-  }
-
-  .time-text-hour,
-  .time-text-minutes {
-    font-size: 11rem;
-  }
-
-
-  .weather-card-content {
-    gap: 2rem;
-  }
-
-  .weather-card-content-item {
-    gap: .5rem;
-  }
-
-  .weather-card-temperature-text,
-  .weather-card-temperature-degree-sign {
-    font-size: 3rem;
-  }
-
-  .weather-card-weather-icon {
-    width: 15rem;
-  }
-
-  .weather-card-content-item-temperature-time {
-    font-size: 2.5rem;
-  }
-
-  .time-ampm-container {
-    padding-top: 17rem;
-    padding-left: 20rem;
-  }
-
-  .time-ampm {
-    font-size: 3rem;
-  }
-
-  .date-text {
-    font-size: 8rem;
-  }
-
-  .date-number {
-    font-size: 12rem;
-  }
 }
 
-/* Custom resolution - 1680 × 962 (Landscape) */
 
-@media screen and (max-width: 1680px) and (orientation: landscape) {
-  .weather-card-temperature-text {
-    font-size: 2.5rem;
-  }
+/* Quad HD Landscape - 1920 × 1080 */
 
+@media screen and (max-width: 1920px) and (orientation: landscape) {
   .weather-card-weather-icon {
-    width: 11rem;
+    width: clamp(.5rem, 6.2vw + 6.2vh, 100rem);
   }
-
-  .weather-card-content-item-temperature-time {
-    font-size: 2rem;
-  }
-
 }
-
 
 /* HD Landscape - 1280 × 720 */
 
 @media screen and (max-width: 1280px) and (orientation: landscape) {
-  .time-date-card {
+  .main-container {
+    gap: var(--custom-720-gap);
+    padding: var(--custom-720-padding);
+  }
+
+  .main-weather-card, .time-date-card, .weather-card, .info-card {
     gap: var(--custom-720-gap);
   }
 
-  .temperature-text-number {
-    font-size: 18rem;
+  .primary-card {
+    border-radius: var(--custom-720-border-radius-big);
   }
 
-  .temperature-unit-text {
-    font-size: 6rem;
+  .secondary-card {
+    border-radius: var(--custom-720-border-radius-medium);
   }
-
-
-  .time-text-hour, .time-text-minutes, .time-text-separator {
-    font-size: 6rem;
-    letter-spacing: .3rem;
-  }
-
-  .time-ampm {
-    font-size: 1.5rem;
-  }
-
-  .date-card {
-    gap: 1rem;
-  }
-
-  .date-number,
-  .date-text {
-    font-size: 5rem;
-    letter-spacing: .3rem;
-  }
-
-  .weather-card-temperature-text,
-  .weather-card-temperature-degree-sign {
-    font-size: 2rem;
-  }
-
-  .weather-card-weather-icon {
-    width: 8rem;
-  }
-
-  .weather-card-content-item-temperature-time {
-    font-size: 1.5rem;
-  }
-
-  .brand-logo {
-    width: 6rem;
-  }
-
-  .info-text {
-    font-size: 1rem;
-  }
-}
-
-
-@media screen and (max-width: 1080px) and (orientation: landscape) {
-  .weather-card-temperature-text,
-  .weather-card-temperature-degree-sign {
-    font-size: 1.7rem;
-  }
-
-  .weather-card-weather-icon {
-    width: 6.5rem;
-  }
-
-  .weather-card-content-item-temperature-time {
-    font-size: 1.3rem;
-  }
-
-}
-
-/* HD Portrait - 720 × 1280 */
-
-@media screen and (max-width: 720px) and (orientation: portrait) {
-  .temperature-text-number {
-    font-size: 20rem;
-  }
-
-  .temperature-unit-text {
-    font-size: 5rem;
-  }
-
-  .time-text-hour,
-  .time-text-minutes {
-    font-size: 7rem;
-  }
-
-  .time-ampm-container {
-    padding-top: 12rem;
-    padding-left: 12rem;
-  }
-
-  .time-ampm {
-    font-size: 2rem;
-  }
-
-  .date-text {
-    font-size: 5rem;
-  }
-
-  .date-number {
-    font-size: 8rem;
-  }
-
-  .weather-card-temperature-text,
-  .weather-card-temperature-degree-sign {
-    font-size: 2rem;
-  }
-
-  .weather-card-weather-icon {
-    width: 9rem;
-  }
-
-  .weather-card-content-item-temperature-time {
-    font-size: 1.7rem;
-  }
-
 }
 
 /* Raspberry Pi Touch Display - Landscape 800 × 480 */
 
 @media screen and (max-width: 800px) and (orientation: landscape) {
-  .time-date-card {
+  .main-container {
+    gap: var(--pi-gap);
+    padding: var(--pi-padding);
+  }
+
+  .main-weather-card, .time-date-card, .weather-card, .info-card {
     gap: var(--pi-gap);
   }
 
-  .temperature-text-number {
-    font-size: 13rem;
+  .primary-card {
+    border-radius: var(--pi-border-radius-big);
   }
 
-  .temperature-unit-text {
-    font-size: 3rem;
-  }
-
-  .time-text-hour, .time-text-minutes, .time-text-separator {
-    font-size: 3.5rem;
-    letter-spacing: .1rem;
-  }
-
-  .time-ampm {
-    font-size: 1.2rem;
-  }
-
-  .date-card {
-    gap: .5rem;
-}
-
-  .date-number,
-  .date-text {
-    font-size: 3rem;
-    letter-spacing: .1rem;
-  }
-
-  .weather-card-temperature-text,
-  .weather-card-temperature-degree-sign {
-    font-size: 1.2rem;
+  .secondary-card {
+    border-radius: var(--pi-border-radius-medium);
   }
 
   .weather-card-weather-icon {
-    width: 4.7rem;
-  }
-
-  .weather-card-content-item-temperature-time {
-    font-size: 1rem;
-  }
-
-  .info-card {
-    gap: 1rem;
+    width: clamp(.5rem, 5.2vw + 5.2vh, 100rem);
   }
 
   .brand-logo {
-    width: 3.5rem;
+    width: clamp(1rem, 4vw + 4vh, 100rem);
   }
 
   .info-text {
-    font-size: .8rem;
+    font-size: clamp(.7rem, .6vw + .6vh, 100rem);
+  }
+
+  .weather-card-content-item-temperature-text {
+    top: clamp(.1rem, 1vw + 1vh, 100rem);
+  }
+
+  .weather-card-content-item-temperature-time {
+    position: relative;
+    bottom: clamp(.1rem, .5vw + .5vh, 100rem);
   }
 }
 
+
+/* Portrait Mode */
+
+@media screen and (max-width: 3840px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--custom-4k-gap);
+    padding: var(--custom-4k-padding);
+  }
+
+  .main-weather-card, .time-date-card, .weather-card, .info-card {
+    gap: var(--custom-4k-gap);
+  }
+
+  .primary-card {
+    border-radius: var(--custom-4k-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--custom-4k-border-radius-medium);
+  }
+}
+
+@media screen and (max-width: 2159px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--hd-gap);
+    padding: var(--hd-padding);
+  }
+
+  .main-weather-card, .time-date-card, .weather-card, .info-card {
+    gap: var(--hd-gap);
+  }
+
+  .primary-card {
+    border-radius: var(--hd-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--hd-border-radius-medium);
+  }
+}
+
+@media screen and (max-width: 1920px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--hd-gap);
+    padding: var(--hd-padding);
+  }
+
+  .main-weather-card, .time-date-card, .weather-card, .info-card {
+    gap: var(--hd-gap);
+  }
+
+  .primary-card {
+    border-radius: var(--hd-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--hd-border-radius-medium);
+  }
+}
+
+
+@media screen and (max-width: 1079px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--custom-720-gap);
+    padding: var(--custom-720-padding);
+  }
+
+  .main-weather-card, .time-date-card, .weather-card, .info-card {
+    gap: var(--custom-720-gap);
+  }
+
+  .primary-card {
+    border-radius: var(--custom-720-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--custom-720-border-radius-medium);
+  }
+
+  .weather-card-weather-icon {
+    width: clamp(.5rem, 5.8vw + 5.8vh, 100rem);
+  }
+}
 
 /* Raspberry Pi Touch Display - Portrait 480 × 800 */
 
 @media screen and (max-width: 480px) and (orientation: portrait) {
-  .time-card {
+  .main-container {
+    gap: var(--pi-gap);
+    padding: var(--pi-padding);
+  }
+
+  .main-weather-card, .time-date-card, .weather-card, .info-card {
+    gap: var(--pi-gap);
+  }
+
+  .primary-card {
+    border-radius: var(--pi-border-radius-big);
+  }
+
+  .secondary-card {
     border-radius: var(--pi-border-radius-medium);
-  }
-
-  .temperature-text-number {
-    font-size: 13rem;
-  }
-
-  .temperature-unit-text {
-    font-size: 3rem;
-  }
-
-  .time-text-hour, .time-text-minutes {
-    font-size: 4.5rem;
-  }
-
-  .time-text-container {
-    gap: .6rem;
-    letter-spacing: .6rem;
-  }
-
-  .time-ampm-container {
-    padding-top: 8rem;
-    padding-left: 7rem;
-  }
-
-  .time-ampm {
-    font-size: 1.5rem;
-  }
-
-  .date-text {
-    font-size: 3rem;
-  }
-
-  .date-number {
-    font-size: 6rem;
-  }
-
-  .weather-card-temperature-text,
-  .weather-card-temperature-degree-sign {
-    font-size: 1.2rem;
-  }
-
-  .weather-card-weather-icon {
-    width: 5.2rem;
-  }
-
-  .weather-card-content-item-temperature-time {
-    font-size: 0.9rem;
   }
 }
