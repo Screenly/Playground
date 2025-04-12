@@ -57,3 +57,20 @@ Steps 9. **Assign Asset to Playlist and Device**
 * Assign the playlist to a device.
 
 Now, the TFL Bus status Edge App has been configured, and the designated webpage/dashboard will be presented on the Screenly-connected TV/Monitor.
+
+## Override the Location
+
+To override the location, you can change the coordinates in the screenly dashboard or via CLI. In default, the app will use the device's coordinates.
+
+`$ screenly edge-app setting set override_coordinates=123.456,78.910`
+
+## Override the Locale
+
+To override the locale, you can change the locale in the screenly dashboard or via CLI. In default, the app will use the device's locale or 'en' if the device's locale is not supported.
+
+`$ screenly edge-app setting set override_locale=en`
+
+You can find the list of supported locales [here](https://momentjs.com/)
+
+
+
