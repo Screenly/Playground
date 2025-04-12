@@ -414,7 +414,7 @@ function getWeatherData () {
       await this.initBrandLogo()
 
       // Signal that the app is ready for rendering after everything is loaded
-      screenly.signalReadyForRendering ()
+      screenly.signalReadyForRendering()
     },
     getTimezone: async function () {
       return tzlookup(this.lat, this.lng)
