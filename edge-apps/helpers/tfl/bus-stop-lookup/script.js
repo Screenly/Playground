@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let currentPage = 1
   let filteredData = []
   let fullData = []
-  let activeFilters = {}
+  const activeFilters = {}
 
   // Fetch and parse the CSV file
   fetch('https://tfl.gov.uk/bus-stops.csv')
