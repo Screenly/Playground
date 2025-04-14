@@ -1,3 +1,5 @@
+/* eslint-disable-next-line no-unused-vars, no-useless-catch */
+
 /* global Papa */
 
 document.addEventListener('DOMContentLoaded', function () {
