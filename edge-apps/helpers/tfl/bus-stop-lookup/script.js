@@ -12,6 +12,12 @@ document.addEventListener('DOMContentLoaded', function () {
   const paginationContainer = document.getElementById('pagination')
   const filterContainer = document.getElementById('filters')
 
+  // Create tooltip for copy feedback
+  const tooltip = document.createElement('div')
+  tooltip.className = 'copy-tooltip'
+  tooltip.style.display = 'none'
+  document.body.appendChild(tooltip)
+
   // Pagination settings
   const itemsPerPage = 100
   let currentPage = 1
@@ -385,7 +391,38 @@ document.addEventListener('DOMContentLoaded', function () {
         headers.forEach(header => {
           const td = document.createElement('td')
           td.classList.add('border', 'px-4', 'py-2')
-          td.textContent = row[header]
+
+          // Make stop code clickable for copying
+          if (header === 'Stop Code') {
+            const stopCodeContainer = document.createElement('div')
+            stopCodeContainer.className = 'flex items-center'
+
+            const codeText = document.createElement('span')
+            codeText.textContent = row[header]
+            codeText.className = 'mr-2'
+            stopCodeContainer.appendChild(codeText)
+
+            const copyButton = document.createElement('button')
+            copyButton.innerHTML = '<i class="fas fa-copy"></i>'
+            copyButton.title = 'Click to copy'
+            copyButton.className = 'copy-btn text-blue-500 hover:text-blue-700 focus:outline-none p-1 rounded-full hover:bg-gray-100'
+            copyButton.addEventListener('click', function(e) {
+              e.stopPropagation()
+              copyToClipboard(row[header])
+            })
+            stopCodeContainer.appendChild(copyButton)
+
+            td.appendChild(stopCodeContainer)
+
+            // Make the entire cell clickable too
+            td.classList.add('cursor-pointer', 'hover:bg-blue-50')
+            td.addEventListener('click', function() {
+              copyToClipboard(row[header])
+            })
+          } else {
+            td.textContent = row[header]
+          }
+
           tr.appendChild(td)
         })
         tableBody.appendChild(tr)
@@ -406,6 +443,45 @@ document.addEventListener('DOMContentLoaded', function () {
         </tr>
       `
     }
+  }
+
+  function copyToClipboard(text) {
+    // Create temporary textarea
+    const textarea = document.createElement('textarea')
+    textarea.value = text
+    textarea.style.position = 'fixed' // Avoid scrolling to bottom
+    document.body.appendChild(textarea)
+    textarea.select()
+
+    try {
+      // Copy the text
+      document.execCommand('copy')
+      showTooltip('Copied: ' + text)
+    } catch (err) {
+      console.error('Failed to copy text:', err)
+      showTooltip('Failed to copy')
+    }
+
+    // Clean up
+    document.body.removeChild(textarea)
+  }
+
+  function showTooltip(message) {
+    const tooltip = document.querySelector('.copy-tooltip')
+    if (!tooltip) return
+
+    tooltip.textContent = message
+    tooltip.style.display = 'block'
+
+    // Position in the center of the viewport
+    tooltip.style.left = '50%'
+    tooltip.style.top = '40px'
+    tooltip.style.transform = 'translateX(-50%)'
+
+    // Hide after 2 seconds
+    setTimeout(() => {
+      tooltip.style.display = 'none'
+    }, 2000)
   }
 
   function renderPagination() {
