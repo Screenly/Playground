@@ -42,26 +42,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Use a timeout to prevent UI blocking during parsing
       setTimeout(() => {
-        Papa.parse(csvText, {
-          header: true,
+      Papa.parse(csvText, {
+        header: true,
           skipEmptyLines: true,
           worker: true, // Use a worker thread for parsing
-          complete: function (results) {
-            console.log('CSV parsed successfully')
+        complete: function (results) {
+          console.log('CSV parsed successfully')
 
-            // Identify the stop name column dynamically and use Naptan_Atco for the stop code
-            const stopNameField = results.meta.fields.find(field => field.toLowerCase().includes('name'))
-            const stopCodeField = 'Naptan_Atco'
+          // Identify the stop name column dynamically and use Naptan_Atco for the stop code
+          const stopNameField = results.meta.fields.find(field => field.toLowerCase().includes('name'))
+          const stopCodeField = 'Naptan_Atco'
 
-            // Filter and map data
+          // Filter and map data
             fullData = results.data
               .filter(row => row[stopNameField] && row[stopCodeField]) // Only keep rows with valid data
               .map(row => {
-                return {
-                  'Stop Name': stripSpecialCharacters(row[stopNameField] || ''),
-                  'Stop Code': row[stopCodeField] || ''
-                }
-              })
+            return {
+              'Stop Name': stripSpecialCharacters(row[stopNameField] || '').trim(),
+              'Stop Code': row[stopCodeField] || ''
+            }
+          })
+
+            // Sort the data alphabetically by stop name
+            fullData.sort((a, b) => a['Stop Name'].localeCompare(b['Stop Name']))
 
             // Initialize filtered data with full data
             filteredData = [...fullData]
@@ -77,12 +80,12 @@ document.addEventListener('DOMContentLoaded', function () {
             renderPagination()
             renderTablePage(currentPage)
             addSearchFunctionality()
-          },
-          error: function (error) {
-            console.error('Error parsing CSV:', error)
+        },
+        error: function (error) {
+          console.error('Error parsing CSV:', error)
             showErrorState('Error processing data. Please try again later.')
-          }
-        })
+        }
+      })
       }, 100) // Small delay to allow UI to update
     })
     .catch(error => {
@@ -422,7 +425,7 @@ document.addEventListener('DOMContentLoaded', function () {
               copyToClipboard(row[header])
             })
           } else {
-            td.textContent = row[header]
+          td.textContent = row[header]
           }
 
           tr.appendChild(td)
