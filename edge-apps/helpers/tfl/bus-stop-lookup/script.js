@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const btn = document.createElement('button')
     btn.textContent = letter
     btn.className = 'px-2 py-1 rounded text-sm bg-gray-200 hover:bg-gray-300 transition-colors'
-    btn.addEventListener('click', function (){
+    btn.addEventListener('click', function () {
       // Remove active class from all letter buttons
       document.querySelectorAll('#filters button').forEach(b => {
         b.classList.remove('bg-blue-500', 'text-white')
