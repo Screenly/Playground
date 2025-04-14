@@ -1,4 +1,4 @@
-/* eslint-disable-next-line no-unused-vars, no-useless-catch */
+/* eslint-disable no-unused-vars */
 
 /* global Papa */
 
@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function () {
       areaSelect.appendChild(option)
     })
 
-    areaSelect.addEventListener ('change', function() {
+    areaSelect.addEventListener('change', function () {
       if (this.value) {
         activeFilters.pattern = this.value
       } else {
@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const btn = document.createElement('button')
     btn.textContent = letter
     btn.className = 'px-2 py-1 rounded text-sm bg-gray-200 hover:bg-gray-300 transition-colors'
-    btn.addEventListener ('click', function() {
+    btn.addEventListener('click', function (){
       // Remove active class from all letter buttons
       document.querySelectorAll('#filters button').forEach(b => {
         b.classList.remove('bg-blue-500', 'text-white')
@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', function () {
             copyButton.innerHTML = '<i class="fas fa-copy"></i>'
             copyButton.title = 'Click to copy'
             copyButton.className = 'copy-btn text-blue-500 hover:text-blue-700 focus:outline-none p-1 rounded-full hover:bg-gray-100'
-            copyButton.addEventListener ('click', function(e) {
+            copyButton.addEventListener('click', function (e) {
               e.stopPropagation()
               copyToClipboard(row[header])
             })
@@ -418,7 +418,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Make the entire cell clickable too
             td.classList.add('cursor-pointer', 'hover:bg-blue-50')
-            td.addEventListener ('click', function() {
+            td.addEventListener('click', function () {
               copyToClipboard(row[header])
             })
           } else {
@@ -554,7 +554,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function addSearchFunctionality () {
     if (searchInput) {
-      searchInput.addEventListener('input', function() {
+      searchInput.addEventListener('input', function () {
         applyFilters()
       })
     }
