@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
       showErrorState('Could not load bus stop data. Please check your connection and try again.')
     })
 
-  function setupPageStructure() {
+  function setupPageStructure () {
     // Create loading indicator if it doesn't exist
     if (!document.getElementById('loading')) {
       const loadingDiv = document.createElement('div')
@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  function showErrorState(message) {
+  function showErrorState (message) {
     const loadingIndicator = document.getElementById('loading')
     if (loadingIndicator) {
       loadingIndicator.innerHTML = `
@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  function createFilters() {
+  function createFilters () {
     const filterContainer = document.getElementById('filters')
     if (!filterContainer) return
 
@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function () {
       areaSelect.appendChild(option)
     })
 
-    areaSelect.addEventListener('change', function() {
+    areaSelect.addEventListener ('change', function() {
       if (this.value) {
         activeFilters.pattern = this.value
       } else {
@@ -280,11 +280,11 @@ document.addEventListener('DOMContentLoaded', function () {
     filterContainer.appendChild(areaFilter)
   }
 
-  function createLetterButton(letter) {
+  function createLetterButton (letter) {
     const btn = document.createElement('button')
     btn.textContent = letter
     btn.className = 'px-2 py-1 rounded text-sm bg-gray-200 hover:bg-gray-300 transition-colors'
-    btn.addEventListener('click', function() {
+    btn.addEventListener ('click', function() {
       // Remove active class from all letter buttons
       document.querySelectorAll('#filters button').forEach(b => {
         b.classList.remove('bg-blue-500', 'text-white')
@@ -306,7 +306,7 @@ document.addEventListener('DOMContentLoaded', function () {
     return btn
   }
 
-  function detectCommonPatterns() {
+  function detectCommonPatterns () {
     // Extract common words from stop names
     const words = fullData
       .flatMap(item => item['Stop Name'].split(' '))
@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', function () {
       .map(([word]) => word)
   }
 
-  function applyFilters() {
+  function applyFilters () {
     // Start with the full dataset
     let results = [...fullData]
 
@@ -361,7 +361,7 @@ document.addEventListener('DOMContentLoaded', function () {
     renderTablePage(currentPage)
   }
 
-  function renderTablePage(page) {
+  function renderTablePage (page) {
     // Get references to ensure they exist
     const tableHead = document.querySelector('thead tr')
     const tableBody = document.querySelector('tbody')
@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', function () {
             copyButton.innerHTML = '<i class="fas fa-copy"></i>'
             copyButton.title = 'Click to copy'
             copyButton.className = 'copy-btn text-blue-500 hover:text-blue-700 focus:outline-none p-1 rounded-full hover:bg-gray-100'
-            copyButton.addEventListener('click', function(e) {
+            copyButton.addEventListener ('click', function(e) {
               e.stopPropagation()
               copyToClipboard(row[header])
             })
@@ -418,7 +418,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Make the entire cell clickable too
             td.classList.add('cursor-pointer', 'hover:bg-blue-50')
-            td.addEventListener('click', function() {
+            td.addEventListener ('click', function() {
               copyToClipboard(row[header])
             })
           } else {
@@ -447,7 +447,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  function copyToClipboard(text) {
+  function copyToClipboard (text) {
     // Create temporary textarea
     const textarea = document.createElement('textarea')
     textarea.value = text
@@ -468,7 +468,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.removeChild(textarea)
   }
 
-  function showTooltip(message) {
+  function showTooltip (message) {
     const tooltip = document.querySelector('.copy-tooltip')
     if (!tooltip) return
 
@@ -486,7 +486,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 2000)
   }
 
-  function renderPagination() {
+  function renderPagination () {
     const paginationContainer = document.getElementById('pagination')
     if (!paginationContainer) return
 
@@ -552,7 +552,7 @@ document.addEventListener('DOMContentLoaded', function () {
     controls.appendChild(nextButton)
   }
 
-  function addSearchFunctionality() {
+  function addSearchFunctionality () {
     if (searchInput) {
       searchInput.addEventListener('input', function() {
         applyFilters()
@@ -560,11 +560,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  function stripSpecialCharacters(str) {
+  function stripSpecialCharacters (str) {
     return str.replace(/[^a-zA-Z0-9\s]/g, '')
   }
 
-  function toTitleCase(str) {
+  function toTitleCase (str) {
     return str.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
   }
 })
