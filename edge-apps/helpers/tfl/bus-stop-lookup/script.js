@@ -8,12 +8,12 @@ document.addEventListener('DOMContentLoaded', function () {
   loadingIndicator.id = 'loading'
   loadingIndicator.className = 'text-center p-4'
   loadingIndicator.innerHTML = '<p class="text-xl">Loading bus stop data...</p><div class="loader mt-2"></div>'
-  document.querySelector('.container').appendChild(loadingIndicator)
+  document.querySelector('.data-container').appendChild(loadingIndicator)
 
   const paginationContainer = document.createElement('div')
   paginationContainer.id = 'pagination'
   paginationContainer.className = 'flex justify-center mt-4'
-  document.querySelector('.container').appendChild(paginationContainer)
+  document.querySelector('main').appendChild(paginationContainer)
 
   // Create filter container
   const filterContainer = document.createElement('div')
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
   filterContainer.className = 'mb-4 flex flex-wrap gap-2'
 
   // Insert the filter container before the table
-  const tableContainer = document.querySelector('.overflow-x-auto')
+  const tableContainer = document.querySelector('.data-container').parentNode
   tableContainer.parentNode.insertBefore(filterContainer, tableContainer)
 
   // Pagination settings
@@ -80,15 +80,27 @@ document.addEventListener('DOMContentLoaded', function () {
           },
           error: function (error) {
             console.error('Error parsing CSV:', error)
-            loadingIndicator.innerHTML = '<p class="text-xl text-red-600">Error loading data. Please try again later.</p>'
+            showErrorState('Error processing data. Please try again later.')
           }
         })
       }, 100) // Small delay to allow UI to update
     })
     .catch(error => {
       console.error('Error fetching CSV:', error)
-      loadingIndicator.innerHTML = '<p class="text-xl text-red-600">Error loading data. Please try again later.</p>'
+      showErrorState('Could not load bus stop data. Please check your connection and try again.')
     })
+
+  function showErrorState(message) {
+    loadingIndicator.innerHTML = `
+      <div class="empty-state">
+        <i class="fas fa-exclamation-circle text-red-500 text-5xl mb-4"></i>
+        <p class="text-xl text-red-600">${message}</p>
+        <button class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="location.reload()">
+          <i class="fas fa-redo mr-2"></i>Try Again
+        </button>
+      </div>
+    `
+  }
 
   function createFilters() {
     // Clear any existing filters
@@ -100,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const alphabetLabel = document.createElement('div')
     alphabetLabel.className = 'text-sm font-semibold mb-2'
-    alphabetLabel.textContent = 'Filter by first letter:'
+    alphabetLabel.innerHTML = '<i class="fas fa-font mr-2"></i>Filter by first letter:'
     alphabetFilter.appendChild(alphabetLabel)
 
     const letterContainer = document.createElement('div')
@@ -126,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const areaLabel = document.createElement('div')
     areaLabel.className = 'text-sm font-semibold mb-2'
-    areaLabel.textContent = 'Filter by common patterns:'
+    areaLabel.innerHTML = '<i class="fas fa-map-marker-alt mr-2"></i>Filter by common patterns:'
     areaFilter.appendChild(areaLabel)
 
     const areaSelect = document.createElement('select')
@@ -275,7 +287,19 @@ document.addEventListener('DOMContentLoaded', function () {
       })
     } else {
       // No results message
-      tableBody.innerHTML = `<tr><td colspan="2" class="text-center py-4 text-gray-500">No bus stops match your criteria</td></tr>`
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="2" class="empty-state">
+            <i class="fas fa-search text-gray-400 text-4xl mb-3"></i>
+            <p class="text-xl mb-2">No bus stops match your criteria</p>
+            <p class="text-sm text-gray-500">Try changing your filters or search term</p>
+            <button class="mt-4 px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+                    onclick="document.getElementById('search').value = ''; document.querySelector('#filters button:first-child').click();">
+              <i class="fas fa-times mr-1"></i>Clear filters
+            </button>
+          </td>
+        </tr>
+      `
     }
   }
 
@@ -283,14 +307,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const totalPages = Math.ceil(filteredData.length / itemsPerPage)
     paginationContainer.innerHTML = ''
 
-    if (totalPages <= 1 && filteredData.length === 0) {
+    if (filteredData.length === 0) {
       return
     }
 
     // Add total count
     const countInfo = document.createElement('div')
     countInfo.className = 'text-sm text-gray-600 mb-2 text-center w-full'
-    countInfo.textContent = `Showing ${filteredData.length} of ${fullData.length} bus stops`
+    countInfo.innerHTML = `<i class="fas fa-list mr-1"></i>Showing <span class="font-semibold">${filteredData.length}</span> of <span class="font-semibold">${fullData.length}</span> bus stops`
     paginationContainer.appendChild(countInfo)
 
     if (totalPages <= 1) {
@@ -304,7 +328,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Previous button
     const prevButton = document.createElement('button')
-    prevButton.textContent = 'Previous'
+    prevButton.innerHTML = '<i class="fas fa-chevron-left mr-1"></i>Previous'
     prevButton.className = 'px-3 py-1 bg-gray-200 rounded'
     prevButton.disabled = currentPage === 1
     prevButton.addEventListener('click', () => {
@@ -323,13 +347,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Simplified pagination with current/total
     const pageInfo = document.createElement('span')
-    pageInfo.className = 'px-3 py-1 bg-blue-500 text-white rounded'
-    pageInfo.textContent = `${currentPage} / ${totalPages}`
+    pageInfo.className = 'px-3 py-1 bg-blue-500 text-white rounded page-info'
+    pageInfo.innerHTML = `Page <span class="font-bold">${currentPage}</span> of <span class="font-bold">${totalPages}</span>`
     pageNumbers.appendChild(pageInfo)
 
     // Next button
     const nextButton = document.createElement('button')
-    nextButton.textContent = 'Next'
+    nextButton.innerHTML = 'Next<i class="fas fa-chevron-right ml-1"></i>'
     nextButton.className = 'px-3 py-1 bg-gray-200 rounded'
     nextButton.disabled = currentPage === totalPages
     nextButton.addEventListener('click', () => {
