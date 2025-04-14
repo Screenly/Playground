@@ -42,26 +42,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Use a timeout to prevent UI blocking during parsing
       setTimeout(() => {
-      Papa.parse(csvText, {
-        header: true,
+        Papa.parse(csvText, {
+          header: true,
           skipEmptyLines: true,
           worker: true, // Use a worker thread for parsing
-        complete: function (results) {
-          console.log('CSV parsed successfully')
+          complete: function (results) {
+            console.log('CSV parsed successfully')
 
-          // Identify the stop name column dynamically and use Naptan_Atco for the stop code
-          const stopNameField = results.meta.fields.find(field => field.toLowerCase().includes('name'))
-          const stopCodeField = 'Naptan_Atco'
+            // Identify the stop name column dynamically and use Naptan_Atco for the stop code
+            const stopNameField = results.meta.fields.find(field => field.toLowerCase().includes('name'))
+            const stopCodeField = 'Naptan_Atco'
 
-          // Filter and map data
+            // Filter and map data
             fullData = results.data
               .filter(row => row[stopNameField] && row[stopCodeField]) // Only keep rows with valid data
               .map(row => {
-            return {
-              'Stop Name': stripSpecialCharacters(row[stopNameField] || '').trim(),
-              'Stop Code': row[stopCodeField] || ''
-            }
-          })
+                return {
+                  'Stop Name': stripSpecialCharacters(row[stopNameField] || '').trim(),
+                  'Stop Code': row[stopCodeField] || ''
+                }
+              })
 
             // Sort the data alphabetically by stop name
             fullData.sort((a, b) => a['Stop Name'].localeCompare(b['Stop Name']))
@@ -80,12 +80,12 @@ document.addEventListener('DOMContentLoaded', function () {
             renderPagination()
             renderTablePage(currentPage)
             addSearchFunctionality()
-        },
-        error: function (error) {
-          console.error('Error parsing CSV:', error)
+          },
+          error: function (error) {
+            console.error('Error parsing CSV:', error)
             showErrorState('Error processing data. Please try again later.')
-        }
-      })
+          }
+        })
       }, 100) // Small delay to allow UI to update
     })
     .catch(error => {
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
       showErrorState('Could not load bus stop data. Please check your connection and try again.')
     })
 
-  function setupPageStructure () {
+  function setupPageStructure() {
     // Create loading indicator if it doesn't exist
     if (!document.getElementById('loading')) {
       const loadingDiv = document.createElement('div')
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Make sure the table wrapper exists
         const tableWrapper = document.querySelector('.relative.overflow-x-auto') ||
-                            document.querySelector('.overflow-x-auto')
+          document.querySelector('.overflow-x-auto')
 
         if (tableWrapper) {
           // Check if the table already exists
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (main) {
         // Insert before the table container
         const tableContainer = document.querySelector('.relative.overflow-x-auto') ||
-                              document.querySelector('.overflow-x-auto')
+          document.querySelector('.overflow-x-auto')
         if (tableContainer) {
           main.insertBefore(filtersDiv, tableContainer)
         } else {
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  function showErrorState (message) {
+  function showErrorState(message) {
     const loadingIndicator = document.getElementById('loading')
     if (loadingIndicator) {
       loadingIndicator.innerHTML = `
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  function createFilters () {
+  function createFilters() {
     const filterContainer = document.getElementById('filters')
     if (!filterContainer) return
 
@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function () {
     filterContainer.appendChild(areaFilter)
   }
 
-  function createLetterButton (letter) {
+  function createLetterButton(letter) {
     const btn = document.createElement('button')
     btn.textContent = letter
     btn.className = 'px-2 py-1 rounded text-sm bg-gray-200 hover:bg-gray-300 transition-colors'
@@ -309,7 +309,7 @@ document.addEventListener('DOMContentLoaded', function () {
     return btn
   }
 
-  function detectCommonPatterns () {
+  function detectCommonPatterns() {
     // Extract common words from stop names
     const words = fullData
       .flatMap(item => item['Stop Name'].split(' '))
@@ -329,7 +329,7 @@ document.addEventListener('DOMContentLoaded', function () {
       .map(([word]) => word)
   }
 
-  function applyFilters () {
+  function applyFilters() {
     // Start with the full dataset
     let results = [...fullData]
 
@@ -364,7 +364,7 @@ document.addEventListener('DOMContentLoaded', function () {
     renderTablePage(currentPage)
   }
 
-  function renderTablePage (page) {
+  function renderTablePage(page) {
     // Get references to ensure they exist
     const tableHead = document.querySelector('thead tr')
     const tableBody = document.querySelector('tbody')
@@ -425,7 +425,7 @@ document.addEventListener('DOMContentLoaded', function () {
               copyToClipboard(row[header])
             })
           } else {
-          td.textContent = row[header]
+            td.textContent = row[header]
           }
 
           tr.appendChild(td)
@@ -450,7 +450,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  function copyToClipboard (text) {
+  function copyToClipboard(text) {
     // Create temporary textarea
     const textarea = document.createElement('textarea')
     textarea.value = text
@@ -471,7 +471,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.removeChild(textarea)
   }
 
-  function showTooltip (message) {
+  function showTooltip(message) {
     const tooltip = document.querySelector('.copy-tooltip')
     if (!tooltip) return
 
@@ -489,7 +489,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 2000)
   }
 
-  function renderPagination () {
+  function renderPagination() {
     const paginationContainer = document.getElementById('pagination')
     if (!paginationContainer) return
 
@@ -555,7 +555,7 @@ document.addEventListener('DOMContentLoaded', function () {
     controls.appendChild(nextButton)
   }
 
-  function addSearchFunctionality () {
+  function addSearchFunctionality() {
     if (searchInput) {
       searchInput.addEventListener('input', function () {
         applyFilters()
@@ -563,11 +563,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  function stripSpecialCharacters (str) {
+  function stripSpecialCharacters(str) {
     return str.replace(/[^a-zA-Z0-9\s]/g, '')
   }
 
-  function toTitleCase (str) {
+  function toTitleCase(str) {
     return str.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
   }
 })
