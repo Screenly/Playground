@@ -79,7 +79,9 @@ const DailyCalendarView = ({ now, events }) => {
     // Add dotted border if event extends beyond visible area
     const style = {
       top: `${topOffset}%`,
-      height: `${height}%`
+      height: `${height}%`,
+      borderRadius: '6px',
+      border: '2px solid var(--border-color, white)'
     }
 
     // Check if the event extends beyond the visible time slots
@@ -87,7 +89,7 @@ const DailyCalendarView = ({ now, events }) => {
         (endTime.getDate() !== startTime.getDate() && endHour < timeSlots[0].hour)) {
       style.borderBottomLeftRadius = '0'
       style.borderBottomRightRadius = '0'
-      style.borderBottom = '3px dotted white'
+      style.borderBottom = '3px dotted var(--border-color, white)'
     }
 
     return style

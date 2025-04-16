@@ -195,14 +195,16 @@ const WeeklyCalendarView = ({ now, events }) => {
           ...styles.get(event.startTime),
           borderBottomLeftRadius: '0',
           borderBottomRightRadius: '0',
-          borderBottom: '3px dotted white'
+          borderBottom: '3px dotted var(--border-color, white)'
         })
       }
 
       styles.set(event.startTime, {
         ...styles.get(event.startTime),
         top: `${topOffset}%`,
-        height: `${height}%`
+        height: `${height}%`,
+        borderRadius: '6px',
+        border: '2px solid var(--border-color, white)'
       })
     })
 
