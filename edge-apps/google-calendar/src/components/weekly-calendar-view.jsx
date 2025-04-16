@@ -162,9 +162,24 @@ const WeeklyCalendarView = ({ now, events }) => {
 
       const durationHours = endTime.getHours() - startTime.getHours()
       const durationMinutes = endTime.getMinutes() - startTime.getMinutes()
-      const height = (durationHours + durationMinutes / 60) * 100
+      let height = (durationHours + durationMinutes / 60) * 100
+
+      const endHour = endTime.getHours()
+      if (endHour >= timeSlots[timeSlots.length - 1].hour) {
+        // Truncate the event to the last time slot
+        const heightToTruncate = (endHour - timeSlots[timeSlots.length - 1].hour) * 100
+        height = height - heightToTruncate
+
+        styles.set(event.startTime, {
+          ...styles.get(event.startTime),
+          borderBottomLeftRadius: '0',
+          borderBottomRightRadius: '0',
+          borderBottom: '3px dotted white'
+        })
+      }
 
       styles.set(event.startTime, {
+        ...styles.get(event.startTime),
         top: `${topOffset}%`,
         height: `${height}%`
       })
