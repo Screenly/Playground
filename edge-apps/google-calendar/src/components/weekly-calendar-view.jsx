@@ -184,7 +184,7 @@ const WeeklyCalendarView = ({ now, events }) => {
       const maxVisibleHeight = (lastVisibleHour - startTime.getHours()) * 100
 
       // Limit the height to the maximum visible height
-      let height = Math.min(rawHeight, maxVisibleHeight)
+      const height = Math.min(rawHeight, maxVisibleHeight)
 
       const endHour = endTime.getHours()
       // Check if the event extends beyond the visible time slots
