@@ -1,10 +1,13 @@
 {
-    "threshold": 0,
-    "reporters": [
-      "consoleFull"
-    ],
-    "ignore": [
-      "**/__snapshots__/**", "**/*.html", "**/*.css"
-    ],
-    "absolute": true
-  }
+  "threshold": 0,
+  "reporters": [
+    "consoleFull"
+  ],
+  "ignore": [
+    "**/__snapshots__/**",
+    "**/*.html",
+    "**/*.css",
+    "**/*.svg"
+  ],
+  "absolute": true
+}
