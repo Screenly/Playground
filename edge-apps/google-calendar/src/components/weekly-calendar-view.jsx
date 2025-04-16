@@ -160,16 +160,37 @@ const WeeklyCalendarView = ({ now, events }) => {
       const startMinutes = startTime.getMinutes()
       const topOffset = startMinutes === 0 ? 50 : (startMinutes / 60) * 100 + 50
 
-      const durationHours = endTime.getHours() - startTime.getHours()
-      const durationMinutes = endTime.getMinutes() - startTime.getMinutes()
-      let height = (durationHours + durationMinutes / 60) * 100
+      // Calculate duration in hours and minutes
+      let durationHours = endTime.getHours() - startTime.getHours()
+      let durationMinutes = endTime.getMinutes() - startTime.getMinutes()
+
+      // Handle events that span across midnight
+      if (endTime.getDate() !== startTime.getDate()) {
+        // Add 24 hours to account for the day change
+        durationHours += 24
+      }
+
+      // Handle negative minutes
+      if (durationMinutes < 0) {
+        durationHours -= 1
+        durationMinutes += 60
+      }
+
+      // Calculate the raw height
+      const rawHeight = (durationHours + durationMinutes / 60) * 100
+
+      // Determine the maximum visible height based on the last time slot
+      const lastVisibleHour = timeSlots[timeSlots.length - 1].hour
+      const maxVisibleHeight = (lastVisibleHour - startTime.getHours()) * 100
+
+      // Limit the height to the maximum visible height
+      let height = Math.min(rawHeight, maxVisibleHeight)
 
       const endHour = endTime.getHours()
-      if (endHour >= timeSlots[timeSlots.length - 1].hour) {
-        // Truncate the event to the last time slot
-        const heightToTruncate = (endHour - timeSlots[timeSlots.length - 1].hour) * 100
-        height = height - heightToTruncate
-
+      // Check if the event extends beyond the visible time slots
+      if (endHour >= timeSlots[timeSlots.length - 1].hour ||
+          (endTime.getDate() !== startTime.getDate() && endHour < timeSlots[0].hour)) {
+        // Add the dotted border to indicate the event continues beyond the visible area
         styles.set(event.startTime, {
           ...styles.get(event.startTime),
           borderBottomLeftRadius: '0',
