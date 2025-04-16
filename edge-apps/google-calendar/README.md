@@ -43,10 +43,17 @@ npm install
 npm run dev
 ```
 
-Run the following on a second terminal to start the Edge App server:
+Run the following on a second terminal to generate mock data:
 
 ```bash
 screenly edge-app run --generate-mock-data --path dist/
+```
+
+Update `dist/mock-data.yml` and update the values of `refresh_token`, `client_id`, and `client_secret` with the values you obtained in the [Obtaining an OAuth Client ID, Client Secret, and Refresh Token](#obtaining-an-oauth-client-id-client-secret-and-refresh-token) section.
+
+Run the following on that same terminal to start the Edge App server:
+
+```bash
 screenly edge-app run --path dist/
 ```
 
