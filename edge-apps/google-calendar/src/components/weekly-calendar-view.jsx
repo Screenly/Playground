@@ -187,24 +187,28 @@ const WeeklyCalendarView = ({ now, events }) => {
       const height = Math.min(rawHeight, maxVisibleHeight)
 
       const endHour = endTime.getHours()
-      // Check if the event extends beyond the visible time slots
-      if (endHour >= timeSlots[timeSlots.length - 1].hour ||
-          (endTime.getDate() !== startTime.getDate() && endHour < timeSlots[0].hour)) {
-        // Add the dotted border to indicate the event continues beyond the visible area
-        styles.set(event.startTime, {
-          ...styles.get(event.startTime),
-          borderBottomLeftRadius: '0',
-          borderBottomRightRadius: '0',
-          borderBottom: '3px dotted var(--border-color, white)'
-        })
-      }
 
-      styles.set(event.startTime, {
-        ...styles.get(event.startTime),
+      // Create the base style object
+      const baseStyle = {
         top: `${topOffset}%`,
         height: `${height}%`,
         borderRadius: '6px',
         border: '2px solid var(--border-color, white)'
+      }
+
+      // Check if the event extends beyond the visible time slots
+      if (endHour >= timeSlots[timeSlots.length - 1].hour ||
+          (endTime.getDate() !== startTime.getDate() && endHour < timeSlots[0].hour)) {
+        // Add the dotted border to indicate the event continues beyond the visible area
+        baseStyle.borderBottomLeftRadius = '0'
+        baseStyle.borderBottomRightRadius = '0'
+        baseStyle.borderBottom = '3px dotted var(--border-color, white)'
+      }
+
+      // Set the final style
+      styles.set(event.startTime, {
+        ...styles.get(event.startTime),
+        ...baseStyle
       })
     })
 
