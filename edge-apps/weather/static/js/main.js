@@ -263,7 +263,6 @@ async function refreshWeather (context) {
         context.city = `${name}, ${country}`
         context.tzOffset = parseInt(tzOffset / 60) // in minutes
         context.tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C'
-
         context.firstFetchComplete = true
         context.isLoading = false
       }
@@ -386,11 +385,16 @@ function getWeatherData () {
     },
     init: async function () {
       if (screenly.settings.override_coordinates) {
-        [this.lat, this.lng] = screenly.settings.override_coordinates.split(',')
+        const coordinates = screenly.settings.override_coordinates.split(',').map(coord => parseFloat(coord.trim()))
+        if (coordinates.length === 2 && !isNaN(coordinates[0]) && !isNaN(coordinates[1])) {
+          [this.lat, this.lng] = coordinates
+        } else {
+          console.warn('Invalid override_coordinates format. Expected "lat,lng"')
+        }
       }
 
       if (!this.lat || !this.lng) {
-        [this.lat, this.lng] = screenly.metadata?.coordinates
+        [this.lat, this.lng] = screenly.metadata?.coordinates || [0, 0]
       }
 
       this.apiKey = screenly.settings.openweathermap_api_key
@@ -398,6 +402,7 @@ function getWeatherData () {
       await this.initDateTime()
       setInterval(() => this.initDateTime(), 1000)
 
+      // Load weather data
       await refreshWeather(this)
       setInterval(
         () => {
@@ -405,7 +410,11 @@ function getWeatherData () {
         }, 1000 * 60 * 15 // 15 minutes
       )
 
+      // Load brand logo
       await this.initBrandLogo()
+
+      // Signal that the app is ready for rendering after everything is loaded
+      screenly.signalReadyForRendering()
     },
     getTimezone: async function () {
       return tzlookup(this.lat, this.lng)
@@ -469,6 +478,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.documentElement.style.setProperty('--theme-color-tertiary', tertiaryColor)
   document.documentElement.style.setProperty('--theme-color-background', backgroundColor)
 
-  // Signal that the screen is ready for rendering
-  screenly.signalReadyForRendering()
+  // Change the color of circles inside SVG objects
+  const svgObjects = document.querySelectorAll('#location-pin-icon')
+  svgObjects.forEach(function (svgObject) {
+    svgObject.addEventListener('load', function () {
+      const svgDoc = this.contentDocument
+      const path = svgDoc.querySelector('path')
+      if (path) {
+        path.setAttribute('fill', secondaryColor)
+      }
+    })
+  })
 })
