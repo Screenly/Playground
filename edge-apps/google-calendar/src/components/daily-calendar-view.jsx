@@ -51,17 +51,46 @@ const DailyCalendarView = ({ now, events }) => {
     const topOffset = startMinutes === 0 ? 50 : (startMinutes / 60) * 100 + 50
 
     // Calculate duration in hours and minutes
-    const durationHours = endHour - startHour
-    const durationMinutes = endMinutes - startMinutes
-    const totalDuration = durationHours + (durationMinutes / 60)
+    let durationHours = endHour - startHour
+    let durationMinutes = endMinutes - startMinutes
 
-    // Calculate height based on duration
-    const height = totalDuration * 100
+    // Handle events that span across midnight
+    if (endTime.getDate() !== startTime.getDate()) {
+      // Add 24 hours to account for the day change
+      durationHours += 24
+    }
 
-    return {
+    // Handle negative minutes
+    if (durationMinutes < 0) {
+      durationHours -= 1
+      durationMinutes += 60
+    }
+
+    // Calculate the raw height
+    const rawHeight = (durationHours + durationMinutes / 60) * 100
+
+    // Determine the maximum visible height based on the last time slot
+    const lastVisibleHour = timeSlots[timeSlots.length - 1].hour
+    const maxVisibleHeight = (lastVisibleHour - startHour) * 100
+
+    // Limit the height to the maximum visible height
+    const height = Math.min(rawHeight, maxVisibleHeight)
+
+    // Add dotted border if event extends beyond visible area
+    const style = {
       top: `${topOffset}%`,
       height: `${height}%`
     }
+
+    // Check if the event extends beyond the visible time slots
+    if (endHour >= timeSlots[timeSlots.length - 1].hour ||
+        (endTime.getDate() !== startTime.getDate() && endHour < timeSlots[0].hour)) {
+      style.borderBottomLeftRadius = '0'
+      style.borderBottomRightRadius = '0'
+      style.borderBottom = '3px dotted white'
+    }
+
+    return style
   }
 
   return (
