@@ -2,6 +2,7 @@
 
 This guide will walk you through the steps to create an TFL Bus Status Edge App in Screenly.
 
+![TFL Bus Status Edge App](./static/images/tfl-bus-status-app-preview.png)
 
 ## Prerequisites
 
