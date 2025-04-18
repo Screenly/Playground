@@ -46,7 +46,7 @@ settings:
     title: Welcome Heading
     optional: false
     help_text: This text will serve as the heading of the welcome message
-  message_body:
+  welcome-message:
     type: string
     default_value: to the team
     title: Message Body

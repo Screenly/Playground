@@ -19,19 +19,31 @@ $ screenly edge-app instance create
 
 ## Tweaking the settings
 
+### `welcome_heading`
+
+To configure the heading of the message app, utilize the `welcome_heading` settings.
+
+```bash
+$ screenly edge-app setting set welcome_heading='Welcome'
+# A relatively long console output...
+Edge app setting successfully set.
+```
+The welcome app's heading should be defined as a string in the format: "This is message head".
+
+
 ### `welcome_message`
 
 To configure the heading of the message app, utilize the `welcome_message` settings.
 
 ```bash
-$ screenly edge-app setting set welcome_message='This is message head'
+$ screenly edge-app setting set welcome_message='to the team'
 # A relatively long console output...
 Edge app setting successfully set.
 ```
-The welcome app's message should be defined as a string in the format: "This is message head".
+The welcome app's message should be defined as a string in the format: "This is message body".
 
 
-### `theme`
+### `theme` (optional)
 
 Specifies the application's theme color and logo style. Available options are 'light' or 'dark'.
 
@@ -43,7 +55,7 @@ $ screenly edge-app setting set theme='light'
 Edge app setting successfully set.
 ```
 
-### `override_timezone`
+### `override_timezone` (optional)
 
 For instance, if you want to clock app to display the current date and time in London,
 run the following command:
