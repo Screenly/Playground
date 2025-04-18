@@ -305,10 +305,16 @@ body {
 
 .welcome-heading {
   font-size: clamp(1rem, 6vw + 6vh, 1000rem);
-  margin: clamp(1rem, 2.5vw + 2.5vh, 1000rem) 0 0 clamp(1rem, 3vw + 3vh, 1000rem);
+  margin: clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 2vw + 2vh, 1000rem)  0 clamp(1rem, 3vw + 3vh, 1000rem);
   font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 100%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  height: calc(1.10em * 1);
+  overflow: hidden;
 }
 
 .welcome-message {

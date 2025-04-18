@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       : navigator.language
 
     // Message text from Screenly Settings
+    document.querySelector('.welcome-heading').innerText = screenly.settings.welcome_heading
     document.querySelector('.welcome-message').innerText = screenly.settings.welcome_message
 
     const getLocale = async () => {
