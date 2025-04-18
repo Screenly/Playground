@@ -1,0 +1,630 @@
+/* stylelint-disable media-feature-range-notation */
+
+/* Specific Layout & Module Styles */
+
+/* Font Details - Inter - 600 (SemiBold) , 500(Medium) and 400(Regular) */
+
+
+@font-face {
+  font-family: Inter;
+  src: url('../fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url('../fonts/Inter-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url('../fonts/Inter-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: Inter, sans-serif;
+}
+
+
+/* ---------Clock Element------------ */
+
+.clock-container {
+  width: 36.43rem;
+  height: 36.43rem;
+  background: #EAECF3;
+  border-radius: 50%;
+  display: flex;
+  justify-self: center;
+  align-items: center;
+}
+
+.clock-container .clock {
+  width: 30rem;
+  height: 30rem;
+  border-radius: 50%;
+  margin: auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clock .number-hours,
+.clock .seconds-bar {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.seconds-bar span {
+  position: absolute;
+  transform: rotate(calc(var(--index) * 45deg));
+  inset: -1.43rem;
+  text-align: center;
+}
+
+.clock .seconds-bar span p {
+  width: 0.21rem;
+  display: inline-block;
+  border-radius: 0.14rem;
+}
+
+.clock .seconds-bar span:nth-child(5n) p {
+  background: var(--theme-color-primary);
+  width: 0.36rem;
+  height: 1.29rem;
+  transform: translateY(0.07rem);
+}
+
+.hands-box {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hands-box .hand {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+}
+
+.hands-box .hour {
+  width: 20rem;
+  height: 20rem;
+}
+
+.hands-box .hour i {
+  width: 0.5rem;
+  height: 9.86rem;
+  background: #fff;
+  position: absolute;
+  box-shadow: 0 0 2.14rem 0 rgb(0 0 0 / 97%);
+}
+
+.hands-box .hour i::before {
+  content: "";
+  position: absolute;
+  height: 7.5rem;
+  width: 1.07rem;
+  bottom: 2.14rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 1.43rem;
+  background: var(--theme-color-primary);
+  z-index: 2;
+  box-shadow: 0 0 1.71rem 0 rgb(0 0 0 / 26%);
+}
+
+.hands-box .hour i::after {
+  content: "";
+  position: absolute;
+  height: 8.21rem;
+  width: 1.86rem;
+  bottom: 1.79rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 1.79rem;
+  background: #fff;
+  z-index: 1;
+}
+
+.hands-box .minute {
+  width: 27.14rem;
+  height: 27.14rem;
+}
+
+.hands-box .minute::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.79rem;
+  height: 1.79rem;
+  background: #fff;
+  border-radius: 1.79rem;
+  z-index: 999;
+}
+
+.hands-box .minute i {
+  width: 0.5rem;
+  height: 13.57rem;
+  background: #fff;
+  position: absolute;
+  box-shadow: 0 0 2.14rem 0 rgb(0 0 0 / 97%);
+}
+
+.hands-box .minute i::before {
+  content: "";
+  width: 1.86rem;
+  height: 14.71rem;
+  background: #fff;
+  position: absolute;
+  bottom: 1.79rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 1.79rem;
+  z-index: 1;
+  box-shadow: 0 0 1.71rem 0 rgb(0 0 0 / 26%);
+}
+
+.hands-box .minute i::after {
+  content: "";
+  width: 1.07rem;
+  height: 13.93rem;
+  background: var(--theme-color-primary);
+  position: absolute;
+  bottom: 2.21rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 1.43rem;
+  z-index: 2;
+}
+
+.hands-box .second {
+  width: 30rem;
+  height: 34.29rem;
+}
+
+.hands-box .second::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.14rem;
+  height: 1.14rem;
+  background: #1E1E1E;
+  border-radius: 1.79rem;
+}
+
+.hands-box .second::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.57rem;
+  height: 0.57rem;
+  background: var(--theme-color-primary);
+  border-radius: 1.79rem;
+}
+
+.hands-box .second i {
+  width: 0.29rem;
+  height: calc(15rem + 3.57rem);
+  background: #1E1E1E;
+  position: relative;
+  border-radius: 0.14rem;
+}
+
+.hands-box .second i::before {
+  content: '';
+  width: 0.29rem;
+  height: 3.21rem;
+  background: #1E1E1E;
+  position: absolute;
+  bottom: -2.93rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 0.36rem;
+}
+
+/* ---------Custom Cards----------- */
+
+.primary-container {
+  background-color: var(--theme-color-tertiary);
+  border-radius: var(--custom-4k-border-radius-big);
+  width: 75%;
+}
+
+.primary-card {
+  background-color: var(--theme-color-tertiary);
+  color: var(--theme-color-primary);
+  width: 100%;
+  height: 100%;
+}
+
+.clock-card {
+  background-color: var(--theme-color-primary);
+}
+
+.date-text {
+  color: var(--theme-color-secondary);
+  font-weight: 400;
+  font-size: clamp(1rem, 3vw + 3vh, 1000rem);
+}
+
+.date-number {
+  color: var(--theme-color-primary);
+  font-weight: 400;
+  font-size: clamp(1rem, 6.5vw + 6.5vh, 1000rem);
+}
+
+/* ---------Container Configurations----------- */
+
+
+.row-container {
+  flex-direction: column;
+  height: 100%;
+  width: 25%;
+  gap: var(--custom-4k-gap);
+}
+
+.secondary-card {
+  width: 100%;
+  height: 100%;
+  gap: unset;
+}
+
+.date-card, .clock-card {
+  height: 50%;
+  width: 100%;
+}
+
+.welcome-card {
+  align-items: flex-start;
+  justify-content: normal;
+}
+
+.info-card {
+  align-items: flex-end;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
+/* ---------Text and Element Configurations----------- */
+
+.welcome-heading {
+  font-size: clamp(1rem, 6vw + 6vh, 1000rem);
+  margin: clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 2vw + 2vh, 1000rem)  0 clamp(1rem, 3vw + 3vh, 1000rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 100%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  height: calc(1.10em * 1);
+  overflow: hidden;
+}
+
+.welcome-message {
+  font-size: clamp(1rem, 5vw + 5vh, 1000rem);
+  font-weight: 400;
+  margin: 0 clamp(1rem, 2vw + 2vh, 1000rem) 0 clamp(1rem, 3vw + 3vh, 1000rem);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  height: calc(1.10em * 1);
+  overflow: hidden;
+}
+
+
+.brand-logo {
+  margin: 0 0 clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 3vw + 3vh, 1000rem);
+  width: clamp(1rem, 6.3vw + 6.3vh, 1000rem);
+}
+
+
+.info-text {
+  font-size: clamp(0.8rem, .70vw + .70vh, 1000rem);
+  margin: 0 clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 3vw + 3vh, 1000rem) 0;
+}
+
+
+.clock-div {
+  transform: scale(1.3);
+}
+
+
+/* Media Query Portrait */
+
+@media (orientation: portrait) {
+  .main-container {
+    flex-direction: column;
+    display: flex;
+  }
+
+  .primary-container {
+    width: 100%;
+    height: 75%;
+  }
+
+  .row-container {
+    width: 100%;
+    height: 25%;
+    flex-direction: row;
+  }
+
+  .date-card, .clock-card {
+    height: 100%;
+    width: 50%;
+  }
+
+  .date-card {
+    order: 2;
+  }
+
+  .clock-card {
+    order: 1;
+  }
+
+
+  .welcome-card {
+    gap: clamp(1rem, 1vw + 2vh, 1000rem);
+  }
+
+  .welcome-heading {
+    font-size: clamp(1rem, 5vw + 5vh, 1000rem);
+  }
+
+  .welcome-message {
+    font-size: clamp(1rem, 3vw + 3vh, 1000rem);
+  }
+}
+
+
+/* Media Query */
+
+/* QHD/WQHD Monitors - 2560×1440 */
+@media screen and (max-width: 2560px) and (orientation: landscape) {
+  .main-container {
+    gap: var(--hd-gap);
+    padding: var(--hd-padding);
+  }
+
+  .primary-container {
+    border-radius: var(--hd-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--hd-border-radius-medium);
+  }
+
+  .row-container {
+    gap: var(--hd-gap);
+  }
+
+  .clock-div {
+    transform: scale(.8);
+  }
+}
+
+/* Full HD Landscape - 1920 × 1080 */
+
+@media screen and (max-width: 1920px) and (orientation: landscape) {
+  .clock-div {
+    transform: scale(.6);
+  }
+
+  .row-container {
+    gap: var(--hd-gap);
+  }
+}
+
+/* Custom resolution - 1680 × 962 (Landscape) */
+
+@media screen and (max-width: 1680px) and (orientation: landscape) {
+  .clock-div {
+    transform: scale(.55);
+  }
+}
+
+
+/* Laptop Standard - 1366×768 */
+@media screen and (max-width: 1366px) and (orientation: landscape) {
+  .clock-div {
+    transform: scale(.45);
+  }
+}
+
+/* HD Landscape - 1280 × 720 */
+
+@media screen and (max-width: 1280px) and (orientation: landscape) {
+  .main-container {
+    gap: var(--custom-720-gap);
+    padding: var(--custom-720-padding);
+  }
+
+  .primary-container {
+    border-radius: var(--custom-720-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--custom-720-border-radius-medium);
+  }
+
+  .row-container {
+    gap: var(--custom-720-gap);
+  }
+
+  .clock-card {
+   height: 47%;
+  }
+
+  .clock-div {
+    transform: scale(.45);
+  }
+}
+
+@media screen and (max-width: 1080px) and (orientation: landscape) {
+  .clock-div {
+    transform: scale(.40);
+  }
+}
+
+/* Tablets & Small Laptops - 1024×768 & 1024×600 */
+
+@media screen and (max-width: 1024px) and (orientation: landscape) {
+  .clock-div {
+    transform: scale(.35);
+  }
+}
+
+/* Raspberry Pi Touch Display - Landscape 800 × 480 */
+
+@media screen and (max-width: 800px) and (orientation: landscape) {
+  .main-container {
+    gap: var(--pi-gap);
+    padding: var(--pi-padding);
+  }
+
+  .primary-container {
+    border-radius: var(--pi-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--pi-border-radius-medium);
+  }
+
+  .clock-div {
+    transform: scale(.27);
+  }
+
+  .row-container {
+    gap: var(--pi-gap);
+  }
+}
+
+
+/* Portrait */
+
+/* 4K Portrait - 4096 × 2160 */
+
+@media screen and (max-width: 3840px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--custom-4k-gap);
+    padding: var(--custom-4k-padding);
+  }
+
+  .primary-container {
+    border-radius: var(--custom-4k-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--custom-4k-border-radius-medium);
+  }
+
+  .row-container {
+    gap: var(--custom-4k-gap);
+  }
+
+  .clock-div {
+    transform: scale(1.35);
+  }
+}
+
+/* QHD Portrait - 2560 × 1440 */
+
+@media screen and (max-width: 2159px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--hd-gap);
+    padding: var(--hd-padding);
+  }
+
+  .primary-container {
+    border-radius: var(--hd-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--hd-border-radius-medium);
+  }
+
+  .row-container {
+    gap: var(--hd-gap);
+  }
+
+  .clock-div {
+    transform: scale(.85);
+  }
+}
+
+/* Full HD Portrait - 1080 × 1920 */
+
+@media screen and (max-width: 1080px) and (orientation: portrait) {
+  .clock-div {
+    transform: scale(.65);
+  }
+}
+
+/* HD Portrait - 720 × 1280 */
+
+@media screen and (max-width: 720px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--custom-720-gap);
+    padding: var(--custom-720-padding);
+  }
+
+  .primary-container {
+    border-radius: var(--custom-720-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--custom-720-border-radius-medium);
+  }
+
+  .row-container {
+    gap: var(--custom-720-gap);
+  }
+
+  .clock-div {
+    transform: scale(.45);
+  }
+}
+
+
+/* Raspberry Pi Touch Display - Portrait 480 × 800 */
+
+ @media screen and (max-width: 480px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--pi-gap);
+    padding: var(--pi-padding);
+  }
+
+  .primary-container {
+    border-radius: var(--pi-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--pi-border-radius-medium);
+  }
+
+  .row-container {
+    gap: var(--pi-gap);
+  }
+
+
+  .clock-div {
+    transform: scale(.25);
+  }
+}
