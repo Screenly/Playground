@@ -2,7 +2,7 @@
 syntax: manifest_v1
 id:
 description: Screenly Welcome App QC
-icon: https://playground.srly.io/edge-apps/welcome-app/static/images/icon.svg
+icon: https://playground.srly.io/edge-apps/welcome-app/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 settings:
@@ -43,10 +43,10 @@ settings:
   welcome_heading:
     type: string
     default_value: Welcome
-    title: Welcome Heading
+    title: Message Heading
     optional: false
     help_text: This text will serve as the heading of the welcome message
-  welcome-message:
+  welcome_message:
     type: string
     default_value: to the team
     title: Message Body
