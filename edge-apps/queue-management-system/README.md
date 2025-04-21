@@ -18,7 +18,7 @@ The system consists of three main components:
 
 Get the current status of all tills:
 
-```
+```http
 GET /display
 
 Response (some tills available):
@@ -38,7 +38,7 @@ Response (no tills available):
 
 Mark a till as available:
 
-```
+```http
 POST /till/{till_id}/available
 
 Response:
@@ -51,7 +51,7 @@ Response:
 
 Mark a till as busy:
 
-```
+```http
 POST /till/{till_id}/busy
 
 Response:
@@ -80,14 +80,14 @@ The client is configured through Screenly settings in `screenly.yml`:
 
 This is a Docker Compose based application. To run it locally:
 
-1. Make sure you have Docker and Docker Compose installed
-2. Navigate to the server directory:
+- Make sure you have Docker and Docker Compose installed
+- Navigate to the server directory:
 
 ```bash
 cd edge-apps/queue-management-system/server
 ```
 
-3. Run the application:
+- Run the application:
 
 ```bash
 docker compose up
