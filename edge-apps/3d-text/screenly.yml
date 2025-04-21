@@ -1,0 +1,18 @@
+---
+syntax: manifest_v1
+id:
+entrypoint:
+  type: file
+settings:
+  text:
+    type: string
+    default_value: ""
+    title: "3D Text"
+    optional: true
+    help_text: "The text to display in 3D. If not provided, the screen name will be used."
+  color:
+    type: string
+    default_value: "#9C5FE4"
+    title: "Text Color"
+    optional: false
+    help_text: The color of the text. If not provided, the default color will be used.
