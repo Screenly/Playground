@@ -73,8 +73,8 @@ screenly edge-app run
 
 The client is configured through Screenly settings in `screenly.yml`:
 
-- `api_url`: The URL of the queue management API server (default: http://localhost:8000)
-- `poll_interval`: How often to check for updates in milliseconds (default: 5000)
+- `api_url`: The URL of the queue management API server (default: `http://localhost:8000`)
+- `poll_interval`: How often to check for updates in milliseconds (default: `5000`)
 
 ## Development
 
