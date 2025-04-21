@@ -2,7 +2,7 @@ import os
 from functools import wraps
 
 import redis
-from flask import Flask, jsonify, make_response, request
+from flask import Flask, jsonify, make_response
 
 app = Flask(__name__)
 
