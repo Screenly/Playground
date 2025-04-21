@@ -15,8 +15,9 @@ redis_client = redis.Redis(
 # Redis key prefix
 TILL_KEY_PREFIX = "till:"
 
-# Configure available tills (could be moved to environment variables)
-AVAILABLE_TILLS = ["1", "2", "3", "4"]
+# Get tills from environment variable
+default_tills = ["1", "2", "3", "4"]
+TILLS = os.getenv("TILLS", ",".join(default_tills)).split(",")
 
 def add_cors_headers(f):
     @wraps(f)
@@ -51,7 +52,7 @@ def get_display_status():
     available_tills = []
     busy_tills = []
 
-    for till_id in AVAILABLE_TILLS:
+    for till_id in TILLS:
         key = f"{TILL_KEY_PREFIX}{till_id}"
         if redis_client.get(key) == "busy":
             busy_tills.append(till_id)
@@ -69,7 +70,7 @@ def set_till_busy(till_id):
     """
     Endpoint for POS to mark a till as busy
     """
-    if till_id not in AVAILABLE_TILLS:
+    if till_id not in TILLS:
         return jsonify({"error": "Till not found"}), 404
 
     key = f"{TILL_KEY_PREFIX}{till_id}"
@@ -87,7 +88,7 @@ def set_till_available(till_id):
     """
     Endpoint for POS to mark a till as available
     """
-    if till_id not in AVAILABLE_TILLS:
+    if till_id not in TILLS:
         return jsonify({"error": "Till not found"}), 404
 
     key = f"{TILL_KEY_PREFIX}{till_id}"
@@ -105,7 +106,7 @@ def get_till_status(till_id):
     """
     Get status of a specific till
     """
-    if till_id not in AVAILABLE_TILLS:
+    if till_id not in TILLS:
         return jsonify({"error": "Till not found"}), 404
 
     key = f"{TILL_KEY_PREFIX}{till_id}"

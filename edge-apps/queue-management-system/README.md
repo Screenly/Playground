@@ -8,9 +8,9 @@ This is a proof-of-concept queue management system for retail environments that 
 
 The system consists of three main components:
 
-1. **Call-Forward Screen**: A display that shows available tills to customers
+1. **Call-Forward Screen**: A display that shows available tills to customers running as a Screenly Edge App
 2. **Point of Sale (POS)**: The till system that marks tills as busy/available
-3. **Queue API**: Backend service that manages the till states
+3. **Queue API**: Backend service that manages the till states using Redis for persistence
 
 ## API Endpoints
 
@@ -21,10 +21,16 @@ Get the current status of all tills:
 ```
 GET /display
 
-Response:
+Response (some tills available):
 {
     "available_tills": ["2", "4"],
     "busy_tills": ["1", "3"]
+}
+
+Response (no tills available):
+{
+    "available_tills": [],
+    "busy_tills": ["1", "2", "3", "4"]
 }
 ```
 
@@ -58,12 +64,17 @@ Response:
 
 ## Client Display
 
-The client display is a web application that shows available tills to customers. It:
+With the [Screenly CLI](https://github.com/screenly/cli) installed and the server running, do the following:
 
-- Polls the `/display` endpoint every 5 seconds
-- Shows only available tills with green indicators
-- Displays the screen name in the bottom right corner
-- Uses Screenly's branding colors when available
+```bash
+cd client
+screenly edge-app run
+```
+
+The client is configured through Screenly settings in `screenly.yml`:
+
+- `api_url`: The URL of the queue management API server (default: http://localhost:8000)
+- `poll_interval`: How often to check for updates in milliseconds (default: 5000)
 
 ## Development
 
@@ -87,6 +98,14 @@ The application will be available at:
 - Client: `http://localhost:8000/`
 - API: `http://localhost:8000/display`
 
+### Configuration
+
+The server can be configured through environment variables in `docker-compose.yml`:
+
+- `TILLS`: Comma-separated list of till IDs (default: "1,2,3,4")
+- `REDIS_HOST`: Redis server hostname (default: "redis")
+- `REDIS_PORT`: Redis server port (default: 6379)
+
 ## Integration with Screenly
 
 The display client integrates with Screenly by:
@@ -94,15 +113,22 @@ The display client integrates with Screenly by:
 1. Using the Screenly JS API for screen identification
 2. Utilizing Screenly's branding colors through CSS variables
 3. Displaying the screen name from `screenly.metadata.screen_name`
+4. Configurable through Screenly settings
+
+## Features
+
+- Persistent storage using Redis for till states
+- Configurable number of tills through environment variables
+- Real-time updates with configurable polling interval
+- CORS support for cross-origin requests
 
 ## Limitations
 
 This is a proof-of-concept implementation with several limitations:
 
-- No persistent storage (till states are lost on restart)
-- No authentication or security measures
 - Limited error handling
 - No production-ready logging
 - No health checks or monitoring
+- No authentication or security measures
 
 For a production implementation, these limitations would need to be addressed along with proper testing and security measures.
