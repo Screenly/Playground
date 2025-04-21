@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Call Forward Display</title>
+    <script src="screenly.js?version=1"></script>
+    <style>
+        :root {
+            /* Use Screenly's branding colors with fallbacks */
+            --accent-color: var(--screenly_color_accent, #7E2CD2);
+            --light-color: var(--screenly_color_light, #454BD2);
+            --dark-color: var(--screenly_color_dark, #000212);
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: var(--dark-color);
+            color: white;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: var(--light-color);
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .tills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .till {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            border: 2px solid #4CAF50;
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .till-number {
+            font-size: 2.5em;
+            margin: 0;
+            color: var(--accent-color);
+        }
+
+        .till-status {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+
+        .screen-info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.8em;
+            opacity: 0.7;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome</h1>
+            <div id="location">Queue Management</div>
+        </div>
+        <div id="tills" class="tills-container">
+            <!-- Tills will be dynamically inserted here -->
+        </div>
+    </div>
+    <div class="screen-info">
+        Screen: <span id="screen-name"></span>
+    </div>
+
+    <script>
+        // Configuration
+        const API_URL = 'http://localhost:8000';
+        const POLL_INTERVAL = 5000; // 5 seconds
+
+        // Set screen name
+        document.getElementById('screen-name').innerText = screenly.metadata.screen_name;
+
+        function updateTills(data) {
+            const tillsContainer = document.getElementById('tills');
+            tillsContainer.innerHTML = ''; // Clear existing tills
+
+            // Show available tills
+            data.available_tills.forEach(tillId => {
+                const tillElement = document.createElement('div');
+                tillElement.className = 'till';
+                tillElement.innerHTML = `
+                    <h2 class="till-number">Till ${tillId}</h2>
+                    <div class="till-status">Available</div>
+                `;
+                tillsContainer.appendChild(tillElement);
+            });
+        }
+
+        async function pollAPI() {
+            try {
+                const response = await fetch(`${API_URL}/display`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                updateTills(data);
+            } catch (error) {
+                console.error('Error fetching till status:', error);
+            }
+        }
+
+        // Initial poll
+        pollAPI();
+
+        // Set up polling interval
+        setInterval(pollAPI, POLL_INTERVAL);
+    </script>
+  </body>
+</html>

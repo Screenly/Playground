@@ -1,0 +1,17 @@
+---
+syntax: manifest_v1
+id: 01JSBY77ZT6R4TV7HFYJHX3KBC
+entrypoint:
+  type: file
+settings:
+  secret_word:
+    type: secret
+    title: secret title
+    optional: true
+    help_text: An example of a secret setting that is used in index.html
+  greeting:
+    type: string
+    default_value: Unknown
+    title: greeting title
+    optional: true
+    help_text: An example of a string setting that is used in index.html
