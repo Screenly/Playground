@@ -51,10 +51,10 @@ generateQrCode(
 If `enableUtm` is set to `true`, the function will add the following query
 parameters to the URL:
 
-* `utm_source=screenly`
-* `utm_medium=digital-signage`
-* `utm_location=$SCREEN_LOCATION`
-* `utm_placement=$SCREEN_HOSTNAME`
+- `utm_source=screenly`
+- `utm_medium=digital-signage`
+- `utm_location=$SCREEN_LOCATION`
+- `utm_placement=$SCREEN_HOSTNAME`
 
 `utm_location` and `utm_placement` refers to the `location` and `hostname` of
 the screen, respectively, which are derived from the Screenly metadata.

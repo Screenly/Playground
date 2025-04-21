@@ -6,7 +6,7 @@ To use this Edge App, you need a [OpenWeather](https://openweathermap.org) API k
 
 ## Prerequisites
 
-* Install Screenly CLI - Please follow the guide [here](https://github.com/Screenly/cli)
+- Install Screenly CLI - Please follow the guide [here](https://github.com/Screenly/cli)
 
 ## Steps
 
@@ -52,8 +52,8 @@ Open the Screenly dashboard and verify that the new Edge App has been added as a
 
 Step 9. **Assign Asset to Playlist and Device**
 
-* Assign the new asset to a playlist.
-* Assign the playlist to a device.
+- Assign the new asset to a playlist.
+- Assign the playlist to a device.
 
 Now, the Weather Edge App has been configured, and the designated webpage/dashboard will be presented on the Screenly-connected TV/Monitor.
 
@@ -70,6 +70,3 @@ To override the locale, you can change the locale in the screenly dashboard or v
 `$ screenly edge-app setting set override_locale=en`
 
 You can find the list of supported locales [here](https://momentjs.com/)
-
-
-

@@ -13,11 +13,11 @@ $ pip install -r requirements.txt
 ## Usage
 
 Set your API tokens:
+
 ```bash
 $  export GRAFANA_API_TOKEN=<your token>
 $  export SCREENLY_API_TOKEN<your token>
 ```
-
 
 ```bash
 ./python add-grafana-asset.py
