@@ -8,18 +8,27 @@
   <link rel="shortcut icon" href="static/img/favicon.png" />
   <link rel="stylesheet" href="static/css/base.css">
   <style>
+    :root {
+      --toaster-size: clamp(64px, 5vw, 128px);
+      --animation-distance: max(150vh, 1600px);
+      --speed-multiplier: 1;
+    }
 
     .toaster {
       position: absolute;
-      width: 64px;
-      height: 64px;
+      width: var(--toaster-size);
+      height: var(--toaster-size);
       background-image: url("static/img/toaster-sprite.gif");
+      background-size: calc(var(--toaster-size) * 4) var(--toaster-size);
+      image-rendering: pixelated;
     }
     .toast {
       position: absolute;
-      width: 64px;
-      height: 64px;
+      width: var(--toaster-size);
+      height: var(--toaster-size);
       background-image: url("static/img/toast1.gif");
+      background-size: var(--toaster-size);
+      image-rendering: pixelated;
     }
 
     /**
@@ -34,67 +43,67 @@
      * T5, T6, T7, T8, & T9 are a delayed batch of toasters going at the common speed
      */
     .t1 {
-      -webkit-animation: flap .2s steps(4) infinite alternate, fly 10s linear infinite;
-         -moz-animation: flap .2s steps(4) infinite alternate, fly 10s linear infinite;
-          -ms-animation: flap .2s steps(4) infinite alternate, fly 10s linear infinite;
-           -o-animation: flap .2s steps(4) infinite alternate, fly 10s linear infinite;
-              animation: flap .2s steps(4) infinite alternate, fly 10s linear infinite;
+      -webkit-animation: flap .2s steps(4) infinite alternate, fly calc(10s * var(--speed-multiplier)) linear infinite;
+         -moz-animation: flap .2s steps(4) infinite alternate, fly calc(10s * var(--speed-multiplier)) linear infinite;
+          -ms-animation: flap .2s steps(4) infinite alternate, fly calc(10s * var(--speed-multiplier)) linear infinite;
+           -o-animation: flap .2s steps(4) infinite alternate, fly calc(10s * var(--speed-multiplier)) linear infinite;
+              animation: flap .2s steps(4) infinite alternate, fly calc(10s * var(--speed-multiplier)) linear infinite;
     }
     .t2 {
-      -webkit-animation: flap .2s steps(4) infinite alternate-reverse, fly 16s linear infinite;
-         -moz-animation: flap .2s steps(4) infinite alternate-reverse, fly 16s linear infinite;
-          -ms-animation: flap .2s steps(4) infinite alternate-reverse, fly 16s linear infinite;
-           -o-animation: flap .2s steps(4) infinite alternate-reverse, fly 16s linear infinite;
-              animation: flap .2s steps(4) infinite alternate-reverse, fly 16s linear infinite;
+      -webkit-animation: flap .2s steps(4) infinite alternate-reverse, fly calc(16s * var(--speed-multiplier)) linear infinite;
+         -moz-animation: flap .2s steps(4) infinite alternate-reverse, fly calc(16s * var(--speed-multiplier)) linear infinite;
+          -ms-animation: flap .2s steps(4) infinite alternate-reverse, fly calc(16s * var(--speed-multiplier)) linear infinite;
+           -o-animation: flap .2s steps(4) infinite alternate-reverse, fly calc(16s * var(--speed-multiplier)) linear infinite;
+              animation: flap .2s steps(4) infinite alternate-reverse, fly calc(16s * var(--speed-multiplier)) linear infinite;
     }
     .t3 {
-      -webkit-animation: flap .2s steps(4) infinite alternate, fly 24s linear infinite;
-         -moz-animation: flap .2s steps(4) infinite alternate, fly 24s linear infinite;
-          -ms-animation: flap .2s steps(4) infinite alternate, fly 24s linear infinite;
-           -o-animation: flap .2s steps(4) infinite alternate, fly 24s linear infinite;
-              animation: flap .2s steps(4) infinite alternate, fly 24s linear infinite;
+      -webkit-animation: flap .2s steps(4) infinite alternate, fly calc(24s * var(--speed-multiplier)) linear infinite;
+         -moz-animation: flap .2s steps(4) infinite alternate, fly calc(24s * var(--speed-multiplier)) linear infinite;
+          -ms-animation: flap .2s steps(4) infinite alternate, fly calc(24s * var(--speed-multiplier)) linear infinite;
+           -o-animation: flap .2s steps(4) infinite alternate, fly calc(24s * var(--speed-multiplier)) linear infinite;
+              animation: flap .2s steps(4) infinite alternate, fly calc(24s * var(--speed-multiplier)) linear infinite;
     }
     .t4 {
-      -webkit-animation: flap .2s steps(4) infinite alternate, fly 10s 5s linear infinite;
-         -moz-animation: flap .2s steps(4) infinite alternate, fly 10s 5s linear infinite;
-          -ms-animation: flap .2s steps(4) infinite alternate, fly 10s 5s linear infinite;
-           -o-animation: flap .2s steps(4) infinite alternate, fly 10s 5s linear infinite;
-              animation: flap .2s steps(4) infinite alternate, fly 10s 5s linear infinite;
+      -webkit-animation: flap .2s steps(4) infinite alternate, fly calc(10s * var(--speed-multiplier)) calc(5s * var(--speed-multiplier)) linear infinite;
+         -moz-animation: flap .2s steps(4) infinite alternate, fly calc(10s * var(--speed-multiplier)) calc(5s * var(--speed-multiplier)) linear infinite;
+          -ms-animation: flap .2s steps(4) infinite alternate, fly calc(10s * var(--speed-multiplier)) calc(5s * var(--speed-multiplier)) linear infinite;
+           -o-animation: flap .2s steps(4) infinite alternate, fly calc(10s * var(--speed-multiplier)) calc(5s * var(--speed-multiplier)) linear infinite;
+              animation: flap .2s steps(4) infinite alternate, fly calc(10s * var(--speed-multiplier)) calc(5s * var(--speed-multiplier)) linear infinite;
     }
     .t5 {
-      -webkit-animation: flap .2s steps(4) infinite alternate-reverse, fly 24s 4s linear infinite;
-         -moz-animation: flap .2s steps(4) infinite alternate-reverse, fly 24s 4s linear infinite;
-          -ms-animation: flap .2s steps(4) infinite alternate-reverse, fly 24s 4s linear infinite;
-           -o-animation: flap .2s steps(4) infinite alternate-reverse, fly 24s 4s linear infinite;
-              animation: flap .2s steps(4) infinite alternate-reverse, fly 24s 4s linear infinite;
+      -webkit-animation: flap .2s steps(4) infinite alternate-reverse, fly calc(24s * var(--speed-multiplier)) calc(4s * var(--speed-multiplier)) linear infinite;
+         -moz-animation: flap .2s steps(4) infinite alternate-reverse, fly calc(24s * var(--speed-multiplier)) calc(4s * var(--speed-multiplier)) linear infinite;
+          -ms-animation: flap .2s steps(4) infinite alternate-reverse, fly calc(24s * var(--speed-multiplier)) calc(4s * var(--speed-multiplier)) linear infinite;
+           -o-animation: flap .2s steps(4) infinite alternate-reverse, fly calc(24s * var(--speed-multiplier)) calc(4s * var(--speed-multiplier)) linear infinite;
+              animation: flap .2s steps(4) infinite alternate-reverse, fly calc(24s * var(--speed-multiplier)) calc(4s * var(--speed-multiplier)) linear infinite;
     }
     .t6 {
-      -webkit-animation: flap .2s steps(4) infinite alternate, fly 24s 8s linear infinite;
-         -moz-animation: flap .2s steps(4) infinite alternate, fly 24s 8s linear infinite;
-          -ms-animation: flap .2s steps(4) infinite alternate, fly 24s 8s linear infinite;
-           -o-animation: flap .2s steps(4) infinite alternate, fly 24s 8s linear infinite;
-              animation: flap .2s steps(4) infinite alternate, fly 24s 8s linear infinite;
+      -webkit-animation: flap .2s steps(4) infinite alternate, fly calc(24s * var(--speed-multiplier)) calc(8s * var(--speed-multiplier)) linear infinite;
+         -moz-animation: flap .2s steps(4) infinite alternate, fly calc(24s * var(--speed-multiplier)) calc(8s * var(--speed-multiplier)) linear infinite;
+          -ms-animation: flap .2s steps(4) infinite alternate, fly calc(24s * var(--speed-multiplier)) calc(8s * var(--speed-multiplier)) linear infinite;
+           -o-animation: flap .2s steps(4) infinite alternate, fly calc(24s * var(--speed-multiplier)) calc(8s * var(--speed-multiplier)) linear infinite;
+              animation: flap .2s steps(4) infinite alternate, fly calc(24s * var(--speed-multiplier)) calc(8s * var(--speed-multiplier)) linear infinite;
     }
     .t7 {
-      -webkit-animation: flap .2s steps(4) infinite alternate-reverse, fly 24s 12s linear infinite;
-         -moz-animation: flap .2s steps(4) infinite alternate-reverse, fly 24s 12s linear infinite;
-          -ms-animation: flap .2s steps(4) infinite alternate-reverse, fly 24s 12s linear infinite;
-           -o-animation: flap .2s steps(4) infinite alternate-reverse, fly 24s 12s linear infinite;
-              animation: flap .2s steps(4) infinite alternate-reverse, fly 24s 12s linear infinite;
+      -webkit-animation: flap .2s steps(4) infinite alternate-reverse, fly calc(24s * var(--speed-multiplier)) calc(12s * var(--speed-multiplier)) linear infinite;
+         -moz-animation: flap .2s steps(4) infinite alternate-reverse, fly calc(24s * var(--speed-multiplier)) calc(12s * var(--speed-multiplier)) linear infinite;
+          -ms-animation: flap .2s steps(4) infinite alternate-reverse, fly calc(24s * var(--speed-multiplier)) calc(12s * var(--speed-multiplier)) linear infinite;
+           -o-animation: flap .2s steps(4) infinite alternate-reverse, fly calc(24s * var(--speed-multiplier)) calc(12s * var(--speed-multiplier)) linear infinite;
+              animation: flap .2s steps(4) infinite alternate-reverse, fly calc(24s * var(--speed-multiplier)) calc(12s * var(--speed-multiplier)) linear infinite;
     }
     .t8 {
-      -webkit-animation: flap .2s steps(4) infinite alternate, fly 24s 16s linear infinite;
-         -moz-animation: flap .2s steps(4) infinite alternate, fly 24s 16s linear infinite;
-          -ms-animation: flap .2s steps(4) infinite alternate, fly 24s 16s linear infinite;
-           -o-animation: flap .2s steps(4) infinite alternate, fly 24s 16s linear infinite;
-              animation: flap .2s steps(4) infinite alternate, fly 24s 16s linear infinite;
+      -webkit-animation: flap .2s steps(4) infinite alternate, fly calc(24s * var(--speed-multiplier)) calc(16s * var(--speed-multiplier)) linear infinite;
+         -moz-animation: flap .2s steps(4) infinite alternate, fly calc(24s * var(--speed-multiplier)) calc(16s * var(--speed-multiplier)) linear infinite;
+          -ms-animation: flap .2s steps(4) infinite alternate, fly calc(24s * var(--speed-multiplier)) calc(16s * var(--speed-multiplier)) linear infinite;
+           -o-animation: flap .2s steps(4) infinite alternate, fly calc(24s * var(--speed-multiplier)) calc(16s * var(--speed-multiplier)) linear infinite;
+              animation: flap .2s steps(4) infinite alternate, fly calc(24s * var(--speed-multiplier)) calc(16s * var(--speed-multiplier)) linear infinite;
     }
     .t9 {
-      -webkit-animation: flap .2s steps(4) infinite alternate-reverse, fly 24s 20s linear infinite;
-         -moz-animation: flap .2s steps(4) infinite alternate-reverse, fly 24s 20s linear infinite;
-          -ms-animation: flap .2s steps(4) infinite alternate-reverse, fly 24s 20s linear infinite;
-           -o-animation: flap .2s steps(4) infinite alternate-reverse, fly 24s 20s linear infinite;
-              animation: flap .2s steps(4) infinite alternate-reverse, fly 24s 20s linear infinite;
+      -webkit-animation: flap .2s steps(4) infinite alternate-reverse, fly calc(24s * var(--speed-multiplier)) calc(20s * var(--speed-multiplier)) linear infinite;
+         -moz-animation: flap .2s steps(4) infinite alternate-reverse, fly calc(24s * var(--speed-multiplier)) calc(20s * var(--speed-multiplier)) linear infinite;
+          -ms-animation: flap .2s steps(4) infinite alternate-reverse, fly calc(24s * var(--speed-multiplier)) calc(20s * var(--speed-multiplier)) linear infinite;
+           -o-animation: flap .2s steps(4) infinite alternate-reverse, fly calc(24s * var(--speed-multiplier)) calc(20s * var(--speed-multiplier)) linear infinite;
+              animation: flap .2s steps(4) infinite alternate-reverse, fly calc(24s * var(--speed-multiplier)) calc(20s * var(--speed-multiplier)) linear infinite;
     }
     /**
      * Toast Animations
@@ -107,32 +116,32 @@
      * Tst4 is a delayed batch of toast going at the common speed
      */
     .tst1 {
-      -webkit-animation: fly 10s linear infinite;
-         -moz-animation: fly 10s linear infinite;
-          -ms-animation: fly 10s linear infinite;
-           -o-animation: fly 10s linear infinite;
-              animation: fly 10s linear infinite;
+      -webkit-animation: fly calc(10s * var(--speed-multiplier)) linear infinite;
+         -moz-animation: fly calc(10s * var(--speed-multiplier)) linear infinite;
+          -ms-animation: fly calc(10s * var(--speed-multiplier)) linear infinite;
+           -o-animation: fly calc(10s * var(--speed-multiplier)) linear infinite;
+              animation: fly calc(10s * var(--speed-multiplier)) linear infinite;
     }
     .tst2 {
-      -webkit-animation: fly 16s linear infinite;
-         -moz-animation: fly 16s linear infinite;
-          -ms-animation: fly 16s linear infinite;
-           -o-animation: fly 16s linear infinite;
-              animation: fly 16s linear infinite;
+      -webkit-animation: fly calc(16s * var(--speed-multiplier)) linear infinite;
+         -moz-animation: fly calc(16s * var(--speed-multiplier)) linear infinite;
+          -ms-animation: fly calc(16s * var(--speed-multiplier)) linear infinite;
+           -o-animation: fly calc(16s * var(--speed-multiplier)) linear infinite;
+              animation: fly calc(16s * var(--speed-multiplier)) linear infinite;
     }
     .tst3 {
-      -webkit-animation: fly 24s linear infinite;
-         -moz-animation: fly 24s linear infinite;
-          -ms-animation: fly 24s linear infinite;
-           -o-animation: fly 24s linear infinite;
-              animation: fly 24s linear infinite;
+      -webkit-animation: fly calc(24s * var(--speed-multiplier)) linear infinite;
+         -moz-animation: fly calc(24s * var(--speed-multiplier)) linear infinite;
+          -ms-animation: fly calc(24s * var(--speed-multiplier)) linear infinite;
+           -o-animation: fly calc(24s * var(--speed-multiplier)) linear infinite;
+              animation: fly calc(24s * var(--speed-multiplier)) linear infinite;
     }
     .tst4 {
-      -webkit-animation: fly 24s 12s linear infinite;
-         -moz-animation: fly 24s 12s linear infinite;
-          -ms-animation: fly 24s 12s linear infinite;
-           -o-animation: fly 24s 12s linear infinite;
-              animation: fly 24s 12s linear infinite;
+      -webkit-animation: fly calc(24s * var(--speed-multiplier)) calc(12s * var(--speed-multiplier)) linear infinite;
+         -moz-animation: fly calc(24s * var(--speed-multiplier)) calc(12s * var(--speed-multiplier)) linear infinite;
+          -ms-animation: fly calc(24s * var(--speed-multiplier)) calc(12s * var(--speed-multiplier)) linear infinite;
+           -o-animation: fly calc(24s * var(--speed-multiplier)) calc(12s * var(--speed-multiplier)) linear infinite;
+              animation: fly calc(24s * var(--speed-multiplier)) calc(12s * var(--speed-multiplier)) linear infinite;
     }
 
     /**
@@ -184,89 +193,113 @@
 
     /* Flapping animation */
     @-webkit-keyframes flap {
-     from { background-position:    0px; }
-       to { background-position: -256px; }
+     from { background-position: 0 0; }
+       to { background-position: calc(var(--toaster-size) * -4) 0; }
     }
     @-moz-keyframes flap {
-       from { background-position:    0px; }
-         to { background-position: -256px; }
+       from { background-position: 0 0; }
+         to { background-position: calc(var(--toaster-size) * -4) 0; }
     }
     @-o-keyframes flap {
-       from { background-position:    0px; }
-         to { background-position: -256px; }
+       from { background-position: 0 0; }
+         to { background-position: calc(var(--toaster-size) * -4) 0; }
     }
     @keyframes flap {
-       from { background-position:    0px; }
-         to { background-position: -256px; }
+       from { background-position: 0 0; }
+         to { background-position: calc(var(--toaster-size) * -4) 0; }
     }
 
     /* Gliding animation using translate */
-    /* Moving 1600px, to accomodate for large screens */
     @-webkit-keyframes fly {
       from {
-        -webkit-transform: translate(0, 0);
-        -moz-transform: translate(0, 0);
-        -o-transform: translate(0, 0);
-        -ms-transform: translate(0, 0);
         transform: translate(0, 0);
       }
       to {
-        -webkit-transform: translate(-1600px, 1600px);
-        -moz-transform: translate(-1600px, 1600px);
-        -o-transform: translate(-1600px, 1600px);
-        -ms-transform: translate(-1600px, 1600px);
-        transform: translate(-1600px, 1600px);
+        transform: translate(calc(var(--animation-distance) * -1), var(--animation-distance));
       }
     }
     @-moz-keyframes fly {
       from {
-        -webkit-transform: translate(0, 0);
-        -moz-transform: translate(0, 0);
-        -o-transform: translate(0, 0);
-        -ms-transform: translate(0, 0);
         transform: translate(0, 0);
       }
       to {
-        -webkit-transform: translate(-1600px, 1600px);
-        -moz-transform: translate(-1600px, 1600px);
-        -o-transform: translate(-1600px, 1600px);
-        -ms-transform: translate(-1600px, 1600px);
-        transform: translate(-1600px, 1600px);
+        transform: translate(calc(var(--animation-distance) * -1), var(--animation-distance));
       }
     }
     @-o-keyframes fly {
       from {
-        -webkit-transform: translate(0, 0);
-        -moz-transform: translate(0, 0);
-        -o-transform: translate(0, 0);
-        -ms-transform: translate(0, 0);
         transform: translate(0, 0);
       }
       to {
-        -webkit-transform: translate(-1600px, 1600px);
-        -moz-transform: translate(-1600px, 1600px);
-        -o-transform: translate(-1600px, 1600px);
-        -ms-transform: translate(-1600px, 1600px);
-        transform: translate(-1600px, 1600px);
+        transform: translate(calc(var(--animation-distance) * -1), var(--animation-distance));
       }
     }
     @keyframes fly {
       from {
-        -webkit-transform: translate(0, 0);
-        -moz-transform: translate(0, 0);
-        -o-transform: translate(0, 0);
-        -ms-transform: translate(0, 0);
         transform: translate(0, 0);
       }
       to {
-        -webkit-transform: translate(-1600px, 1600px);
-        -moz-transform: translate(-1600px, 1600px);
-        -o-transform: translate(-1600px, 1600px);
-        -ms-transform: translate(-1600px, 1600px);
-        transform: translate(-1600px, 1600px);
+        transform: translate(calc(var(--animation-distance) * -1), var(--animation-distance));
       }
     }
 
+    /* Adjust starting positions for larger screens */
+    @media screen and (min-width: 1920px) {
+      :root {
+        --animation-distance: max(200vh, 2000px);
+        --speed-multiplier: 1.5;
+      }
+      /* Increase offscreen starting positions */
+      .p6, .p18, .p27 { right: -4%; }
+      .p13, .p24 { right: -24%; }
+      .p14 { right: -26%; }
+      .p15 { right: -28%; }
+      .p16 { right: -30%; }
+      .p17 { right: -32%; }
+      .p25 { right: -42%; }
+      .p26 { right: -35%; }
+      .p31 { right: -52%; }
+      .p32 { right: -62%; }
+      .p33 { right: -55%; }
+    }
+
+    @media screen and (min-width: 2560px) {
+      :root {
+        --animation-distance: max(250vh, 2400px);
+        --speed-multiplier: 2;
+      }
+      /* Further increase offscreen starting positions */
+      .p6, .p18, .p27 { right: -6%; }
+      .p13, .p24 { right: -30%; }
+      .p14 { right: -32%; }
+      .p15 { right: -34%; }
+      .p16 { right: -36%; }
+      .p17 { right: -38%; }
+      .p25 { right: -48%; }
+      .p26 { right: -41%; }
+      .p31 { right: -58%; }
+      .p32 { right: -68%; }
+      .p33 { right: -61%; }
+    }
+
+    @media screen and (min-width: 3840px) {
+      :root {
+        --animation-distance: max(300vh, 3000px);
+        --speed-multiplier: 2.5;
+      }
+      /* Maximum offscreen starting positions for 4K */
+      .p6, .p18, .p27 { right: -8%; }
+      .p13, .p24 { right: -36%; }
+      .p14 { right: -38%; }
+      .p15 { right: -40%; }
+      .p16 { right: -42%; }
+      .p17 { right: -44%; }
+      .p25 { right: -54%; }
+      .p26 { right: -47%; }
+      .p31 { right: -64%; }
+      .p32 { right: -74%; }
+      .p33 { right: -67%; }
+    }
   </style>
 </head>
 <body>
