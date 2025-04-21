@@ -1,0 +1,18 @@
+---
+syntax: manifest_v1
+id: 01JSBY77ZT6R4TV7HFYJHX3KBC
+entrypoint:
+  type: file
+settings:
+  api_url:
+    type: string
+    default_value: "http://localhost:8000"
+    title: API URL
+    optional: true
+    help_text: The URL of the queue management API server
+  poll_interval:
+    type: string
+    default_value: "5000"
+    title: Poll Interval
+    optional: true
+    help_text: How often to check for updates (in milliseconds)
