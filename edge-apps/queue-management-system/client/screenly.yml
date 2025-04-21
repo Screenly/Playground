@@ -4,14 +4,15 @@ id: 01JSBY77ZT6R4TV7HFYJHX3KBC
 entrypoint:
   type: file
 settings:
-  secret_word:
-    type: secret
-    title: secret title
-    optional: true
-    help_text: An example of a secret setting that is used in index.html
-  greeting:
+  api_url:
     type: string
-    default_value: Unknown
-    title: greeting title
+    default_value: "http://localhost:8000"
+    title: API URL
     optional: true
-    help_text: An example of a string setting that is used in index.html
+    help_text: The URL of the queue management API server
+  poll_interval:
+    type: string
+    default_value: "5000"
+    title: Poll Interval
+    optional: true
+    help_text: How often to check for updates (in milliseconds)
