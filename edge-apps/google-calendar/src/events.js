@@ -1,3 +1,5 @@
+/* global screenly */
+
 import {
   GOOGLE_CALENDAR_API_BASE_URL,
   VIEW_MODE,
@@ -9,7 +11,7 @@ export const fetchCalendarEvents = async (accessToken) => {
     const {
       calendar_mode: viewMode,
       calendar_id: calendarId
-    } = window.screenly.settings
+    } = screenly.settings
 
     // Create date objects for filtering
     const today = new Date()

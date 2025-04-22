@@ -1,3 +1,5 @@
+/* global screenly */
+
 import { createRoot } from 'react-dom/client'
 import { useState, useEffect, useRef } from 'react'
 import {
@@ -31,7 +33,7 @@ const App = () => {
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
   const [events, setEvents] = useState([])
   const [calendarMode] = useState(
-    window.screenly.settings.calendar_mode || 'monthly'
+    screenly.settings.calendar_mode || 'monthly'
   )
   const [currentTime, setCurrentTime] = useState('')
   const currentTokenRef = useRef('')
@@ -50,7 +52,7 @@ const App = () => {
         refresh_token: refreshToken,
         client_id: clientId,
         client_secret: clientSecret
-      } = window.screenly.settings
+      } = screenly.settings
 
       if (refreshToken && clientId && clientSecret) {
         const newToken = await getAccessToken(refreshToken, clientId, clientSecret)
@@ -99,7 +101,7 @@ const App = () => {
 
     // Signal ready for rendering
     try {
-      window.screenly.signalReadyForRendering()
+      screenly.signalReadyForRendering()
     } catch (error) {
       console.error('Error signaling ready for rendering:', error)
     }

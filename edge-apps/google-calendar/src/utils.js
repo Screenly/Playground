@@ -8,12 +8,12 @@ import * as Sentry from '@sentry/react'
 import { GOOGLE_OAUTH_TOKEN_URL } from '@/constants'
 
 export const getTimeZone = () => {
-  const [latitude, longitude] = window.screenly.metadata.coordinates
+  const [latitude, longitude] = screenly.metadata.coordinates
   return tzlookup(latitude, longitude)
 }
 
 export async function getLocale () {
-  const [lat, lng] = window.screenly.metadata.coordinates
+  const [lat, lng] = screenly.metadata.coordinates
 
   const defaultLocale = navigator?.languages?.length
     ? navigator.languages[0].replace('_', '-')
@@ -154,6 +154,12 @@ export const initializeGlobalBrandingSettings = async () => {
   // Get the logo image element
   const imgElement = document.getElementById('brand-logo')
 
+  // Check if the element exists
+  if (!imgElement) {
+    console.warn('Brand logo element not found in the DOM')
+    return
+  }
+
   // Initialize variables
   let logoUrl = '' // Logo URL
   let fallbackUrl = '' // Fallback logo if CORS URL fails
@@ -178,11 +184,13 @@ export const initializeGlobalBrandingSettings = async () => {
 
   // First, try to fetch the image using the CORS proxy URL
   try {
-    await fetchImage(logoUrl)
+    const imageUrl = await fetchImage(logoUrl)
+    imgElement.src = imageUrl
   } catch (error) {
     // If CORS fails, try the fallback URL
     try {
-      await fetchImage(fallbackUrl)
+      const fallbackImageUrl = await fetchImage(fallbackUrl)
+      imgElement.src = fallbackImageUrl
     } catch (fallbackError) {
       // If fallback fails, use the default logo
       imgElement.src = defaultLogo
