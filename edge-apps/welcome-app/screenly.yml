@@ -1,17 +1,11 @@
 ---
 syntax: manifest_v1
-id: 01HS8ZQP09W71PAMEZ65GH6SVV
-description: Screenly Countdown Edge App
-icon: https://playground.srly.io/edge-apps/countdown-timer/static/img/icon.svg
+id:
+description: Screenly Welcome App.
+icon: https://playground.srly.io/edge-apps/welcome-app/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 settings:
-  countdown_headline:
-    type: string
-    default_value: New Year Countdown
-    title: Countdown Headline
-    optional: false
-    help_text: Countdown header text value.
   enable_analytics:
     type: string
     default_value: 'true'
@@ -31,22 +25,30 @@ settings:
     title: Override Timezone
     optional: true
     help_text: Specify a supported timezone value (e.g., Europe/London).
-  sentry_dsn:
-    type: secret
-    title: Sentry Client Key
-    optional: true
-    help_text: Sentry Client Key from Sentry SDK for error capturing.
-    is_global: true
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z
-    title: Tag Manager ID
+    title: Google Tag Manager ID
     optional: true
     help_text: Specify a Google Tag Manager ID
     is_global: true
-  target_timestamp:
+  theme:
     type: string
-    default_value: 2025-01-01T00:00:00
-    title: Countdown Target
+    default_value: light
+    title: Theme
     optional: false
-    help_text: Target timestamp in ISO format (YYYY-MM-DDTHH:MM:SS)
+    help_text: |
+      Determines the visual theme for the application.
+      Options are 'light' or 'dark'.
+  welcome_heading:
+    type: string
+    default_value: Welcome
+    title: Message Heading
+    optional: false
+    help_text: This text will serve as the heading of the welcome message
+  welcome_message:
+    type: string
+    default_value: to the team
+    title: Message Body
+    optional: false
+    help_text: This text will serve as the body of the message
