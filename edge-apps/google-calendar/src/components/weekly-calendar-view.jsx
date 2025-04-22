@@ -3,18 +3,16 @@ import { getLocale, getTimeZone } from '@/utils'
 import '@/components/weekly-calendar-view.css'
 
 const WeeklyCalendarView = ({ now, events }) => {
-  const DAYS_OF_WEEK = useMemo(
-    () => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-    []
-  )
+  const DAYS_OF_WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
   const [timeSlots, setTimeSlots] = useState([])
   const [locale, setLocale] = useState(null)
+  const [isReady, setIsReady] = useState(false)
   const WINDOW_HOURS = 12
-  const timezone = useMemo(() => getTimeZone(), [])
+  const timezone = getTimeZone()
 
-  // Cache current hour calculation
+  // Calculate current hour info - memoized for performance
   const currentHourInfo = useMemo(() => {
-    const hour = parseInt(
+    const currentHour = parseInt(
       new Date(now).toLocaleString('en-US', {
         hour: 'numeric',
         hour12: false,
@@ -22,13 +20,13 @@ const WeeklyCalendarView = ({ now, events }) => {
       })
     )
     return {
-      current: hour,
-      start: hour - 1,
-      windowStart: (hour - 2 + 24) % 24
+      current: currentHour,
+      start: currentHour - 1,
+      windowStart: (currentHour - 2 + 24) % 24
     }
   }, [now, timezone])
 
-  // Cache start of week date
+  // Calculate start of week date - memoized for performance
   const weekStart = useMemo(() => {
     const d = new Date(now)
     const day = d.getDay()
@@ -37,46 +35,71 @@ const WeeklyCalendarView = ({ now, events }) => {
     return d
   }, [now])
 
-  // Generate time slots with memoized locale
+  // Generate time slots - optimized for performance
   useEffect(() => {
     const generateTimeSlots = async () => {
-      const userLocale = await getLocale()
-      setLocale(userLocale)
+      try {
+        const userLocale = await getLocale()
+        setLocale(userLocale)
 
-      const slots = []
-      const baseDate = new Date(now)
+        const slots = []
+        const baseDate = new Date(now)
 
-      for (let i = 0; i < WINDOW_HOURS; i++) {
-        const hour = (currentHourInfo.start + i) % 24
+        for (let i = 0; i < WINDOW_HOURS; i++) {
+          const hour = (currentHourInfo.start + i) % 24
 
-        // Skip slots at or after midnight
-        if (hour === 0 || currentHourInfo.start + i >= 24) {
-          continue
-        }
+          // Skip slots at or after midnight
+          if (hour === 0 || currentHourInfo.start + i >= 24) {
+            continue
+          }
 
-        baseDate.setHours(hour, 0, 0, 0)
-        slots.push({
-          time: baseDate.toLocaleTimeString(userLocale, {
+          // Use toLocaleTimeString for proper formatting
+          baseDate.setHours(hour, 0, 0, 0)
+          const timeString = baseDate.toLocaleTimeString(userLocale, {
             hour: 'numeric',
             minute: '2-digit'
-          }),
-          hour
-        })
-      }
+          })
 
-      setTimeSlots(slots)
+          slots.push({
+            time: timeString,
+            hour
+          })
+        }
+
+        setTimeSlots(slots)
+        setIsReady(true)
+      } catch (error) {
+        console.error('Error generating time slots:', error)
+        // Fallback to simple time slots if locale fetch fails
+        const slots = []
+        for (let i = 0; i < WINDOW_HOURS; i++) {
+          const hour = (currentHourInfo.start + i) % 24
+          if (hour === 0 || currentHourInfo.start + i >= 24) continue
+
+          const formattedHour = hour % 12 || 12
+          const ampm = hour < 12 ? 'AM' : 'PM'
+
+          slots.push({
+            time: `${formattedHour}:00 ${ampm}`,
+            hour
+          })
+        }
+        setTimeSlots(slots)
+        setIsReady(true)
+      }
     }
 
     generateTimeSlots()
   }, [now, timezone, currentHourInfo])
 
-  // Cache event day indices for faster lookup
-  const eventDayIndices = useMemo(() => {
-    if (!events) return new Map()
+  // Get events for a specific time slot and day - memoized for performance
+  const getEventsForTimeSlot = useCallback((hour, dayOffset) => {
+    if (!events) return []
 
-    const indices = new Map()
-    events.forEach((event) => {
+    return events.filter(event => {
       const eventStart = new Date(event.startTime)
+
+      // Use toLocaleString for proper hour and day extraction
       const eventHour = parseInt(
         eventStart.toLocaleString('en-US', {
           hour: 'numeric',
@@ -94,140 +117,123 @@ const WeeklyCalendarView = ({ now, events }) => {
         day.toLowerCase().startsWith(eventDayOfWeek.toLowerCase().slice(0, 3))
       )
 
-      const key = `${dayIndex}-${eventHour}`
-      if (!indices.has(key)) {
-        indices.set(key, [])
-      }
-      indices.get(key).push(event)
+      const isBeforeMidnight = hour < 24
+      const isInWindow =
+        hour >= currentHourInfo.windowStart &&
+        hour < currentHourInfo.windowStart + WINDOW_HOURS
+
+      return dayIndex === dayOffset && eventHour === hour && isBeforeMidnight && isInWindow
     })
+  }, [events, currentHourInfo, timezone])
 
-    return indices
-  }, [events, DAYS_OF_WEEK, timezone])
+  // Get header date for a specific day - memoized for performance
+  const getHeaderDate = useCallback((dayIndex) => {
+    const date = new Date(weekStart)
+    date.setDate(date.getDate() + dayIndex)
+    return date.getDate()
+  }, [weekStart])
 
-  // Optimized event filtering using cached indices
-  const getEventsForTimeSlot = useCallback(
-    (hour, dayOffset) => {
-      const key = `${dayOffset}-${hour}`
-      const slotEvents = eventDayIndices.get(key) || []
+  // Check if a day is today - memoized for performance
+  const isToday = useCallback((dayIndex) => {
+    const date = new Date(weekStart)
+    date.setDate(date.getDate() + dayIndex)
+    const today = new Date(now)
+    return (
+      date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
+    )
+  }, [weekStart, now])
 
-      return slotEvents.filter((event) => {
-        const isBeforeMidnight = hour < 24
-        const isInWindow =
-          hour >= currentHourInfo.windowStart &&
-          hour < currentHourInfo.windowStart + WINDOW_HOURS
+  // Get style for an event - memoized for performance
+  const getEventStyle = useCallback((event) => {
+    const startTime = new Date(event.startTime)
+    const endTime = new Date(event.endTime)
 
-        return isBeforeMidnight && isInWindow
-      })
-    },
-    [eventDayIndices, currentHourInfo]
-  )
+    const startMinutes = startTime.getMinutes()
+    const topOffset = startMinutes === 0 ? 50 : (startMinutes / 60) * 100 + 50
 
-  // Memoize header date calculation
-  const getHeaderDate = useCallback(
-    (dayIndex) => {
-      const date = new Date(weekStart)
-      date.setDate(date.getDate() + dayIndex)
-      return date.getDate()
-    },
-    [weekStart]
-  )
+    // Calculate duration in hours and minutes
+    let durationHours = endTime.getHours() - startTime.getHours()
+    let durationMinutes = endTime.getMinutes() - startTime.getMinutes()
 
-  // Memoize today check
-  const isToday = useCallback(
-    (dayIndex) => {
-      const date = new Date(weekStart)
-      date.setDate(date.getDate() + dayIndex)
-      const today = new Date(now)
-      return (
-        date.getDate() === today.getDate() &&
-        date.getMonth() === today.getMonth() &&
-        date.getFullYear() === today.getFullYear()
-      )
-    },
-    [weekStart, now]
-  )
+    // Handle events that span across midnight
+    if (endTime.getDate() !== startTime.getDate()) {
+      // Add 24 hours to account for the day change
+      durationHours += 24
+    }
 
-  // Cache event style calculations
-  const eventStyles = useMemo(() => {
-    const styles = new Map()
+    // Handle negative minutes
+    if (durationMinutes < 0) {
+      durationHours -= 1
+      durationMinutes += 60
+    }
 
-    if (!events) return styles
+    // Calculate the raw height
+    const rawHeight = (durationHours + durationMinutes / 60) * 100
 
-    events.forEach((event) => {
-      const startTime = new Date(event.startTime)
-      const endTime = new Date(event.endTime)
+    // Determine the maximum visible height based on the last time slot
+    const lastVisibleHour = timeSlots[timeSlots.length - 1]?.hour || 23
+    const maxVisibleHeight = (lastVisibleHour - startTime.getHours()) * 100
 
-      const startMinutes = startTime.getMinutes()
-      const topOffset = startMinutes === 0 ? 50 : (startMinutes / 60) * 100 + 50
+    // Limit the height to the maximum visible height
+    const height = Math.min(rawHeight, maxVisibleHeight)
 
-      // Calculate duration in hours and minutes
-      let durationHours = endTime.getHours() - startTime.getHours()
-      let durationMinutes = endTime.getMinutes() - startTime.getMinutes()
+    const endHour = endTime.getHours()
 
-      // Handle events that span across midnight
-      if (endTime.getDate() !== startTime.getDate()) {
-        // Add 24 hours to account for the day change
-        durationHours += 24
-      }
+    // Create the base style object
+    const baseStyle = {
+      top: `${topOffset}%`,
+      height: `${height}%`,
+      borderRadius: '6px',
+      border: '2px solid var(--border-color, white)'
+    }
 
-      // Handle negative minutes
-      if (durationMinutes < 0) {
-        durationHours -= 1
-        durationMinutes += 60
-      }
+    // Check if the event extends beyond the visible time slots
+    if (endHour >= lastVisibleHour ||
+        (endTime.getDate() !== startTime.getDate() && endHour < timeSlots[0]?.hour)) {
+      // Add the dotted border to indicate the event continues beyond the visible area
+      baseStyle.borderBottomLeftRadius = '0'
+      baseStyle.borderBottomRightRadius = '0'
+      baseStyle.borderBottom = '3px dotted var(--border-color, white)'
+    }
 
-      // Calculate the raw height
-      const rawHeight = (durationHours + durationMinutes / 60) * 100
+    return baseStyle
+  }, [timeSlots])
 
-      // Determine the maximum visible height based on the last time slot
-      const lastVisibleHour = timeSlots[timeSlots.length - 1].hour
-      const maxVisibleHeight = (lastVisibleHour - startTime.getHours()) * 100
-
-      // Limit the height to the maximum visible height
-      const height = Math.min(rawHeight, maxVisibleHeight)
-
-      const endHour = endTime.getHours()
-
-      // Create the base style object
-      const baseStyle = {
-        top: `${topOffset}%`,
-        height: `${height}%`,
-        borderRadius: '6px',
-        border: '2px solid var(--border-color, white)'
-      }
-
-      // Check if the event extends beyond the visible time slots
-      if (endHour >= timeSlots[timeSlots.length - 1].hour ||
-          (endTime.getDate() !== startTime.getDate() && endHour < timeSlots[0].hour)) {
-        // Add the dotted border to indicate the event continues beyond the visible area
-        baseStyle.borderBottomLeftRadius = '0'
-        baseStyle.borderBottomRightRadius = '0'
-        baseStyle.borderBottom = '3px dotted var(--border-color, white)'
-      }
-
-      // Set the final style
-      styles.set(event.startTime, {
-        ...styles.get(event.startTime),
-        ...baseStyle
-      })
-    })
-
-    return styles
-  }, [events])
-
-  // Memoize month/year display
+  // Get month/year display - memoized for performance
   const monthYearDisplay = useMemo(() => {
     if (!locale) return ''
-    const date = new Date(now)
-    const monthYear = date.toLocaleDateString(locale, {
-      month: 'long',
-      year: 'numeric'
-    })
-    const [month, year] = monthYear.split(' ')
-    return `${month.toUpperCase()} ${year}`
+    try {
+      const date = new Date(now)
+      const monthYear = date.toLocaleDateString(locale, {
+        month: 'long',
+        year: 'numeric'
+      })
+      const [month, year] = monthYear.split(' ')
+      return `${month.toUpperCase()} ${year}`
+    } catch (error) {
+      console.error('Error formatting month/year:', error)
+      // Fallback to simple format
+      const date = new Date(now)
+      const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December']
+      return `${monthNames[date.getMonth()].toUpperCase()} ${date.getFullYear()}`
+    }
   }, [now, locale])
 
-  if (!locale) return null
+  // If not ready, show a simple loading state
+  if (!isReady || timeSlots.length === 0) {
+    return (
+      <div className='primary-card weekly-view'>
+        <div className='weekly-calendar'>
+          <div style={{ padding: '2rem', textAlign: 'center' }}>
+            Loading calendar...
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className='primary-card weekly-view'>
@@ -255,7 +261,7 @@ const WeeklyCalendarView = ({ now, events }) => {
                     <div
                       key={event.startTime}
                       className='calendar-event-item'
-                      style={eventStyles.get(event.startTime)}
+                      style={getEventStyle(event)}
                     >
                       <div className='event-title'>{event.title}</div>
                       <TimeDisplay
@@ -276,22 +282,37 @@ const WeeklyCalendarView = ({ now, events }) => {
   )
 }
 
-// Optimized TimeDisplay component
+// Optimized TimeDisplay component - memoized for performance
 const TimeDisplay = React.memo(({ startTime, endTime, locale, timezone }) => {
-  const timeString = useMemo(() => {
-    const start = new Date(startTime).toLocaleTimeString(locale, {
-      hour: 'numeric',
-      minute: '2-digit',
-      timeZone: timezone
-    })
+  const [timeString, setTimeString] = useState('')
 
-    const end = new Date(endTime).toLocaleTimeString(locale, {
-      hour: 'numeric',
-      minute: '2-digit',
-      timeZone: timezone
-    })
+  useEffect(() => {
+    const updateTime = () => {
+      try {
+        // Use toLocaleTimeString for proper formatting
+        const start = new Date(startTime).toLocaleTimeString(locale, {
+          hour: 'numeric',
+          minute: '2-digit',
+          timeZone: timezone
+        })
 
-    return `${start} - ${end}`
+        const end = new Date(endTime).toLocaleTimeString(locale, {
+          hour: 'numeric',
+          minute: '2-digit',
+          timeZone: timezone
+        })
+
+        setTimeString(`${start} - ${end}`)
+      } catch (error) {
+        console.error('Error formatting time:', error)
+        // Fallback to simple format
+        const start = new Date(startTime)
+        const end = new Date(endTime)
+        setTimeString(`${start.getHours()}:${start.getMinutes().toString().padStart(2, '0')} - ${end.getHours()}:${end.getMinutes().toString().padStart(2, '0')}`)
+      }
+    }
+
+    updateTime()
   }, [startTime, endTime, locale, timezone])
 
   return <span className='event-time'>{timeString}</span>

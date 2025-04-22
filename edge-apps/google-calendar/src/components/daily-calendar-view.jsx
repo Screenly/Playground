@@ -5,27 +5,40 @@ const DailyCalendarView = ({ now, events }) => {
   const TOTAL_HOURS = 12 // Total number of time slots to display
   const HOURS_BEFORE = 1 // Hours to show before current time
   const [timeSlots, setTimeSlots] = useState([])
+  const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {
     const generateTimeSlots = async (currentDate) => {
       const currentHour = currentDate.getHours()
       const startHour = currentHour - HOURS_BEFORE
 
-      return Promise.all(Array.from({ length: TOTAL_HOURS }, async (_, index) => {
-        const hour = (startHour + index + 24) % 24 // Ensure hour is between 0-23
+      const slots = []
+      for (let i = 0; i < TOTAL_HOURS; i++) {
+        const hour = (startHour + i + 24) % 24 // Ensure hour is between 0-23
         const slotTime = new Date(currentDate)
         slotTime.setHours(hour, 0, 0, 0)
 
-        const formattedTime = await getFormattedTime(slotTime)
-
-        return {
-          time: formattedTime,
-          hour
+        try {
+          const formattedTime = await getFormattedTime(slotTime)
+          slots.push({
+            time: formattedTime,
+            hour
+          })
+        } catch (error) {
+          console.error('Error formatting time:', error)
+          // Fallback to a simple time format if the async call fails
+          slots.push({
+            time: `${hour}:00`,
+            hour
+          })
         }
-      }))
+      }
+
+      setTimeSlots(slots)
+      setIsReady(true)
     }
 
-    generateTimeSlots(now).then(setTimeSlots)
+    generateTimeSlots(now)
   }, [now])
 
   // Helper function to check if an event belongs in a time slot
@@ -70,7 +83,7 @@ const DailyCalendarView = ({ now, events }) => {
     const rawHeight = (durationHours + durationMinutes / 60) * 100
 
     // Determine the maximum visible height based on the last time slot
-    const lastVisibleHour = timeSlots[timeSlots.length - 1].hour
+    const lastVisibleHour = timeSlots[timeSlots.length - 1]?.hour || 23
     const maxVisibleHeight = (lastVisibleHour - startHour) * 100
 
     // Limit the height to the maximum visible height
@@ -85,14 +98,27 @@ const DailyCalendarView = ({ now, events }) => {
     }
 
     // Check if the event extends beyond the visible time slots
-    if (endHour >= timeSlots[timeSlots.length - 1].hour ||
-        (endTime.getDate() !== startTime.getDate() && endHour < timeSlots[0].hour)) {
+    if (endHour >= lastVisibleHour ||
+        (endTime.getDate() !== startTime.getDate() && endHour < timeSlots[0]?.hour)) {
       style.borderBottomLeftRadius = '0'
       style.borderBottomRightRadius = '0'
       style.borderBottom = '3px dotted var(--border-color, white)'
     }
 
     return style
+  }
+
+  // If not ready, show a simple loading state
+  if (!isReady || timeSlots.length === 0) {
+    return (
+      <div className='primary-card'>
+        <div className='daily-calendar'>
+          <div style={{ padding: '2rem', textAlign: 'center' }}>
+            Loading calendar...
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -135,9 +161,17 @@ const TimeDisplay = ({ event }) => {
 
   useEffect(() => {
     const updateTime = async () => {
-      const start = await getFormattedTime(new Date(event.startTime))
-      const end = await getFormattedTime(new Date(event.endTime))
-      setTimeString(`${start} - ${end}`)
+      try {
+        const start = await getFormattedTime(new Date(event.startTime))
+        const end = await getFormattedTime(new Date(event.endTime))
+        setTimeString(`${start} - ${end}`)
+      } catch (error) {
+        console.error('Error formatting time:', error)
+        // Fallback to a simple time format if the async call fails
+        const startTime = new Date(event.startTime)
+        const endTime = new Date(event.endTime)
+        setTimeString(`${startTime.getHours()}:${startTime.getMinutes().toString().padStart(2, '0')} - ${endTime.getHours()}:${endTime.getMinutes().toString().padStart(2, '0')}`)
+      }
     }
     updateTime()
   }, [event])
