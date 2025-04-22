@@ -16,8 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Create tooltip for copy feedback
   const tooltip = document.createElement('div')
-  tooltip.className = 'copy-tooltip'
-  tooltip.style.display = 'none'
+  tooltip.classList.add('copy-tooltip')
   document.body.appendChild(tooltip)
 
   // Pagination settings
@@ -475,7 +474,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!tooltip) return
 
     tooltip.textContent = message
-    tooltip.style.display = 'block'
+    tooltip.classList.add('visible')
 
     // Position in the center of the viewport
     tooltip.style.left = '50%'
@@ -484,7 +483,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Hide after 2 seconds
     setTimeout(() => {
-      tooltip.style.display = 'none'
+      tooltip.classList.remove('visible')
     }, 2000)
   }
 
