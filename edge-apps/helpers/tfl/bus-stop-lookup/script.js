@@ -119,9 +119,8 @@ document.addEventListener('DOMContentLoaded', function () {
             table.innerHTML = '<thead><tr></tr></thead><tbody></tbody>'
             dataContainer.appendChild(table)
             tableWrapper.appendChild(dataContainer)
-          } else {
-            tableWrapper.appendChild(dataContainer)
           }
+          tableWrapper.appendChild(dataContainer)
         } else {
           // If no table wrapper, create the entire structure
           const main = document.querySelector('main')
