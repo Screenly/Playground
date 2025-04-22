@@ -233,8 +233,8 @@ document.addEventListener('DOMContentLoaded', function () {
     letterContainer.appendChild(allButton)
 
     // Add letter buttons A-Z
-    const ASCII_A = 65;
-    const ASCII_Z = 90;
+    const ASCII_A = 65
+    const ASCII_Z = 90
     for (let i = ASCII_A; i <= ASCII_Z; i++) {
       const letter = String.fromCharCode(i)
       letterContainer.appendChild(createLetterButton(letter))
