@@ -37,7 +37,8 @@ export const fetchCalendarEvents = async (accessToken) => {
       timeMin: startDate.toISOString(),
       timeMax: endDate.toISOString(),
       orderBy: 'startTime',
-      singleEvents: 'true'
+      singleEvents: 'true',
+      timeZone: 'UTC'
     })
     const calendarUrl = `${GOOGLE_CALENDAR_API_BASE_URL}/` +
       `${encodeURIComponent(calendarId)}/` +
