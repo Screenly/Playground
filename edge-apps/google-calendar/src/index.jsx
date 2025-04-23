@@ -27,6 +27,7 @@ import { TOKEN_REFRESH_INTERVAL } from '@/constants'
 // Main App Component
 const App = () => {
   const [now, setNow] = useState(new Date())
+  const [weeklyViewTime, setWeeklyViewTime] = useState(new Date())
   const [calendarDays] = useState(
     generateCalendarDays(getYear(now), getMonth(now))
   )
@@ -71,44 +72,41 @@ const App = () => {
 
     const timeInterval = setInterval(updateDateTime, 1000)
 
-    // Set up token refresh interval
+    const weeklyViewTimeInterval = setInterval(() => {
+      setWeeklyViewTime(new Date())
+    }, 60000)
+
     const tokenInterval = setInterval(refreshAccessToken, TOKEN_REFRESH_INTERVAL)
 
-    // Initial token fetch and events setup
     let eventsInterval
 
     const setupEventsFetching = async () => {
-      // Get initial token
       const token = await refreshAccessToken()
 
       if (token) {
-        // Set up events interval only after we have a token
         eventsInterval = setInterval(async () => {
           const fetchedEvents = await fetchCalendarEvents(currentTokenRef.current)
           setEvents(fetchedEvents)
         }, 5000)
 
-        // Initial events fetch
         const initialEvents = await fetchCalendarEvents(token)
         setEvents(initialEvents)
       }
     }
 
-    // Start the setup process
     setupEventsFetching()
 
     setCurrentTime(getFormattedTime(now))
 
-    // Signal ready for rendering
     try {
       screenly.signalReadyForRendering()
     } catch (error) {
       console.error('Error signaling ready for rendering:', error)
     }
 
-    // Cleanup intervals
     return () => {
       clearInterval(timeInterval)
+      clearInterval(weeklyViewTimeInterval)
       clearInterval(tokenInterval)
       if (eventsInterval) clearInterval(eventsInterval)
     }
@@ -149,7 +147,7 @@ const App = () => {
         <DailyCalendarView now={now} events={events} />
       )}
       {calendarMode === 'weekly' && (
-        <WeeklyCalendarView now={now} events={events} />
+        <WeeklyCalendarView now={weeklyViewTime} events={events} />
       )}
     </div>
   )
