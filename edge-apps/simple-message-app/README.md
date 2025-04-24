@@ -14,7 +14,6 @@ $ screenly edge-app create \
 $ screenly edge-app deploy
 # To install an app, you need to create an instance.
 $ screenly edge-app instance create
-
 ```
 
 ## Tweaking the settings
@@ -28,6 +27,7 @@ $ screenly edge-app setting set message_head='This is message head'
 # A relatively long console output...
 Edge app setting successfully set.
 ```
+
 The message app's heading should be defined as a string in the format: "This is message head".
 
 ### `message_body`
