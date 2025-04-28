@@ -1,4 +1,4 @@
-import { createSignal, createEffect } from 'solid-js'
+import { createSignal, createEffect, Show, For } from 'solid-js'
 import { getFormattedTime } from '@/utils'
 
 const DailyCalendarView = (props) => {
@@ -108,48 +108,45 @@ const DailyCalendarView = (props) => {
     return style
   }
 
-  // If not ready, show a simple loading state
-  if (!isReady() || timeSlots().length === 0) {
-    return (
-      <div class='primary-card'>
-        <div class='daily-calendar'>
-          <div style={{ padding: '2rem', textAlign: 'center' }}>
-            Loading calendar...
-          </div>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div class='primary-card'>
       <div class='daily-calendar'>
-        {timeSlots().map((slot, index) => (
-          <div key={index} class='time-slot'>
-            <div class='time-label'>{slot.time}</div>
-            <div class='time-content'>
-              <div class='hour-line' />
-              {getEventsForTimeSlot(slot.hour).map((event, eventIndex) => (
-                <div
-                  key={eventIndex}
-                  class='calendar-event-item'
-                  style={getEventStyle(event)}
-                >
-                  <div style={{
-                    marginBottom: '0.5rem'
-                  }}
-                  >
-                    {event.title}
-                  </div>
-
-                  <div>
-                    <TimeDisplay event={event} />
-                  </div>
-                </div>
-              ))}
-            </div>
+        <Show when={!isReady() || timeSlots().length === 0}>
+          <div style={{ padding: '2rem', 'text-align': 'center' }}>
+            Loading calendar...
           </div>
-        ))}
+        </Show>
+        <Show when={isReady() && timeSlots().length > 0}>
+          <For each={timeSlots()}>
+            {(slot, index) => (
+              <div class='time-slot'>
+                <div class='time-label'>{slot.time}</div>
+                <div class='time-content'>
+                  <div class='hour-line' />
+                  <For each={getEventsForTimeSlot(slot.hour)}>
+                    {(event, eventIndex) => (
+                      <div
+                        class='calendar-event-item'
+                        style={getEventStyle(event)}
+                      >
+                        <div style={{
+                          marginBottom: '0.5rem'
+                        }}
+                        >
+                          {event.title}
+                        </div>
+
+                        <div>
+                          <TimeDisplay event={event} />
+                        </div>
+                      </div>
+                    )}
+                  </For>
+                </div>
+              </div>
+            )}
+          </For>
+        </Show>
       </div>
     </div>
   )

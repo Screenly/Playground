@@ -182,20 +182,21 @@ export const initializeGlobalBrandingSettings = async () => {
     fallbackUrl = darkLogo || lightLogo
   }
 
+  // TODO: Uncomment this when ready.
   // First, try to fetch the image using the CORS proxy URL
-  try {
-    const imageUrl = await fetchImage(logoUrl)
-    imgElement.src = imageUrl
-  } catch (error) {
-    // If CORS fails, try the fallback URL
-    try {
-      const fallbackImageUrl = await fetchImage(fallbackUrl)
-      imgElement.src = fallbackImageUrl
-    } catch (fallbackError) {
-      // If fallback fails, use the default logo
-      imgElement.src = defaultLogo
-    }
-  }
+  // try {
+  //   const imageUrl = await fetchImage(logoUrl)
+  //   imgElement.src = imageUrl
+  // } catch (error) {
+  //   // If CORS fails, try the fallback URL
+  //   try {
+  //     const fallbackImageUrl = await fetchImage(fallbackUrl)
+  //     imgElement.src = fallbackImageUrl
+  //   } catch (fallbackError) {
+  //     // If fallback fails, use the default logo
+  //     imgElement.src = defaultLogo
+  //   }
+  // }
 }
 
 export const getFormattedMonthName = (date) => {

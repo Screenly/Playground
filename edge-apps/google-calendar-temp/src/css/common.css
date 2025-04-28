@@ -24,10 +24,22 @@ html {
   box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
 body {
   font-family: Aeonik, sans-serif;
   height: 100vh;
   background-color: var(--theme-color-background);
+}
+
+#app {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Colors (Theme) */

@@ -1,4 +1,4 @@
-import { createSignal, createEffect, createMemo } from 'solid-js'
+import { createEffect, createMemo, createSignal, Show, For } from 'solid-js'
 import { getLocale, getTimeZone } from '@/utils'
 import '@/components/weekly-calendar-view.css'
 
@@ -223,92 +223,101 @@ const WeeklyCalendarView = (props) => {
   })
 
   // If not ready, show a simple loading state
-  if (!isReady() || timeSlots().length === 0) {
-    return (
-      <div class='primary-card weekly-view'>
-        <div class='weekly-calendar'>
-          <div style={{ padding: '2rem', textAlign: 'center' }}>
+  return (
+    <div className='primary-card weekly-view'>
+      <div className='weekly-calendar'>
+        <Show when={!isReady() || timeSlots().length === 0}>
+          <div style={{ padding: '2rem', 'text-align': 'center' }}>
             Loading calendar...
           </div>
-        </div>
-      </div>
-    )
-  }
-
-  return (
-    <div class='primary-card weekly-view'>
-      <div class='weekly-calendar'>
-        <div class='month-year-header'>{monthYearDisplay()}</div>
-        <div class='week-header'>
-          <div class='time-label-spacer' />
-          {DAYS_OF_WEEK.map((day, index) => (
-            <div key={day} class='day-header'>
-              <span>{day} </span>
-              <span class={isToday(index) ? 'current-date' : ''}>
-                {getHeaderDate(index)}
-              </span>
-            </div>
-          ))}
-        </div>
-        <div class='week-grid'>
-          <div class='time-labels'>
-            {timeSlots().map((slot) => (
-              <div key={slot.time} class='time-label'>
-                {slot.time}
-              </div>
-            ))}
-          </div>
-          {DAYS_OF_WEEK.map((_, dayIndex) => (
-            <div key={dayIndex} class='day-column'>
-              {timeSlots().map((slot) => (
-                <div key={slot.time} class='time-slot'>
-                  <div class='hour-line' />
-                  {getEventsForTimeSlot(slot.hour, dayIndex).map((event, eventIndex) => (
-                    <div
-                      key={eventIndex}
-                      class='calendar-event-item'
-                      style={getEventStyle(event)}
-                    >
-                      <div style={{ marginBottom: '0.5rem' }}>
-                        {event.title}
-                      </div>
-                      <div>
-                        <TimeDisplay event={event} />
-                      </div>
-                    </div>
-                  ))}
+        </Show>
+        <Show when={isReady() && timeSlots().length > 0}>
+          <div className='month-year-header'>{monthYearDisplay()}</div>
+          <div className='week-header'>
+            <div className='time-label-spacer' />
+            <For each={DAYS_OF_WEEK}>
+              {(day, index) => (
+                <div className='day-header'>
+                  <span>{day} </span>
+                  <span className={isToday(index()) ? 'current-date' : ''}>
+                    {getHeaderDate(index())}
+                  </span>
                 </div>
-              ))}
-            </div>
-          ))}
-        </div>
+              )}
+            </For>
+          </div>
+          <div className='week-body'>
+            <For each={timeSlots()}>
+              {(slot) => (
+                <div className='week-row'>
+                  <div className='time-label'>{slot.time}</div>
+                  <For each={DAYS_OF_WEEK}>
+                    {(_, dayIndex) => (
+                      <div className='day-column'>
+                        <div className='hour-line' />
+                        <For each={getEventsForTimeSlot(slot.hour, dayIndex())}>
+                          {(event) => (
+                            <div
+                              className='calendar-event-item'
+                              style={getEventStyle(event)}
+                            >
+                              <div className='event-title'>{event.title}</div>
+                              <TimeDisplay
+                                startTime={event.startTime}
+                                endTime={event.endTime}
+                                locale={locale()}
+                                timezone={timezone}
+                              />
+                            </div>
+                          )}
+                        </For>
+                      </div>
+                    )}
+                  </For>
+                </div>
+              )}
+            </For>
+          </div>
+        </Show>
       </div>
     </div>
   )
 }
 
-// Helper component to handle async time formatting
+// Optimized TimeDisplay component
 const TimeDisplay = (props) => {
   const [timeString, setTimeString] = createSignal('')
 
   createEffect(() => {
-    const updateTime = async () => {
+    const updateTime = () => {
       try {
-        const start = await getFormattedTime(new Date(props.event.startTime))
-        const end = await getFormattedTime(new Date(props.event.endTime))
+        // Use toLocaleTimeString for proper formatting
+        const start = new Date(props.startTime).toLocaleTimeString(props.locale, {
+          hour: 'numeric',
+          minute: '2-digit',
+          timeZone: props.timezone
+        })
+
+        const end = new Date(props.endTime).toLocaleTimeString(props.locale, {
+          hour: 'numeric',
+          minute: '2-digit',
+          timeZone: props.timezone
+        })
+
         setTimeString(`${start} - ${end}`)
       } catch (error) {
         console.error('Error formatting time:', error)
-        // Fallback to a simple time format if the async call fails
-        const startTime = new Date(props.event.startTime)
-        const endTime = new Date(props.event.endTime)
-        setTimeString(`${startTime.getHours()}:${startTime.getMinutes().toString().padStart(2, '0')} - ${endTime.getHours()}:${endTime.getMinutes().toString().padStart(2, '0')}`)
+        // Fallback to simple format
+        const start = new Date(props.startTime)
+        const end = new Date(props.endTime)
+        setTimeString(`${start.getHours()}:${start.getMinutes().toString().padStart(2, '0')} - ${end.getHours()}:${end.getMinutes().toString().padStart(2, '0')}`)
       }
     }
+
     updateTime()
   })
 
-  return <>{timeString()}</>
+  return <span className='event-time'>{timeString()}</span>
 }
 
 export default WeeklyCalendarView

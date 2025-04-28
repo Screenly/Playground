@@ -1,67 +1,94 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const RemoveFilesWebpackPlugin = require('remove-files-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const RemovePlugin = require('remove-files-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const webpack = require('webpack')
 
 module.exports = {
-  entry: './src/index.jsx',
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
-    clean: true
+  entry: {
+    index: './src/index.jsx'
   },
-  resolve: {
-    extensions: ['.js', '.jsx'],
-    alias: {
-      '@': path.resolve(__dirname, 'src')
-    }
-  },
+
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(js|jsx|mjs)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', 'babel-preset-solid']
+            presets: [
+              '@babel/preset-env',
+              'babel-preset-solid'
+            ]
           }
         }
       },
       {
-        test: /\.(css|scss)$/,
+        test: /\.s?css$/,
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
           'sass-loader'
         ]
-      },
-      {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/resource'
       }
     ]
   },
+
   plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/index.html'
-    }),
-    new MiniCssExtractPlugin({
-      filename: 'styles.css'
-    }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'screenly.yml', to: 'screenly.yml' },
-        { from: 'instance.yml', to: 'instance.yml' },
-        { from: 'src/img', to: 'img' },
-        { from: 'src/fonts', to: 'fonts' }
+        {
+          from: 'screenly.yml',
+          to: 'screenly.yml'
+        },
+        {
+          from: 'instance.yml',
+          to: 'instance.yml'
+        },
+        {
+          from: 'src/img',
+          to: 'img'
+        }
       ]
     }),
-    new RemoveFilesWebpackPlugin({
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './src/index.html',
+      chunks: ['index']
+    }),
+
+    new MiniCssExtractPlugin(),
+
+    new RemovePlugin({
       before: {
-        include: ['./dist']
+        include: ['dist']
+      },
+      after: {
       }
     })
-  ]
+  ],
+
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src')
+    },
+    extensions: ['.js', '.jsx']
+  },
+
+  watchOptions: {
+    ignored: /node_modules/
+  },
+
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  }
 }
+
