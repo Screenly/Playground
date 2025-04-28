@@ -70,6 +70,8 @@ Some rules are not automatically fixable, so you will need to fix them manually.
 ## Obtaining an OAuth Client ID, Client Secret, and Refresh Token
 
 This section will be split into multiple parts:
+
+- Enabling the Google Calendar API
 - Configuring OAuth Consent
 - Creating an OAuth client ID
 - Initiating an OAuth flow
@@ -82,14 +84,23 @@ The first half requires browser interaction. The second half can be done only us
 - A Google Cloud Platform project
 - A Google Calendar account
 
-### Part 1: Configuring OAuth Consent
+### Part 1: Enabling the Google Calendar API
+
+- Go to the [Google Cloud Console](https://console.cloud.google.com/).
+- Click in the **API & Services** sidebar item or in the **Quick access** section.
+- Search and click on **Google Calendar API**.
+- Click **Enable** to enable the Google Calendar API.
+
+![Enable Google Calendar API](static/images/enable-google-calendar-api.png)
+
+### Part 2: Configuring OAuth Consent
 
 Follow the steps in the [this guide on configuring OAuth consent](https://developers.google.com/workspace/guides/configure-oauth-consent).
 
 - The publishing status will default to **Testing**.
 - If you want to change the publishing status, you can do so by clicking **Audience** on the sidebar and then clicking **Publish app**. You will be prompted if you want to confirm the change. Click **Confirm**.
 
-### Part 2: Creating an OAuth client ID
+### Part 3: Creating an OAuth client ID
 
 Follow the steps in the [this guide on creating an OAuth client ID](https://developers.google.com/workspace/guides/create-credentials#oauth-client-id).
 
@@ -103,7 +114,7 @@ Once done, go to [the credentials page](https://console.cloud.google.com/apis/cr
 - `auth_uri` &mdash; <https://accounts.google.com/o/oauth2/auth>
 - `token_uri` &mdash; <https://oauth2.googleapis.com/token>
 
-### Part 3: Initializing an OAuth flow
+### Part 4: Initializing an OAuth flow
 
 In this section, you will be initializing an OAuth flow by entering the following URL in your browser:
 
@@ -118,9 +129,14 @@ https://accounts.google.com/o/oauth2/v2/auth?client_id=YOUR_CLIENT_ID
 
 You will be prompted to select a Google account. Select the account you want to use to access your Google Calendar. Follow the instructions to allow access to your Google Calendar.
 
-Once redirected to your `redirect_uri`, check the URL for a `code` parameter. This is the code you will need in the next step.
+Once redirected to your `redirect_uri`, check the address bar for the `code` parameter. In the screenshot below, the `code` parameter is `[AUTHORIZATION_CODE]`. Take note that the real authorization code is redacted for privacy reasons.
 
-### Part 4: Obtaining a refresh token
+![Authorization Code](static/images/authorization-code.png)
+
+For instance, if you set the redirect URI to a localhost URL, it's expected that you will get something like a "This site can't be reached" error.
+That is expected behavior. As long as we obtain the authorization code, we can proceed to the next step.
+
+### Part 5: Obtaining a refresh token
 
 In this section, you will be obtaining a refresh token by making a request to the OAuth token endpoint.
 
@@ -129,7 +145,7 @@ Run the following command in your terminal:
 ```bash
 curl -sX POST 'https://oauth2.googleapis.com/token' \
   -H 'Content-Type: application/x-www-form-urlencoded' \
-  -d 'code=CODE' \
+  -d 'code=AUTHORIZATION_CODE' \
   -d 'client_id=YOUR_CLIENT_ID' \
   -d 'client_secret=YOUR_CLIENT_SECRET' \
   -d 'redirect_uri=YOUR_REDIRECT_URI' \
@@ -161,8 +177,6 @@ The response will include a `refresh_token` and an `access_token` that can last 
 >   "refresh_token_expires_in": 604799
 > }
 > ```
-
-Now that you have a `REFRESH_TOKEN`, you can use it to obtain `ACCESS_TOKEN`s if needed.
 
 > [!NOTE]
 > Running the command above the second time will give the following error:
