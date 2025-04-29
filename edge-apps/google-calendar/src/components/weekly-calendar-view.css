@@ -79,12 +79,14 @@
   position: absolute;
   left: 0.2rem;
   right: 0.2rem;
-  background-color: var(--theme-color-primary);
-  border-radius: 0.25rem;
-  padding: 0.25rem;
+  background-color: #E6E7E7;
+  border-radius: 0.3rem !important;
+  border-left-color: var(--theme-color-primary) !important;
+  border-width: 0 0 0 0.4rem !important;
+  padding: 0.4rem 0.4rem !important;
   font-size: 0.8rem;
   overflow: hidden;
-  color: var(--theme-color-tertiary);
+  color: var(--theme-color-text);
 }
 
 .weekly-view .event-title {
@@ -146,6 +148,7 @@
     left: 0.135rem;
     right: 0.135rem;
     border-radius: 0.17rem;
+    border-width: 0 0 0 0.23rem !important;
     padding: 0.17rem;
     font-size: 0.535rem;
   }
@@ -196,6 +199,7 @@
     left: 0.084rem;
     right: 0.084rem;
     border-radius: 0.105rem;
+    border-width: 0 0 0 0.14rem !important;
     padding: 0.105rem;
     font-size: 0.336rem;
   }
@@ -246,6 +250,7 @@
     left: 0.4rem;
     right: 0.4rem;
     border-radius: 0.5rem;
+    border-width: 0 0 0 0.67rem !important;
     padding: 0.5rem;
     font-size: 1.6rem;
   }
