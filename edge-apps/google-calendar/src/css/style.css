@@ -182,8 +182,8 @@
 .calendar-cell.current-day::before {
   content: '';
   position: absolute;
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 4rem;
+  height: 4rem;
   background-color: var(--theme-color-primary);
   border-radius: 50%;
   z-index: -1;
@@ -231,8 +231,8 @@
   }
 
   .calendar-cell.current-day::before {
-    width: 2.345rem; /* 3.5rem * 0.67 */
-    height: 2.345rem;
+    width: 2.68rem; /* 4rem * 0.67 */
+    height: 2.68rem;
   }
 
   /* Calendar Overview Card */
@@ -319,8 +319,8 @@
   }
 
   .calendar-cell.current-day::before {
-    width: 7rem; /* 3.5rem * 2 */
-    height: 7rem;
+    width: 8rem; /* 4rem * 2 */
+    height: 8rem;
   }
 
   /* Calendar Overview Card */
@@ -577,6 +577,12 @@
   .date-number {
     font-size: 13rem;
   }
+
+  .date-number-circle {
+    width: 2.68rem; /* 4rem * 0.67 */
+    height: 2.68rem;
+    margin-right: 0.5rem;
+  }
 }
 
 @media screen and (min-width: 1920px) and (orientation: landscape) {
@@ -622,6 +628,12 @@
 
   .calendar-grid {
     border-radius: 12px;
+  }
+
+  .date-number-circle {
+    width: 4rem;
+    height: 4rem;
+    margin-right: 0.75rem;
   }
 }
 
@@ -704,6 +716,12 @@
   .date-number {
     font-size: 34rem;
   }
+
+  .date-number-circle {
+    width: 8rem; /* 4rem * 2 */
+    height: 8rem;
+    margin-right: 1.5rem;
+  }
 }
 
 @media screen and (min-width: 4096px) and (orientation: landscape) {
@@ -759,6 +777,12 @@
   /* Scale factor: 2.13x */
   .info-text {
     font-size: 3.73rem; /* 1.75rem * 2.13 */
+  }
+
+  .date-number-circle {
+    width: 9.12rem; /* 4rem * 2.28 */
+    height: 9.12rem;
+    margin-right: 2rem;
   }
 }
 
@@ -830,8 +854,8 @@
   }
 
   .calendar-overview-card .calendar-date .date-number-circle {
-    width: 1.47rem; /* ~0.42x of 3.5rem */
-    height: 1.47rem; /* ~0.42x of 3.5rem */
+    width: 1.68rem; /* ~0.42x of 4rem */
+    height: 1.68rem; /* ~0.42x of 4rem */
     margin-right: 0.32rem; /* ~0.42x of 0.75rem */
     font-size: 0.84rem; /* Proportional to container size */
   }
@@ -846,8 +870,8 @@
   }
 
   .calendar-cell.current-day::before {
-    width: 1.47rem; /* 3.5rem * 0.42 */
-    height: 1.47rem;
+    width: 1.68rem; /* 4rem * 0.42 */
+    height: 1.68rem;
   }
 }
 
@@ -1007,8 +1031,8 @@
 .date-number-circle {
   background-color: var(--theme-color-tertiary);
   color: var(--theme-color-primary);
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -1019,32 +1043,32 @@
 
 @media screen and (min-width: 1280px) and (orientation: landscape) {
   .date-number-circle {
-    width: 2.35rem;
-    height: 2.35rem;
+    width: 2.68rem; /* 4rem * 0.67 */
+    height: 2.68rem;
     margin-right: 0.5rem;
   }
 }
 
 @media screen and (min-width: 1920px) and (orientation: landscape) {
   .date-number-circle {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 4rem;
+    height: 4rem;
     margin-right: 0.75rem;
   }
 }
 
 @media screen and (min-width: 3840px) and (orientation: landscape) {
   .date-number-circle {
-    width: 7rem;
-    height: 7rem;
+    width: 8rem; /* 4rem * 2 */
+    height: 8rem;
     margin-right: 1.5rem;
   }
 }
 
 @media screen and (min-width: 4096px) and (orientation: landscape) {
   .date-number-circle {
-    width: 8rem;
-    height: 8rem;
+    width: 9.12rem; /* 4rem * 2.28 */
+    height: 9.12rem;
     margin-right: 2rem;
   }
 }
