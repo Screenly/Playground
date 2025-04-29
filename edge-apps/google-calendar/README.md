@@ -77,7 +77,7 @@ This section will be split into multiple parts:
 - Initiating an OAuth flow
 - Obtaining a refresh token
 
-The first half requires browser interaction. The second half can be done only using the command line.
+The first half requires browser interaction. The second half can be done only using the command-line.
 
 ### What You Need
 
@@ -177,6 +177,8 @@ The response will include a `refresh_token` and an `access_token` that can last 
 >   "refresh_token_expires_in": 604799
 > }
 > ```
+
+You now have a refresh token that you can use in your Edge App. Save it somewhere safe so that you would not lose it.
 
 > [!NOTE]
 > Running the command above the second time will give the following error:
