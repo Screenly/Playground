@@ -24,10 +24,10 @@ const AnalogClock = ({ now }) => {
     updateClockHands()
   }, [now])
 
-  // Generate time markers
-  const timeMarkers = Array.from({ length: 60 }, (_, i) => (
-    <span key={i} style={{ '--index': i + 1 }}>
-      <p className={i % 5 === 4 ? 'major-mark' : ''} />
+  // Generate 8 markers (every 45 degrees)
+  const timeMarkers = Array.from({ length: 8 }, (_, i) => (
+    <span key={i} style={{ '--index': i }}>
+      <p />
     </span>
   ))
 
