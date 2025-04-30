@@ -61,4 +61,3 @@ settings:
     help_text: |
       Determines the visual theme for the application.
       Options are 'light' or 'dark'.
-

@@ -83,7 +83,7 @@
   border-radius: 0.3rem !important;
   border-left-color: var(--theme-color-primary) !important;
   border-width: 0 0 0 0.4rem !important;
-  padding: 0.4rem 0.4rem !important;
+  padding: 0.4rem !important;
   font-size: 0.8rem;
   overflow: hidden;
   color: var(--theme-color-text);

@@ -922,10 +922,12 @@
 
 .calendar-event-item {
   position: absolute;
-  background-color: var(--theme-color-primary);
-  color: var(--theme-color-tertiary);
+  background-color: #E6E7E7;
+  color: var(--theme-color-text);
   padding: 0.5rem;
-  border-radius: 0.4rem;
+  border-radius: 0.3rem !important;
+  border-left-color: var(--theme-color-primary) !important;
+  border-width: 0 0 0 0.4rem !important;
   margin: 0.25rem;
   font-size: 1rem;
   z-index: 2;
@@ -963,7 +965,8 @@
 
   .calendar-event-item {
     padding: 0.21rem;
-    border-radius: 0.168rem;
+    border-radius: 0.13rem !important;
+    border-width: 0 0 0 0.17rem !important;
     margin: 0.105rem;
     font-size: 0.42rem;
     right: 0.21rem;
@@ -989,7 +992,8 @@
 
   .calendar-event-item {
     padding: 0.335rem;
-    border-radius: 0.268rem;
+    border-radius: 0.2rem !important;
+    border-width: 0 0 0 0.27rem !important;
     margin: 0.1675rem;
     font-size: 0.67rem;
     right: 0.335rem;
@@ -1015,7 +1019,8 @@
 
   .calendar-event-item {
     padding: 1rem;
-    border-radius: 0.8rem;
+    border-radius: 0.6rem !important;
+    border-width: 0 0 0 0.8rem !important;
     margin: 0.5rem;
     font-size: 2rem;
     right: 1rem;
