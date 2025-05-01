@@ -29,10 +29,11 @@ A dynamic and responsive menu board for digital signage displays. This Edge App 
 
 ### Menu Items
 
-Each menu item has three components:
+Each menu item has four components:
 - `item_X_name`: Name of the menu item
 - `item_X_description`: Description of the menu item
 - `item_X_price`: Price of the menu item
+- `item_X_labels`: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
 
 Where X is a number from 1 to 25. All fields are optional - items without a name will be skipped.
 
@@ -42,15 +43,19 @@ The app comes with four default pizza options:
 
 1. Classic Margherita ($13.99)
    - San Marzano tomatoes, fresh mozzarella, basil, extra virgin olive oil
+   - Labels: vegetarian
 
 2. Pepperoni Supreme ($15.99)
    - Double pepperoni, mozzarella, parmesan, homemade tomato sauce, oregano
+   - Labels: spicy
 
 3. Four Cheese ($16.99)
    - Mozzarella, gorgonzola, parmesan, fontina, fresh basil, garlic olive oil
+   - Labels: vegetarian
 
 4. Mediterranean Veggie ($14.99)
    - Roasted bell peppers, kalamata olives, red onions, cherry tomatoes, feta, spinach
+   - Labels: vegetarian, gluten-free
 
 ## Example Configuration
 
@@ -63,10 +68,12 @@ logo_url: "assets/screenly_food.svg"
 item_1_name: "Margherita Pizza"
 item_1_description: "Fresh tomatoes, mozzarella cheese, fresh basil leaves"
 item_1_price: "13.99"
+item_1_labels: "vegetarian"
 
 item_2_name: "Pepperoni Pizza"
 item_2_description: "Classic pepperoni, mozzarella cheese"
 item_2_price: "15.99"
+item_2_labels: "spicy"
 ```
 
 ## Design Notes
@@ -74,6 +81,11 @@ item_2_price: "15.99"
 - The menu board uses a dark theme with semi-transparent overlays for optimal readability
 - Menu items are displayed in glass-effect cards with subtle hover animations
 - Prices are highlighted with the accent color
+- Labels are displayed as small badges with appropriate colors:
+  - Vegetarian: Green
+  - Spicy: Red
+  - Gluten-free: Blue
+  - Custom labels: Purple tint
 - The layout is fully responsive and works on any screen size
 - Font sizes automatically adjust based on the number of items
 - The grid system ensures consistent spacing and alignment

@@ -75,7 +75,7 @@
 
         .container {
             min-height: 100vh;
-            padding: 2rem 4rem 4rem;
+            padding: 2rem 3rem 8rem;
             background: linear-gradient(
                 to right,
                 rgba(0, 0, 0, 0.95) 0%,
@@ -84,70 +84,107 @@
             );
             position: relative;
             z-index: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .header {
+            pointer-events: auto;
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 1.5rem;
             position: relative;
-            padding-top: 1rem;
+            padding-top: 0.5rem;
         }
 
         .logo {
             position: fixed;
-            bottom: 2rem;
+            bottom: 3rem;
             left: 2rem;
             height: 60px;
             width: auto;
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-            z-index: 2;
+            z-index: 10;
             display: none;
         }
 
         h1 {
             text-align: center;
-            font-size: 4rem;
-            margin-bottom: 1rem;
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
             color: var(--accent-color);
             text-transform: uppercase;
             letter-spacing: 0.5em;
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             position: relative;
-            padding: 2rem 0;
+            padding: 0.75rem 0;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4),
                          0 0 30px var(--purple-tint);
         }
 
         .menu-grid {
+            pointer-events: auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr));
-            gap: 2rem;
-            padding: 1rem;
-            max-width: 1600px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+            padding: 0 1rem;
+            max-width: 1920px;
             margin: 0 auto;
-            overflow-y: auto;
-            max-height: calc(100vh - 15rem);
+            width: 100%;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .menu-grid.fade-out {
+            opacity: 0;
+        }
+
+        .pager {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem;
+            border-radius: 2rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .page-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .page-dot.active {
+            background: var(--accent-color);
+            transform: scale(1.2);
         }
 
         .menu-item {
             background: rgba(8, 8, 24, 0.95);
             backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 2rem;
+            border-radius: 12px;
+            padding: 1.25rem;
             display: grid;
             grid-template-areas:
                 "title title"
-                "desc price";
+                "desc price"
+                "labels labels";
             grid-template-columns: 1fr auto;
-            grid-template-rows: auto 1fr;
+            grid-template-rows: auto 1fr auto;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
             position: relative;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
-            min-height: 160px;
+            min-height: 140px;
         }
 
         .menu-item:hover {
@@ -159,8 +196,8 @@
 
         .menu-item h2 {
             grid-area: title;
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
             color: var(--accent-color);
             font-family: 'Playfair Display', serif;
             font-weight: 600;
@@ -174,8 +211,8 @@
         }
 
         .menu-item p {
-            font-size: 1rem;
-            line-height: 1.5;
+            font-size: 0.9rem;
+            line-height: 1.4;
             color: rgba(255, 255, 255, 0.9);
             margin: 0;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -183,7 +220,7 @@
 
         .price {
             grid-area: price;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: var(--accent-color);
             font-family: 'Playfair Display', serif;
             font-weight: 600;
@@ -199,46 +236,98 @@
             margin-right: 0.1em;
         }
 
-        @media (max-width: 1200px) {
+        .labels {
+            grid-area: labels;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.25rem;
+        }
+
+        .label {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 1rem;
+            background: var(--purple-tint);
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .label.vegetarian {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+        }
+
+        .label.spicy {
+            background: rgba(244, 67, 54, 0.2);
+            color: #F44336;
+        }
+
+        .label.gluten-free {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2196F3;
+        }
+
+        @media (max-width: 1600px) {
             .menu-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                grid-template-columns: repeat(3, 1fr);
             }
 
-            #background {
-                width: 100%;
-                opacity: 0.15;
-            }
-
-            .container {
-                background: linear-gradient(
-                    to bottom,
-                    rgba(0, 0, 0, 0.95) 0%,
-                    rgba(0, 0, 0, 0.9) 100%
-                );
+            .menu-item {
+                min-height: 130px;
             }
         }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 2rem;
+        @media (max-width: 1200px) {
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
             }
 
             h1 {
                 font-size: 2.5rem;
-                letter-spacing: 0.3em;
             }
 
-            .menu-grid {
-                gap: 1.5rem;
+            .container {
+                padding: 1.5rem 2rem 6rem;
             }
 
             .menu-item {
-                padding: 1.5rem;
+                padding: 1rem;
+            }
+
+            .menu-item h2 {
+                font-size: 1.3rem;
+            }
+
+            .price {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 1rem 1.5rem 5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+                letter-spacing: 0.3em;
+            }
+
+            .menu-item {
+                min-height: auto;
             }
 
             .logo {
                 height: 40px;
-                bottom: 1rem;
+                bottom: 2rem;
                 left: 1rem;
             }
         }
@@ -265,6 +354,7 @@
             <h1 id="title">Today's Menu</h1>
         </div>
         <div class="menu-grid" id="menuGrid"></div>
+        <div class="pager" id="pager"></div>
         <div id="errorState" class="error-state">
             <h2>Unable to load menu</h2>
             <p>Please check your connection and try again.</p>
@@ -277,7 +367,8 @@
             menu_title: "Today's Menu",
             accent_color: "rgba(255, 255, 255, 0.95)",
             background_image: "assets/pizza.png",
-            logo_url: "assets/screenly_food.svg"
+            logo_url: "assets/screenly_food.svg",
+            slide_duration: 10
         };
 
         // Initialize the menu board
@@ -331,29 +422,95 @@
                         menuItems.push({
                             name: name.trim(),
                             description: settings[`item_${i}_description`]?.trim() || '',
-                            price: settings[`item_${i}_price`]?.trim() || ''
+                            price: settings[`item_${i}_price`]?.trim() || '',
+                            labels: settings[`item_${i}_labels`]?.trim() || ''
                         });
                     }
                 }
 
-                // Render menu items efficiently
+                // Calculate items per page based on viewport
+                const calculateItemsPerPage = () => {
+                    const viewportWidth = window.innerWidth;
+                    if (viewportWidth >= 1920) return 12; // 4 columns * 3 rows
+                    if (viewportWidth >= 1600) return 9;  // 3 columns * 3 rows
+                    if (viewportWidth >= 1200) return 6;  // 2 columns * 3 rows
+                    return 3; // 1 column * 3 rows
+                };
+
+                const itemsPerPage = calculateItemsPerPage();
+                const totalPages = Math.ceil(menuItems.length / itemsPerPage);
+
+                // Create pager dots
+                const pager = document.getElementById('pager');
+                if (totalPages > 1) {
+                    pager.style.display = 'flex';
+                    pager.innerHTML = Array(totalPages).fill().map((_, i) =>
+                        `<div class="page-dot ${i === 0 ? 'active' : ''}" data-page="${i}"></div>`
+                    ).join('');
+                } else {
+                    pager.style.display = 'none';
+                }
+
+                let currentPage = 0;
                 const menuGrid = document.getElementById('menuGrid');
-                const fragment = document.createDocumentFragment();
 
-                menuItems.forEach(item => {
-                    const itemElement = document.createElement('div');
-                    itemElement.className = 'menu-item';
-                    itemElement.innerHTML = `
-                        <h2>${escapeHtml(item.name)}</h2>
-                        <div class="content">
-                            <p>${escapeHtml(item.description)}</p>
-                        </div>
-                        <div class="price">${escapeHtml(item.price)}</div>
-                    `;
-                    fragment.appendChild(itemElement);
-                });
+                // Function to render a specific page
+                const renderPage = (page) => {
+                    const start = page * itemsPerPage;
+                    const end = start + itemsPerPage;
+                    const pageItems = menuItems.slice(start, end);
 
-                menuGrid.appendChild(fragment);
+                    const fragment = document.createDocumentFragment();
+                    pageItems.forEach(item => {
+                        const itemElement = document.createElement('div');
+                        itemElement.className = 'menu-item';
+
+                        let labelsHtml = '';
+                        if (item.labels) {
+                            const labels = item.labels.split(',').map(label => label.trim());
+                            labelsHtml = `
+                                <div class="labels">
+                                    ${labels.map(label => `<span class="label ${label.toLowerCase()}">${label}</span>`).join('')}
+                                </div>
+                            `;
+                        }
+
+                        itemElement.innerHTML = `
+                            <h2>${escapeHtml(item.name)}</h2>
+                            <div class="content">
+                                <p>${escapeHtml(item.description)}</p>
+                            </div>
+                            <div class="price">${escapeHtml(item.price)}</div>
+                            ${labelsHtml}
+                        `;
+                        fragment.appendChild(itemElement);
+                    });
+
+                    // Update active page dot
+                    document.querySelectorAll('.page-dot').forEach((dot, i) => {
+                        dot.classList.toggle('active', i === page);
+                    });
+
+                    // Fade out, update content, fade in
+                    menuGrid.classList.add('fade-out');
+                    setTimeout(() => {
+                        menuGrid.innerHTML = '';
+                        menuGrid.appendChild(fragment);
+                        menuGrid.classList.remove('fade-out');
+                    }, 500);
+                };
+
+                // Initial render
+                renderPage(0);
+
+                // Auto-advance pages
+                if (totalPages > 1) {
+                    const slideDuration = (settings.slide_duration || DEFAULT_SETTINGS.slide_duration) * 1000;
+                    setInterval(() => {
+                        currentPage = (currentPage + 1) % totalPages;
+                        renderPage(currentPage);
+                    }, slideDuration);
+                }
 
             } catch (error) {
                 console.error('Failed to initialize menu board:', error);

@@ -1,0 +1,117 @@
+metadata:
+  coordinates:
+  - '37.3861'
+  - '-122.0839'
+  hardware: x86
+  hostname: srly-t6kb0ta1jrd9o0w
+  location: Silicon Valley, USA
+  screen_name: Code Cafe Pizzeria
+  tags:
+  - All Screens
+
+settings:
+  menu_title: "Artisan Pizza Menu"
+  background_image: "assets/pizza.png"
+  accent_color: "rgba(255, 255, 255, 0.95)"
+  logo_url: "assets/screenly_food.svg"
+
+  # Classic Pizzas
+  item_1_name: "Classic Margherita"
+  item_1_description: "San Marzano tomatoes, fresh mozzarella, basil, extra virgin olive oil"
+  item_1_price: "13.99"
+  item_1_labels: "vegetarian"
+
+  item_2_name: "Pepperoni Supreme"
+  item_2_description: "Double pepperoni, mozzarella, parmesan, homemade tomato sauce, oregano"
+  item_2_price: "15.99"
+  item_2_labels: "spicy"
+
+  item_3_name: "Four Cheese"
+  item_3_description: "Mozzarella, gorgonzola, parmesan, fontina, fresh basil, garlic olive oil"
+  item_3_price: "16.99"
+  item_3_labels: "vegetarian"
+
+  item_4_name: "Mediterranean Veggie"
+  item_4_description: "Roasted bell peppers, kalamata olives, red onions, cherry tomatoes, feta, spinach"
+  item_4_price: "14.99"
+  item_4_labels: "vegetarian,gluten-free"
+
+  item_5_name: "Truffle Mushroom"
+  item_5_description: "Wild mushrooms, truffle oil, fontina, garlic, fresh thyme, arugula"
+  item_5_price: "18.99"
+  item_5_labels: "vegetarian"
+
+  item_6_name: "BBQ Chicken"
+  item_6_description: "Grilled chicken, red onions, cilantro, smoked gouda, house BBQ sauce"
+  item_6_price: "16.99"
+  item_6_labels: "spicy"
+
+  item_7_name: "Spicy Hawaiian"
+  item_7_description: "Prosciutto, fresh pineapple, jalapeños, mozzarella, spicy honey drizzle"
+  item_7_price: "17.99"
+  item_7_labels: "spicy"
+
+  item_8_name: "Buffalo Chicken"
+  item_8_description: "Buffalo chicken, blue cheese, celery, ranch drizzle, mozzarella"
+  item_8_price: "16.99"
+  item_8_labels: "spicy"
+
+  item_9_name: "Vegan Supreme"
+  item_9_description: "Plant-based mozzarella, mushrooms, bell peppers, onions, olives, vegan sausage"
+  item_9_price: "17.99"
+  item_9_labels: "vegan,vegetarian"
+
+  item_10_name: "Garden Pesto"
+  item_10_description: "Basil pesto, cherry tomatoes, artichokes, vegan mozzarella, pine nuts"
+  item_10_price: "16.99"
+  item_10_labels: "vegan,vegetarian,gluten-free"
+
+  item_11_name: "Fig & Prosciutto"
+  item_11_description: "Fresh figs, prosciutto, gorgonzola, balsamic glaze, arugula"
+  item_11_price: "19.99"
+  item_11_labels: "seasonal"
+
+  item_12_name: "Seafood Delight"
+  item_12_description: "Shrimp, calamari, mussels, garlic, fresh herbs, lemon zest"
+  item_12_price: "21.99"
+  item_12_labels: "seafood"
+
+  item_13_name: "Wild Mushroom Tartufata"
+  item_13_description: "Assorted wild mushrooms, truffle paste, fontina, fresh thyme"
+  item_13_price: "18.99"
+  item_13_labels: "vegetarian"
+
+  item_14_name: "Mediterranean Lamb"
+  item_14_description: "Spiced lamb, feta, mint, red onions, tzatziki drizzle"
+  item_14_price: "19.99"
+  item_14_labels: "spicy"
+
+  item_15_name: "Calabrian Heat"
+  item_15_description: "Spicy Calabrian salami, hot honey, burrata, basil"
+  item_15_price: "18.99"
+  item_15_labels: "spicy"
+
+  item_16_name: "Greek Goddess"
+  item_16_description: "Spinach, feta, olives, sun-dried tomatoes, oregano, garlic oil"
+  item_16_price: "15.99"
+  item_16_labels: "vegetarian"
+
+  item_17_name: "Napoli Special"
+  item_17_description: "Anchovies, capers, olives, oregano, extra virgin olive oil"
+  item_17_price: "16.99"
+  item_17_labels: "seafood"
+
+  item_18_name: "Alpine Delight"
+  item_18_description: "Raclette cheese, potato, pancetta, caramelized onions, rosemary"
+  item_18_price: "18.99"
+  item_18_labels: "seasonal"
+
+  item_19_name: "Breakfast Pizza"
+  item_19_description: "Eggs, bacon, potato, cheddar, chives, hollandaise drizzle"
+  item_19_price: "16.99"
+  item_19_labels: "breakfast"
+
+  item_20_name: "Dessert Pizza"
+  item_20_description: "Nutella, mascarpone, fresh berries, powdered sugar, mint"
+  item_20_price: "14.99"
+  item_20_labels: "vegetarian,dessert"
