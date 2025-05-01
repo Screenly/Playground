@@ -1,6 +1,6 @@
 ---
 syntax: manifest_v1
-id: 01JT5XGWXGH2GHA3JE8XQ1D36F
+id:
 description: 'A dynamic menu board that can display up to 25 menu items'
 author: 'Screenly, Inc'
 homepage_url: 'https://www.screenly.io'
