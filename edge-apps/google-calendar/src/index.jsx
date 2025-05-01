@@ -108,7 +108,14 @@ const App = () => {
     setupEventsFetching()
 
     setupLocale()
-    setCurrentTime(getFormattedTime(now))
+
+    getFormattedTime(now)
+      .then((time) => {
+        setCurrentTime(time)
+      })
+      .catch((error) => {
+        console.error('Error setting up time:', error)
+      })
 
     try {
       screenly.signalReadyForRendering()
