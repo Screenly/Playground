@@ -11,7 +11,8 @@ import {
   getYear,
   getMonth,
   getDate,
-  getAccessToken
+  getAccessToken,
+  getLocale
 } from '@/utils'
 import MonthlyCalendarView from '@/components/monthly-calendar-view'
 import CalendarOverview from '@/components/calendar-overview'
@@ -37,6 +38,7 @@ const App = () => {
     screenly.settings.calendar_mode || 'monthly'
   )
   const [currentTime, setCurrentTime] = useState('')
+  const [locale, setLocale] = useState('en-US')
   const currentTokenRef = useRef('')
 
   const updateDateTime = async () => {
@@ -94,8 +96,18 @@ const App = () => {
       }
     }
 
+    const setupLocale = async () => {
+      try {
+        const fetchedLocale = await getLocale()
+        setLocale(fetchedLocale)
+      } catch (error) {
+        console.error('Error fetching locale:', error)
+      }
+    }
+
     setupEventsFetching()
 
+    setupLocale()
     setCurrentTime(getFormattedTime(now))
 
     try {
@@ -124,6 +136,7 @@ const App = () => {
                 currentYear={getYear(now)}
                 currentTime={currentTime}
                 events={events}
+                locale={locale}
               />
               )
             : (

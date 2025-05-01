@@ -1,41 +1,44 @@
 import React, { useEffect, useState } from 'react'
+import { getFormattedTime } from '@/utils'
+
+const StyledFormattedTime = ({ formattedTime }) => {
+  if (!formattedTime || typeof formattedTime !== 'string') {
+    return ''
+  }
+
+  if (formattedTime.endsWith('AM') || formattedTime.endsWith('PM')) {
+    return (
+      <span>
+        {formattedTime.slice(0, -2)}
+        <span
+          style={{
+            fontSize: '0.75em',
+            color: 'var(--theme-color-accent)'
+          }}
+        >
+          {formattedTime.slice(-2)}
+        </span>
+      </span>
+    )
+  } else {
+    return formattedTime
+  }
+}
 
 const CalendarOverview = ({
   currentDate,
   currentMonthName,
   currentYear,
   currentTime,
-  events
+  events,
+  locale
 }) => {
   const [formattedTime, setFormattedTime] = useState('')
   const [filteredEvents, setFilteredEvents] = useState([])
-
-  const getStyledFormattedTime = () => {
-    if (formattedTime.endsWith('AM') || formattedTime.endsWith('PM')) {
-      return (
-        <span>
-          {formattedTime.slice(0, -2)}
-          <span
-            style={{
-              fontSize: '0.75em',
-              color: 'var(--theme-color-accent)'
-            }}
-          >
-            {formattedTime.slice(-2)}
-          </span>
-        </span>
-      )
-    } else {
-      return formattedTime
-    }
-  }
+  const [formattedEventTimes, setFormattedEventTimes] = useState({})
 
   useEffect(() => {
-    const updateTime = async () => {
-      const time = await currentTime
-      setFormattedTime(time)
-    }
-    updateTime()
+    setFormattedTime(currentTime)
   }, [currentTime])
 
   useEffect(() => {
@@ -49,8 +52,21 @@ const CalendarOverview = ({
       return eventStart >= now && eventStart < tomorrow
     })
 
+    // Sort events by start time
+    upcomingEvents.sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
+
     setFilteredEvents(upcomingEvents)
-  }, [events])
+
+    // Format times for all events
+    const times = {}
+    upcomingEvents.forEach(event => {
+      getFormattedTime(new Date(event.startTime), locale)
+        .then(formattedTime => {
+          times[event.startTime] = formattedTime
+          setFormattedEventTimes(prev => ({ ...prev, ...times }))
+        })
+    })
+  }, [events, locale])
 
   return (
     <div className='secondary-card calendar-overview-card'>
@@ -61,21 +77,39 @@ const CalendarOverview = ({
             {currentMonthName} {currentYear}
           </span>
         </div>
-        <div className='calendar-event'>
+        <div className='calendar-event' style={{ width: '100%' }}>
           {filteredEvents.length > 0
             ? (
                 filteredEvents.map((event, index) => (
-                  <p key={index}>{event.title}</p>
+                  <div
+                    key={index}
+                    style={{
+                      display: 'flex',
+                      fontSize: '0.7em',
+                      paddingTop: '1rem',
+                      paddingBottom: '1rem',
+                      borderBottom: '1px solid rgba(255, 255, 255, 0.75)'
+                    }}
+                  >
+                    <div style={{ marginRight: '1rem', flexShrink: 0 }}>•</div>
+                    <div style={{ flex: 1 }}>
+                      <span style={{ fontWeight: 'bold' }}>
+                        {formattedEventTimes[event.startTime] || '...'}
+                      </span>
+                      <br />
+                      {event.title}
+                    </div>
+                  </div>
                 ))
               )
             : (
-              <p>Nothing scheduled in next 24 hours</p>
+              <p style={{ fontSize: '0.9em' }}>Nothing scheduled in next 24 hours</p>
               )}
         </div>
       </div>
       <div className='calendar-bottom'>
         <h1 className='calendar-time'>
-          {getStyledFormattedTime()}
+          <StyledFormattedTime formattedTime={formattedTime} />
         </h1>
       </div>
     </div>

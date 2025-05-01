@@ -26,8 +26,11 @@ export async function getLocale () {
   return locale.replace('_', '-')
 }
 
-export const getFormattedTime = async (date = new Date()) => {
-  const hourCycles = new Intl.Locale(await getLocale()).hourCycles
+export const getFormattedTime = async (
+  date = new Date(),
+  locale = null
+) => {
+  const hourCycles = new Intl.Locale(locale || await getLocale()).hourCycles
   let hourFormat = 'numeric'
 
   if (hourCycles.length === 1) {
