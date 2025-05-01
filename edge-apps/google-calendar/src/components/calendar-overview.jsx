@@ -10,6 +10,26 @@ const CalendarOverview = ({
   const [formattedTime, setFormattedTime] = useState('')
   const [filteredEvents, setFilteredEvents] = useState([])
 
+  const getStyledFormattedTime = () => {
+    if (formattedTime.endsWith('AM') || formattedTime.endsWith('PM')) {
+      return (
+        <span>
+          {formattedTime.slice(0, -2)}
+          <span
+            style={{
+              fontSize: '0.75em',
+              color: 'var(--theme-color-accent)'
+            }}
+          >
+            {formattedTime.slice(-2)}
+          </span>
+        </span>
+      )
+    } else {
+      return formattedTime
+    }
+  }
+
   useEffect(() => {
     const updateTime = async () => {
       const time = await currentTime
@@ -54,7 +74,9 @@ const CalendarOverview = ({
         </div>
       </div>
       <div className='calendar-bottom'>
-        <h1 className='calendar-time'>{formattedTime}</h1>
+        <h1 className='calendar-time'>
+          {getStyledFormattedTime()}
+        </h1>
       </div>
     </div>
   )
