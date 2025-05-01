@@ -1,0 +1,28 @@
+---
+name: Deploy Welcome App
+
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'edge-apps/welcome-app/**'
+      - '.github/workflows/deploy-welcome-app.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      APP_PATH: 'edge-apps/welcome-app'
+      MANIFEST_FILE_NAME: 'screenly.yml'
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Deploy Edge App
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_PRODUCTION }}
+          # yamllint disable-line rule:line-length
+          cli_commands: edge-app deploy --path=${{ env.APP_PATH }}
