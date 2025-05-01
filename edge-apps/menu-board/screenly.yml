@@ -1,0 +1,453 @@
+---
+syntax: manifest_v1
+id: 01JT5XGWXGH2GHA3JE8XQ1D36F
+description: 'A dynamic menu board that can display up to 25 menu items'
+author: 'Screenly, Inc'
+homepage_url: 'https://www.screenly.io'
+entrypoint:
+  type: file
+
+settings:
+  logo_url:
+    type: string
+    title: "Restaurant Logo URL"
+    help_text: "URL to your restaurant's logo image"
+    optional: true
+    default_value: "assets/screenly_food.svg"
+
+  background_image:
+    type: string
+    title: "Background Image URL"
+    help_text: "URL to a background image. For best results, use a dark/subtle image."
+    optional: true
+    default_value: "assets/pizza.png"
+
+  menu_title:
+    type: string
+    title: "Menu Title"
+    help_text: "The title shown at the top of the menu"
+    default_value: "Today's Menu"
+    optional: false
+
+  accent_color:
+    type: string
+    title: "Accent Color"
+    help_text: "Color used for titles and prices (default is white with a subtle purple tint)"
+    default_value: "rgba(255, 255, 255, 0.95)"
+    optional: true
+
+  # Default Menu Items (1-4)
+  item_1_name:
+    type: string
+    title: "Item 1 - Name"
+    help_text: "Name of menu item 1"
+    optional: true
+    default_value: "Classic Margherita"
+  item_1_description:
+    type: string
+    title: "Item 1 - Description"
+    help_text: "Description of menu item 1"
+    optional: true
+    default_value: "San Marzano tomatoes, fresh mozzarella, basil, extra virgin olive oil"
+  item_1_price:
+    type: string
+    title: "Item 1 - Price"
+    help_text: "Price of menu item 1 (e.g. 10.00)"
+    optional: true
+    default_value: "13.99"
+
+  item_2_name:
+    type: string
+    title: "Item 2 - Name"
+    help_text: "Name of menu item 2"
+    optional: true
+    default_value: "Pepperoni Supreme"
+  item_2_description:
+    type: string
+    title: "Item 2 - Description"
+    help_text: "Description of menu item 2"
+    optional: true
+    default_value: "Double pepperoni, mozzarella, parmesan, homemade tomato sauce, oregano"
+  item_2_price:
+    type: string
+    title: "Item 2 - Price"
+    help_text: "Price of menu item 2 (e.g. 12.00)"
+    optional: true
+    default_value: "15.99"
+
+  item_3_name:
+    type: string
+    title: "Item 3 - Name"
+    help_text: "Name of menu item 3"
+    optional: true
+    default_value: "Four Cheese"
+  item_3_description:
+    type: string
+    title: "Item 3 - Description"
+    help_text: "Description of menu item 3"
+    optional: true
+    default_value: "Mozzarella, gorgonzola, parmesan, fontina, fresh basil, garlic olive oil"
+  item_3_price:
+    type: string
+    title: "Item 3 - Price"
+    help_text: "Price of menu item 3"
+    optional: true
+    default_value: "16.99"
+
+  item_4_name:
+    type: string
+    title: "Item 4 - Name"
+    help_text: "Name of menu item 4"
+    optional: true
+    default_value: "Mediterranean Veggie"
+  item_4_description:
+    type: string
+    title: "Item 4 - Description"
+    help_text: "Description of menu item 4"
+    optional: true
+    default_value: "Roasted bell peppers, kalamata olives, red onions, cherry tomatoes, feta, spinach"
+  item_4_price:
+    type: string
+    title: "Item 4 - Price"
+    help_text: "Price of menu item 4"
+    optional: true
+    default_value: "14.99"
+
+  # Additional Menu Items (5-25)
+  # Each item has name, description, and price fields
+  # All fields are optional to allow flexible menu sizes
+  item_5_name:
+    type: string
+    title: "Item 5 - Name"
+    help_text: "Name of menu item 5"
+    optional: true
+  item_5_description:
+    type: string
+    title: "Item 5 - Description"
+    help_text: "Description of menu item 5"
+    optional: true
+  item_5_price:
+    type: string
+    title: "Item 5 - Price"
+    help_text: "Price of menu item 5"
+    optional: true
+
+  item_6_name:
+    type: string
+    title: "Item 6 - Name"
+    help_text: "Name of menu item 6"
+    optional: true
+  item_6_description:
+    type: string
+    title: "Item 6 - Description"
+    help_text: "Description of menu item 6"
+    optional: true
+  item_6_price:
+    type: string
+    title: "Item 6 - Price"
+    help_text: "Price of menu item 6"
+    optional: true
+
+  item_7_name:
+    type: string
+    title: "Item 7 - Name"
+    help_text: "Name of menu item 7"
+    optional: true
+  item_7_description:
+    type: string
+    title: "Item 7 - Description"
+    help_text: "Description of menu item 7"
+    optional: true
+  item_7_price:
+    type: string
+    title: "Item 7 - Price"
+    help_text: "Price of menu item 7"
+    optional: true
+
+  item_8_name:
+    type: string
+    title: "Item 8 - Name"
+    help_text: "Name of menu item 8"
+    optional: true
+  item_8_description:
+    type: string
+    title: "Item 8 - Description"
+    help_text: "Description of menu item 8"
+    optional: true
+  item_8_price:
+    type: string
+    title: "Item 8 - Price"
+    help_text: "Price of menu item 8"
+    optional: true
+
+  item_9_name:
+    type: string
+    title: "Item 9 - Name"
+    help_text: "Name of menu item 9"
+    optional: true
+  item_9_description:
+    type: string
+    title: "Item 9 - Description"
+    help_text: "Description of menu item 9"
+    optional: true
+  item_9_price:
+    type: string
+    title: "Item 9 - Price"
+    help_text: "Price of menu item 9"
+    optional: true
+
+  item_10_name:
+    type: string
+    title: "Item 10 - Name"
+    help_text: "Name of menu item 10"
+    optional: true
+  item_10_description:
+    type: string
+    title: "Item 10 - Description"
+    help_text: "Description of menu item 10"
+    optional: true
+  item_10_price:
+    type: string
+    title: "Item 10 - Price"
+    help_text: "Price of menu item 10"
+    optional: true
+
+  item_11_name:
+    type: string
+    title: "Item 11 - Name"
+    help_text: "Name of menu item 11"
+    optional: true
+  item_11_description:
+    type: string
+    title: "Item 11 - Description"
+    help_text: "Description of menu item 11"
+    optional: true
+  item_11_price:
+    type: string
+    title: "Item 11 - Price"
+    help_text: "Price of menu item 11"
+    optional: true
+
+  item_12_name:
+    type: string
+    title: "Item 12 - Name"
+    help_text: "Name of menu item 12"
+    optional: true
+  item_12_description:
+    type: string
+    title: "Item 12 - Description"
+    help_text: "Description of menu item 12"
+    optional: true
+  item_12_price:
+    type: string
+    title: "Item 12 - Price"
+    help_text: "Price of menu item 12"
+    optional: true
+
+  item_13_name:
+    type: string
+    title: "Item 13 - Name"
+    help_text: "Name of menu item 13"
+    optional: true
+  item_13_description:
+    type: string
+    title: "Item 13 - Description"
+    help_text: "Description of menu item 13"
+    optional: true
+  item_13_price:
+    type: string
+    title: "Item 13 - Price"
+    help_text: "Price of menu item 13"
+    optional: true
+
+  item_14_name:
+    type: string
+    title: "Item 14 - Name"
+    help_text: "Name of menu item 14"
+    optional: true
+  item_14_description:
+    type: string
+    title: "Item 14 - Description"
+    help_text: "Description of menu item 14"
+    optional: true
+  item_14_price:
+    type: string
+    title: "Item 14 - Price"
+    help_text: "Price of menu item 14"
+    optional: true
+
+  item_15_name:
+    type: string
+    title: "Item 15 - Name"
+    help_text: "Name of menu item 15"
+    optional: true
+  item_15_description:
+    type: string
+    title: "Item 15 - Description"
+    help_text: "Description of menu item 15"
+    optional: true
+  item_15_price:
+    type: string
+    title: "Item 15 - Price"
+    help_text: "Price of menu item 15"
+    optional: true
+
+  item_16_name:
+    type: string
+    title: "Item 16 - Name"
+    help_text: "Name of menu item 16"
+    optional: true
+  item_16_description:
+    type: string
+    title: "Item 16 - Description"
+    help_text: "Description of menu item 16"
+    optional: true
+  item_16_price:
+    type: string
+    title: "Item 16 - Price"
+    help_text: "Price of menu item 16"
+    optional: true
+
+  item_17_name:
+    type: string
+    title: "Item 17 - Name"
+    help_text: "Name of menu item 17"
+    optional: true
+  item_17_description:
+    type: string
+    title: "Item 17 - Description"
+    help_text: "Description of menu item 17"
+    optional: true
+  item_17_price:
+    type: string
+    title: "Item 17 - Price"
+    help_text: "Price of menu item 17"
+    optional: true
+
+  item_18_name:
+    type: string
+    title: "Item 18 - Name"
+    help_text: "Name of menu item 18"
+    optional: true
+  item_18_description:
+    type: string
+    title: "Item 18 - Description"
+    help_text: "Description of menu item 18"
+    optional: true
+  item_18_price:
+    type: string
+    title: "Item 18 - Price"
+    help_text: "Price of menu item 18"
+    optional: true
+
+  item_19_name:
+    type: string
+    title: "Item 19 - Name"
+    help_text: "Name of menu item 19"
+    optional: true
+  item_19_description:
+    type: string
+    title: "Item 19 - Description"
+    help_text: "Description of menu item 19"
+    optional: true
+  item_19_price:
+    type: string
+    title: "Item 19 - Price"
+    help_text: "Price of menu item 19"
+    optional: true
+
+  item_20_name:
+    type: string
+    title: "Item 20 - Name"
+    help_text: "Name of menu item 20"
+    optional: true
+  item_20_description:
+    type: string
+    title: "Item 20 - Description"
+    help_text: "Description of menu item 20"
+    optional: true
+  item_20_price:
+    type: string
+    title: "Item 20 - Price"
+    help_text: "Price of menu item 20"
+    optional: true
+
+  item_21_name:
+    type: string
+    title: "Item 21 - Name"
+    help_text: "Name of menu item 21"
+    optional: true
+  item_21_description:
+    type: string
+    title: "Item 21 - Description"
+    help_text: "Description of menu item 21"
+    optional: true
+  item_21_price:
+    type: string
+    title: "Item 21 - Price"
+    help_text: "Price of menu item 21"
+    optional: true
+
+  item_22_name:
+    type: string
+    title: "Item 22 - Name"
+    help_text: "Name of menu item 22"
+    optional: true
+  item_22_description:
+    type: string
+    title: "Item 22 - Description"
+    help_text: "Description of menu item 22"
+    optional: true
+  item_22_price:
+    type: string
+    title: "Item 22 - Price"
+    help_text: "Price of menu item 22"
+    optional: true
+
+  item_23_name:
+    type: string
+    title: "Item 23 - Name"
+    help_text: "Name of menu item 23"
+    optional: true
+  item_23_description:
+    type: string
+    title: "Item 23 - Description"
+    help_text: "Description of menu item 23"
+    optional: true
+  item_23_price:
+    type: string
+    title: "Item 23 - Price"
+    help_text: "Price of menu item 23"
+    optional: true
+
+  item_24_name:
+    type: string
+    title: "Item 24 - Name"
+    help_text: "Name of menu item 24"
+    optional: true
+  item_24_description:
+    type: string
+    title: "Item 24 - Description"
+    help_text: "Description of menu item 24"
+    optional: true
+  item_24_price:
+    type: string
+    title: "Item 24 - Price"
+    help_text: "Price of menu item 24"
+    optional: true
+
+  item_25_name:
+    type: string
+    title: "Item 25 - Name"
+    help_text: "Name of menu item 25"
+    optional: true
+  item_25_description:
+    type: string
+    title: "Item 25 - Description"
+    help_text: "Description of menu item 25"
+    optional: true
+  item_25_price:
+    type: string
+    title: "Item 25 - Price"
+    help_text: "Price of menu item 25"
+    optional: true

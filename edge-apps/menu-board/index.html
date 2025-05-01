@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dynamic menu board for digital signage">
+    <meta name="theme-color" content="#000000">
+    <title>Dynamic Menu Board</title>
+    <script src="screenly.js?version=1"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Colors */
+            --accent-color: rgba(255, 255, 255, 0.95);
+            --text-color: #ffffff;
+            --purple-tint: rgba(126, 44, 210, 0.2);
+            --card-border: rgba(255, 255, 255, 0.15);
+
+            /* Spacing */
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+
+            /* Typography */
+            --font-size-base: 1rem;
+            --font-size-lg: 1.8rem;
+            --font-size-xl: 4rem;
+
+            /* Effects */
+            --border-radius: 16px;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        @media print {
+            .menu-item {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            #background, .logo {
+                display: none !important;
+            }
+        }
+
+        body {
+            min-height: 100vh;
+            color: var(--text-color);
+            background-color: #000;
+            overflow: hidden;
+            position: relative;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        #background {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            width: 50%;
+            height: 100%;
+            object-fit: cover;
+            object-position: left center;
+            z-index: 0;
+            opacity: 0.7;
+            filter: brightness(0.7) contrast(1.2);
+            transform: translateX(0);
+        }
+
+        .container {
+            min-height: 100vh;
+            padding: 2rem 4rem 4rem;
+            background: linear-gradient(
+                to right,
+                rgba(0, 0, 0, 0.95) 0%,
+                rgba(0, 0, 0, 0.95) 45%,
+                rgba(0, 0, 0, 0) 100%
+            );
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            padding-top: 1rem;
+        }
+
+        .logo {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            height: 60px;
+            width: auto;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+            z-index: 2;
+            display: none;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5em;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            position: relative;
+            padding: 2rem 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4),
+                         0 0 30px var(--purple-tint);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr));
+            gap: 2rem;
+            padding: 1rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            overflow-y: auto;
+            max-height: calc(100vh - 15rem);
+        }
+
+        .menu-item {
+            background: rgba(8, 8, 24, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            display: grid;
+            grid-template-areas:
+                "title title"
+                "desc price";
+            grid-template-columns: 1fr auto;
+            grid-template-rows: auto 1fr;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            min-height: 160px;
+        }
+
+        .menu-item:hover {
+            border-color: rgba(126, 44, 210, 0.3);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4),
+                       0 0 20px rgba(126, 44, 210, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .menu-item h2 {
+            grid-area: title;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .content {
+            grid-area: desc;
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-item p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .price {
+            grid-area: price;
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-self: end;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .price::before {
+            content: '$';
+            font-size: 0.8em;
+            margin-right: 0.1em;
+        }
+
+        @media (max-width: 1200px) {
+            .menu-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+
+            #background {
+                width: 100%;
+                opacity: 0.15;
+            }
+
+            .container {
+                background: linear-gradient(
+                    to bottom,
+                    rgba(0, 0, 0, 0.95) 0%,
+                    rgba(0, 0, 0, 0.9) 100%
+                );
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+                letter-spacing: 0.3em;
+            }
+
+            .menu-grid {
+                gap: 1.5rem;
+            }
+
+            .menu-item {
+                padding: 1.5rem;
+            }
+
+            .logo {
+                height: 40px;
+                bottom: 1rem;
+                left: 1rem;
+            }
+        }
+
+        @supports not (backdrop-filter: blur(10px)) {
+            .menu-item {
+                background: rgba(8, 8, 24, 0.98);
+            }
+        }
+
+        .error-state {
+            display: none;
+            color: var(--accent-color);
+            text-align: center;
+            padding: var(--spacing-lg);
+        }
+    </style>
+  </head>
+  <body>
+    <img id="background" alt="Restaurant ambiance background image" role="presentation">
+    <div class="container">
+        <div class="header">
+            <img id="logo" class="logo" alt="Restaurant logo">
+            <h1 id="title">Today's Menu</h1>
+        </div>
+        <div class="menu-grid" id="menuGrid"></div>
+        <div id="errorState" class="error-state">
+            <h2>Unable to load menu</h2>
+            <p>Please check your connection and try again.</p>
+        </div>
+    </div>
+
+    <script>
+        // Default settings
+        const DEFAULT_SETTINGS = {
+            menu_title: "Today's Menu",
+            accent_color: "rgba(255, 255, 255, 0.95)",
+            background_image: "assets/pizza.png",
+            logo_url: "assets/screenly_food.svg"
+        };
+
+        // Initialize the menu board
+        function initializeMenuBoard(isDev = false) {
+            try {
+                console.log('Initializing menu board...');
+
+                // Use default settings in dev mode or merge with screenly settings
+                const settings = isDev ? DEFAULT_SETTINGS : { ...DEFAULT_SETTINGS, ...screenly.settings };
+
+                // Validate required settings
+                if (!settings.menu_title) {
+                    throw new Error('Menu title is required');
+                }
+
+                // Set custom accent color if provided
+                if (settings.accent_color) {
+                    document.documentElement.style.setProperty('--accent-color', settings.accent_color);
+                    document.documentElement.style.setProperty('--purple-tint', settings.accent_color + '20');
+                }
+
+                // Set background image with error handling
+                const bgImage = document.getElementById('background');
+                bgImage.onerror = () => {
+                    console.error('Failed to load background image');
+                    bgImage.style.display = 'none';
+                };
+                bgImage.src = settings.background_image;
+                bgImage.style.display = 'block';
+
+                // Handle logo with error handling
+                const logoElement = document.getElementById('logo');
+                logoElement.onerror = () => {
+                    console.error('Failed to load logo');
+                    logoElement.style.display = 'none';
+                    document.querySelector('.header').style.marginTop = 'var(--spacing-md)';
+                };
+                if (settings.logo_url) {
+                    logoElement.src = settings.logo_url;
+                    logoElement.style.display = 'block';
+                }
+
+                // Set menu title
+                document.getElementById('title').textContent = settings.menu_title;
+
+                // Get all menu items
+                const menuItems = [];
+                for (let i = 1; i <= 25; i++) {
+                    const name = settings[`item_${i}_name`];
+                    if (name?.trim()) {
+                        menuItems.push({
+                            name: name.trim(),
+                            description: settings[`item_${i}_description`]?.trim() || '',
+                            price: settings[`item_${i}_price`]?.trim() || ''
+                        });
+                    }
+                }
+
+                // Render menu items efficiently
+                const menuGrid = document.getElementById('menuGrid');
+                const fragment = document.createDocumentFragment();
+
+                menuItems.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'menu-item';
+                    itemElement.innerHTML = `
+                        <h2>${escapeHtml(item.name)}</h2>
+                        <div class="content">
+                            <p>${escapeHtml(item.description)}</p>
+                        </div>
+                        <div class="price">${escapeHtml(item.price)}</div>
+                    `;
+                    fragment.appendChild(itemElement);
+                });
+
+                menuGrid.appendChild(fragment);
+
+            } catch (error) {
+                console.error('Failed to initialize menu board:', error);
+                document.getElementById('errorState').style.display = 'block';
+                document.getElementById('menuGrid').style.display = 'none';
+            }
+        }
+
+        // Utility function to escape HTML and prevent XSS
+        function escapeHtml(unsafe) {
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // Initialize when the page loads
+        window.addEventListener('load', () => {
+            try {
+                if (typeof screenly !== 'undefined') {
+                    initializeMenuBoard(false);
+                } else {
+                    console.warn('Screenly not found, running in dev mode...');
+                    initializeMenuBoard(true);
+                }
+            } catch (error) {
+                console.error('Critical initialization error:', error);
+                document.getElementById('errorState').style.display = 'block';
+            }
+        });
+    </script>
+  </body>
+</html>
+
