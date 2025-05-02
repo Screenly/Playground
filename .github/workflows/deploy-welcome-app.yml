@@ -2,19 +2,13 @@
 name: Deploy Welcome App
 
 on:
-  push:
-    branches:
-      - 'master'
-    paths:
-      - 'edge-apps/welcome-app/**'
-      - '.github/workflows/deploy-welcome-app.yml'
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
       APP_PATH: 'edge-apps/welcome-app'
-      MANIFEST_FILE_NAME: 'screenly.yml'
 
     steps:
       - name: Checkout Code
