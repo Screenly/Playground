@@ -156,6 +156,17 @@ canvas {
   flex-shrink: 0;
 }
 
+.device-card {
+  flex: 0 0 auto;
+}
+
+.sources-card {
+  flex: 2;
+  min-height: clamp(12rem, 20vh, 18rem);
+  display: flex;
+  flex-direction: column;
+}
+
 .device-chart-container {
   position: relative;
   height: clamp(8rem, 25vh, 18.75rem);
@@ -164,6 +175,8 @@ canvas {
 
 .sessions-source {
   margin-top: clamp(0.75rem, calc(0.5rem + 1vw), 2rem);
+  flex: 1;
+  overflow-y: auto;
 }
 
 .source-item {
@@ -172,7 +185,7 @@ canvas {
   align-items: center;
   padding: clamp(0.5rem, 0.5vh, 1rem) 0;
   border-bottom: 1px solid var(--border-color);
-  font-size: clamp(0.7rem, calc(0.65rem + 0.25vw), 1.125rem);
+  font-size: clamp(0.85rem, calc(0.75rem + 0.35vw), 1.25rem);
   color: #fff;
   min-width: 0;
 }
@@ -189,6 +202,7 @@ canvas {
 
 .source-item span:last-child {
   white-space: nowrap;
+  font-weight: 500;
 }
 
 h1 {
@@ -219,6 +233,11 @@ h3 {
   margin-top: auto;
   padding-top: clamp(1rem, calc(0.75rem + 1vw), 2rem);
   border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  min-height: clamp(8rem, 12vh, 12rem);
 }
 
 .realtime-value {
@@ -259,6 +278,20 @@ h3 {
   .device-chart-container {
     height: clamp(7rem, 20vh, 12rem);
   }
+
+  .sources-card {
+    min-height: clamp(12rem, 15vh, 15rem);
+  }
+
+  .source-item {
+    font-size: clamp(0.8rem, calc(0.7rem + 0.3vw), 1.15rem);
+    padding: clamp(0.45rem, 0.45vh, 0.9rem) 0;
+  }
+
+  .realtime-card {
+    margin-top: clamp(0.75rem, calc(0.5rem + 1vw), 2rem);
+    border-top: none;
+  }
 }
 
 /* Small screens (like Raspberry Pi Touch Display 480x800) */
@@ -295,7 +328,8 @@ h3 {
   }
 
   .source-item {
-    padding: 0.5rem 0;
+    font-size: clamp(0.75rem, calc(0.65rem + 0.25vw), 1rem);
+    padding: clamp(0.4rem, 0.4vh, 0.8rem) 0;
   }
 
   .device-chart-container {
@@ -305,6 +339,16 @@ h3 {
 
   .realtime-value {
     margin: 0.5rem 0 0.25rem 0;
+  }
+
+  .sources-card {
+    min-height: clamp(10rem, 12vh, 12rem);
+  }
+
+  .realtime-card {
+    margin-top: clamp(0.75rem, calc(0.5rem + 0.5vw), 1.5rem);
+    padding-top: clamp(0.75rem, calc(0.5rem + 0.5vw), 1.5rem);
+    border-top: none;
   }
 }
 
