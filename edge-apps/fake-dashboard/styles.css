@@ -8,7 +8,7 @@
   --grid-color: rgba(255, 255, 255, 0.06);
   --border-color: rgba(255, 255, 255, 0.1);
   /* Default base font size with responsive scaling */
-  font-size: clamp(14px, 1vw, 18px);
+  --base-font-size: 16px;
 }
 
 html, body {
@@ -16,6 +16,7 @@ html, body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  font-size: var(--base-font-size);
 }
 
 body {
