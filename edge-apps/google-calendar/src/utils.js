@@ -33,7 +33,7 @@ export const getFormattedTime = async (
   const hourCycles = new Intl.Locale(locale || await getLocale()).hourCycles
   let hourFormat = 'numeric'
 
-  if (hourCycles.length === 1) {
+  if (hourCycles?.length === 1) {
     if (hourCycles[0] === 'h12') {
       hourFormat = 'numeric'
     } else {
