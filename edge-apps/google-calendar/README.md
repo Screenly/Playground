@@ -31,6 +31,7 @@ screenly edge-app deploy --path dist/
 See [the section on Obtaining an OAuth Client ID, Client Secret, and Refresh Token](#obtaining-an-oauth-client-id-client-secret-and-refresh-token) for instructions on how to get the refresh token, client ID, and client secret.
 
 ```bash
+screenly edge-app setting set calendar_source_type=api
 screenly edge-app setting set refresh_token=<GOOGLE_OAUTH_REFRESH_TOKEN>
 screenly edge-app setting set client_id=<GOOGLE_OAUTH_CLIENT_ID>
 screenly edge-app setting set client_secret=<GOOGLE_OAUTH_CLIENT_SECRET>
@@ -42,6 +43,7 @@ See [the section on Getting the iCal URL](#getting-the-ical-url) for instruction
 
 ```bash
 screenly edge-app setting set bypass_cors=true
+screenly edge-app setting set calendar_source_type=ical
 screenly edge-app settings set ical_url=<YOUR_ICAL_URL>
 ```
 
@@ -64,11 +66,15 @@ screenly edge-app run --generate-mock-data --path dist/
 
 Update `dist/mock-data.yml` and update the values of `refresh_token`, `client_id`, and `client_secret` with the values you obtained in the [Obtaining an OAuth Client ID, Client Secret, and Refresh Token](#obtaining-an-oauth-client-id-client-secret-and-refresh-token) section.
 
+Update `dist/mock-data.yml` and update the values of `calendar_source_type` with `api`.
+
 **Option 2: Getting Calendar Events via iCal**
 
 See [the section on Getting the iCal URL](#getting-the-ical-url) for instructions on how to get the iCal URL.
 
 Update `dist/mock-data.yml` and update the values of `ical_url` and `bypass_cors` with the URL of the iCal feed you want to use and `true` respectively.
+
+Update `dist/mock-data.yml` and update the values of `calendar_source_type` with `ical`.
 
 ### Running the Development Server
 
