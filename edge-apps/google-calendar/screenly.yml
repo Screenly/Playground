@@ -6,12 +6,24 @@ icon: https://playground.srly.io/edge-apps/google-calendar/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 settings:
+  bypass_cors:
+    type: string
+    title: Bypass CORS
+    optional: true
+    help_text: Bypass CORS for the iCal URL
+    default_value: 'false'
   calendar_mode:
     type: string
     title: Calendar Mode
     optional: true
     help_text: Choose between monthly, weekly, or daily calendar view
     default_value: 'monthly'
+  calendar_source_type:
+    type: string
+    title: Calendar Source Type
+    optional: true
+    help_text: Choose between 'api' or 'ical'
+    default_value: 'ical'
   enable_analytics:
     type: string
     default_value: 'true'
@@ -22,8 +34,13 @@ settings:
   refresh_token:
     type: secret
     title: Google OAuth Refresh Token
-    optional: false
+    optional: true
     help_text: Specify the Google OAuth Refresh Token
+  ical_url:
+    type: secret
+    title: iCal URL
+    optional: true
+    help_text: Specify the URL to the iCal feed
   client_id:
     type: secret
     title: Google OAuth Client ID

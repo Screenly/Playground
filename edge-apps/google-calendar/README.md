@@ -26,12 +26,23 @@ npm run build
 screenly edge-app deploy --path dist/
 ```
 
+### Option 1: Getting Calendar Events via API
+
 See [the section on Obtaining an OAuth Client ID, Client Secret, and Refresh Token](#obtaining-an-oauth-client-id-client-secret-and-refresh-token) for instructions on how to get the refresh token, client ID, and client secret.
 
 ```bash
 screenly edge-app setting set refresh_token=<GOOGLE_OAUTH_REFRESH_TOKEN>
 screenly edge-app setting set client_id=<GOOGLE_OAUTH_CLIENT_ID>
 screenly edge-app setting set client_secret=<GOOGLE_OAUTH_CLIENT_SECRET>
+```
+
+### Option 2: Getting Calendar Events via iCal
+
+See [the section on Getting the iCal URL](#getting-the-ical-url) for instructions on how to get the iCal URL.
+
+```bash
+screenly edge-app setting set bypass_cors=true
+screenly edge-app settings set ical_url=<YOUR_ICAL_URL>
 ```
 
 ## Development
@@ -49,9 +60,17 @@ Run the following on a second terminal to generate mock data:
 screenly edge-app run --generate-mock-data --path dist/
 ```
 
+### Option 1: Getting Calendar Events via API
+
 Update `dist/mock-data.yml` and update the values of `refresh_token`, `client_id`, and `client_secret` with the values you obtained in the [Obtaining an OAuth Client ID, Client Secret, and Refresh Token](#obtaining-an-oauth-client-id-client-secret-and-refresh-token) section.
 
-Run the following on that same terminal to start the Edge App server:
+### Option 2: Getting Calendar Events via iCal
+
+See [the section on Getting the iCal URL](#getting-the-ical-url) for instructions on how to get the iCal URL.
+
+Update `dist/mock-data.yml` and update the values of `ical_url` and `bypass_cors` with the URL of the iCal feed you want to use and `true` respectively.
+
+### Running the Development Server
 
 ```bash
 screenly edge-app run --path dist/
@@ -189,3 +208,18 @@ You now have a refresh token that you can use in your Edge App. Save it somewher
 >   "error_description": "Bad Request"
 > }
 > ```
+
+### Getting the iCal URL
+
+- Go to your [Google Calendar](https://google.com/calendar).
+- On the left sidebar, under "My calendars", select the calendar you want
+  to use.
+- Click on the three dots on the right side of the calendar and select
+  "Settings and sharing".
+- Scroll down until you see "Secret address in iCal format".
+  Click on the copy button to the right.
+- A "Security warning" will appear, saying that
+  "[you] should not give the secret address to other people".
+  Click "OK" to continue.
+- The secret address will be copied to your clipboard, which you can use
+  into the Edge App settings.

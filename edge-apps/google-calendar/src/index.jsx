@@ -17,7 +17,7 @@ import {
 import MonthlyCalendarView from '@/components/monthly-calendar-view'
 import CalendarOverview from '@/components/calendar-overview'
 import InfoCard from '@/components/info-card'
-import { fetchCalendarEvents } from '@/events'
+import { fetchCalendarEventsFromAPI, fetchCalendarEventsFromICal } from '@/events'
 import '@/css/common.css'
 import '@/css/style.css'
 import DailyCalendarView from '@/components/daily-calendar-view'
@@ -83,16 +83,29 @@ const App = () => {
     let eventsInterval
 
     const setupEventsFetching = async () => {
-      const token = await refreshAccessToken()
+      const { calendar_source_type: sourceType } = screenly.settings
 
-      if (token) {
-        eventsInterval = setInterval(async () => {
-          const fetchedEvents = await fetchCalendarEvents(currentTokenRef.current)
+      if (sourceType === 'api') {
+        const token = await refreshAccessToken()
+
+        if (token) {
+          eventsInterval = setInterval(async () => {
+            const fetchedEvents = await fetchCalendarEventsFromAPI(currentTokenRef.current)
+            setEvents(fetchedEvents)
+          }, 5000)
+
+          const initialEvents = await fetchCalendarEventsFromAPI(token)
+          setEvents(initialEvents)
+        }
+      } else if (sourceType === 'ical') {
+        // For iCal, fetch events immediately and set up interval
+        const fetchICalEvents = async () => {
+          const fetchedEvents = await fetchCalendarEventsFromICal()
           setEvents(fetchedEvents)
-        }, 5000)
+        }
 
-        const initialEvents = await fetchCalendarEvents(token)
-        setEvents(initialEvents)
+        eventsInterval = setInterval(fetchICalEvents, 5000)
+        await fetchICalEvents()
       }
     }
 
