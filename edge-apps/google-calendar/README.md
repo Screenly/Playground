@@ -26,7 +26,7 @@ npm run build
 screenly edge-app deploy --path dist/
 ```
 
-### Option 1: Getting Calendar Events via API
+**Option 1: Getting Calendar Events via API**
 
 See [the section on Obtaining an OAuth Client ID, Client Secret, and Refresh Token](#obtaining-an-oauth-client-id-client-secret-and-refresh-token) for instructions on how to get the refresh token, client ID, and client secret.
 
@@ -36,7 +36,7 @@ screenly edge-app setting set client_id=<GOOGLE_OAUTH_CLIENT_ID>
 screenly edge-app setting set client_secret=<GOOGLE_OAUTH_CLIENT_SECRET>
 ```
 
-### Option 2: Getting Calendar Events via iCal
+**Option 2: Getting Calendar Events via iCal**
 
 See [the section on Getting the iCal URL](#getting-the-ical-url) for instructions on how to get the iCal URL.
 
@@ -60,11 +60,11 @@ Run the following on a second terminal to generate mock data:
 screenly edge-app run --generate-mock-data --path dist/
 ```
 
-### Option 1: Getting Calendar Events via API
+**Option 1: Getting Calendar Events via API**
 
 Update `dist/mock-data.yml` and update the values of `refresh_token`, `client_id`, and `client_secret` with the values you obtained in the [Obtaining an OAuth Client ID, Client Secret, and Refresh Token](#obtaining-an-oauth-client-id-client-secret-and-refresh-token) section.
 
-### Option 2: Getting Calendar Events via iCal
+**Option 2: Getting Calendar Events via iCal**
 
 See [the section on Getting the iCal URL](#getting-the-ical-url) for instructions on how to get the iCal URL.
 
