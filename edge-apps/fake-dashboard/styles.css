@@ -141,7 +141,7 @@ canvas {
   gap: clamp(0.75rem, calc(0.5rem + 1vw), 2rem);
   padding: clamp(0.75rem, calc(0.5rem + 1vw), 2rem);
   background: transparent;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   min-width: 0;
   max-height: calc(100vh - 4.5rem); /* Account for header */
 }
@@ -231,13 +231,13 @@ h3 {
 
 .realtime-card {
   margin-top: auto;
-  padding-top: clamp(1rem, calc(0.75rem + 1vw), 2rem);
+  /* padding-top: clamp(1rem, calc(0.75rem + 1vw), 2rem); */
   border-top: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
   justify-content: center;
   flex: 1;
-  min-height: clamp(8rem, 12vh, 12rem);
+  /* min-height: clamp(8rem, 12vh, 12rem); */
 }
 
 .realtime-value {
@@ -291,92 +291,5 @@ h3 {
   .realtime-card {
     margin-top: clamp(0.75rem, calc(0.5rem + 1vw), 2rem);
     border-top: none;
-  }
-}
-
-/* Small screens (like Raspberry Pi Touch Display 480x800) */
-@media (max-width: 800px) {
-  :root {
-    font-size: 14px;
-  }
-
-  .dashboard-header {
-    padding: clamp(0.5rem, 1.5vw, 1rem) clamp(0.5rem, 1.5vw, 1rem) 0 clamp(0.5rem, 1.5vw, 1rem);
-  }
-
-  .main-content, .sidebar {
-    padding: clamp(0.5rem, 1vw, 0.75rem);
-  }
-
-  .page-views-card {
-    padding: clamp(0.5rem, 1.5vw, 1rem);
-  }
-
-  .metrics-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
-  }
-
-  .metric-card {
-    padding: clamp(0.5rem, 1vw, 0.75rem);
-  }
-
-  .device-card,
-  .sources-card,
-  .realtime-card {
-    padding: clamp(0.5rem, 1.5vw, 1rem);
-  }
-
-  .source-item {
-    font-size: clamp(0.75rem, calc(0.65rem + 0.25vw), 1rem);
-    padding: clamp(0.4rem, 0.4vh, 0.8rem) 0;
-  }
-
-  .device-chart-container {
-    height: clamp(6rem, 15vh, 10rem);
-    margin: 0.5rem 0;
-  }
-
-  .realtime-value {
-    margin: 0.5rem 0 0.25rem 0;
-  }
-
-  .sources-card {
-    min-height: clamp(10rem, 12vh, 12rem);
-  }
-
-  .realtime-card {
-    margin-top: clamp(0.75rem, calc(0.5rem + 0.5vw), 1.5rem);
-    padding-top: clamp(0.75rem, calc(0.5rem + 0.5vw), 1.5rem);
-    border-top: none;
-  }
-}
-
-/* Ultra-wide screens (4K and above) */
-@media (min-width: 2160px) {
-  :root {
-    font-size: 18px;
-  }
-
-  .metrics-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-/* Extreme range adaptation */
-@media (min-width: 3840px) {
-  :root {
-    font-size: 20px;
-  }
-}
-
-/* Very small screens */
-@media (max-width: 480px) {
-  :root {
-    font-size: 12px;
-  }
-
-  .metrics-grid {
-    grid-template-columns: 1fr;
   }
 }
