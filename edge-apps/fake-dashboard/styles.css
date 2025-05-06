@@ -5,9 +5,8 @@
   --card-bg: #141414;
   --success-color: #22C55E;
   --danger-color: #EF4444;
-  --grid-color: rgba(255, 255, 255, 0.06);
-  --border-color: rgba(255, 255, 255, 0.1);
-  /* Default base font size with responsive scaling */
+  --grid-color: #FFFFFF0F;
+  --border-color: #FFFFFF1A;
   --base-font-size: 16px;
 }
 
@@ -55,10 +54,7 @@ body {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  /* padding: clamp(0.75rem, calc(0.5rem + 1vw), 2rem); */
   padding: clamp(0.75rem, 1vh + 1vw, 2rem) ;
-  /* gap: clamp(0.75rem, calc(0.5rem + 1vw), 2rem); */
-  /* gap: clamp(.5rem, .5vw + .5vh, 2rem); */
   gap: clamp(1rem, 1vh + 1vw, 2rem);
   overflow: hidden;
 }
@@ -69,9 +65,7 @@ body {
   flex-direction: column;
   background: var(--card-bg);
   border-radius: 0.75rem;
-  /* padding: clamp(0.75rem, calc(0.5rem + 1vw), 2rem); */
   padding: clamp(.5rem, .5vw + .5vh, 2rem);
-  /* gap: clamp(0.75rem, calc(0.5rem + 1vw), 2rem); */
   gap: clamp(.5rem, .5vw + .5vh, 2rem);
 }
 
@@ -92,7 +86,6 @@ canvas {
 .metrics-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(clamp(180px, 20%, 250px), 1fr));
-  /* gap: clamp(0.5rem, calc(0.25rem + 0.5vw), 1rem); */
   gap: clamp(1rem, 1vh + 1vw, 10rem);
   margin-top: auto;
 }
@@ -108,9 +101,7 @@ canvas {
   position: absolute;
   top: clamp(0.75rem, calc(0.5rem + 0.5vw), 1.5rem);
   right: clamp(0.75rem, calc(0.5rem + 0.5vw), 1.5rem);
-  /* width: clamp(1.5rem, calc(1.25rem + 0.5vw), 2.5rem); */
   width: clamp(2rem, 2vw + 2vh, 2.5rem);
-  /* height: clamp(1.5rem, calc(1.25rem + 0.5vw), 2.5rem); */
   height: clamp(1.5rem, 1.5vw + 1.5vh, 2.5rem);
   border-radius: 0.5rem;
   display: flex;
@@ -121,7 +112,6 @@ canvas {
 }
 
 .metric-value {
-  /* font-size: clamp(1.25rem, calc(1rem + 0.75vw), 2rem); */
   font-size: clamp(1.23rem, 1vh + 1vw, 10rem);
   font-weight: 600;
   margin: 0.5rem 0;
@@ -129,7 +119,6 @@ canvas {
 }
 
 .metric-change {
-  /* font-size: clamp(0.75rem, calc(0.7rem + 0.25vw), 1rem); */
   font-size: clamp(1rem, 1vh + 1vw, 10rem);
   display: flex;
   align-items: center;
@@ -148,14 +137,11 @@ canvas {
 .sidebar {
   display: flex;
   flex-direction: column;
-  /* gap: clamp(0.75rem, calc(0.5rem + 1vw), 2rem); */
   gap: clamp(1rem, 1vh + 1vw, 2rem);
-  /* padding: clamp(0.75rem, calc(0.5rem + 1vw), 2rem); */
   padding: clamp(.5rem, 1vw + 1vh, 2rem) clamp(.5rem, 1vw + 1vh, 2rem) clamp(.5rem, 1vw + 1vh, 2rem) 0;
   background: transparent;
-  /* overflow-y: auto; */
   min-width: 0;
-  max-height: calc(100vh - 4.5rem); /* Account for header */
+  max-height: calc(100vh - 4.5rem);
 }
 
 .device-card,
@@ -163,7 +149,6 @@ canvas {
 .realtime-card {
   background: var(--card-bg);
   border-radius: 0.75rem;
-  /* padding: clamp(0.75rem, calc(0.5rem + 0.5vw), 1.5rem); */
   padding: clamp(.5rem, .5vw + .5vh, 1.5rem);
   min-width: 0;
   flex-shrink: 0;
@@ -182,7 +167,6 @@ canvas {
 
 .device-chart-container {
   position: relative;
-  /* height: clamp(8rem, 25vh, 18.75rem); */
   height: clamp(8rem, 7vw + 7vh, 50rem);
   margin: clamp(0.5rem, 1vh, 1.5rem) 0;
 }
@@ -221,7 +205,6 @@ canvas {
 }
 
 h1 {
-  /* font-size: clamp(1.25rem, calc(1rem + 1vw), 2rem); */
   font-size: clamp(1rem, 1.5vw + 1.5vh, 10rem);
   font-weight: 600;
   margin: 0;
@@ -230,8 +213,6 @@ h1 {
 }
 
 h2 {
-  /* font-size: clamp(0.875rem, calc(0.75rem + 0.5vw), 1.25rem); */
-  /* font-size: clamp(.75rem, .7vh + .7vw, 10rem); */
   font-size: clamp(1rem, 1vh + 1vw, 10rem);
   font-weight: 500;
   margin: 0;
@@ -240,7 +221,6 @@ h2 {
 }
 
 h3 {
-  /* font-size: clamp(0.75rem, calc(0.7rem + 0.25vw), 1rem); */
   font-size: clamp(.7rem, .7vh + .7vw, 10rem);
   font-weight: 500;
   margin: 0;
@@ -250,17 +230,14 @@ h3 {
 
 .realtime-card {
   margin-top: auto;
-  /* padding-top: clamp(1rem, calc(0.75rem + 1vw), 2rem); */
   border-top: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   flex: 1;
-  /* min-height: clamp(8rem, 12vh, 12rem); */
 }
 
 .realtime-value {
-  /* font-size: clamp(1.75rem, calc(1.5rem + 1vw), 3rem); */
   font-size: clamp(1rem, 2vh + 2vw, 10rem);
   font-weight: 600;
   color: #fff;
@@ -268,7 +245,6 @@ h3 {
 }
 
 .realtime-label {
-  /* font-size: clamp(0.75rem, calc(0.7rem + 0.25vw), 1rem); */
   font-size: clamp(1rem, 0.7vh + 0.7vw, 10rem);
   color: rgba(255, 255, 255, 0.5);
   letter-spacing: 0.01em;
