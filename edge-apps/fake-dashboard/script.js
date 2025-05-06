@@ -1,6 +1,5 @@
 // Utility functions for generating random data
-/* eslint-disable-next-line no-unused-vars, no-useless-catch */
-
+/* global Chart */
 
 function randomInt (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min
