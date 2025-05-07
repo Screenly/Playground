@@ -136,7 +136,7 @@ canvas {
 }
 
 .metric-value {
-  font-size: clamp(1.23rem, 1vh + 1vw, 10rem);
+  font-size: clamp(1.2rem, 1vh + 1vw, 10rem);
   font-weight: 600;
   margin: 0.5rem 0;
   color: #fff;
@@ -165,7 +165,7 @@ canvas {
   padding: clamp(.5rem, 1vw + 1vh, 2rem) clamp(.5rem, 1vw + 1vh, 2rem) clamp(.5rem, 1vw + 1vh, 2rem) 0;
   background: transparent;
   min-width: 0;
-  max-height: calc(100vh - 4.5rem);
+  /* max-height: calc(100vh - 4.5rem); */
 }
 
 .device-card,
@@ -252,12 +252,6 @@ canvas {
   letter-spacing: 0.01em;
 }
 
-@media (max-width: 2560PX) {
-
-  .realtime-value {
-    font-size: clamp(1rem, 2vh + 2vw, 10rem);
-}
-
 
 /* Portrait mode for standard resolutions */
 @media (orientation: portrait) {
@@ -289,16 +283,22 @@ canvas {
     overflow-y: auto;
   }
 
-  .main-content, .sidebar {
-    padding: clamp(0.75rem, 2vw + 2vh, 1.5rem);
+  .main-content{
+    /* padding: clamp(0.75rem, 2vw + 2vh, 1.5rem); */
+    padding: clamp(0.75rem, 2vw + 2vh, 1.5rem) clamp(0.75rem, 2vw + 2vh, 1.5rem) 0 clamp(0.75rem, 2vw + 2vh, 1.5rem);
     overflow: visible;
+  }
+
+ .sidebar {
+    /* padding: clamp(0.75rem, 2vw + 2vh, 1.5rem); */
+    padding:    clamp(0.75rem, 2vw + 2vh, 1.5rem)  clamp(0.75rem, 2vw + 2vh, 1.5rem)  clamp(0.75rem, 2vw + 2vh, 1.5rem)  clamp(0.75rem, 2vw + 2vh, 1.5rem);
   }
 
   .sidebar {
     max-height: none;
   }
 
-  .metric-card .icon  {
+  .metric-card .icon {
     width: clamp(1rem, 1.5vh + 1.5vw, 10rem);
     height: clamp(1rem, 1.5vh + 1.5vw, 10rem);
     font-size: clamp(1rem, 1vh + 1vw, 10rem);
@@ -317,6 +317,11 @@ canvas {
     padding: clamp(0.45rem, 0.45vh, 0.9rem) 0;
   }
 
+  .sources-card {
+    flex: 2;
+    min-height: clamp(2rem, 2vh + 2vw, 30rem);
+  }
+
   .realtime-card {
     margin-top: clamp(0.75rem, 1vh + 1vw, 2rem);
     border-top: none;
@@ -325,4 +330,62 @@ canvas {
   .realtime-label {
     font-size: clamp(1rem, 1vh + 1vw, 10rem);
   }
+
 }
+
+
+@media (max-width: 2560px) and (orientation: landscape) {
+  .realtime-value {
+    font-size: clamp(1rem, 2vh + 2vw, 10rem);
+  }
+}
+
+@media (max-width: 2560px) and (orientation: portrait) {
+  .realtime-value {
+    font-size: clamp(1rem, 2vh + 2vw, 10rem);
+  }
+}
+
+
+
+@media (max-width: 800px) and (orientation: landscape) {
+
+  h3 {
+    font-size: clamp(.5rem, .5vh + .5vw, 10rem);
+  }
+
+  .dashboard {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  }
+
+  .source-item {
+    font-size: clamp(.5rem, 1vh + 1vw, 10rem);
+  }
+
+  .device-chart-container {
+    height: clamp(9rem, 6vw + 6vh, 50rem);
+  }
+
+  .realtime-card {
+    display: none;
+  }
+}
+
+@media (max-width: 800px) and (orientation: portrait) {
+
+  .realtime-card {
+    display: none;
+  }
+
+  .source-item {
+    font-size: clamp(.5rem, .8vh + .8vw, 10rem);
+  }
+
+  .device-chart-container {
+    height: clamp(9rem, 6vw + 6vh, 50rem);
+  }
+
+
+
+}
+
