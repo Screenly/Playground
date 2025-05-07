@@ -78,7 +78,7 @@ h3 {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  padding: clamp(0.75rem, 1vh + 1vw, 2rem) ;
+  padding: clamp(0.75rem, 1vh + 1vw, 2rem);
   gap: clamp(1rem, 1vh + 1vw, 2rem);
   overflow: hidden;
 }
@@ -253,7 +253,28 @@ canvas {
 
 
 /* Portrait mode for standard resolutions */
-  @media (orientation: portrait) {
+@media (orientation: portrait) {
+
+  h1 {
+    font-size: clamp(1rem, 1.5vh + 1.5vw, 10rem);
+  }
+
+  h2 {
+    font-size: clamp(1rem, 1.2vh + 1.2vw, 10rem);
+  }
+
+  h3 {
+    font-size: clamp(.7rem, 1vh + 1vw, 10rem);
+  }
+
+  .metric-value {
+    font-size: clamp(1.23rem, 1.2vh + 1.2vw, 10rem);
+  }
+
+  .metric-change {
+    font-size: clamp(1rem, 1.2vh + 1.2vw, 10rem);
+  }
+
   .dashboard {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr auto;
@@ -262,7 +283,7 @@ canvas {
   }
 
   .main-content, .sidebar {
-    padding: clamp(0.75rem, 2vw, 1.5rem);
+    padding: clamp(0.75rem, 2vw + 2vh, 1.5rem);
     overflow: visible;
   }
 
@@ -270,25 +291,31 @@ canvas {
     max-height: none;
   }
 
+  .metric-card .icon  {
+    width: clamp(1rem, 1.5vh + 1.5vw, 10rem);
+    height: clamp(1rem, 1.5vh + 1.5vw, 10rem);
+    font-size: clamp(1rem, 1vh + 1vw, 10rem);
+  }
+
   .metrics-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
   .device-chart-container {
-    height: clamp(7rem, 20vh, 12rem);
-  }
-
-  .sources-card {
-    min-height: clamp(12rem, 15vh, 15rem);
+    height: clamp(1rem, 10vh + 10vh, 30rem);
   }
 
   .source-item {
-    font-size: clamp(0.8rem, calc(0.7rem + 0.3vw), 1.15rem);
+    font-size: clamp(1rem, 1vh + 1vw, 10rem);
     padding: clamp(0.45rem, 0.45vh, 0.9rem) 0;
   }
 
   .realtime-card {
-    margin-top: clamp(0.75rem, calc(0.5rem + 1vw), 2rem);
+    margin-top: clamp(0.75rem, 1vh + 1vw, 2rem);
     border-top: none;
+  }
+
+  .realtime-label {
+    font-size: clamp(1rem, 1vh + 1vw, 10rem);
   }
 }
