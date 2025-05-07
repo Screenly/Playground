@@ -240,7 +240,6 @@ canvas {
 }
 
 .realtime-value {
-
   font-size: clamp(1rem, 4vh + 4vw, 10rem);
   font-weight: 600;
   color: #fff;
@@ -255,7 +254,6 @@ canvas {
 
 /* Portrait mode for standard resolutions */
 @media (orientation: portrait) {
-
   h1 {
     font-size: clamp(1rem, 1.5vh + 1.5vw, 10rem);
   }
@@ -290,9 +288,6 @@ canvas {
 
   .sidebar {
     padding: clamp(0.75rem, 2vw + 2vh, 1.5rem) clamp(0.75rem, 2vw + 2vh, 1.5rem) clamp(0.75rem, 2vw + 2vh, 1.5rem) clamp(0.75rem, 2vw + 2vh, 1.5rem);
-  }
-
-  .sidebar {
     max-height: none;
   }
 
@@ -343,7 +338,6 @@ canvas {
 }
 
 @media (max-width: 800px) and (orientation: landscape) {
-
   h3 {
     font-size: clamp(.5rem, .5vh + .5vw, 10rem);
   }
@@ -366,7 +360,6 @@ canvas {
 }
 
 @media (max-width: 800px) and (orientation: portrait) {
-
   .realtime-card {
     display: none;
   }
