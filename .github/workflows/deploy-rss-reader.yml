@@ -11,8 +11,8 @@ jobs:
       APP_PATH: 'edge-apps/rss-reader'
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Copy in Bootstrap theme
         run: |

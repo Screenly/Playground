@@ -18,8 +18,8 @@ jobs:
       APP_PATH: 'edge-apps/tfl-bus-status'
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Deploy Edge App
         uses: screenly/cli@master

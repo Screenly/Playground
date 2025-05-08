@@ -17,8 +17,8 @@ jobs:
       MANIFEST_FILE_NAME: 'screenly_qc.yml'
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Copy in Bootstrap theme
         run: |
