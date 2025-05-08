@@ -6,14 +6,14 @@ on:
     branches:
       - 'master'
     paths:
-      - 'edge-apps/iframe/**'
-      - '.github/workflows/deploy-iframe-qc.yml'
+      - 'edge-apps/fake-dashboard/**'
+      - '.github/workflows/deploy-fake-dashboard-app-qc.yml'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      APP_PATH: 'edge-apps/iframe'
+      APP_PATH: 'edge-apps/fake-dashboard'
       MANIFEST_FILE_NAME: 'screenly_qc.yml'
 
     steps:
