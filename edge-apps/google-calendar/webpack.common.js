@@ -52,10 +52,6 @@ module.exports = {
           to: 'screenly.yml'
         },
         {
-          from: 'instance.yml',
-          to: 'instance.yml'
-        },
-        {
           from: 'src/img',
           to: 'img'
         }
