@@ -1,0 +1,45 @@
+---
+name: Deploy Calendar App (QC)
+
+on:
+  pull_request:
+    branches:
+      - 'master'
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'edge-apps/google-calendar/**'
+      - '.github/workflows/deploy-calendar-app-qc.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      APP_PATH: 'edge-apps/google-calendar'
+      MANIFEST_FILE_NAME: 'screenly_qc.yml'
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: 'npm'
+
+      - name: List files and directories (Part 1)
+        run: ls -la
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: List files and directories (Part 2)
+        run: ls -la
+
+      - name: Build App
+        run: npm run build
+
+      - name: List files and directories (Part 3)
+        run: ls -la
