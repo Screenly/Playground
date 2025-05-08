@@ -18,12 +18,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22.x
-          cache: 'npm'
 
       - name: Install dependencies
+        working-directory: ${{ env.APP_PATH }}
         run: npm install
 
       - name: Build App
+        working-directory: ${{ env.APP_PATH }}
         run: npm run build
 
       - name: Deploy Edge App

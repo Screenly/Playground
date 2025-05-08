@@ -20,16 +20,17 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Set Up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22.x
-          cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install Dependencies
+        working-directory: ${{ env.APP_PATH }}
         run: npm install
 
-      - name: Build App
+      - name: Build Edge App
+        working-directory: ${{ env.APP_PATH }}
         run: npm run build
 
       - name: Deploy Edge App

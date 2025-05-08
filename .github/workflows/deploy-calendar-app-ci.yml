@@ -28,22 +28,10 @@ jobs:
         with:
           node-version: 22.x
 
-      - name: List files and directories (Part 1)
-        working-directory: edge-apps/google-calendar
-        run: ls -la
-
       - name: Install dependencies
-        working-directory: edge-apps/google-calendar
+        working-directory: ${{ env.APP_PATH }}
         run: npm install
 
-      - name: List files and directories (Part 2)
-        working-directory: edge-apps/google-calendar
-        run: ls -la
-
       - name: Build App
-        working-directory: edge-apps/google-calendar
+        working-directory: ${{ env.APP_PATH }}
         run: npm run build
-
-      - name: List files and directories (Part 3)
-        working-directory: edge-apps/google-calendar
-        run: ls -la
