@@ -13,7 +13,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      APP_PATH: 'edge-apps/google-calendar'
+      APP_PATH: 'edge-apps/google-calendar/dist'
       MANIFEST_FILE_NAME: 'screenly_qc.yml'
 
     steps:
