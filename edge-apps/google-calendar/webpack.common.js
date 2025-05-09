@@ -5,6 +5,8 @@ const RemovePlugin = require('remove-files-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
 
+const manifestFileName = process.env.MANIFEST_FILE_NAME || 'screenly.yml'
+
 module.exports = {
   entry: {
     index: './src/index.jsx'
@@ -48,8 +50,8 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: 'screenly.yml',
-          to: 'screenly.yml'
+          from: manifestFileName,
+          to: manifestFileName
         },
         {
           from: 'src/img',
