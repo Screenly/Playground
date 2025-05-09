@@ -146,7 +146,25 @@ const App = () => {
 
   return (
     <div className='main-container'>
+      {calendarMode === 'monthly' && (
+        <MonthlyCalendarView
+          currentMonthName={getFormattedMonthName(now)}
+          currentYear={getYear(now)}
+          weekDays={weekDays}
+          calendarDays={calendarDays}
+          currentDate={getDate(now)}
+        />
+      )}
+      {calendarMode === 'daily' && (
+        <DailyCalendarView now={now} events={events} />
+      )}
+      {calendarMode === 'weekly' && (
+        <WeeklyCalendarView now={weeklyViewTime} events={events} />
+      )}
       <div className='secondary-container'>
+        <div className='row-container'>
+          <InfoCard />
+        </div>
         <div className='row-container'>
           {calendarMode === 'monthly'
             ? (
@@ -163,25 +181,7 @@ const App = () => {
               <AnalogClock now={now} />
               )}
         </div>
-        <div className='row-container'>
-          <InfoCard />
-        </div>
       </div>
-      {calendarMode === 'monthly' && (
-        <MonthlyCalendarView
-          currentMonthName={getFormattedMonthName(now)}
-          currentYear={getYear(now)}
-          weekDays={weekDays}
-          calendarDays={calendarDays}
-          currentDate={getDate(now)}
-        />
-      )}
-      {calendarMode === 'daily' && (
-        <DailyCalendarView now={now} events={events} />
-      )}
-      {calendarMode === 'weekly' && (
-        <WeeklyCalendarView now={weeklyViewTime} events={events} />
-      )}
     </div>
   )
 }
