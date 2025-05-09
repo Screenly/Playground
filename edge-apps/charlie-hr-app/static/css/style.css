@@ -44,7 +44,7 @@ body {
 }
 
 .primary-card {
-  background-color: var(--theme-color-tertiary);
+  background-color: var(--theme-color-background);
   color: var(--theme-color-primary);
   width: 100%;
   /* height: 100%; */
@@ -82,18 +82,64 @@ body {
   gap: unset;
 }
 
-.date-card{
+.date-card {
   height: 100%;
   width: 100%;
 }
 
-.two-day-card {
-  background-color: var(--theme-color-primary);
+.day-card {
+  border: 10px solid var(--theme-color-primary);
+  align-items: flex-start;
+  gap: var(--custom-4k-gap);
+
 }
 
-.seven-day-card {
-  background-color: var(--theme-color-secondary);
+.week-card {
+  border: 10px solid var(--theme-color-secondary);
+  height: 140%;
 }
+
+.today-card {
+  width: 100%;
+  /* height: 50%; */
+  display: flex;
+  gap: clamp(1rem, .5vw + .5vh, 1000rem);
+  flex-direction: column;
+
+}
+
+.tomorrow-card {
+  width: 100%;
+  height: 50%;
+}
+
+.card-icon {
+  width: clamp(1rem, 1vw + 1vh, 1000rem);
+}
+
+.today-card-content {
+  background-color: var(--theme-color-tertiary);
+  border-radius: var(--custom-4k-border-radius-medium);
+  /* padding: var(--custom-4k-padding); */
+  padding: clamp(1rem, .5vw + .5vh, 1000rem);
+  width: 100%;
+  height: clamp(1rem, 2vw + 2vh, 1000rem);
+}
+
+.today-card-content-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.text {
+  font-size: clamp(1rem, 1vw + 1vh, 1000rem);
+}
+
+h1 {
+  font-size: clamp(1rem, 1vw + 1vh, 1000rem);
+}
+
 
 
 .info-card {
@@ -142,11 +188,6 @@ body {
 .info-text {
   font-size: clamp(0.8rem, .70vw + .70vh, 1000rem);
   /* margin: 0 clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 3vw + 3vh, 1000rem) 0; */
-}
-
-
-.clock-div {
-  transform: scale(1.3);
 }
 
 
@@ -272,7 +313,7 @@ body {
   }
 
   .clock-card {
-   height: 47%;
+    height: 47%;
   }
 
   .clock-div {
@@ -408,7 +449,7 @@ body {
 
 /* Raspberry Pi Touch Display - Portrait 480 × 800 */
 
- @media screen and (max-width: 480px) and (orientation: portrait) {
+@media screen and (max-width: 480px) and (orientation: portrait) {
   .main-container {
     gap: var(--pi-gap);
     padding: var(--pi-padding);
