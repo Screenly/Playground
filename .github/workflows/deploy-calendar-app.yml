@@ -1,0 +1,35 @@
+---
+name: Deploy Calendar App
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      APP_PATH: 'edge-apps/google-calendar'
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Install dependencies
+        working-directory: ${{ env.APP_PATH }}
+        run: npm install
+
+      - name: Build App
+        working-directory: ${{ env.APP_PATH }}
+        run: npm run build
+
+      - name: Deploy Edge App
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_PRODUCTION }}
+          # yamllint disable-line rule:line-length
+          cli_commands: edge-app deploy --path=${{ env.APP_PATH }}
