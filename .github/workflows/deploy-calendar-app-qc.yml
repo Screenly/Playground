@@ -13,7 +13,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      APP_PATH: 'edge-apps/google-calendar/dist'
+      APP_PATH: 'edge-apps/google-calendar'
       MANIFEST_FILE_NAME: 'screenly_qc.yml'
 
     steps:
@@ -38,4 +38,4 @@ jobs:
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
           # yamllint disable-line rule:line-length
-          cli_commands: edge-app deploy --path=${{ env.APP_PATH }}
+          cli_commands: edge-app deploy --path="${{ env.APP_PATH }}/dist"

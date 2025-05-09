@@ -8,7 +8,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      APP_PATH: 'edge-apps/google-calendar/dist'
+      APP_PATH: 'edge-apps/google-calendar'
 
     steps:
       - name: Checkout Code
@@ -32,4 +32,4 @@ jobs:
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_PRODUCTION }}
           # yamllint disable-line rule:line-length
-          cli_commands: edge-app deploy --path=${{ env.APP_PATH }}
+          cli_commands: edge-app deploy --path="${{ env.APP_PATH }}/dist
