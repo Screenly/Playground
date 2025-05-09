@@ -26,9 +26,9 @@ jobs:
       - name: Build static page
         run: |
           docker run --rm \
-            -e INSTAGRAM_API_TOKEN=${{ secrets.INSTAGRAM_API_TOKEN }} \
-            -v $(pwd)/instagram:/usr/app/instagram \
-            -v $(pwd)/bootstrap:/usr/app/bootstrap \
+            -e INSTAGRAM_API_TOKEN="${{ secrets.INSTAGRAM_API_TOKEN }}" \
+            -v "$(pwd)/instagram:/usr/app/instagram" \
+            -v "$(pwd)/bootstrap:/usr/app/bootstrap" \
             screenly/instagram
 
       - name: Deploy Edge App
