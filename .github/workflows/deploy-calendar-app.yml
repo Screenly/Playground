@@ -8,7 +8,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      APP_PATH: 'edge-apps/google-calendar'
+      APP_PATH: 'edge-apps/google-calendar/dist'
 
     steps:
       - name: Checkout Code
