@@ -17,7 +17,7 @@ jobs:
       APP_PATH: 'edge-apps/iframe'
 
     steps:
-      - name: Checkout
+      - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Deploy Edge App

@@ -18,7 +18,7 @@ jobs:
       APP_PATH: 'edge-apps/tfl-bus-status'
 
     steps:
-      - name: Checkout
+      - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Deploy Edge App

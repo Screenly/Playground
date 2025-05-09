@@ -11,7 +11,7 @@ jobs:
       APP_PATH: 'edge-apps/welcome-app'
 
     steps:
-      - name: Checkout
+      - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Deploy Edge App
