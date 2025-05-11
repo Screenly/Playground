@@ -29,8 +29,7 @@
     "remove-files-webpack-plugin": "^1.5.0",
     "sass": "^1.85.1",
     "sass-loader": "^16.0.5",
-    "standard": "^17.1.2",
-    "esbuild": ">=0.25.0"
+    "standard": "^17.1.2"
   },
   "scripts": {
     "dev": "webpack --watch --config webpack.dev.js",
