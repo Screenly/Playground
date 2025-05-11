@@ -8,12 +8,37 @@
 
 ## Getting Started
 
+We need to initialize the necessary Node.js dependencies and build the source
+code first so that a `dist` directory can be created. This is essential as a manifest file
+(which defaults to `screenly.yml`) and an `index.html` file is needed.
+
 ```bash
-$ cd edge-apps/google-calendar
-$ screenly edge-app create \
+npm install
+npm run build
+screenly edge-app create \
     --name=EDGE_APP_NAME \
-    --in-place
-$ screenly edge-app instance create
+    --in-place \
+    --path=dist
+```
+
+Since the `dist` directory is ignored by Git, we need to sync `./dist/screenly.yml` with
+`./screenly.yml`.
+
+```bash
+cp ./dist/screenly.yml ./screenly.yml
+```
+
+## Create an Edge App Instance via CLI
+
+```bash
+screenly edge-app instance create --path=dist
+```
+
+An `instance.yml` file will be created inside the `dist` directory. Sync `./dist/instance.yml`
+with your current project directory:
+
+```bash
+cp ./dist/instance.yml .
 ```
 
 ## Deployment
@@ -21,8 +46,6 @@ $ screenly edge-app instance create
 Run the following on a terminal to build the Edge App:
 
 ```bash
-npm install
-npm run build
 screenly edge-app deploy --path dist/
 ```
 
