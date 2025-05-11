@@ -28,7 +28,7 @@ Since the `dist` directory is ignored by Git, we need to sync `./dist/screenly.y
 cp ./dist/screenly.yml ./screenly.yml
 ```
 
-## Create an Edge App Instance
+## Create an Edge App Instance via CLI
 
 ```bash
 screenly edge-app instance create --path=dist
@@ -41,7 +41,7 @@ with your current project directory:
 cp ./dist/instance.yml .
 ```
 
-## Deployment via CLI
+## Deployment
 
 Run the following on a terminal to build the Edge App:
 
