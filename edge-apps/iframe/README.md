@@ -4,7 +4,7 @@ This guide will walk you through the steps to create an Edge App in Screenly tha
 
 ## Prerequisites
 
-* Install Screenly CLI - Please follow the guide [here](https://github.com/Screenly/cli)
+- Install Screenly CLI - Please follow the guide [here](https://github.com/Screenly/cli)
 
 ## Steps
 
@@ -12,7 +12,7 @@ Step 1. **Log in to the Screenly account via CLI**
 
 Follow the on-screen instructions to log in to your Screenly account.
 
-   `$ screenly login`
+`$ screenly login`
 
 Step 2. **Download and Open Edge App Playground**
 
@@ -35,7 +35,6 @@ Step 5. **Upload the Edge App**
 `$ screenly edge-app deploy`
 
 > Wait for the upload to complete.
->
 
 Step 6 **Install the Edge App**
 
@@ -56,7 +55,7 @@ Open the Screenly dashboard and verify that the new Edge App has been added as a
 
 Steps 9. **Assign Asset to Playlist and Device**
 
-* Assign the new asset to a playlist.
-* Assign the playlist to a device.
+- Assign the new asset to a playlist.
+- Assign the playlist to a device.
 
 Now, the iFrame Edge App has been configured, and the designated webpage/dashboard will be presented on the Screenly-connected TV/Monitor.

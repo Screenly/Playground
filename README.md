@@ -8,7 +8,6 @@ This repository holds various examples that showcases Screenly's features and AP
 
 If you are not familiar with Edge Apps, we suggest you review our [developer documentation](https://developer.screenly.io/edge-apps/#getting-started).
 
-- [3D Text Screensaver](https://github.com/Screenly/Playground/tree/master/edge-apps/3d-text) - A nostalgic homage to the classic Windows 98 '3D Text' screensaver.
 - [Asset Metadata](https://github.com/Screenly/Playground/tree/master/edge-apps/asset-metadata) - An example implementation of Screenly's metadata.
 - [Clock App](https://github.com/Screenly/Playground/tree/master/edge-apps/clock) - A simple clock app.
 - [Countdown Timer](https://github.com/Screenly/Playground/tree/master/edge-apps/countdown-timer) - A simple countdown timer app.

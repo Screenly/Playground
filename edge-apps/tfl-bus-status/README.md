@@ -6,7 +6,7 @@ This guide will walk you through the steps to create an TFL Bus Status Edge App 
 
 ## Prerequisites
 
-* Install Screenly CLI - Please follow the guide [here](https://github.com/Screenly/cli)
+- Install Screenly CLI - Please follow the guide [here](https://github.com/Screenly/cli)
 
 ## Steps
 
@@ -50,14 +50,13 @@ and provide the STOP ID also - replace the "stopID" with actual Stop ID.
 
 `$ screenly edge-app setting set stop_id=stopID`
 
-
 Step 8. **Check the Screenly Dashboard**
 
 Open the Screenly dashboard and verify that the new Edge App has been added as an asset.
 
 Steps 9. **Assign Asset to Playlist and Device**
 
-* Assign the new asset to a playlist.
-* Assign the playlist to a device.
+- Assign the new asset to a playlist.
+- Assign the playlist to a device.
 
 Now, the TFL Bus status Edge App has been configured, and the designated webpage/dashboard will be presented on the Screenly-connected TV/Monitor.

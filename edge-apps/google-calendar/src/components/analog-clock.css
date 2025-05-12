@@ -1,0 +1,513 @@
+.clock {
+  position: relative;
+  width: 20rem;
+  height: 20rem;
+  background: var(--theme-color-tertiary);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.clock .clock-face {
+  width: 16rem;
+  height: 16rem;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.seconds-bar {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.seconds-bar span {
+  position: absolute;
+  transform: rotate(calc(var(--index) * 45deg));
+  inset: 1rem;
+  text-align: center;
+}
+
+.seconds-bar span p {
+  width: 0.4rem;
+  display: inline-block;
+  border-radius: 0.14rem;
+  margin-top: 0.2rem;
+  height: 1.2rem;
+  background: var(--theme-color-primary);
+}
+
+.seconds-bar span p.major-mark {
+  background: var(--theme-color-primary);
+  width: 0.25rem;
+  height: 0.8rem;
+  transform: translateY(0.07rem);
+}
+
+.hands-box {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hand {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  transform-origin: center;
+}
+
+.hand.hour {
+  width: 10.67rem;
+  height: 10.67rem;
+}
+
+.hand.hour i {
+  width: 0.22rem;
+  height: 5rem;
+  background: #fff;
+  position: absolute;
+  box-shadow: 0 0 1.43rem 0 rgb(0 0 0 / 97%);
+}
+
+.hand.hour i::before {
+  content: "";
+  position: absolute;
+  height: 3.8rem;
+  width: 0.47rem;
+  bottom: 0.95rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 0.95rem;
+  background: var(--theme-color-primary);
+  z-index: 2;
+  box-shadow: 0 0 0.76rem 0 rgb(0 0 0 / 26%);
+}
+
+.hand.hour i::after {
+  content: "";
+  position: absolute;
+  height: 4.2rem;
+  width: 0.83rem;
+  bottom: 0.79rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 1.19rem;
+  background: #fff;
+  z-index: 1;
+}
+
+.hand.minute {
+  width: 12.07rem;
+  height: 12.07rem;
+}
+
+.hand.minute::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.79rem;
+  height: 0.79rem;
+  background: #fff;
+  border-radius: 1.19rem;
+  z-index: 999;
+}
+
+.hand.minute i {
+  width: 0.22rem;
+  height: 6.03rem;
+  background: #fff;
+  position: absolute;
+  box-shadow: 0 0 1.43rem 0 rgb(0 0 0 / 97%);
+}
+
+.hand.minute i::before {
+  content: "";
+  width: 0.83rem;
+  height: 7.5rem;
+  background: #fff;
+  position: absolute;
+  bottom: 0.79rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 1.19rem;
+  z-index: 1;
+  box-shadow: 0 0 0.76rem 0 rgb(0 0 0 / 26%);
+}
+
+.hand.minute i::after {
+  content: "";
+  width: 0.47rem;
+  height: 7.2rem;
+  background: var(--theme-color-primary);
+  position: absolute;
+  bottom: 0.98rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 0.95rem;
+  z-index: 2;
+}
+
+.hand.second {
+  width: 13.33rem;
+  height: 15.24rem;
+}
+
+.hand.second::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.51rem;
+  height: 0.51rem;
+  background: #F7410A;
+  border-radius: 1.19rem;
+}
+
+.hand.second::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.25rem;
+  height: 0.25rem;
+  background: var(--theme-color-primary);
+  border-radius: 1.19rem;
+}
+
+.hand.second i {
+  width: 0.13rem;
+  height: calc(6.67rem + 1.59rem);
+  background: #F7410A;
+  position: relative;
+  border-radius: 0.14rem;
+}
+
+.hand.second i::before {
+  content: '';
+  width: 0.13rem;
+  height: 1.43rem;
+  background: #F7410A;
+  position: absolute;
+  bottom: -1.3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 0.24rem;
+}
+
+/* Media queries for different resolutions */
+@media (width <= 1280px) {
+  .clock {
+    width: 16rem;
+    height: 16rem;
+  }
+
+  .clock .clock-face {
+    width: 13.33rem;
+    height: 13.33rem;
+  }
+
+  .seconds-bar span {
+    inset: 0.8rem;
+  }
+
+  .seconds-bar span p {
+    width: 0.32rem;
+    height: 0.96rem;
+    margin-top: 0.15rem;
+  }
+
+  .seconds-bar span p.major-mark {
+    width: 0.21rem;
+    height: 0.67rem;
+  }
+
+  .hand.hour {
+    width: 8.89rem;
+    height: 8.89rem;
+  }
+
+  .hand.hour i {
+    width: 0.18rem;
+    height: 4rem;
+  }
+
+  .hand.hour i::before {
+    height: 3.04rem;
+    width: 0.39rem;
+    bottom: 0.79rem;
+  }
+
+  .hand.hour i::after {
+    height: 3.36rem;
+    width: 0.69rem;
+    bottom: 0.66rem;
+  }
+
+  .hand.minute {
+    width: 10.06rem;
+    height: 10.06rem;
+  }
+
+  .hand.minute::before {
+    width: 0.66rem;
+    height: 0.66rem;
+  }
+
+  .hand.minute i {
+    width: 0.18rem;
+    height: 5.03rem;
+  }
+
+  .hand.minute i::before {
+    width: 0.69rem;
+    height: 6rem;
+    bottom: 0.66rem;
+  }
+
+  .hand.minute i::after {
+    width: 0.39rem;
+    height: 5.76rem;
+    bottom: 0.82rem;
+  }
+
+  .hand.second {
+    width: 11.11rem;
+    height: 12.7rem;
+  }
+
+  .hand.second i {
+    width: 0.13rem;
+    height: calc(5.56rem + 1.32rem);
+  }
+
+  .hand.second i::before {
+    width: 0.13rem;
+    height: 1.19rem;
+    bottom: -1.08rem;
+  }
+
+  .hand.second::before {
+    width: 0.42rem;
+    height: 0.42rem;
+  }
+
+  .hand.second::after {
+    width: 0.21rem;
+    height: 0.21rem;
+  }
+}
+
+@media (width <= 800px) {
+  .clock {
+    width: 12rem;
+    height: 12rem;
+  }
+
+  .clock .clock-face {
+    width: 10rem;
+    height: 10rem;
+  }
+
+  .seconds-bar span {
+    inset: 0.6rem;
+  }
+
+  .seconds-bar span p {
+    width: 0.24rem;
+    height: 0.72rem;
+    margin-top: 0.1rem;
+  }
+
+  .seconds-bar span p.major-mark {
+    width: 0.16rem;
+    height: 0.5rem;
+  }
+
+  .hand.hour {
+    width: 6.67rem;
+    height: 6.67rem;
+  }
+
+  .hand.hour i {
+    width: 0.14rem;
+    height: 3rem;
+  }
+
+  .hand.hour i::before {
+    height: 2.28rem;
+    width: 0.29rem;
+    bottom: 0.59rem;
+  }
+
+  .hand.hour i::after {
+    height: 2.52rem;
+    width: 0.52rem;
+    bottom: 0.5rem;
+  }
+
+  .hand.minute {
+    width: 7.54rem;
+    height: 7.54rem;
+  }
+
+  .hand.minute::before {
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+
+  .hand.minute i {
+    width: 0.14rem;
+    height: 3.77rem;
+  }
+
+  .hand.minute i::before {
+    width: 0.52rem;
+    height: 4.5rem;
+    bottom: 0.5rem;
+  }
+
+  .hand.minute i::after {
+    width: 0.29rem;
+    height: 4.32rem;
+    bottom: 0.61rem;
+  }
+
+  .hand.second {
+    width: 8.33rem;
+    height: 9.52rem;
+  }
+
+  .hand.second i {
+    width: 0.1rem;
+    height: calc(4.17rem + 0.99rem);
+  }
+
+  .hand.second i::before {
+    width: 0.1rem;
+    height: 0.89rem;
+    bottom: -0.81rem;
+  }
+
+  .hand.second::before {
+    width: 0.32rem;
+    height: 0.32rem;
+  }
+
+  .hand.second::after {
+    width: 0.16rem;
+    height: 0.16rem;
+  }
+}
+
+@media (width >= 3840px) {
+  .clock {
+    width: 40rem;
+    height: 40rem;
+  }
+
+  .clock .clock-face {
+    width: 32rem;
+    height: 32rem;
+  }
+
+  .seconds-bar span {
+    inset: 2rem;
+  }
+
+  .seconds-bar span p {
+    width: 0.8rem;
+    height: 2.4rem;
+    margin-top: 0.4rem;
+  }
+
+  .seconds-bar span p.major-mark {
+    width: 0.5rem;
+    height: 1.6rem;
+  }
+
+  .hand.hour {
+    width: 21.33rem;
+    height: 21.33rem;
+  }
+
+  .hand.hour i {
+    width: 0.44rem;
+    height: 10rem;
+  }
+
+  .hand.hour i::before {
+    height: 7.6rem;
+    width: 0.95rem;
+    bottom: 1.9rem;
+  }
+
+  .hand.hour i::after {
+    height: 8.4rem;
+    width: 1.65rem;
+    bottom: 1.59rem;
+  }
+
+  .hand.minute {
+    width: 24.13rem;
+    height: 24.13rem;
+  }
+
+  .hand.minute::before {
+    width: 1.59rem;
+    height: 1.59rem;
+  }
+
+  .hand.minute i {
+    width: 0.44rem;
+    height: 12.06rem;
+  }
+
+  .hand.minute i::before {
+    width: 1.65rem;
+    height: 15rem;
+    bottom: 1.59rem;
+  }
+
+  .hand.minute i::after {
+    width: 0.95rem;
+    height: 14.4rem;
+    bottom: 1.95rem;
+  }
+
+  .hand.second {
+    width: 26.67rem;
+    height: 30.48rem;
+  }
+
+  .hand.second i {
+    width: 0.28rem;
+    height: calc(13.33rem + 3.17rem);
+  }
+
+  .hand.second i::before {
+    width: 0.28rem;
+    height: 2.86rem;
+    bottom: -2.6rem;
+  }
+
+  .hand.second::before {
+    width: 1.02rem;
+    height: 1.02rem;
+  }
+
+  .hand.second::after {
+    width: 0.51rem;
+    height: 0.51rem;
+  }
+}
