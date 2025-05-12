@@ -45,6 +45,8 @@ body {
         #4A2372,
         #2C1543
     );
+
+    /* stylelint-disable property-no-vendor-prefix */
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
