@@ -1,0 +1,61 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: black;
+    overflow: hidden;
+    perspective: 1000px;
+}
+
+.container {
+    position: absolute;
+    transform-style: preserve-3d;
+}
+
+#text {
+    position: relative;
+    font-family: "Arial Black", Arial, sans-serif;
+    font-size: 48px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transform-style: preserve-3d;
+}
+
+/* Front face */
+#text::before {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-shadow:
+        0 1px 0 #fff3,
+        0 -1px 0 #0004;
+    color: #9C5FE4;
+    transform: translateZ(4px);
+}
+
+/* Back face */
+#text::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: linear-gradient(
+        to bottom,
+        #4A2372,
+        #2C1543
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transform: translateZ(-4px);
+}
+
+/* Shadow element */
+.shadow {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: rgba(156, 95, 228, 0.2);
+    transform: translateY(10px) translateZ(-20px) rotateX(80deg);
+    filter: blur(4px);
+}
