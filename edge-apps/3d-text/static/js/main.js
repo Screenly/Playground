@@ -1,3 +1,6 @@
+/* global screenly */
+// eslint-disable-next-line no-unused-vars, no-useless-catch
+
 const container = document.querySelector('.container')
 const textElement = document.getElementById('text')
 const shadowElement = document.querySelector('.shadow')
