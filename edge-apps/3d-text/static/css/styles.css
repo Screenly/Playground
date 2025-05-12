@@ -4,6 +4,7 @@ body {
     background: black;
     overflow: hidden;
     perspective: 1000px;
+    height: 100vh;
 }
 
 .container {
@@ -14,7 +15,7 @@ body {
 #text {
     position: relative;
     font-family: "Arial Black", Arial, sans-serif;
-    font-size: 48px;
+    font-size: clamp(20px, 2.5vw + 2.5vh, 200px);
     font-weight: bold;
     text-transform: uppercase;
     transform-style: preserve-3d;
@@ -55,7 +56,7 @@ body {
     position: absolute;
     left: 0;
     top: 0;
-    color: rgba(156, 95, 228, 0.2);
+    color: #9C5FE433;
     transform: translateY(10px) translateZ(-20px) rotateX(80deg);
     filter: blur(4px);
 }
