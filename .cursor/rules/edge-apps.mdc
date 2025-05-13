@@ -1,0 +1,65 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# Edge Apps In-Depth
+
+## Overview
+
+As stated in [general.mdc](mdc:.cursor/rules/general.mdc), Edge Apps is a framework for building and running content on Screenly's
+digital signage screens.
+
+## Writing an Edge App from Scratch
+
+- Create a directory inside the [edge-apps](mdc:edge-apps) directory.
+- That new directory should at least contain the following files:
+    - `index.html`
+    - `screenly.yml`
+- See [this documentation about getting started with Edge Apps](mdc:https://developer.screenly.io/edge-apps/#getting-started) for details.
+- While you can put your JavaScript code inside the `index.html` file, you can also put it inside a file `static/js/main.js`.
+
+### `index.html`
+
+Here's a template that you can use when generating the file:
+
+```html
+<!doctype html>
+<html>
+
+<head>
+  <title>Welcome App - Screenly Edge App</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="static/css/common.css" rel="stylesheet">
+  <link href="static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <script src="screenly.js?version=1"></script>
+  <script src="static/js/main.js"></script>
+</body>
+</html>
+```
+
+### `static/js/main.js`
+
+This file should at least contain the following.
+
+```javascript
+/* global screenly */
+
+document.addEventListener('DOMContentLoaded', async () => {
+    // ...
+    screenly.signalReadyForRendering()
+})
+```
+
+`screenly.signalReadyForRendering()` tells the device that the Edge App is ready to be displayed on the screen. See this [documentation about the ready signal](mdc:https://developer.screenly.io/edge-apps/#ready-signal) for details.
+
+## Edge Cases
+
+- You can split your `main.js` into multiple files and use `import` and `export` statements.
+- You can also opt for using a build system and other web frameworks, but it could get tricky. See
+  the [Google Calendar Edge App's implementation](mdc:edge-apps/google-calendar) for reference. It uses React and Webpack for the source code.
+- We encourage starting with the basic HTML/CSS/JavaScript template if the Edge App is not that complex. Otherwise, you can make use of established front-end frameworks like React.
