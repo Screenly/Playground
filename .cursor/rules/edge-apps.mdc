@@ -16,7 +16,7 @@ digital signage screens.
 - That new directory should at least contain the following files:
     - `index.html`
     - `screenly.yml`
-- See [this documentation about getting started with Edge Apps](mdc:https:/developer.screenly.io/edge-apps/#getting-started) for details.
+- See [this documentation about getting started with Edge Apps](mdc:https://developer.screenly.io/edge-apps/#getting-started) for details.
 - While you can put your JavaScript code inside the `index.html` file, you can also put it inside a file `static/js/main.js`.
 
 ### `index.html`
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 })
 ```
 
-`screenly.signalReadyForRendering()` tells the device that the Edge App is ready to be displayed on the screen. See this [documentation about the ready signal](mdc:https:/developer.screenly.io/edge-apps/#ready-signal) for details.
+`screenly.signalReadyForRendering()` tells the device that the Edge App is ready to be displayed on the screen. See this [documentation about the ready signal](mdc:https://developer.screenly.io/edge-apps/#ready-signal) for details.
 
 ## Edge Cases
 
