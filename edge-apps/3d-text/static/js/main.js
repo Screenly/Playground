@@ -5,7 +5,8 @@ const container = document.querySelector('.container')
 const textElement = document.getElementById('text')
 const shadowElement = document.querySelector('.shadow')
 const text = screenly.settings.text || screenly.metadata.screen_name || 'Screenly'
-const baseColor = screenly.settings.screenly_color_accent.toLowerCase() === '#000000' ? '#972eff' : screenly.settings.screenly_color_accent
+const baseColor = screenly.settings.override_color || (screenly.settings.screenly_color_accent.toLowerCase() === '#000000' ? '#972eff' : screenly.settings.screenly_color_accent)
+
 
 // Function to adjust color brightness
 function adjustBrightness (color, percent) {

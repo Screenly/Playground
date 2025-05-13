@@ -15,4 +15,5 @@ settings:
     default_value: "#9C5FE4"
     title: "Text Color"
     optional: false
-    help_text: The color of the text. If not provided, the default color will be used.
+    help_text: |
+      The color of the text. If not provided, the default brand primary color will be used.
