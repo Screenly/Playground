@@ -1,0 +1,22 @@
+---
+syntax: manifest_v1
+id:
+description: 3D Text Edge App
+icon: https://playground.srly.io/edge-apps/3d-text/static/img/icon.svg
+author: Screenly, Inc.
+entrypoint:
+  type: file
+settings:
+  text:
+    type: string
+    default_value: ""
+    title: "3D Text"
+    optional: true
+    help_text: "The text to display in 3D. If not provided, the screen name will be used."
+  color:
+    type: string
+    default_value: "#9C5FE4"
+    title: "Text Color"
+    optional: false
+    help_text: |
+      The color of the text. If not provided, the default brand primary color will be used.
