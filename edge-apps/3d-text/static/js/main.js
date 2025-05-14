@@ -5,7 +5,11 @@ const container = document.querySelector('.container')
 const textElement = document.getElementById('text')
 const shadowElement = document.querySelector('.shadow')
 const text = screenly.settings.text || screenly.metadata.screen_name || 'Screenly'
-const baseColor = screenly.settings.color || (screenly.settings.screenly_color_accent.toLowerCase() === '#000000' ? '#972eff' : screenly.settings.screenly_color_accent)
+const backgroundColor = screenly.settings.background_color || '#000000'
+const textColor = screenly.settings.text_color || screenly.settings.screenly_color_accent
+
+// Set the background color
+document.body.style.backgroundColor = backgroundColor
 
 // Function to adjust color brightness
 function adjustBrightness (color, percent) {
@@ -23,9 +27,9 @@ function adjustBrightness (color, percent) {
 }
 
 // Generate color variants
-const lighterColor = adjustBrightness(baseColor, 30)
-const darkerColor = adjustBrightness(baseColor, -30)
-const darkestColor = adjustBrightness(baseColor, -80)
+const lighterColor = adjustBrightness(textColor, 30)
+const darkerColor = adjustBrightness(textColor, -30)
+const darkestColor = adjustBrightness(textColor, -80)
 
 // Apply colors to text elements
 const style = document.createElement('style')
@@ -34,7 +38,7 @@ style.textContent = `
         background: linear-gradient(
             to bottom,
             ${lighterColor} 0%,
-            ${baseColor} 50%,
+            ${textColor} 50%,
             ${darkerColor} 100%
         );
         -webkit-background-clip: text;
@@ -43,7 +47,7 @@ style.textContent = `
     }
 
     #text::before {
-        color: ${baseColor};
+        color: ${textColor};
     }
 
     #text::after {
@@ -58,7 +62,7 @@ style.textContent = `
     }
 
     .shadow {
-        color: ${baseColor}33;
+        color: ${textColor}33;
     }
 `
 document.head.appendChild(style)
