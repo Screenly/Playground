@@ -1,6 +1,9 @@
 ---
 syntax: manifest_v1
 id:
+description: 3D Text Edge App
+icon: https://playground.srly.io/edge-apps/3d-text/static/img/icon.svg
+author: Screenly, Inc.
 entrypoint:
   type: file
 settings:
