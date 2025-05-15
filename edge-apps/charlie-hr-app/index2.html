@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CharlieHR</title>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="static2/css/styles.css">
+</head>
+<body x-data="hrDashboard()" x-init="init()">
+  <div class="app">
+    <header class="app__header">
+      <div class="app__logo">CharlieHR Dashboard</div>
+      <div class="app__header-right">
+        <div class="app__clock" x-text="currentTime"></div>
+        <img src="static/img/Screenly.svg" alt="Screenly Logo" class="app__company-logo">
+      </div>
+    </header>
+
+    <main class="app__main">
+      <!-- On Leave Section -->
+      <section class="dashboard-card">
+        <h2 class="dashboard-card__title">🏖️ On Leave Today</h2>
+        <ul class="dashboard-card__list" :class="{ 'dashboard-card--loading': loading }">
+          <template x-if="loading">
+            <li class="dashboard-card__item">Loading...</li>
+          </template>
+          <template x-if="!loading && leaves.length === 0">
+            <li class="dashboard-card__empty">No upcoming leaves.</li>
+          </template>
+          <template x-for="leave in leaves" :key="leave.id">
+            <li class="dashboard-card__item">
+              <div class="employee-card">
+                <template x-if="leave.employee.avatar">
+                  <img :src="leave.employee.avatar" :alt="`${leave.employee.firstName} ${leave.employee.lastName}`" class="employee-card__avatar">
+                </template>
+                <template x-if="!leave.employee.avatar">
+                  <div class="employee-card__avatar-placeholder" x-text="getInitials(leave.employee)"></div>
+                </template>
+                <div class="employee-card__info">
+                  <div class="employee-card__name" x-text="`${leave.employee.firstName} ${leave.employee.lastName}`"></div>
+                  <div class="employee-card__details">
+                    <div x-text="formatLeaveDate(leave)"></div>
+                    <div x-text="leave.request_type"></div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </template>
+        </ul>
+      </section>
+
+      <!-- Birthdays Section -->
+      <section class="dashboard-card">
+        <h2 class="dashboard-card__title">🎂 Birthdays</h2>
+        <ul class="dashboard-card__list" :class="{ 'dashboard-card--loading': loading }">
+          <template x-if="loading">
+            <li class="dashboard-card__item">Loading...</li>
+          </template>
+          <template x-if="!loading && birthdays.length === 0">
+            <li class="dashboard-card__empty">No upcoming birthdays.</li>
+          </template>
+          <template x-for="birthday in birthdays" :key="birthday.id">
+            <li class="dashboard-card__item">
+              <div class="employee-card">
+                <template x-if="birthday.avatar">
+                  <img :src="birthday.avatar" :alt="`${birthday.firstName} ${birthday.lastName}`" class="employee-card__avatar">
+                </template>
+                <template x-if="!birthday.avatar">
+                  <div class="employee-card__avatar-placeholder" x-text="getInitials(birthday)"></div>
+                </template>
+                <div class="employee-card__info">
+                  <div class="employee-card__name" x-text="`${birthday.firstName} ${birthday.lastName}`"></div>
+                  <div class="employee-card__details" x-text="formatUpcomingDate(birthday.birthdate)"></div>
+                </div>
+              </div>
+            </li>
+          </template>
+        </ul>
+      </section>
+
+      <!-- Anniversaries Section -->
+      <section class="dashboard-card">
+        <h2 class="dashboard-card__title">🎉 Anniversaries</h2>
+        <ul class="dashboard-card__list" :class="{ 'dashboard-card--loading': loading }">
+          <template x-if="loading">
+            <li class="dashboard-card__item">Loading...</li>
+          </template>
+          <template x-if="!loading && anniversaries.length === 0">
+            <li class="dashboard-card__empty">No upcoming anniversaries.</li>
+          </template>
+          <template x-for="anniversary in anniversaries" :key="anniversary.id">
+            <li class="dashboard-card__item">
+              <div class="employee-card">
+                <template x-if="anniversary.avatar">
+                  <img :src="anniversary.avatar" :alt="`${anniversary.firstName} ${anniversary.lastName}`" class="employee-card__avatar">
+                </template>
+                <template x-if="!anniversary.avatar">
+                  <div class="employee-card__avatar-placeholder" x-text="getInitials(anniversary)"></div>
+                </template>
+                <div class="employee-card__info">
+                  <div class="employee-card__name" x-text="`${anniversary.firstName} ${anniversary.lastName}`"></div>
+                  <div class="employee-card__details" x-text="formatAnniversaryText(anniversary.startDate)"></div>
+                </div>
+              </div>
+            </li>
+          </template>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+
+  <script src="static/js/country-locale-map.1.18.5.min.js"></script>
+	<script src="static/js/moment-with-locales.min.js"></script>
+	<script src="static/js/moment-timezone-with-data.min.js"></script>
+	<script src="static/js/offline-geocode-city-1.0.2.min.js"></script>
+	<script src="static/js/tz.min.js"></script>
+  <script src="static2/js/main.js"></script>
+</body>
+</html>
