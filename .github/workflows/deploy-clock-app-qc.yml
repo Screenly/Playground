@@ -21,8 +21,15 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy Edge App
-        uses: screenly/cli@master
-        with:
-          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
-          # yamllint disable-line rule:line-length
-          cli_commands: edge-app deploy --path=${{ env.APP_PATH }}
+        env:
+          SCREENLY_API_TOKEN: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
+        run: |
+
+        # echo the first 5 characters of the SCREENLY_API_TOKEN
+          echo "$(SCREENLY_API_TOKEN: 0:5}"
+
+        # echo the first 5 characters of the SCREENLY_API_TOKEN
+          echo "$(SCREENLY_API_TOKEN: 0:5}"
+
+
+
