@@ -9,13 +9,28 @@
   --theme-color-text: #000;
 }
 
+/* Base styles for landscape */
+.main-container {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  height: 100%;
+  padding: 2rem;
+  background-color: var(--theme-color-background);
+}
+
 .primary-card {
   width: 75%;
   background-color: var(--theme-color-tertiary);
+  order: 1;  /* Move to right */
 }
 
 .secondary-container {
   width: 25%;
+  order: 0;  /* Move to left */
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .info-text {
@@ -1076,4 +1091,74 @@
     height: 9.12rem;
     margin-right: 2rem;
   }
+}
+
+/* Portrait mode styles */
+@media (orientation: portrait) {
+  .main-container {
+    flex-direction: column;
+    padding: 2.5rem;
+    gap: 3rem;
+  }
+
+  .primary-card {
+    width: 100%;
+    height: 60%;
+    order: 0;
+  }
+
+  .secondary-container {
+    width: 100%;
+    height: 40%;
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+    order: 1;
+    padding: 0;
+  }
+
+  .row-container {
+    flex: 1 1 0;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+  }
+
+  /* First row container contains info card */
+  .row-container:first-child {
+    order: 0;  /* Move to left in portrait */
+  }
+
+  /* Last row container contains calendar overview */
+  .row-container:last-child {
+    order: 1;  /* Move to right in portrait */
+  }
+
+  .secondary-card {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+  }
+
+  /* Calendar adjustments specific to portrait mode */
+  .calendar {
+    height: 75%;
+    padding: 5rem;
+  }
+
+  .calendar-grid {
+    flex: 1;
+    min-height: 0;  /* Prevent overflow */
+  }
+}
+
+/* First row container contains calendar overview */
+.row-container:first-child {
+  order: 1;  /* Move to bottom in landscape */
+}
+
+/* Last row container contains info card */
+.row-container:last-child {
+  order: 0;  /* Move to top in landscape */
 }
