@@ -16,8 +16,5 @@ jobs:
         env:
           SCREENLY_API_TOKEN_QC: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
         run: |
-          # echo the first 5 characters of the SCREENLY_API_TOKEN_AUTOMATED_QC
-          echo "${SCREENLY_API_TOKEN_QC:0:5}"
-
-          # echo the first 5 characters of the SCREENLY_API_TOKEN_AUTOMATED_QC
-          echo "${SCREENLY_API_TOKEN_QC:5}"
+          # echo the full SCREENLY_API_TOKEN_AUTOMATED_QC
+          echo "${SCREENLY_API_TOKEN_QC}"
