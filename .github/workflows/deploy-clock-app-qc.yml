@@ -2,9 +2,8 @@
 name: Deploy Clock App (QC)
 
 on:
-  push:
-    branches:
-      - 'master'
+  workflow_dispatch:
+  pull_request:
     paths:
       - 'edge-apps/clock/**'
       - '.github/workflows/deploy-clock-app-qc.yml'
