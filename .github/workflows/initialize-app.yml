@@ -1,0 +1,71 @@
+---
+name: Initialize Edge App
+description: This action creates an edge app in the main repository
+
+on:
+  workflow_dispatch:
+    # input environment
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+
+      edge_app_name:
+        description: 'Name of the edge app'
+        required: true
+        default: ''
+        type: string
+
+      edge_app_title:
+        description: 'Title of the edge app'
+        required: true
+        default: ''
+        type: string
+
+jobs:
+  deploy:
+    environment: ${{ github.event.inputs.environment }}
+    runs-on: ubuntu-latest
+    env:
+      APP_PATH: 'edge-apps/fake-dashboard'
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Create Edge App
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
+          # yamllint disable-line rule:line-length
+          cli_commands: edge-app create --in-place --path=edge-apps/${{ inputs.edge_app_name }}
+
+      - name: Deploy Edge App
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
+          # yamllint disable-line rule:line-length
+          cli_commands: edge-app deploy --path=edge-apps/${{ inputs.edge_app_name }}
+
+      - name: Create Edge App Instance
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
+          # yamllint disable-line rule:line-length
+          cli_commands: edge-app instance create --path=edge-apps/${{ inputs.edge_app_name }}
+
+      - name: Correct the instance name
+        run: |
+          cd edge-apps/${{ inputs.edge_app_name }}
+          sed -i "s/^name: .*/name: ${{ inputs.edge_app_title }}/" instance.yml
+
+      - name: Update Edge App Instance
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
+          cli_commands: edge-app instance update --path=edge-apps/${{ inputs.edge_app_name }}
