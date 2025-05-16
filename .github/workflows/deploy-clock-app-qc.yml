@@ -11,21 +11,13 @@ jobs:
     # env:
     #   APP_PATH: 'edge-apps/clock'
     #   MANIFEST_FILE_NAME: 'screenly_qc.yml'
-
-    # steps:
-    #   - name: Checkout Code
-    #     uses: actions/checkout@v4
-
+    steps:
       - name: Deploy Edge App
         env:
           SCREENLY_API_TOKEN_QC: ${{ secrets.SCREENLY_API_TOKEN_AUTOMATED_QC }}
         run: |
+          # echo the first 5 characters of the SCREENLY_API_TOKEN
+          echo "${SCREENLY_API_TOKEN_QC:0:5}"
 
-        # echo the first 5 characters of the SCREENLY_API_TOKEN
-          echo "$(SCREENLY_API_TOKEN_QC: 0:5}"
-
-        # echo the first 5 characters of the SCREENLY_API_TOKEN
-          echo "$(SCREENLY_API_TOKEN_QC: 0:5}"
-
-
-
+          # echo the first 5 characters of the SCREENLY_API_TOKEN
+          echo "${SCREENLY_API_TOKEN_QC:0:5}"
