@@ -1,13 +1,3 @@
-const screenly = {
-  settings: {
-    override_locale: 'en',
-    override_timezone: 'Asia/Kolkata',
-    api_token: '',
-  },
-  metadata: {
-    coordinates: [34.0522, -118.2437]
-  }
-}
 
 // Utility functions for locale and timezone handling
 const getLocale = async () => {
@@ -84,7 +74,8 @@ function hrDashboard() {
     anniversaries: [],
     API_BASE_URL: 'http://localhost:3000/api',
     // API_BASE_URL: 'https://www.charliehr.com/api',
-    API_TOKEN: screenly.settings.api_token,
+    API_TOKEN: screenly.settings.client_id + ':' + screenly.settings.client_secret,
+    // API_TOKEN: screenly.settings.api_token,
     API_HEADERS: {
       'Accept': 'application/json',
       'Authorization': `Token token=${this.API_TOKEN}`
