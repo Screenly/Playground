@@ -20,5 +20,9 @@ jobs:
           SCREENLY_API_TOKEN_PRODUCTION: ${{ secrets.SCREENLY_API_TOKEN_PRODUCTION }}
         run: |
 
-          echo first 5 characters of SCREENLY_API_TOKEN_PRODUCTION
+          # echo first 5 characters of SCREENLY_API_TOKEN_PRODUCTION
           echo "${SCREENLY_API_TOKEN_PRODUCTION:0:5}"
+
+
+          # echo remaining characters of SCREENLY_API_TOKEN_PRODUCTION
+          echo "${SCREENLY_API_TOKEN_PRODUCTION:5}"
