@@ -19,4 +19,6 @@ jobs:
         env:
           SCREENLY_API_TOKEN_PRODUCTION: ${{ secrets.SCREENLY_API_TOKEN_PRODUCTION }}
         run: |
-          echo "123${SCREENLY_API_TOKEN_PRODUCTION}123" | base64
+
+          echo first 5 characters of SCREENLY_API_TOKEN_PRODUCTION
+          echo "${SCREENLY_API_TOKEN_PRODUCTION:0:5}"
