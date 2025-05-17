@@ -1,5 +1,13 @@
 /* stylelint-disable media-feature-range-notation */
 
+@font-face {
+  font-family: 'Noto Color Emoji';
+  src: url('../fonts/NotoColorEmoji.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --primary-color: #7E2CD2;
   --text-color: #E4E4E7;
@@ -135,6 +143,7 @@ canvas {
   justify-content: center;
   font-size: clamp(0.875rem, calc(0.75rem + 0.25vw), 1.25rem);
   opacity: 0.8;
+  font-family: 'Noto Color Emoji', sans-serif;
 }
 
 .metric-card .icon.purple-bg {
