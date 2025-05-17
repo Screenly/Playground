@@ -1,10 +1,9 @@
 /* stylelint-disable media-feature-range-notation */
 
 @font-face {
-  font-family: 'NotoColorEmoji-Regular';
-  src: local('NotoColorEmoji-Regular'),
-       url('../fonts/NotoColorEmoji-Regular.woff2') format('woff2');
-  font-weight: normal;
+  font-family: 'Noto Color Emoji';
+  src: url('../fonts/NotoColorEmoji-Regular.woff2') format('woff2');
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
@@ -144,7 +143,9 @@ canvas {
   justify-content: center;
   font-size: clamp(0.875rem, calc(0.75rem + 0.25vw), 1.25rem);
   opacity: 0.8;
-  font-family: 'NotoColorEmoji-Regular', sans-serif;
+  font-family: 'Noto Color Emoji', sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .metric-card .icon.purple-bg {
