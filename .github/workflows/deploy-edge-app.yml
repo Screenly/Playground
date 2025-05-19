@@ -1,8 +1,7 @@
 ---
+# Manually deploy any edge app to either the staging (QC) or production environment.
+# Always uses the latest master branch.
 name: Deploy Edge App
-description: |
-  Manually deploy any edge app to either the staging (QC) or production environment.
-  Always uses the latest master branch.
 
 on:
   workflow_dispatch:
