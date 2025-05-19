@@ -24,12 +24,12 @@ run-name: Deploying ${{ inputs.edge_app_name }} to ${{ inputs.environment }}
 
 jobs:
   deploy:
-    name: Deploy to ${{ inputs.environment == 'production' ? 'Production' : 'Stage (QC)' }}
+    name: "Deploy to ${{ inputs.environment == 'production' ? 'Production' : 'Stage (QC)' }}"
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     env:
       APP_PATH: edge-apps/${{ inputs.edge_app_name }}
-      MANIFEST_FILE_NAME: ${{ inputs.environment == 'production' ? 'screenly.yml' : 'screenly_qc.yml' }}
+      MANIFEST_FILE_NAME: "${{ inputs.environment == 'production' ? 'screenly.yml' : 'screenly_qc.yml' }}"
 
     steps:
       - name: Checkout master branch
