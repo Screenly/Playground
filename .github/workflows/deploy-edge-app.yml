@@ -1,0 +1,44 @@
+name: Deploy Edge App
+description: |
+  Manually deploy any edge app to either the staging (QC) or production environment.
+  Always uses the latest master branch.
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to (stage or production)'
+        required: true
+        default: 'stage'
+        type: choice
+        options:
+          - stage
+          - production
+
+      edge_app_name:
+        description: 'Folder name of the edge app (under edge-apps/)'
+        required: true
+        default: ''
+
+run-name: Deploying ${{ inputs.edge_app_name }} to ${{ inputs.environment }}
+
+jobs:
+  deploy:
+    name: Deploy to ${{ inputs.environment == 'production' && 'Production' || 'Stage (QC)' }}
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    env:
+      APP_PATH: edge-apps/${{ inputs.edge_app_name }}
+      MANIFEST_FILE_NAME: ${{ inputs.environment == 'production' && 'screenly.yml' || 'screenly_qc.yml' }}
+
+    steps:
+      - name: Checkout master branch
+        uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: Deploy Edge App
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
+          cli_commands: edge-app deploy --path=${{ env.APP_PATH }} --manifest-file=${{ env.APP_PATH }}/${{ env.MANIFEST_FILE_NAME }}
