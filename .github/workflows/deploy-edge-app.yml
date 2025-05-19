@@ -18,7 +18,7 @@ on:
       edge_app_name:
         description: 'Folder name of the edge app (under edge-apps/)'
         required: true
-        default: ''
+        type: string
 
 run-name: Deploying ${{ inputs.edge_app_name }} to ${{ inputs.environment }}
 
@@ -36,6 +36,17 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: master
+
+      - name: Validate Edge App Path
+        run: |
+          if [ ! -d "${{ env.APP_PATH }}" ]; then
+            echo "Error: Edge app directory '${{ env.APP_PATH }}' does not exist"
+            exit 1
+          fi
+          if [ ! -f "${{ env.APP_PATH }}/${{ env.MANIFEST_FILE_NAME }}" ]; then
+            echo "Error: Manifest file '${{ env.MANIFEST_FILE_NAME }}' not found in ${{ env.APP_PATH }}"
+            exit 1
+          fi
 
       - name: Deploy Edge App
         uses: screenly/cli@master
