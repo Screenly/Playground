@@ -1,3 +1,4 @@
+---
 name: Deploy Edge App
 description: |
   Manually deploy any edge app to either the staging (QC) or production environment.
