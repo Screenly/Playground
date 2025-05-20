@@ -342,15 +342,89 @@ body {
 /* Raspberry Pi Touch Display - Portrait 480 × 800 */
 @media screen and (max-width: 480px) and (orientation: portrait) {
   .main-container {
-    gap: var(--pi-gap);
-    padding: var(--pi-padding);
+    padding: 0.44rem; /* 1rem * 0.44 */
+    gap: 0.44rem; /* 1rem * 0.44 */
   }
 
   .primary-card {
-    border-radius: var(--pi-border-radius-big);
+    border-radius: 1.32rem; /* 3rem * 0.44 */
+    gap: 0.88rem; /* 2rem * 0.44 */
+  }
+
+  .primary-container {
+    gap: 1.1rem; /* 2.5rem * 0.44 */
+  }
+
+  .secondary-container {
+    gap: 0.88rem; /* 2rem * 0.44 */
+  }
+
+  .row-container {
+    gap: 0.88rem; /* 2rem * 0.44 */
   }
 
   .secondary-card {
-    border-radius: var(--pi-border-radius-medium);
+    border-radius: 1.32rem; /* 3rem * 0.44 */
+    gap: 0.88rem; /* 2rem * 0.44 */
+  }
+}
+
+/* Portrait mode styles for 720x1280 (0.67x scale) */
+@media screen and (min-width: 481px) and (max-width: 720px) and (orientation: portrait) {
+  .main-container {
+    padding: 0.67rem; /* 1rem * 0.67 */
+    gap: 0.67rem; /* 1rem * 0.67 */
+  }
+
+  .primary-card {
+    border-radius: 2.01rem; /* 3rem * 0.67 */
+    gap: 1.34rem; /* 2rem * 0.67 */
+  }
+
+  .primary-container {
+    gap: 1.675rem; /* 2.5rem * 0.67 */
+  }
+
+  .secondary-container {
+    gap: 1.34rem; /* 2rem * 0.67 */
+  }
+
+  .row-container {
+    gap: 1.34rem; /* 2rem * 0.67 */
+  }
+
+  .secondary-card {
+    border-radius: 2.01rem; /* 3rem * 0.67 */
+    gap: 1.34rem; /* 2rem * 0.67 */
+  }
+}
+
+/* Portrait mode styles for 2160x3840 (2x scale) */
+@media screen and (min-width: 2160px) and (orientation: portrait) {
+  .main-container {
+    padding: 2rem; /* 1rem * 2 */
+    gap: 2rem; /* 1rem * 2 */
+  }
+
+  .primary-card {
+    border-radius: 6rem; /* 3rem * 2 */
+    gap: 4rem; /* 2rem * 2 */
+  }
+
+  .primary-container {
+    gap: 5rem; /* 2.5rem * 2 */
+  }
+
+  .secondary-container {
+    gap: 4rem; /* 2rem * 2 */
+  }
+
+  .row-container {
+    gap: 4rem; /* 2rem * 2 */
+  }
+
+  .secondary-card {
+    border-radius: 6rem; /* 3rem * 2 */
+    gap: 4rem; /* 2rem * 2 */
   }
 }

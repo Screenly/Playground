@@ -83,8 +83,9 @@
 .month-name {
   display: inline-flex;
   align-items: center;
-  height: 3.5rem;
+  height: 4rem !important; /* Increased from 3.5rem */
   font-weight: bold;
+  font-size: 2.8rem !important; /* Increased from 2.5rem */
 }
 
 .date-number-box {
@@ -197,8 +198,8 @@
 .calendar-cell.current-day::before {
   content: '';
   position: absolute;
-  width: 4rem;
-  height: 4rem;
+  width: 5.5rem !important; /* Reduced from 8rem */
+  height: 5.5rem !important; /* Reduced from 8rem */
   background-color: var(--theme-color-primary);
   border-radius: 50%;
   z-index: -1;
@@ -246,8 +247,8 @@
   }
 
   .calendar-cell.current-day::before {
-    width: 2.68rem; /* 4rem * 0.67 */
-    height: 2.68rem;
+    width: 4.355rem; /* 6.5rem * 0.67 */
+    height: 4.355rem;
   }
 
   /* Calendar Overview Card */
@@ -306,7 +307,12 @@
   }
 }
 
-@media screen and (min-width: 3840px) {
+@media screen and (min-width: 3840px) and (orientation: landscape) {
+  .main-container {
+    padding: 4rem !important; /* Increased from 2rem */
+    gap: 4rem !important; /* Increased from 2rem */
+  }
+
   .calendar {
     width: 85%;
     gap: 2rem; /* 1rem * 2 */
@@ -334,8 +340,8 @@
   }
 
   .calendar-cell.current-day::before {
-    width: 8rem; /* 4rem * 2 */
-    height: 8rem;
+    width: 13rem; /* 6.5rem * 2 */
+    height: 13rem;
   }
 
   /* Calendar Overview Card */
@@ -650,6 +656,27 @@
     height: 4rem;
     margin-right: 0.75rem;
   }
+
+  .calendar-cell.current-day::before {
+    width: 6.2rem !important; /* Increased from 5.5rem */
+    height: 6.2rem !important; /* Increased from 5.5rem */
+  }
+
+  .calendar-overview-event-item {
+    padding-top: 1.3rem !important; /* Increased from 1rem */
+    padding-bottom: 1.3rem !important; /* Increased from 1rem */
+  }
+
+  .month-name {
+    font-size: 3rem !important; /* Increased from 2.8rem */
+    height: 4.2rem !important; /* Increased from 4rem */
+  }
+
+  .date-number-circle {
+    width: 4.8rem !important; /* Increased from 4.5rem */
+    height: 4.8rem !important; /* Increased from 4.5rem */
+    font-size: 2.4rem !important; /* Increased from 2.2rem */
+  }
 }
 
 @media screen and (min-width: 2160px) and (orientation: portrait) {
@@ -687,6 +714,37 @@
 
   .date-number {
     font-size: 34rem;
+  }
+
+  .month-name {
+    font-size: 5rem !important; /* 2.5rem * 2 */
+  }
+
+  .calendar-overview-event-item {
+    font-size: 1.15em !important;
+    padding-top: 2rem !important; /* 1rem * 2 */
+    padding-bottom: 2rem !important; /* 1rem * 2 */
+  }
+
+  .calendar-overview-card {
+    padding: 6rem !important; /* 3rem * 2 */
+  }
+
+  .date-number-circle {
+    width: 8rem !important; /* 4rem * 2 */
+    height: 8rem !important; /* 4rem * 2 */
+    margin-right: 1.5rem !important; /* 0.75rem * 2 */
+    font-size: 4rem !important; /* 2rem * 2 */
+  }
+
+  .calendar-date {
+    font-size: 5rem !important; /* 2.5rem * 2 */
+  }
+
+  .calendar-overview-event-item {
+    font-size: 1.15em !important;
+    padding-top: 2rem !important; /* 1rem * 2 */
+    padding-bottom: 2rem !important; /* 1rem * 2 */
   }
 }
 
@@ -733,9 +791,32 @@
   }
 
   .date-number-circle {
-    width: 8rem; /* 4rem * 2 */
-    height: 8rem;
-    margin-right: 1.5rem;
+    width: 11rem !important; /* Increased from 9.6rem */
+    height: 11rem !important; /* Increased from 9.6rem */
+    font-size: 5.5rem !important; /* Increased from 4.8rem */
+    margin-right: 1.8rem !important; /* Increased from 1.5rem */
+  }
+
+  .calendar-cell.current-day::before {
+    width: 12.4rem !important; /* 6.2rem * 2 */
+    height: 12.4rem !important; /* 6.2rem * 2 */
+  }
+
+  .calendar-overview-event-item {
+    padding-top: 2.6rem !important; /* 1.3rem * 2 */
+    padding-bottom: 2.6rem !important; /* 1.3rem * 2 */
+  }
+
+  .month-name {
+    font-size: 6rem !important; /* 3rem * 2 */
+    height: 8.4rem !important; /* 4.2rem * 2 */
+  }
+
+  .date-number-circle {
+    width: 11rem !important; /* Increased from 9.6rem */
+    height: 11rem !important; /* Increased from 9.6rem */
+    font-size: 5.5rem !important; /* Increased from 4.8rem */
+    margin-right: 1.8rem !important; /* Increased from 1.5rem */
   }
 }
 
@@ -777,8 +858,8 @@
   }
 
   .calendar-cell.current-day::before {
-    width: 8rem;
-    height: 8rem;
+    width: 13.845rem; /* 6.5rem * 2.13 */
+    height: 13.845rem;
   }
 
   .calendar-header {
@@ -813,7 +894,7 @@
 
   /* Calendar Grid Styles */
   .calendar {
-    width: 95%;
+    width: 85% !important; /* Reduced from 95% */
     gap: 0.42rem; /* 1rem * 0.42 */
   }
 
@@ -885,8 +966,8 @@
   }
 
   .calendar-cell.current-day::before {
-    width: 1.68rem; /* 4rem * 0.42 */
-    height: 1.68rem;
+    width: 2.73rem; /* 6.5rem * 0.42 */
+    height: 2.73rem;
   }
 }
 
@@ -1051,14 +1132,15 @@
 .date-number-circle {
   background-color: var(--theme-color-tertiary);
   color: var(--theme-color-primary);
-  width: 4rem;
-  height: 4rem;
+  width: 4.5rem !important; /* Increased from 4rem */
+  height: 4.5rem !important; /* Increased from 4rem */
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-right: 0.75rem;
+  margin-right: 0.9rem !important; /* Increased from 0.75rem */
   font-weight: bold;
+  font-size: 2.2rem !important; /* Increased from 2rem */
 }
 
 @media screen and (min-width: 1280px) and (orientation: landscape) {
@@ -1079,9 +1161,10 @@
 
 @media screen and (min-width: 3840px) and (orientation: landscape) {
   .date-number-circle {
-    width: 8rem; /* 4rem * 2 */
-    height: 8rem;
-    margin-right: 1.5rem;
+    width: 11rem !important; /* Increased from 9.6rem */
+    height: 11rem !important; /* Increased from 9.6rem */
+    font-size: 5.5rem !important; /* Increased from 4.8rem */
+    margin-right: 1.8rem !important; /* Increased from 1.5rem */
   }
 }
 
@@ -1115,6 +1198,11 @@
     gap: 3rem;
     order: 1;
     padding: 0;
+  }
+
+  /* Calendar overview event items in portrait mode */
+  .calendar-overview-event-item {
+    font-size: 1.15em !important;
   }
 
   .row-container {
@@ -1161,4 +1249,403 @@
 /* Last row container contains info card */
 .row-container:last-child {
   order: 0;  /* Move to top in landscape */
+}
+
+/* Portrait mode styles for 480x800 (0.44x scale) */
+@media screen and (max-width: 480px) and (orientation: portrait) {
+  .main-container {
+    padding: 1.1rem; /* 2.5rem * 0.44 */
+    gap: 1.32rem; /* 3rem * 0.44 */
+  }
+
+  .primary-card {
+    height: 60%;
+  }
+
+  .secondary-container {
+    height: 40%;
+    gap: 1.32rem; /* 3rem * 0.44 */
+  }
+
+  .calendar {
+    height: 75%;
+    padding: 1.5rem;
+    width: 95%;
+  }
+
+  .calendar-header {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .calendar-weekdays {
+    font-size: 0.8rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .calendar-grid {
+    border-radius: 0.5rem;
+  }
+
+  .calendar-cell {
+    font-size: 1rem;
+    padding: 1rem 0.2rem;
+  }
+
+  .calendar-event {
+    font-size: 0.8rem;
+  }
+
+  .calendar-time {
+    font-size: 1rem;
+  }
+
+  .info-text {
+    font-size: 0.7rem;
+  }
+
+  .brand-logo {
+    width: 5rem;
+  }
+
+  .date-text {
+    font-size: 2.8rem;
+  }
+
+  .date-number {
+    font-size: 7rem;
+  }
+
+  .calendar-overview-event-item {
+    font-size: 0.85em !important;
+    padding-top: 0.44rem !important;
+    padding-bottom: 0.44rem !important;
+  }
+
+  .calendar-cell.current-day::before {
+    width: 2.42rem !important; /* 5.5rem * 0.44 */
+    height: 2.42rem !important; /* 5.5rem * 0.44 */
+  }
+
+  .month-name {
+    font-size: 1.2rem !important; /* Reduced from 1.6rem */
+    height: 2rem !important; /* Reduced from 2.7rem */
+  }
+
+  .date-number-circle {
+    width: 2.2rem !important; /* Reduced from 3.5rem */
+    height: 2.2rem !important; /* Reduced from 3.5rem */
+    margin-right: 0.5rem !important; /* Reduced from 0.7rem */
+    font-size: 1.2rem !important; /* Reduced from 1.6rem */
+  }
+}
+
+/* Portrait mode styles for 720x1280 (0.67x scale) */
+@media screen and (min-width: 481px) and (max-width: 720px) and (orientation: portrait) {
+  .main-container {
+    padding: 1.675rem; /* 2.5rem * 0.67 */
+    gap: 2.01rem; /* 3rem * 0.67 */
+  }
+
+  .primary-card {
+    height: 60%;
+  }
+
+  .secondary-container {
+    height: 40%;
+    gap: 2.01rem; /* 3rem * 0.67 */
+  }
+
+  .calendar {
+    height: 75%;
+    padding: 2.5rem;
+    width: 90%;
+  }
+
+  .calendar-header {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .calendar-weekdays {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .calendar-grid {
+    border-radius: 0.8rem;
+  }
+
+  .calendar-cell {
+    font-size: 1.5rem;
+    padding: 1.5rem 0.3rem;
+  }
+
+  .calendar-event {
+    font-size: 1.2rem;
+  }
+
+  .calendar-time {
+    font-size: 1.5rem;
+  }
+
+  .info-text {
+    font-size: 1rem;
+  }
+
+  .brand-logo {
+    width: 7.5rem;
+  }
+
+  .date-text {
+    font-size: 4rem;
+  }
+
+  .date-number {
+    font-size: 10rem;
+  }
+
+  .calendar-overview-event-item {
+    font-size: 0.85em !important;
+    padding-top: 0.67rem !important;
+    padding-bottom: 0.67rem !important;
+  }
+
+  .calendar-cell.current-day::before {
+    width: 3.685rem !important; /* 5.5rem * 0.67 */
+    height: 3.685rem !important; /* 5.5rem * 0.67 */
+  }
+
+  .month-name {
+    font-size: 1.6rem !important; /* Reduced from 1.8rem */
+    height: 2.7rem !important; /* Reduced from 3rem */
+  }
+
+  .date-number-circle {
+    width: 3.5rem !important; /* Reduced from 3.8rem */
+    height: 3.5rem !important; /* Reduced from 3.8rem */
+    margin-right: 0.7rem !important; /* Reduced from 0.8rem */
+    font-size: 1.6rem !important; /* Reduced from 1.8rem */
+  }
+}
+
+/* Portrait mode styles for 1080x1920 (baseline) */
+@media screen and (min-width: 721px) and (max-width: 2159px) and (orientation: portrait) {
+  .calendar-overview-event-item {
+    font-size: 1.15em !important;
+    padding-top: 1.5rem !important; /* Increased from 1rem */
+    padding-bottom: 1.5rem !important; /* Increased from 1rem */
+  }
+
+  .calendar-time {
+    font-size: 2.8rem !important; /* Increased from 2.5rem */
+  }
+}
+
+/* Portrait mode styles for 2160x3840 (2x scale) */
+@media screen and (min-width: 2160px) and (orientation: portrait) {
+  .main-container {
+    padding: 5rem; /* 2.5rem * 2 */
+    gap: 6rem; /* 3rem * 2 */
+  }
+
+  .primary-card {
+    height: 60%;
+  }
+
+  .secondary-container {
+    height: 40%;
+    gap: 6rem; /* 3rem * 2 */
+  }
+
+  .calendar {
+    height: 75%;
+    padding: 8rem;
+    width: 85%;
+  }
+
+  .calendar-header {
+    font-size: 4rem;
+    margin-bottom: 4rem;
+  }
+
+  .calendar-weekdays {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .calendar-grid {
+    border-radius: 1.5rem;
+  }
+
+  .calendar-cell {
+    font-size: 4rem;
+    padding: 4rem 0.8rem;
+  }
+
+  .calendar-event {
+    font-size: 3rem;
+  }
+
+  .calendar-time {
+    font-size: 4rem;
+  }
+
+  .info-text {
+    font-size: 2.8rem;
+  }
+
+  .brand-logo {
+    width: 20rem;
+  }
+
+  .date-text {
+    font-size: 12rem;
+  }
+
+  .date-number {
+    font-size: 30rem;
+  }
+
+  .calendar-overview-event-item {
+    font-size: 1.15em !important;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .calendar-overview-card {
+    padding: 6rem !important; /* 3rem * 2 */
+  }
+
+  .month-name {
+    font-size: 5rem !important; /* 2.5rem * 2 */
+  }
+
+  .date-number-circle {
+    width: 8rem !important; /* 4rem * 2 */
+    height: 8rem !important; /* 4rem * 2 */
+    margin-right: 1.5rem !important; /* 0.75rem * 2 */
+    font-size: 4rem !important; /* 2rem * 2 */
+  }
+
+  .calendar-date {
+    font-size: 5rem !important; /* 2.5rem * 2 */
+  }
+
+  .calendar-overview-event-item {
+    font-size: 1.15em !important;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .calendar-cell.current-day::before {
+    width: 11rem !important; /* 5.5rem * 2 */
+    height: 11rem !important; /* 5.5rem * 2 */
+  }
+}
+
+/* --- CALENDAR OVERVIEW EVENT ITEM STYLES --- */
+
+/* Base styles */
+.calendar-overview-event-item {
+  font-size: 1em;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+/* 800x480 (landscape) */
+@media screen and (max-width: 800px) and (orientation: landscape) {
+  .calendar-overview-event-item {
+    font-size: 0.95em !important;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  .date-number-circle {
+    width: 1.8rem !important;
+    height: 1.8rem !important;
+    margin-right: 0.4rem !important;
+    font-size: 1rem !important;
+  }
+
+  .month-name {
+    font-size: 1rem !important;
+    height: 1.6rem !important;
+  }
+
+  .calendar-cell.current-day::before {
+    width: 2.4rem !important;
+    height: 2.4rem !important;
+  }
+}
+
+/* 480x800 (portrait) */
+@media screen and (max-width: 480px) and (orientation: portrait) {
+  .calendar-overview-event-item {
+    font-size: 0.85em;
+    padding-top: 0.44rem;
+    padding-bottom: 0.44rem;
+  }
+}
+
+/* 1280x720 (landscape) */
+@media screen and (min-width: 801px) and (max-width: 1280px) and (orientation: landscape) {
+  .calendar-overview-event-item {
+    font-size: 0.85em;
+    padding-top: 0.67rem;
+    padding-bottom: 0.67rem;
+  }
+
+  .date-number-circle {
+    width: 2.6rem !important;
+    height: 2.6rem !important;
+    margin-right: 0.5rem !important;
+    font-size: 1.4rem !important;
+  }
+
+  .month-name {
+    font-size: 1.4rem !important;
+    height: 2.4rem !important;
+  }
+
+  .calendar-cell.current-day::before {
+    width: 3.8rem !important; /* Reduced from 4.355rem */
+    height: 3.8rem !important; /* Reduced from 4.355rem */
+  }
+}
+
+/* 720x1280 (portrait) */
+@media screen and (min-width: 721px) and (max-width: 1280px) and (orientation: portrait) {
+  .calendar-overview-event-item {
+    font-size: 0.85em;
+    padding-top: 0.67rem;
+    padding-bottom: 0.67rem;
+  }
+}
+
+/* 1080x1920 (portrait) */
+@media screen and (min-width: 1080px) and (max-width: 1920px) and (orientation: portrait) {
+  .calendar-overview-event-item {
+    font-size: 1.15em;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+
+/* 2160x3840 (portrait) */
+@media screen and (min-width: 2160px) and (orientation: portrait) {
+  .calendar-overview-event-item {
+    font-size: 2em;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+/* 3840x2160 (landscape) */
+@media screen and (min-width: 3840px) and (orientation: landscape) {
+  .calendar-overview-event-item {
+    font-size: 2em;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
 }

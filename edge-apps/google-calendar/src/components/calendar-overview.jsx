@@ -83,6 +83,7 @@ const CalendarOverview = ({
                 filteredEvents.map((event, index) => (
                   <div
                     key={index}
+                    className='calendar-overview-event-item'
                     style={{
                       display: 'flex',
                       fontSize: '0.7em',
