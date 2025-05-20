@@ -1,7 +1,6 @@
+# This action creates and initializes a new edge app in the repository - Only for initial setup of a new edge app
+
 name: Initialize Edge App
-description: |
-  This action creates and initializes a new edge app in the repository,
-  including its deployment and instance setup for the specified environment.
 
 on:
   workflow_dispatch:
