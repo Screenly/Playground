@@ -513,7 +513,7 @@
 }
 
 /* 1080x1920 (portrait) */
-@media (min-width: 1080px) and (max-width: 1920px) and (orientation: portrait) {
+@media (1080px <= width <= 1920px) and (orientation: portrait) {
   .clock {
     width: 20rem;
     height: 20rem;
