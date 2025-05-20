@@ -616,7 +616,7 @@
 }
 
 /* 480x800 (portrait) */
-@media (min-width: 480px) and (max-width: 800px) and (orientation: portrait) {
+@media (480px <= width <= 800px) and (orientation: portrait) {
   .clock {
     width: 10rem;
     height: 10rem;
@@ -719,7 +719,7 @@
 }
 
 /* 720x1280 (portrait) */
-@media (min-width: 720px) and (max-width: 1280px) and (orientation: portrait) {
+@media (720px <= width <= 1280px) and (orientation: portrait) {
   .clock {
     width: 16rem;
     height: 16rem;
@@ -822,7 +822,7 @@
 }
 
 /* 2160x3840 (portrait) */
-@media (min-width: 2160px) and (max-width: 3840px) and (orientation: portrait) {
+@media (2160px <= width <= 3840px) and (orientation: portrait) {
   .clock {
     width: 40rem;
     height: 40rem;
@@ -925,7 +925,7 @@
 }
 
 /* 800x480 (landscape) */
-@media (min-width: 800px) and (max-width: 1280px) and (orientation: landscape) {
+@media (800px <= width <= 1280px) and (orientation: landscape) {
   .clock {
     width: 10rem;
     height: 10rem;
@@ -1028,7 +1028,7 @@
 }
 
 /* 1280x720 (landscape) */
-@media (min-width: 1280px) and (max-width: 1920px) and (orientation: landscape) {
+@media (1280px <= width <= 1920px) and (orientation: landscape) {
   .clock {
     width: 14rem;
     height: 14rem;
@@ -1131,7 +1131,7 @@
 }
 
 /* 1080x1920 (portrait) */
-@media (min-width: 1080px) and (max-width: 1920px) and (orientation: portrait) {
+@media (1080px <= width <= 1920px) and (orientation: portrait) {
   .clock {
     width: 25rem;
     height: 25rem;
@@ -1234,7 +1234,7 @@
 }
 
 /* 1920x1080 (landscape) */
-@media (min-width: 1920px) and (max-width: 2160px) and (orientation: landscape) {
+@media (1920px <= width <= 2160px) and (orientation: landscape) {
   .clock {
     width: 22rem;
     height: 22rem;
