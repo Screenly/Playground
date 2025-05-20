@@ -651,31 +651,19 @@
     border-radius: 12px;
   }
 
-  .date-number-circle {
-    width: 4rem;
-    height: 4rem;
-    margin-right: 0.75rem;
-  }
-
   .calendar-cell.current-day::before {
-    width: 6.2rem !important; /* Increased from 5.5rem */
-    height: 6.2rem !important; /* Increased from 5.5rem */
+    width: 6.2rem !important;
+    height: 6.2rem !important;
   }
 
   .calendar-overview-event-item {
-    padding-top: 1.3rem !important; /* Increased from 1rem */
-    padding-bottom: 1.3rem !important; /* Increased from 1rem */
+    padding-top: 1.3rem !important;
+    padding-bottom: 1.3rem !important;
   }
 
   .month-name {
-    font-size: 3rem !important; /* Increased from 2.8rem */
-    height: 4.2rem !important; /* Increased from 4rem */
-  }
-
-  .date-number-circle {
-    width: 4.8rem !important; /* Increased from 4.5rem */
-    height: 4.8rem !important; /* Increased from 4.5rem */
-    font-size: 2.4rem !important; /* Increased from 2.2rem */
+    font-size: 3rem !important;
+    height: 4.2rem !important;
   }
 }
 
@@ -722,36 +710,35 @@
 
   .calendar-overview-event-item {
     font-size: 1.15em !important;
-    padding-top: 2rem !important; /* 1rem * 2 */
-    padding-bottom: 2rem !important; /* 1rem * 2 */
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
   }
 
   .calendar-overview-card {
-    padding: 6rem !important; /* 3rem * 2 */
+    padding: 6rem !important;
   }
 
   .date-number-circle {
-    width: 8rem !important; /* 4rem * 2 */
-    height: 8rem !important; /* 4rem * 2 */
-    margin-right: 1.5rem !important; /* 0.75rem * 2 */
-    font-size: 4rem !important; /* 2rem * 2 */
+    width: 8rem !important;
+    height: 8rem !important;
+    margin-right: 1.5rem !important;
+    font-size: 4rem !important;
   }
 
   .calendar-date {
-    font-size: 5rem !important; /* 2.5rem * 2 */
+    font-size: 5rem !important;
   }
 
-  .calendar-overview-event-item {
-    font-size: 1.15em !important;
-    padding-top: 2rem !important; /* 1rem * 2 */
-    padding-bottom: 2rem !important; /* 1rem * 2 */
+  .calendar-cell.current-day::before {
+    width: 11rem !important;
+    height: 11rem !important;
   }
 }
 
 @media screen and (min-width: 3840px) and (orientation: landscape) {
   .primary-card .calendar .calendar-grid {
-    border-radius: 24px; /* 12px * 2 */
-    border-width: 2px; /* 1px * 2 */
+    border-radius: 24px;
+    border-width: 2px;
   }
 
   .clock-container {
@@ -790,33 +777,19 @@
     font-size: 34rem;
   }
 
-  .date-number-circle {
-    width: 11rem !important; /* Increased from 9.6rem */
-    height: 11rem !important; /* Increased from 9.6rem */
-    font-size: 5.5rem !important; /* Increased from 4.8rem */
-    margin-right: 1.8rem !important; /* Increased from 1.5rem */
-  }
-
   .calendar-cell.current-day::before {
-    width: 12.4rem !important; /* 6.2rem * 2 */
-    height: 12.4rem !important; /* 6.2rem * 2 */
+    width: 12.4rem !important;
+    height: 12.4rem !important;
   }
 
   .calendar-overview-event-item {
-    padding-top: 2.6rem !important; /* 1.3rem * 2 */
-    padding-bottom: 2.6rem !important; /* 1.3rem * 2 */
+    padding-top: 2.6rem !important;
+    padding-bottom: 2.6rem !important;
   }
 
   .month-name {
-    font-size: 6rem !important; /* 3rem * 2 */
-    height: 8.4rem !important; /* 4.2rem * 2 */
-  }
-
-  .date-number-circle {
-    width: 11rem !important; /* Increased from 9.6rem */
-    height: 11rem !important; /* Increased from 9.6rem */
-    font-size: 5.5rem !important; /* Increased from 4.8rem */
-    margin-right: 1.8rem !important; /* Increased from 1.5rem */
+    font-size: 6rem !important;
+    height: 8.4rem !important;
   }
 }
 
@@ -1595,12 +1568,6 @@
 
   .calendar-date {
     font-size: 5rem !important; /* 2.5rem * 2 */
-  }
-
-  .calendar-overview-event-item {
-    font-size: 1.15em !important;
-    padding-top: 2rem !important;
-    padding-bottom: 2rem !important;
   }
 
   .calendar-cell.current-day::before {
