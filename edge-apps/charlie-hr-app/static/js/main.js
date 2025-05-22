@@ -1,232 +1,358 @@
-/* global clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry */
-/* eslint-disable-next-line no-unused-vars, no-useless-catch */
 
+// Utility functions for locale and timezone handling
+const getLocale = async () => {
+  const defaultLocale = navigator?.languages?.length
+    ? navigator.languages[0]
+    : navigator.language || 'en';
 
-// const screenly = {
-//   settings: {
-//     welcome_heading: 'Welcome',
-//     welcome_message: 'Welcome to the app',
-//     theme: 'light',
-//     screenly_color_accent: '#7E2CD2',
-//     screenly_color_light: '#adafbe',
-//     screenly_color_dark: '#adafbe',
-//     screenly_logo_light: 'static/img/Screenly.svg',
-//     screenly_logo_dark: 'static/img/Screenly.svg',
-//     override_locale: 'en',
-//     override_timezone: 'Asia/Singapore',
-//   },
-//   metadata: {
-//     coordinates: [1.3521, 103.8198]
-//   }
-// }
-
-document.addEventListener('DOMContentLoaded', async () => {
-  const { getNearestCity } = OfflineGeocodeCity
-  const allTimezones = moment.tz.names()
-
-  const sentryDsn = screenly.settings.sentry_dsn
-  // Initiate Sentry.
-  if (sentryDsn) {
-    Sentry.init({
-      dsn: sentryDsn
-    })
-  } else {
-    console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
-  }
-
-  async function initApp () {
-    // let clockTimer
-    const { metadata, settings } = screenly
-    const latitude = metadata.coordinates[0]
-    const longitude = metadata.coordinates[1]
-    const defaultLocale = navigator?.languages?.length
-      ? navigator.languages[0]
-      : navigator.language
-
-    // Message text from Screenly Settings
-    document.querySelector('.welcome-heading').innerText = screenly.settings.welcome_heading
-    document.querySelector('.welcome-message').innerText = screenly.settings.welcome_message
-
-    const getLocale = async () => {
-      const overrideLocale = settings?.override_locale
-
-      if (overrideLocale) {
-        if (moment.locales().includes(overrideLocale)) {
-          return overrideLocale
-        } else {
-          console.warn(`Invalid locale: ${overrideLocale}. Using defaults.`)
-        }
-      }
-
-      const data = await getNearestCity(latitude, longitude)
-      const countryCode = data.countryIso2.toUpperCase()
-
-      return clm.getLocaleByAlpha2(countryCode) || defaultLocale
-    }
-
-    const getTimezone = async () => {
-      const overrideTimezone = settings?.override_timezone
-      if (overrideTimezone) {
-        if (allTimezones.includes(overrideTimezone)) {
-          return overrideTimezone
-        } else {
-          console.warn(`Invalid timezone: ${overrideTimezone}. Using defaults.`)
-        }
-      }
-
-      return tzlookup(latitude, longitude)
-    }
-
-    const initDateTime = async () => {
-      const timezone = await getTimezone()
-      const locale = await getLocale()
-      const momentObject = moment().tz(timezone)
-
-      if (locale) {
-        momentObject.locale(locale) // Set the locale if available
-      }
-
-      document.querySelector('.date-text').innerText = momentObject.format('ddd').toUpperCase() // Set the text to the day name
-      document.querySelector('.date-number').innerText = momentObject.format('DD') // Set the  text to the numeric day of the month
-
-      // Clock Elements
-      const secondsBar = document.querySelector('.seconds-bar')
-      const barElement = []
-      for (let i = 1; i <= 60; i++) {
-        barElement.push(`<span style="--index:${i}"><p></p></span>`)
-      }
-      secondsBar.insertAdjacentHTML('afterbegin', barElement.join(''))
-
-      // Time
-      const handHours = document.querySelector('.hand.hour')
-      const handMinutes = document.querySelector('.hand.minute')
-      const handSeconds = document.querySelector('.hand.second')
-
-      // Update clock hands every second
-      const updateClockHands = () => {
-        const momentObject = moment().tz(timezone) // Fetch real-time updates
-        const currentHours = momentObject.format('HH') // 24-hour format
-        const currentMinutes = momentObject.format('mm') // Minutes
-        const currentSeconds = momentObject.format('ss') // Seconds
-
-        // Set rotations for the hands
-        handHours.style.transform = `rotate(${currentHours * 30 + currentMinutes / 2}deg)`
-        handMinutes.style.transform = `rotate(${currentMinutes * 6}deg)`
-        handSeconds.style.transform = `rotate(${currentSeconds * 6}deg)`
-      }
-
-      updateClockHands() // Call once initially
-
-      // Call updateClockHands every second
-      setInterval(updateClockHands, 1000)
-    }
-
-    initDateTime() // Initialize the app
-  }
-
-  await initApp()
-
-  // constant colors
-  const tertiaryColor = '#FFFFFF'
-  const backgroundColor = '#C9CDD0'
-  const defaultPrimaryColor = '#7E2CD2'
-  let secondaryColor = '#454BD2'
-
-  // Theme Selection
-  const theme = screenly.settings.theme ? screenly.settings.theme : 'light'
-
-  // Brand details fetching from settings
-  const primaryColor = (!screenly.settings.screenly_color_accent || screenly.settings.screenly_color_accent.toLowerCase() === '#ffffff') ? defaultPrimaryColor : screenly.settings.screenly_color_accent
-
-  if (theme === 'light') {
-    secondaryColor = (!screenly.settings.screenly_color_light || screenly.settings.screenly_color_light.toLowerCase() === '#ffffff') ? '#adafbe' : screenly.settings.screenly_color_light
-  } else if (theme === 'dark') {
-    secondaryColor = (!screenly.settings.screenly_color_dark || screenly.settings.screenly_color_dark.toLowerCase() === '#ffffff') ? '#adafbe' : screenly.settings.screenly_color_dark
-  }
-
-  document.documentElement.style.setProperty('--theme-color-primary', primaryColor)
-  document.documentElement.style.setProperty('--theme-color-secondary', secondaryColor)
-  document.documentElement.style.setProperty('--theme-color-tertiary', tertiaryColor)
-  document.documentElement.style.setProperty('--theme-color-background', backgroundColor)
-
-  // Get the logo image element
-  const imgElement = document.getElementById('brand-logo')
-
-  // Initialize variables
-  let logoUrl = '' // Logo URL
-  let fallbackUrl = '' // Fallback logo if CORS URL fails
-  const defaultLogo = 'static/img/Screenly.svg' // Fall back screenly logo
-
-  // Define settings
-  const lightLogo = screenly.settings.screenly_logo_light
-  const darkLogo = screenly.settings.screenly_logo_dark
-
-  // Set logo URLs based on theme
-  if (theme === 'light') {
-    logoUrl = lightLogo
-      ? `${screenly.cors_proxy_url}/${lightLogo}`
-      : `${screenly.cors_proxy_url}/${darkLogo}`
-    fallbackUrl = lightLogo || darkLogo
-  } else if (theme === 'dark') {
-    logoUrl = darkLogo
-      ? `${screenly.cors_proxy_url}/${darkLogo}`
-      : `${screenly.cors_proxy_url}/${lightLogo}`
-    fallbackUrl = darkLogo || lightLogo
-  }
-
-  // Function to fetch and process the image
-  async function fetchImage (fileUrl) {
-    try {
-      const response = await fetch(fileUrl)
-      if (!response.ok) {
-        throw new Error(`Failed to fetch image from ${fileUrl}, status: ${response.status}`)
-      }
-
-      const blob = await response.blob()
-      const buffer = await blob.arrayBuffer()
-      const uintArray = new Uint8Array(buffer)
-
-      // Get the first 4 bytes for magic number detection
-      const hex = Array.from(uintArray.slice(0, 4))
-        .map(b => b.toString(16).padStart(2, '0'))
-        .join('').toUpperCase()
-
-      // Convert the first few bytes to ASCII for text-based formats like SVG
-      const ascii = String.fromCharCode.apply(null, uintArray.slice(0, 100)) // Check first 100 chars for XML/SVG tags
-
-      // Determine file type based on MIME type, magic number, or ASCII text
-      if (ascii.startsWith('<?xml') || ascii.startsWith('<svg')) {
-        // Convert to Base64 and display if SVG
-        const svgReader = new FileReader()
-        svgReader.readAsText(blob)
-        svgReader.onloadend = function () {
-          const base64 = btoa(unescape(encodeURIComponent(svgReader.result)))
-          imgElement.src = 'data:image/svg+xml;base64,' + base64
-        }
-      } else if (hex === '89504E47' || hex.startsWith('FFD8FF')) {
-        // Checking PNG or JPEG/JPG magic number
-        imgElement.src = fileUrl
-      } else {
-        throw new Error('Unknown image type')
-      }
-    } catch (error) {
-      console.error('Error fetching image:', error)
+  const overrideLocale = screenly.settings?.override_locale;
+  if (overrideLocale) {
+    if (moment.locales().includes(overrideLocale)) {
+      return overrideLocale;
+    } else {
+      console.warn(`Invalid locale: ${overrideLocale}. Using defaults.`);
     }
   }
 
-  // First, try to fetch the image using the CORS proxy URL
+  // If no override, try to get locale from coordinates
   try {
-    await fetchImage(logoUrl)
+    const { metadata } = screenly;
+    const latitude = metadata.coordinates[0];
+    const longitude = metadata.coordinates[1];
+
+    const data = await getNearestCity(latitude, longitude);
+    const countryCode = data.countryIso2.toUpperCase();
+
+    return clm.getLocaleByAlpha2(countryCode) || defaultLocale;
   } catch (error) {
-    // If CORS fails, try the fallback URL
-    try {
-      await fetchImage(fallbackUrl)
-    } catch (fallbackError) {
-      // If fallback fails, use the default logo
-      imgElement.src = defaultLogo
+    console.warn('Failed to get locale from coordinates:', error);
+    return defaultLocale;
+  }
+};
+
+const getTimezone = async () => {
+  const overrideTimezone = screenly.settings?.override_timezone;
+  if (overrideTimezone) {
+    if (moment.tz.names().includes(overrideTimezone)) {
+      return overrideTimezone;
+    } else {
+      console.warn(`Invalid timezone: ${overrideTimezone}. Using defaults.`);
     }
   }
 
-  // Signal that the screen is ready for rendering
-  screenly.signalReadyForRendering()
-})
+  // If no override, try to get timezone from coordinates
+  try {
+    const { metadata } = screenly;
+    const latitude = metadata.coordinates[0];
+    const longitude = metadata.coordinates[1];
+
+    return tzlookup(latitude, longitude);
+  } catch (error) {
+    console.warn('Failed to get timezone from coordinates:', error);
+    return moment.tz.guess();
+  }
+};
+
+const getDateTimeFormats = (locale) => {
+  const is24HourFormat = moment.localeData(locale).longDateFormat('LT').includes('H');
+  return {
+    timeFormat: is24HourFormat ? 'HH:mm' : 'hh:mm A',
+    dateFormat: 'ddd, MMM D',
+    apiDateFormat: 'YYYY-MM-DD',
+    is24HourFormat
+  };
+};
+
+function hrDashboard() {
+  return {
+    loading: true,
+    currentTime: '',
+    employees: [],
+    employeeMap: {},
+    leaves: [],
+    birthdays: [],
+    anniversaries: [],
+    API_BASE_URL: 'http://localhost:3000/api',
+    // API_BASE_URL: 'https://www.charliehr.com/api',
+    API_TOKEN: screenly.settings.client_id + ':' + screenly.settings.client_secret,
+    // API_TOKEN: screenly.settings.api_token,
+    API_HEADERS: {
+      'Accept': 'application/json',
+      'Authorization': `Token token=${this.API_TOKEN}`
+    },
+    scrollInterval: null,
+
+    async init() {
+      this.API_HEADERS = {
+        'Accept': 'application/json',
+        'Authorization': `Token token=${this.API_TOKEN}`
+      };
+      await this.updateClock();
+      setInterval(() => this.updateClock(), 1000);
+      await this.loadData();
+      this.startAutoScroll();
+    },
+
+    startAutoScroll() {
+      if (this.scrollInterval) {
+        clearInterval(this.scrollInterval);
+      }
+
+      this.scrollInterval = setInterval(() => {
+        const sections = document.querySelectorAll('section ul');
+        sections.forEach(section => {
+          if (section.scrollHeight > section.clientHeight) {
+            if (section.scrollTop + section.clientHeight >= section.scrollHeight) {
+              section.scrollTop = 0;
+            } else {
+              section.scrollTop += 1;
+            }
+          }
+        });
+      }, 50);
+    },
+
+    async updateClock() {
+      const locale = await getLocale();
+      const timezone = await getTimezone();
+      const { timeFormat, dateFormat } = getDateTimeFormats(locale);
+
+      const momentObject = moment().tz(timezone);
+      if (locale) {
+        momentObject.locale(locale);
+      }
+
+      const time = momentObject.format(timeFormat);
+      const date = momentObject.format(dateFormat);
+
+      this.currentTime = `${time} — ${date}`;
+    },
+
+    async loadData() {
+      try {
+        console.log('=== Starting Data Load ===');
+        const [employees, leaveRequests] = await Promise.all([
+          this.fetchEmployees(),
+          this.fetchLeaveRequests()
+        ]);
+
+        console.log('=== Processing Employees ===');
+        console.log('Total Employees:', employees.length);
+
+        // Create employee map for quick lookup with only needed fields
+        this.employeeMap = employees.reduce((map, emp) => {
+          map[emp.id] = {
+            id: emp.id,
+            firstName: emp.first_name,
+            lastName: emp.last_name,
+            birthdate: emp.date_of_birth,
+            startDate: emp.start_date,
+            avatar: emp.profile_picture,
+            displayName: emp.display_name
+          };
+          return map;
+        }, {});
+
+        this.employees = employees;
+
+        // Process birthdays and anniversaries
+        this.birthdays = this.getUpcomingBirthdays(employees);
+        this.anniversaries = this.getUpcomingAnniversaries(employees);
+
+        // Process leave requests - only show approved ones
+        this.leaves = leaveRequests
+          .filter(leave => leave.status === 'approved')
+          .map(leave => {
+            const employee = this.employeeMap[leave.team_member];
+
+            if (!employee) {
+              console.warn('No matching employee found for leave:', {
+                leaveId: leave.id,
+                teamMemberId: leave.team_member
+              });
+            }
+
+            return {
+              ...leave,
+              employee: employee || {
+                firstName: 'Unknown',
+                lastName: 'Employee',
+                displayName: 'Unknown Employee',
+                profile_picture: null
+              }
+            };
+          });
+
+        console.log('=== Data Processing Complete ===');
+        console.log('Total Employees:', this.employees.length);
+        console.log('Total Birthdays:', this.birthdays.length);
+        console.log('Total Anniversaries:', this.anniversaries.length);
+        console.log('Total Active Leaves Today:', this.leaves.length);
+
+      } catch (error) {
+        console.error('=== Error Loading Data ===');
+        console.error('Error:', error);
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async fetchEmployees() {
+      const res = await fetch(`${this.API_BASE_URL}/team_members`, {
+        headers: this.API_HEADERS
+      });
+
+      if (!res.ok) {
+        throw new Error(`Team Members API Error: ${res.status}`);
+      }
+
+      const response = await res.json();
+      console.log('=== Team Members API Response ===');
+      console.log(JSON.stringify(response, null, 2));
+
+      if (!response.success) {
+        throw new Error('Team Members API returned unsuccessful response');
+      }
+
+      return response.data || [];
+    },
+
+    async fetchLeaveRequests() {
+      const locale = await getLocale();
+      const timezone = await getTimezone();
+      const { apiDateFormat } = getDateTimeFormats(locale);
+
+      const momentObject = moment().tz(timezone);
+      if (locale) {
+        momentObject.locale(locale);
+      }
+
+      const today = momentObject.format(apiDateFormat);
+
+      // console.log('Current system date:', {
+      //   date: today,
+      //   timezone,
+      //   locale,
+      //   ...getDateTimeFormats(locale)
+      // });
+
+      const res = await fetch(`${this.API_BASE_URL}/leave_requests?start_date=${today}&end_date=${today}`, {
+        headers: this.API_HEADERS
+      });
+
+      if (!res.ok) {
+        throw new Error(`Leave Requests API Error: ${res.status}`);
+      }
+
+      const response = await res.json();
+      console.log('=== Leave Requests API Response ===');
+      console.log(JSON.stringify(response, null, 2));
+
+      if (!response.success) {
+        throw new Error('Leave Requests API returned unsuccessful response');
+      }
+
+      return response.data || [];
+    },
+
+    isUpcoming(dateStr) {
+      if (!dateStr) return false;
+
+      const today = new Date();
+      const date = new Date(dateStr);
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
+      const isToday = date.getDate() === today.getDate() && date.getMonth() === today.getMonth();
+      const isTomorrow = date.getDate() === tomorrow.getDate() && date.getMonth() === tomorrow.getMonth();
+
+      return isToday || isTomorrow;
+    },
+
+    getUpcomingBirthdays(employees) {
+      return employees
+        .filter(emp => emp.date_of_birth && this.isUpcoming(emp.date_of_birth))
+        .map(emp => ({
+          id: emp.id,
+          firstName: emp.first_name,
+          lastName: emp.last_name,
+          birthdate: emp.date_of_birth,
+          avatar: emp.profile_picture,
+          displayName: emp.display_name
+        }));
+    },
+
+    getYearsOfService(startDate) {
+      const start = new Date(startDate);
+      const today = new Date();
+      let years = today.getFullYear() - start.getFullYear();
+
+      if (today.getMonth() < start.getMonth() ||
+          (today.getMonth() === start.getMonth() && today.getDate() < start.getDate())) {
+        years--;
+      }
+
+      return years;
+    },
+
+    formatAnniversaryText(startDate) {
+      const years = this.getYearsOfService(startDate);
+      const dateText = this.formatUpcomingDate(startDate);
+      return `${years} Year${years !== 1 ? 's' : ''} Anniversary (${dateText})`;
+    },
+
+    getUpcomingAnniversaries(employees) {
+      return employees
+        .filter(emp => emp.start_date && this.isUpcoming(emp.start_date))
+        .map(emp => ({
+          id: emp.id,
+          firstName: emp.first_name,
+          lastName: emp.last_name,
+          startDate: emp.start_date,
+          avatar: emp.profile_picture,
+          displayName: emp.display_name,
+          yearsOfService: this.getYearsOfService(emp.start_date)
+        }));
+    },
+
+    formatDate(dateStr) {
+      const date = new Date(dateStr);
+      return date.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+    },
+
+    formatUpcomingDate(dateStr) {
+      const date = new Date(dateStr);
+      const today = new Date();
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
+      const currentYear = today.getFullYear();
+      date.setFullYear(currentYear);
+
+      if (date.getDate() === today.getDate() && date.getMonth() === today.getMonth()) {
+        return "Today";
+      } else if (date.getDate() === tomorrow.getDate() && date.getMonth() === tomorrow.getMonth()) {
+        return "Tomorrow";
+      }
+      return this.formatDate(dateStr);
+    },
+
+    // formatLeaveDate(leave) {
+    //   if (!leave.start_date || !leave.end_date) return 'No date';
+
+    //   const startDate = this.formatDate(leave.start_date);
+    //   const endDate = this.formatDate(leave.end_date);
+
+    //   if (startDate === endDate) {
+    //     return startDate;
+    //   }
+
+    //   return `${startDate} - ${endDate}`;
+    // },
+
+    // isLeaveActiveToday(leave) {
+    //   const today = moment().format('YYYY-MM-DD'); // Get today's date using moment.js
+    //   return leave.end_date >= today;
+    // }
+  };
+}
