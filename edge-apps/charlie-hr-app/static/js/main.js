@@ -1,4 +1,5 @@
 
+
 // Utility functions for locale and timezone handling
 const getLocale = async () => {
   const defaultLocale = navigator?.languages?.length
@@ -81,16 +82,39 @@ function hrDashboard() {
       'Authorization': `Token token=${this.API_TOKEN}`
     },
     scrollInterval: null,
+    hasValidToken: false,
 
     async init() {
+      // Validate API token
+      if (!screenly.settings.client_id || !screenly.settings.client_secret) {
+        this.showError('Missing API credentials. Please check your configuration.');
+        return;
+      }
+
+      this.API_TOKEN = screenly.settings.client_id + ':' + screenly.settings.client_secret;
       this.API_HEADERS = {
         'Accept': 'application/json',
         'Authorization': `Token token=${this.API_TOKEN}`
       };
+      this.hasValidToken = true;
+
       await this.updateClock();
       setInterval(() => this.updateClock(), 1000);
       await this.loadData();
       this.startAutoScroll();
+    },
+
+    showError(message) {
+      const main = document.querySelector('.app__main');
+      if (main) {
+        main.innerHTML = `
+          <div class="dashboard-card" style="flex: 1; text-align: center; padding: 2rem;">
+            <h2 class="dashboard-card__title" style="color: #dc3545;">Error</h2>
+            <p style="color: var(--text-color-secondary); margin-top: 1rem;">${message}</p>
+          </div>
+        `;
+      }
+      this.loading = false;
     },
 
     startAutoScroll() {
@@ -129,6 +153,10 @@ function hrDashboard() {
     },
 
     async loadData() {
+      if (!this.hasValidToken) {
+        return;
+      }
+
       try {
         console.log('=== Starting Data Load ===');
         const [employees, leaveRequests] = await Promise.all([
@@ -192,6 +220,11 @@ function hrDashboard() {
       } catch (error) {
         console.error('=== Error Loading Data ===');
         console.error('Error:', error);
+        if (error.message.includes('401') || error.message.includes('403')) {
+          this.showError('Invalid API credentials. Please check your configuration.');
+        } else {
+          this.showError('Failed to load data. Please try again later.');
+        }
       } finally {
         this.loading = false;
       }
