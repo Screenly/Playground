@@ -122,16 +122,74 @@ body {
 @media (orientation: portrait) {
   .main-container {
     flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    width: 100%;
   }
 
   .primary-card {
     width: 100%;
     height: 50%;
+    order: 0;
+    min-width: 100%;
+    margin: 0;
+  }
+
+  .primary-card .calendar {
+    width: 100%;
   }
 
   .secondary-container {
+    display: flex;
     width: 100%;
     height: 50%;
+    flex-direction: row;
+    order: 1;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Remove the row-container's influence on width */
+  .row-container {
+    flex: 1;
+    min-width: 50%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .secondary-card {
+    width: 100%;
+    min-width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 2rem;
+  }
+
+  /* First row container contains calendar overview */
+  .row-container:first-child {
+    order: 1;
+  }
+
+  /* Last row container contains info card */
+  .row-container:last-child {
+    order: 0;
+  }
+
+  /* Ensure calendar grid takes full width */
+  .calendar-grid {
+    width: 100%;
+  }
+
+  /* Ensure calendar header takes full width */
+  .calendar-header {
+    width: 100%;
+  }
+
+  /* Ensure calendar weekdays take full width */
+  .calendar-weekdays {
+    width: 100%;
   }
 }
 
@@ -284,15 +342,89 @@ body {
 /* Raspberry Pi Touch Display - Portrait 480 × 800 */
 @media screen and (max-width: 480px) and (orientation: portrait) {
   .main-container {
-    gap: var(--pi-gap);
-    padding: var(--pi-padding);
+    padding: 0.44rem; /* 1rem * 0.44 */
+    gap: 0.44rem; /* 1rem * 0.44 */
   }
 
   .primary-card {
-    border-radius: var(--pi-border-radius-big);
+    border-radius: 1.32rem; /* 3rem * 0.44 */
+    gap: 0.88rem; /* 2rem * 0.44 */
+  }
+
+  .primary-container {
+    gap: 1.1rem; /* 2.5rem * 0.44 */
+  }
+
+  .secondary-container {
+    gap: 0.88rem; /* 2rem * 0.44 */
+  }
+
+  .row-container {
+    gap: 0.88rem; /* 2rem * 0.44 */
   }
 
   .secondary-card {
-    border-radius: var(--pi-border-radius-medium);
+    border-radius: 1.32rem; /* 3rem * 0.44 */
+    gap: 0.88rem; /* 2rem * 0.44 */
+  }
+}
+
+/* Portrait mode styles for 720x1280 (0.67x scale) */
+@media screen and (min-width: 481px) and (max-width: 720px) and (orientation: portrait) {
+  .main-container {
+    padding: 0.67rem; /* 1rem * 0.67 */
+    gap: 0.67rem; /* 1rem * 0.67 */
+  }
+
+  .primary-card {
+    border-radius: 2.01rem; /* 3rem * 0.67 */
+    gap: 1.34rem; /* 2rem * 0.67 */
+  }
+
+  .primary-container {
+    gap: 1.675rem; /* 2.5rem * 0.67 */
+  }
+
+  .secondary-container {
+    gap: 1.34rem; /* 2rem * 0.67 */
+  }
+
+  .row-container {
+    gap: 1.34rem; /* 2rem * 0.67 */
+  }
+
+  .secondary-card {
+    border-radius: 2.01rem; /* 3rem * 0.67 */
+    gap: 1.34rem; /* 2rem * 0.67 */
+  }
+}
+
+/* Portrait mode styles for 2160x3840 (2x scale) */
+@media screen and (min-width: 2160px) and (orientation: portrait) {
+  .main-container {
+    padding: 2rem; /* 1rem * 2 */
+    gap: 2rem; /* 1rem * 2 */
+  }
+
+  .primary-card {
+    border-radius: 6rem; /* 3rem * 2 */
+    gap: 4rem; /* 2rem * 2 */
+  }
+
+  .primary-container {
+    gap: 5rem; /* 2.5rem * 2 */
+  }
+
+  .secondary-container {
+    gap: 4rem; /* 2rem * 2 */
+  }
+
+  .row-container {
+    gap: 4rem; /* 2rem * 2 */
+  }
+
+  .secondary-card {
+    border-radius: 6rem; /* 3rem * 2 */
+    gap: 4rem; /* 2rem * 2 */
   }
 }
