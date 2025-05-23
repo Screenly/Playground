@@ -100,12 +100,9 @@
   font-size: 2rem;
 }
 
+/* Base styles for calendar-event p */
 .calendar-event p {
-  margin: 0 0 0.5rem;
-}
-
-.calendar-event p:last-child {
-  margin-bottom: 0;
+  font-size: 0.9em; /* Default size for landscape */
 }
 
 .calendar-time {
@@ -733,6 +730,10 @@
     width: 11rem !important;
     height: 11rem !important;
   }
+
+  .calendar-overview-card .calendar-event p {
+    font-size: 1.3em !important; /* Reduced from 1.6em to be more proportional */
+  }
 }
 
 @media screen and (min-width: 3840px) and (orientation: landscape) {
@@ -1233,18 +1234,8 @@
 }
 
 @media screen and (min-width: 2160px) and (orientation: portrait) {
-  .calendar-overview-event-item {
-    font-size: 2em;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
-}
-
-@media screen and (min-width: 3840px) and (orientation: landscape) {
-  .calendar-overview-event-item {
-    font-size: 2em;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+  .calendar-overview-card .calendar-event p {
+    font-size: 1.3em !important; /* Reduced from 1.6em to be more proportional */
   }
 }
 
@@ -1373,11 +1364,11 @@
   }
 
   .info-text {
-    font-size: 0.7rem;
+    font-size: 0.88rem !important; /* 2rem * 0.44 */
   }
 
   .brand-logo {
-    width: 5rem;
+    width: 6.6rem !important; /* 15rem * 0.44 */
   }
 
   .date-text {
@@ -1409,6 +1400,10 @@
     height: 2.2rem !important; /* Reduced from 3.5rem */
     margin-right: 0.5rem !important; /* Reduced from 0.7rem */
     font-size: 1.2rem !important; /* Reduced from 1.6rem */
+  }
+
+  .calendar-overview-card .calendar-event p {
+    font-size: 1.1em !important; /* Increased from 0.79em */
   }
 }
 
@@ -1462,11 +1457,11 @@
   }
 
   .info-text {
-    font-size: 1rem;
+    font-size: 1.34rem !important; /* 2rem * 0.67 */
   }
 
   .brand-logo {
-    width: 7.5rem;
+    width: 10rem !important; /* 15rem * 0.67 */
   }
 
   .date-text {
@@ -1499,6 +1494,10 @@
     margin-right: 0.7rem !important; /* Reduced from 0.8rem */
     font-size: 1.6rem !important; /* Reduced from 1.8rem */
   }
+
+  .calendar-overview-card .calendar-event p {
+    font-size: 1.21em !important; /* Kept the same */
+  }
 }
 
 /* Portrait mode styles for 1080x1920 (baseline) */
@@ -1511,6 +1510,14 @@
 
   .calendar-time {
     font-size: 2.8rem !important; /* Increased from 2.5rem */
+  }
+
+  .brand-logo {
+    width: 15rem !important;
+  }
+
+  .calendar-overview-card .calendar-event p {
+    font-size: 1.8em !important; /* New baseline size */
   }
 }
 
@@ -1564,11 +1571,11 @@
   }
 
   .info-text {
-    font-size: 2.8rem;
+    font-size: 4rem !important; /* 2rem * 2 */
   }
 
   .brand-logo {
-    width: 20rem;
+    width: 30rem !important; /* 15rem * 2 */
   }
 
   .date-text {
@@ -1607,6 +1614,10 @@
   .calendar-cell.current-day::before {
     width: 11rem !important; /* 5.5rem * 2 */
     height: 11rem !important; /* 5.5rem * 2 */
+  }
+
+  .calendar-overview-card .calendar-event p {
+    font-size: 1.3em !important; /* Reduced from 1.6em to be more proportional */
   }
 }
 
