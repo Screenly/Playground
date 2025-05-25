@@ -62,7 +62,7 @@ const getDateTimeFormats = (locale) => {
   };
 };
 
-function hrDashboard() {
+function hrDashboard () {
   return {
     loading: true,
     currentTime: '',
@@ -82,7 +82,7 @@ function hrDashboard() {
     scrollInterval: null,
     hasValidToken: false,
 
-    async init() {
+    async init () {
       // Validate API token
       if (!screenly.settings.client_id || !screenly.settings.client_secret) {
         this.showError('Missing API credentials. Please check your configuration.');
@@ -100,9 +100,84 @@ function hrDashboard() {
       setInterval(() => this.updateClock(), 1000);
       await this.loadData();
       this.startAutoScroll();
+      await this.setupThemeAndBrand();
     },
 
-    showError(message) {
+    async setupThemeAndBrand() {
+      // constant colors
+      const tertiaryColor = '#FFFFFF'
+      const backgroundColor = '#C9CDD0'
+
+      // Brand details fetching from settings
+      const primaryColor = (!screenly.settings.screenly_color_accent || screenly.settings.screenly_color_accent.toLowerCase() === '#ffffff') ? '#972eff' : screenly.settings.screenly_color_accent
+      const secondaryColor = (!screenly.settings.screenly_color_light || screenly.settings.screenly_color_light.toLowerCase() === '#ffffff') ? '#adafbe' : screenly.settings.screenly_color_light
+
+      document.documentElement.style.setProperty('--theme-color-primary', primaryColor)
+      document.documentElement.style.setProperty('--theme-color-secondary', secondaryColor)
+      document.documentElement.style.setProperty('--theme-color-tertiary', tertiaryColor)
+      document.documentElement.style.setProperty('--theme-color-background', backgroundColor)
+
+      // Brand Image Setting
+      const imgElement = document.getElementById('brand-logo')
+      const corsUrl = screenly.cors_proxy_url + '/' + screenly.settings.screenly_logo_dark
+      const fallbackUrl = screenly.settings.screenly_logo_dark
+      const defaultLogo = 'static/img/screenly.svg'
+
+      // Function to fetch and process the image
+      async function fetchImage (fileUrl) {
+        try {
+          const response = await fetch(fileUrl)
+          if (!response.ok) {
+            throw new Error(`Failed to fetch image from ${fileUrl}, status: ${response.status}`)
+          }
+
+          const blob = await response.blob()
+          const buffer = await blob.arrayBuffer()
+          const uintArray = new Uint8Array(buffer)
+
+          // Get the first 4 bytes for magic number detection
+          const hex = Array.from(uintArray.slice(0, 4))
+            .map(b => b.toString(16).padStart(2, '0'))
+            .join('').toUpperCase()
+
+          // Convert the first few bytes to ASCII for text-based formats like SVG
+          const ascii = String.fromCharCode.apply(null, uintArray.slice(0, 100)) // Check first 100 chars for XML/SVG tags
+
+          // Determine file type based on MIME type, magic number, or ASCII text
+          if (ascii.startsWith('<?xml') || ascii.startsWith('<svg')) {
+            // Convert to Base64 and display if SVG
+            const svgReader = new FileReader()
+            svgReader.readAsText(blob)
+            svgReader.onloadend = function () {
+              const base64 = btoa(unescape(encodeURIComponent(svgReader.result)))
+              imgElement.src = 'data:image/svg+xml;base64,' + base64
+            }
+          } else if (hex === '89504E47' || hex.startsWith('FFD8FF')) {
+            // Checking PNG or JPEG/JPG magic number
+            imgElement.src = fileUrl
+          } else {
+            throw new Error('Unknown image type')
+          }
+        } catch (error) {
+          console.error('Error fetching image:', error)
+        }
+      }
+
+      // First, try to fetch the image using the CORS proxy URL
+      try {
+        await fetchImage(corsUrl)
+      } catch (error) {
+        // If CORS fails, try the fallback URL
+        try {
+          await fetchImage(fallbackUrl)
+        } catch (fallbackError) {
+          // If fallback fails, use the default logo
+          imgElement.src = defaultLogo
+        }
+      }
+    },
+
+    showError (message) {
       const main = document.querySelector('.app__main');
       if (main) {
         main.innerHTML = `
@@ -115,7 +190,7 @@ function hrDashboard() {
       this.loading = false;
     },
 
-    startAutoScroll() {
+    startAutoScroll () {
       if (this.scrollInterval) {
         clearInterval(this.scrollInterval);
       }
@@ -134,7 +209,7 @@ function hrDashboard() {
       }, 50);
     },
 
-    async updateClock() {
+    async updateClock () {
       const locale = await getLocale();
       const timezone = await getTimezone();
       const { timeFormat, dateFormat } = getDateTimeFormats(locale);
@@ -150,7 +225,7 @@ function hrDashboard() {
       this.currentTime = `${time} — ${date}`;
     },
 
-    async loadData() {
+    async loadData () {
       if (!this.hasValidToken) {
         return;
       }
@@ -228,7 +303,7 @@ function hrDashboard() {
       }
     },
 
-    async fetchEmployees() {
+    async fetchEmployees () {
       const res = await fetch(`${this.API_BASE_URL}/team_members`, {
         headers: this.API_HEADERS
       });
@@ -248,7 +323,7 @@ function hrDashboard() {
       return response.data || [];
     },
 
-    async fetchLeaveRequests() {
+    async fetchLeaveRequests () {
       const locale = await getLocale();
       const timezone = await getTimezone();
       const { apiDateFormat } = getDateTimeFormats(locale);
@@ -286,7 +361,7 @@ function hrDashboard() {
       return response.data || [];
     },
 
-    isUpcoming(dateStr) {
+    isUpcoming (dateStr) {
       if (!dateStr) return false;
 
       const today = new Date();
@@ -300,7 +375,7 @@ function hrDashboard() {
       return isToday || isTomorrow;
     },
 
-    getUpcomingBirthdays(employees) {
+    getUpcomingBirthdays (employees) {
       return employees
         .filter(emp => emp.date_of_birth && this.isUpcoming(emp.date_of_birth))
         .map(emp => ({
@@ -313,26 +388,26 @@ function hrDashboard() {
         }));
     },
 
-    getYearsOfService(startDate) {
+    getYearsOfService (startDate) {
       const start = new Date(startDate);
       const today = new Date();
       let years = today.getFullYear() - start.getFullYear();
 
       if (today.getMonth() < start.getMonth() ||
-          (today.getMonth() === start.getMonth() && today.getDate() < start.getDate())) {
+        (today.getMonth() === start.getMonth() && today.getDate() < start.getDate())) {
         years--;
       }
 
       return years;
     },
 
-    formatAnniversaryText(startDate) {
+    formatAnniversaryText (startDate) {
       const years = this.getYearsOfService(startDate);
       const dateText = this.formatUpcomingDate(startDate);
       return `${years} Year${years !== 1 ? 's' : ''} Anniversary (${dateText})`;
     },
 
-    getUpcomingAnniversaries(employees) {
+    getUpcomingAnniversaries (employees) {
       return employees
         .filter(emp => emp.start_date && this.isUpcoming(emp.start_date))
         .map(emp => ({
@@ -346,12 +421,12 @@ function hrDashboard() {
         }));
     },
 
-    formatDate(dateStr) {
+    formatDate (dateStr) {
       const date = new Date(dateStr);
       return date.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
     },
 
-    formatUpcomingDate(dateStr) {
+    formatUpcomingDate (dateStr) {
       const date = new Date(dateStr);
       const today = new Date();
       const tomorrow = new Date(today);

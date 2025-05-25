@@ -98,28 +98,24 @@ body {
 .app__header-right {
   display: flex;
   align-items: center;
-  /* gap: 1rem; */
   gap: clamp(1rem, .5vw + .5vh, 50rem);
 }
 
 .app__header-left {
   color: var(--theme-color-primary);
-  /* font-size: 1.25rem; */
   font-size: clamp(1rem, 1vw + 1vh, 50rem);
   font-weight: 600;
   letter-spacing: -0.5px;
 }
 
 .app__clock {
-  /* font-size: 1rem; */
   font-size: clamp(1rem, 1vw + 1vh, 50rem);
   font-weight: 500;
-  color: var(--theme-color-primary);
+  color: var(--theme-color-secondary);
   white-space: nowrap;
 }
 
 .app__company-logo {
-  /* height: 2rem; */
   height: clamp(1rem, 2vw + 2vh, 100rem);
   width: auto;
 }
@@ -143,18 +139,13 @@ body {
 .dashboard-card {
   flex: 1 0 calc(33.333% - 1.5rem);
   background: var(--bg-color-card);
-  /* border-radius: 0.75rem; */
   border-radius: clamp(0.5rem, 1vw + 1vh, 50rem);
-  /* padding: 1.5rem; */
   padding: clamp(1rem, 1vw + 1vh, 50rem);
   transition: all 0.3s ease;
   border: 1px solid var(--border-color-primary);
   box-shadow: 0 2px 4px var(--shadow-color-light);
   display: flex;
   flex-direction: column;
-  /* min-height: 30rem; */
-  /* min-height: clamp(20rem, 10vw + 10vh, 100rem); */
-  /* max-height: calc(100vh - 4rem); */
 }
 
 .dashboard-card:hover {
@@ -163,17 +154,6 @@ body {
   box-shadow: 0 4px 8px var(--shadow-color-medium);
 }
 
-/* .dashboard-card__title {
-  flex-shrink: 0;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--theme-color-primary);
-  font-size: clamp(1rem, 1vw + 1vh, 50rem);
-  font-family: 'Inter', sans-serif;
-  font-feature-settings: "emoji";
-  font-variant-emoji: emoji;
-} */
-
 .dashboard-card__title {
   font-family: 'Inter', 'Noto Color Emoji', sans-serif;
   font-size: clamp(1rem, 1vw + 1vh, 50rem);
@@ -181,6 +161,7 @@ body {
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 2px solid var(--theme-color-primary);
+  color: var(--theme-color-primary);
 }
 
 .dashboard-card__list {
@@ -226,10 +207,7 @@ body {
 }
 
 .employee-card__avatar {
-  /* width: clamp(2rem, 3vw + 3vh, 50rem);
-  height: clamp(2rem, 3vw + 3vh, 50rem); */
   height: clamp(2rem, 4vw + 4vh, 100rem);
-
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--theme-color-primary);
@@ -265,9 +243,7 @@ body {
 
 .employee-card__name {
   font-weight: 500;
-  /* font-size: 1rem; */
   font-size: clamp(1rem, .8vw + .8vh, 50rem);
-  /* margin-bottom: 0.5rem; */
   margin-bottom: clamp(0.5rem, .5vw + .5vh, 50rem);
   color: var(--theme-color-primary);
   transition: all 0.3s ease;
@@ -275,7 +251,6 @@ body {
 
 .employee-card__details {
   color: var(--text-color-secondary);
-  /* font-size: 0.875rem; */
   font-size: clamp(1rem, .7vw + .7vh, 50rem);
   display: flex;
   flex-direction: column;
