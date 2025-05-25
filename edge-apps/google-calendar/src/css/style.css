@@ -868,7 +868,7 @@
 
   /* Calendar Grid Styles */
   .calendar {
-    width: 85% !important; /* Reduced from 95% */
+    width: 85%; /* Reduced from 95% */
     gap: 0.42rem; /* 1rem * 0.42 */
   }
 
@@ -1424,7 +1424,7 @@
   }
 
   .calendar {
-    height: 75%;
+    height: 85%;
     padding: 2.5rem;
     width: 90%;
   }
