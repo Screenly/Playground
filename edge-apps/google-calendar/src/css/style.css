@@ -1294,7 +1294,7 @@
 
   /* Calendar adjustments specific to portrait mode */
   .calendar {
-    height: 75%;
+    height: 85%;
     padding: 5rem;
   }
 
@@ -1538,7 +1538,7 @@
   }
 
   .calendar {
-    height: 75%;
+    height: 85%;
     padding: 8rem;
     width: 85%;
   }
