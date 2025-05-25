@@ -1,5 +1,3 @@
-
-
 // Utility functions for locale and timezone handling
 const getLocale = async () => {
   const defaultLocale = navigator?.languages?.length
