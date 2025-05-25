@@ -163,7 +163,7 @@ body {
   box-shadow: 0 4px 8px var(--shadow-color-medium);
 }
 
-.dashboard-card__title {
+/* .dashboard-card__title {
   flex-shrink: 0;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
@@ -172,6 +172,15 @@ body {
   font-family: 'Inter', sans-serif;
   font-feature-settings: "emoji";
   font-variant-emoji: emoji;
+} */
+
+.dashboard-card__title {
+  font-family: 'Inter', 'Noto Color Emoji', sans-serif;
+  font-size: clamp(1rem, 1vw + 1vh, 50rem);
+  flex-shrink: 0;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--theme-color-primary);
 }
 
 .dashboard-card__list {
@@ -302,17 +311,6 @@ body {
   0% { opacity: 0.6; }
   50% { opacity: 0.8; }
   100% { opacity: 0.6; }
-}
-
-@media (max-width: 48rem) {
-  .app__main {
-    flex-direction: column;
-  }
-
-  .dashboard-card {
-    flex: 0 0 100%;
-    min-height: 20rem;
-  }
 }
 
 @media (orientation: portrait) {
