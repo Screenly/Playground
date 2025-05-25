@@ -1249,13 +1249,13 @@
 
   .primary-card {
     width: 100%;
-    height: 60%;
+    height: 90%;
     order: 0;
   }
 
   .secondary-container {
     width: 100%;
-    height: 40%;
+    height: 35%;
     display: flex;
     flex-direction: row;
     gap: 3rem;
@@ -1322,11 +1322,11 @@
   }
 
   .primary-card {
-    height: 60%;
+    height: 90%;
   }
 
   .secondary-container {
-    height: 40%;
+    height: 35%;
     gap: 1.32rem; /* 3rem * 0.44 */
   }
 
@@ -1415,11 +1415,11 @@
   }
 
   .primary-card {
-    height: 60%;
+    height: 90%;
   }
 
   .secondary-container {
-    height: 40%;
+    height: 35%;
     gap: 2.01rem; /* 3rem * 0.67 */
   }
 
@@ -1529,11 +1529,11 @@
   }
 
   .primary-card {
-    height: 60%;
+    height: 90%;
   }
 
   .secondary-container {
-    height: 40%;
+    height: 35%;
     gap: 6rem; /* 3rem * 2 */
   }
 
