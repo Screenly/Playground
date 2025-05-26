@@ -99,22 +99,25 @@ function hrDashboard () {
       }
       this.hasValidToken = true
 
-      // // Log API configuration
-      // console.log('Charlie HR API Configuration:', {
-      //   baseUrl: this.API_BASE_URL,
-      //   headers: this.API_HEADERS,
-      //   fullUrl: `${this.API_BASE_URL}/team_members`,
-      //   charlieApiUrl: 'https://www.charliehr.com/api'
-      // });
+      try {
+        // Initialize clock
+        await this.updateClock()
+        setInterval(() => this.updateClock(), 1000)
 
-      await this.updateClock()
-      setInterval(() => this.updateClock(), 1000)
-      await this.loadData()
-      this.startAutoScroll()
-      await this.setupThemeAndBrand()
+        // Load all data
+        await this.loadData()
 
-      // Signal that everything is ready for rendering
-      screenly.signalReadyForRendering()
+        // Setup UI elements
+        this.startAutoScroll()
+        await this.setupThemeAndBrand()
+
+        // Signal that everything is ready for rendering
+        console.log('=== All Initialization Complete ===')
+        screenly.signalReadyForRendering()
+      } catch (error) {
+        console.error('=== Initialization Error ===', error)
+        this.showError('Failed to initialize the application. Please try again later.')
+      }
     },
 
     async setupThemeAndBrand () {
@@ -326,6 +329,7 @@ function hrDashboard () {
         } else {
           this.showError('Failed to load data. Please try again later.')
         }
+        throw error // Re-throw to be caught by init()
       } finally {
         this.loading = false
       }
@@ -362,14 +366,6 @@ function hrDashboard () {
       }
 
       const today = momentObject.format(apiDateFormat)
-
-      // console.log('Current system date:', {
-      //   date: today,
-      //   timezone,
-      //   locale,
-      //   ...getDateTimeFormats(locale)
-      // });
-
       const res = await fetch(`${this.API_BASE_URL}/leave_requests?start_date=${today}&end_date=${today}`, {
         headers: this.API_HEADERS
       })
@@ -485,7 +481,7 @@ function hrDashboard () {
     },
 
     isLeaveActiveToday (leave) {
-      const today = moment().format('YYYY-MM-DD') // Get today's date using moment.js
+      const today = moment().format('YYYY-MM-DD')
       return leave.end_date >= today
     }
   }
