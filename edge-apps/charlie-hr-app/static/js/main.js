@@ -1,5 +1,5 @@
 /* global clm, moment, OfflineGeocodeCity, screenly, tzlookup */
-/* eslint-disable-next-line no-unused-vars, no-useless-catch */
+/* eslint-disable no-unused-vars */
 
 // Utility functions for locale and timezone handling
 const getLocale = async () => {
