@@ -28,7 +28,8 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  unicode-range: U+1F300-1F9FF; /* Emoji Unicode range */
+  unicode-range: U+1F300-1F9FF;
+  /* Emoji Unicode range */
 }
 
 
@@ -134,6 +135,13 @@ body {
 
 .dashboard-card__item {
   font-size: clamp(1rem, 1vw + 1vh, 50rem);
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color-primary);
+  transition: all 0.3s ease;
+  border-radius: 0.5rem;
+  background: var(--bg-color-card-light);
+  box-shadow: 0 2px 4px var(--shadow-color-light);
+}
 }
 
 .dashboard-card {
@@ -155,7 +163,7 @@ body {
 }
 
 .dashboard-card__title {
-  font-family: 'Inter', 'Noto Color Emoji', sans-serif;
+  font-family: Inter, 'Noto Color Emoji', sans-serif;
   font-size: clamp(1rem, 1vw + 1vh, 50rem);
   flex-shrink: 0;
   margin-bottom: 1rem;
@@ -178,15 +186,6 @@ body {
 
 .dashboard-card__list::-webkit-scrollbar {
   display: none;
-}
-
-.dashboard-card__item {
-  padding: 1rem;
-  border-bottom: 1px solid var(--border-color-primary);
-  transition: all 0.3s ease;
-  border-radius: 0.5rem;
-  background: var(--bg-color-card-light);
-  box-shadow: 0 2px 4px var(--shadow-color-light);
 }
 
 .dashboard-card__item:last-child {
@@ -283,15 +282,24 @@ body {
 }
 
 @keyframes pulse {
-  0% { opacity: 0.6; }
-  50% { opacity: 0.8; }
-  100% { opacity: 0.6; }
+  0% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0.6;
+  }
 }
 
 @media (orientation: portrait) {
   .app__main {
     flex-direction: column;
   }
+
   .app__header-left,
   .app__clock {
     font-size: clamp(1rem, 1vw + 1vh, 50rem);
@@ -301,4 +309,3 @@ body {
     height: clamp(1rem, 2.5vw + 2.5vh, 100rem);
   }
 }
-
