@@ -1,3 +1,5 @@
+/* global clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry */
+
 // Utility functions for locale and timezone handling
 const getLocale = async () => {
   const defaultLocale = navigator?.languages?.length
@@ -71,9 +73,9 @@ function hrDashboard () {
     leaves: [],
     birthdays: [],
     anniversaries: [],
-    API_BASE_URL: 'http://localhost:3000/api',
-    // API_BASE_URL: 'https://www.charliehr.com/api',
-    API_TOKEN: screenly.settings.client_id + ':' + screenly.settings.client_secret,
+     //API_BASE_URL: 'http://localhost:3000/api',
+     API_BASE_URL: screenly.cors_proxy_url + '/https://www.charliehr.com/api/v1',
+     API_TOKEN: screenly.settings.client_id + ':' + screenly.settings.client_secret,
     // API_TOKEN: screenly.settings.api_token,
     API_HEADERS: {
       'Accept': 'application/json',
@@ -96,11 +98,22 @@ function hrDashboard () {
       };
       this.hasValidToken = true;
 
+      // // Log API configuration
+      // console.log('Charlie HR API Configuration:', {
+      //   baseUrl: this.API_BASE_URL,
+      //   headers: this.API_HEADERS,
+      //   fullUrl: `${this.API_BASE_URL}/team_members`,
+      //   charlieApiUrl: 'https://www.charliehr.com/api'
+      // });
+
       await this.updateClock();
       setInterval(() => this.updateClock(), 1000);
       await this.loadData();
       this.startAutoScroll();
       await this.setupThemeAndBrand();
+
+      // Signal that everything is ready for rendering
+     screenly.signalReadyForRendering()
     },
 
     async setupThemeAndBrand() {
@@ -271,9 +284,14 @@ function hrDashboard () {
         this.birthdays = this.getUpcomingBirthdays(employees);
         this.anniversaries = this.getUpcomingAnniversaries(employees);
 
-        // Process leave requests - only show approved ones
+        // Process leave requests - only show approved ones for today
+        const today = moment().format('YYYY-MM-DD');
         this.leaves = leaveRequests
-          .filter(leave => leave.status === 'approved')
+          .filter(leave =>
+            leave.status === 'approved' &&
+            leave.start_date <= today &&
+            leave.end_date >= today
+          )
           .map(leave => {
             const employee = this.employeeMap[leave.team_member];
 

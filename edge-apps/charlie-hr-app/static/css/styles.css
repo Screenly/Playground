@@ -292,5 +292,14 @@ body {
   .app__main {
     flex-direction: column;
   }
+
+  .app__header-left,
+  .app__clock {
+    font-size: clamp(1rem, 1.5vw + 1.5vh, 50rem);
+  }
+
+  .brand-logo {
+    height: clamp(1rem, 3vw + 3vh, 100rem);
+  }
 }
 
