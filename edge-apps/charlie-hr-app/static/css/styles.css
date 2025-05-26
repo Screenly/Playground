@@ -30,10 +30,8 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  unicode-range: U+1F300-1F9FF;
-  /* Emoji Unicode range */
+  unicode-range: U+1F300-1F9FF;  /* Emoji Unicode range */
 }
-
 
 :root {
   /* Base Colors */
