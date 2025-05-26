@@ -1,75 +1,69 @@
-# Screenly Welcome App
+# Charlie HR App
 
-A customizable welcome screen app that lets users display a personalized greeting or message on their digital signage. Easily configure the heading and body text via the Screenly dashboard, making it ideal for receptions, events, or branded displays.
+A digital signage dashboard that displays employee information from Charlie HR, including birthdays, work anniversaries, and current leave status. Perfect for office displays and team spaces.
 
-![Welcome Message App](./static/img/welcome-app-preview.png)
+![Charlie HR App Preview](./static/img/preview.jpg)
 
-## tl;dr
+## Features
 
+- Real-time employee information display
+- Birthday and work anniversary celebrations
+- Current leave status tracking
+- Automatic timezone and locale detection
+- Automatic brand colors and logo from Screenly brand page
+- Responsive design for any screen size
+
+## Prerequisites
+
+- Charlie HR API credentials (client_id and client_secret)
+- Screenly CLI installed (see [installation guide](https://github.com/Screenly/cli))
+
+## Installation
+
+1. **Log in to Screenly CLI**
 ```bash
-$ cd edge-apps/welcome-app
-$ screenly edge-app create \
-    --name welcome-app \
+screenly login
+```
+
+2. **Create the Edge App**
+```bash
+cd edge-apps/charlie-hr-app
+screenly edge-app create \
+    --name charlie-hr-app \
     --in-place
-$ screenly edge-app deploy
-# To install an app, you need to create an instance.
-$ screenly edge-app instance create
 ```
 
-## Tweaking the settings
+3. **Deploy the App**
+```bash
+screenly edge-app deploy
+```
 
-### `welcome_heading`
+4. **Create an Instance**
+```bash
+screenly edge-app instance create
+```
 
-To configure the heading of the message app, utilize the `welcome_heading` settings.
+## Configuration
+
+### API Credentials
+
+Set your Charlie HR API credentials:
 
 ```bash
-$ screenly edge-app setting set welcome_heading='Welcome'
-# A relatively long console output...
-Edge app setting successfully set.
+screenly edge-app setting set client_id=YOUR_CLIENT_ID
+screenly edge-app setting set client_secret=YOUR_CLIENT_SECRET
 ```
 
-The welcome app's heading should be defined as a string in the format: "This is message head".
+### Timezone and Locale
 
-### `welcome_message`
-
-To configure the heading of the message app, utilize the `welcome_message` settings.
+Override the default timezone and locale if needed:
 
 ```bash
-$ screenly edge-app setting set welcome_message='to the team'
-# A relatively long console output...
-Edge app setting successfully set.
+screenly edge-app setting set override_timezone='Europe/London'
+screenly edge-app setting set override_locale='en'
 ```
 
-The welcome app's message should be defined as a string in the format: "This is message body".
+## Support
 
-### `theme` (optional)
+For issues or questions, please contact Screenly support or open an issue in the repository.
 
-Specifies the application's theme color and logo style. Available options are 'light' or 'dark'.
-
-This setting determines the overall theme appearance and adjusts the logo accordingly and you can change your default value in the Screenly settings page.
-
-```bash
-$ screenly edge-app setting set theme='light'
-# A relatively long console output...
-Edge app setting successfully set.
-```
-
-### `override_timezone` (optional)
-
-For instance, if you want to clock app to display the current date and time in London,
-run the following command:
-
-```bash
-$ screenly edge-app setting set override_timezone='Europe/Paris'
-# A relatively long console output...
-Edge app setting successfully set.
-
-$ screenly edge-app setting set override_locale='fr'
-# A relatively long console output...
-Edge app setting successfully set.
-```
-
-See [this page](https://momentjs.com/) for the list of all possible values for the time zone.
-Alternatively, you can call `moment.locales()`, which returns all the supported locale values.
-
-Setting invalid values for the timezone won't crash the app itself, it'll just fall back to the default time.
