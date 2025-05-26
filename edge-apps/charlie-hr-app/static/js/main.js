@@ -170,16 +170,8 @@ function hrDashboard () {
               imgElement.src = 'data:image/svg+xml;base64,' + base64
             }
           }
-          // Handle PNG files
-          else if (hex === '89504E47') {
-            imgElement.src = fileUrl
-          }
-          // Handle JPEG files
-          else if (hex.startsWith('FFD8FF')) {
-            imgElement.src = fileUrl
-          }
-          // Handle GIF files
-          else if (hex.startsWith('47494638')) {
+          // Handle PNG or JPEG files
+          else if (hex === '89504E47' || hex.startsWith('FFD8FF')) {
             imgElement.src = fileUrl
           } else {
             throw new Error('Unsupported image format')
