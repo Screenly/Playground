@@ -169,9 +169,8 @@ function hrDashboard () {
               const base64 = btoa(unescape(encodeURIComponent(svgReader.result)))
               imgElement.src = 'data:image/svg+xml;base64,' + base64
             }
-          }
-          // Handle PNG or JPEG files
-          else if (hex === '89504E47' || hex.startsWith('FFD8FF')) {
+          } else if (hex === '89504E47' || hex.startsWith('FFD8FF')) {
+            // Checking PNG or JPEG/JPG magic number
             imgElement.src = fileUrl
           } else {
             throw new Error('Unsupported image format')
