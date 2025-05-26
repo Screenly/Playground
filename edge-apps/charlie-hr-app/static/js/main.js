@@ -124,7 +124,7 @@ function hrDashboard () {
       const defaultLogo = 'static/img/screenly.svg'
 
       // Function to fetch and process the image
-      async function fetchImage (fileUrl) {
+      async function fetchImage(fileUrl) {
         try {
           const response = await fetch(fileUrl)
           if (!response.ok) {
@@ -141,37 +141,48 @@ function hrDashboard () {
             .join('').toUpperCase()
 
           // Convert the first few bytes to ASCII for text-based formats like SVG
-          const ascii = String.fromCharCode.apply(null, uintArray.slice(0, 100)) // Check first 100 chars for XML/SVG tags
+          const ascii = String.fromCharCode.apply(null, uintArray.slice(0, 100))
 
-          // Determine file type based on MIME type, magic number, or ASCII text
+          // Handle SVG files
           if (ascii.startsWith('<?xml') || ascii.startsWith('<svg')) {
-            // Convert to Base64 and display if SVG
             const svgReader = new FileReader()
             svgReader.readAsText(blob)
             svgReader.onloadend = function () {
               const base64 = btoa(unescape(encodeURIComponent(svgReader.result)))
               imgElement.src = 'data:image/svg+xml;base64,' + base64
             }
-          } else if (hex === '89504E47' || hex.startsWith('FFD8FF')) {
-            // Checking PNG or JPEG/JPG magic number
+          }
+          // Handle PNG files
+          else if (hex === '89504E47') {
             imgElement.src = fileUrl
-          } else {
-            throw new Error('Unknown image type')
+          }
+          // Handle JPEG files
+          else if (hex.startsWith('FFD8FF')) {
+            imgElement.src = fileUrl
+          }
+          // Handle GIF files
+          else if (hex.startsWith('47494638')) {
+            imgElement.src = fileUrl
+          }
+          else {
+            throw new Error('Unsupported image format')
           }
         } catch (error) {
           console.error('Error fetching image:', error)
+          throw error
         }
       }
 
-      // First, try to fetch the image using the CORS proxy URL
+      // Try loading the image with fallback options
       try {
+        // Try CORS proxy first
         await fetchImage(corsUrl)
       } catch (error) {
-        // If CORS fails, try the fallback URL
         try {
+          // If CORS fails, try direct URL
           await fetchImage(fallbackUrl)
         } catch (fallbackError) {
-          // If fallback fails, use the default logo
+          // If both fail, use default logo
           imgElement.src = defaultLogo
         }
       }
@@ -443,22 +454,22 @@ function hrDashboard () {
       return this.formatDate(dateStr);
     },
 
-    // formatLeaveDate(leave) {
-    //   if (!leave.start_date || !leave.end_date) return 'No date';
+    formatLeaveDate(leave) {
+      if (!leave.start_date || !leave.end_date) return 'No date';
 
-    //   const startDate = this.formatDate(leave.start_date);
-    //   const endDate = this.formatDate(leave.end_date);
+      const startDate = this.formatDate(leave.start_date);
+      const endDate = this.formatDate(leave.end_date);
 
-    //   if (startDate === endDate) {
-    //     return startDate;
-    //   }
+      if (startDate === endDate) {
+        return startDate;
+      }
 
-    //   return `${startDate} - ${endDate}`;
-    // },
+      return `${startDate} - ${endDate}`;
+    },
 
-    // isLeaveActiveToday(leave) {
-    //   const today = moment().format('YYYY-MM-DD'); // Get today's date using moment.js
-    //   return leave.end_date >= today;
-    // }
+    isLeaveActiveToday(leave) {
+      const today = moment().format('YYYY-MM-DD'); // Get today's date using moment.js
+      return leave.end_date >= today;
+    }
   };
 }

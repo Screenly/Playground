@@ -115,7 +115,7 @@ body {
   white-space: nowrap;
 }
 
-.app__company-logo {
+.brand-logo {
   height: clamp(1rem, 2vw + 2vh, 100rem);
   width: auto;
 }
