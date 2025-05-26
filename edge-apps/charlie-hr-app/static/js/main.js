@@ -1,8 +1,9 @@
-/* global clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry */
+/* global clm, moment, OfflineGeocodeCity, screenly, tzlookup */
 /* eslint-disable-next-line no-unused-vars, no-useless-catch */
 
 // Utility functions for locale and timezone handling
 const getLocale = async () => {
+  const { getNearestCity } = OfflineGeocodeCity
   const defaultLocale = navigator?.languages?.length
     ? navigator.languages[0]
     : navigator.language || 'en'
