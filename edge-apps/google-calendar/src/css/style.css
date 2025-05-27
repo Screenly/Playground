@@ -1734,10 +1734,3 @@
     width: 30rem;
   }
 }
-/* Remove any conflicting styles */
-.calendar-overview-event-item {
-  font-size: inherit;
-  padding-top: inherit;
-  padding-bottom: inherit;
-}
-
