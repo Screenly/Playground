@@ -83,12 +83,9 @@ const CalendarOverview = ({
                 filteredEvents.map((event, index) => (
                   <div
                     key={index}
+                    className='calendar-overview-event-item'
                     style={{
-                      display: 'flex',
-                      fontSize: '0.7em',
-                      paddingTop: '1rem',
-                      paddingBottom: '1rem',
-                      borderBottom: '1px solid rgba(255, 255, 255, 0.75)'
+                      display: 'flex'
                     }}
                   >
                     <div style={{ marginRight: '1rem', flexShrink: 0 }}>•</div>
