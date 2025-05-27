@@ -3,14 +3,14 @@
 
 // Initialize Sentry
 const sentryDsn = screenly.settings.sentry_dsn
-  // Initiate Sentry.
-  if (sentryDsn) {
-    Sentry.init({
-      dsn: sentryDsn
-    })
-  } else {
-    console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
-  }
+// Initiate Sentry.
+if (sentryDsn) {
+  Sentry.init({
+    dsn: sentryDsn
+  })
+} else {
+  console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
+}
 
 // Utility functions for locale and timezone handling
 const getLocale = async () => {
