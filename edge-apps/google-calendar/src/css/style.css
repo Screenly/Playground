@@ -1157,18 +1157,21 @@
     font-size: 0.7rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
-    border-bottom: 0.1rem solid rgba(255, 255, 255, 0.75);
+    border-bottom: 0.1rem solid rgb(255 255 255 / 75%);
   }
+
   .calendar-overview-card .date-number-circle {
     width: 1.8rem;
     height: 1.8rem;
     margin-right: 0.4rem;
     font-size: 1rem;
   }
+
   .month-name {
     font-size: 1rem;
     height: 1.6rem;
   }
+
   .calendar-cell.current-day::before {
     width: 2.4rem;
     height: 2.4rem;
@@ -1180,8 +1183,9 @@
     font-size: 1.12rem;
     padding-top: 0.8rem;
     padding-bottom: 0.8rem;
-    border-bottom: 0.16rem solid rgba(255, 255, 255, 0.75);
+    border-bottom: 0.16rem solid rgb(255 255 255 / 75%);
   }
+
   .calendar-overview-card .date-number-circle {
     width: 2.88rem;
     height: 2.88rem;
@@ -1195,8 +1199,9 @@
     font-size: 1.68rem;
     padding-top: 1.2rem;
     padding-bottom: 1.2rem;
-    border-bottom: 0.24rem solid rgba(255, 255, 255, 0.75);
+    border-bottom: 0.24rem solid rgb(255 255 255 / 75%);
   }
+
   .calendar-overview-card .date-number-circle {
     width: 4.32rem;
     height: 4.32rem;
@@ -1210,8 +1215,9 @@
     font-size: 3.36rem;
     padding-top: 2.4rem;
     padding-bottom: 2.4rem;
-    border-bottom: 0.48rem solid rgba(255, 255, 255, 0.75);
+    border-bottom: 0.48rem solid rgb(255 255 255 / 75%);
   }
+
   .calendar-overview-card .date-number-circle {
     width: 8.64rem;
     height: 8.64rem;
@@ -1225,7 +1231,7 @@
     font-size: 0.7rem;
     padding-top: 0.7rem;
     padding-bottom: 0.7rem;
-    border-bottom: 0.1rem solid rgba(255, 255, 255, 0.75);
+    border-bottom: 0.1rem solid rgb(255 255 255 / 75%);
   }
 }
 
@@ -1234,7 +1240,7 @@
     font-size: 1.05rem;
     padding-top: 1.05rem;
     padding-bottom: 1.05rem;
-    border-bottom: 0.15rem solid rgba(255, 255, 255, 0.75);
+    border-bottom: 0.15rem solid rgb(255 255 255 / 75%);
   }
 }
 
@@ -1243,7 +1249,7 @@
     font-size: 1.58rem;
     padding-top: 1.58rem;
     padding-bottom: 1.58rem;
-    border-bottom: 0.225rem solid rgba(255, 255, 255, 0.75);
+    border-bottom: 0.225rem solid rgb(255 255 255 / 75%);
   }
 }
 
@@ -1252,7 +1258,7 @@
     font-size: 3.15rem;
     padding-top: 3.15rem;
     padding-bottom: 3.15rem;
-    border-bottom: 0.45rem solid rgba(255, 255, 255, 0.75);
+    border-bottom: 0.45rem solid rgb(255 255 255 / 75%);
   }
 }
 
@@ -1728,10 +1734,10 @@
     width: 30rem;
   }
 }
-
 /* Remove any conflicting styles */
 .calendar-overview-event-item {
   font-size: inherit;
   padding-top: inherit;
   padding-bottom: inherit;
 }
+
