@@ -44,3 +44,9 @@ settings:
     optional: true
     help_text: Specify a Google Tag Manager ID
     is_global: true
+  sentry_dsn:
+    type: secret
+    title: Sentry DSN
+    optional: true
+    is_global: true
+    help_text: Specify a Sentry DSN to enable error tracking.

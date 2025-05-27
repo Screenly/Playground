@@ -1,5 +1,16 @@
-/* global clm, moment, OfflineGeocodeCity, screenly, tzlookup */
+/* global clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry */
 /* eslint-disable no-unused-vars */
+
+// Initialize Sentry
+const sentryDsn = screenly.settings.sentry_dsn
+  // Initiate Sentry.
+  if (sentryDsn) {
+    Sentry.init({
+      dsn: sentryDsn
+    })
+  } else {
+    console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
+  }
 
 // Utility functions for locale and timezone handling
 const getLocale = async () => {
@@ -116,7 +127,7 @@ function hrDashboard () {
         console.log('=== All Initialization Complete ===')
         screenly.signalReadyForRendering()
       } catch (error) {
-        console.error('=== Initialization Error ===', error)
+        Sentry.captureException(error)
         this.showError('Failed to initialize the application. Please try again later.')
       }
     },
@@ -314,14 +325,8 @@ function hrDashboard () {
         console.log('Total Anniversaries:', this.anniversaries.length)
         console.log('Total Active Leaves Today:', this.leaves.length)
       } catch (error) {
-        console.error('=== Error Loading Data ===')
-        console.error('Error:', error)
-        if (error.message.includes('401') || error.message.includes('403')) {
-          this.showError('Invalid API credentials. Please check your configuration.')
-        } else {
-          this.showError('Failed to load data. Please try again later.')
-        }
-        throw error // Re-throw to be caught by init()
+        Sentry.captureException(error)
+        this.showError('Failed to load data. Please try again later.')
       } finally {
         this.loading = false
       }
