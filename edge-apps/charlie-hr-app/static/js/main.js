@@ -97,7 +97,7 @@ function hrDashboard () {
     apiCache: {
       data: {},
       expiration: 5 * 60 * 1000, // 5 minutes in milliseconds
-      get: function(key) {
+      get: function (key) {
         const item = this.data[key]
         if (!item) return null
         if (Date.now() > item.expiry) {
@@ -106,9 +106,9 @@ function hrDashboard () {
         }
         return item.data
       },
-      set: function(key, data) {
+      set: function (key, data) {
         this.data[key] = {
-          data: data,
+          data,
           expiry: Date.now() + this.expiration
         }
       }
@@ -349,7 +349,7 @@ function hrDashboard () {
       }
     },
 
-    async fetchWithCache(endpoint, params = '') {
+    async fetchWithCache (endpoint, params = '') {
       const cacheKey = `${endpoint}${params}`
       const cachedData = this.apiCache.get(cacheKey)
 
