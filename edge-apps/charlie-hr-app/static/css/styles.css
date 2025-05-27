@@ -103,10 +103,22 @@ body {
 }
 
 .app__header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.app__header-title {
   color: var(--theme-color-primary);
   font-size: clamp(1rem, 1vw + 1vh, 50rem);
   font-weight: 600;
   letter-spacing: -0.5px;
+}
+
+.app__header-screenly {
+  color: var(--text-color-secondary);
+  font-size: clamp(0.75rem, 0.5vw + 0.5vh, 40rem);
+  opacity: 0.8;
 }
 
 .app__clock {

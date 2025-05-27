@@ -86,10 +86,8 @@ function hrDashboard () {
     leaves: [],
     birthdays: [],
     anniversaries: [],
-    // API_BASE_URL: 'http://localhost:3000/api',
     API_BASE_URL: screenly.cors_proxy_url + '/https://www.charliehr.com/api/v1',
     API_TOKEN: screenly.settings.client_id + ':' + screenly.settings.client_secret,
-    // API_TOKEN: screenly.settings.api_token,
     API_HEADERS: {
       Accept: 'application/json',
       Authorization: `Token token=${this.API_TOKEN}`
