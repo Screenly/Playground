@@ -94,6 +94,25 @@ function hrDashboard () {
     },
     scrollInterval: null,
     hasValidToken: false,
+    apiCache: {
+      data: {},
+      expiration: 5 * 60 * 1000, // 5 minutes in milliseconds
+      get: function(key) {
+        const item = this.data[key]
+        if (!item) return null
+        if (Date.now() > item.expiry) {
+          delete this.data[key]
+          return null
+        }
+        return item.data
+      },
+      set: function(key, data) {
+        this.data[key] = {
+          data: data,
+          expiry: Date.now() + this.expiration
+        }
+      }
+    },
 
     async init () {
       // Validate API token
@@ -330,24 +349,35 @@ function hrDashboard () {
       }
     },
 
-    async fetchEmployees () {
-      const res = await fetch(`${this.API_BASE_URL}/team_members`, {
+    async fetchWithCache(endpoint, params = '') {
+      const cacheKey = `${endpoint}${params}`
+      const cachedData = this.apiCache.get(cacheKey)
+
+      if (cachedData) {
+        console.log(`Using cached data for ${endpoint}`)
+        return cachedData
+      }
+
+      const res = await fetch(`${this.API_BASE_URL}/${endpoint}${params}`, {
         headers: this.API_HEADERS
       })
 
       if (!res.ok) {
-        throw new Error(`Team Members API Error: ${res.status}`)
+        throw new Error(`${endpoint} API Error: ${res.status}`)
       }
 
       const response = await res.json()
-      console.log('=== Team Members API Response ===')
-      console.log(JSON.stringify(response, null, 2))
-
       if (!response.success) {
-        throw new Error('Team Members API returned unsuccessful response')
+        throw new Error(`${endpoint} API returned unsuccessful response`)
       }
 
-      return response.data || []
+      const data = response.data || []
+      this.apiCache.set(cacheKey, data)
+      return data
+    },
+
+    async fetchEmployees () {
+      return this.fetchWithCache('team_members')
     },
 
     async fetchLeaveRequests () {
@@ -361,23 +391,7 @@ function hrDashboard () {
       }
 
       const today = momentObject.format(apiDateFormat)
-      const res = await fetch(`${this.API_BASE_URL}/leave_requests?start_date=${today}&end_date=${today}`, {
-        headers: this.API_HEADERS
-      })
-
-      if (!res.ok) {
-        throw new Error(`Leave Requests API Error: ${res.status}`)
-      }
-
-      const response = await res.json()
-      console.log('=== Leave Requests API Response ===')
-      console.log(JSON.stringify(response, null, 2))
-
-      if (!response.success) {
-        throw new Error('Leave Requests API returned unsuccessful response')
-      }
-
-      return response.data || []
+      return this.fetchWithCache('leave_requests', `?start_date=${today}&end_date=${today}`)
     },
 
     isUpcoming (dateStr) {
