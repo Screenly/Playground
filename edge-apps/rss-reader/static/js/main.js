@@ -2,7 +2,7 @@
 /* eslint-disable-next-line no-unused-vars, no-useless-catch */
 
 // Initialize Sentry first to capture errors
-const sentryDsn = screenly?.settings?.sentry_dsn;
+const sentryDsn = screenly?.settings?.sentry_dsn
 if (sentryDsn) {
   Sentry.init({
     dsn: sentryDsn
