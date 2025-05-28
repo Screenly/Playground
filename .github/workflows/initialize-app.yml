@@ -45,7 +45,7 @@ jobs:
         uses: screenly/cli@master
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
-          cli_commands: edge-app create --in-place --path=${{ env.APP_PATH }}
+          cli_commands: edge-app create --name=${{ inputs.edge_app_name }} --in-place --path=${{ env.APP_PATH }}
 
       - name: Deploy Edge App
         uses: screenly/cli@master
