@@ -83,3 +83,11 @@ jobs:
 
           echo "✅ Edge App ID: $APP_ID"
         shell: bash
+
+      - name: Upload Edge App artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: edge-app-files
+          path: |
+            ${{ env.APP_PATH }}/instance.yml
+            ${{ env.APP_PATH }}/${{ env.MANIFEST_FILE_NAME }}
