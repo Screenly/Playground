@@ -24,11 +24,9 @@ on:
         required: true
         default: ''
 
-run-name: Initializing ${{ inputs.edge_app_name }} in ${{ inputs.environment }}
-
 jobs:
   deploy:
-    name: Initialize App in ${{ inputs.environment }}
+    name: Initializing ${{ inputs.edge_app_name }} in ${{ inputs.environment }}
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     env:
@@ -61,7 +59,7 @@ jobs:
 
       - name: Correct the instance name
         run: |
-          sed -i "s/^name: .*/name: ${{ inputs.edge_app_title }}/" ${{ env.APP_PATH }}/instance.yml
+          sed -i "s/^name: .*/name: ${{ inputs.edge_app_title }}/" "${{ env.APP_PATH }}/instance.yml"
 
       - name: Update Edge App Instance
         uses: screenly/cli@master
@@ -69,14 +67,19 @@ jobs:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
           cli_commands: edge-app instance update --path=${{ env.APP_PATH }}
 
-      - name: Install yq (YAML parser)
-        run: |
-          sudo apt-get update && sudo apt-get install -y yq
+      - name: Install yq
+        uses: mikefarah/yq@v4
 
       - name: Print Edge App ID from manifest
         run: |
           MANIFEST_FILE="${{ env.APP_PATH }}/${{ env.MANIFEST_FILE_NAME }}"
-          echo " Reading App ID from: $MANIFEST_FILE"
+          echo "Reading App ID from: $MANIFEST_FILE"
           APP_ID=$(yq '.id' "$MANIFEST_FILE")
-          echo " Edge App ID: $APP_ID"
+
+          if [ -z "$APP_ID" ]; then
+            echo "❌ App ID not found in manifest!"
+            exit 1
+          fi
+
+          echo "✅ Edge App ID: $APP_ID"
         shell: bash
