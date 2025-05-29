@@ -272,7 +272,7 @@ function hrDashboard () {
       this.currentTime = `${time} — ${date}`
     },
 
-    capitalizeFirstLetter(string) {
+    capitalizeFirstLetter (string) {
       return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
     },
 
