@@ -32,6 +32,7 @@ jobs:
     env:
       APP_PATH: edge-apps/${{ inputs.edge_app_name }}
       MANIFEST_FILE_NAME: ${{ inputs.environment == 'production' && 'screenly.yml' || 'screenly_qc.yml' }}
+      SCREENLY_API_TOKEN: ${{ inputs.environment == 'production' && secrets.SCREENLY_API_TOKEN || secrets.STAGE_API_TOKEN }}
 
     steps:
       - name: Checkout master branch
@@ -42,19 +43,19 @@ jobs:
       - name: Create Edge App
         uses: screenly/cli@master
         with:
-          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
           cli_commands: edge-app create --name=${{ inputs.edge_app_name }} --in-place --path=${{ env.APP_PATH }}
 
       - name: Deploy Edge App
         uses: screenly/cli@master
         with:
-          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
           cli_commands: edge-app deploy --path=${{ env.APP_PATH }}
 
       - name: Create Edge App Instance
         uses: screenly/cli@master
         with:
-          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
           cli_commands: edge-app instance create --path=${{ env.APP_PATH }}
 
       - name: Correct the instance name
@@ -64,7 +65,7 @@ jobs:
       - name: Update Edge App Instance
         uses: screenly/cli@master
         with:
-          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
           cli_commands: edge-app instance update --path=${{ env.APP_PATH }}
 
       - name: Install yq
