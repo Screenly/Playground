@@ -118,6 +118,7 @@ function hrDashboard () {
       // Validate API token
       if (!screenly.settings.client_id || !screenly.settings.client_secret) {
         this.showError('Missing API credentials. Please check your configuration.')
+        screenly.signalReadyForRendering()
         return
       }
 
