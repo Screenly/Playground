@@ -142,7 +142,6 @@ function hrDashboard () {
         await this.setupThemeAndBrand()
 
         // Signal that everything is ready for rendering
-        console.log('=== All Initialization Complete ===')
         screenly.signalReadyForRendering()
       } catch (error) {
         Sentry.captureException(error)
@@ -274,7 +273,7 @@ function hrDashboard () {
     },
 
     capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+      return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
     },
 
     async loadData () {
@@ -283,14 +282,10 @@ function hrDashboard () {
       }
 
       try {
-        console.log('=== Starting Data Load ===')
         const [employees, leaveRequests] = await Promise.all([
           this.fetchEmployees(),
           this.fetchLeaveRequests()
         ])
-
-        console.log('=== Processing Employees ===')
-        console.log('Total Employees:', employees.length)
 
         // Create employee map for quick lookup with only needed fields
         this.employeeMap = employees.reduce((map, emp) => {
@@ -341,12 +336,6 @@ function hrDashboard () {
               }
             }
           })
-
-        console.log('=== Data Processing Complete ===')
-        console.log('Total Employees:', this.employees.length)
-        console.log('Total Birthdays:', this.birthdays.length)
-        console.log('Total Anniversaries:', this.anniversaries.length)
-        console.log('Total Active Leaves Today:', this.leaves.length)
       } catch (error) {
         Sentry.captureException(error)
         this.showError('Failed to load data. Please try again later.')
@@ -360,7 +349,6 @@ function hrDashboard () {
       const cachedData = this.apiCache.get(cacheKey)
 
       if (cachedData) {
-        console.log(`Using cached data for ${endpoint}`)
         return cachedData
       }
 
