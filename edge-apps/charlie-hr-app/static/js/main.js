@@ -273,6 +273,10 @@ function hrDashboard () {
       this.currentTime = `${time} — ${date}`
     },
 
+    capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    },
+
     async loadData () {
       if (!this.hasValidToken) {
         return
@@ -328,6 +332,7 @@ function hrDashboard () {
 
             return {
               ...leave,
+              request_type: this.capitalizeFirstLetter(leave.request_type),
               employee: employee || {
                 firstName: 'Unknown',
                 lastName: 'Employee',
