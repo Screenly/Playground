@@ -6,12 +6,12 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Target environment for initialization (staging or production)'
+        description: 'Target environment for initialization (stage or production)'
         required: true
-        default: 'staging'
+        default: 'stage'
         type: choice
         options:
-          - staging
+          - stage
           - production
 
       edge_app_name:
