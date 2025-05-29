@@ -218,6 +218,7 @@ body {
 
 .employee-card__avatar {
   height: clamp(2rem, 4vw + 4vh, 100rem);
+  width: clamp(2rem, 4vw + 4vh, 100rem);
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--theme-color-primary);
