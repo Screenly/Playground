@@ -28,66 +28,79 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     env:
-      APP_PATH:              edge-apps/${{ inputs.edge_app_name }}
-      MANIFEST_FILE_NAME:    ${{ inputs.environment == 'stage' && 'screenly_qc.yml' || 'screenly.yml' }}
-      API_BASE_URL:          ${{ inputs.environment == 'stage' && 'https://api.screenlyappstage.com/' || 'https://api.screenlyapp.com/' }}
-      SCREENLY_API_TOKEN:    ${{ secrets.SCREENLY_API_TOKEN }}
+      APP_PATH: edge-apps/${{ inputs.edge_app_name }}
+      MANIFEST_FILE_NAME: ${{ inputs.environment == 'production' && 'screenly.yml' || 'screenly_qc.yml' }}
+      SCREENLY_API_TOKEN: ${{ secrets.SCREENLY_API_TOKEN }}
+      API_BASE_URL: ${{ inputs.environment == 'stage' && 'https://api.screenlyappstage.com/' || 'https://api.screenlyapp.com/' }}
 
     steps:
-      - name: Checkout master branch
+      - name: ⬇️ Checkout Repository
         uses: actions/checkout@v4
-        with:
-          ref: master
 
-      - name: Create Edge App
-        uses: screenly/cli@master
-        with:
-          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
-          cli_commands: edge-app create --name=${{ inputs.edge_app_name }} --in-place --path=${{ env.APP_PATH }}
-
-      - name: Deploy Edge App
-        uses: screenly/cli@master
-        with:
-          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
-          cli_commands: edge-app deploy --path=${{ env.APP_PATH }}
-
-      - name: Create Edge App Instance
-        uses: screenly/cli@master
-        with:
-          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
-          cli_commands: edge-app instance create --path=${{ env.APP_PATH }}
-
-      - name: Correct the instance name
+      - name: ⚙️ Install CLI and Dependencies
         run: |
-          sed -i "s/^name: .*/name: ${{ inputs.edge_app_title }}/" "${{ env.APP_PATH }}/instance.yml"
+          wget -q -O screenly-cli https://github.com/Screenly/cli/releases/download/v1.0.3/screenly-cli-x86_64-unknown-linux-gnu.tar.gz
+          tar -xzf screenly-cli
+          chmod +x screenly
+          ./screenly --version
 
-      - name: Update Edge App Instance
-        uses: screenly/cli@master
-        with:
-          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
-          cli_commands: edge-app instance update --path=${{ env.APP_PATH }}
-
-      - name: Install yq
-        uses: mikefarah/yq@v4
-
-      - name: Print Edge App ID from manifest
+      - name: 🛠 Create Edge App
         run: |
-          MANIFEST_FILE="${{ env.APP_PATH }}/${{ env.MANIFEST_FILE_NAME }}"
-          echo "Reading App ID from: $MANIFEST_FILE"
-          APP_ID=$(yq '.id' "$MANIFEST_FILE")
+          echo "📦 Creating Edge App from: $APP_PATH"
+          ./screenly edge-app create --name="${{ inputs.edge_app_name }}" --in-place --path="$APP_PATH"
+          APP_ID=$(grep "^id:" "$APP_PATH/$MANIFEST_FILE_NAME" | awk '{print $2}')
+          echo "✅ Edge App created with ID: $APP_ID"
+          echo "APP_ID=$APP_ID" >> $GITHUB_ENV
+        env:
+          API_TOKEN: ${{ secrets.SCREENLY_API_TOKEN }}
+          API_BASE_URL: ${{ env.API_BASE_URL }}
 
-          if [ -z "$APP_ID" ]; then
-            echo "❌ App ID not found in manifest!"
-            exit 1
-          fi
+      - name: 🚀 Deploy Edge App
+        run: |
+          echo "🚀 Deploying Edge App with correct APP_ID"
+          echo "📄 Final check - manifest content before deploy:"
+          cat "$APP_PATH/$MANIFEST_FILE_NAME"
+          ./screenly edge-app deploy --path="$APP_PATH"
+          echo "✅ Edge App deployed successfully"
+        env:
+          API_TOKEN: ${{ secrets.SCREENLY_API_TOKEN }}
+          API_BASE_URL: ${{ env.API_BASE_URL }}
 
-          echo "✅ Edge App ID: $APP_ID"
-        shell: bash
+      - name: 📄 Create Instance
+        run: |
+          echo "📄 Creating instance for Edge App"
+          INSTANCE_ID=$(./screenly edge-app instance create --path="$APP_PATH" --json | jq -r '.id')
+          echo "✅ Instance created with ID: $INSTANCE_ID"
+          echo "INSTANCE_ID=$INSTANCE_ID" >> $GITHUB_ENV
+          echo "📝 Updating instance name to: ${{ inputs.edge_app_title }}"
+          awk -v new_name="${{ inputs.edge_app_title }}" '
+            /^name:/ { print "name: " new_name; next }
+            { print }
+          ' instance.yml > instance_tmp.yml && mv instance_tmp.yml instance.yml
+        env:
+          API_TOKEN: ${{ secrets.SCREENLY_API_TOKEN }}
+          API_BASE_URL: ${{ env.API_BASE_URL }}
 
-      - name: Upload Edge App artifacts
+      - name: 🔄 Update Instance
+        run: |
+          echo "🔄 Updating instance with new name"
+          ./screenly edge-app instance update --path="$APP_PATH"
+          echo "✅ Instance updated successfully"
+        env:
+          API_TOKEN: ${{ secrets.SCREENLY_API_TOKEN }}
+          API_BASE_URL: ${{ env.API_BASE_URL }}
+
+      - name: 📋 Log Results
+        run: |
+          echo "🆔 RESULTS:"
+          echo "✅ Edge App ID: ${{ env.APP_ID }}"
+          echo "✅ Instance ID: ${{ env.INSTANCE_ID }}"
+          echo "✅ Instance Name: ${{ inputs.edge_app_title }}"
+
+      - name: 📤 Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: edge-app-files
+          name: edge-app-files-${{ inputs.edge_app_name }}
           path: |
-            ${{ env.APP_PATH }}/instance.yml
             ${{ env.APP_PATH }}/${{ env.MANIFEST_FILE_NAME }}
+            instance.yml
