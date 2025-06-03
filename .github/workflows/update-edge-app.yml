@@ -18,9 +18,6 @@ on:
       edge_app_name:
         description: 'Folder name of the edge app (under edge-apps/)'
         required: true
-  push:
-    branches:
-      - master
 
 run-name: Updating ${{ inputs.edge_app_name }} to ${{ inputs.environment }}
 
