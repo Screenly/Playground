@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Environment to deploy to (stage or production)'
+        description: 'Environment to update edge app (stage or production)'
         required: true
         default: 'stage'
         type: choice
@@ -18,18 +18,21 @@ on:
       edge_app_name:
         description: 'Folder name of the edge app (under edge-apps/)'
         required: true
-        default: ''
+  push:
+    branches:
+      - master
 
-run-name: Deploying ${{ inputs.edge_app_name }} to ${{ inputs.environment }}
+run-name: Updating ${{ inputs.edge_app_name }} to ${{ inputs.environment }}
 
 jobs:
   deploy:
-    name: Deploy to ${{ inputs.environment == 'production' && 'Production' || 'Stage (QC)' }}
+    name: Deploy to ${{ inputs.environment == 'stage' && 'Stage' || 'Production' }}
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     env:
       APP_PATH: edge-apps/${{ inputs.edge_app_name }}
-      MANIFEST_FILE_NAME: ${{ inputs.environment == 'production' && 'screenly.yml' || 'screenly_qc.yml' }}
+      MANIFEST_FILE_NAME: ${{ inputs.environment == 'stage' && 'screenly_qc.yml' || 'screenly.yml' }}
+      SCREENLY_API_TOKEN: ${{ secrets.SCREENLY_API_TOKEN_STAGE }}
 
     steps:
       - name: Checkout master branch
