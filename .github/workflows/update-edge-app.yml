@@ -1,7 +1,4 @@
----
-# Manually deploy any edge app to either the staging (QC) or production environment.
-# Always uses the latest master branch.
-name: Update Edge App
+name: Update Edge App.
 
 on:
   workflow_dispatch:
@@ -18,9 +15,15 @@ on:
       edge_app_name:
         description: 'Folder name of the edge app (under edge-apps/)'
         required: true
-  push:
-    branches:
-      - master
+
+      app_type:
+        description: 'Type of the Edge App (html or react)'
+        required: true
+        default: 'html'
+        type: choice
+        options:
+          - html
+          - react
 
 run-name: Updating ${{ inputs.edge_app_name }} to ${{ inputs.environment }}
 
@@ -32,7 +35,7 @@ jobs:
     env:
       APP_PATH: edge-apps/${{ inputs.edge_app_name }}
       MANIFEST_FILE_NAME: ${{ inputs.environment == 'stage' && 'screenly_qc.yml' || 'screenly.yml' }}
-      SCREENLY_API_TOKEN: ${{ secrets.SCREENLY_API_TOKEN_STAGE }}
+      SCREENLY_API_TOKEN: ${{ secrets.SCREENLY_API_TOKEN }}
 
     steps:
       - name: Checkout master branch
@@ -40,8 +43,32 @@ jobs:
         with:
           ref: master
 
-      - name: Deploy Edge App
+      - name: Set up Node.js (React only)
+        if: ${{ inputs.app_type == 'react' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Install dependencies (React only)
+        if: ${{ inputs.app_type == 'react' }}
+        working-directory: ${{ env.APP_PATH }}
+        run: npm install
+
+      - name: Build React App
+        if: ${{ inputs.app_type == 'react' }}
+        working-directory: ${{ env.APP_PATH }}
+        run: npm run build
+
+      - name: Deploy HTML Edge App
+        if: ${{ inputs.app_type == 'html' }}
         uses: screenly/cli@master
         with:
-          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
           cli_commands: edge-app deploy --path=${{ env.APP_PATH }}
+
+      - name: Deploy React Edge App
+        if: ${{ inputs.app_type == 'react' }}
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
+          cli_commands: edge-app deploy --path=${{ env.APP_PATH }}/dist
