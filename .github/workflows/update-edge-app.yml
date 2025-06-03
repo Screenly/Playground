@@ -44,4 +44,4 @@ jobs:
         uses: screenly/cli@master
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
-          cli_commands: edge-app deploy --path=${{ env.APP_PATH }} --manifest-file=${{ env.APP_PATH }}/${{ env.MANIFEST_FILE_NAME }}
+          cli_commands: edge-app deploy --path=${{ env.APP_PATH }}
