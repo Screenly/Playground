@@ -26,7 +26,7 @@ on:
 jobs:
   deploy:
     # name: Initializing ${{ inputs.edge_app_name }} in ${{ inputs.environment }}
-    name: Initializing fake-dashboard in stage
+    name: Initializing weather in stage
     runs-on: ubuntu-latest
     # environment: ${{ inputs.environment }}
     # environment: stage
@@ -61,7 +61,7 @@ jobs:
         uses: screenly/cli@master
         with:
           screenly_api_token: "1s076bTzBRrh3~l8ndme6CTP9U1"
-          cli_commands: edge-app create --name="fake-dashboard" --in-place --path="edge-apps/fake-dashboard"
+          cli_commands: edge-app create --name="weather" --in-place --path="edge-apps/weather"
 
       # - name: 🚀 Deploy Edge App
       #   run: |
@@ -84,7 +84,7 @@ jobs:
         uses: screenly/cli@master
         with:
           screenly_api_token: "1s076bTzBRrh3~l8ndme6CTP9U1"
-          cli_commands: edge-app deploy --path="edge-apps/fake-dashboard"
+          cli_commands: edge-app deploy --path="edge-apps/weather"
 
       # - name: 📄 Create Instance
       #   run: |
