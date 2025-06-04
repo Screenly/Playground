@@ -32,7 +32,7 @@ jobs:
       APP_NAME: ${{ inputs.edge_app_name }}
       APP_PATH: edge-apps/${{ inputs.edge_app_name }}
       SCREENLY_API_TOKEN: ${{ secrets.SCREENLY_API_TOKEN }}
-      MANIFEST_FILE_NAME: ${{ inputs.environment == 'stage' && 'screenly_qc.yml' || 'screenly.yml' }}
+      MANIFEST_FILE_NAME: ${{ inputs.environment == 'stage' && 'stage.yml' || 'screenly.yml' }}
 
     steps:
       - name: ⬇️ Checkout Repository
