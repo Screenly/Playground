@@ -6,4 +6,3 @@ author: Screenly, Inc.
 ready_signal: true
 entrypoint:
   type: file
-settings: {}
