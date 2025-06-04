@@ -6,3 +6,10 @@ author: Screenly, Inc.
 ready_signal: true
 entrypoint:
   type: file
+settings:
+  sentry_dsn:
+    type: secret
+    title: Sentry Client Key
+    optional: true
+    is_global: true
+    help_text: Sentry Client Key from Sentry SDK for error capturing.
