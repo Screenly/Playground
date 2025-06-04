@@ -1,7 +1,7 @@
+# yamllint disable rule:line-length
 # This workflow is used to initialize an edge app in the stage or production environment. Only for new edge apps.
 # It is used to initialize the edge app in the stage or production environment. Only for new edge apps.
 # It is used to initialize the edge app in the stage or production environment. Only for new edge apps.
-# yamllint disable rule:line-length
 ---
 name: Initialize Edge App
 
