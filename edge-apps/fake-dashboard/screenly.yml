@@ -13,3 +13,10 @@ settings:
     optional: true
     is_global: true
     help_text: Sentry Client Key from Sentry SDK for error capturing.
+  enable_analytics:
+    type: string
+    default_value: 'true'
+    title: Enable Analytics
+    optional: true
+    help_text: Whether to enable analytics or not
+    is_global: true
