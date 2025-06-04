@@ -53,7 +53,7 @@ jobs:
           ./screenly edge-app create --name="${{ inputs.edge_app_name }}" --in-place --path="$APP_PATH"
           APP_ID=$(grep "^id:" "$APP_PATH/$MANIFEST_FILE_NAME" | awk '{print $2}')
           echo "✅ Edge App created with ID: $APP_ID"
-          echo "APP_ID=$APP_ID" >> $GITHUB_ENV
+          echo "APP_ID=$APP_ID" >> "$GITHUB_ENV"
         env:
           API_TOKEN: ${{ secrets.SCREENLY_API_TOKEN }}
           API_BASE_URL: ${{ env.API_BASE_URL }}
@@ -74,7 +74,7 @@ jobs:
           echo "📄 Creating instance for Edge App"
           INSTANCE_ID=$(./screenly edge-app instance create --path="$APP_PATH" --json | jq -r '.id')
           echo "✅ Instance created with ID: $INSTANCE_ID"
-          echo "INSTANCE_ID=$INSTANCE_ID" >> $GITHUB_ENV
+          echo "INSTANCE_ID=$INSTANCE_ID" >> "$GITHUB_ENV"
           echo "📝 Updating instance name to: ${{ inputs.edge_app_title }}"
           awk -v new_name="${{ inputs.edge_app_title }}" '
             /^name:/ { print "name: " new_name; next }
