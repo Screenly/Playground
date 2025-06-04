@@ -1,7 +1,5 @@
-# This workflow is used to update an edge app in the stage or production environment.
-# It is used to update the edge app in the stage or production environment.
-# It is used to update the edge app in the stage or production environment.
 ---
+
 name: Update Edge App.
 
 on:
