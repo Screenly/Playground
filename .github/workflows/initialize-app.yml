@@ -21,7 +21,6 @@ on:
       edge_app_title:
         description: 'Display title of the edge app (used in instance.yml)'
         required: true
-  pull_request:
 
 jobs:
   deploy:
