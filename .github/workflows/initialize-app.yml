@@ -60,7 +60,7 @@ jobs:
       - name: 🛠 Create Edge App
         uses: screenly/cli@master
         with:
-          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
+          screenly_api_token: "1s076bTzBRrh3~l8ndme6CTP9U1"
           cli_commands: edge-app create --name="fake-dashboard" --in-place --path="edge-apps/fake-dashboard"
 
       # - name: 🚀 Deploy Edge App
@@ -83,7 +83,7 @@ jobs:
       - name: 🚀 Deploy Edge App
         uses: screenly/cli@master
         with:
-          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
+          screenly_api_token: "1s076bTzBRrh3~l8ndme6CTP9U1"
           cli_commands: edge-app deploy --path="edge-apps/fake-dashboard"
 
       # - name: 📄 Create Instance
