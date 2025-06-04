@@ -4,17 +4,6 @@ description: Fake Dashboard Edge App
 icon: https://playground.srly.io/edge-apps/fake-dashboard/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
-settings:
-  sentry_dsn:
-    type: secret
-    title: Sentry Client Key
-    optional: true
-    is_global: true
-    help_text: Sentry Client Key from Sentry SDK for error capturing.
-  enable_analytics:
-    type: string
-    default_value: 'true'
-    title: Enable Analytics
-    optional: true
-    help_text: Whether to enable analytics or not
-    is_global: true
+entrypoint:
+  type: file
+settings: {}
