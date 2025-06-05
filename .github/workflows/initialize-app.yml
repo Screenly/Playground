@@ -47,8 +47,7 @@ jobs:
 
       - name: Copy Edge App folder into tmp
         run: |
-          mkdir -p tmp/${{ env.APP_NAME }}
-          cp -r edge-apps/${{ env.APP_NAME }} tmp/
+          cp -r edge-apps/${{ env.APP_NAME }} /tmp/${{ env.APP_NAME }}
 
       - name: 🛠 Create Edge App
         uses: screenly/cli@master
