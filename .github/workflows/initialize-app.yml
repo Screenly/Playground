@@ -51,6 +51,12 @@ jobs:
           echo "=== Contents of /tmp/${{ env.APP_NAME }} ==="
           ls -la /tmp/${{ env.APP_NAME }}
 
+      - name: CLI version
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
+          cli_commands: --version
+
       - name: 🛠 Create Edge App
         uses: screenly/cli@master
         with:
