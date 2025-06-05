@@ -39,12 +39,6 @@ jobs:
       - name: ⬇️ Checkout Repository
         uses: actions/checkout@v4
 
-      - name: CLI version
-        uses: screenly/cli@master
-        with:
-          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
-          cli_commands: --version
-
       - name: 🛠 Create Edge App
         uses: screenly/cli@master
         with:
