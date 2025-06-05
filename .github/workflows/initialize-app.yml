@@ -36,7 +36,7 @@ jobs:
       # APP_NAME: ${{ inputs.edge_app_name }}
       APP_NAME: instagram
       # APP_PATH: edge-apps/${{ inputs.edge_app_name }}
-      APP_PATH: edge-apps/instagram
+      APP_PATH: /tmp/instagram
       # SCREENLY_API_TOKEN: ${{ secrets.SCREENLY_API_TOKEN }}
       SCREENLY_API_TOKEN: 0MISu8lD0KH.JmhQ1d9EX_713rW
       # MANIFEST_FILE_NAME: ${{ inputs.environment == 'stage' && 'screenly_qc.yml' || 'screenly.yml' }}
@@ -44,6 +44,11 @@ jobs:
     steps:
       - name: ⬇️ Checkout Repository
         uses: actions/checkout@v4
+
+      - name: Copy Edge App folder into tmp
+        run: |
+          mkdir -p tmp/${{ env.APP_NAME }}
+          cp -r edge-apps/${{ env.APP_NAME }} tmp/
 
       - name: 🛠 Create Edge App
         uses: screenly/cli@master
