@@ -48,6 +48,8 @@ jobs:
       - name: Copy Edge App folder into tmp
         run: |
           cp -r edge-apps/${{ env.APP_NAME }} /tmp/${{ env.APP_NAME }}
+          echo "=== Contents of /tmp/${{ env.APP_NAME }} ==="
+          ls -la /tmp/${{ env.APP_NAME }}
 
       - name: 🛠 Create Edge App
         uses: screenly/cli@master
