@@ -22,6 +22,15 @@ on:
         description: 'Display title of the edge app (used in instance.yml)'
         required: true
 
+      app_type:
+        description: 'Type of the Edge App (html or react)'
+        required: true
+        default: 'html'
+        type: choice
+        options:
+          - html
+          - react
+
 
 jobs:
   deploy:
@@ -39,33 +48,71 @@ jobs:
       - name: ⬇️ Checkout Repository
         uses: actions/checkout@v4
 
-      - name: 🛠 Create Edge App
+      - name: 🛠 Create Edge App (HTML)
+        if: ${{ inputs.app_type == 'html' }}
         uses: screenly/cli@master
         with:
           screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
           cli_commands: edge-app create --name="${{ env.APP_NAME }}" --in-place --path="${{ env.APP_PATH }}"
 
-      - name: 🚀 Deploy Edge App
+      - name: 🛠 Build React App
+        if: ${{ inputs.app_type == 'react' }}
+        working-directory: ${{ env.APP_PATH }}
+        run: |
+          npm install
+          npm run build
+
+      - name: 🛠 Create Edge App (React)
+        if: ${{ inputs.app_type == 'react' }}
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
+          cli_commands: edge-app create --name="${{ env.APP_NAME }}" --in-place --path="${{ env.APP_PATH }}/dist"
+
+      - name: 🚀 Deploy Edge App (HTML)
+        if: ${{ inputs.app_type == 'html' }}
         uses: screenly/cli@master
         with:
           screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
           cli_commands: edge-app deploy --path="${{ env.APP_PATH }}"
 
+      - name: 🚀 Deploy Edge App (React)
+        if: ${{ inputs.app_type == 'react' }}
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
+          cli_commands: edge-app deploy --path="${{ env.APP_PATH }}/dist"
+
       - name: 📋 Log screenly.yml
         run: |
           cat ${{ env.APP_PATH }}/screenly.yml
 
-      - name: 📄 Create Instance
+      - name: 📄 Create Instance (HTML)
+        if: ${{ inputs.app_type == 'html' }}
         uses: screenly/cli@master
         with:
           screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
           cli_commands: edge-app instance create --path="${{ env.APP_PATH }}"
 
-      - name: 🔄 Update Instance
+      - name: 📄 Create Instance (React)
+        if: ${{ inputs.app_type == 'react' }}
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
+          cli_commands: edge-app instance create --path="${{ env.APP_PATH }}/dist"
+
+      - name: 🔄 Update Instance (HTML)
         uses: screenly/cli@master
         with:
           screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
           cli_commands: edge-app instance update --path="${{ env.APP_PATH }}"
+
+      - name: 🔄 Update Instance (React)
+        if: ${{ inputs.app_type == 'react' }}
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
+          cli_commands: edge-app instance update --path="${{ env.APP_PATH }}/dist"
 
       - name: 📋 Log instance.yml
         run: |
