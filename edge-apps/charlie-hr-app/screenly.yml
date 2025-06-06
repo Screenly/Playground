@@ -30,7 +30,7 @@ settings:
     default_value: en
     title: Override Locale
     optional: true
-    help_text: Specify a supported locale value (e.g., en_US).
+    help_text: Specify a supported locale value (e.g., en, de, fr, etc.).
   override_timezone:
     type: string
     default_value: ''
