@@ -7,13 +7,13 @@ author: Screenly, Inc.
 ready_signal: true
 settings:
   client_id:
-    type: string
+    type: secret
     default_value: ''
     title: Client ID
     optional: false
     help_text: Specify a CharlieHR API Client ID
   client_secret:
-    type: string
+    type: secret
     default_value: ''
     title: CharlieHR API Client Secret
     optional: false
