@@ -13,8 +13,7 @@ settings:
     optional: false
     help_text: Specify a CharlieHR API Client ID
   client_secret:
-    type: string
-    default_value: ''
+    type: secret
     title: CharlieHR API Client Secret
     optional: false
     help_text: Specify a Charlie HR API Client Secret
@@ -30,7 +29,7 @@ settings:
     default_value: en
     title: Override Locale
     optional: true
-    help_text: Specify a supported locale value (e.g., en_US).
+    help_text: Specify a supported locale value (e.g., en, de, fr, etc.).
   override_timezone:
     type: string
     default_value: ''
