@@ -7,7 +7,7 @@ author: Screenly, Inc.
 ready_signal: true
 settings:
   client_id:
-    type: secret
+    type: string
     default_value: ''
     title: Client ID
     optional: false
