@@ -14,7 +14,6 @@ settings:
     help_text: Specify a CharlieHR API Client ID
   client_secret:
     type: secret
-    default_value: ''
     title: CharlieHR API Client Secret
     optional: false
     help_text: Specify a Charlie HR API Client Secret
