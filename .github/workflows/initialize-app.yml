@@ -51,7 +51,7 @@ jobs:
       - name: 🔄 Modify APP_PATH based on app type
         run: |
           if [ "${{ inputs.app_type }}" = "react" ]; then
-            echo "APP_PATH=${{ env.APP_PATH }}/dist" >> $GITHUB_ENV
+            echo "APP_PATH=${{ env.APP_PATH }}/dist" >> "$GITHUB_ENV"
           fi
 
       - name: 🛠 Install Node.js (React only)
