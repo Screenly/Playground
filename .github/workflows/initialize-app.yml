@@ -1,4 +1,4 @@
-# This action creates and initializes a new edge app in the repository - Only for initial setup of a new edge app
+---
 
 name: Initialize Edge App
 
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Target environment for initialization (stage or production)'
+        description: 'Target environment for initialization'
         required: true
         default: 'stage'
         type: choice
@@ -17,12 +17,11 @@ on:
       edge_app_name:
         description: 'Folder name of the edge app (under edge-apps/) to initialize'
         required: true
-        default: ''
 
       edge_app_title:
         description: 'Display title of the edge app (used in instance.yml)'
         required: true
-        default: ''
+
 
 jobs:
   deploy:
@@ -30,65 +29,44 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     env:
+      API_BASE_URL: ${{ inputs.environment == 'stage' && 'https://api.screenlyappstage.com/' || 'https://api.screenlyapp.com/' }}
+      APP_NAME: ${{ inputs.edge_app_name }}
       APP_PATH: edge-apps/${{ inputs.edge_app_name }}
-      MANIFEST_FILE_NAME: ${{ inputs.environment == 'production' && 'screenly.yml' || 'screenly_qc.yml' }}
       SCREENLY_API_TOKEN: ${{ secrets.SCREENLY_API_TOKEN }}
+      MANIFEST_FILE_NAME: ${{ inputs.environment == 'stage' && 'screenly_qc.yml' || 'screenly.yml' }}
 
     steps:
-      - name: Checkout master branch
+      - name: ⬇️ Checkout Repository
         uses: actions/checkout@v4
-        with:
-          ref: master
 
-      - name: Create Edge App
+      - name: 🛠 Create Edge App
         uses: screenly/cli@master
         with:
           screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
-          cli_commands: edge-app create --name=${{ inputs.edge_app_name }} --in-place --path=${{ env.APP_PATH }}
+          cli_commands: edge-app create --name="${{ env.APP_NAME }}" --in-place --path="${{ env.APP_PATH }}"
 
-      - name: Deploy Edge App
+      - name: 🚀 Deploy Edge App
         uses: screenly/cli@master
         with:
           screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
-          cli_commands: edge-app deploy --path=${{ env.APP_PATH }}
+          cli_commands: edge-app deploy --path="${{ env.APP_PATH }}"
 
-      - name: Create Edge App Instance
-        uses: screenly/cli@master
-        with:
-          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
-          cli_commands: edge-app instance create --path=${{ env.APP_PATH }}
-
-      - name: Correct the instance name
+      - name: 📋 Log screenly.yml
         run: |
-          sed -i "s/^name: .*/name: ${{ inputs.edge_app_title }}/" "${{ env.APP_PATH }}/instance.yml"
+          cat ${{ env.APP_PATH }}/screenly.yml
 
-      - name: Update Edge App Instance
+      - name: 📄 Create Instance
         uses: screenly/cli@master
         with:
           screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
-          cli_commands: edge-app instance update --path=${{ env.APP_PATH }}
+          cli_commands: edge-app instance create --path="${{ env.APP_PATH }}"
 
-      - name: Install yq
-        uses: mikefarah/yq@v4
-
-      - name: Print Edge App ID from manifest
-        run: |
-          MANIFEST_FILE="${{ env.APP_PATH }}/${{ env.MANIFEST_FILE_NAME }}"
-          echo "Reading App ID from: $MANIFEST_FILE"
-          APP_ID=$(yq '.id' "$MANIFEST_FILE")
-
-          if [ -z "$APP_ID" ]; then
-            echo "❌ App ID not found in manifest!"
-            exit 1
-          fi
-
-          echo "✅ Edge App ID: $APP_ID"
-        shell: bash
-
-      - name: Upload Edge App artifacts
-        uses: actions/upload-artifact@v4
+      - name: 🔄 Update Instance
+        uses: screenly/cli@master
         with:
-          name: edge-app-files
-          path: |
-            ${{ env.APP_PATH }}/instance.yml
-            ${{ env.APP_PATH }}/${{ env.MANIFEST_FILE_NAME }}
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
+          cli_commands: edge-app instance update --path="${{ env.APP_PATH }}"
+
+      - name: 📋 Log instance.yml
+        run: |
+          cat ${{ env.APP_PATH }}/instance.yml

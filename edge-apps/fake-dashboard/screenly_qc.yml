@@ -1,6 +1,5 @@
 ---
 syntax: manifest_v1
-id:
 description: Fake Dashboard Edge App
 icon: https://playground.srly.io/edge-apps/fake-dashboard/static/img/icon.svg
 author: Screenly, Inc.
