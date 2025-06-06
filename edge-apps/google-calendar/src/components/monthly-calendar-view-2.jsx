@@ -1,3 +1,5 @@
+import '@/scss/monthly-calendar-view.scss'
+
 const MonthlyCalendarView = ({
   currentMonthName,
   currentYear,
