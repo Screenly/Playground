@@ -1,6 +1,6 @@
 ---
 syntax: manifest_v1
-id:
+id: 01JX2TC3ZWDZTB98VET1J1BBPF
 description: Charlie HR App
 icon: https://playground.srly.io/edge-apps/charlie-hr-app/static/img/icon.svg
 author: Screenly, Inc.
@@ -14,9 +14,9 @@ settings:
     help_text: Specify a CharlieHR API Client ID
   client_secret:
     type: secret
-    title: CharlieHR API Client Secret
+    title: Client Secret
     optional: false
-    help_text: Specify a Charlie HR API Client Secret
+    help_text: Specify a CharlieHR API Client Secret
   enable_analytics:
     type: string
     default_value: 'true'
