@@ -16,7 +16,7 @@ settings:
     type: secret
     title: Client Secret
     optional: false
-    help_text: Specify a Charlie HR API Client Secret
+    help_text: Specify a CharlieHR API Client Secret
   enable_analytics:
     type: string
     default_value: 'true'
