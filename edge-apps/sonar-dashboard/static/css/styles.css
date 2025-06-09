@@ -95,8 +95,8 @@ body {
 .main-content {
   flex: 1;
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  grid-template-rows: 1fr 0.45fr;
+  grid-template-columns: 1.25fr 1fr;
+  grid-template-rows: 1fr .75fr;
   gap: 1vh 1.2vw;
   height: calc(92vh - 1.6vh);
   min-height: 0;
