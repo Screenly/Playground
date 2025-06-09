@@ -41,7 +41,6 @@ function dashboard () {
       // This ensures all timestamps are normalized to the dashboard timezone
       const convertedDate = new Date(date.toLocaleString('en-US', { timeZone: this.DASHBOARD_TIMEZONE }))
 
-      console.log(`Converting timestamp: ${timestamp} -> ${convertedDate.toISOString()} (${this.DASHBOARD_TIMEZONE})`)
       return convertedDate.toISOString()
     },
 
@@ -220,7 +219,6 @@ function dashboard () {
       try {
         this.loading = true
         this.error = null
-        console.log('Fetching dashboard data...')
 
         // Fetch both latest and time series data
         const [latestResponse, timeSeriesResponse] = await Promise.all([
@@ -228,37 +226,27 @@ function dashboard () {
           fetch('/api/time-series')
         ])
 
-        console.log('Latest response status:', latestResponse.status)
-        console.log('Time series response status:', timeSeriesResponse.status)
-
         if (!latestResponse.ok) throw new Error(`HTTP ${latestResponse.status} on latest`)
 
         const latestData = await latestResponse.json()
-        console.log('Latest data received:', latestData)
 
         // Handle time series data - it might not be available
         let timeSeriesData = []
         if (timeSeriesResponse.ok) {
           const timeSeriesJson = await timeSeriesResponse.json()
-          console.log('Time series raw response:', timeSeriesJson)
 
           // Extract the time_series array from the response
           timeSeriesData = timeSeriesJson.time_series || timeSeriesJson || []
-          console.log('Extracted time series data:', timeSeriesData)
         } else {
-          console.log('Time series request failed, trying fallback endpoint /time-series')
           // Try fallback endpoint
           try {
             const fallbackResponse = await fetch('/time-series')
-            console.log('Fallback response status:', fallbackResponse.status)
             if (fallbackResponse.ok) {
               const fallbackJson = await fallbackResponse.json()
-              console.log('Fallback time series response:', fallbackJson)
               timeSeriesData = fallbackJson.time_series || fallbackJson || []
-              console.log('Fallback time series data:', timeSeriesData)
             }
           } catch (fallbackError) {
-            console.log('Fallback also failed:', fallbackError)
+            // Fallback failed, continue with empty array
           }
         }
 
@@ -284,11 +272,7 @@ function dashboard () {
 
           // Add current data to the end of time series
           this.data.time_series = [...this.data.time_series, currentEntry]
-
-          console.log('Added current scan to time series with converted timezone:', currentEntry)
         }
-
-        console.log('Combined data for dashboard:', this.data)
 
         // Update dashboard HTML
         this.dashboardHTML = this.createDashboardHTML(this.data)
@@ -303,7 +287,6 @@ function dashboard () {
         this.updateTimestamp()
         this.loading = false
       } catch (error) {
-        console.error('Error fetching data:', error)
         this.dashboardHTML = `
               <div class="dashboard-card" style="grid-column: 1 / -1; grid-row: 1 / -1;">
                 <div class="error">
@@ -325,7 +308,6 @@ function dashboard () {
     drawHistogram () {
       const canvas = document.getElementById('histogramCanvas')
       if (!canvas || !this.data?.time_series || !Array.isArray(this.data.time_series)) {
-        console.log('Cannot draw histogram - missing canvas or data')
         return
       }
 
@@ -344,28 +326,17 @@ function dashboard () {
       // Clear canvas
       ctx.clearRect(0, 0, width, height)
 
-      // Prepare data - take last 24 hours of data
-      const last24Hours = data.slice(-24)
+      // Filter data for the last 24 hours based on actual timestamps
+      const now = new Date()
+      const twentyFourHoursAgo = new Date(now.getTime() - (24 * 60 * 60 * 1000))
+
+      const last24Hours = data.filter(point => {
+        if (!point.timestamp) return false
+        const pointTime = new Date(point.timestamp)
+        return pointTime >= twentyFourHoursAgo
+      }).sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp))
+
       if (last24Hours.length === 0) return
-
-      // Debug timestamps with timezone info
-      console.log('=== TIMESTAMP DEBUG INFO ===')
-      console.log('Dashboard Timezone:', this.DASHBOARD_TIMEZONE)
-      console.log('Total data points:', last24Hours.length)
-      console.log('First timestamp (converted):', last24Hours[0]?.timestamp)
-      console.log('First timestamp (original):', last24Hours[0]?.original_timestamp)
-      console.log('Last timestamp (converted):', last24Hours[last24Hours.length - 1]?.timestamp)
-      console.log('Last timestamp (original):', last24Hours[last24Hours.length - 1]?.original_timestamp)
-
-      // Show sample of converted vs original timestamps
-      const sampleData = last24Hours.slice(0, 3)
-      sampleData.forEach((point, index) => {
-        console.log(`Sample ${index + 1}:`)
-        console.log(`  Original: ${point.original_timestamp}`)
-        console.log(`  Converted: ${point.timestamp}`)
-        console.log(`  Display: ${new Date(point.timestamp).toLocaleString(undefined, { timeZone: this.DASHBOARD_TIMEZONE })}`)
-      })
-      console.log('=== END TIMESTAMP DEBUG ===')
 
       // Calculate margins
       const margin = { top: 20, right: 30, bottom: 60, left: 50 }
@@ -487,31 +458,8 @@ function dashboard () {
             ctx.fillText('NOW', x, margin.top + chartHeight + 45)
             ctx.font = '10px Inter, system-ui, sans-serif' // Reset font
           }
-
-          console.log(`Label ${index}: ${timeLabel} ${dateLabel}${point.is_current ? ' (CURRENT)' : ''}`)
         }
       })
-
-      // Title with actual time range
-      const firstDate = new Date(last24Hours[0]?.timestamp)
-      const lastDate = new Date(last24Hours[last24Hours.length - 1]?.timestamp)
-
-      // Since timestamps are already converted to dashboard timezone, display them directly
-      const timeRange = `${firstDate.toLocaleDateString(undefined, { timeZone: this.DASHBOARD_TIMEZONE })} ${firstDate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: this.DASHBOARD_TIMEZONE })} - ${lastDate.toLocaleDateString(undefined, { timeZone: this.DASHBOARD_TIMEZONE })} ${lastDate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: this.DASHBOARD_TIMEZONE })}`
-
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)'
-      ctx.font = 'bold 14px Inter, system-ui, sans-serif'
-      ctx.textAlign = 'center'
-      ctx.fillText('Average Device Count Over Time', width / 2, 15)
-
-      // Subtitle with time range and timezone info
-      ctx.font = '11px Inter, system-ui, sans-serif'
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'
-      ctx.fillText(`${timeRange} (All times in ${this.DASHBOARD_TIMEZONE})`, width / 2, 30)
-
-      console.log('Chart time range (all converted to dashboard timezone):', timeRange)
-
-      console.log('Histogram drawn successfully')
     },
 
     // Start auto-refresh
