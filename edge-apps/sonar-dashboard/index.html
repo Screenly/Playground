@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sonar Analytics Dashboard</title>
+  <link rel="stylesheet" href="./static/css/styles.css">
+</head>
+<body>
+  <div class="dashboard" x-data="dashboard()" x-init="init()">
+    <div class="header">
+      <h1>Sonar Analytics Dashboard</h1>
+      <div class="subtitle">Real-time Device Monitoring & Analytics</div>
+      <div class="status-bar">
+        <div class="status-item">
+          <div class="status-dot"></div>
+          <span>Live Data</span>
+        </div>
+        <div class="status-item">
+          <span x-text="'Last Updated: ' + lastUpdate"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-content" id="dashboard-content" x-html="dashboardHTML">
+      <div class="loading">Loading dashboard data</div>
+    </div>
+  </div>
+
+
+  <script src="static/js/alpinejs-3.13.0.min.js" defer></script>
+  <script src="static/js/main.js"></script>
+</body>
+</html>
