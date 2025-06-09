@@ -280,7 +280,7 @@ body {
 
 .current-scan-card {
   grid-column: 1;
-  grid-row: 1 / -1;
+  grid-row: 1 / 1;
 }
 
 .right-cards {
