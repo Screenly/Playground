@@ -1,10 +1,27 @@
 /* global clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry, Alpine, RSSParser */
 /* eslint-disable no-unused-vars, no-useless-catch */
 
+const screenly = {
+  settings: {
+    override_locale: 'en',
+    override_timezone: 'Asia/Kolkata',
+    api_base_ip: '192.168.0.101',  // User configurable - Raspberry Pi IP address
+    api_port: '8000',              // API port (usually 8000)
+  },
+  metadata: {
+    coordinates: [34.0522, -118.2437]
+  },
+  // Fallback function if not running in Screenly environment
+  signalReadyForRendering: function() {
+    console.log('Dashboard ready for rendering')
+  }
+}
+
 function dashboard () {
   return {
     // ===== TIMEZONE CONFIGURATION =====
-    DASHBOARD_TIMEZONE: 'Asia/Kolkata', // Change this to your preferred timezone
+    DASHBOARD_TIMEZONE: null, // Will be set dynamically
+    detectedLocale: null,
 
     // Reactive data
     data: null,
@@ -15,10 +32,78 @@ function dashboard () {
     dashboardHTML: '<div class="loading">Loading dashboard data</div>',
 
     // Initialize component
-    init () {
+    async init () {
+      await this.initializeTimezone()
       this.fetchAllData()
       this.startAutoRefresh()
       this.updateTimestamp()
+    },
+
+    // Initialize timezone detection (based on reference code)
+    async initializeTimezone () {
+      try {
+        const { getNearestCity } = OfflineGeocodeCity
+        const allTimezones = moment.tz.names()
+        const { metadata, settings } = screenly
+
+        // Use coordinates from screenly metadata as default
+        const latitude = metadata.coordinates[0]
+        const longitude = metadata.coordinates[1]
+        const defaultLocale = 'en' // Set default locale to 'en'
+
+        const getLocale = async () => {
+          const overrideLocale = settings?.override_locale
+
+          if (overrideLocale) {
+            if (moment.locales().includes(overrideLocale)) {
+              return overrideLocale
+            } else {
+              console.warn(`Invalid locale: ${overrideLocale}. Using defaults.`)
+            }
+          }
+
+          // If no override, detect from metadata coordinates
+          try {
+            const data = await getNearestCity(latitude, longitude)
+            const countryCode = data.countryIso2.toUpperCase()
+            return clm.getLocaleByAlpha2(countryCode) || defaultLocale
+          } catch (error) {
+            return defaultLocale
+          }
+        }
+
+        const getTimezone = async () => {
+          const overrideTimezone = settings?.override_timezone
+          if (overrideTimezone) {
+            if (allTimezones.includes(overrideTimezone)) {
+              return overrideTimezone
+            } else {
+              console.warn(`Invalid timezone: ${overrideTimezone}. Using defaults.`)
+            }
+          }
+
+          // If no override, detect timezone from metadata coordinates
+          try {
+            const timezone = tzlookup(latitude, longitude)
+            if (allTimezones.includes(timezone)) {
+              return timezone
+            } else {
+              return 'UTC' // Fallback to UTC
+            }
+          } catch (error) {
+            return 'UTC' // Fallback to UTC
+          }
+        }
+
+        // Set the detected timezone and locale
+        this.DASHBOARD_TIMEZONE = await getTimezone()
+        this.detectedLocale = await getLocale()
+
+      } catch (error) {
+        // Fallback to hardcoded timezone if detection fails
+        this.DASHBOARD_TIMEZONE = 'Asia/Kolkata'
+        this.detectedLocale = 'en'
+      }
     },
 
     // Format numbers
@@ -30,18 +115,17 @@ function dashboard () {
       return parseFloat(value.toFixed(2))
     },
 
-    // Convert timestamp to dashboard timezone
+    // Convert timestamp to dashboard timezone using moment.js
     convertToTimezone (timestamp) {
-      if (!timestamp) return null
+      if (!timestamp || !this.DASHBOARD_TIMEZONE) return null
 
-      // Create date object from timestamp
-      const date = new Date(timestamp)
-
-      // Convert to the dashboard timezone and return as ISO string
-      // This ensures all timestamps are normalized to the dashboard timezone
-      const convertedDate = new Date(date.toLocaleString('en-US', { timeZone: this.DASHBOARD_TIMEZONE }))
-
-      return convertedDate.toISOString()
+      try {
+        const momentObj = moment(timestamp).tz(this.DASHBOARD_TIMEZONE)
+        return momentObj.toISOString()
+      } catch (error) {
+        // Fallback to regular date conversion
+        return new Date(timestamp).toISOString()
+      }
     },
 
     // Process time series data to convert all timestamps
@@ -55,17 +139,36 @@ function dashboard () {
       }))
     },
 
-    // Update timestamp
+    // Update timestamp using moment.js with detected locale
     updateTimestamp () {
-      const now = new Date()
-      const timeString = now.toLocaleTimeString('en-US', {
-        hour12: false,
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        timeZone: this.DASHBOARD_TIMEZONE
-      })
-      this.lastUpdate = `${timeString} (${this.DASHBOARD_TIMEZONE})`
+      if (!this.DASHBOARD_TIMEZONE) return
+
+      try {
+        const momentObj = moment().tz(this.DASHBOARD_TIMEZONE)
+
+        if (this.detectedLocale) {
+          momentObj.locale(this.detectedLocale)
+        }
+
+        // Check if the locale prefers a 24-hour format
+        const is24HourFormat = moment.localeData(this.detectedLocale).longDateFormat('LT').includes('H')
+
+        const timeFormat = is24HourFormat ? 'HH:mm:ss' : 'hh:mm:ss A'
+        const timeString = momentObj.format(timeFormat)
+
+        this.lastUpdate = `${timeString} (${this.DASHBOARD_TIMEZONE})`
+      } catch (error) {
+        // Fallback to basic formatting
+        const now = new Date()
+        const timeString = now.toLocaleTimeString('en-US', {
+          hour12: false,
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          timeZone: this.DASHBOARD_TIMEZONE || 'UTC'
+        })
+        this.lastUpdate = `${timeString} (${this.DASHBOARD_TIMEZONE || 'UTC'})`
+      }
     },
 
     // Create dashboard HTML (keeping original structure)
@@ -220,10 +323,34 @@ function dashboard () {
         this.loading = true
         this.error = null
 
+        // Check if we're running in proxy mode (server.js proxy)
+        let apiBaseUrl = ''
+        let useProxy = false
+
+        try {
+          const configResponse = await fetch('/config')
+          if (configResponse.ok) {
+            const config = await configResponse.json()
+            if (config.proxy_mode) {
+              // We're running through the proxy server, use local endpoints
+              apiBaseUrl = ''  // Empty string means relative to current host
+              useProxy = true
+            }
+          }
+        } catch (configError) {
+          // Config endpoint not available, we're in direct mode
+        }
+
+        if (!useProxy) {
+          // Direct mode - construct API URL from settings
+          const { settings } = screenly
+          apiBaseUrl = `http://${settings.api_base_ip}:${settings.api_port}`
+        }
+
         // Fetch both latest and time series data
         const [latestResponse, timeSeriesResponse] = await Promise.all([
-          fetch('/api/latest'),
-          fetch('/api/time-series')
+          fetch(`${apiBaseUrl}/api/latest`),
+          fetch(`${apiBaseUrl}/api/time-series`)
         ])
 
         if (!latestResponse.ok) throw new Error(`HTTP ${latestResponse.status} on latest`)
@@ -240,7 +367,7 @@ function dashboard () {
         } else {
           // Try fallback endpoint
           try {
-            const fallbackResponse = await fetch('/time-series')
+            const fallbackResponse = await fetch(`${apiBaseUrl}/time-series`)
             if (fallbackResponse.ok) {
               const fallbackJson = await fallbackResponse.json()
               timeSeriesData = fallbackJson.time_series || fallbackJson || []
@@ -286,7 +413,26 @@ function dashboard () {
 
         this.updateTimestamp()
         this.loading = false
+
+        // Signal ready for rendering
+        screenly.signalReadyForRendering()
       } catch (error) {
+        // Determine which mode we were trying to use for error message
+        let endpointsMessage = ''
+        try {
+          const configResponse = await fetch('/config')
+          if (configResponse.ok) {
+            const config = await configResponse.json()
+            if (config.proxy_mode) {
+              endpointsMessage = 'Proxy endpoints: /api/latest, /api/time-series, /time-series'
+            }
+          }
+        } catch (configError) {
+          const { settings } = screenly
+          const apiBaseUrl = `http://${settings.api_base_ip}:${settings.api_port}`
+          endpointsMessage = `Direct endpoints: ${apiBaseUrl}/api/latest, ${apiBaseUrl}/api/time-series, ${apiBaseUrl}/time-series`
+        }
+
         this.dashboardHTML = `
               <div class="dashboard-card" style="grid-column: 1 / -1; grid-row: 1 / -1;">
                 <div class="error">
@@ -294,7 +440,7 @@ function dashboard () {
                   <br><br>
                   Please check your connection and ensure the API server is running.
                   <br><br>
-                  Tried endpoints: /api/latest, /api/time-series, /time-series
+                  ${endpointsMessage}
                   <br><br>
                   Check browser console for detailed error information.
                 </div>
