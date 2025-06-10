@@ -16,7 +16,7 @@ settings:
     type: string
     default_value: '8000'
     title: Port of Sonar Server
-    optional: true
+    optional: false
     help_text: Specify the port of the Sonar server.
   enable_analytics:
     type: string
