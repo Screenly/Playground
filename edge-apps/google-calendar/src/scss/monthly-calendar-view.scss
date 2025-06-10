@@ -1,4 +1,77 @@
 .MonthlyCalendarView {
-  &.primary-card {
+  h1, h2, h3, h4, h5, h6, * {
+    color: var(--theme-color-text);
   }
+
+  &.primary-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    .events-container {
+      width: 100%;
+      display: grid;
+      grid-template-columns: auto 1fr;
+
+      .event-row {
+        display: contents;
+
+        .event-time {
+          color: var(--theme-color-primary);
+          font-weight: bold;
+          text-align: right;
+        }
+      }
+
+      .no-events {
+        grid-column: 1 / -1;
+        color: var(--theme-color-text);
+        opacity: 0.6;
+        text-align: center;
+      }
+    }
+  }
+}
+
+@mixin monthly-calendar-view($orientation: 'landscape', $multiplier: 1) {
+  .MonthlyCalendarView {
+    &.primary-card {
+      padding: 1.5rem * $multiplier;
+
+      .events-heading {
+        font-size: 0.8rem * $multiplier;
+
+        @if $orientation == 'portrait' {
+          margin-bottom: 1rem * $multiplier;
+        }
+      }
+
+      .events-container {
+        gap: 0.75rem * $multiplier;
+
+        .event-row {
+          .event-time {
+            padding-right: 0.75rem * $multiplier;
+            font-size: 1rem * $multiplier;
+          }
+
+          .event-title {
+            font-size: 1rem * $multiplier;
+          }
+        }
+
+        .no-events {
+          padding: 2rem * $multiplier;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 800px) and (max-width: 1279px) and (orientation: landscape) {
+  @include monthly-calendar-view('landscape', 1);
+}
+
+@media screen and (min-width: 480px) and (max-width: 719px) and (orientation: portrait) {
+  @include monthly-calendar-view('portrait', 1);
 }

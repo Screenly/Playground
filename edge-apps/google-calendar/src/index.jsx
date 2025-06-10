@@ -4,12 +4,10 @@ import { createRoot } from 'react-dom/client'
 import { useState, useEffect, useRef } from 'react'
 import {
   getFormattedTime,
-  generateCalendarDays,
   initializeGlobalBrandingSettings,
   initializeSentrySettings,
   getFormattedMonthName,
   getYear,
-  getMonth,
   getDate,
   getAccessToken,
   getLocale
@@ -29,10 +27,6 @@ import { TOKEN_REFRESH_INTERVAL } from '@/constants'
 const App = () => {
   const [now, setNow] = useState(new Date())
   const [weeklyViewTime, setWeeklyViewTime] = useState(new Date())
-  const [calendarDays] = useState(
-    generateCalendarDays(getYear(now), getMonth(now))
-  )
-  const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
   const [events, setEvents] = useState([])
   const [calendarMode] = useState(
     screenly.settings.calendar_mode || 'monthly'
@@ -150,9 +144,9 @@ const App = () => {
         <MonthlyCalendarView
           currentMonthName={getFormattedMonthName(now)}
           currentYear={getYear(now)}
-          weekDays={weekDays}
-          calendarDays={calendarDays}
           currentDate={getDate(now)}
+          events={events}
+          locale={locale}
         />
       )}
       {calendarMode === 'daily' && (
