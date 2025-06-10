@@ -1,22 +1,6 @@
 /* global clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry, Alpine, RSSParser */
 /* eslint-disable no-unused-vars, no-useless-catch */
 
-// const screenly = {
-//   settings: {
-//     override_locale: 'en',
-//     override_timezone: 'Asia/Kolkata',
-//     api_base_ip: '192.168.0.101',  // User configurable - Raspberry Pi IP address
-//     api_port: '8000',              // API port (usually 8000)
-//   },
-//   metadata: {
-//     coordinates: [34.0522, -118.2437]
-//   },
-//   // Fallback function if not running in Screenly environment
-//   signalReadyForRendering: function() {
-//     console.log('Dashboard ready for rendering')
-//   }
-// }
-
 function dashboard () {
   return {
     // ===== TIMEZONE CONFIGURATION =====
@@ -323,15 +307,12 @@ function dashboard () {
         this.loading = true
         this.error = null
 
-        // Direct mode - construct API URL from settings
-        // const { settings } = screenly
-        // apiBaseUrl = `http://${settings.api_base_ip}:${settings.api_port}`
-        const apiBaseUrl = `${screenly.cors_proxy_url}/http://${screenly.settings.api_base_ip}:${screenly.settings.api_port}`
+        const apiBaseUrl = `${screenly.cors_proxy_url}/http://${screenly.settings.api_host}:${screenly.settings.api_port}`
 
         // Fetch both latest and time series data
         const [latestResponse, timeSeriesResponse] = await Promise.all([
-          fetch(`${apiBaseUrl}/api/latest`),
-          fetch(`${apiBaseUrl}/api/time-series`)
+          fetch(`${apiBaseUrl}/latest`),
+          fetch(`${apiBaseUrl}/time-series`)
         ])
 
         if (!latestResponse.ok) throw new Error(`HTTP ${latestResponse.status} on latest`)
@@ -398,17 +379,31 @@ function dashboard () {
         // Signal ready for rendering
         screenly.signalReadyForRendering()
       } catch (error) {
+        // Gather debugging information for display
+        const debugInfo = {
+          errorMessage: error.message,
+          hasScreenly: typeof screenly !== 'undefined',
+          hasSettings: !!(screenly?.settings),
+          hasCorsProxy: !!(screenly?.cors_proxy_url),
+          apiBaseIp: screenly?.settings?.api_host || 'NOT FOUND',
+          apiPort: screenly?.settings?.api_port || 'NOT FOUND',
+          corsProxyUrl: screenly?.cors_proxy_url || 'NOT FOUND',
+          constructedUrl: `${screenly?.cors_proxy_url}/http://${screenly?.settings?.api_host}:${screenly?.settings?.api_port}`
+        }
+
         this.dashboardHTML = `
-              <div class="dashboard-card" style="grid-column: 1 / -1; grid-row: 1 / -1;">
-                <div class="error">
-                  Error loading dashboard data: ${error.message}
-                  <br><br>
-                  Please check your connection and ensure the API server is running.
-                  <br><br>
-                  Check browser console for detailed error information.
-                </div>
-              </div>
-            `
+        <div class="dashboard-card" style="grid-column: 1 / -1; grid-row: 1 / -1;">
+          <div class="error">
+            Error loading dashboard data: ${error.message}
+            <br><br>
+            Please check your connection and ensure the API server is running.
+            <br><br>
+            ${endpointsMessage}
+            <br><br>
+            Check browser console for detailed error information.
+          </div>
+        </div>
+      `
         this.loading = false
         screenly.signalReadyForRendering()
       }
