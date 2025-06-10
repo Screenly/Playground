@@ -323,30 +323,10 @@ function dashboard () {
         this.loading = true
         this.error = null
 
-        // Check if we're running in proxy mode (server.js proxy)
-        let apiBaseUrl = ''
-        let useProxy = false
-
-        try {
-          const configResponse = await fetch('/config')
-          if (configResponse.ok) {
-            const config = await configResponse.json()
-            if (config.proxy_mode) {
-              // We're running through the proxy server, use local endpoints
-              apiBaseUrl = ''  // Empty string means relative to current host
-              useProxy = true
-            }
-          }
-        } catch (configError) {
-          // Config endpoint not available, we're in direct mode
-        }
-
-        if (!useProxy) {
-          // Direct mode - construct API URL from settings
-          const { settings } = screenly
-          // apiBaseUrl = `http://${settings.api_base_ip}:${settings.api_port}`
-          apiBaseUrl = screenly.cors_proxy_url + 'http://${settings.api_base_ip}:${settings.api_port}'
-        }
+        // Direct mode - construct API URL from settings
+        // const { settings } = screenly
+        // apiBaseUrl = `http://${settings.api_base_ip}:${settings.api_port}`
+        const apiBaseUrl = `${screenly.cors_proxy_url}/http://${screenly.settings.api_base_ip}:${screenly.settings.api_port}`
 
         // Fetch both latest and time series data
         const [latestResponse, timeSeriesResponse] = await Promise.all([
@@ -418,22 +398,6 @@ function dashboard () {
         // Signal ready for rendering
         screenly.signalReadyForRendering()
       } catch (error) {
-        // Determine which mode we were trying to use for error message
-        let endpointsMessage = ''
-        try {
-          const configResponse = await fetch('/config')
-          if (configResponse.ok) {
-            const config = await configResponse.json()
-            if (config.proxy_mode) {
-              endpointsMessage = 'Proxy endpoints: /api/latest, /api/time-series, /time-series'
-            }
-          }
-        } catch (configError) {
-          const { settings } = screenly
-          const apiBaseUrl = `http://${settings.api_base_ip}:${settings.api_port}`
-          endpointsMessage = `Direct endpoints: ${apiBaseUrl}/api/latest, ${apiBaseUrl}/api/time-series, ${apiBaseUrl}/time-series`
-        }
-
         this.dashboardHTML = `
               <div class="dashboard-card" style="grid-column: 1 / -1; grid-row: 1 / -1;">
                 <div class="error">
@@ -441,13 +405,12 @@ function dashboard () {
                   <br><br>
                   Please check your connection and ensure the API server is running.
                   <br><br>
-                  ${endpointsMessage}
-                  <br><br>
                   Check browser console for detailed error information.
                 </div>
               </div>
             `
         this.loading = false
+        screenly.signalReadyForRendering()
       }
     },
 
