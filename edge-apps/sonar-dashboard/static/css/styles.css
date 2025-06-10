@@ -1,4 +1,4 @@
-/* stylelint-disable media-feature-range-notation */
+/* stylelint-disable media-feature-range-notation property-no-vendor-prefix value-keyword-case */
 
 @font-face {
   font-family: 'Noto Color Emoji';
@@ -75,11 +75,11 @@ body {
   display: flex;
   align-items: center;
   gap: 0.4vw;
-  background: #ffffff1a;
+  background: #fff1a;
   padding: clamp(0.2vh, 0.15vh + 0.15vw, 0.5vh) clamp(0.5vw, 0.4vh + 0.4vw, 1.2vw);
   border-radius: 1.5vw;
   backdrop-filter: blur(10px);
-  border: 1px solid #ffffff33;
+  border: 1px solid #fff3;
 }
 
 .status-dot {
@@ -96,6 +96,7 @@ body {
     opacity: 1;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.6;
     transform: scale(1.2);
@@ -119,7 +120,7 @@ body {
   border: 2px solid #94a3b833;
   box-shadow:
     0 1.5vh 3vh #0000004d,
-    inset 0 1px 0 #ffffff1a;
+    inset 0 1px 0 #fff1a;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -163,14 +164,17 @@ body {
   background: linear-gradient(135deg, #3b82f6, #1e40af);
   box-shadow: 0 0 2vw #3b82f666;
 }
+
 .card-icon.hour {
   background: linear-gradient(135deg, #10b981, #047857);
   box-shadow: 0 0 2vw #10b98166;
 }
+
 .card-icon.day {
   background: linear-gradient(135deg, #f59e0b, #d97706);
   box-shadow: 0 0 2vw #f59e0b66;
 }
+
 .card-icon.session {
   background: linear-gradient(135deg, #8b5cf6, #7c3aed);
   box-shadow: 0 0 2vw #8b5cf666;
@@ -201,23 +205,23 @@ body {
 .metric {
   text-align: center;
   padding: clamp(0.5vh, 0.4vh + 0.4vw, 1.2vh) clamp(0.4vw, 0.3vh + 0.3vw, 1vw);
-  background: #ffffff0d;
+  background: #fff0d;
   border-radius: 0.8vh;
-  border: 1px solid #ffffff1a;
+  border: 1px solid #fff1a;
   transition: all 0.3s ease;
 }
 
 .metric:hover {
-  background: #ffffff1a;
+  background: #fff1a;
   transform: translateY(-2px);
 }
 
 .metric-value {
   font-size: clamp(1rem, 0.75vh + 0.75vw, 2rem);
   font-weight: 800;
-  color: #ffffff;
+  color: #fff;
   margin-bottom: 0.2vh;
-  text-shadow: 0 0 1vw #ffffff4d;
+  text-shadow: 0 0 1vw #fff4d;
 }
 
 .metric-label {
@@ -230,10 +234,10 @@ body {
 
 .manufacturer-stats {
   flex: 1;
-  background: #ffffff08;
+  background: #fff08;
   border-radius: 0.8vh;
   padding: clamp(0.5vh, 0.4vh + 0.4vw, 1.2vh);
-  border: 1px solid #ffffff1a;
+  border: 1px solid #fff1a;
   display: flex;
   flex-direction: column;
   min-height: 0;
@@ -246,7 +250,7 @@ body {
   margin-bottom: 0.6vh;
   text-align: center;
   padding-bottom: 0.6vh;
-  border-bottom: 1px solid #ffffff1a;
+  border-bottom: 1px solid #fff1a;
 }
 
 .manufacturer-list {
@@ -263,13 +267,13 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: clamp(0.2vh, 0.2vh + 0.2vw, 0.6vh) clamp(0.4vw, 0.3vh + 0.3vw, 1vw);
-  background: #ffffff0d;
+  background: #fff0d;
   border-radius: 0.4vh;
   transition: all 0.3s ease;
 }
 
 .manufacturer-item:hover {
-  background: #ffffff1a;
+  background: #fff1a;
   transform: translateX(5px);
 }
 
@@ -282,7 +286,7 @@ body {
 .manufacturer-count {
   font-size: clamp(0.6rem, 0.45vh + 0.45vw, 1.2rem);
   font-weight: 700;
-  color: #ffffff;
+  color: #fff;
   background: #3b82f633;
   padding: clamp(0.05vh, 0.05vh + 0.05vw, 0.2vh) clamp(0.3vw, 0.25vh + 0.25vw, 0.8vw);
   border-radius: 0.4vh;
