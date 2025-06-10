@@ -48,6 +48,7 @@ body {
   font-weight: 800;
   background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
   background-clip: text;
+  /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 0.2vh;
@@ -156,6 +157,7 @@ body {
   justify-content: center;
   font-size: clamp(0.8rem, 0.6vh + 0.6vw, 1.6rem);
   color: white;
+  /* stylelint-disable-next-line value-keyword-case */
   text-shadow: 0 0 1vw currentColor;
   font-family: 'Noto Color Emoji', sans-serif;
 }
