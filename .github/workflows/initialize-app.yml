@@ -93,7 +93,7 @@ jobs:
         uses: screenly/cli@master
         with:
           screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
-          cli_commands: edge-app instance update --path="${{ env.APP_PATH }}"
+          cli_commands: edge-app instance update --path="${{ env.APP_PATH }}" --name="${{ inputs.edge_app_title }}"
 
       - name: 📋 Log instance.yml
         run: |
