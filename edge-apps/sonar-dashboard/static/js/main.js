@@ -1,5 +1,5 @@
-/* global clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry, Alpine, RSSParser */
-/* eslint-disable no-unused-vars, no-useless-catch */
+/* global clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry, */
+/* eslint-disable no-unused-vars, no-undef,  no-useless-catch */
 
 // Initialize Sentry
 const sentryDsn = screenly.settings.sentry_dsn
@@ -93,7 +93,6 @@ function dashboard () {
         // Set the detected timezone and locale
         this.DASHBOARD_TIMEZONE = await getTimezone()
         this.detectedLocale = await getLocale()
-
       } catch (error) {
         // Fallback to hardcoded timezone if detection fails
         this.DASHBOARD_TIMEZONE = 'Asia/Kolkata'
