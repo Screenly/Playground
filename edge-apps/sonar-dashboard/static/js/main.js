@@ -1,21 +1,21 @@
 /* global clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry, Alpine, RSSParser */
 /* eslint-disable no-unused-vars, no-useless-catch */
 
-const screenly = {
-  settings: {
-    override_locale: 'en',
-    override_timezone: 'Asia/Kolkata',
-    api_base_ip: '192.168.0.101',  // User configurable - Raspberry Pi IP address
-    api_port: '8000',              // API port (usually 8000)
-  },
-  metadata: {
-    coordinates: [34.0522, -118.2437]
-  },
-  // Fallback function if not running in Screenly environment
-  signalReadyForRendering: function() {
-    console.log('Dashboard ready for rendering')
-  }
-}
+// const screenly = {
+//   settings: {
+//     override_locale: 'en',
+//     override_timezone: 'Asia/Kolkata',
+//     api_base_ip: '192.168.0.101',  // User configurable - Raspberry Pi IP address
+//     api_port: '8000',              // API port (usually 8000)
+//   },
+//   metadata: {
+//     coordinates: [34.0522, -118.2437]
+//   },
+//   // Fallback function if not running in Screenly environment
+//   signalReadyForRendering: function() {
+//     console.log('Dashboard ready for rendering')
+//   }
+// }
 
 function dashboard () {
   return {
@@ -344,7 +344,8 @@ function dashboard () {
         if (!useProxy) {
           // Direct mode - construct API URL from settings
           const { settings } = screenly
-          apiBaseUrl = `http://${settings.api_base_ip}:${settings.api_port}`
+          // apiBaseUrl = `http://${settings.api_base_ip}:${settings.api_port}`
+          apiBaseUrl = screenly.cors_proxy_url + 'http://${settings.api_base_ip}:${settings.api_port}'
         }
 
         // Fetch both latest and time series data
