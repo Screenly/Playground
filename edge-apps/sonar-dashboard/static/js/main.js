@@ -1,6 +1,17 @@
 /* global clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry, Alpine, RSSParser */
 /* eslint-disable no-unused-vars, no-useless-catch */
 
+// Initialize Sentry
+const sentryDsn = screenly.settings.sentry_dsn
+// Initiate Sentry.
+if (sentryDsn) {
+  Sentry.init({
+    dsn: sentryDsn
+  })
+} else {
+  console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
+}
+
 function dashboard () {
   return {
     // ===== TIMEZONE CONFIGURATION =====
