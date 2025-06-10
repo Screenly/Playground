@@ -1,8 +1,8 @@
 # Sonar Dashboard - Edge App
 
-![Sonar Dashboard](static/img/sonar-dashboard-preview.png)
+![Sonar Dashboard](static/img/sonar-dashboard-preview.jpg)
 
-A real-time dashboard Edge App that displays analytics from the [Sonar BLE Device Counter](https://github.com/Viktopia/sonar) - providing "Analytics for the real world" through Bluetooth Low Energy device tracking.
+A real-time dashboard Edge App that displays analytics from the [Sonar BLE Device Counter](https://github.com/Viktopia/sonar) - providing "*Analytics for the real world*" through Bluetooth Low Energy device tracking.
 
 ## 🎯 Overview
 
@@ -25,7 +25,7 @@ This Edge App creates a beautiful, real-time dashboard that visualizes data from
 
 ## 🏗️ Architecture
 
-```
+```bash
 ┌─────────────────┐    HTTP/CORS     ┌──────────────────┐
 │   Screenly      │ ←─────────────── │  Sonar BLE       │
 │   Dashboard     │      API         │  Device Counter  │
@@ -63,7 +63,8 @@ Configure the following settings in your Screenly dashboard:
 
 1. In your Screenly dashboard, navigate to the Edge App settings
 2. Set the following parameters:
-   ```
+
+   ```bash
    api_host: 192.168.1.100    # Your Raspberry Pi IP
    api_port: 8000             # Sonar API port
    ```
