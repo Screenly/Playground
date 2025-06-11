@@ -1,8 +1,14 @@
 .CalendarOverview {
   &.secondary-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
     .calendar {
       display: flex;
       flex-direction: column;
+      padding: 0;
 
       .calendar-header {
         color: var(--theme-color-tertiary);
@@ -44,31 +50,39 @@
   }
 }
 
-@media screen and (min-width: 800px) and (max-width: 1279px) and (orientation: landscape) {
+@mixin calendar-overview($orientation: 'landscape', $multiplier: 1) {
   .CalendarOverview {
     &.secondary-card {
       .calendar {
         .calendar-header {
-          font-size: 0.85rem;
+          font-size: 0.85rem * $multiplier;
         }
 
         .calendar-weekdays {
-          font-size: 0.65rem;
+          font-size: 0.65rem * $multiplier;
         }
 
         .calendar-grid {
-          border-width: 0.1rem;
+          border-width: 0.1rem * $multiplier;
 
           .calendar-cell {
-            border-right-width: 0.1rem;
-            border-bottom-width: 0.1rem;
-            font-size: 0.65rem;
-            padding: 0.2rem;
+            border-right-width: 0.1rem * $multiplier;
+            border-bottom-width: 0.1rem * $multiplier;
+            font-size: 0.65rem * $multiplier;
+            padding: 0.2rem * $multiplier;
           }
         }
       }
     }
   }
+}
+
+@media screen and (min-width: 800px) and (max-width: 1279px) and (orientation: landscape) {
+  @include calendar-overview('landscape', 1);
+}
+
+@media screen and (min-width: 480px) and (max-width: 719px) and (orientation: portrait) {
+  @include calendar-overview('portrait', 1);
 }
 
 @media screen and (min-width: 1280px) and (max-width: 1919px) and (orientation: landscape) {
@@ -90,15 +104,6 @@
 }
 
 @media screen and (min-width: 3840px) and (orientation: landscape) {
-  .CalendarOverview {
-    &.secondary-card {
-      .calendar {
-      }
-    }
-  }
-}
-
-@media screen and (min-width: 480px) and (max-width: 719px) and (orientation: portrait) {
   .CalendarOverview {
     &.secondary-card {
       .calendar {
