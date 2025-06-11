@@ -12,8 +12,8 @@ import {
   getAccessToken,
   getLocale
 } from '@/utils'
-import MonthlyCalendarView from '@/components/monthly-calendar-view-2'
-import CalendarOverview from '@/components/calendar-overview-2'
+import MonthlyCalendarView from '@/components/monthly-calendar-view'
+import CalendarOverview from '@/components/calendar-overview'
 import InfoCard from '@/components/info-card'
 import { fetchCalendarEventsFromAPI, fetchCalendarEventsFromICal } from '@/events'
 import '@/css/common.css'
