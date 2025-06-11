@@ -86,55 +86,25 @@
 }
 
 @media screen and (min-width: 1280px) and (max-width: 1919px) and (orientation: landscape) {
-  .CalendarOverview {
-    &.secondary-card {
-      .calendar {
-      }
-    }
-  }
-}
-
-@media screen and (min-width: 1920px) and (max-width: 3839px) and (orientation: landscape) {
-  .CalendarOverview {
-    &.secondary-card {
-      .calendar {
-      }
-    }
-  }
-}
-
-@media screen and (min-width: 3840px) and (orientation: landscape) {
-  .CalendarOverview {
-    &.secondary-card {
-      .calendar {
-      }
-    }
-  }
+  @include calendar-overview('landscape', 1.5);
 }
 
 @media screen and (min-width: 720px) and (max-width: 1079px) and (orientation: portrait) {
-  .CalendarOverview {
-    &.secondary-card {
-      .calendar {
-      }
-    }
-  }
+  @include calendar-overview('portrait', 1.6);
+}
+
+@media screen and (min-width: 1920px) and (max-width: 3839px) and (orientation: landscape) {
+  @include calendar-overview('landscape', 2.25);
 }
 
 @media screen and (min-width: 1080px) and (max-width: 2159px) and (orientation: portrait) {
-  .CalendarOverview {
-    &.secondary-card {
-      .calendar {
-      }
-    }
-  }
+  @include calendar-overview('portrait', 2.4);
+}
+
+@media screen and (min-width: 3840px) and (orientation: landscape) {
+  @include calendar-overview('landscape', 4.5);
 }
 
 @media screen and (min-width: 2160px) and (orientation: portrait) {
-  .CalendarOverview {
-    &.secondary-card {
-      .calendar {
-      }
-    }
-  }
+  @include calendar-overview('portrait', 4.8);
 }

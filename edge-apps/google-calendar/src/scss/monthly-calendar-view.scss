@@ -43,6 +43,8 @@
 
         @if $orientation == 'portrait' {
           margin-bottom: 1rem * $multiplier;
+        } @else {
+          margin-bottom: 0.75rem * $multiplier;
         }
       }
 
@@ -61,6 +63,7 @@
         }
 
         .no-events {
+          font-size: 1rem * $multiplier;
           padding: 2rem * $multiplier;
         }
       }
@@ -74,4 +77,28 @@
 
 @media screen and (min-width: 480px) and (max-width: 719px) and (orientation: portrait) {
   @include monthly-calendar-view('portrait', 1);
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1919px) and (orientation: landscape) {
+  @include monthly-calendar-view('landscape', 1.5);
+}
+
+@media screen and (min-width: 720px) and (max-width: 1079px) and (orientation: portrait) {
+  @include monthly-calendar-view('portrait', 1.6);
+}
+
+@media screen and (min-width: 1920px) and (max-width: 3839px) and (orientation: landscape) {
+  @include monthly-calendar-view('landscape', 2.25);
+}
+
+@media screen and (min-width: 1080px) and (max-width: 2159px) and (orientation: portrait) {
+  @include monthly-calendar-view('portrait', 2.4);
+}
+
+@media screen and (min-width: 3840px) and (orientation: landscape) {
+  @include monthly-calendar-view('landscape', 4.5);
+}
+
+@media screen and (min-width: 2160px) and (orientation: portrait) {
+  @include monthly-calendar-view('portrait', 4.8);
 }
