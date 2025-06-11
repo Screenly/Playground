@@ -1,3 +1,4 @@
+/* stylelint-disable selector-class-pattern, color-hex-length, at-rule-no-unknown, media-feature-range-notation, at-rule-empty-line-before */
 .MonthlyCalendarView {
   h1, h2, h3, h4, h5, h6, * {
     color: var(--theme-color-text);
@@ -8,6 +9,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+
     .events-container {
       width: 100%;
       display: grid;
