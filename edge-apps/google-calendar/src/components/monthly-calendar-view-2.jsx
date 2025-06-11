@@ -9,14 +9,30 @@ const MonthlyCalendarView = ({
   events = [],
   locale = 'en-US'
 }) => {
+  const [filteredEvents, setFilteredEvents] = useState([])
   const [formattedEventTimes, setFormattedEventTimes] = useState({})
 
   useEffect(() => {
+    // Filter events for next 24 hours
+    const now = new Date()
+    const tomorrow = new Date(now)
+    tomorrow.setHours(now.getHours() + 24)
+
+    const upcomingEvents = events.filter((event) => {
+      const eventStart = new Date(event.startTime)
+      return eventStart >= now && eventStart < tomorrow
+    })
+
+    // Sort events by start time
+    upcomingEvents.sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
+    setFilteredEvents(upcomingEvents)
+
+    // Format times for all events
     const times = {}
-    events.forEach((event, index) => {
+    upcomingEvents.forEach(event => {
       getFormattedTime(new Date(event.startTime), locale)
         .then(formattedTime => {
-          times[index] = formattedTime
+          times[event.startTime] = formattedTime
           setFormattedEventTimes(prev => ({ ...prev, ...times }))
         })
     })
@@ -28,14 +44,12 @@ const MonthlyCalendarView = ({
         <h1>{currentMonthName} {currentDate}, {currentYear}</h1>
       </div>
       <div className='events-container'>
-        {events.length > 0
+        {filteredEvents.length > 0
           ? (
-              events.map((event, index) => (
+              filteredEvents.map((event, index) => (
                 <div key={index} className='event-row'>
                   <div className='event-time'>
-                    {
-                  formattedEventTimes[index]
-                }
+                    {formattedEventTimes[event.startTime] || '...'}
                   </div>
                   <div className='event-details'>
                     <div className='event-title'>{event.title}</div>
@@ -44,7 +58,7 @@ const MonthlyCalendarView = ({
               ))
             )
           : (
-            <div className='no-events'>No events scheduled for today</div>
+            <div className='no-events'>No events scheduled for next 24 hours</div>
             )}
       </div>
     </div>
