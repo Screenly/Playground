@@ -1,7 +1,7 @@
 ---
 syntax: manifest_v1
 id:
-description: Charlie HR App
+description: CharlieHR App
 icon: https://playground.srly.io/edge-apps/charlie-hr-app/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
