@@ -2,7 +2,7 @@
 
 A digital signage dashboard that displays employee information from Charlie HR, including birthdays, work anniversaries, and current leave status. Perfect for office displays and team spaces.
 
-![Charlie HR App Preview](./static/img/preview.jpg)
+![Charlie HR App Preview](./static/img/preview.png)
 
 ## Features
 
