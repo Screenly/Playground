@@ -9,6 +9,7 @@ import {
   getFormattedMonthName,
   getYear,
   getDate,
+  getFormattedDayOfWeek,
   getAccessToken,
   getLocale
 } from '@/utils'
@@ -145,6 +146,7 @@ const App = () => {
           currentMonthName={getFormattedMonthName(now)}
           currentYear={getYear(now)}
           currentDate={getDate(now)}
+          currentDayOfWeek={getFormattedDayOfWeek(now, locale)}
           events={events}
           locale={locale}
         />
