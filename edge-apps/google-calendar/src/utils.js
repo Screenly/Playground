@@ -209,6 +209,10 @@ export const getYear = (date) => date.getFullYear()
 export const getMonth = (date) => date.getMonth()
 export const getDate = (date) => date.getDate()
 
+export const getFormattedDayOfWeek = (date, locale = 'en-US') => {
+  return date.toLocaleDateString(locale, { weekday: 'long' }).toUpperCase()
+}
+
 export const getAccessToken = async (refreshToken, clientId, clientSecret) => {
   const response = await fetch(GOOGLE_OAUTH_TOKEN_URL, {
     method: 'POST',

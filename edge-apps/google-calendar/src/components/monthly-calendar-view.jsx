@@ -2,10 +2,10 @@ import '@/scss/monthly-calendar-view.scss'
 import { useState, useEffect } from 'react'
 import { getFormattedTime } from '@/utils'
 
+const MAX_EVENTS = 7
+
 const MonthlyCalendarView = ({
-  currentMonthName,
-  currentYear,
-  currentDate,
+  currentDayOfWeek,
   events = [],
   locale = 'en-US'
 }) => {
@@ -25,11 +25,12 @@ const MonthlyCalendarView = ({
 
     // Sort events by start time
     upcomingEvents.sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
-    setFilteredEvents(upcomingEvents)
+    const limitedEvents = upcomingEvents.slice(0, MAX_EVENTS)
+    setFilteredEvents(limitedEvents)
 
     // Format times for all events
     const times = {}
-    upcomingEvents.forEach(event => {
+    limitedEvents.forEach(event => {
       getFormattedTime(new Date(event.startTime), locale)
         .then(formattedTime => {
           times[event.startTime] = formattedTime
@@ -41,7 +42,7 @@ const MonthlyCalendarView = ({
   return (
     <div className='MonthlyCalendarView primary-card'>
       <div className='events-heading'>
-        <h1>{currentMonthName} {currentDate}, {currentYear}</h1>
+        <h1>{currentDayOfWeek}</h1>
       </div>
       <div className='events-container'>
         {filteredEvents.length > 0
@@ -52,7 +53,10 @@ const MonthlyCalendarView = ({
                     {formattedEventTimes[event.startTime] || '...'}
                   </div>
                   <div className='event-details'>
-                    <div className='event-title'>{event.title}</div>
+                    <div className='event-title'>
+                      <span className='event-dot'>•</span>
+                      {event.title}
+                    </div>
                   </div>
                 </div>
               ))
