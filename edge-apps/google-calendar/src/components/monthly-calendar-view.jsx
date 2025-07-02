@@ -30,7 +30,7 @@ const MonthlyCalendarView = ({
 
     // Format times for all events
     const times = {}
-    upcomingEvents.forEach(event => {
+    limitedEvents.forEach(event => {
       getFormattedTime(new Date(event.startTime), locale)
         .then(formattedTime => {
           times[event.startTime] = formattedTime
