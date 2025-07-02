@@ -143,9 +143,6 @@ const App = () => {
     <div className='main-container'>
       {calendarMode === 'monthly' && (
         <MonthlyCalendarView
-          currentMonthName={getFormattedMonthName(now)}
-          currentYear={getYear(now)}
-          currentDate={getDate(now)}
           currentDayOfWeek={getFormattedDayOfWeek(now, locale)}
           events={events}
           locale={locale}
