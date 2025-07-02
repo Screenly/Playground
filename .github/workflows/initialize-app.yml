@@ -81,7 +81,7 @@ jobs:
 
       - name: 📋 Log screenly.yml
         run: |
-          cat ${{ env.APP_PATH }}/screenly.yml
+          cat ${{ env.APP_PATH }}/${{ env.MANIFEST_FILE_NAME }}
 
       - name: 📄 Create Instance
         uses: screenly/cli@master
