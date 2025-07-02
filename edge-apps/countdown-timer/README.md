@@ -28,6 +28,7 @@ $ Screenly edge-app setting set target_timestamp=2024-03-14T00:00:00
 # A relatively long console output...
 Edge app setting successfully set.
 ```
+
 where `2024-03-14T00:00:00` your countdown timer limit with `YYYY-MM-DDTHH:MM:SS` format.
 
 ### `countdown_headline`
@@ -39,7 +40,6 @@ $ Screenly edge-app setting set countdown_headline='New Year Countdown'
 # A relatively long console output...
 Edge app setting successfully set.
 ```
-
 
 ### `override_timezone`
 

@@ -1,0 +1,80 @@
+---
+syntax: manifest_v1
+id:
+description: Screenly Google Calendar Edge App
+icon: https://playground.srly.io/edge-apps/google-calendar/src/img/icon.svg
+author: Screenly, Inc.
+ready_signal: true
+settings:
+  bypass_cors:
+    type: string
+    default_value: 'false'
+    title: Bypass CORS
+    optional: true
+    help_text: Bypass CORS for the iCal URL
+  calendar_id:
+    type: string
+    default_value: primary
+    title: Google Calendar ID
+    optional: true
+    help_text: Specify the Google Calendar ID
+  calendar_mode:
+    type: string
+    default_value: monthly
+    title: Calendar Mode
+    optional: true
+    help_text: Choose between monthly, weekly, or daily calendar view
+  calendar_source_type:
+    type: string
+    default_value: ical
+    title: Calendar Source Type
+    optional: true
+    help_text: Choose between 'api' or 'ical'
+  client_id:
+    type: secret
+    title: Google OAuth Client ID
+    optional: false
+    help_text: Specify the Google OAuth Client ID
+  client_secret:
+    type: secret
+    title: Google OAuth Client Secret
+    optional: false
+    help_text: Specify the Google OAuth Client Secret
+  enable_analytics:
+    type: string
+    default_value: 'true'
+    title: Enable Analytics
+    optional: true
+    help_text: Whether to disable Sentry and Google Analytics integrations
+    is_global: true
+  ical_url:
+    type: secret
+    title: iCal URL
+    optional: true
+    help_text: Specify the URL to the iCal feed
+  refresh_token:
+    type: secret
+    title: Google OAuth Refresh Token
+    optional: true
+    help_text: Specify the Google OAuth Refresh Token
+  sentry_dsn:
+    type: secret
+    title: Sentry Client Key
+    optional: true
+    help_text: Sentry Client Key from Sentry SDK for error capturing.
+    is_global: true
+  tag_manager_id:
+    type: string
+    default_value: GTM-P98SPZ9Z
+    title: Google Tag Manager ID
+    optional: true
+    help_text: Specify a Google Tag Manager ID
+    is_global: true
+  theme:
+    type: string
+    default_value: light
+    title: Theme
+    optional: false
+    help_text: |
+      Determines the visual theme for the application.
+      Options are 'light' or 'dark'.

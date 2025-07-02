@@ -14,7 +14,6 @@ $ screenly edge-app create \
 $ screenly edge-app deploy
 # To install an app, you need to create an instance.
 $ screenly edge-app instance create
-
 ```
 
 ## Tweaking the settings
@@ -28,8 +27,8 @@ $ screenly edge-app setting set welcome_heading='Welcome'
 # A relatively long console output...
 Edge app setting successfully set.
 ```
-The welcome app's heading should be defined as a string in the format: "This is message head".
 
+The welcome app's heading should be defined as a string in the format: "This is message head".
 
 ### `welcome_message`
 
@@ -40,8 +39,8 @@ $ screenly edge-app setting set welcome_message='to the team'
 # A relatively long console output...
 Edge app setting successfully set.
 ```
-The welcome app's message should be defined as a string in the format: "This is message body".
 
+The welcome app's message should be defined as a string in the format: "This is message body".
 
 ### `theme` (optional)
 

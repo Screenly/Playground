@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Fake Dashboard Screenly Edge App</title>
+    <script src="screenly.js?version=1"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/styles.css">
+    <script src="static/js/chart.min.js"></script>
+  </head>
+  <body>
+    <div class="dashboard">
+      <div class="dashboard-header">
+        <h1>Website Traffic</h1>
+      </div>
+      <div class="main-content">
+        <div class="page-views-card">
+          <h2>Monthly Page Views</h2>
+          <div class="page-views-container">
+            <canvas id="pageViewsChart"></canvas>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="icon purple-bg">👥</div>
+            <h3>Total Users</h3>
+            <div class="metric-value" id="usersValue">75.1k</div>
+            <div class="metric-change positive" id="usersChange">+29%</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="icon purple-bg">🔄</div>
+            <h3>Total Sessions</h3>
+            <div class="metric-value" id="sessionsValue">81.5k</div>
+            <div class="metric-change positive" id="sessionsChange">+43%</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="icon purple-bg">↩️</div>
+            <h3>Bounce Rate</h3>
+            <div class="metric-value" id="bounceValue">25.0%</div>
+            <div class="metric-change negative" id="bounceChange">-25%</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="icon purple-bg">⏱️</div>
+            <h3>Avg. Session Duration</h3>
+            <div class="metric-value" id="durationValue">2m 35s</div>
+            <div class="metric-change positive" id="durationChange">+11%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar">
+        <div class="device-card">
+          <h2>Device Breakdown</h2>
+          <div class="device-chart-container">
+            <canvas id="deviceChart"></canvas>
+          </div>
+        </div>
+
+        <div class="sources-card">
+          <h2>Traffic Sources</h2>
+          <div class="sessions-source" id="sourcesContainer">
+            <!-- Will be populated by JavaScript -->
+          </div>
+        </div>
+
+        <div class="realtime-card">
+          <h2>Live Visitors</h2>
+          <div class="realtime-value" id="realtimeValue">1,234</div>
+          <div class="realtime-label">current visitors on site</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="static/js/script.js"></script>
+  </body>
+</html>

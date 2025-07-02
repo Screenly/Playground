@@ -1,0 +1,389 @@
+/* stylelint-disable media-feature-range-notation */
+
+@font-face {
+  font-family: 'Noto Color Emoji';
+  src: url('../fonts/NotoColorEmoji-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --primary-color: #7E2CD2;
+  --text-color: #E4E4E7;
+  --bg-color: #030303;
+  --card-bg: #141414;
+  --success-color: #22C55E;
+  --danger-color: #EF4444;
+  --grid-color: #FFFFFF0F;
+  --border-color: #FFFFFF1A;
+  --base-font-size: 16px;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-size: var(--base-font-size);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+  font-size: clamp(1rem, 1.5vw + 1.5vh, 10rem);
+  font-weight: 600;
+  margin: 0;
+  opacity: 1;
+  letter-spacing: 0.02em;
+}
+
+h2 {
+  font-size: clamp(1rem, 1vh + 1vw, 10rem);
+  font-weight: 500;
+  margin: 0;
+  opacity: 0.7;
+  letter-spacing: 0.02em;
+}
+
+h3 {
+  font-size: clamp(.7rem, .7vh + .7vw, 10rem);
+  font-weight: 500;
+  margin: 0;
+  opacity: 0.7;
+  letter-spacing: 0.01em;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: minmax(0, 2.5fr) minmax(0, 1fr);
+  height: 100vh;
+  overflow: hidden;
+}
+
+.dashboard-header {
+  grid-column: 1 / -1;
+  padding: clamp(0.75rem, 2vh, 2rem) clamp(0.75rem, 2vw, 2rem) 0 clamp(0.75rem, 2vw, 2rem);
+  text-align: center;
+}
+
+.dashboard-header h1 {
+  font-size: clamp(1rem, 1.5vw + 1.5vh, 10rem);
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  opacity: 1;
+  letter-spacing: 0.02em;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: clamp(0.75rem, 1vh + 1vw, 2rem);
+  gap: clamp(1rem, 1vh + 1vw, 2rem);
+  overflow: hidden;
+}
+
+.page-views-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  border-radius: 0.75rem;
+  padding: clamp(.5rem, .5vw + .5vh, 2rem);
+  gap: clamp(.5rem, .5vw + .5vh, 2rem);
+}
+
+.page-views-container {
+  flex: 1;
+  position: relative;
+  min-height: 0;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(180px, 20%, 250px), 1fr));
+  gap: clamp(1rem, 1vh + 1vw, 10rem);
+  margin-top: auto;
+}
+
+.metric-card {
+  background: var(--card-bg);
+  border-radius: 0.75rem;
+  padding: clamp(0.75rem, calc(0.5rem + 0.5vw), 1.5rem);
+  position: relative;
+}
+
+.metric-card .icon {
+  position: absolute;
+  top: clamp(0.75rem, calc(0.5rem + 0.5vw), 1.5rem);
+  right: clamp(0.75rem, calc(0.5rem + 0.5vw), 1.5rem);
+  width: clamp(2rem, 2vw + 2vh, 2.5rem);
+  height: clamp(1.5rem, 1.5vw + 1.5vh, 2.5rem);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(0.875rem, calc(0.75rem + 0.25vw), 1.25rem);
+  opacity: 0.8;
+  font-family: 'Noto Color Emoji', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.metric-card .icon.purple-bg {
+  background: #7E2CD233;
+}
+
+.metric-value {
+  font-size: clamp(1.2rem, 1vh + 1vw, 10rem);
+  font-weight: 600;
+  margin: 0.5rem 0;
+  color: #fff;
+}
+
+.metric-change {
+  font-size: clamp(1rem, 1vh + 1vw, 10rem);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  opacity: 0.9;
+}
+
+.positive {
+  color: var(--success-color);
+}
+
+.negative {
+  color: var(--danger-color);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 1vh + 1vw, 2rem);
+  padding: clamp(.5rem, 1vw + 1vh, 2rem) clamp(.5rem, 1vw + 1vh, 2rem) clamp(.5rem, 1vw + 1vh, 2rem) 0;
+  background: transparent;
+  min-width: 0;
+}
+
+.device-card,
+.sources-card,
+.realtime-card {
+  background: var(--card-bg);
+  border-radius: 0.75rem;
+  padding: clamp(.5rem, .5vw + .5vh, 1.5rem);
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.device-card {
+  flex: 0 0 auto;
+}
+
+.sources-card {
+  flex: 2;
+  min-height: clamp(12rem, 20vh, 18rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.device-chart-container {
+  position: relative;
+  height: clamp(8rem, 7vw + 7vh, 50rem);
+  margin: clamp(0.5rem, 1vh, 1.5rem) 0;
+}
+
+.sessions-source {
+  margin-top: clamp(0.75rem, calc(0.5rem + 1vw), 2rem);
+  flex: 1;
+  overflow-y: auto;
+}
+
+.source-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: clamp(0.5rem, 0.5vh, 1rem) 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: clamp(0.85rem, calc(0.75rem + 0.35vw), 1.25rem);
+  font-size: clamp(1rem, 1vh + 1vw, 10rem);
+  color: #fff;
+  min-width: 0;
+}
+
+.source-item:last-child {
+  border-bottom: none;
+}
+
+.source-item span:first-child {
+  opacity: 0.7;
+  margin-right: 1rem;
+  white-space: nowrap;
+}
+
+.source-item span:last-child {
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+
+.realtime-card {
+  margin-top: auto;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 1;
+}
+
+.realtime-value {
+  font-size: clamp(1rem, 4vh + 4vw, 10rem);
+  font-weight: 600;
+  color: #fff;
+  margin: clamp(0.75rem, 1.5vh, 1.5rem) 0 clamp(0.375rem, 0.75vh, 0.75rem) 0;
+}
+
+.realtime-label {
+  font-size: clamp(1rem, 0.7vh + 0.7vw, 10rem);
+  color: #FFFFFF80;
+  letter-spacing: 0.01em;
+}
+
+/* Portrait mode for standard resolutions */
+@media (orientation: portrait) {
+  h1 {
+    font-size: clamp(1rem, 1.5vh + 1.5vw, 10rem);
+  }
+
+  h2 {
+    font-size: clamp(1rem, 1.2vh + 1.2vw, 10rem);
+  }
+
+  h3 {
+    font-size: clamp(.7rem, 1vh + 1vw, 10rem);
+  }
+
+  .metric-value {
+    font-size: clamp(1.23rem, 1.2vh + 1.2vw, 10rem);
+  }
+
+  .metric-change {
+    font-size: clamp(1rem, 1.2vh + 1.2vw, 10rem);
+  }
+
+  .dashboard {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .main-content {
+    padding: clamp(0.75rem, 2vw + 2vh, 1.5rem) clamp(0.75rem, 2vw + 2vh, 1.5rem) 0 clamp(0.75rem, 2vw + 2vh, 1.5rem);
+    overflow: visible;
+  }
+
+  .sidebar {
+    padding: clamp(0.75rem, 2vw + 2vh, 1.5rem) clamp(0.75rem, 2vw + 2vh, 1.5rem) clamp(0.75rem, 2vw + 2vh, 1.5rem) clamp(0.75rem, 2vw + 2vh, 1.5rem);
+    max-height: none;
+  }
+
+  .metric-card .icon {
+    width: clamp(1rem, 1.5vh + 1.5vw, 10rem);
+    height: clamp(1rem, 1.5vh + 1.5vw, 10rem);
+    font-size: clamp(1rem, 1vh + 1vw, 10rem);
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .device-chart-container {
+    height: clamp(1rem, 7vh + 7vh, 30rem);
+  }
+
+  .source-item {
+    font-size: clamp(1rem, 1vh + 1vw, 10rem);
+    padding: clamp(0.45rem, 0.45vh, 0.9rem) 0;
+  }
+
+  .sources-card {
+    flex: 2;
+    min-height: clamp(2rem, 2vh + 2vw, 30rem);
+  }
+
+  .realtime-card {
+    margin-top: clamp(0.75rem, 1vh + 1vw, 2rem);
+    border-top: none;
+  }
+
+  .realtime-label {
+    font-size: clamp(1rem, 1vh + 1vw, 10rem);
+  }
+}
+
+@media (max-width: 2560px) and (orientation: landscape) {
+  .realtime-value {
+    font-size: clamp(1rem, 2vh + 2vw, 10rem);
+  }
+}
+
+@media (max-width: 2560px) and (orientation: portrait) {
+  .realtime-value {
+    font-size: clamp(1rem, 2vh + 2vw, 10rem);
+  }
+}
+
+@media (max-width: 800px) and (orientation: landscape) {
+  h3 {
+    font-size: clamp(.5rem, .5vh + .5vw, 10rem);
+  }
+
+  .dashboard {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  }
+
+  .source-item {
+    font-size: clamp(.5rem, 1vh + 1vw, 10rem);
+  }
+
+  .device-chart-container {
+    height: clamp(9rem, 6vw + 6vh, 50rem);
+  }
+
+  .realtime-card {
+    display: none;
+  }
+}
+
+@media (max-width: 800px) and (orientation: portrait) {
+  .realtime-card {
+    display: none;
+  }
+
+  .source-item {
+    font-size: clamp(.5rem, .8vh + .8vw, 10rem);
+  }
+
+  .device-chart-container {
+    height: clamp(9rem, 6vw + 6vh, 50rem);
+  }
+}
