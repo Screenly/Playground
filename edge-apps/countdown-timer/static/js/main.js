@@ -1,6 +1,16 @@
 /* global clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry */
 // eslint-disable-next-line no-unused-vars, no-useless-catch
 
+const screenly = {
+  settings: {
+    target_timestamp: '2025-08-03T12:00:00Z',
+    countdown_headline: 'Countdown to the event',
+  },
+  metadata: {
+    coordinates: [40.7128, -74.0060],
+  }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   const { getNearestCity } = OfflineGeocodeCity
   const allTimezones = moment.tz.names()
