@@ -146,7 +146,7 @@ body {
   background-color: var(--theme-color-primary);
   border-radius: 50%;
   padding: clamp(1.5rem, calc(3vw + 3vh), 1000rem);
-  max-width: clamp(18rem, calc(35vw + 35vh), 1000rem);
+  max-width: clamp(18rem, calc(32vw + 32vh), 1000rem);
   width: 60%;
   text-align: center;
   box-shadow: 0 clamp(0.5rem, calc(1vw + 1vh), 1000rem) clamp(2rem, calc(4vw + 4vh), 1000rem) rgba(0, 0, 0, 0.3);
