@@ -3,8 +3,10 @@
 
 const screenly = {
   settings: {
-    target_timestamp: '2025-08-03T12:00:00Z',
-    countdown_headline: 'Countdown to the event',
+    target_timestamp: '2026-07-06T12:00:00Z',
+    countdown_headline: 'New Year Countdown New Year Countdown New Year Countdown New Year Countdown',
+    screenly_color_accent: '#972eff',
+    screenly_color_light: 'red',
   },
   metadata: {
     coordinates: [40.7128, -74.0060],
