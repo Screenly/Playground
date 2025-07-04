@@ -41,7 +41,6 @@ body {
   display: grid;
   grid-template-rows: 1.75fr 1fr;
   grid-template-columns: 1.5fr .25fr .25fr .25fr .25fr;
-
 }
 
 .primary-card {
@@ -65,7 +64,6 @@ body {
   align-items: normal;
   flex-direction: column;
 }
-
 
 
 .location-card {

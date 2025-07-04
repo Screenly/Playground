@@ -1,6 +1,22 @@
 /* global clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry */
 // eslint-disable-next-line no-unused-vars, no-useless-catch
 
+const screenly = {
+  settings: {
+    target_timestamp: '2025-07-05T01:04:00',
+    countdown_headline: 'New Year Countdown New Year Countdown New Year Countdown New Year Countdown',
+    screenly_color_accent: 'blue',
+    screenly_color_light: 'red',
+    starting_timestamp: '2024-03-14T00:00:00',
+    countdown_end_text: 'Countdown Finished!',
+    override_locale: 'en',
+    override_timezone: 'Asia/Kolkata',
+  },
+  metadata: {
+    coordinates: [40.7128, -74.0060] // New York coordinates
+  }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   const { getNearestCity } = OfflineGeocodeCity
   const allTimezones = moment.tz.names()
@@ -75,9 +91,55 @@ document.addEventListener('DOMContentLoaded', async () => {
       const timerHeadlineText = settings?.countdown_headline
       const countdownEndTime = settings?.target_timestamp
       const timezone = await getTimezone()
+      const locale = await getLocale()
       const now = moment().tz(timezone)
       const countDate = moment.tz(countdownEndTime, timezone)
       const remainingTime = countDate.diff(now)
+
+            // Check if countdown has finished
+      if (remainingTime <= 0) {
+                // Show overlay when countdown is finished
+        const overlay = document.getElementById('countdown-overlay')
+        if (overlay && overlay.classList.contains('hidden')) {
+          overlay.classList.remove('hidden')
+
+          // Update overlay title with countdown_end_text
+          const overlayTitle = document.querySelector('.overlay-title')
+          if (overlayTitle) {
+            overlayTitle.textContent = settings?.countdown_end_text || 'The time has ended'
+          }
+
+          // Update starting timestamp in overlay
+          const startTimeElement = document.getElementById('overlay-start-time')
+          const startingTime = settings?.starting_timestamp
+          if (startingTime && startTimeElement) {
+            const startTime = moment.tz(startingTime, timezone)
+            if (locale) {
+              startTime.locale(locale)
+            }
+            startTimeElement.textContent = startTime.format('LLLL')
+          }
+
+          // Update current timestamp in overlay
+          const currentTimeElement = document.getElementById('overlay-current-time')
+          const currentTime = moment().tz(timezone)
+          if (locale) {
+            currentTime.locale(locale)
+          }
+          currentTimeElement.textContent = currentTime.format('LLLL')
+        }
+
+        // Set all countdown values to 0
+        document.querySelector('.message').innerText = timerHeadlineText
+        document.querySelector('.day').innerText = 0
+        document.querySelector('.hour').innerText = 0
+        document.querySelector('.minute').innerText = 0
+        document.querySelector('.second').innerText = 0
+
+        // Continue checking every second in case user wants to start a new countdown
+        setTimeout(countdown, 1000)
+        return
+      }
 
       // Timer Const
       const second = 1000
@@ -97,6 +159,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.querySelector('.hour').innerText = textHour > 0 ? textHour : 0
       document.querySelector('.minute').innerText = textMinute > 0 ? textMinute : 0
       document.querySelector('.second').innerText = textSecond > 0 ? textSecond : 0
+
+      // Hide overlay if countdown is running and overlay is visible
+      const overlay = document.getElementById('countdown-overlay')
+      if (overlay && !overlay.classList.contains('hidden')) {
+        overlay.classList.add('hidden')
+      }
 
       setTimeout(countdown, 1000)
     }
@@ -124,7 +192,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const imgElement = document.getElementById('brand-logo')
     const corsUrl = screenly.cors_proxy_url + '/' + screenly.settings.screenly_logo_dark
     const fallbackUrl = screenly.settings.screenly_logo_dark
-    const defaultLogo = 'static/img/Screenly.svg'
+    const defaultLogo = 'static/img/screenly.svg'
 
     // Function to fetch and process the image
     async function fetchImage (fileUrl) {
@@ -182,19 +250,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Change the color of circles inside SVG objects
-    const svgObjects = document.querySelectorAll('#svgObject1, #svgObject2, #svgObject3')
-    svgObjects.forEach(function (svgObject) {
-      svgObject.addEventListener('load', function () {
-        const svgDoc = this.contentDocument
-        const circle = svgDoc.querySelector('circle')
+    const svgIds = ['#clock-icon-1', '#clock-icon-2', '#clock-icon-3'];
+    const svgObjects = document.querySelectorAll(svgIds.join(','));
+
+    svgObjects.forEach((svgObject) => {
+      // Ensure the SVG is already loaded or wait for it to load
+      const handleSVGLoad = () => {
+        const svgDoc = svgObject.contentDocument;
+        if (!svgDoc) return;
+
+        const circle = svgDoc.querySelector('circle');
         if (circle) {
-          circle.setAttribute('fill', primaryColor)
+          circle.setAttribute('fill', primaryColor);
         }
-      })
-    })
+      };
+
+      // If already loaded, apply immediately
+      if (svgObject.contentDocument) {
+        handleSVGLoad();
+      } else {
+        svgObject.addEventListener('load', handleSVGLoad);
+      }
+    });
 
     // Signal that the screen is ready for rendering
-    screenly.signalReadyForRendering()
+    // screenly.signalReadyForRendering()
   }
 
   await initApp()
