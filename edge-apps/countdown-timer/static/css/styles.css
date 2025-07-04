@@ -178,6 +178,11 @@ body {
 
 .overlay-title {
   font-size: clamp(0.9rem, calc(2vw + 2vh), 1000rem);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
   font-weight: 500;
   color: var(--theme-color-tertiary);
   margin: 0;

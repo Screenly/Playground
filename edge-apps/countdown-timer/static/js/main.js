@@ -8,7 +8,7 @@ const screenly = {
     screenly_color_accent: 'blue',
     screenly_color_light: 'red',
     starting_timestamp: '2025-01-03T12:00:00Z',
-    countdown_end_text: 'Countdown Finishedsss!',
+    countdown_end_text: 'Countdown Finished!',
     override_locale: 'en',
   },
   metadata: {
