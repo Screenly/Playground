@@ -128,7 +128,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #000000cc;
+  background-color: #000c;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -149,7 +149,7 @@ body {
   max-width: clamp(18rem, calc(32vw + 32vh), 1000rem);
   width: 60%;
   text-align: center;
-  box-shadow: 0 clamp(0.5rem, calc(1vw + 1vh), 1000rem) clamp(2rem, calc(4vw + 4vh), 1000rem) #00000044;
+  box-shadow: 0 clamp(0.5rem, calc(1vw + 1vh), 1000rem) clamp(2rem, calc(4vw + 4vh), 1000rem) #0004;
   animation: slide-in 0.5s ease-out;
   color: var(--theme-color-tertiary);
   aspect-ratio: 1;
