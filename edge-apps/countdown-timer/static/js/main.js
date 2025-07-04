@@ -3,16 +3,17 @@
 
 const screenly = {
   settings: {
-    target_timestamp: '2025-07-03T12:00:00Z',
+    target_timestamp: '2025-07-05T01:04:00',
     countdown_headline: 'New Year Countdown New Year Countdown New Year Countdown New Year Countdown',
     screenly_color_accent: 'blue',
     screenly_color_light: 'red',
-    starting_timestamp: '2025-01-03T12:00:00Z',
+    starting_timestamp: '2024-03-14T00:00:00',
     countdown_end_text: 'Countdown Finished!',
     override_locale: 'en',
+    override_timezone: 'Asia/Kolkata',
   },
   metadata: {
-    coordinates: [40.7128, -74.0060],
+    coordinates: [40.7128, -74.0060] // New York coordinates
   }
 }
 
