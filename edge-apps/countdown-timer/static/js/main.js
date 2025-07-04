@@ -3,10 +3,13 @@
 
 const screenly = {
   settings: {
-    target_timestamp: '2026-07-06T12:00:00Z',
+    target_timestamp: '2025-07-03T12:00:00Z',
     countdown_headline: 'New Year Countdown New Year Countdown New Year Countdown New Year Countdown',
     screenly_color_accent: 'blue',
     screenly_color_light: 'red',
+    starting_timestamp: '2025-01-03T12:00:00Z',
+    countdown_end_text: 'Countdown Finishedsss!',
+    override_locale: 'en',
   },
   metadata: {
     coordinates: [40.7128, -74.0060],
@@ -87,9 +90,55 @@ document.addEventListener('DOMContentLoaded', async () => {
       const timerHeadlineText = settings?.countdown_headline
       const countdownEndTime = settings?.target_timestamp
       const timezone = await getTimezone()
+      const locale = await getLocale()
       const now = moment().tz(timezone)
       const countDate = moment.tz(countdownEndTime, timezone)
       const remainingTime = countDate.diff(now)
+
+            // Check if countdown has finished
+      if (remainingTime <= 0) {
+                // Show overlay when countdown is finished
+        const overlay = document.getElementById('countdown-overlay')
+        if (overlay && overlay.classList.contains('hidden')) {
+          overlay.classList.remove('hidden')
+
+          // Update overlay title with countdown_end_text
+          const overlayTitle = document.querySelector('.overlay-title')
+          if (overlayTitle) {
+            overlayTitle.textContent = settings?.countdown_end_text || 'The time has ended'
+          }
+
+          // Update starting timestamp in overlay
+          const startTimeElement = document.getElementById('overlay-start-time')
+          const startingTime = settings?.starting_timestamp
+          if (startingTime && startTimeElement) {
+            const startTime = moment.tz(startingTime, timezone)
+            if (locale) {
+              startTime.locale(locale)
+            }
+            startTimeElement.textContent = startTime.format('LLLL')
+          }
+
+          // Update current timestamp in overlay
+          const currentTimeElement = document.getElementById('overlay-current-time')
+          const currentTime = moment().tz(timezone)
+          if (locale) {
+            currentTime.locale(locale)
+          }
+          currentTimeElement.textContent = currentTime.format('LLLL')
+        }
+
+        // Set all countdown values to 0
+        document.querySelector('.message').innerText = timerHeadlineText
+        document.querySelector('.day').innerText = 0
+        document.querySelector('.hour').innerText = 0
+        document.querySelector('.minute').innerText = 0
+        document.querySelector('.second').innerText = 0
+
+        // Continue checking every second in case user wants to start a new countdown
+        setTimeout(countdown, 1000)
+        return
+      }
 
       // Timer Const
       const second = 1000
@@ -109,6 +158,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.querySelector('.hour').innerText = textHour > 0 ? textHour : 0
       document.querySelector('.minute').innerText = textMinute > 0 ? textMinute : 0
       document.querySelector('.second').innerText = textSecond > 0 ? textSecond : 0
+
+      // Hide overlay if countdown is running and overlay is visible
+      const overlay = document.getElementById('countdown-overlay')
+      if (overlay && !overlay.classList.contains('hidden')) {
+        overlay.classList.add('hidden')
+      }
 
       setTimeout(countdown, 1000)
     }
