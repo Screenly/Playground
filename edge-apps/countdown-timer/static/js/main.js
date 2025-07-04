@@ -194,16 +194,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Change the color of circles inside SVG objects
-    const svgObjects = document.querySelectorAll('#clock-icon-1, #clock-icon-2, #clock-icon-3')
-    svgObjects.forEach(function (svgObject) {
-      svgObject.addEventListener('load', function () {
-        const svgDoc = this.contentDocument
-        const circle = svgDoc.querySelector('circle')
+    const svgIds = ['#clock-icon-1', '#clock-icon-2', '#clock-icon-3'];
+    const svgObjects = document.querySelectorAll(svgIds.join(','));
+
+    svgObjects.forEach((svgObject) => {
+      // Ensure the SVG is already loaded or wait for it to load
+      const handleSVGLoad = () => {
+        const svgDoc = svgObject.contentDocument;
+        if (!svgDoc) return;
+
+        const circle = svgDoc.querySelector('circle');
         if (circle) {
-          circle.setAttribute('fill', primaryColor)
+          circle.setAttribute('fill', primaryColor);
         }
-      })
-    })
+      };
+
+      // If already loaded, apply immediately
+      if (svgObject.contentDocument) {
+        handleSVGLoad();
+      } else {
+        svgObject.addEventListener('load', handleSVGLoad);
+      }
+    });
 
     // Signal that the screen is ready for rendering
     // screenly.signalReadyForRendering()
