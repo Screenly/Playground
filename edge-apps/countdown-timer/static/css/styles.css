@@ -14,16 +14,16 @@ body {
 }
 
 .main-container {
-  padding: clamp(1rem, 1vw + 1vh, 1000rem);
-  border-radius: clamp(1rem, 1vw + 1vh, 1000rem);
+  padding: clamp(1rem, calc(1vw + 1vh), 1000rem);
+  border-radius: clamp(1rem, calc(1vw + 1vh), 1000rem);
 }
 
 .secondary-container {
-  gap: clamp(1rem, 1vw + 1vh, 1000rem);
+  gap: clamp(1rem, calc(1vw + 1vh), 1000rem);
 }
 
 .row-container {
-  gap: clamp(1rem, 1vw + 1vh, 1000rem);
+  gap: clamp(1rem, calc(1vw + 1vh), 1000rem);
 }
 
 .countdown-card {
@@ -34,7 +34,7 @@ body {
 }
 
 .primary-card-message  {
-  font-size: clamp(1rem, 2.2vw + 2.2vh, 1000rem);
+  font-size: clamp(1rem, calc(2.2vw + 2.2vh), 1000rem);
   font-weight: 500;
   text-align: center;
   display: -webkit-box;
@@ -42,13 +42,13 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
-  padding: 0 clamp(1rem, 1vw + 1vh, 1000rem) 0 clamp(1rem, 1vw + 1vh, 1000rem);
+  padding: 0 clamp(1rem, calc(1vw + 1vh), 1000rem) 0 clamp(1rem, calc(1vw + 1vh), 1000rem);
 }
 
 .primary-card-number {
-  font-size: clamp(1rem, 13vw + 13vh, 1000rem);
-  line-height: clamp(1rem, 10vw + 10vh, 1000rem);
-  padding: 0 clamp(1rem, 1vw + 1vh, 1000rem);
+  font-size: clamp(1rem, calc(13vw + 13vh), 1000rem);
+  line-height: clamp(1rem, calc(10vw + 10vh), 1000rem);
+  padding: 0 clamp(1rem, calc(1vw + 1vh), 1000rem);
   font-weight: 400;
   text-align: center;
   width: 100%;
@@ -59,7 +59,7 @@ body {
 }
 
 .primary-card-text {
-  font-size: clamp(1rem, 2.2vw + 2.2vh, 100rem);
+  font-size: clamp(1rem, calc(2.2vw + 2.2vh), 100rem);
   font-weight: 500;
   text-align: center;
 }
@@ -72,16 +72,16 @@ body {
 }
 
 .clock-icon {
-  width: clamp(1rem, 1.9vw + 1.9vh, 1000rem);
-  height: clamp(1rem, 1.9vw + 1.9vh, 1000rem);
+  width: clamp(1rem, calc(1.9vw + 1.9vh), 1000rem);
+  height: clamp(1rem, calc(1.9vw + 1.9vh), 1000rem);
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
   color: var(--theme-color-primary);
 }
 
 .secondary-card-number {
-  font-size: clamp(1rem, 5vw + 5vh, 1000rem);
-  line-height: clamp(1rem, 8vw + 8vh, 1000rem);
+  font-size: clamp(1rem, calc(5vw + 5vh), 1000rem);
+  line-height: clamp(1rem, calc(8vw + 8vh), 1000rem);
   font-weight: 400;
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
@@ -90,7 +90,7 @@ body {
 }
 
 .secondary-card-label {
-  font-size: clamp(1rem, 1.2vw + 1.2vh, 100rem);
+  font-size: clamp(1rem, calc(1.2vw + 1.2vh), 100rem);
   font-weight: 500;
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
@@ -98,33 +98,33 @@ body {
 }
 
 .info-card {
-  gap: clamp(1rem, 1.5vw + 1.5vh, 1000rem);
+  gap: clamp(1rem, calc(1.5vw + 1.5vh), 1000rem);
 }
 
 .brand-logo {
-  width: clamp(1rem, 8vw + 8vh, 1000rem);
-  height: clamp(1rem, 8vw + 8vh, 1000rem);
+  width: clamp(1rem, calc(8vw + 8vh), 1000rem);
+  height: clamp(1rem, calc(8vw + 8vh), 1000rem);
 }
 
 .info-text {
-  font-size: clamp(1rem, .7vw + .7vh, 100rem);
+  font-size: clamp(1rem, calc(.7vw + .7vh), 100rem);
   font-weight: 500;
   color: var(--theme-color-primary);
 }
 
 .date-card {
-  gap: clamp(1rem, .5vw + .5vh, 1000rem);
+  gap: clamp(1rem, calc(.5vw + .5vh), 1000rem);
 }
 
 .date-text {
-  font-size: clamp(1rem, 3vw + 3vh, 100rem);
+  font-size: clamp(1rem, calc(3vw + 3vh), 100rem);
   font-weight: 400;
   color: var(--theme-color-secondary);
 }
 
 .date-number {
-  font-size: clamp(1rem, 7vw + 7vh, 100rem);
-  line-height: clamp(1rem, 7vw + 7vh, 1000rem);
+  font-size: clamp(1rem, calc(7vw + 7vh), 100rem);
+  line-height: clamp(1rem, calc(7vw + 7vh), 1000rem);
   font-weight: 400;
   color: var(--theme-color-primary);
 }
