@@ -5,7 +5,7 @@ const screenly = {
   settings: {
     target_timestamp: '2026-07-06T12:00:00Z',
     countdown_headline: 'New Year Countdown New Year Countdown New Year Countdown New Year Countdown',
-    screenly_color_accent: '#972eff',
+    screenly_color_accent: 'blue',
     screenly_color_light: 'red',
   },
   metadata: {
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const imgElement = document.getElementById('brand-logo')
     const corsUrl = screenly.cors_proxy_url + '/' + screenly.settings.screenly_logo_dark
     const fallbackUrl = screenly.settings.screenly_logo_dark
-    const defaultLogo = 'static/img/Screenly.svg'
+    const defaultLogo = 'static/img/screenly.svg'
 
     // Function to fetch and process the image
     async function fetchImage (fileUrl) {
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Change the color of circles inside SVG objects
-    const svgObjects = document.querySelectorAll('#svgObject1, #svgObject2, #svgObject3')
+    const svgObjects = document.querySelectorAll('#clock-icon-1, #clock-icon-2, #clock-icon-3')
     svgObjects.forEach(function (svgObject) {
       svgObject.addEventListener('load', function () {
         const svgDoc = this.contentDocument
@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     })
 
     // Signal that the screen is ready for rendering
-    screenly.signalReadyForRendering()
+    // screenly.signalReadyForRendering()
   }
 
   await initApp()

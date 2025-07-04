@@ -4,11 +4,19 @@
 
 /* Global Fonts */
 @font-face {
-  font-family: Aeonik;
-  src: url('../fonts/Aeonik-Regular.woff2') format('woff2'),
-    url('../fonts/Aeonik-Regular.woff') format('woff');
-  font-weight: normal;
+  font-family: Inter;
+  src: url('../fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: 500;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url('../fonts/Inter-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* Typography */
