@@ -1,6 +1,6 @@
 ---
 syntax: manifest_v1
-id:
+id: 01JZHP6080GEG4NMP751NHCGSP
 ready_signal: true
 description: |
   Displays TFL Bus Status for a given bus stop.
