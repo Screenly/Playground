@@ -297,7 +297,13 @@ body {
   .secondary-card {
     border-radius: clamp(1rem, calc(1vw + 1vh), 1000rem);
   }
+
+  .secondary-card.timer-card {
+    gap: 1rem;
+  }
+
 }
+
 
 @media screen and (max-width: 2560px) and (orientation: portrait) {
   .main-container {
@@ -321,7 +327,6 @@ body {
 
 /* Raspberry Pi Touch Display - Landscape 800 × 480 */
 @media screen and (max-width: 800px) and (orientation: landscape) {
-
   .secondary-card.timer-card {
     gap: 1rem;
   }
