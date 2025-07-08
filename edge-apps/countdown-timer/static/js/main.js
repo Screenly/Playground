@@ -80,9 +80,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       const countDate = moment.tz(countdownEndTime, timezone)
       const remainingTime = countDate.diff(now)
 
-            // Check if countdown has finished
+      // Check if countdown has finished
       if (remainingTime <= 0) {
-                // Show overlay when countdown is finished
+        // Show overlay when countdown is finished
         const overlay = document.getElementById('countdown-overlay')
         if (overlay && overlay.classList.contains('hidden')) {
           overlay.classList.remove('hidden')
@@ -240,22 +240,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     svgObjects.forEach((svgObject) => {
       // Ensure the SVG is already loaded or wait for it to load
       const handleSVGLoad = () => {
-        const svgDoc = svgObject.contentDocument;
-        if (!svgDoc) return;
+        const svgDoc = svgObject.contentDocument
+        if (!svgDoc) return
 
         const circle = svgDoc.querySelector('circle')
         if (circle) {
           circle.setAttribute('fill', primaryColor)
         }
-      };
+      }
 
       // If already loaded, apply immediately
       if (svgObject.contentDocument) {
-        handleSVGLoad();
+        handleSVGLoad()
       } else {
         svgObject.addEventListener('load', handleSVGLoad)
       }
-    });
+    })
 
     // Signal that the screen is ready for rendering
     screenly.signalReadyForRendering()
