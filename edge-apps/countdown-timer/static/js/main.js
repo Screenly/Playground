@@ -153,7 +153,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       setTimeout(countdown, 1000)
     }
 
+    // Wait for initial countdown to complete first render
     await countdown()
+
+    // Wait for initial date/time to be set
     await initDateTime()
 
     // constant colors
@@ -171,93 +174,127 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.documentElement.style.setProperty('--theme-color-tertiary', tertiaryColor)
     document.documentElement.style.setProperty('--theme-color-background', backgroundColor)
 
-    // Brand Image Setting
+    // Brand Image Setting - make this async and await it
+    const loadBrandImage = async () => {
+      const imgElement = document.getElementById('brand-logo')
+      const corsUrl = screenly.cors_proxy_url + '/' + screenly.settings.screenly_logo_dark
+      const fallbackUrl = screenly.settings.screenly_logo_dark
+      const defaultLogo = 'static/img/screenly.svg'
 
-    const imgElement = document.getElementById('brand-logo')
-    const corsUrl = screenly.cors_proxy_url + '/' + screenly.settings.screenly_logo_dark
-    const fallbackUrl = screenly.settings.screenly_logo_dark
-    const defaultLogo = 'static/img/screenly.svg'
-
-    // Function to fetch and process the image
-    async function fetchImage (fileUrl) {
-      // eslint-disable-next-line no-useless-catch
-      try {
-        const response = await fetch(fileUrl)
-        if (!response.ok) {
-          throw new Error(`Failed to fetch image from ${fileUrl}, status: ${response.status}`)
-        }
-
-        const blob = await response.blob()
-        const buffer = await blob.arrayBuffer()
-        const uintArray = new Uint8Array(buffer)
-
-        // Get the first 4 bytes for magic number detection
-        const hex = Array.from(uintArray.slice(0, 4))
-          .map(b => b.toString(16).padStart(2, '0'))
-          .join('').toUpperCase()
-
-        // Convert the first few bytes to ASCII for text-based formats like SVG
-        const ascii = String.fromCharCode.apply(null, uintArray.slice(0, 100)) // Check first 100 chars for XML/SVG tags
-
-        // Determine file type based on MIME type, magic number, or ASCII text
-        if (ascii.startsWith('<?xml') || ascii.startsWith('<svg')) {
-          // Convert to Base64 and display if SVG
-          const svgReader = new FileReader()
-          svgReader.readAsText(blob)
-          svgReader.onloadend = function () {
-            const base64 = btoa(unescape(encodeURIComponent(svgReader.result)))
-            imgElement.src = 'data:image/svg+xml;base64,' + base64
+      // Function to fetch and process the image
+      async function fetchImage (fileUrl) {
+        // eslint-disable-next-line no-useless-catch
+        try {
+          const response = await fetch(fileUrl)
+          if (!response.ok) {
+            throw new Error(`Failed to fetch image from ${fileUrl}, status: ${response.status}`)
           }
-        } else if (hex === '89504E47' || hex.startsWith('FFD8FF')) {
-          // Checking PNG or JPEG/JPG magic number
-          imgElement.src = fileUrl
-        } else {
-          throw new Error('Unknown image type')
-        }
-      } catch (error) {
-        throw error
-        // Rethrow the error to be caught in the main logic
-      }
-    }
 
-    // First, try to fetch the image using the CORS proxy URL
-    try {
-      await fetchImage(corsUrl)
-    } catch (error) {
-      // If CORS fails, try the fallback URL
+          const blob = await response.blob()
+          const buffer = await blob.arrayBuffer()
+          const uintArray = new Uint8Array(buffer)
+
+          // Get the first 4 bytes for magic number detection
+          const hex = Array.from(uintArray.slice(0, 4))
+            .map(b => b.toString(16).padStart(2, '0'))
+            .join('').toUpperCase()
+
+          // Convert the first few bytes to ASCII for text-based formats like SVG
+          const ascii = String.fromCharCode.apply(null, uintArray.slice(0, 100)) // Check first 100 chars for XML/SVG tags
+
+          // Determine file type based on MIME type, magic number, or ASCII text
+          if (ascii.startsWith('<?xml') || ascii.startsWith('<svg')) {
+            // Convert to Base64 and display if SVG
+            const svgReader = new FileReader()
+            return new Promise((resolve, reject) => {
+              svgReader.readAsText(blob)
+              svgReader.onloadend = function () {
+                try {
+                  const base64 = btoa(unescape(encodeURIComponent(svgReader.result)))
+                  imgElement.src = 'data:image/svg+xml;base64,' + base64
+                  resolve()
+                } catch (error) {
+                  reject(error)
+                }
+              }
+              svgReader.onerror = reject
+            })
+          } else if (hex === '89504E47' || hex.startsWith('FFD8FF')) {
+            // Checking PNG or JPEG/JPG magic number
+            return new Promise((resolve, reject) => {
+              imgElement.onload = () => resolve()
+              imgElement.onerror = reject
+              imgElement.src = fileUrl
+            })
+          } else {
+            throw new Error('Unknown image type')
+          }
+        } catch (error) {
+          throw error
+          // Rethrow the error to be caught in the main logic
+        }
+      }
+
+      // First, try to fetch the image using the CORS proxy URL
       try {
-        await fetchImage(fallbackUrl)
-      } catch (fallbackError) {
-        // If fallback fails, use the default logo
-        imgElement.src = defaultLogo
+        await fetchImage(corsUrl)
+      } catch (error) {
+        // If CORS fails, try the fallback URL
+        try {
+          await fetchImage(fallbackUrl)
+        } catch (fallbackError) {
+          // If fallback fails, use the default logo
+          return new Promise((resolve) => {
+            imgElement.onload = () => resolve()
+            imgElement.onerror = () => resolve() // Still resolve even if default fails
+            imgElement.src = defaultLogo
+          })
+        }
       }
     }
 
-    // Change the color of circles inside SVG objects
-    const svgIds = ['#clock-icon-1', '#clock-icon-2', '#clock-icon-3']
-    const svgObjects = document.querySelectorAll(svgIds.join(','))
+    // Wait for brand image to load
+    await loadBrandImage()
 
-    svgObjects.forEach((svgObject) => {
-      // Ensure the SVG is already loaded or wait for it to load
-      const handleSVGLoad = () => {
-        const svgDoc = svgObject.contentDocument
-        if (!svgDoc) return
+    // Wait for SVG objects to load and update colors
+    const updateSVGColors = async () => {
+      const svgIds = ['#clock-icon-1', '#clock-icon-2', '#clock-icon-3']
+      const svgObjects = document.querySelectorAll(svgIds.join(','))
 
-        const circle = svgDoc.querySelector('circle')
-        if (circle) {
-          circle.setAttribute('fill', primaryColor)
-        }
-      }
+      const svgPromises = Array.from(svgObjects).map((svgObject) => {
+        return new Promise((resolve) => {
+          const handleSVGLoad = () => {
+            const svgDoc = svgObject.contentDocument
+            if (!svgDoc) {
+              resolve()
+              return
+            }
 
-      // If already loaded, apply immediately
-      if (svgObject.contentDocument) {
-        handleSVGLoad()
-      } else {
-        svgObject.addEventListener('load', handleSVGLoad)
-      }
-    })
+            const circle = svgDoc.querySelector('circle')
+            if (circle) {
+              circle.setAttribute('fill', primaryColor)
+            }
+            resolve()
+          }
 
-    // Signal that the screen is ready for rendering
+          // If already loaded, apply immediately
+          if (svgObject.contentDocument) {
+            handleSVGLoad()
+          } else {
+            svgObject.addEventListener('load', handleSVGLoad)
+            // Add timeout to avoid hanging indefinitely
+            setTimeout(() => resolve(), 1000)
+          }
+        })
+      })
+
+      await Promise.all(svgPromises)
+    }
+
+    // Wait for SVG colors to be updated
+    await updateSVGColors()
+
+    // Signal that the screen is ready for rendering - only after everything is loaded
     screenly.signalReadyForRendering()
   }
 
