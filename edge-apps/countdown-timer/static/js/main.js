@@ -3,8 +3,9 @@
 
 const screenly = {
   settings: {
-    target_timestamp: '2025-07-05T01:04:00',
-    countdown_headline: 'New Year Countdown New Year Countdown New Year Countdown New Year Countdown',
+    target_timestamp: '2025-07-08T01:04:00',
+   //countdown_headline: 'New Year Countdown New Year Countdown New Year Countdown New Year Countdown',
+    countdown_headline: 'New Year Countdown',
     screenly_color_accent: 'blue',
     screenly_color_light: 'red',
     starting_timestamp: '2024-03-14T00:00:00',

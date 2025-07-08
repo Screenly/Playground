@@ -8,14 +8,18 @@ body {
 .main-container {
   padding: clamp(1rem, calc(1vw + 1vh), 1000rem);
   border-radius: clamp(1rem, calc(1vw + 1vh), 1000rem);
+  gap: clamp(1rem, calc(1vw + 1vh), 1000rem);
 }
 
 .secondary-container {
   gap: clamp(1rem, calc(1vw + 1vh), 1000rem);
+  border-radius: clamp(1rem, calc(1vw + 1vh), 1000rem);
+
 }
 
 .row-container {
   gap: clamp(1rem, calc(1vw + 1vh), 1000rem);
+  border-radius: clamp(1rem, calc(1vw + 1vh), 1000rem);
 }
 
 .countdown-card {
@@ -38,8 +42,8 @@ body {
 }
 
 .primary-card-number {
-  font-size: clamp(1rem, calc(13vw + 13vh), 1000rem);
-  line-height: clamp(1rem, calc(10vw + 10vh), 1000rem);
+  font-size: clamp(1rem, calc(14vw + 14vh), 1000rem);
+  line-height: clamp(1rem, calc(11vw + 11vh), 1000rem);
   padding: 0 clamp(1rem, calc(1vw + 1vh), 1000rem);
   font-weight: 400;
   text-align: center;
@@ -277,6 +281,82 @@ body {
     font-size: clamp(0.45rem, calc(1vw + 1vh), 1000rem);
   }
 }
+
+
+/* 4K Portrait - 2560 × 3840 */
+@media screen and (max-width: 2560px) and (orientation: landscape) {
+  .main-container {
+    gap: clamp(1rem, calc(1vw + 1vh), 1000rem);
+    padding: clamp(1rem, calc(1vw + 1vh), 1000rem);
+  }
+
+  .primary-card {
+    border-radius: clamp(1rem, calc(1vw + 1vh), 1000rem);
+  }
+
+  .secondary-card {
+    border-radius: clamp(1rem, calc(1vw + 1vh), 1000rem);
+  }
+}
+
+@media screen and (max-width: 2560px) and (orientation: portrait) {
+  .main-container {
+    gap: clamp(1rem, calc(1vw + 1vh), 1000rem);
+    padding: clamp(1rem, calc(1vw + 1vh), 1000rem);
+  }
+
+  .primary-card {
+    border-radius: clamp(1rem, calc(1vw + 1vh), 1000rem);
+  }
+
+  .secondary-card {
+    border-radius: clamp(1rem, calc(1vw + 1vh), 1000rem);
+  }
+
+  .secondary-card.timer-card {
+    gap: 0;
+  }
+}
+
+
+/* Raspberry Pi Touch Display - Landscape 800 × 480 */
+@media screen and (max-width: 800px) and (orientation: landscape) {
+
+  .secondary-card.timer-card {
+    gap: 1rem;
+  }
+
+  .info-text {
+    font-size: clamp(.8rem, calc(.5vw + .75vh), 100rem);
+}
+
+}
+
+@media screen and (max-width: 480px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--pi-gap);
+    padding: var(--pi-padding);
+  }
+
+  .primary-card {
+    border-radius: var(--pi-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--pi-border-radius-medium);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
