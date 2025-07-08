@@ -12,7 +12,13 @@ settings:
     title: Countdown Headline
     optional: false
     help_text: Countdown header text value.
-  enable_analytics:
+  countdown_end_text:
+    type: string
+    default_value: Countdown Finished!
+    title: Countdown End Text
+    optional: false
+    help_text: Text to display when the countdown reaches zero.
+    enable_analytics:
     type: string
     default_value: 'true'
     title: Enable Analytics
