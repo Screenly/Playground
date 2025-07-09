@@ -27,51 +27,47 @@ on:
           - html
           - react
 
-run-name: Updating ${{ inputs.edge_app_name }} to ${{ inputs.environment }}
+run-name: Updating ${{ inputs.edge_app_name }} in ${{ inputs.environment }}
 
 jobs:
   deploy:
-    name: Deploy to ${{ inputs.environment == 'stage' && 'Stage' || 'Production' }}
+    name: Updating ${{ inputs.edge_app_name }} in ${{ inputs.environment }}
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     env:
       API_BASE_URL: ${{ inputs.environment == 'stage' && 'https://api.screenlyappstage.com' || 'https://api.screenlyapp.com' }}
+      APP_NAME: ${{ inputs.edge_app_name }}
       APP_PATH: edge-apps/${{ inputs.edge_app_name }}
-      MANIFEST_FILE_NAME: ${{ inputs.environment == 'stage' && 'screenly_qc.yml' || 'screenly.yml' }}
       SCREENLY_API_TOKEN: ${{ secrets.SCREENLY_API_TOKEN }}
+      MANIFEST_FILE_NAME: ${{ inputs.environment == 'stage' && 'screenly_qc.yml' || 'screenly.yml' }}
 
     steps:
-      - name: Checkout master branch
+      - name: ⬇️  Checkout master branch
         uses: actions/checkout@v4
         with:
           ref: master
 
-      - name: Set up Node.js (React only)
+      - name: 🛠 Install Node.js (React only)
         if: ${{ inputs.app_type == 'react' }}
         uses: actions/setup-node@v4
         with:
           node-version: 22.x
 
-      - name: Install dependencies (React only)
+      - name: 🛠 Setup and Build React App
         if: ${{ inputs.app_type == 'react' }}
         working-directory: ${{ env.APP_PATH }}
-        run: npm install
+        run: |
+          npm install
+          npm run build
 
-      - name: Build React App
-        if: ${{ inputs.app_type == 'react' }}
-        working-directory: ${{ env.APP_PATH }}
-        run: npm run build
+      - name: 🔄 Modify APP_PATH based on app type
+        run: |
+          if [ "${{ inputs.app_type }}" = "react" ]; then
+            echo "APP_PATH=${{ env.APP_PATH }}/dist" >> "$GITHUB_ENV"
+          fi
 
-      - name: Deploy HTML Edge App
-        if: ${{ inputs.app_type == 'html' }}
+      - name: 🚀 Deploy Edge App
         uses: screenly/cli@master
         with:
           screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
-          cli_commands: edge-app deploy --path=${{ env.APP_PATH }}
-
-      - name: Deploy React Edge App
-        if: ${{ inputs.app_type == 'react' }}
-        uses: screenly/cli@master
-        with:
-          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
-          cli_commands: edge-app deploy --path=${{ env.APP_PATH }}/dist
+          cli_commands: edge-app deploy --path="${{ env.APP_PATH }}"
