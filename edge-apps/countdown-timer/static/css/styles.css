@@ -150,7 +150,7 @@ body {
   background-color: var(--theme-color-primary);
   border-radius: 50%;
   padding: clamp(1.5rem, calc(3vw + 3vh), 1000rem);
-  max-width: clamp(18rem, calc(32vw + 32vh), 1000rem);
+  max-width: clamp(18rem, calc(30vw + 30vh), 1000rem);
   width: 60%;
   text-align: center;
   box-shadow: 0 clamp(0.5rem, calc(1vw + 1vh), 1000rem) clamp(2rem, calc(4vw + 4vh), 1000rem) #0004;
@@ -160,6 +160,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  border: clamp(0.25rem, calc(1.2vw + 1.2vh), 1000rem) solid color-mix(in srgb, var(--theme-color-primary) 40%, white 40%);
+  position: relative;
 }
 
 @keyframes slide-in {
