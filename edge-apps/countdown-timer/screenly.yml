@@ -56,3 +56,9 @@ settings:
     title: Countdown Target
     optional: false
     help_text: Target timestamp in ISO format (YYYY-MM-DDTHH:MM:SS)
+  starting_timestamp:
+    type: string
+    default_value: 2025-01-01T00:00:00
+    title: Starting Timestamp
+    optional: false
+    help_text: Starting timestamp in ISO format (YYYY-MM-DDTHH:MM:SS)
