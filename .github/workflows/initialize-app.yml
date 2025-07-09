@@ -31,6 +31,8 @@ on:
           - html
           - react
 
+run-name: Initializing ${{ inputs.edge_app_name }} in ${{ inputs.environment }}
+
 
 jobs:
   deploy:
