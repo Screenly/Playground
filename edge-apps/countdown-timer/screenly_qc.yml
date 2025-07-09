@@ -12,6 +12,12 @@ settings:
     title: Countdown Headline
     optional: false
     help_text: Countdown header text value.
+  countdown_end_text:
+    type: string
+    default_value: Countdown Finished!
+    title: Countdown End Text
+    optional: false
+    help_text: Text to display when the countdown reaches zero.
   enable_analytics:
     type: string
     default_value: 'true'
@@ -46,7 +52,13 @@ settings:
     is_global: true
   target_timestamp:
     type: string
-    default_value: 2025-01-01T00:00:00
+    default_value: 2028-01-01T00:00:00
     title: Countdown Target
     optional: false
     help_text: Target timestamp in ISO format (YYYY-MM-DDTHH:MM:SS)
+  starting_timestamp:
+    type: string
+    default_value: 2025-01-01T00:00:00
+    title: Starting Timestamp
+    optional: false
+    help_text: Starting timestamp in ISO format (YYYY-MM-DDTHH:MM:SS)
