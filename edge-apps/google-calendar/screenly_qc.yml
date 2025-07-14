@@ -33,12 +33,12 @@ settings:
   client_id:
     type: secret
     title: Google OAuth Client ID
-    optional: false
+    optional: true
     help_text: Specify the Google OAuth Client ID
   client_secret:
     type: secret
     title: Google OAuth Client Secret
-    optional: false
+    optional: true
     help_text: Specify the Google OAuth Client Secret
   enable_analytics:
     type: string
