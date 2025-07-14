@@ -30,7 +30,8 @@ export const getFormattedTime = async (
   date = new Date(),
   locale = null
 ) => {
-  const hourCycles = new Intl.Locale(locale || await getLocale()).hourCycles
+  const resolvedLocale = locale || await getLocale()
+  const hourCycles = new Intl.Locale(resolvedLocale).hourCycles
   let hourFormat = 'numeric'
 
   if (hourCycles?.length === 1) {
@@ -41,7 +42,7 @@ export const getFormattedTime = async (
     }
   }
 
-  return date.toLocaleTimeString(await getLocale(), {
+  return date.toLocaleTimeString(resolvedLocale, {
     hour: hourFormat,
     minute: '2-digit',
     timeZone: getTimeZone()
