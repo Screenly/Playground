@@ -1,0 +1,1193 @@
+/* Strava Club Leaderboard Styles */
+
+/* Additional CSS variables */
+:root {
+  --border-radius: 0.5rem;
+  --border-radius-lg: 0.75rem;
+  --border-radius-full: 9999px;
+}
+
+/* App Layout */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+/* Header */
+.app__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-8) var(--current-padding);
+  background-color: var(--theme-color-card);
+  border-bottom: 2px solid var(--theme-color-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.app__header-left {
+  display: flex;
+  align-items: center;
+}
+
+.app__header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.logo__image {
+  height: 4rem;
+  width: 4rem;
+  max-width: 4rem;
+  object-fit: contain;
+  border-radius: var(--border-radius);
+  background-color: var(--theme-color-background);
+}
+
+.logo__text {
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+  color: var(--theme-color-text);
+  margin: 0;
+  line-height: 1.1;
+}
+
+/* Last Updated */
+.last-updated {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-3) var(--spacing-4);
+  background-color: var(--theme-color-background);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-lg);
+  color: var(--theme-color-text-secondary);
+  border: 1px solid var(--theme-color-border);
+}
+
+.last-updated__text {
+  font-weight: 500;
+}
+
+/* Main Content */
+.app__main {
+  flex: 1;
+  padding: var(--current-padding);
+  overflow-y: auto;
+}
+
+/* Loading State - Removed duplicate, keeping the better one with 100vh */
+
+/* Error State */
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: var(--spacing-4);
+  text-align: center;
+}
+
+.error__icon {
+  font-size: var(--font-size-6xl);
+}
+
+.error__title {
+  font-size: var(--font-size-3xl);
+  font-weight: 600;
+  color: var(--theme-color-error);
+  margin: 0;
+}
+
+.error__message {
+  font-size: var(--font-size-lg);
+  color: var(--theme-color-text-secondary);
+  margin: 0;
+  max-width: 30rem;
+}
+
+/* Leaderboard */
+.leaderboard {
+  padding: var(--spacing-8) var(--current-padding);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  max-width: 100%;
+}
+
+.leaderboard__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-4);
+}
+
+.leaderboard__title {
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+  color: var(--theme-color-text);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.leaderboard__stats {
+  display: flex;
+  gap: var(--spacing-8);
+  align-items: center;
+}
+
+.stats__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-1);
+}
+
+.stats__label {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--theme-color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stats__value {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--theme-color-primary);
+  line-height: 1;
+}
+
+/* Leaderboard List */
+.leaderboard__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+  width: 100%;
+}
+
+/* Responsive leaderboard list spacing for better fit */
+@media (max-width: 800px) {
+  .leaderboard__list {
+    gap: var(--spacing-3);
+  }
+}
+
+@media (min-width: 801px) and (max-width: 1920px) {
+  .leaderboard__list {
+    gap: var(--spacing-4);
+  }
+}
+
+@media (min-width: 1921px) and (max-width: 3840px) {
+  .leaderboard__list {
+    gap: var(--spacing-5);
+  }
+}
+
+@media (min-width: 3841px) {
+  .leaderboard__list {
+    gap: var(--spacing-6);
+  }
+}
+
+.leaderboard__item {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-8) var(--spacing-10);
+  background-color: var(--theme-color-card);
+  border-radius: var(--current-border-radius-big);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--theme-color-border);
+  transition: all 0.3s ease;
+  min-height: 120px;
+}
+
+.leaderboard__item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.leaderboard__rank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  font-size: var(--font-size-4xl);
+  font-weight: 800;
+  color: white;
+  margin-right: var(--spacing-8);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.leaderboard__athlete {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  flex: 1;
+  min-width: 0;
+}
+
+.leaderboard__name {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--theme-color-text);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.leaderboard__activity-count {
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  color: var(--theme-color-text-secondary);
+  margin: 0;
+}
+
+.leaderboard__stats {
+  display: flex;
+  gap: var(--spacing-8);
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.leaderboard__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-1);
+  min-width: 120px;
+}
+
+.leaderboard__stat-label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--theme-color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.9;
+}
+
+.leaderboard__stat-value {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--theme-color-text);
+  line-height: 1;
+}
+
+/* Activity Type Icons */
+.activity-type-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: var(--spacing-2);
+}
+
+/* Footer */
+.app__footer {
+  padding: var(--spacing-6) var(--current-padding);
+  background-color: var(--theme-color-card);
+  border-top: 1px solid var(--theme-color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  align-items: center;
+  margin-top: auto;
+}
+
+
+
+.footer__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-3);
+  transition: opacity 0.2s ease;
+}
+
+.footer__content:hover {
+  opacity: 1;
+}
+
+
+
+.footer__text {
+  font-size: var(--font-size-sm);
+  color: var(--theme-color-text-secondary);
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+
+
+.footer__attribution {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  flex-wrap: wrap;
+}
+
+.footer__attribution-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.footer__attribution-label {
+  font-size: var(--font-size-xs);
+  color: var(--theme-color-text-secondary);
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+
+.footer__logo {
+  width: auto;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.footer__logo--strava {
+  height: 2rem;
+}
+
+.footer__logo--screenly {
+  height: 1.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app__header {
+    flex-direction: column;
+    gap: var(--spacing-4);
+    padding: var(--spacing-4) var(--spacing-6);
+  }
+
+  .app__header-right {
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .leaderboard__header {
+    flex-direction: column;
+    gap: var(--spacing-4);
+    text-align: center;
+  }
+
+  .leaderboard__stats {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-4);
+  }
+
+  .athlete-card {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--spacing-4);
+  }
+
+  .athlete-card__content {
+    flex-direction: column;
+    margin-left: 0;
+    gap: var(--spacing-4);
+  }
+
+  .athlete-card__stats {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-4);
+  }
+
+  .logo__text {
+    font-size: var(--font-size-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .app__main {
+    padding: var(--spacing-4);
+  }
+
+  .leaderboard__header {
+    padding: var(--spacing-4);
+  }
+
+  .athlete-card {
+    padding: var(--spacing-4);
+  }
+
+  .athlete-card__rank {
+    font-size: var(--font-size-3xl);
+    min-width: 3rem;
+  }
+
+  .athlete-card__name {
+    font-size: var(--font-size-lg);
+  }
+
+  .leaderboard__title {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.athlete-card {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.athlete-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.athlete-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.athlete-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.athlete-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.athlete-card:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+/* Pulse animation for loading states */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.loading-placeholder {
+  animation: pulse 2s infinite;
+}
+
+/* Gradient background for top performers */
+.athlete-card--rank-1 {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+}
+
+.athlete-card--rank-2 {
+  background: linear-gradient(135deg, #C0C0C0 0%, #808080 100%);
+}
+
+.athlete-card--rank-3 {
+  background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%);
+}
+
+/* Rank Colors - High Contrast for Digital Signage */
+.leaderboard__rank--1 {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.4);
+}
+
+.leaderboard__rank--2 {
+  background: linear-gradient(135deg, #C0C0C0 0%, #A8A8A8 100%);
+  box-shadow: 0 4px 16px rgba(192, 192, 192, 0.4);
+}
+
+.leaderboard__rank--3 {
+  background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%);
+  box-shadow: 0 4px 16px rgba(205, 127, 50, 0.4);
+}
+
+.leaderboard__rank--default {
+  background: linear-gradient(135deg, #4A5568 0%, #2D3748 100%);
+  box-shadow: 0 4px 16px rgba(74, 85, 104, 0.4);
+}
+
+/* Enhanced contrast for text on colored backgrounds */
+.leaderboard__item--top-3 {
+  border: 3px solid var(--theme-color-primary);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.leaderboard__item--top-3:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Ensure high contrast for all text */
+.leaderboard__name {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.leaderboard__stat-value {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Loading and Error States - Larger for visibility */
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  background-color: var(--theme-color-background);
+  z-index: 1000;
+}
+
+.loading__text {
+  font-size: var(--font-size-3xl);
+  font-weight: 600;
+  color: var(--theme-color-text-secondary);
+  text-align: center;
+}
+
+.loading__spinner {
+  width: 80px;
+  height: 80px;
+  border: 8px solid var(--theme-color-border);
+  border-top: 8px solid var(--theme-color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: var(--spacing-6);
+  text-align: center;
+  padding: var(--spacing-8);
+}
+
+.error__icon {
+  font-size: var(--font-size-6xl);
+  color: var(--theme-color-error);
+}
+
+.error__title {
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+  color: var(--theme-color-text);
+  margin: 0;
+}
+
+.error__message {
+  font-size: var(--font-size-xl);
+  color: var(--theme-color-text-secondary);
+  margin: 0;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+/* Responsive Footer */
+@media (max-width: 480px) {
+  .app__footer {
+    padding: var(--spacing-4) var(--current-padding);
+    gap: var(--spacing-3);
+  }
+
+  .footer__content {
+    flex-direction: column;
+    gap: var(--spacing-1);
+  }
+
+  .footer__text {
+    font-size: var(--font-size-xs);
+  }
+
+  .footer__attribution {
+    gap: var(--spacing-4);
+  }
+
+  .footer__attribution-label {
+    font-size: var(--font-size-xs);
+    opacity: 0.5;
+  }
+
+  .footer__logo--strava {
+    height: 1.5rem;
+  }
+
+  .footer__logo--screenly {
+    height: 1rem;
+  }
+}
+
+/* Footer optimizations for different screen sizes */
+@media (min-width: 481px) and (max-width: 1280px) {
+  .footer__text {
+    font-size: var(--font-size-sm);
+  }
+
+  .footer__attribution-label {
+    font-size: var(--font-size-xs);
+  }
+
+  .footer__logo--strava {
+    height: 1.75rem;
+  }
+
+  .footer__logo--screenly {
+    height: 1.25rem;
+  }
+}
+
+@media (min-width: 1281px) and (max-width: 3840px) {
+  .footer__text {
+    font-size: var(--font-size-base);
+  }
+
+  .footer__attribution-label {
+    font-size: var(--font-size-sm);
+  }
+
+  .footer__logo--strava {
+    height: 2rem;
+  }
+
+  .footer__logo--screenly {
+    height: 1.5rem;
+  }
+}
+
+@media (min-width: 3841px) {
+  .footer__text {
+    font-size: var(--font-size-lg);
+  }
+
+  .footer__attribution-label {
+    font-size: var(--font-size-base);
+  }
+
+  .footer__logo--strava {
+    height: 2.5rem;
+  }
+
+  .footer__logo--screenly {
+    height: 1.75rem;
+  }
+}
+
+/* Raspberry Pi Touch Display - Portrait (480x800) */
+@media (max-width: 480px) and (orientation: portrait) {
+  .logo__image {
+    height: 2.5rem;
+    width: 2.5rem;
+    max-width: 2.5rem;
+  }
+
+  .logo__text {
+    font-size: var(--font-size-base);
+  }
+
+  .leaderboard__title {
+    font-size: var(--font-size-xl);
+  }
+
+  .stats__label {
+    font-size: var(--font-size-xs);
+  }
+
+  .stats__value {
+    font-size: var(--font-size-sm);
+  }
+
+  .leaderboard__item {
+    padding: var(--spacing-3) var(--spacing-4);
+    min-height: 60px;
+    gap: var(--spacing-2);
+  }
+
+  .leaderboard__rank {
+    width: 40px;
+    height: 40px;
+    font-size: var(--font-size-lg);
+    margin-right: var(--spacing-3);
+  }
+
+  .leaderboard__name {
+    font-size: var(--font-size-sm);
+  }
+
+  .leaderboard__activity-count {
+    font-size: var(--font-size-xs);
+  }
+
+  .leaderboard__stat {
+    min-width: 60px;
+  }
+
+  .leaderboard__stat-value {
+    font-size: var(--font-size-sm);
+  }
+
+  .leaderboard__stat-label {
+    font-size: var(--font-size-xs);
+  }
+}
+
+/* Raspberry Pi Touch Display - Landscape (800x480) */
+@media (min-width: 481px) and (max-width: 800px) and (orientation: landscape) {
+  .logo__image {
+    height: 2.5rem;
+    width: 2.5rem;
+    max-width: 2.5rem;
+  }
+
+  .logo__text {
+    font-size: var(--font-size-lg);
+  }
+
+  .leaderboard__title {
+    font-size: var(--font-size-xl);
+  }
+
+  .stats__label {
+    font-size: var(--font-size-sm);
+  }
+
+  .stats__value {
+    font-size: var(--font-size-base);
+  }
+
+  .leaderboard__item {
+    padding: var(--spacing-4) var(--spacing-5);
+    min-height: 70px;
+  }
+
+  .leaderboard__rank {
+    width: 50px;
+    height: 50px;
+    font-size: var(--font-size-xl);
+    margin-right: var(--spacing-4);
+  }
+
+  .leaderboard__name {
+    font-size: var(--font-size-base);
+  }
+
+  .leaderboard__activity-count {
+    font-size: var(--font-size-sm);
+  }
+
+  .leaderboard__stat {
+    min-width: 80px;
+  }
+
+  .leaderboard__stat-value {
+    font-size: var(--font-size-base);
+  }
+
+  .leaderboard__stat-label {
+    font-size: var(--font-size-sm);
+  }
+}
+
+/* 720p Portrait (720x1280) */
+@media (min-width: 721px) and (max-width: 1280px) and (orientation: portrait) {
+  .logo__image {
+    height: 3rem;
+    width: 3rem;
+    max-width: 3rem;
+  }
+
+  .logo__text {
+    font-size: var(--font-size-xl);
+  }
+
+  .leaderboard__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .stats__label {
+    font-size: var(--font-size-sm);
+  }
+
+  .stats__value {
+    font-size: var(--font-size-lg);
+  }
+
+  .leaderboard__item {
+    padding: var(--spacing-5) var(--spacing-6);
+    min-height: 80px;
+  }
+
+  .leaderboard__rank {
+    width: 60px;
+    height: 60px;
+    font-size: var(--font-size-2xl);
+    margin-right: var(--spacing-5);
+  }
+
+  .leaderboard__name {
+    font-size: var(--font-size-lg);
+  }
+
+  .leaderboard__activity-count {
+    font-size: var(--font-size-sm);
+  }
+
+  .leaderboard__stat {
+    min-width: 100px;
+  }
+
+  .leaderboard__stat-value {
+    font-size: var(--font-size-lg);
+  }
+
+  .leaderboard__stat-label {
+    font-size: var(--font-size-sm);
+  }
+}
+
+/* 720p Landscape (1280x720) */
+@media (min-width: 1281px) and (max-width: 1920px) and (orientation: landscape) {
+  .logo__image {
+    height: 3.5rem;
+    width: 3.5rem;
+    max-width: 3.5rem;
+  }
+
+  .logo__text {
+    font-size: var(--font-size-2xl);
+  }
+
+  .leaderboard__title {
+    font-size: var(--font-size-3xl);
+  }
+
+  .stats__label {
+    font-size: var(--font-size-base);
+  }
+
+  .stats__value {
+    font-size: var(--font-size-xl);
+  }
+
+  .leaderboard__item {
+    padding: var(--spacing-6) var(--spacing-7);
+    min-height: 90px;
+  }
+
+  .leaderboard__rank {
+    width: 70px;
+    height: 70px;
+    font-size: var(--font-size-3xl);
+    margin-right: var(--spacing-6);
+  }
+
+  .leaderboard__name {
+    font-size: var(--font-size-xl);
+  }
+
+  .leaderboard__activity-count {
+    font-size: var(--font-size-base);
+  }
+
+  .leaderboard__stat {
+    min-width: 120px;
+  }
+
+  .leaderboard__stat-value {
+    font-size: var(--font-size-xl);
+  }
+
+  .leaderboard__stat-label {
+    font-size: var(--font-size-base);
+  }
+}
+
+/* 1080p Portrait (1080x1920) */
+@media (min-width: 1081px) and (max-width: 1920px) and (orientation: portrait) {
+  .logo__image {
+    height: 4rem;
+    width: 4rem;
+    max-width: 4rem;
+  }
+
+  .logo__text {
+    font-size: var(--font-size-3xl);
+  }
+
+  .leaderboard__title {
+    font-size: var(--font-size-4xl);
+  }
+
+  .stats__label {
+    font-size: var(--font-size-base);
+  }
+
+  .stats__value {
+    font-size: var(--font-size-2xl);
+  }
+
+  .leaderboard__item {
+    padding: var(--spacing-7) var(--spacing-8);
+    min-height: 100px;
+  }
+
+  .leaderboard__rank {
+    width: 80px;
+    height: 80px;
+    font-size: var(--font-size-4xl);
+    margin-right: var(--spacing-7);
+  }
+
+  .leaderboard__name {
+    font-size: var(--font-size-2xl);
+  }
+
+  .leaderboard__activity-count {
+    font-size: var(--font-size-base);
+  }
+
+  .leaderboard__stat {
+    min-width: 130px;
+  }
+
+  .leaderboard__stat-value {
+    font-size: var(--font-size-2xl);
+  }
+
+  .leaderboard__stat-label {
+    font-size: var(--font-size-base);
+  }
+}
+
+/* 1080p Landscape (1920x1080) - Digital Signage */
+@media (min-width: 1921px) and (max-width: 3840px) and (orientation: landscape) {
+  .logo__image {
+    height: 5rem;
+    width: 5rem;
+    max-width: 5rem;
+  }
+
+  .logo__text {
+    font-size: var(--font-size-5xl);
+  }
+
+  .leaderboard__title {
+    font-size: var(--font-size-5xl);
+  }
+
+  .stats__label {
+    font-size: var(--font-size-xl);
+  }
+
+  .stats__value {
+    font-size: var(--font-size-4xl);
+  }
+
+  .leaderboard__item {
+    padding: var(--spacing-10) var(--spacing-12);
+    min-height: 140px;
+  }
+
+  .leaderboard__rank {
+    width: 100px;
+    height: 100px;
+    font-size: var(--font-size-5xl);
+    margin-right: var(--spacing-10);
+  }
+
+  .leaderboard__name {
+    font-size: var(--font-size-4xl);
+  }
+
+  .leaderboard__activity-count {
+    font-size: var(--font-size-2xl);
+  }
+
+  .leaderboard__stat {
+    min-width: 140px;
+  }
+
+  .leaderboard__stat-value {
+    font-size: var(--font-size-3xl);
+  }
+
+  .leaderboard__stat-label {
+    font-size: var(--font-size-base);
+  }
+}
+
+/* 4K Portrait (2160x3840/4096) */
+@media (min-width: 2161px) and (max-width: 4096px) and (orientation: portrait) {
+  .logo__image {
+    height: 5rem;
+    width: 5rem;
+    max-width: 5rem;
+  }
+
+  .logo__text {
+    font-size: var(--font-size-4xl);
+  }
+
+  .leaderboard__title {
+    font-size: var(--font-size-5xl);
+  }
+
+  .stats__label {
+    font-size: var(--font-size-lg);
+  }
+
+  .stats__value {
+    font-size: var(--font-size-3xl);
+  }
+
+  .leaderboard__item {
+    padding: var(--spacing-8) var(--spacing-10);
+    min-height: 120px;
+  }
+
+  .leaderboard__rank {
+    width: 90px;
+    height: 90px;
+    font-size: var(--font-size-4xl);
+    margin-right: var(--spacing-8);
+  }
+
+  .leaderboard__name {
+    font-size: var(--font-size-3xl);
+  }
+
+  .leaderboard__activity-count {
+    font-size: var(--font-size-lg);
+  }
+
+  .leaderboard__stat {
+    min-width: 140px;
+  }
+
+  .leaderboard__stat-value {
+    font-size: var(--font-size-2xl);
+  }
+
+  .leaderboard__stat-label {
+    font-size: var(--font-size-base);
+  }
+}
+
+/* 4K Landscape (3840x2160/4096x2160) - Ultra Large Digital Signage */
+@media (min-width: 3841px) and (orientation: landscape) {
+  .logo__image {
+    height: 7rem;
+    width: 7rem;
+    max-width: 7rem;
+  }
+
+  .logo__text {
+    font-size: var(--font-size-6xl);
+  }
+
+  .leaderboard__title {
+    font-size: var(--font-size-6xl);
+  }
+
+  .stats__label {
+    font-size: var(--font-size-2xl);
+  }
+
+  .stats__value {
+    font-size: var(--font-size-5xl);
+  }
+
+  .leaderboard__item {
+    padding: var(--spacing-12) var(--spacing-16);
+    min-height: 180px;
+  }
+
+  .leaderboard__rank {
+    width: 120px;
+    height: 120px;
+    font-size: var(--font-size-6xl);
+    margin-right: var(--spacing-12);
+  }
+
+  .leaderboard__name {
+    font-size: var(--font-size-5xl);
+  }
+
+  .leaderboard__activity-count {
+    font-size: var(--font-size-3xl);
+  }
+
+  .leaderboard__stat {
+    min-width: 160px;
+  }
+
+  .leaderboard__stat-value {
+    font-size: var(--font-size-4xl);
+  }
+
+  .leaderboard__stat-label {
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* High Contrast Mode for Better Visibility */
+@media (prefers-contrast: high) {
+  .leaderboard__item {
+    border: 3px solid var(--theme-color-text);
+    background-color: var(--theme-color-background);
+  }
+
+  .leaderboard__name,
+  .leaderboard__stat-value {
+    color: var(--theme-color-text);
+    font-weight: 800;
+  }
+
+  .leaderboard__stat-label,
+  .leaderboard__activity-count {
+    color: var(--theme-color-text);
+    font-weight: 600;
+  }
+}
+
+/* Responsive Footer */

@@ -1,0 +1,314 @@
+/* stylelint-disable media-feature-range-notation */
+
+/* Common Styles */
+
+/* Global Fonts */
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Typography */
+html {
+  font-size: 14px;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  height: 100vh;
+  background-color: var(--theme-color-background);
+  color: var(--theme-color-text);
+  line-height: 1.5;
+}
+
+/* Colors (Theme) */
+:root {
+  --theme-color-primary: #FC4C02;
+  --theme-color-secondary: #454BD2;
+  --theme-color-tertiary: #FFF;
+  --theme-color-background: #F8F9FA;
+  --theme-color-card: #FFFFFF;
+  --theme-color-text: #212529;
+  --theme-color-text-secondary: #6C757D;
+  --theme-color-border: #E9ECEF;
+  --theme-color-success: #28A745;
+  --theme-color-warning: #FFC107;
+  --theme-color-error: #DC3545;
+
+  /* Padding, Gap, Border-Radius */
+  --custom-4k-padding: 5.714rem;
+  --custom-4k-gap: 5.714rem;
+  --custom-4k-border-radius-big: 6.857rem;
+  --custom-4k-border-radius-medium: 5.429rem;
+  --hd-padding: 2.857rem;
+  --hd-gap: 2.857rem;
+  --hd-border-radius-big: 3.429rem;
+  --hd-border-radius-medium: 2.714rem;
+  --custom-720-padding: 2.286rem;
+  --custom-720-gap: 2.286rem;
+  --custom-720-border-radius-big: 2.743rem;
+  --custom-720-border-radius-medium: 2.171rem;
+  --custom-480-padding: 1.714rem;
+  --custom-480-gap: 1.714rem;
+  --custom-480-border-radius-big: 2.057rem;
+  --custom-480-border-radius-medium: 1.629rem;
+  --custom-360-padding: 1.286rem;
+  --custom-360-gap: 1.286rem;
+  --custom-360-border-radius-big: 1.543rem;
+  --custom-360-border-radius-medium: 1.223rem;
+
+  /* Typography */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 3.75rem;
+  --font-size-7xl: 4.5rem;
+  --font-size-8xl: 6rem;
+  --font-size-9xl: 8rem;
+
+  /* Spacing */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  --spacing-24: 6rem;
+  --spacing-32: 8rem;
+  --spacing-40: 10rem;
+  --spacing-48: 12rem;
+  --spacing-56: 14rem;
+  --spacing-64: 16rem;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --theme-color-background: #1A1A1A;
+  --theme-color-card: #2D2D2D;
+  --theme-color-text: #FFFFFF;
+  --theme-color-text-secondary: #B0B0B0;
+  --theme-color-border: #404040;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
+
+  :root {
+    --current-padding: var(--custom-480-padding);
+    --current-gap: var(--custom-480-gap);
+    --current-border-radius-big: var(--custom-480-border-radius-big);
+    --current-border-radius-medium: var(--custom-480-border-radius-medium);
+  }
+}
+
+@media (min-width: 481px) and (max-width: 720px) {
+  html {
+    font-size: 13px;
+  }
+
+  :root {
+    --current-padding: var(--custom-720-padding);
+    --current-gap: var(--custom-720-gap);
+    --current-border-radius-big: var(--custom-720-border-radius-big);
+    --current-border-radius-medium: var(--custom-720-border-radius-medium);
+  }
+}
+
+@media (min-width: 721px) and (max-width: 1920px) {
+  html {
+    font-size: 14px;
+  }
+
+  :root {
+    --current-padding: var(--hd-padding);
+    --current-gap: var(--hd-gap);
+    --current-border-radius-big: var(--hd-border-radius-big);
+    --current-border-radius-medium: var(--hd-border-radius-medium);
+  }
+}
+
+@media (min-width: 1921px) {
+  html {
+    font-size: 20px;
+  }
+
+  :root {
+    --current-padding: var(--custom-4k-padding);
+    --current-gap: var(--custom-4k-gap);
+    --current-border-radius-big: var(--custom-4k-border-radius-big);
+    --current-border-radius-medium: var(--custom-4k-border-radius-medium);
+  }
+}
+
+/* Utility Classes */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.d-grid {
+  display: grid;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.gap-1 {
+  gap: var(--spacing-1);
+}
+
+.gap-2 {
+  gap: var(--spacing-2);
+}
+
+.gap-3 {
+  gap: var(--spacing-3);
+}
+
+.gap-4 {
+  gap: var(--spacing-4);
+}
+
+.gap-6 {
+  gap: var(--spacing-6);
+}
+
+.gap-8 {
+  gap: var(--spacing-8);
+}
+
+.p-4 {
+  padding: var(--spacing-4);
+}
+
+.p-6 {
+  padding: var(--spacing-6);
+}
+
+.p-8 {
+  padding: var(--spacing-8);
+}
+
+.m-4 {
+  margin: var(--spacing-4);
+}
+
+.m-6 {
+  margin: var(--spacing-6);
+}
+
+.m-8 {
+  margin: var(--spacing-8);
+}
+
+.rounded {
+  border-radius: var(--current-border-radius-medium);
+}
+
+.rounded-lg {
+  border-radius: var(--current-border-radius-big);
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.shadow {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
