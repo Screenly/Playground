@@ -39,8 +39,8 @@ window.StravaUI = (function () {
 
   // Update club logo and title
   function updateClubLogo (clubData) {
-    const logoImage = document.querySelector('.logo__image')
-    const logoText = document.querySelector('.logo__text')
+    const logoImage = document.querySelector('.logo-image')
+    const logoText = document.querySelector('.logo-text')
 
     if (clubData && logoImage) {
       // Use club profile picture (60x60 pixels)
@@ -69,7 +69,7 @@ window.StravaUI = (function () {
   function updateLastUpdated () {
     const lastUpdatedEl = document.getElementById('last-updated')
     if (lastUpdatedEl) {
-      const textEl = lastUpdatedEl.querySelector('.last-updated__text')
+      const textEl = lastUpdatedEl.querySelector('.last-updated-text')
       if (textEl) {
         const now = new Date()
         const locale = StravaUtils.getUserLocale()
@@ -101,11 +101,11 @@ window.StravaUI = (function () {
 
   // Update labels for different contexts
   function updateStatsLabels () {
-    const statsItems = document.querySelectorAll('#leaderboard-stats .stats__item')
+    const statsItems = document.querySelectorAll('#leaderboard-stats .stats-item')
 
     if (statsItems.length >= 2) {
-      const totalActivitiesLabel = statsItems[0].querySelector('.stats__label')
-      const totalDistanceLabel = statsItems[1].querySelector('.stats__label')
+      const totalActivitiesLabel = statsItems[0].querySelector('.stats-label')
+      const totalDistanceLabel = statsItems[1].querySelector('.stats-label')
 
       // Always show "Recent" labels since time filtering isn't available
       if (totalActivitiesLabel) totalActivitiesLabel.textContent = 'Recent Activities:'
@@ -132,22 +132,22 @@ window.StravaUI = (function () {
     leaderboard.forEach((athlete, index) => {
       const rank = index + 1
       const item = document.createElement('div')
-      item.className = `leaderboard__item${rank <= 3 ? ' leaderboard__item--top-3' : ''}`
+      item.className = `leaderboard-item${rank <= 3 ? ' leaderboard-item--top-3' : ''}`
 
       const rankBadge = document.createElement('div')
-      const rankClass = rank <= 3 ? `leaderboard__rank--${rank}` : 'leaderboard__rank--default'
-      rankBadge.className = `leaderboard__rank ${rankClass}`
+      const rankClass = rank <= 3 ? `leaderboard-rank--${rank}` : 'leaderboard-rank--default'
+      rankBadge.className = `leaderboard-rank ${rankClass}`
       rankBadge.textContent = rank
 
       const athleteInfo = document.createElement('div')
-      athleteInfo.className = 'leaderboard__athlete'
+      athleteInfo.className = 'leaderboard-athlete'
 
       const name = document.createElement('h3')
-      name.className = 'leaderboard__name'
+      name.className = 'leaderboard-name'
       name.textContent = athlete.name
 
       const activityCount = document.createElement('p')
-      activityCount.className = 'leaderboard__activity-count'
+      activityCount.className = 'leaderboard-activity-count'
       const locale = StravaUtils.getUserLocale()
       const formatter = new Intl.NumberFormat(locale)
       const formattedCount = formatter.format(athlete.activityCount)
@@ -160,39 +160,39 @@ window.StravaUI = (function () {
       athleteInfo.appendChild(activityCount)
 
       const stats = document.createElement('div')
-      stats.className = 'leaderboard__stats'
+      stats.className = 'leaderboard-stats'
 
       // Distance stat
       const distanceStat = document.createElement('div')
-      distanceStat.className = 'leaderboard__stat'
+      distanceStat.className = 'leaderboard-stat'
       distanceStat.innerHTML = `
-        <span class="leaderboard__stat-label">Distance</span>
-        <span class="leaderboard__stat-value">${StravaUtils.formatDistance(athlete.totalDistance)}</span>
+        <span class="leaderboard-stat-label">Distance</span>
+        <span class="leaderboard-stat-value">${StravaUtils.formatDistance(athlete.totalDistance)}</span>
       `
 
       // Time stat
       const timeStat = document.createElement('div')
-      timeStat.className = 'leaderboard__stat'
+      timeStat.className = 'leaderboard-stat'
       timeStat.innerHTML = `
-        <span class="leaderboard__stat-label">Time</span>
-        <span class="leaderboard__stat-value">${StravaUtils.formatTime(athlete.totalTime)}</span>
+        <span class="leaderboard-stat-label">Time</span>
+        <span class="leaderboard-stat-value">${StravaUtils.formatTime(athlete.totalTime)}</span>
       `
 
       // Elevation stat
       const elevationStat = document.createElement('div')
-      elevationStat.className = 'leaderboard__stat'
+      elevationStat.className = 'leaderboard-stat'
       elevationStat.innerHTML = `
-        <span class="leaderboard__stat-label">Elevation</span>
-        <span class="leaderboard__stat-value">${StravaUtils.formatElevation(athlete.totalElevation)}</span>
+        <span class="leaderboard-stat-label">Elevation</span>
+        <span class="leaderboard-stat-value">${StravaUtils.formatElevation(athlete.totalElevation)}</span>
       `
 
       // Avg/Activity stat
       const avgStat = document.createElement('div')
-      avgStat.className = 'leaderboard__stat'
+      avgStat.className = 'leaderboard-stat'
       const avgDistance = athlete.activityCount > 0 ? athlete.totalDistance / athlete.activityCount : 0
       avgStat.innerHTML = `
-        <span class="leaderboard__stat-label">Avg/Activity</span>
-        <span class="leaderboard__stat-value">${StravaUtils.formatDistance(avgDistance)}</span>
+        <span class="leaderboard-stat-label">Avg/Activity</span>
+        <span class="leaderboard-stat-value">${StravaUtils.formatDistance(avgDistance)}</span>
       `
 
       stats.appendChild(distanceStat)
@@ -211,8 +211,8 @@ window.StravaUI = (function () {
   // Initialize default UI elements
   function initializeUI () {
     // Initialize with default logo and text
-    const logoImage = document.querySelector('.logo__image')
-    const logoText = document.querySelector('.logo__text')
+    const logoImage = document.querySelector('.logo-image')
+    const logoText = document.querySelector('.logo-text')
     if (logoImage) {
       logoImage.src = 'static/images/strava.svg'
       logoImage.alt = 'Strava'
