@@ -660,531 +660,531 @@
 
 /* Footer optimizations for different screen sizes */
 @media (min-width: 481px) and (max-width: 1280px) {
-  .footer-text {
+  .footer__text {
     font-size: var(--font-size-sm);
   }
 
-  .footer-attribution-label {
+  .footer__attribution-label {
     font-size: var(--font-size-xs);
   }
 
-  .footer-logo--strava {
+  .footer__logo--strava {
     height: 1.75rem;
   }
 
-  .footer-logo--screenly {
+  .footer__logo--screenly {
     height: 1.25rem;
   }
 }
 
 @media (min-width: 1281px) and (max-width: 3840px) {
-  .footer-text {
+  .footer__text {
     font-size: var(--font-size-base);
   }
 
-  .footer-attribution-label {
+  .footer__attribution-label {
     font-size: var(--font-size-sm);
   }
 
-  .footer-logo--strava {
+  .footer__logo--strava {
     height: 2rem;
   }
 
-  .footer-logo--screenly {
+  .footer__logo--screenly {
     height: 1.5rem;
   }
 }
 
 @media (min-width: 3841px) {
-  .footer-text {
+  .footer__text {
     font-size: var(--font-size-lg);
   }
 
-  .footer-attribution-label {
+  .footer__attribution-label {
     font-size: var(--font-size-base);
   }
 
-  .footer-logo--strava {
+  .footer__logo--strava {
     height: 2.5rem;
   }
 
-  .footer-logo--screenly {
+  .footer__logo--screenly {
     height: 1.75rem;
   }
 }
 
 /* Raspberry Pi Touch Display - Portrait (480x800) */
 @media (max-width: 480px) and (orientation: portrait) {
-  .logo-image {
+  .logo__image {
     height: 2.5rem;
     width: 2.5rem;
     max-width: 2.5rem;
   }
 
-  .logo-text {
+  .logo__text {
     font-size: var(--font-size-base);
   }
 
-  .leaderboard-title {
+  .leaderboard__title {
     font-size: var(--font-size-xl);
   }
 
-  .stats-label {
+  .stats__label {
     font-size: var(--font-size-xs);
   }
 
-  .stats-value {
+  .stats__value {
     font-size: var(--font-size-sm);
   }
 
-  .leaderboard-item {
+  .leaderboard__item {
     padding: var(--spacing-3) var(--spacing-4);
     min-height: 60px;
     gap: var(--spacing-2);
   }
 
-  .leaderboard-rank {
+  .leaderboard__rank {
     width: 40px;
     height: 40px;
     font-size: var(--font-size-lg);
     margin-right: var(--spacing-3);
   }
 
-  .leaderboard-name {
+  .leaderboard__name {
     font-size: var(--font-size-sm);
   }
 
-  .leaderboard-activity-count {
+  .leaderboard__activity-count {
     font-size: var(--font-size-xs);
   }
 
-  .leaderboard-stat {
+  .leaderboard__stat {
     min-width: 60px;
   }
 
-  .leaderboard-stat-value {
+  .leaderboard__stat-value {
     font-size: var(--font-size-sm);
   }
 
-  .leaderboard-stat-label {
+  .leaderboard__stat-label {
     font-size: var(--font-size-xs);
   }
 }
 
 /* Raspberry Pi Touch Display - Landscape (800x480) */
 @media (min-width: 481px) and (max-width: 800px) and (orientation: landscape) {
-  .logo-image {
+  .logo__image {
     height: 2.5rem;
     width: 2.5rem;
     max-width: 2.5rem;
   }
 
-  .logo-text {
+  .logo__text {
     font-size: var(--font-size-lg);
   }
 
-  .leaderboard-title {
+  .leaderboard__title {
     font-size: var(--font-size-xl);
   }
 
-  .stats-label {
+  .stats__label {
     font-size: var(--font-size-sm);
   }
 
-  .stats-value {
+  .stats__value {
     font-size: var(--font-size-base);
   }
 
-  .leaderboard-item {
+  .leaderboard__item {
     padding: var(--spacing-4) var(--spacing-5);
     min-height: 70px;
   }
 
-  .leaderboard-rank {
+  .leaderboard__rank {
     width: 50px;
     height: 50px;
     font-size: var(--font-size-xl);
     margin-right: var(--spacing-4);
   }
 
-  .leaderboard-name {
+  .leaderboard__name {
     font-size: var(--font-size-base);
   }
 
-  .leaderboard-activity-count {
+  .leaderboard__activity-count {
     font-size: var(--font-size-sm);
   }
 
-  .leaderboard-stat {
+  .leaderboard__stat {
     min-width: 80px;
   }
 
-  .leaderboard-stat-value {
+  .leaderboard__stat-value {
     font-size: var(--font-size-base);
   }
 
-  .leaderboard-stat-label {
+  .leaderboard__stat-label {
     font-size: var(--font-size-sm);
   }
 }
 
 /* 720p Portrait (720x1280) */
 @media (min-width: 721px) and (max-width: 1280px) and (orientation: portrait) {
-  .logo-image {
+  .logo__image {
     height: 3rem;
     width: 3rem;
     max-width: 3rem;
   }
 
-  .logo-text {
+  .logo__text {
     font-size: var(--font-size-xl);
   }
 
-  .leaderboard-title {
+  .leaderboard__title {
     font-size: var(--font-size-2xl);
   }
 
-  .stats-label {
+  .stats__label {
     font-size: var(--font-size-sm);
   }
 
-  .stats-value {
+  .stats__value {
     font-size: var(--font-size-lg);
   }
 
-  .leaderboard-item {
+  .leaderboard__item {
     padding: var(--spacing-5) var(--spacing-6);
     min-height: 80px;
   }
 
-  .leaderboard-rank {
+  .leaderboard__rank {
     width: 60px;
     height: 60px;
     font-size: var(--font-size-2xl);
     margin-right: var(--spacing-5);
   }
 
-  .leaderboard-name {
+  .leaderboard__name {
     font-size: var(--font-size-lg);
   }
 
-  .leaderboard-activity-count {
+  .leaderboard__activity-count {
     font-size: var(--font-size-sm);
   }
 
-  .leaderboard-stat {
+  .leaderboard__stat {
     min-width: 100px;
   }
 
-  .leaderboard-stat-value {
+  .leaderboard__stat-value {
     font-size: var(--font-size-lg);
   }
 
-  .leaderboard-stat-label {
+  .leaderboard__stat-label {
     font-size: var(--font-size-sm);
   }
 }
 
 /* 720p Landscape (1280x720) */
 @media (min-width: 1281px) and (max-width: 1920px) and (orientation: landscape) {
-  .logo-image {
+  .logo__image {
     height: 3.5rem;
     width: 3.5rem;
     max-width: 3.5rem;
   }
 
-  .logo-text {
+  .logo__text {
     font-size: var(--font-size-2xl);
   }
 
-  .leaderboard-title {
+  .leaderboard__title {
     font-size: var(--font-size-3xl);
   }
 
-  .stats-label {
+  .stats__label {
     font-size: var(--font-size-base);
   }
 
-  .stats-value {
+  .stats__value {
     font-size: var(--font-size-xl);
   }
 
-  .leaderboard-item {
+  .leaderboard__item {
     padding: var(--spacing-6) var(--spacing-7);
     min-height: 90px;
   }
 
-  .leaderboard-rank {
+  .leaderboard__rank {
     width: 70px;
     height: 70px;
     font-size: var(--font-size-3xl);
     margin-right: var(--spacing-6);
   }
 
-  .leaderboard-name {
+  .leaderboard__name {
     font-size: var(--font-size-xl);
   }
 
-  .leaderboard-activity-count {
+  .leaderboard__activity-count {
     font-size: var(--font-size-base);
   }
 
-  .leaderboard-stat {
+  .leaderboard__stat {
     min-width: 120px;
   }
 
-  .leaderboard-stat-value {
+  .leaderboard__stat-value {
     font-size: var(--font-size-xl);
   }
 
-  .leaderboard-stat-label {
+  .leaderboard__stat-label {
     font-size: var(--font-size-base);
   }
 }
 
 /* 1080p Portrait (1080x1920) */
 @media (min-width: 1081px) and (max-width: 1920px) and (orientation: portrait) {
-  .logo-image {
+  .logo__image {
     height: 4rem;
     width: 4rem;
     max-width: 4rem;
   }
 
-  .logo-text {
+  .logo__text {
     font-size: var(--font-size-3xl);
   }
 
-  .leaderboard-title {
+  .leaderboard__title {
     font-size: var(--font-size-4xl);
   }
 
-  .stats-label {
+  .stats__label {
     font-size: var(--font-size-base);
   }
 
-  .stats-value {
+  .stats__value {
     font-size: var(--font-size-2xl);
   }
 
-  .leaderboard-item {
+  .leaderboard__item {
     padding: var(--spacing-7) var(--spacing-8);
     min-height: 100px;
   }
 
-  .leaderboard-rank {
+  .leaderboard__rank {
     width: 80px;
     height: 80px;
     font-size: var(--font-size-4xl);
     margin-right: var(--spacing-7);
   }
 
-  .leaderboard-name {
+  .leaderboard__name {
     font-size: var(--font-size-2xl);
   }
 
-  .leaderboard-activity-count {
+  .leaderboard__activity-count {
     font-size: var(--font-size-base);
   }
 
-  .leaderboard-stat {
+  .leaderboard__stat {
     min-width: 130px;
   }
 
-  .leaderboard-stat-value {
+  .leaderboard__stat-value {
     font-size: var(--font-size-2xl);
   }
 
-  .leaderboard-stat-label {
+  .leaderboard__stat-label {
     font-size: var(--font-size-base);
   }
 }
 
 /* 1080p Landscape (1920x1080) - Digital Signage */
 @media (min-width: 1921px) and (max-width: 3840px) and (orientation: landscape) {
-  .logo-image {
+  .logo__image {
     height: 5rem;
     width: 5rem;
     max-width: 5rem;
   }
 
-  .logo-text {
+  .logo__text {
     font-size: var(--font-size-5xl);
   }
 
-  .leaderboard-title {
+  .leaderboard__title {
     font-size: var(--font-size-5xl);
   }
 
-  .stats-label {
+  .stats__label {
     font-size: var(--font-size-xl);
   }
 
-  .stats-value {
+  .stats__value {
     font-size: var(--font-size-4xl);
   }
 
-  .leaderboard-item {
+  .leaderboard__item {
     padding: var(--spacing-10) var(--spacing-12);
     min-height: 140px;
   }
 
-  .leaderboard-rank {
+  .leaderboard__rank {
     width: 100px;
     height: 100px;
     font-size: var(--font-size-5xl);
     margin-right: var(--spacing-10);
   }
 
-  .leaderboard-name {
+  .leaderboard__name {
     font-size: var(--font-size-4xl);
   }
 
-  .leaderboard-activity-count {
+  .leaderboard__activity-count {
     font-size: var(--font-size-2xl);
   }
 
-  .leaderboard-stat {
+  .leaderboard__stat {
     min-width: 140px;
   }
 
-  .leaderboard-stat-value {
+  .leaderboard__stat-value {
     font-size: var(--font-size-3xl);
   }
 
-  .leaderboard-stat-label {
+  .leaderboard__stat-label {
     font-size: var(--font-size-base);
   }
 }
 
 /* 4K Portrait (2160x3840/4096) */
 @media (min-width: 2161px) and (max-width: 4096px) and (orientation: portrait) {
-  .logo-image {
+  .logo__image {
     height: 5rem;
     width: 5rem;
     max-width: 5rem;
   }
 
-  .logo-text {
+  .logo__text {
     font-size: var(--font-size-4xl);
   }
 
-  .leaderboard-title {
+  .leaderboard__title {
     font-size: var(--font-size-5xl);
   }
 
-  .stats-label {
+  .stats__label {
     font-size: var(--font-size-lg);
   }
 
-  .stats-value {
+  .stats__value {
     font-size: var(--font-size-3xl);
   }
 
-  .leaderboard-item {
+  .leaderboard__item {
     padding: var(--spacing-8) var(--spacing-10);
     min-height: 120px;
   }
 
-  .leaderboard-rank {
+  .leaderboard__rank {
     width: 90px;
     height: 90px;
     font-size: var(--font-size-4xl);
     margin-right: var(--spacing-8);
   }
 
-  .leaderboard-name {
+  .leaderboard__name {
     font-size: var(--font-size-3xl);
   }
 
-  .leaderboard-activity-count {
+  .leaderboard__activity-count {
     font-size: var(--font-size-lg);
   }
 
-  .leaderboard-stat {
+  .leaderboard__stat {
     min-width: 140px;
   }
 
-  .leaderboard-stat-value {
+  .leaderboard__stat-value {
     font-size: var(--font-size-2xl);
   }
 
-  .leaderboard-stat-label {
+  .leaderboard__stat-label {
     font-size: var(--font-size-base);
   }
 }
 
 /* 4K Landscape (3840x2160/4096x2160) - Ultra Large Digital Signage */
 @media (min-width: 3841px) and (orientation: landscape) {
-  .logo-image {
+  .logo__image {
     height: 7rem;
     width: 7rem;
     max-width: 7rem;
   }
 
-  .logo-text {
+  .logo__text {
     font-size: var(--font-size-6xl);
   }
 
-  .leaderboard-title {
+  .leaderboard__title {
     font-size: var(--font-size-6xl);
   }
 
-  .stats-label {
+  .stats__label {
     font-size: var(--font-size-2xl);
   }
 
-  .stats-value {
+  .stats__value {
     font-size: var(--font-size-5xl);
   }
 
-  .leaderboard-item {
+  .leaderboard__item {
     padding: var(--spacing-12) var(--spacing-16);
     min-height: 180px;
   }
 
-  .leaderboard-rank {
+  .leaderboard__rank {
     width: 120px;
     height: 120px;
     font-size: var(--font-size-6xl);
     margin-right: var(--spacing-12);
   }
 
-  .leaderboard-name {
+  .leaderboard__name {
     font-size: var(--font-size-5xl);
   }
 
-  .leaderboard-activity-count {
+  .leaderboard__activity-count {
     font-size: var(--font-size-3xl);
   }
 
-  .leaderboard-stat {
+  .leaderboard__stat {
     min-width: 160px;
   }
 
-  .leaderboard-stat-value {
+  .leaderboard__stat-value {
     font-size: var(--font-size-4xl);
   }
 
-  .leaderboard-stat-label {
+  .leaderboard__stat-label {
     font-size: var(--font-size-lg);
   }
 }
 
 /* High Contrast Mode for Better Visibility */
 @media (prefers-contrast: high) {
-  .leaderboard-item {
+  .leaderboard__item {
     border: 3px solid var(--theme-color-text);
     background-color: var(--theme-color-background);
   }
 
-  .leaderboard-name,
-  .leaderboard-stat-value {
+  .leaderboard__name,
+  .leaderboard__stat-value {
     color: var(--theme-color-text);
     font-weight: 800;
   }
 
-  .leaderboard-stat-label,
-  .leaderboard-activity-count {
+  .leaderboard__stat-label,
+  .leaderboard__activity-count {
     color: var(--theme-color-text);
     font-weight: 600;
   }
