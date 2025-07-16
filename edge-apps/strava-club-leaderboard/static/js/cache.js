@@ -1,160 +1,160 @@
 /* global */
 
 // Cache management for Strava Club Leaderboard App
-window.StravaCache = (function() {
-  'use strict';
+window.StravaCache = (function () {
+  'use strict'
 
   // Configuration
-  const CACHE_DURATION = 12 * 60 * 1000; // 12 minutes - Cache most of the refresh interval
+  const CACHE_DURATION = 12 * 60 * 1000 // 12 minutes - Cache most of the refresh interval
 
   // Get cached data with expiration check
-  function getCachedData(key) {
+  function getCachedData (key) {
     try {
-      const cached = localStorage.getItem(key);
+      const cached = localStorage.getItem(key)
       if (cached) {
-        const parsedData = JSON.parse(cached);
-        const { data, timestamp, customDuration } = parsedData;
-        const age = Date.now() - timestamp;
-        const cacheDuration = customDuration || CACHE_DURATION;
-        const isExpired = age > cacheDuration;
+        const parsedData = JSON.parse(cached)
+        const { data, timestamp, customDuration } = parsedData
+        const age = Date.now() - timestamp
+        const cacheDuration = customDuration || CACHE_DURATION
+        const isExpired = age > cacheDuration
 
         if (!isExpired) {
-          return data;
+          return data
         } else {
-          localStorage.removeItem(key);
+          localStorage.removeItem(key)
         }
       }
     } catch (error) {
-      localStorage.removeItem(key);
+      localStorage.removeItem(key)
     }
-    return null;
+    return null
   }
 
   // Set cached data with default duration
-  function setCachedData(key, data) {
+  function setCachedData (key, data) {
     try {
       localStorage.setItem(key, JSON.stringify({
-        data: data,
+        data,
         timestamp: Date.now()
-      }));
+      }))
     } catch (error) {
       // Silently handle cache write errors
     }
   }
 
   // Set cached data with custom duration
-  function setCachedDataWithDuration(key, data, duration) {
+  function setCachedDataWithDuration (key, data, duration) {
     try {
       localStorage.setItem(key, JSON.stringify({
-        data: data,
+        data,
         timestamp: Date.now(),
         customDuration: duration
-      }));
+      }))
     } catch (error) {
       // Silently handle cache write errors
     }
   }
 
   // Clear all cache
-  function clearCache() {
-    const keys = Object.keys(localStorage);
+  function clearCache () {
+    const keys = Object.keys(localStorage)
     keys.forEach(key => {
       if (key.startsWith('club_activities_')) {
-        localStorage.removeItem(key);
+        localStorage.removeItem(key)
       }
-    });
+    })
   }
 
   // Clear cache for specific club
-  function clearCacheForClub(clubId) {
-    const keysToRemove = [];
+  function clearCacheForClub (clubId) {
+    const keysToRemove = []
 
     // Find all cache keys for this club (activities and details)
     for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
+      const key = localStorage.key(i)
       if (key && (key.startsWith(`club_activities_${clubId}_recent_`) || key === `club_details_${clubId}`)) {
-        keysToRemove.push(key);
+        keysToRemove.push(key)
       }
     }
 
     // Remove found keys
     keysToRemove.forEach(key => {
-      localStorage.removeItem(key);
-    });
+      localStorage.removeItem(key)
+    })
   }
 
   // Get cache size and statistics
-  function getCacheStats() {
-    const keys = Object.keys(localStorage);
+  function getCacheStats () {
+    const keys = Object.keys(localStorage)
     const cacheKeys = keys.filter(key =>
       key.startsWith('club_activities_') ||
       key.startsWith('club_details_')
-    );
+    )
 
-    let totalSize = 0;
+    let totalSize = 0
     const cacheInfo = cacheKeys.map(key => {
-      const value = localStorage.getItem(key);
-      const size = value ? value.length : 0;
-      totalSize += size;
+      const value = localStorage.getItem(key)
+      const size = value ? value.length : 0
+      totalSize += size
 
       try {
-        const parsed = JSON.parse(value);
+        const parsed = JSON.parse(value)
         return {
           key,
           size,
           timestamp: parsed.timestamp,
           age: Date.now() - parsed.timestamp
-        };
+        }
       } catch (error) {
-        return { key, size, timestamp: 0, age: 0 };
+        return { key, size, timestamp: 0, age: 0 }
       }
-    });
+    })
 
     return {
       totalKeys: cacheKeys.length,
       totalSize,
       cacheInfo: cacheInfo.sort((a, b) => b.age - a.age) // Sort by age, oldest first
-    };
+    }
   }
 
   // Manage cache size by removing old entries
-  function manageCacheSize(maxEntries = 50) {
-    const stats = getCacheStats();
+  function manageCacheSize (maxEntries = 50) {
+    const stats = getCacheStats()
 
     if (stats.totalKeys > maxEntries) {
       // Remove oldest entries
-      const toRemove = stats.cacheInfo.slice(maxEntries);
+      const toRemove = stats.cacheInfo.slice(maxEntries)
       toRemove.forEach(item => {
-        localStorage.removeItem(item.key);
-      });
+        localStorage.removeItem(item.key)
+      })
 
-      return toRemove.length;
+      return toRemove.length
     }
 
-    return 0;
+    return 0
   }
 
   // Check if cache is healthy (not too many entries, not too large)
-  function checkCacheHealth() {
-    const stats = getCacheStats();
-    const maxSize = 5 * 1024 * 1024; // 5MB limit
-    const maxEntries = 100;
+  function checkCacheHealth () {
+    const stats = getCacheStats()
+    const maxSize = 5 * 1024 * 1024 // 5MB limit
+    const maxEntries = 100
 
-    const issues = [];
+    const issues = []
 
     if (stats.totalSize > maxSize) {
-      issues.push(`Cache size too large: ${Math.round(stats.totalSize / 1024 / 1024)}MB`);
+      issues.push(`Cache size too large: ${Math.round(stats.totalSize / 1024 / 1024)}MB`)
     }
 
     if (stats.totalKeys > maxEntries) {
-      issues.push(`Too many cache entries: ${stats.totalKeys}`);
+      issues.push(`Too many cache entries: ${stats.totalKeys}`)
     }
 
     return {
       healthy: issues.length === 0,
       issues,
       stats
-    };
+    }
   }
 
   // Public API
@@ -167,6 +167,5 @@ window.StravaCache = (function() {
     getCacheStats,
     manageCacheSize,
     checkCacheHealth
-  };
-
-})();
+  }
+})()
