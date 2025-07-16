@@ -54,4 +54,5 @@ jobs:
           VALIDATE_HTML: false
           VALIDATE_TYPESCRIPT_ES: false
           VALIDATE_TYPESCRIPT_PRETTIER: false
+          VALIDATE_TYPESCRIPT_STANDARD: false
           DEFAULT_BRANCH: master
