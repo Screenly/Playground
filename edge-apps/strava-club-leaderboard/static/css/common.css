@@ -4,7 +4,7 @@
 
 /* Global Fonts */
 @font-face {
-  font-family: 'Inter';
+  font-family: Inter;
   src: url('../fonts/Inter-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
@@ -12,7 +12,7 @@
 }
 
 @font-face {
-  font-family: 'Inter';
+  font-family: Inter;
   src: url('../fonts/Inter-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
@@ -20,7 +20,7 @@
 }
 
 @font-face {
-  font-family: 'Inter';
+  font-family: Inter;
   src: url('../fonts/Inter-SemiBold.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
@@ -40,7 +40,7 @@ html {
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
   height: 100vh;
   background-color: var(--theme-color-background);
   color: var(--theme-color-text);
@@ -53,7 +53,7 @@ body {
   --theme-color-secondary: #454BD2;
   --theme-color-tertiary: #FFF;
   --theme-color-background: #F8F9FA;
-  --theme-color-card: #FFFFFF;
+  --theme-color-card: #FFF;
   --theme-color-text: #212529;
   --theme-color-text-secondary: #6C757D;
   --theme-color-border: #E9ECEF;
@@ -122,7 +122,7 @@ body {
 [data-theme="dark"] {
   --theme-color-background: #1A1A1A;
   --theme-color-card: #2D2D2D;
-  --theme-color-text: #FFFFFF;
+  --theme-color-text: #FFF;
   --theme-color-text-secondary: #B0B0B0;
   --theme-color-border: #404040;
 }
@@ -298,17 +298,17 @@ body {
 }
 
 .shadow-sm {
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px 0 #0000000D;
 }
 
 .shadow {
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 3px 0 #0000001A, 0 1px 2px 0 #0000000D;
 }
 
 .shadow-md {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px #0000001A, 0 2px 4px -1px #0000000D;
 }
 
 .shadow-lg {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 15px -3px #0000001A, 0 4px 6px -2px #0000000D;
 }
