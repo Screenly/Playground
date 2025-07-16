@@ -24,6 +24,17 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [Weather App](https://github.com/Screenly/Playground/tree/master/edge-apps/weather) - A simple weather app.
 - [Welcome App](https://github.com/Screenly/Playground/tree/master/edge-apps/welcome-app) - A customizable welcome screen app.
 
+### Creating a new Edge App
+
+```bash
+./scripts/create-edge-app.sh <app-name>
+```
+
+This will create a new Edge App with the name `<app-name>` in the `edge-apps` directory.
+
+> [!NOTE]
+> Don't forget to update `README.md` and `screenly.yml` as needed.
+
 ## Other
 
 - [Bootstrap](https://github.com/Screenly/playground/tree/master/bootstrap/): A digital signage optimized Bootstrap theme for our Playground apps.
