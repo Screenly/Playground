@@ -24,7 +24,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [Weather App](https://github.com/Screenly/Playground/tree/master/edge-apps/weather) - A simple weather app.
 - [Welcome App](https://github.com/Screenly/Playground/tree/master/edge-apps/welcome-app) - A customizable welcome screen app.
 
-### Creating a new Edge App
+### Creating a new Edge App from the template
 
 ```bash
 ./scripts/create-edge-app.sh <app-name>
