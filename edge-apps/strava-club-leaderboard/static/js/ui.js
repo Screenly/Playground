@@ -132,10 +132,10 @@ window.StravaUI = (function () {
     leaderboard.forEach((athlete, index) => {
       const rank = index + 1
       const item = document.createElement('div')
-      item.className = `leaderboard-item${rank <= 3 ? ' leaderboard-item--top-3' : ''}`
+      item.className = `leaderboard-item${rank <= 3 ? ' leaderboard-item-top-3' : ''}`
 
       const rankBadge = document.createElement('div')
-      const rankClass = rank <= 3 ? `leaderboard-rank--${rank}` : 'leaderboard-rank--default'
+      const rankClass = rank <= 3 ? `leaderboard-rank-${rank}` : 'leaderboard-rank-default'
       rankBadge.className = `leaderboard-rank ${rankClass}`
       rankBadge.textContent = rank
 

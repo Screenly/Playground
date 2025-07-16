@@ -32,7 +32,7 @@ A beautiful, real-time leaderboard for Strava clubs that displays member ranking
    - **Application Name**: Your app name (e.g., "Club Leaderboard")
    - **Category**: Choose "Visualizer"
    - **Club**: Select your club
-   - **Website**: Your website or playground URL
+   - **Website**: Your Site or Screenly Playground URL
    - **Authorization Callback Domain**: `localhost` (for testing)
 
 ### 2. Get Your API Credentials

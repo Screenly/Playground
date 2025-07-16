@@ -1,4 +1,5 @@
-/* Strava Club Leaderboard Styles */
+/* stylelint-disable media-feature-range-notation */
+/* Strava Club Leaderboard Styles  */
 
 /* Additional CSS variables */
 :root {
@@ -147,6 +148,7 @@
   display: flex;
   gap: var(--spacing-8);
   align-items: center;
+  flex-shrink: 0;
 }
 
 .stats-item {
@@ -233,7 +235,7 @@
   font-weight: 800;
   color: white;
   margin-right: var(--spacing-8);
-  text-shadow: 0 2px 4px #00000033;
+  text-shadow: 0 2px 4px #0003;
   flex-shrink: 0;
 }
 
@@ -258,13 +260,6 @@
   font-weight: 500;
   color: var(--theme-color-text-secondary);
   margin: 0;
-}
-
-.leaderboard-stats {
-  display: flex;
-  gap: var(--spacing-8);
-  align-items: center;
-  flex-shrink: 0;
 }
 
 .leaderboard-stat {
@@ -368,11 +363,11 @@
   transition: opacity 0.2s ease;
 }
 
-.footer-logo--strava {
+.footer-logo-strava {
   height: 2rem;
 }
 
-.footer-logo--screenly {
+.footer-logo-screenly {
   height: 1.5rem;
 }
 
@@ -503,46 +498,46 @@
 }
 
 /* Gradient background for top performers */
-.athlete-card--rank-1 {
+.athlete-card-rank-1 {
   background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
 }
 
-.athlete-card--rank-2 {
+.athlete-card-rank-2 {
   background: linear-gradient(135deg, #C0C0C0 0%, #808080 100%);
 }
 
-.athlete-card--rank-3 {
+.athlete-card-rank-3 {
   background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%);
 }
 
 /* Rank Colors - High Contrast for Digital Signage */
-.leaderboard-rank--1 {
+.leaderboard-rank-1 {
   background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   box-shadow: 0 4px 16px #FFD70066;
 }
 
-.leaderboard-rank--2 {
+.leaderboard-rank-2 {
   background: linear-gradient(135deg, #C0C0C0 0%, #A8A8A8 100%);
   box-shadow: 0 4px 16px #C0C0C066;
 }
 
-.leaderboard-rank--3 {
+.leaderboard-rank-3 {
   background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%);
   box-shadow: 0 4px 16px #CD7F3266;
 }
 
-.leaderboard-rank--default {
+.leaderboard-rank-default {
   background: linear-gradient(135deg, #4A5568 0%, #2D3748 100%);
   box-shadow: 0 4px 16px #4A556866;
 }
 
 /* Enhanced contrast for text on colored backgrounds */
-.leaderboard-item--top-3 {
+.leaderboard-item-top-3 {
   border: 3px solid var(--theme-color-primary);
   box-shadow: 0 6px 20px #00000026;
 }
 
-.leaderboard-item--top-3:hover {
+.leaderboard-item-top-3:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 32px #00000033;
 }
@@ -649,11 +644,11 @@
     opacity: 0.5;
   }
 
-  .footer-logo--strava {
+  .footer-logo-strava {
     height: 1.5rem;
   }
 
-  .footer-logo--screenly {
+  .footer-logo-screenly {
     height: 1rem;
   }
 }
@@ -668,11 +663,11 @@
     font-size: var(--font-size-xs);
   }
 
-  .footer-logo--strava {
+  .footer-logo-strava {
     height: 1.75rem;
   }
 
-  .footer-logo--screenly {
+  .footer-logo-screenly {
     height: 1.25rem;
   }
 }
@@ -686,11 +681,11 @@
     font-size: var(--font-size-sm);
   }
 
-  .footer-logo--strava {
+  .footer-logo-strava {
     height: 2rem;
   }
 
-  .footer-logo--screenly {
+  .footer-logo-screenly {
     height: 1.5rem;
   }
 }
@@ -704,11 +699,11 @@
     font-size: var(--font-size-base);
   }
 
-  .footer-logo--strava {
+  .footer-logo-strava {
     height: 2.5rem;
   }
 
-  .footer-logo--screenly {
+  .footer-logo-screenly {
     height: 1.75rem;
   }
 }
