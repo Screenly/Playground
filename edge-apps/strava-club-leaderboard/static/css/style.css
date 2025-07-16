@@ -1,4 +1,5 @@
 /* stylelint-disable media-feature-range-notation */
+
 /* Strava Club Leaderboard Styles  */
 
 /* Additional CSS variables */
@@ -91,34 +92,7 @@
 
 /* Loading State - Removed duplicate, keeping the better one with 100vh */
 
-/* Error State */
-.error {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  gap: var(--spacing-4);
-  text-align: center;
-}
-
-.error-icon {
-  font-size: var(--font-size-6xl);
-}
-
-.error-title {
-  font-size: var(--font-size-3xl);
-  font-weight: 600;
-  color: var(--theme-color-error);
-  margin: 0;
-}
-
-.error-message {
-  font-size: var(--font-size-lg);
-  color: var(--theme-color-text-secondary);
-  margin: 0;
-  max-width: 30rem;
-}
+/* Error State - Defined later in the file */
 
 /* Leaderboard */
 .leaderboard {
@@ -253,6 +227,7 @@
   color: var(--theme-color-text);
   margin: 0;
   line-height: 1.2;
+  text-shadow: 0 1px 2px #0000001A;
 }
 
 .leaderboard-activity-count {
@@ -285,6 +260,7 @@
   font-weight: 700;
   color: var(--theme-color-text);
   line-height: 1;
+  text-shadow: 0 1px 2px #0000001A;
 }
 
 /* Activity Type Icons */
@@ -385,9 +361,8 @@
   }
 
   .leaderboard-stats {
-    flex-direction: row;
+    flex-flow: row wrap;
     justify-content: center;
-    flex-wrap: wrap;
     gap: var(--spacing-4);
   }
 
@@ -442,11 +417,12 @@
 }
 
 /* Animations */
-@keyframes fadeIn {
+@keyframes fade-in {
   from {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -454,7 +430,7 @@
 }
 
 .athlete-card {
-  animation: fadeIn 0.5s ease-out;
+  animation: fade-in 0.5s ease-out;
 }
 
 .athlete-card:nth-child(1) {
@@ -482,6 +458,7 @@
   0%, 100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.5;
   }
@@ -533,17 +510,9 @@
 
 .leaderboard-item-top-3:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 32px #00000033;
+  box-shadow: 0 12px 32px #0003;
 }
 
-/* Ensure high contrast for all text */
-.leaderboard-name {
-  text-shadow: 0 1px 2px #0000001A;
-}
-
-.leaderboard-stat-value {
-  text-shadow: 0 1px 2px #0000001A;
-}
 
 /* Loading and Error States - Larger for visibility */
 .loading {
