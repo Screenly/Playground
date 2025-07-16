@@ -15,6 +15,9 @@
   flex-direction: column;
   height: 100vh;
   width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 /* Header */
@@ -154,32 +157,10 @@
   flex-direction: column;
   gap: var(--spacing-6);
   width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
-/* Responsive leaderboard list spacing for better fit */
-@media (max-width: 800px) {
-  .leaderboard-list {
-    gap: var(--spacing-3);
-  }
-}
-
-@media (min-width: 801px) and (max-width: 1920px) {
-  .leaderboard-list {
-    gap: var(--spacing-4);
-  }
-}
-
-@media (min-width: 1921px) and (max-width: 3840px) {
-  .leaderboard-list {
-    gap: var(--spacing-5);
-  }
-}
-
-@media (min-width: 3841px) {
-  .leaderboard-list {
-    gap: var(--spacing-6);
-  }
-}
 
 .leaderboard-item {
   display: flex;
@@ -191,6 +172,8 @@
   border: 2px solid var(--theme-color-border);
   transition: all 0.3s ease;
   min-height: 120px;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .leaderboard-item:hover {
@@ -349,20 +332,29 @@
   height: 1.5rem;
 }
 
-/* General Responsive Constraints */
-.app {
-  max-width: 100vw;
-  overflow-x: hidden;
+/* Responsive leaderboard list spacing for better fit */
+@media (max-width: 800px) {
+  .leaderboard-list {
+    gap: var(--spacing-3);
+  }
 }
 
-.leaderboard-list {
-  max-width: 100%;
-  overflow-x: hidden;
+@media (min-width: 801px) and (max-width: 1920px) {
+  .leaderboard-list {
+    gap: var(--spacing-4);
+  }
 }
 
-.leaderboard-item {
-  max-width: 100%;
-  overflow: hidden;
+@media (min-width: 1921px) and (max-width: 3840px) {
+  .leaderboard-list {
+    gap: var(--spacing-5);
+  }
+}
+
+@media (min-width: 3841px) {
+  .leaderboard-list {
+    gap: var(--spacing-6);
+  }
 }
 
 /* Responsive Design */
