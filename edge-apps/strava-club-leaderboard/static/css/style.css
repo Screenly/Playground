@@ -208,6 +208,7 @@
   font-size: var(--font-size-4xl);
   font-weight: 800;
   color: white;
+  margin-left: var(--spacing-4);
   margin-right: var(--spacing-8);
   text-shadow: 0 2px 4px #0003;
   flex-shrink: 0;
@@ -226,8 +227,12 @@
   font-weight: 700;
   color: var(--theme-color-text);
   margin: 0;
+  margin-top: var(--spacing-3);
   line-height: 1.2;
   text-shadow: 0 1px 2px #0000001A;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .leaderboard-activity-count {
@@ -235,6 +240,8 @@
   font-weight: 500;
   color: var(--theme-color-text-secondary);
   margin: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .leaderboard-stat {
@@ -244,6 +251,7 @@
   text-align: center;
   gap: var(--spacing-1);
   min-width: 120px;
+  margin-right: var(--spacing-4);
 }
 
 .leaderboard-stat-label {
@@ -341,6 +349,22 @@
   height: 1.5rem;
 }
 
+/* General Responsive Constraints */
+.app {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+.leaderboard-list {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.leaderboard-item {
+  max-width: 100%;
+  overflow: hidden;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .app-header {
@@ -386,6 +410,19 @@
 
   .logo-text {
     font-size: var(--font-size-lg);
+  }
+
+  .leaderboard-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+  }
+
+  .leaderboard-activity-count {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -673,121 +710,14 @@
 
 /* Raspberry Pi Touch Display - Portrait (480x800) */
 @media (max-width: 480px) and (orientation: portrait) {
-  .logo-image {
-    height: 2.5rem;
-    width: 2.5rem;
-    max-width: 2.5rem;
+  .app-header {
+    padding: var(--spacing-6) var(--spacing-4);
   }
 
-  .logo-text {
-    font-size: var(--font-size-base);
+  .app-main {
+    padding: var(--spacing-6);
   }
 
-  .leaderboard-title {
-    font-size: var(--font-size-xl);
-  }
-
-  .stats-label {
-    font-size: var(--font-size-xs);
-  }
-
-  .stats-value {
-    font-size: var(--font-size-sm);
-  }
-
-  .leaderboard-item {
-    padding: var(--spacing-3) var(--spacing-4);
-    min-height: 60px;
-    gap: var(--spacing-2);
-  }
-
-  .leaderboard-rank {
-    width: 40px;
-    height: 40px;
-    font-size: var(--font-size-lg);
-    margin-right: var(--spacing-3);
-  }
-
-  .leaderboard-name {
-    font-size: var(--font-size-sm);
-  }
-
-  .leaderboard-activity-count {
-    font-size: var(--font-size-xs);
-  }
-
-  .leaderboard-stat {
-    min-width: 60px;
-  }
-
-  .leaderboard-stat-value {
-    font-size: var(--font-size-sm);
-  }
-
-  .leaderboard-stat-label {
-    font-size: var(--font-size-xs);
-  }
-}
-
-/* Raspberry Pi Touch Display - Landscape (800x480) */
-@media (min-width: 481px) and (max-width: 800px) and (orientation: landscape) {
-  .logo-image {
-    height: 2.5rem;
-    width: 2.5rem;
-    max-width: 2.5rem;
-  }
-
-  .logo-text {
-    font-size: var(--font-size-lg);
-  }
-
-  .leaderboard-title {
-    font-size: var(--font-size-xl);
-  }
-
-  .stats-label {
-    font-size: var(--font-size-sm);
-  }
-
-  .stats-value {
-    font-size: var(--font-size-base);
-  }
-
-  .leaderboard-item {
-    padding: var(--spacing-4) var(--spacing-5);
-    min-height: 70px;
-  }
-
-  .leaderboard-rank {
-    width: 50px;
-    height: 50px;
-    font-size: var(--font-size-xl);
-    margin-right: var(--spacing-4);
-  }
-
-  .leaderboard-name {
-    font-size: var(--font-size-base);
-  }
-
-  .leaderboard-activity-count {
-    font-size: var(--font-size-sm);
-  }
-
-  .leaderboard-stat {
-    min-width: 80px;
-  }
-
-  .leaderboard-stat-value {
-    font-size: var(--font-size-base);
-  }
-
-  .leaderboard-stat-label {
-    font-size: var(--font-size-sm);
-  }
-}
-
-/* 720p Portrait (720x1280) */
-@media (min-width: 721px) and (max-width: 1280px) and (orientation: portrait) {
   .logo-image {
     height: 3rem;
     width: 3rem;
@@ -799,47 +729,319 @@
   }
 
   .leaderboard-title {
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .leaderboard-header {
+    flex-direction: column;
+    gap: var(--spacing-6);
+    text-align: center;
+    margin-bottom: var(--spacing-8);
+  }
+
+  .leaderboard-stats {
+    flex-direction: column;
+    gap: var(--spacing-4);
+    align-items: center;
+  }
+
+  .stats-item {
+    flex-direction: row;
+    gap: var(--spacing-3);
   }
 
   .stats-label {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
   }
 
   .stats-value {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-xl);
+  }
+
+  .leaderboard-list {
+    gap: var(--spacing-6);
   }
 
   .leaderboard-item {
-    padding: var(--spacing-5) var(--spacing-6);
-    min-height: 80px;
+    flex-direction: column;
+    padding: var(--spacing-6);
+    min-height: auto;
+    gap: var(--spacing-4);
+    text-align: center;
   }
 
   .leaderboard-rank {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     font-size: var(--font-size-2xl);
-    margin-right: var(--spacing-5);
+    margin: 0 0 var(--spacing-4) 0;
+    align-self: center;
+  }
+
+  .leaderboard-athlete {
+    gap: var(--spacing-3);
+    align-items: center;
   }
 
   .leaderboard-name {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-xl);
+    margin-top: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+    text-align: center;
   }
 
   .leaderboard-activity-count {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-align: center;
   }
 
   .leaderboard-stat {
-    min-width: 100px;
+    min-width: auto;
+    flex-direction: row;
+    gap: var(--spacing-2);
+    margin: 0;
+    max-width: 100%;
+    justify-content: center;
   }
 
   .leaderboard-stat-value {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-xl);
+    order: 2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .leaderboard-stat-label {
+    font-size: var(--font-size-base);
+    order: 1;
+    text-transform: none;
+    opacity: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* Raspberry Pi Touch Display - Landscape (800x480) */
+@media (min-width: 481px) and (max-width: 800px) and (orientation: landscape) {
+  .app-header {
+    padding: var(--spacing-3) var(--spacing-4);
+    flex-direction: row;
+    gap: var(--spacing-3);
+  }
+
+  .app-main {
+    padding: var(--spacing-3);
+  }
+
+  .logo-image {
+    height: 2rem;
+    width: 2rem;
+    max-width: 2rem;
+  }
+
+  .logo-text {
+    font-size: var(--font-size-base);
+  }
+
+  .leaderboard-header {
+    flex-direction: row;
+    gap: var(--spacing-4);
+    align-items: center;
+    margin-bottom: var(--spacing-4);
+  }
+
+  .leaderboard-title {
+    font-size: var(--font-size-lg);
+    margin-bottom: 0;
+  }
+
+  .leaderboard-stats {
+    flex-direction: row;
+    gap: var(--spacing-3);
+  }
+
+  .stats-item {
+    flex-direction: column;
+    gap: var(--spacing-1);
+  }
+
+  .stats-label {
+    font-size: var(--font-size-xs);
+  }
+
+  .stats-value {
     font-size: var(--font-size-sm);
+  }
+
+  .leaderboard-list {
+    gap: var(--spacing-2);
+  }
+
+  .leaderboard-item {
+    padding: var(--spacing-2) var(--spacing-3);
+    min-height: 50px;
+    gap: var(--spacing-2);
+    overflow: hidden;
+  }
+
+  .leaderboard-rank {
+    width: 35px;
+    height: 35px;
+    font-size: var(--font-size-base);
+    margin-left: var(--spacing-2);
+    margin-right: var(--spacing-3);
+    flex-shrink: 0;
+  }
+
+  .leaderboard-athlete {
+    min-width: 0;
+    flex: 1;
+    gap: var(--spacing-1);
+  }
+
+  .leaderboard-name {
+    font-size: var(--font-size-sm);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 0;
+  }
+
+  .leaderboard-activity-count {
+    font-size: var(--font-size-xs);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .leaderboard-stat {
+    min-width: 60px;
+    max-width: 80px;
+    flex-shrink: 0;
+    margin-right: var(--spacing-2);
+  }
+
+  .leaderboard-stat-value {
+    font-size: var(--font-size-sm);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .leaderboard-stat-label {
+    font-size: var(--font-size-xs);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* 720p Portrait (720x1280) */
+@media (min-width: 721px) and (max-width: 1280px) and (orientation: portrait) {
+  .app-header {
+    padding: var(--spacing-8) var(--spacing-6);
+  }
+
+  .app-main {
+    padding: var(--spacing-8);
+  }
+
+  .logo-image {
+    height: 4rem;
+    width: 4rem;
+    max-width: 4rem;
+  }
+
+  .logo-text {
+    font-size: var(--font-size-3xl);
+  }
+
+  .leaderboard-title {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--spacing-8);
+  }
+
+  .leaderboard-header {
+    flex-direction: column;
+    gap: var(--spacing-8);
+    text-align: center;
+    margin-bottom: var(--spacing-10);
+  }
+
+  .leaderboard-stats {
+    flex-direction: row;
+    gap: var(--spacing-8);
+    justify-content: center;
+  }
+
+  .stats-label {
+    font-size: var(--font-size-lg);
+  }
+
+  .stats-value {
+    font-size: var(--font-size-2xl);
+  }
+
+  .leaderboard-list {
+    gap: var(--spacing-8);
+  }
+
+  .leaderboard-item {
+    padding: var(--spacing-8);
+    min-height: 100px;
+    gap: var(--spacing-6);
+  }
+
+  .leaderboard-rank {
+    width: 70px;
+    height: 70px;
+    font-size: var(--font-size-4xl);
+    margin-right: var(--spacing-8);
+  }
+
+  .leaderboard-athlete {
+    gap: var(--spacing-4);
+  }
+
+  .leaderboard-name {
+    font-size: var(--font-size-2xl);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+  }
+
+  .leaderboard-activity-count {
+    font-size: var(--font-size-lg);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .leaderboard-stat {
+    min-width: 120px;
+    max-width: 150px;
+  }
+
+  .leaderboard-stat-value {
+    font-size: var(--font-size-2xl);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .leaderboard-stat-label {
+    font-size: var(--font-size-lg);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -902,58 +1104,98 @@
 
 /* 1080p Portrait (1080x1920) */
 @media (min-width: 1081px) and (max-width: 1920px) and (orientation: portrait) {
+  .app-header {
+    padding: var(--spacing-10) var(--spacing-8);
+  }
+
+  .app-main {
+    padding: var(--spacing-10);
+  }
+
   .logo-image {
-    height: 4rem;
-    width: 4rem;
-    max-width: 4rem;
+    height: 5rem;
+    width: 5rem;
+    max-width: 5rem;
   }
 
   .logo-text {
-    font-size: var(--font-size-3xl);
+    font-size: var(--font-size-5xl);
   }
 
   .leaderboard-title {
-    font-size: var(--font-size-4xl);
+    font-size: var(--font-size-6xl);
+    margin-bottom: var(--spacing-10);
+  }
+
+  .leaderboard-header {
+    gap: var(--spacing-10);
+    margin-bottom: var(--spacing-12);
+  }
+
+  .leaderboard-stats {
+    gap: var(--spacing-10);
   }
 
   .stats-label {
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-xl);
   }
 
   .stats-value {
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-4xl);
+  }
+
+  .leaderboard-list {
+    gap: var(--spacing-10);
   }
 
   .leaderboard-item {
-    padding: var(--spacing-7) var(--spacing-8);
-    min-height: 100px;
+    padding: var(--spacing-10);
+    min-height: 140px;
+    gap: var(--spacing-8);
   }
 
   .leaderboard-rank {
-    width: 80px;
-    height: 80px;
-    font-size: var(--font-size-4xl);
-    margin-right: var(--spacing-7);
+    width: 90px;
+    height: 90px;
+    font-size: var(--font-size-6xl);
+    margin-right: var(--spacing-10);
+  }
+
+  .leaderboard-athlete {
+    gap: var(--spacing-6);
   }
 
   .leaderboard-name {
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-4xl);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
   }
 
   .leaderboard-activity-count {
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-xl);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .leaderboard-stat {
-    min-width: 130px;
+    min-width: 150px;
+    max-width: 200px;
   }
 
   .leaderboard-stat-value {
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-4xl);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .leaderboard-stat-label {
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-xl);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -1016,58 +1258,98 @@
 
 /* 4K Portrait (2160x3840/4096) */
 @media (min-width: 2161px) and (max-width: 4096px) and (orientation: portrait) {
+  .app-header {
+    padding: var(--spacing-12) var(--spacing-10);
+  }
+
+  .app-main {
+    padding: var(--spacing-12);
+  }
+
   .logo-image {
-    height: 5rem;
-    width: 5rem;
-    max-width: 5rem;
+    height: 6rem;
+    width: 6rem;
+    max-width: 6rem;
   }
 
   .logo-text {
-    font-size: var(--font-size-4xl);
+    font-size: var(--font-size-7xl);
   }
 
   .leaderboard-title {
-    font-size: var(--font-size-5xl);
+    font-size: var(--font-size-8xl);
+    margin-bottom: var(--spacing-12);
+  }
+
+  .leaderboard-header {
+    gap: var(--spacing-12);
+    margin-bottom: var(--spacing-16);
+  }
+
+  .leaderboard-stats {
+    gap: var(--spacing-12);
   }
 
   .stats-label {
-    font-size: var(--font-size-lg);
-  }
-
-  .stats-value {
-    font-size: var(--font-size-3xl);
-  }
-
-  .leaderboard-item {
-    padding: var(--spacing-8) var(--spacing-10);
-    min-height: 120px;
-  }
-
-  .leaderboard-rank {
-    width: 90px;
-    height: 90px;
-    font-size: var(--font-size-4xl);
-    margin-right: var(--spacing-8);
-  }
-
-  .leaderboard-name {
-    font-size: var(--font-size-3xl);
-  }
-
-  .leaderboard-activity-count {
-    font-size: var(--font-size-lg);
-  }
-
-  .leaderboard-stat {
-    min-width: 140px;
-  }
-
-  .leaderboard-stat-value {
     font-size: var(--font-size-2xl);
   }
 
+  .stats-value {
+    font-size: var(--font-size-5xl);
+  }
+
+  .leaderboard-list {
+    gap: var(--spacing-12);
+  }
+
+  .leaderboard-item {
+    padding: var(--spacing-12);
+    min-height: 160px;
+    gap: var(--spacing-10);
+  }
+
+  .leaderboard-rank {
+    width: 110px;
+    height: 110px;
+    font-size: var(--font-size-7xl);
+    margin-right: var(--spacing-12);
+  }
+
+  .leaderboard-athlete {
+    gap: var(--spacing-8);
+  }
+
+  .leaderboard-name {
+    font-size: var(--font-size-5xl);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+  }
+
+  .leaderboard-activity-count {
+    font-size: var(--font-size-2xl);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .leaderboard-stat {
+    min-width: 180px;
+    max-width: 250px;
+  }
+
+  .leaderboard-stat-value {
+    font-size: var(--font-size-5xl);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .leaderboard-stat-label {
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-2xl);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
