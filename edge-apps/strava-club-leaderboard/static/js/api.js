@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars, no-undef, no-useless-catch */
+
 /* global screenly, StravaCache */
 
 // Strava API functions for Club Leaderboard App

@@ -239,7 +239,7 @@ The app includes smart caching to minimize API calls:
 
 ### File Structure
 
-```
+```bash
 strava-club-leaderboard/
 ├── index.html              # Main HTML file
 ├── screenly.yml            # Edge App configuration
