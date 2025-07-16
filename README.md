@@ -35,6 +35,11 @@ This will create a new Edge App with the name `<app-name>` in the `edge-apps` di
 > [!NOTE]
 > Don't forget to update `README.md` and `screenly.yml` as needed.
 
+Make sure that you have the following installed before setting up the new Edge App:
+
+- [Bun (1.2.2+)](https://bun.sh/docs/installation)
+- [Screenly Edge App CLI (v1.0.3+)](https://github.com/Screenly/cli?tab=readme-ov-file#installation)
+
 ## Other
 
 - [Bootstrap](https://github.com/Screenly/playground/tree/master/bootstrap/): A digital signage optimized Bootstrap theme for our Playground apps.
