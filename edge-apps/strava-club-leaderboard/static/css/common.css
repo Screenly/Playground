@@ -29,7 +29,7 @@
 
 /* Typography - Responsive font size using clamp() matching original breakpoints */
 html {
-  font-size: clamp(12px, 0.35vw + 10.32px, 20px);
+  font-size: 14px;
 }
 
 /* Reset */
