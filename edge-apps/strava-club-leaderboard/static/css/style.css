@@ -306,8 +306,6 @@
   margin-top: auto;
 }
 
-
-
 .footer-content {
   display: flex;
   flex-direction: column;
@@ -321,16 +319,12 @@
   opacity: 1;
 }
 
-
-
 .footer-text {
   font-size: var(--font-size-sm);
   color: var(--theme-color-text-secondary);
   opacity: 0.8;
   transition: opacity 0.2s ease;
 }
-
-
 
 .footer-attribution {
   display: flex;
@@ -1184,5 +1178,3 @@
     font-weight: 600;
   }
 }
-
-/* Responsive Footer */
