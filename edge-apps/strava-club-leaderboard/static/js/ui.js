@@ -237,6 +237,129 @@ window.StravaUI = (function () {
     }
   }
 
+  // Auto-scroll functionality
+  let autoScrollTimer = null
+  let autoScrollConfig = {
+    scrollDuration: 20000, // 20 seconds for full cycle
+    pauseDuration: 40000,   // 2 seconds pause at top/bottom
+    enableThreshold: 1.2   // Enable when content is 20% taller than container
+  }
+
+      function checkAutoScrollNeeded () {
+    const container = document.getElementById('leaderboard-list')
+    const mainContainer = document.querySelector('.app-main')
+
+    if (!container || !mainContainer) return false
+
+    // Get the current visible height of the main container
+    const mainHeight = mainContainer.clientHeight
+    const leaderboardHeader = document.querySelector('.leaderboard-header')
+    const headerHeight = leaderboardHeader ? leaderboardHeader.offsetHeight : 0
+
+    // Account for leaderboard padding and other UI elements
+    const footerHeight = 80 // Approximate footer height
+    const padding = 40 // Leaderboard padding
+    const availableHeight = mainHeight - headerHeight - footerHeight - padding
+
+    const contentHeight = container.scrollHeight
+
+    return contentHeight > (availableHeight * autoScrollConfig.enableThreshold)
+  }
+
+      function enableAutoScroll () {
+    const container = document.getElementById('leaderboard-list')
+    const mainContainer = document.querySelector('.app-main')
+
+    if (!container || !mainContainer) return
+
+    // Calculate available space and overflow
+    const mainHeight = mainContainer.clientHeight
+    const leaderboardHeader = document.querySelector('.leaderboard-header')
+    const headerHeight = leaderboardHeader ? leaderboardHeader.offsetHeight : 0
+    const footerHeight = 80
+    const padding = 40
+    const availableHeight = mainHeight - headerHeight - footerHeight - padding
+
+    const contentHeight = container.scrollHeight
+    const overflowAmount = contentHeight - availableHeight
+
+    if (overflowAmount <= 0) return
+
+    // Create scroll container wrapper if it doesn't exist
+    let scrollWrapper = container.parentElement
+    if (!scrollWrapper.classList.contains('leaderboard-container-scroll')) {
+      scrollWrapper = document.createElement('div')
+      scrollWrapper.className = 'leaderboard-container-scroll'
+      container.parentElement.insertBefore(scrollWrapper, container)
+      scrollWrapper.appendChild(container)
+    }
+
+    // Calculate scroll distance (negative to scroll up)
+    const scrollDistance = -overflowAmount
+
+    // Set CSS custom properties
+    scrollWrapper.style.setProperty('--scroll-container-height', `${availableHeight}px`)
+    scrollWrapper.style.setProperty('--scroll-distance', `${scrollDistance}px`)
+    scrollWrapper.style.setProperty('--scroll-duration', `${autoScrollConfig.scrollDuration}ms`)
+    scrollWrapper.style.setProperty('--scroll-state', 'running')
+
+    // Add auto-scroll class to the list
+    container.classList.add('auto-scroll-active')
+
+    console.log(`Auto-scroll enabled - content overflows by ${Math.abs(scrollDistance)}px`)
+  }
+
+      function disableAutoScroll () {
+    const container = document.getElementById('leaderboard-list')
+
+    if (!container) return
+
+    // Remove auto-scroll class from list
+    container.classList.remove('auto-scroll-active')
+
+    // Find and clean up scroll wrapper
+    const scrollWrapper = document.querySelector('.leaderboard-container-scroll')
+    if (scrollWrapper) {
+      // Move the list back to its original parent
+      const originalParent = scrollWrapper.parentElement
+      originalParent.insertBefore(container, scrollWrapper)
+      scrollWrapper.remove()
+    }
+
+    console.log('Auto-scroll disabled - content fits in container')
+  }
+
+
+
+  function initializeAutoScroll () {
+    if (checkAutoScrollNeeded()) {
+      enableAutoScroll()
+    } else {
+      disableAutoScroll()
+    }
+  }
+
+  function updateAutoScrollConfig (newConfig) {
+    autoScrollConfig = { ...autoScrollConfig, ...newConfig }
+
+    // If auto-scroll is currently enabled, restart with new config
+    const mainContainer = document.querySelector('.app-main')
+    if (mainContainer && mainContainer.classList.contains('auto-scroll-enabled')) {
+      enableAutoScroll()
+    }
+  }
+
+  // Enhanced renderLeaderboard with auto-scroll support
+  function renderLeaderboardWithAutoScroll (leaderboard) {
+    renderLeaderboard(leaderboard)
+
+    // Check and initialize auto-scroll after rendering
+    // Use setTimeout to ensure DOM is fully updated
+    setTimeout(() => {
+      initializeAutoScroll()
+    }, 100)
+  }
+
   // Public API
   return {
     showLoading,
@@ -248,7 +371,13 @@ window.StravaUI = (function () {
     updateStatsLabels,
     updateLeaderboardTitle,
     renderLeaderboard,
+    renderLeaderboardWithAutoScroll,
     initializeUI,
-    resetTimeFilteringState
+    resetTimeFilteringState,
+    initializeAutoScroll,
+    updateAutoScrollConfig,
+    checkAutoScrollNeeded,
+    enableAutoScroll,
+    disableAutoScroll
   }
 })()

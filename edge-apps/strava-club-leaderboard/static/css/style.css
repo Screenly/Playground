@@ -43,7 +43,7 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: clamp(2rem, calc(0.5vw + 0.5vh), 1000rem);
+  gap: clamp(.25rem, calc(0.25vw + 0.25vh), 1000rem);
 }
 
 .logo-image {
@@ -415,7 +415,7 @@
 
 /* Enhanced contrast for text on colored backgrounds */
 .leaderboard-item-top-3 {
-  border: 3px solid var(--theme-color-primary);
+  border: 0.3em solid var(--theme-color-primary);
   box-shadow: 0 0.1rem 0.1rem #00000026;
 }
 
@@ -494,6 +494,45 @@
 }
 
 
+/* Auto-scroll functionality */
+.leaderboard-container-scroll {
+  overflow: hidden;
+  height: 100%;
+}
+
+.leaderboard-list.auto-scroll-active {
+  animation: smoothAutoScroll var(--scroll-duration, 20s) linear infinite;
+  animation-play-state: var(--scroll-state, running);
+}
+
+/* Auto-scroll animation keyframes */
+@keyframes smoothAutoScroll {
+  0% {
+    transform: translateY(0);
+  }
+
+  15% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(var(--scroll-distance));
+  }
+
+  65% {
+    transform: translateY(var(--scroll-distance));
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Pause animation on hover for better UX */
+.leaderboard-container-scroll:hover .leaderboard-list.auto-scroll-active {
+  animation-play-state: paused;
+}
+
 @media (max-width: 4096px) and (orientation: portrait) {
   .leaderboard-title {
     font-size: clamp(2rem, calc(1.2vw + 1.2vh), 1000rem);
@@ -568,6 +607,4 @@
   .stats-value {
     font-size: clamp(1.2rem, calc(1.25vw + 1.25vh), 1000rem);
   }
-
 }
-
