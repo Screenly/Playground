@@ -26,19 +26,43 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 
 ### Creating a new Edge App from the template
 
+> [!IMPORTANT]
+> Make sure that you have the following installed before proceeding:
+>
+> - [Bun (1.2.2+)](https://bun.sh/docs/installation)
+> - [Screenly Edge App CLI (v1.0.3+)](https://github.com/Screenly/cli?tab=readme-ov-file#installation)
+
+After installing `bun` and the Screenly CLI, run the following command to create a new Edge App:
+
 ```bash
-./scripts/create-edge-app.sh <app-name>
+$ cd edge-apps/
+$ bun create --no-git edge-app-template <edge-app-name>
+
 ```
 
-This will create a new Edge App with the name `<app-name>` in the `edge-apps` directory.
+```
+Created <edge-app-name> project successfully
+
+# To get started, run:
+
+  cd <edge-app-name>
+  bun dev
+```
+
+This will create a new Edge App with the name `<edge-app-name>` in the `edge-apps` directory.
 
 > [!NOTE]
 > Don't forget to update `README.md` and `screenly.yml` as needed.
+>
+> You can also use the `screenly-edge-app` CLI to run the Edge App locally.
 
-Make sure that you have the following installed before setting up the new Edge App:
+You can now run the local development server by running the following commands:
 
-- [Bun (1.2.2+)](https://bun.sh/docs/installation)
-- [Screenly Edge App CLI (v1.0.3+)](https://github.com/Screenly/cli?tab=readme-ov-file#installation)
+```bash
+$ cd <edge-app-name>
+$ bun dev
+$ screenly-edge-app run --path=dist/
+```
 
 ## Other
 
