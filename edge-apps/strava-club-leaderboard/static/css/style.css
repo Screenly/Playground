@@ -166,11 +166,6 @@
   overflow: hidden;
 }
 
-.leaderboard-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px #00000026;
-}
-
 .leaderboard-rank {
   display: flex;
   align-items: center;
@@ -273,10 +268,6 @@
   justify-content: center;
   gap: clamp(0.5rem, calc(0.5vw + 0.5vh), 1000rem); /* Reduced gap */
   transition: opacity 0.2s ease;
-}
-
-.footer-content:hover {
-  opacity: 1;
 }
 
 .footer-text {
@@ -419,12 +410,6 @@
   box-shadow: 0 0.1rem 0.1rem #00000026;
 }
 
-.leaderboard-item-top-3:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0.1rem 0.1rem #0003;
-}
-
-
 /* Loading and Error States - Larger for visibility */
 .loading {
   position: fixed;
@@ -526,11 +511,6 @@
   100% {
     transform: translateY(0);
   }
-}
-
-/* Pause animation on hover for better UX */
-.leaderboard-container-scroll:hover .leaderboard-list.auto-scroll-active {
-  animation-play-state: paused;
 }
 
 @media (max-width: 4096px) and (orientation: portrait) {
