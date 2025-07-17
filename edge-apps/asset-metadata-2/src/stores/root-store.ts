@@ -20,7 +20,13 @@ export const useScreenlyMetadataStore = defineStore('metadata', () => {
 
   const formattedCoordinates = computed(() => {
     const [latitude, longitude] = coordinates.value
-    return `${latitude}, ${longitude}`
+
+    const latString = `${Math.abs(latitude).toFixed(4)}\u00B0`
+    const latDirection = latitude > 0 ? 'N' : 'S'
+    const lngString = `${Math.abs(longitude).toFixed(4)}\u00B0`
+    const lngDirection = longitude > 0 ? 'E' : 'W'
+
+    return `${latString} ${latDirection}, ${lngString} ${lngDirection}`
   })
 
   return {
