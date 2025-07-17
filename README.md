@@ -35,9 +35,8 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 After installing `bun` and the Screenly CLI, run the following command to create a new Edge App:
 
 ```bash
-$ cd edge-apps/
-$ bun create --no-git edge-app-template <edge-app-name>
-
+cd edge-apps/
+bun create --no-git edge-app-template <edge-app-name>
 ```
 
 ```
@@ -59,9 +58,9 @@ This will create a new Edge App with the name `<edge-app-name>` in the `edge-app
 You can now run the local development server by running the following commands:
 
 ```bash
-$ cd <edge-app-name>
-$ bun dev
-$ screenly-edge-app run --path=dist/
+cd <edge-app-name>
+bun dev
+screenly-edge-app run --path=dist/
 ```
 
 ## Other
