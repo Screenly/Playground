@@ -2,8 +2,6 @@
 
 /* Strava Club Leaderboard Styles  */
 
-
-
 /* App Layout */
 .app {
   display: flex;
@@ -45,18 +43,18 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: clamp(0.75rem, calc(0.5vw + 0.5vh), 1000rem);
+  gap: clamp(2rem, calc(0.5vw + 0.5vh), 1000rem);
 }
 
 .logo-image {
-  width: clamp(2rem, calc(2vw + 2vh), 1000rem);
+  width: clamp(2rem, calc(2.5vw + 2.5vh), 1000rem);
   object-fit: contain;
   border-radius: clamp(0.5rem, calc(0.1vw + 0.1vh), 1000rem);
   background-color: var(--theme-color-background);
 }
 
 .logo-text {
-  font-size: clamp(2rem, calc(1vw + 1vh), 1000rem);
+  font-size: clamp(1.5rem, calc(1vw + 1vh), 1000rem);
   font-weight: 700;
   color: var(--theme-color-text);
   margin: 0;
@@ -107,7 +105,7 @@
 }
 
 .leaderboard-title {
-  font-size: clamp(2rem, calc(1.25vw + 1.25vh), 1000rem);
+  font-size: clamp(1.3rem, calc(1.25vw + 1.25vh), 1000rem);
   font-weight: 700;
   color: var(--theme-color-text);
   margin: 0;
@@ -130,7 +128,7 @@
 }
 
 .stats-label {
-  font-size: clamp(1rem, calc(.75vw + .75vh), 1000rem);
+  font-size: clamp(.8rem, calc(.75vw + .75vh), 1000rem);
   font-weight: 600;
   color: var(--theme-color-text-secondary);
   text-transform: uppercase;
@@ -138,7 +136,7 @@
 }
 
 .stats-value {
-  font-size: clamp(1.5rem, calc(1.25vw + 1.25vh), 1000rem);
+  font-size: clamp(1.2rem, calc(1.25vw + 1.25vh), 1000rem);
   font-weight: 700;
   color: var(--theme-color-primary);
   line-height: 1;
@@ -157,13 +155,13 @@
 .leaderboard-item {
   display: flex;
   align-items: center;
-  padding: clamp(1rem, calc(0.75vw + 0.75vh), 1000rem) clamp(1.25rem, calc(1vw + 1vh), 1000rem); /* Reduced padding */
+  padding: clamp(.5rem, calc(0.75vw + 0.75vh), 1000rem) clamp(.5rem, calc(1vw + 1vh), 1000rem); /* Reduced padding */
   background-color: var(--theme-color-card);
-  border-radius: clamp(1.543rem, 0.275vw + 0.811rem, 6.857rem);
-  box-shadow: 0 4px 12px #0000001A;
+  border-radius: clamp(1rem, calc(0.275vw + 0.811vh), 1000rem);
+  box-shadow: 0 0.2em 0.2em #0000001A;
   border: 2px solid var(--theme-color-border);
   transition: all 0.3s ease;
-  height: clamp(1rem, calc(3.6vw + 3.6vh), 1000rem);
+  height: clamp(.75rem, calc(3.6vw + 3.6vh), 1000rem);
   max-width: 100%;
   overflow: hidden;
 }
@@ -180,11 +178,11 @@
   width: clamp(1rem, calc(2.5vw + 2.5vh), 1000rem);
   height: clamp(1rem, calc(2.5vw + 2.5vh), 1000rem);
   border-radius: 50%;
-  font-size: clamp(2rem, 2vw + 2vh, 8rem);
+  font-size: clamp(.75rem, calc(1.75vw + 1.75vh), 1000rem);
   font-weight: 800;
   color: white;
-  margin-left: clamp(0.75rem, 0.5vw + 0.5vh, 2rem);
-  margin-right: clamp(1.5rem, 1vw + 1vh, 4rem);
+  margin-left: clamp(0.75rem, calc(0.5vw + 0.5vh), 2rem);
+  margin-right: clamp(1.5rem, calc(1vw + 1vh), 4rem);
   text-shadow: 0 0.1rem 0.1rem #0003;
   flex-shrink: 0;
 }
@@ -192,17 +190,17 @@
 .leaderboard-athlete {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.25rem, 0.25vw + 0.25vh, 1rem);
+  gap: clamp(.01rem, calc(0.25vw + 0.25vh), 1rem);
   flex: 1;
   min-width: 0;
 }
 
 .leaderboard-name {
-  font-size: clamp(1rem, 1.2vw + 1.2vh, 4rem);
+  font-size: clamp(1rem, calc(1vw + 1vh), 1000rem);
   font-weight: 700;
   color: var(--theme-color-text);
   margin: 0;
-  margin-top: clamp(0.25rem, 0.25vw + 0.25vh, 1rem);
+  margin-top: clamp(0.25rem, calc(0.25vw + 0.25vh), 1rem);
   line-height: 1.2;
   text-shadow: 0 1px 2px #0000001A;
   word-wrap: break-word;
@@ -211,7 +209,7 @@
 }
 
 .leaderboard-activity-count {
-  font-size: clamp(1rem, 1vw + 1vh, 2rem);
+  font-size: clamp(.75rem, calc(1vw + 1vh), 1000rem);
   font-weight: 500;
   color: var(--theme-color-text-secondary);
   margin: 0;
@@ -224,22 +222,23 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: clamp(0.25rem, 0.25vw + 0.25vh, 1rem);
-  min-width: 120px;
-  margin-right: clamp(0.75rem, 0.5vw + 0.5vh, 2rem);
+  gap: clamp(0.25rem, calc(0.25vw + 0.25vh), 500rem);
+  /* min-width: 120px; */
+  width: clamp(1rem, calc(6.2vw + 6.2vh), 1000rem);
+  margin-right: clamp(0.75rem, calc(0.5vw + 0.5vh), 2rem);
 }
 
 .leaderboard-stat-label {
-  font-size: clamp(0.75rem, 0.8vw + 0.8vh, 1.5rem);
+  font-size: clamp(0.75rem, calc(0.8vw + 0.8vh), 1000rem);
   font-weight: 600;
   color: var(--theme-color-text-secondary);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: .05em;
   opacity: 0.9;
 }
 
 .leaderboard-stat-value {
-  font-size: clamp(1rem, 1.2vw + 1.2vh, 4rem);
+  font-size: clamp(1rem, calc(1vw + 1vh), 1000rem);
   font-weight: 700;
   color: var(--theme-color-text);
   line-height: 1;
@@ -248,20 +247,20 @@
 
 /* Activity Type Icons */
 .activity-type-icon {
-  width: 1.5rem;
-  height: 1.5rem;
-  margin-right: clamp(0.25rem, 0.25vw + 0.25vh, 1rem);
+  width: clamp(1rem, calc(1.5vw + 1.5vh), 1000rem);
+  height: clamp(1rem, calc(1.5vw + 1.5vh), 1000rem);
+  margin-right: clamp(0.25rem, calc(0.25vw + 0.25vh), 1rem);
 }
 
 /* Footer */
 .app-footer {
-  padding: clamp(0.25rem, calc(0.25vw + 0.25vh), 1000rem) clamp(0.75rem, calc(0.5vw + 0.5vh), 1000rem); /* Minimal vertical padding for height control */
+  padding: clamp(0.25rem, calc(0.25vw + 0.25vh), 1000rem) clamp(5rem, calc(0.5vw + 0.5vh), 1000rem); /* Minimal vertical padding for height control */
   background-color: var(--theme-color-card);
   border-top: 1px solid var(--theme-color-border);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: clamp(0.125rem, calc(0.125vw + 0.125vh), 1000rem); /* Minimal gap for height control */
+  gap: clamp(0.5rem, calc(0.125vw + 0.125vh), 1000rem); /* Minimal gap for height control */
   align-items: center;
   margin-top: auto;
   height: clamp(1rem, calc(3.5vw + 3.5vh), 1000rem); /* Direct height control */
@@ -272,7 +271,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.125rem, calc(0.125vw + 0.125vh), 1000rem); /* Reduced gap */
+  gap: clamp(0.5rem, calc(0.5vw + 0.5vh), 1000rem); /* Reduced gap */
   transition: opacity 0.2s ease;
 }
 
@@ -281,7 +280,7 @@
 }
 
 .footer-text {
-  font-size: clamp(0.5rem, calc(0.5vw + 0.5vh), 1000rem); /* Reduced font size */
+  font-size: clamp(0.75rem, calc(0.5vw + 0.5vh), 1000rem); /* Reduced font size */
   color: var(--theme-color-text-secondary);
   opacity: 0.8;
   transition: opacity 0.2s ease;
@@ -297,7 +296,7 @@
 
 .footer-attribution-item {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   gap: clamp(0.125rem, calc(0.125vw + 0.125vh), 1000rem);
 }
@@ -319,11 +318,11 @@
 }
 
 .footer-logo-strava {
-  width: clamp(1rem, calc(3vw + 3vh), 1000rem);
+  width: clamp(2rem, calc(3vw + 3vh), 1000rem);
 }
 
 .footer-logo-screenly {
-  width: clamp(1rem, calc(3vw + 3vh), 1000rem);
+  width: clamp(2rem, calc(3.75vw + 3.75vh), 1000rem);
 }
 
 /* Animations */
@@ -437,13 +436,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(1.5rem, 1vw + 1vh, 4rem);
+  gap: clamp(1.5rem, calc(1vw + 1vh), 4rem);
   background-color: var(--theme-color-background);
   z-index: 1000;
 }
 
 .loading-text {
-  font-size: clamp(1.5rem, 1.5vw + 1.5vh, 4rem);
+  font-size: clamp(1.5rem, calc(1.5vw + 1.5vh), 4rem);
   font-weight: 600;
   color: var(--theme-color-text-secondary);
   text-align: center;
@@ -469,28 +468,106 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  gap: clamp(1rem, 0.75vw + 0.75vh, 3rem);
+  gap: clamp(1rem, calc(0.75vw + 0.75vh), 3rem);
   text-align: center;
-  padding: clamp(1.5rem, 1vw + 1vh, 4rem);
+  padding: clamp(1.5rem, calc(1vw + 1vh), 4rem);
 }
 
 .error-icon {
-  font-size: clamp(3rem, 3vw + 3vh, 12rem);
+  font-size: clamp(3rem, calc(3vw + 3vh), 12rem);
   color: var(--theme-color-error);
 }
 
 .error-title {
-  font-size: clamp(2rem, 2vw + 2vh, 8rem);
+  font-size: clamp(2rem, calc(2vw + 2vh), 8rem);
   font-weight: 700;
   color: var(--theme-color-text);
   margin: 0;
 }
 
 .error-message {
-  font-size: clamp(1rem, 1vw + 1vh, 2rem);
+  font-size: clamp(1rem, calc(1vw + 1vh), 2rem);
   color: var(--theme-color-text-secondary);
   margin: 0;
   max-width: 600px;
   line-height: 1.5;
+}
+
+
+@media (max-width: 4096px) and (orientation: portrait) {
+  .leaderboard-title {
+    font-size: clamp(2rem, calc(1.2vw + 1.2vh), 1000rem);
+  }
+
+  .leaderboard-rank {
+    font-size: clamp(2rem, calc(1.3vw + 1.3vh), 1000rem);
+  }
+
+  .leaderboard-activity-count {
+    font-size: clamp(1rem, calc(.8vw + .8vh), 1000rem);
+  }
+
+  .leaderboard-stat {
+    width: clamp(1rem, calc(3.2vw + 3.2vh), 1000rem);
+  }
+
+  .leaderboard-stat-label {
+    font-size: clamp(0.5rem, calc(0.6vw + 0.6vh), 1000rem);
+  }
+
+  .leaderboard-stat-value {
+    font-size: clamp(1rem, calc(.75vw + .75vh), 1000rem);
+  }
+}
+
+@media (max-width: 800px) and (orientation: portrait) {
+  .logo-image {
+    width: clamp(1.5rem, calc(3vw + 3vh), 1000rem);
+  }
+
+  .logo-text {
+    font-size: clamp(1rem, calc(1vw + 1vh), 1000rem);
+  }
+
+  .last-updated {
+    font-size: clamp(0.8rem, calc(0.75vw + 0.75vh), 1000rem);
+  }
+
+  .leaderboard-title {
+    font-size: clamp(1.2rem, calc(1vw + 1vh), 1000rem);
+  }
+
+  .leaderboard-stats {
+    gap: clamp(.1rem, calc(.6vw + .6vh), 1000rem);
+  }
+
+  .leaderboard-item {
+    height: clamp(.75rem, calc(4vw + 4vh), 1000rem);
+  }
+
+  .leaderboard-activity-count {
+    font-size: clamp(.7rem, calc(.75vw + .75vh), 1000rem);
+  }
+
+  .leaderboard-stat-value {
+    font-size: clamp(.7rem, calc(.75vw + .75vh), 1000rem);
+  }
+
+  .leaderboard-rank {
+    font-size: clamp(1.5rem, calc(1.3vw + 1.3vh), 1000rem);
+  }
+
+  .leaderboard-name {
+    font-size: clamp(.75rem, calc(.75vw + .75vh), 1000rem);
+  }
+
+  .stats-label {
+    font-size: clamp(.75rem, calc(.75vw + .75vh), 1000rem);
+  }
+
+  .stats-value {
+    font-size: clamp(1.2rem, calc(1.25vw + 1.25vh), 1000rem);
+  }
+
 }
 
