@@ -241,13 +241,13 @@ window.StravaUI = (function () {
 
   // Auto-scroll functionality
   const autoScrollTimer = null
-  const autoScrollConfig = {
+  let autoScrollConfig = {
     scrollDuration: 20000, // 20 seconds for full cycle
     pauseDuration: 40000, // 2 seconds pause at top/bottom
     enableThreshold: 1.2 // Enable when content is 20% taller than container
   }
 
-    function checkAutoScrollNeeded () {
+  function checkAutoScrollNeeded () {
     const container = document.getElementById('leaderboard-list')
     const mainContainer = document.querySelector('.app-main')
 
@@ -268,7 +268,7 @@ window.StravaUI = (function () {
     return contentHeight > (availableHeight * autoScrollConfig.enableThreshold)
   }
 
-    function enableAutoScroll () {
+  function enableAutoScroll () {
     const container = document.getElementById('leaderboard-list')
     const mainContainer = document.querySelector('.app-main')
 
@@ -311,7 +311,7 @@ window.StravaUI = (function () {
     console.log(`Auto-scroll enabled - content overflows by ${Math.abs(scrollDistance)}px`)
   }
 
-    function disableAutoScroll () {
+  function disableAutoScroll () {
     const container = document.getElementById('leaderboard-list')
 
     if (!container) return
