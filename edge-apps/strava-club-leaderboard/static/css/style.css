@@ -218,7 +218,6 @@
   align-items: center;
   text-align: center;
   gap: clamp(0.25rem, calc(0.25vw + 0.25vh), 500rem);
-  /* min-width: 120px; */
   width: clamp(1rem, calc(6.2vw + 6.2vh), 1000rem);
   margin-right: clamp(0.75rem, calc(0.5vw + 0.5vh), 2rem);
 }
@@ -486,12 +485,12 @@
 }
 
 .leaderboard-list.auto-scroll-active {
-  animation: smoothAutoScroll var(--scroll-duration, 20s) linear infinite;
+  animation: smooth-auto-scroll var(--scroll-duration, 20s) linear infinite;
   animation-play-state: var(--scroll-state, running);
 }
 
 /* Auto-scroll animation keyframes */
-@keyframes smoothAutoScroll {
+@keyframes smooth-auto-scroll {
   0% {
     transform: translateY(0);
   }
