@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars, no-useless-catch */
+
 /* global StravaUtils */
 
 // UI functions for Strava Club Leaderboard App

@@ -22,8 +22,6 @@
     // Note: Time filtering is never available due to Strava Club Activities API limitations
   }
 
-
-
   // Main application logic
   async function loadLeaderboard () {
     if (appState.isLoading) return
@@ -76,8 +74,6 @@
       StravaUI.updateLeaderboardTitle()
       StravaUI.showLeaderboard()
 
-
-
       // Signal ready for rendering after data is loaded and UI is updated
       if (typeof screenly !== 'undefined' && screenly.signalReadyForRendering) {
         screenly.signalReadyForRendering()
@@ -96,8 +92,6 @@
       appState.isLoading = false
     }
   }
-
-
 
   // Start automatic refresh timer
   function startRefreshTimer () {
@@ -202,7 +196,7 @@
       console.log(`Auto-scroll needed: ${needed}`)
       return needed
     },
-        debugScrollDimensions: () => {
+      debugScrollDimensions: () => {
       const container = document.getElementById('leaderboard-list')
       const mainContainer = document.querySelector('.app-main')
       const leaderboardHeader = document.querySelector('.leaderboard-header')
