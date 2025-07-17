@@ -39,7 +39,7 @@ cd edge-apps/
 bun create --no-git edge-app-template <edge-app-name>
 ```
 
-```
+```plaintext
 Created <edge-app-name> project successfully
 
 # To get started, run:
