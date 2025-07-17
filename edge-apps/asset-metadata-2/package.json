@@ -13,6 +13,7 @@
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
+    "edge-app-server": "screenly edge-app run --path=dist/",
     "deploy": "screenly edge-app deploy --path dist/"
   },
   "dependencies": {
