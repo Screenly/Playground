@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { useScreenlyMetadataStore } from './stores/root-store'
+import { useScreenlyMetadataStore, useSettingsStore } from './stores/root-store'
 
 const screenlyMetadataStore = useScreenlyMetadataStore()
+const settingsStore = useSettingsStore()
 
 onMounted(() => {
   screenly.signalReadyForRendering()
+  settingsStore.setupTheme()
 })
 </script>
 

@@ -34,3 +34,39 @@ export const useScreenlyMetadataStore = defineStore('metadata', () => {
     formattedCoordinates,
   }
 })
+
+export const useSettingsStore = defineStore('settings', () => {
+  const settings = ref(screenly.settings)
+
+  const tertiaryColor = '#FFFFFF'
+  const backgroundColor = '#C9CDD0'
+  const defaultPrimaryColor = '#7E2CD2'
+  let secondaryColor = '#454BD2'
+
+  const primaryColor =
+    !settings.value.screenly_color_accent ||
+    settings.value.screenly_color_accent.toLowerCase() === '#ffffff'
+      ? defaultPrimaryColor
+      : settings.value.screenly_color_accent
+
+  if (settings.value.theme === 'light') {
+    secondaryColor =
+      !settings.value.screenly_color_light ||
+      settings.value.screenly_color_light.toLowerCase() === '#ffffff'
+        ? '#adafbe'
+        : settings.value.screenly_color_light
+  } else if (settings.value.theme === 'dark') {
+    secondaryColor =
+      !settings.value.screenly_color_dark ||
+      settings.value.screenly_color_dark.toLowerCase() === '#ffffff'
+        ? '#adafbe'
+        : settings.value.screenly_color_dark
+  }
+
+  document.documentElement.style.setProperty('--theme-color-primary', primaryColor)
+  document.documentElement.style.setProperty('--theme-color-secondary', secondaryColor)
+  document.documentElement.style.setProperty('--theme-color-tertiary', tertiaryColor)
+  document.documentElement.style.setProperty('--theme-color-background', backgroundColor)
+
+  return { settings }
+})
