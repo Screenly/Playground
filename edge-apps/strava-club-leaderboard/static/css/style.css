@@ -2,12 +2,7 @@
 
 /* Strava Club Leaderboard Styles  */
 
-/* Additional CSS variables */
-:root {
-  --border-radius: 0.5rem;
-  --border-radius-lg: 0.75rem;
-  --border-radius-full: 9999px;
-}
+
 
 /* App Layout */
 .app {
@@ -25,14 +20,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--spacing-8) var(--current-padding);
+  padding: clamp(1.5rem, calc(1vw + 1vh), 1000rem) clamp(1.5rem, calc(.5vw + .5vh), 1000rem);
   background-color: var(--theme-color-card);
-  border-bottom: 2px solid var(--theme-color-border);
+  border-bottom: 0.1em solid var(--theme-color-border);
   position: sticky;
   top: 0;
   z-index: 100;
   backdrop-filter: blur(10px);
-  box-shadow: 0 2px 8px #0000001A;
+  box-shadow: 0.1em 8px #0000001A;
 }
 
 .app-header-left {
@@ -43,27 +38,25 @@
 .app-header-right {
   display: flex;
   align-items: center;
-  gap: var(--spacing-4);
+  gap: clamp(0.75rem, calc(0.5vw + 0.5vh), 1000rem);
 }
 
 /* Logo */
 .logo {
   display: flex;
   align-items: center;
-  gap: var(--spacing-4);
+  gap: clamp(0.75rem, calc(0.5vw + 0.5vh), 1000rem);
 }
 
 .logo-image {
-  height: 4rem;
-  width: 4rem;
-  max-width: 4rem;
+  width: clamp(2rem, calc(2vw + 2vh), 1000rem);
   object-fit: contain;
-  border-radius: var(--border-radius);
+  border-radius: clamp(0.5rem, calc(0.1vw + 0.1vh), 1000rem);
   background-color: var(--theme-color-background);
 }
 
 .logo-text {
-  font-size: var(--font-size-4xl);
+  font-size: clamp(2rem, calc(1vw + 1vh), 1000rem);
   font-weight: 700;
   color: var(--theme-color-text);
   margin: 0;
@@ -74,10 +67,10 @@
 .last-updated {
   display: flex;
   align-items: center;
-  padding: var(--spacing-3) var(--spacing-4);
+  padding: clamp(0.25rem, calc(0.25vw + 0.25vh), 1000rem) clamp(0.75rem, calc(0.5vw + 0.5vh), 1000rem);
   background-color: var(--theme-color-background);
-  border-radius: var(--border-radius);
-  font-size: var(--font-size-lg);
+  border-radius: clamp(0.5rem, calc(0.1vw + 0.1vh), 1000rem);
+  font-size: clamp(1rem, calc(.75vw + .75vh), 1000rem);
   color: var(--theme-color-text-secondary);
   border: 1px solid var(--theme-color-border);
 }
@@ -89,7 +82,7 @@
 /* Main Content */
 .app-main {
   flex: 1;
-  padding: var(--current-padding);
+  padding: clamp(0.75rem, calc(0.5vw + 0.5vh), 1000rem); /* Reduced padding for more space */
   overflow-y: auto;
 }
 
@@ -99,10 +92,10 @@
 
 /* Leaderboard */
 .leaderboard {
-  padding: var(--spacing-8) var(--current-padding);
+  padding: clamp(1rem, calc(0.75vw + 0.75vh), 1000rem) clamp(0.75rem, calc(0.5vw + 0.5vh), 1000rem); /* Reduced padding */
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-8);
+  gap: clamp(1rem, calc(0.75vw + 0.75vh), 1000rem); /* Reduced gap */
   max-width: 100%;
 }
 
@@ -110,11 +103,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--spacing-4);
+  margin-bottom: clamp(0.75rem, calc(0.5vw + 0.5vh), 1000rem);
 }
 
 .leaderboard-title {
-  font-size: var(--font-size-4xl);
+  font-size: clamp(2rem, calc(1.25vw + 1.25vh), 1000rem);
   font-weight: 700;
   color: var(--theme-color-text);
   margin: 0;
@@ -123,7 +116,7 @@
 
 .leaderboard-stats {
   display: flex;
-  gap: var(--spacing-8);
+  gap: clamp(1.5rem, calc(1vw + 1vh), 1000rem);
   align-items: center;
   flex-shrink: 0;
 }
@@ -133,11 +126,11 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: var(--spacing-1);
+  gap: clamp(0.25rem, calc(0.25vw + 0.25vh), 1000rem);
 }
 
 .stats-label {
-  font-size: var(--font-size-lg);
+  font-size: clamp(1rem, calc(.75vw + .75vh), 1000rem);
   font-weight: 600;
   color: var(--theme-color-text-secondary);
   text-transform: uppercase;
@@ -145,7 +138,7 @@
 }
 
 .stats-value {
-  font-size: var(--font-size-3xl);
+  font-size: clamp(1.5rem, calc(1.25vw + 1.25vh), 1000rem);
   font-weight: 700;
   color: var(--theme-color-primary);
   line-height: 1;
@@ -155,7 +148,7 @@
 .leaderboard-list {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-6);
+  gap: clamp(0.5rem, calc(0.5vw + 0.5vh), 1000rem); /* Reduced gap for more items */
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
@@ -164,13 +157,13 @@
 .leaderboard-item {
   display: flex;
   align-items: center;
-  padding: var(--spacing-8) var(--spacing-10);
+  padding: clamp(1rem, calc(0.75vw + 0.75vh), 1000rem) clamp(1.25rem, calc(1vw + 1vh), 1000rem); /* Reduced padding */
   background-color: var(--theme-color-card);
-  border-radius: var(--current-border-radius-big);
+  border-radius: clamp(1.543rem, 0.275vw + 0.811rem, 6.857rem);
   box-shadow: 0 4px 12px #0000001A;
   border: 2px solid var(--theme-color-border);
   transition: all 0.3s ease;
-  min-height: 120px;
+  height: clamp(1rem, calc(3.6vw + 3.6vh), 1000rem);
   max-width: 100%;
   overflow: hidden;
 }
@@ -184,32 +177,32 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80px;
-  height: 80px;
+  width: clamp(1rem, calc(2.5vw + 2.5vh), 1000rem);
+  height: clamp(1rem, calc(2.5vw + 2.5vh), 1000rem);
   border-radius: 50%;
-  font-size: var(--font-size-4xl);
+  font-size: clamp(2rem, 2vw + 2vh, 8rem);
   font-weight: 800;
   color: white;
-  margin-left: var(--spacing-4);
-  margin-right: var(--spacing-8);
-  text-shadow: 0 2px 4px #0003;
+  margin-left: clamp(0.75rem, 0.5vw + 0.5vh, 2rem);
+  margin-right: clamp(1.5rem, 1vw + 1vh, 4rem);
+  text-shadow: 0 0.1rem 0.1rem #0003;
   flex-shrink: 0;
 }
 
 .leaderboard-athlete {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2);
+  gap: clamp(0.25rem, 0.25vw + 0.25vh, 1rem);
   flex: 1;
   min-width: 0;
 }
 
 .leaderboard-name {
-  font-size: var(--font-size-3xl);
+  font-size: clamp(1rem, 1.2vw + 1.2vh, 4rem);
   font-weight: 700;
   color: var(--theme-color-text);
   margin: 0;
-  margin-top: var(--spacing-3);
+  margin-top: clamp(0.25rem, 0.25vw + 0.25vh, 1rem);
   line-height: 1.2;
   text-shadow: 0 1px 2px #0000001A;
   word-wrap: break-word;
@@ -218,7 +211,7 @@
 }
 
 .leaderboard-activity-count {
-  font-size: var(--font-size-xl);
+  font-size: clamp(1rem, 1vw + 1vh, 2rem);
   font-weight: 500;
   color: var(--theme-color-text-secondary);
   margin: 0;
@@ -231,13 +224,13 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: var(--spacing-1);
+  gap: clamp(0.25rem, 0.25vw + 0.25vh, 1rem);
   min-width: 120px;
-  margin-right: var(--spacing-4);
+  margin-right: clamp(0.75rem, 0.5vw + 0.5vh, 2rem);
 }
 
 .leaderboard-stat-label {
-  font-size: var(--font-size-sm);
+  font-size: clamp(0.75rem, 0.8vw + 0.8vh, 1.5rem);
   font-weight: 600;
   color: var(--theme-color-text-secondary);
   text-transform: uppercase;
@@ -246,7 +239,7 @@
 }
 
 .leaderboard-stat-value {
-  font-size: var(--font-size-2xl);
+  font-size: clamp(1rem, 1.2vw + 1.2vh, 4rem);
   font-weight: 700;
   color: var(--theme-color-text);
   line-height: 1;
@@ -257,19 +250,21 @@
 .activity-type-icon {
   width: 1.5rem;
   height: 1.5rem;
-  margin-right: var(--spacing-2);
+  margin-right: clamp(0.25rem, 0.25vw + 0.25vh, 1rem);
 }
 
 /* Footer */
 .app-footer {
-  padding: var(--spacing-6) var(--current-padding);
+  padding: clamp(0.25rem, calc(0.25vw + 0.25vh), 1000rem) clamp(0.75rem, calc(0.5vw + 0.5vh), 1000rem); /* Minimal vertical padding for height control */
   background-color: var(--theme-color-card);
   border-top: 1px solid var(--theme-color-border);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-4);
+  justify-content: center;
+  gap: clamp(0.125rem, calc(0.125vw + 0.125vh), 1000rem); /* Minimal gap for height control */
   align-items: center;
   margin-top: auto;
+  height: clamp(1rem, calc(3.5vw + 3.5vh), 1000rem); /* Direct height control */
 }
 
 .footer-content {
@@ -277,7 +272,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-3);
+  gap: clamp(0.125rem, calc(0.125vw + 0.125vh), 1000rem); /* Reduced gap */
   transition: opacity 0.2s ease;
 }
 
@@ -286,7 +281,7 @@
 }
 
 .footer-text {
-  font-size: var(--font-size-sm);
+  font-size: clamp(0.5rem, calc(0.5vw + 0.5vh), 1000rem); /* Reduced font size */
   color: var(--theme-color-text-secondary);
   opacity: 0.8;
   transition: opacity 0.2s ease;
@@ -296,7 +291,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-8);
+  gap: clamp(0.75rem, calc(0.5vw + 0.5vh), 1000rem); /* Significantly reduced gap */
   flex-wrap: wrap;
 }
 
@@ -304,11 +299,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-2);
+  gap: clamp(0.125rem, calc(0.125vw + 0.125vh), 1000rem);
 }
 
 .footer-attribution-label {
-  font-size: var(--font-size-xs);
+  font-size: clamp(0.5rem, calc(0.4vw + 0.4vh), 1000rem); /* Reduced font size */
   color: var(--theme-color-text-secondary);
   opacity: 0.7;
   text-transform: uppercase;
@@ -324,124 +319,11 @@
 }
 
 .footer-logo-strava {
-  height: 2rem;
+  width: clamp(1rem, calc(3vw + 3vh), 1000rem);
 }
 
 .footer-logo-screenly {
-  height: 1.5rem;
-}
-
-/* Responsive leaderboard list spacing for better fit */
-@media (max-width: 800px) {
-  .leaderboard-list {
-    gap: var(--spacing-3);
-  }
-}
-
-@media (min-width: 801px) and (max-width: 1920px) {
-  .leaderboard-list {
-    gap: var(--spacing-4);
-  }
-}
-
-@media (min-width: 1921px) and (max-width: 3840px) {
-  .leaderboard-list {
-    gap: var(--spacing-5);
-  }
-}
-
-@media (min-width: 3841px) {
-  .leaderboard-list {
-    gap: var(--spacing-6);
-  }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .app-header {
-    flex-direction: column;
-    gap: var(--spacing-4);
-    padding: var(--spacing-4) var(--spacing-6);
-  }
-
-  .app-header-right {
-    flex-direction: column;
-    gap: var(--spacing-2);
-  }
-
-  .leaderboard-header {
-    flex-direction: column;
-    gap: var(--spacing-4);
-    text-align: center;
-  }
-
-  .leaderboard-stats {
-    flex-flow: row wrap;
-    justify-content: center;
-    gap: var(--spacing-4);
-  }
-
-  .athlete-card {
-    flex-direction: column;
-    text-align: center;
-    gap: var(--spacing-4);
-  }
-
-  .athlete-card-content {
-    flex-direction: column;
-    margin-left: 0;
-    gap: var(--spacing-4);
-  }
-
-  .athlete-card-stats {
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: var(--spacing-4);
-  }
-
-  .logo-text {
-    font-size: var(--font-size-lg);
-  }
-
-  .leaderboard-name {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 200px;
-  }
-
-  .leaderboard-activity-count {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
-
-@media (max-width: 480px) {
-  .app-main {
-    padding: var(--spacing-4);
-  }
-
-  .leaderboard-header {
-    padding: var(--spacing-4);
-  }
-
-  .athlete-card {
-    padding: var(--spacing-4);
-  }
-
-  .athlete-card-rank {
-    font-size: var(--font-size-3xl);
-    min-width: 3rem;
-  }
-
-  .athlete-card-name {
-    font-size: var(--font-size-lg);
-  }
-
-  .leaderboard-title {
-    font-size: var(--font-size-2xl);
-  }
+  width: clamp(1rem, calc(3vw + 3vh), 1000rem);
 }
 
 /* Animations */
@@ -481,6 +363,8 @@
   animation-delay: 0.5s;
 }
 
+
+
 /* Pulse animation for loading states */
 @keyframes pulse {
   0%, 100% {
@@ -512,33 +396,33 @@
 /* Rank Colors - High Contrast for Digital Signage */
 .leaderboard-rank-1 {
   background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-  box-shadow: 0 4px 16px #FFD70066;
+  box-shadow: 0  0.1rem 0.1rem #FFD70066;
 }
 
 .leaderboard-rank-2 {
   background: linear-gradient(135deg, #C0C0C0 0%, #A8A8A8 100%);
-  box-shadow: 0 4px 16px #C0C0C066;
+  box-shadow: 0 0.1rem 0.1rem #C0C0C066;
 }
 
 .leaderboard-rank-3 {
   background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%);
-  box-shadow: 0 4px 16px #CD7F3266;
+  box-shadow: 0 0.1rem 0.1rem #CD7F3266;
 }
 
 .leaderboard-rank-default {
   background: linear-gradient(135deg, #4A5568 0%, #2D3748 100%);
-  box-shadow: 0 4px 16px #4A556866;
+  box-shadow: 0 0.1rem 0.1rem #4A556866;
 }
 
 /* Enhanced contrast for text on colored backgrounds */
 .leaderboard-item-top-3 {
   border: 3px solid var(--theme-color-primary);
-  box-shadow: 0 6px 20px #00000026;
+  box-shadow: 0 0.1rem 0.1rem #00000026;
 }
 
 .leaderboard-item-top-3:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 32px #0003;
+  box-shadow: 0 0.1rem 0.1rem #0003;
 }
 
 
@@ -553,13 +437,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-8);
+  gap: clamp(1.5rem, 1vw + 1vh, 4rem);
   background-color: var(--theme-color-background);
   z-index: 1000;
 }
 
 .loading-text {
-  font-size: var(--font-size-3xl);
+  font-size: clamp(1.5rem, 1.5vw + 1.5vh, 4rem);
   font-weight: 600;
   color: var(--theme-color-text-secondary);
   text-align: center;
@@ -585,838 +469,28 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  gap: var(--spacing-6);
+  gap: clamp(1rem, 0.75vw + 0.75vh, 3rem);
   text-align: center;
-  padding: var(--spacing-8);
+  padding: clamp(1.5rem, 1vw + 1vh, 4rem);
 }
 
 .error-icon {
-  font-size: var(--font-size-6xl);
+  font-size: clamp(3rem, 3vw + 3vh, 12rem);
   color: var(--theme-color-error);
 }
 
 .error-title {
-  font-size: var(--font-size-4xl);
+  font-size: clamp(2rem, 2vw + 2vh, 8rem);
   font-weight: 700;
   color: var(--theme-color-text);
   margin: 0;
 }
 
 .error-message {
-  font-size: var(--font-size-xl);
+  font-size: clamp(1rem, 1vw + 1vh, 2rem);
   color: var(--theme-color-text-secondary);
   margin: 0;
   max-width: 600px;
   line-height: 1.5;
 }
 
-/* Responsive Footer */
-@media (max-width: 480px) {
-  .app-footer {
-    padding: var(--spacing-4) var(--current-padding);
-    gap: var(--spacing-3);
-  }
-
-  .footer-content {
-    flex-direction: column;
-    gap: var(--spacing-1);
-  }
-
-  .footer-text {
-    font-size: var(--font-size-xs);
-  }
-
-  .footer-attribution {
-    gap: var(--spacing-4);
-  }
-
-  .footer-attribution-label {
-    font-size: var(--font-size-xs);
-    opacity: 0.5;
-  }
-
-  .footer-logo-strava {
-    height: 1.5rem;
-  }
-
-  .footer-logo-screenly {
-    height: 1rem;
-  }
-}
-
-/* Footer optimizations for different screen sizes */
-@media (min-width: 481px) and (max-width: 1280px) {
-  .footer-text {
-    font-size: var(--font-size-sm);
-  }
-
-  .footer-attribution-label {
-    font-size: var(--font-size-xs);
-  }
-
-  .footer-logo-strava {
-    height: 1.75rem;
-  }
-
-  .footer-logo-screenly {
-    height: 1.25rem;
-  }
-}
-
-@media (min-width: 1281px) and (max-width: 3840px) {
-  .footer-text {
-    font-size: var(--font-size-base);
-  }
-
-  .footer-attribution-label {
-    font-size: var(--font-size-sm);
-  }
-
-  .footer-logo-strava {
-    height: 2rem;
-  }
-
-  .footer-logo-screenly {
-    height: 1.5rem;
-  }
-}
-
-@media (min-width: 3841px) {
-  .footer-text {
-    font-size: var(--font-size-lg);
-  }
-
-  .footer-attribution-label {
-    font-size: var(--font-size-base);
-  }
-
-  .footer-logo-strava {
-    height: 2.5rem;
-  }
-
-  .footer-logo-screenly {
-    height: 1.75rem;
-  }
-}
-
-/* Raspberry Pi Touch Display - Portrait (480x800) */
-@media (max-width: 480px) and (orientation: portrait) {
-  .app-header {
-    padding: var(--spacing-6) var(--spacing-4);
-  }
-
-  .app-main {
-    padding: var(--spacing-6);
-  }
-
-  .logo-image {
-    height: 3rem;
-    width: 3rem;
-    max-width: 3rem;
-  }
-
-  .logo-text {
-    font-size: var(--font-size-xl);
-  }
-
-  .leaderboard-title {
-    font-size: var(--font-size-3xl);
-    margin-bottom: var(--spacing-6);
-  }
-
-  .leaderboard-header {
-    flex-direction: column;
-    gap: var(--spacing-6);
-    text-align: center;
-    margin-bottom: var(--spacing-8);
-  }
-
-  .leaderboard-stats {
-    flex-direction: column;
-    gap: var(--spacing-4);
-    align-items: center;
-  }
-
-  .stats-item {
-    flex-direction: row;
-    gap: var(--spacing-3);
-  }
-
-  .stats-label {
-    font-size: var(--font-size-base);
-  }
-
-  .stats-value {
-    font-size: var(--font-size-xl);
-  }
-
-  .leaderboard-list {
-    gap: var(--spacing-6);
-  }
-
-  .leaderboard-item {
-    flex-direction: column;
-    padding: var(--spacing-6);
-    min-height: auto;
-    gap: var(--spacing-4);
-    text-align: center;
-  }
-
-  .leaderboard-rank {
-    width: 50px;
-    height: 50px;
-    font-size: var(--font-size-2xl);
-    margin: 0 0 var(--spacing-4) 0;
-    align-self: center;
-  }
-
-  .leaderboard-athlete {
-    gap: var(--spacing-3);
-    align-items: center;
-  }
-
-  .leaderboard-name {
-    font-size: var(--font-size-xl);
-    margin-top: 0;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
-    max-width: 100%;
-    text-align: center;
-  }
-
-  .leaderboard-activity-count {
-    font-size: var(--font-size-base);
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    text-align: center;
-  }
-
-  .leaderboard-stat {
-    min-width: auto;
-    flex-direction: row;
-    gap: var(--spacing-2);
-    margin: 0;
-    max-width: 100%;
-    justify-content: center;
-  }
-
-  .leaderboard-stat-value {
-    font-size: var(--font-size-xl);
-    order: 2;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .leaderboard-stat-label {
-    font-size: var(--font-size-base);
-    order: 1;
-    text-transform: none;
-    opacity: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
-
-/* Raspberry Pi Touch Display - Landscape (800x480) */
-@media (min-width: 481px) and (max-width: 800px) and (orientation: landscape) {
-  .app-header {
-    padding: var(--spacing-3) var(--spacing-4);
-    flex-direction: row;
-    gap: var(--spacing-3);
-  }
-
-  .app-main {
-    padding: var(--spacing-3);
-  }
-
-  .logo-image {
-    height: 2rem;
-    width: 2rem;
-    max-width: 2rem;
-  }
-
-  .logo-text {
-    font-size: var(--font-size-base);
-  }
-
-  .leaderboard-header {
-    flex-direction: row;
-    gap: var(--spacing-4);
-    align-items: center;
-    margin-bottom: var(--spacing-4);
-  }
-
-  .leaderboard-title {
-    font-size: var(--font-size-lg);
-    margin-bottom: 0;
-  }
-
-  .leaderboard-stats {
-    flex-direction: row;
-    gap: var(--spacing-3);
-  }
-
-  .stats-item {
-    flex-direction: column;
-    gap: var(--spacing-1);
-  }
-
-  .stats-label {
-    font-size: var(--font-size-xs);
-  }
-
-  .stats-value {
-    font-size: var(--font-size-sm);
-  }
-
-  .leaderboard-list {
-    gap: var(--spacing-2);
-  }
-
-  .leaderboard-item {
-    padding: var(--spacing-2) var(--spacing-3);
-    min-height: 50px;
-    gap: var(--spacing-2);
-    overflow: hidden;
-  }
-
-  .leaderboard-rank {
-    width: 35px;
-    height: 35px;
-    font-size: var(--font-size-base);
-    margin-left: var(--spacing-2);
-    margin-right: var(--spacing-3);
-    flex-shrink: 0;
-  }
-
-  .leaderboard-athlete {
-    min-width: 0;
-    flex: 1;
-    gap: var(--spacing-1);
-  }
-
-  .leaderboard-name {
-    font-size: var(--font-size-sm);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-top: 0;
-  }
-
-  .leaderboard-activity-count {
-    font-size: var(--font-size-xs);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .leaderboard-stat {
-    min-width: 60px;
-    max-width: 80px;
-    flex-shrink: 0;
-    margin-right: var(--spacing-2);
-  }
-
-  .leaderboard-stat-value {
-    font-size: var(--font-size-sm);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .leaderboard-stat-label {
-    font-size: var(--font-size-xs);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
-
-/* 720p Portrait (720x1280) */
-@media (min-width: 721px) and (max-width: 1280px) and (orientation: portrait) {
-  .app-header {
-    padding: var(--spacing-8) var(--spacing-6);
-  }
-
-  .app-main {
-    padding: var(--spacing-8);
-  }
-
-  .logo-image {
-    height: 4rem;
-    width: 4rem;
-    max-width: 4rem;
-  }
-
-  .logo-text {
-    font-size: var(--font-size-3xl);
-  }
-
-  .leaderboard-title {
-    font-size: var(--font-size-4xl);
-    margin-bottom: var(--spacing-8);
-  }
-
-  .leaderboard-header {
-    flex-direction: column;
-    gap: var(--spacing-8);
-    text-align: center;
-    margin-bottom: var(--spacing-10);
-  }
-
-  .leaderboard-stats {
-    flex-direction: row;
-    gap: var(--spacing-8);
-    justify-content: center;
-  }
-
-  .stats-label {
-    font-size: var(--font-size-lg);
-  }
-
-  .stats-value {
-    font-size: var(--font-size-2xl);
-  }
-
-  .leaderboard-list {
-    gap: var(--spacing-8);
-  }
-
-  .leaderboard-item {
-    padding: var(--spacing-8);
-    min-height: 100px;
-    gap: var(--spacing-6);
-  }
-
-  .leaderboard-rank {
-    width: 70px;
-    height: 70px;
-    font-size: var(--font-size-4xl);
-    margin-right: var(--spacing-8);
-  }
-
-  .leaderboard-athlete {
-    gap: var(--spacing-4);
-  }
-
-  .leaderboard-name {
-    font-size: var(--font-size-2xl);
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
-    max-width: 100%;
-  }
-
-  .leaderboard-activity-count {
-    font-size: var(--font-size-lg);
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-  }
-
-  .leaderboard-stat {
-    min-width: 120px;
-    max-width: 150px;
-  }
-
-  .leaderboard-stat-value {
-    font-size: var(--font-size-2xl);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .leaderboard-stat-label {
-    font-size: var(--font-size-lg);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
-
-/* 720p Landscape (1280x720) */
-@media (min-width: 1281px) and (max-width: 1920px) and (orientation: landscape) {
-  .logo-image {
-    height: 3.5rem;
-    width: 3.5rem;
-    max-width: 3.5rem;
-  }
-
-  .logo-text {
-    font-size: var(--font-size-2xl);
-  }
-
-  .leaderboard-title {
-    font-size: var(--font-size-3xl);
-  }
-
-  .stats-label {
-    font-size: var(--font-size-base);
-  }
-
-  .stats-value {
-    font-size: var(--font-size-xl);
-  }
-
-  .leaderboard-item {
-    padding: var(--spacing-6) var(--spacing-7);
-    min-height: 90px;
-  }
-
-  .leaderboard-rank {
-    width: 70px;
-    height: 70px;
-    font-size: var(--font-size-3xl);
-    margin-right: var(--spacing-6);
-  }
-
-  .leaderboard-name {
-    font-size: var(--font-size-xl);
-  }
-
-  .leaderboard-activity-count {
-    font-size: var(--font-size-base);
-  }
-
-  .leaderboard-stat {
-    min-width: 120px;
-  }
-
-  .leaderboard-stat-value {
-    font-size: var(--font-size-xl);
-  }
-
-  .leaderboard-stat-label {
-    font-size: var(--font-size-base);
-  }
-}
-
-/* 1080p Portrait (1080x1920) */
-@media (min-width: 1081px) and (max-width: 1920px) and (orientation: portrait) {
-  .app-header {
-    padding: var(--spacing-10) var(--spacing-8);
-  }
-
-  .app-main {
-    padding: var(--spacing-10);
-  }
-
-  .logo-image {
-    height: 5rem;
-    width: 5rem;
-    max-width: 5rem;
-  }
-
-  .logo-text {
-    font-size: var(--font-size-5xl);
-  }
-
-  .leaderboard-title {
-    font-size: var(--font-size-6xl);
-    margin-bottom: var(--spacing-10);
-  }
-
-  .leaderboard-header {
-    gap: var(--spacing-10);
-    margin-bottom: var(--spacing-12);
-  }
-
-  .leaderboard-stats {
-    gap: var(--spacing-10);
-  }
-
-  .stats-label {
-    font-size: var(--font-size-xl);
-  }
-
-  .stats-value {
-    font-size: var(--font-size-4xl);
-  }
-
-  .leaderboard-list {
-    gap: var(--spacing-10);
-  }
-
-  .leaderboard-item {
-    padding: var(--spacing-10);
-    min-height: 140px;
-    gap: var(--spacing-8);
-  }
-
-  .leaderboard-rank {
-    width: 90px;
-    height: 90px;
-    font-size: var(--font-size-6xl);
-    margin-right: var(--spacing-10);
-  }
-
-  .leaderboard-athlete {
-    gap: var(--spacing-6);
-  }
-
-  .leaderboard-name {
-    font-size: var(--font-size-4xl);
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
-    max-width: 100%;
-  }
-
-  .leaderboard-activity-count {
-    font-size: var(--font-size-xl);
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-  }
-
-  .leaderboard-stat {
-    min-width: 150px;
-    max-width: 200px;
-  }
-
-  .leaderboard-stat-value {
-    font-size: var(--font-size-4xl);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .leaderboard-stat-label {
-    font-size: var(--font-size-xl);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
-
-/* 1080p Landscape (1920x1080) - Digital Signage */
-@media (min-width: 1921px) and (max-width: 3840px) and (orientation: landscape) {
-  .logo-image {
-    height: 5rem;
-    width: 5rem;
-    max-width: 5rem;
-  }
-
-  .logo-text {
-    font-size: var(--font-size-5xl);
-  }
-
-  .leaderboard-title {
-    font-size: var(--font-size-5xl);
-  }
-
-  .stats-label {
-    font-size: var(--font-size-xl);
-  }
-
-  .stats-value {
-    font-size: var(--font-size-4xl);
-  }
-
-  .leaderboard-item {
-    padding: var(--spacing-10) var(--spacing-12);
-    min-height: 140px;
-  }
-
-  .leaderboard-rank {
-    width: 100px;
-    height: 100px;
-    font-size: var(--font-size-5xl);
-    margin-right: var(--spacing-10);
-  }
-
-  .leaderboard-name {
-    font-size: var(--font-size-4xl);
-  }
-
-  .leaderboard-activity-count {
-    font-size: var(--font-size-2xl);
-  }
-
-  .leaderboard-stat {
-    min-width: 140px;
-  }
-
-  .leaderboard-stat-value {
-    font-size: var(--font-size-3xl);
-  }
-
-  .leaderboard-stat-label {
-    font-size: var(--font-size-base);
-  }
-}
-
-/* 4K Portrait (2160x3840/4096) */
-@media (min-width: 2161px) and (max-width: 4096px) and (orientation: portrait) {
-  .app-header {
-    padding: var(--spacing-12) var(--spacing-10);
-  }
-
-  .app-main {
-    padding: var(--spacing-12);
-  }
-
-  .logo-image {
-    height: 6rem;
-    width: 6rem;
-    max-width: 6rem;
-  }
-
-  .logo-text {
-    font-size: var(--font-size-7xl);
-  }
-
-  .leaderboard-title {
-    font-size: var(--font-size-8xl);
-    margin-bottom: var(--spacing-12);
-  }
-
-  .leaderboard-header {
-    gap: var(--spacing-12);
-    margin-bottom: var(--spacing-16);
-  }
-
-  .leaderboard-stats {
-    gap: var(--spacing-12);
-  }
-
-  .stats-label {
-    font-size: var(--font-size-2xl);
-  }
-
-  .stats-value {
-    font-size: var(--font-size-5xl);
-  }
-
-  .leaderboard-list {
-    gap: var(--spacing-12);
-  }
-
-  .leaderboard-item {
-    padding: var(--spacing-12);
-    min-height: 160px;
-    gap: var(--spacing-10);
-  }
-
-  .leaderboard-rank {
-    width: 110px;
-    height: 110px;
-    font-size: var(--font-size-7xl);
-    margin-right: var(--spacing-12);
-  }
-
-  .leaderboard-athlete {
-    gap: var(--spacing-8);
-  }
-
-  .leaderboard-name {
-    font-size: var(--font-size-5xl);
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
-    max-width: 100%;
-  }
-
-  .leaderboard-activity-count {
-    font-size: var(--font-size-2xl);
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-  }
-
-  .leaderboard-stat {
-    min-width: 180px;
-    max-width: 250px;
-  }
-
-  .leaderboard-stat-value {
-    font-size: var(--font-size-5xl);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .leaderboard-stat-label {
-    font-size: var(--font-size-2xl);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
-
-/* 4K Landscape (3840x2160/4096x2160) - Ultra Large Digital Signage */
-@media (min-width: 3841px) and (orientation: landscape) {
-  .logo-image {
-    height: 7rem;
-    width: 7rem;
-    max-width: 7rem;
-  }
-
-  .logo-text {
-    font-size: var(--font-size-6xl);
-  }
-
-  .leaderboard-title {
-    font-size: var(--font-size-6xl);
-  }
-
-  .stats-label {
-    font-size: var(--font-size-2xl);
-  }
-
-  .stats-value {
-    font-size: var(--font-size-5xl);
-  }
-
-  .leaderboard-item {
-    padding: var(--spacing-12) var(--spacing-16);
-    min-height: 180px;
-  }
-
-  .leaderboard-rank {
-    width: 120px;
-    height: 120px;
-    font-size: var(--font-size-6xl);
-    margin-right: var(--spacing-12);
-  }
-
-  .leaderboard-name {
-    font-size: var(--font-size-5xl);
-  }
-
-  .leaderboard-activity-count {
-    font-size: var(--font-size-3xl);
-  }
-
-  .leaderboard-stat {
-    min-width: 160px;
-  }
-
-  .leaderboard-stat-value {
-    font-size: var(--font-size-4xl);
-  }
-
-  .leaderboard-stat-label {
-    font-size: var(--font-size-lg);
-  }
-}
-
-/* High Contrast Mode for Better Visibility */
-@media (prefers-contrast: high) {
-  .leaderboard-item {
-    border: 3px solid var(--theme-color-text);
-    background-color: var(--theme-color-background);
-  }
-
-  .leaderboard-name,
-  .leaderboard-stat-value {
-    color: var(--theme-color-text);
-    font-weight: 800;
-  }
-
-  .leaderboard-stat-label,
-  .leaderboard-activity-count {
-    color: var(--theme-color-text);
-    font-weight: 600;
-  }
-}
