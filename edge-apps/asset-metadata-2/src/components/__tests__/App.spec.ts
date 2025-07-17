@@ -23,6 +23,21 @@ const mockScreenly = {
 // Mock global screenly object
 global.screenly = mockScreenly
 
+// Mock the stores
+vi.mock('./stores/root-store', () => ({
+  useScreenlyMetadataStore: () => ({
+    hostname: 'test-host',
+    screenName: 'test-screen',
+    hardware: 'test-hardware',
+    screenlyVersion: 'test-version',
+    formattedCoordinates: '40.7128° N, 74.0060° W',
+    tags: ['tag1', 'tag2', 'tag3'],
+  }),
+  useSettingsStore: () => ({
+    setupTheme: vi.fn(),
+  }),
+}))
+
 describe('App', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
@@ -45,7 +60,7 @@ describe('App', () => {
     expect(wrapper.text()).toContain('test-screen')
     expect(wrapper.text()).toContain('test-hardware')
     expect(wrapper.text()).toContain('test-version')
-    expect(wrapper.text()).toContain('40.7128, -74.006')
+    expect(wrapper.text()).toContain('40.7128° N, 74.0060° W')
     expect(wrapper.text()).toContain('tag1')
     expect(wrapper.text()).toContain('tag2')
     expect(wrapper.text()).toContain('tag3')
