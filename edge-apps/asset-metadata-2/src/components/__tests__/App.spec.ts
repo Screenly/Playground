@@ -7,17 +7,17 @@ import App from '@/App.vue'
 // Mock screenly global
 const mockScreenly = {
   metadata: {
-    coordinates: [40.7128, -74.0060] as [number, number],
+    coordinates: [40.7128, -74.006] as [number, number],
     hostname: 'test-host',
     screen_name: 'test-screen',
     hardware: 'test-hardware',
     location: 'test-location',
     screenly_version: 'test-version',
-    tags: ['tag1', 'tag2', 'tag3']
+    tags: ['tag1', 'tag2', 'tag3'],
   },
   signalReadyForRendering: vi.fn(),
   settings: {},
-  cors_proxy_url: 'https://example.com'
+  cors_proxy_url: 'https://example.com',
 }
 
 // Mock global screenly object

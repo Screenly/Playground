@@ -1,12 +1,6 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
-export const useRootStore = defineStore('root', () => {
-  const message = ref('Hello!')
-
-  return { message }
-})
-
 export const useScreenlyMetadataStore = defineStore('metadata', () => {
   const metadata = screenly.metadata
 
