@@ -196,7 +196,7 @@
       console.log(`Auto-scroll needed: ${needed}`)
       return needed
     },
-      debugScrollDimensions: () => {
+    debugScrollDimensions: () => {
       const container = document.getElementById('leaderboard-list')
       const mainContainer = document.querySelector('.app-main')
       const leaderboardHeader = document.querySelector('.leaderboard-header')
