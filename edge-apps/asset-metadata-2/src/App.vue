@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onBeforeMount, onMounted } from 'vue'
 import { useScreenlyMetadataStore, useSettingsStore } from './stores/root-store'
 import InfoCard from './components/InfoCard.vue'
 
 const screenlyMetadataStore = useScreenlyMetadataStore()
 const settingsStore = useSettingsStore()
 
+onBeforeMount(() => {
+  settingsStore.setupTheme()
+})
+
 onMounted(() => {
   screenly.signalReadyForRendering()
-  settingsStore.setupTheme()
 })
 </script>
 
