@@ -215,9 +215,12 @@ The Strava API has rate limits:
 
 The app includes smart caching to minimize API calls:
 
-- Activities are cached for 3 minutes
-- Automatic pagination handles large clubs
-- Efficient data processing reduces redundant requests
+- **Activities cached for 3 minutes**: Recent activity data with automatic expiration
+- **Club details cached for 1 hour**: Club information that rarely changes
+- **Automatic cache invalidation**: Cache is cleared on token refresh to prevent stale data
+- **Quota management**: Handles localStorage limits with automatic cleanup
+- **Health monitoring**: Tracks cache size and performance automatically
+- **Efficient pagination**: Handles large clubs without hitting rate limits
 
 ## Troubleshooting
 
@@ -239,9 +242,14 @@ The app includes smart caching to minimize API calls:
 **Checking Token Status**
 
 Open the browser developer console and run:
+
+**Token Management:**
 ```javascript
-// Check overall token status and configuration
+// Check overall token status and configuration (with detailed logging)
 StravaApp.getTokenInfo()
+
+// Show current token expiry details
+StravaApp.showTokenExpiry()
 
 // Test current token validity
 StravaApp.probeToken()
@@ -250,7 +258,41 @@ StravaApp.probeToken()
 StravaApp.refreshToken()
 ```
 
-The app automatically detects token expiry from API responses, so you don't need to manually configure expiration times.
+**Enhanced Debug Logging:**
+The app now provides comprehensive console logging:
+- 🔐 **Token validation**: Shows expiry times, refresh needs, and timing details
+- 🔍 **Cache operations**: Shows which cache keys are being used for each operation
+- ⏰ **Expiry tracking**: Displays exact expiry times in both UTC and local time
+- 🎉 **Token refresh**: Detailed logs when tokens are refreshed with new expiry times
+- 💾 **Cache storage**: Shows when data is cached and which keys are used
+
+**Cache Management:**
+```javascript
+// Check cache statistics and health
+StravaApp.getCacheStats()
+StravaApp.checkCacheHealth()
+
+// Clear all cache (forces fresh data on next load)
+StravaApp.clearCache()
+
+// Clear cache for specific club
+StravaApp.clearCacheForClub('YOUR_CLUB_ID')
+
+// Get current app state
+StravaApp.getState()
+```
+
+The app automatically detects token expiry from API responses and manages cache intelligently, so you don't need to manually configure expiration times.
+
+**Console Log Examples:**
+```
+🔐 Token validation check: {expiresAt: "2024-01-15T14:30:00Z", secondsUntilExpiry: 18234, ...}
+🔍 Fetching club details: {clubId: "12345", cacheKey: "strava_club_details_12345"}
+✅ Club details loaded from cache using key: strava_club_details_12345
+⏰ Token will expire in: {minutes: 304, hours: 5, expiryTime: "1/15/2024, 2:30:00 PM"}
+🎉 Access token refreshed successfully!
+💾 Club activities page 1 cached for 10 minutes using key: strava_club_activities_12345_recent_1
+```
 
 **"Club ID is required"**
 
@@ -260,13 +302,20 @@ The app automatically detects token expiry from API responses, so you don't need
 **"API rate limit exceeded"**
 
 - The app will automatically retry after rate limits
+- Cache reduces API calls - check cache health: `StravaApp.checkCacheHealth()`
 - Consider reducing refresh frequency for very large clubs
 
 **"No activities found"**
 
 - Check that your club has recent activities
-- Verify the time period setting (week/month)
-- Ensure club members have public activities
+- Verify club members have public activities
+- Clear cache and retry: `StravaApp.clearCache()`
+
+**Performance Issues**
+
+- Check cache statistics: `StravaApp.getCacheStats()`
+- Monitor cache health: `StravaApp.checkCacheHealth()`
+- Clear cache if it becomes too large: `StravaApp.clearCache()`
 
 ### Getting Help
 

@@ -49,8 +49,8 @@
       // Fetch club details and update logo
       const clubData = await StravaAPI.fetchClubDetails(clubId)
 
-      // Clear cache for this club to force fresh data
-      StravaCache.clearCacheForClub(clubId)
+      // Note: Don't clear cache here anymore - let it expire naturally or clear on token refresh
+      // This reduces API calls and respects rate limits better
 
       const activities = await StravaAPI.fetchAllClubActivities(clubId)
 
@@ -115,6 +115,14 @@
   // Initialize application
   async function init () {
     try {
+      // Debug: Check if all modules are loaded
+      console.log('App initialization. Module status:', {
+        StravaCache: typeof StravaCache !== 'undefined',
+        StravaAPI: typeof StravaAPI !== 'undefined',
+        StravaUI: typeof StravaUI !== 'undefined',
+        StravaUtils: typeof StravaUtils !== 'undefined'
+      })
+
       // Initialize UI with default elements
       StravaUI.initializeUI()
 
@@ -126,6 +134,14 @@
 
       // Manage cache size periodically
       StravaCache.manageCacheSize()
+
+      // Check cache health and log status
+      const cacheHealth = StravaCache.checkCacheHealth()
+      if (cacheHealth.healthy) {
+        console.log('Cache is healthy:', cacheHealth.stats)
+      } else {
+        console.warn('Cache health issues:', cacheHealth.issues)
+      }
     } catch (error) {
       console.error('Failed to initialize app:', error)
       StravaUI.showError('Failed to initialize application. Please try again.')
@@ -171,8 +187,12 @@
     loadLeaderboard,
     getState: () => ({ ...appState }),
     getCacheStats: StravaCache.getCacheStats,
+    clearCache: StravaCache.clearCache,
+    clearCacheForClub: StravaCache.clearCacheForClub,
+    checkCacheHealth: StravaCache.checkCacheHealth,
     testLocale: StravaUtils.testLocale,
     getTokenInfo: StravaAPI.getTokenInfo,
+    showTokenExpiry: StravaAPI.showTokenExpiry,
     probeToken: StravaAPI.probeCurrentToken,
     refreshToken: StravaAPI.refreshAccessToken,
     cleanup,
