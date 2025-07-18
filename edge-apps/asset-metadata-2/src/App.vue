@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, type Ref } from 'vue'
+import { onBeforeMount, onMounted } from 'vue'
 import { useScreenlyMetadataStore, useSettingsStore } from './stores/root-store'
 import InfoCard from '@/components/InfoCard.vue'
 import NameIcon from '@/components/NameIcon.vue'
@@ -65,7 +65,7 @@ const cards = [
     <InfoCard class="brand-logo-card">
       <img
         id="brand-logo"
-        :src="(settingsStore.brandLogoUrl as unknown as Ref<string>).value || screenlyLogo"
+        :src="settingsStore.brandLogoUrl || screenlyLogo"
         class="brand-logo"
         alt="Brand Logo"
       />

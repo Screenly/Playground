@@ -129,10 +129,20 @@ export const useSettingsStore = defineStore('settings', () => {
 
         // Determine file type based on MIME type, magic number, or ASCII text
         if (ascii.startsWith('<?xml') || ascii.startsWith('<svg')) {
-          // Convert to Base64 and return if SVG
-          const svgText = await blob.text()
-          const base64 = btoa(unescape(encodeURIComponent(svgText)))
-          return 'data:image/svg+xml;base64,' + base64
+          // Convert to Base64 using FileReader like the original
+          return new Promise((resolve, reject) => {
+            const svgReader = new FileReader()
+            svgReader.readAsText(blob)
+            svgReader.onloadend = function () {
+              try {
+                const base64 = btoa(unescape(encodeURIComponent(svgReader.result as string)))
+                resolve('data:image/svg+xml;base64,' + base64)
+              } catch (error) {
+                reject(error)
+              }
+            }
+            svgReader.onerror = () => reject(new Error('Failed to read SVG file'))
+          })
         } else if (hex === pngMagicNumber || hex === jpegMagicNumber) {
           // Checking PNG or JPEG/JPG magic number
           return fileUrl
@@ -147,20 +157,14 @@ export const useSettingsStore = defineStore('settings', () => {
 
     // Try to fetch the image using the CORS proxy URL
     try {
-      console.log('Attempting to fetch logo from:', logoUrl)
       const processedLogoUrl = await fetchImage(logoUrl)
       brandLogoUrl.value = processedLogoUrl
-      console.log('Logo URL set to:', brandLogoUrl.value)
     } catch {
-      console.log('CORS fetch failed, trying fallback:', fallbackUrl)
       // If CORS fails, try the fallback URL
       try {
         const processedFallbackUrl = await fetchImage(fallbackUrl)
         brandLogoUrl.value = processedFallbackUrl
-        console.log('Fallback logo URL set to:', brandLogoUrl.value)
       } catch {
-        console.log('Fallback failed, using default logo:', defaultLogo)
-        // If fallback fails, use the default logo
         brandLogoUrl.value = defaultLogo
       }
     }
