@@ -9,15 +9,7 @@ defineProps<{
 <template>
   <div class="primary-card">
     <div v-if="icon || title" class="icon-card">
-      <object
-        v-if="icon"
-        :id="`${title?.toLowerCase().replace(/\s/g, '-')}-icon`"
-        type="image/svg+xml"
-        :data="icon"
-        class="icon-card-icon"
-        alt="icon"
-      ></object>
-      <span v-if="title" class="icon-card-text head-text">{{ title }}</span>
+      <slot name="icon" />
     </div>
     <slot>
       <span v-if="value" class="icon-card-text">{{ value }}</span>

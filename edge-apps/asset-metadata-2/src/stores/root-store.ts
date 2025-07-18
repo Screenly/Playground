@@ -37,11 +37,15 @@ export const useScreenlyMetadataStore = defineStore('metadata', () => {
 
 export const useSettingsStore = defineStore('settings', () => {
   const settings = ref(screenly.settings)
+  const primaryThemeColor = ref('')
+  const secondaryThemeColor = ref('')
+  const tertiaryThemeColor = ref('')
+  const backgroundThemeColor = ref('')
 
   const setupTheme = () => {
     const tertiaryColor = '#FFFFFF'
     const backgroundColor = '#C9CDD0'
-    const defaultPrimaryColor = '#7E2CD2'
+    const defaultPrimaryColor = '#972EFF'
     let secondaryColor = '#454BD2'
 
     const primaryColor =
@@ -68,7 +72,19 @@ export const useSettingsStore = defineStore('settings', () => {
     document.documentElement.style.setProperty('--theme-color-secondary', secondaryColor)
     document.documentElement.style.setProperty('--theme-color-tertiary', tertiaryColor)
     document.documentElement.style.setProperty('--theme-color-background', backgroundColor)
+
+    primaryThemeColor.value = primaryColor
+    secondaryThemeColor.value = secondaryColor
+    tertiaryThemeColor.value = tertiaryColor
+    backgroundThemeColor.value = backgroundColor
   }
 
-  return { settings, setupTheme }
+  return {
+    settings,
+    primaryThemeColor,
+    secondaryThemeColor,
+    tertiaryThemeColor,
+    backgroundThemeColor,
+    setupTheme,
+  }
 })
