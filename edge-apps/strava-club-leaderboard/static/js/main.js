@@ -172,6 +172,9 @@
     getState: () => ({ ...appState }),
     getCacheStats: StravaCache.getCacheStats,
     testLocale: StravaUtils.testLocale,
+    getTokenInfo: StravaAPI.getTokenInfo,
+    probeToken: StravaAPI.probeCurrentToken,
+    refreshToken: StravaAPI.refreshAccessToken,
     cleanup,
 
     // Auto-scroll functionality has been removed - showing top 10 athletes only

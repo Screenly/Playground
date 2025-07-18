@@ -26,9 +26,19 @@ settings:
     title: Strava Access Token
     optional: false
     help_text: |
-      Your Strava API Access Token from https://www.strava.com/settings/api
-      This token is required to access club activities data.
+      Your Strava API Access Token obtained via OAuth flow.
+      This token is required to access club activities data and will be automatically refreshed.
     is_global: true
+  refresh_token:
+    type: secret
+    title: Strava Refresh Token
+    optional: false
+    help_text: |
+      Your Strava Refresh Token obtained via OAuth flow.
+      This token is used to automatically refresh expired access tokens.
+      Required for long-term operation without manual intervention.
+    is_global: true
+
   club_id:
     type: string
     title: Strava Club ID

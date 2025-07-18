@@ -5,7 +5,8 @@ window.StravaCache = (function () {
   'use strict'
 
   // Configuration
-  const CACHE_DURATION = 12 * 60 * 1000 // 12 minutes - Cache most of the refresh interval
+  const CACHE_DURATION = 3 * 60 * 1000 // 3 minutes - Conservative caching for frequent updates
+  const CACHE_NAMESPACE = 'strava_club_' // Namespace for cache keys
 
   // Get cached data with expiration check
   function getCachedData (key) {
@@ -55,14 +56,20 @@ window.StravaCache = (function () {
     }
   }
 
-  // Clear all cache
+  // Clear all Strava-related cache
   function clearCache () {
     const keys = Object.keys(localStorage)
     keys.forEach(key => {
-      if (key.startsWith('club_activities_')) {
+      if (key.startsWith(CACHE_NAMESPACE)) {
         localStorage.removeItem(key)
       }
     })
+  }
+
+  // Clear cache on authentication change (token refresh/change)
+  function clearCacheOnAuthChange () {
+    console.log('Clearing cache due to authentication change')
+    clearCache()
   }
 
   // Clear cache for specific club
@@ -72,7 +79,10 @@ window.StravaCache = (function () {
     // Find all cache keys for this club (activities and details)
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i)
-      if (key && (key.startsWith(`club_activities_${clubId}_recent_`) || key === `club_details_${clubId}`)) {
+      if (key && (
+        key.startsWith(`${CACHE_NAMESPACE}activities_${clubId}_`) ||
+        key === `${CACHE_NAMESPACE}details_${clubId}`
+      )) {
         keysToRemove.push(key)
       }
     }
@@ -81,15 +91,14 @@ window.StravaCache = (function () {
     keysToRemove.forEach(key => {
       localStorage.removeItem(key)
     })
+
+    console.log(`Cleared ${keysToRemove.length} cache entries for club ${clubId}`)
   }
 
   // Get cache size and statistics
   function getCacheStats () {
     const keys = Object.keys(localStorage)
-    const cacheKeys = keys.filter(key =>
-      key.startsWith('club_activities_') ||
-      key.startsWith('club_details_')
-    )
+    const cacheKeys = keys.filter(key => key.startsWith(CACHE_NAMESPACE))
 
     let totalSize = 0
     const cacheInfo = cacheKeys.map(key => {

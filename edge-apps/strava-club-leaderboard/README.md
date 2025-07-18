@@ -12,6 +12,7 @@ A beautiful, real-time leaderboard for Strava clubs that displays member ranking
 - **Modern design**: Clean, responsive interface with smooth animations
 - **Customizable**: Configurable athlete count, themes, and display options
 - **Auto-refresh**: Updates every 5 minutes automatically
+- **Automatic token refresh**: Seamlessly renews expired Strava tokens without interruption
 - **Caching**: Efficient data caching to reduce API calls
 - **Error handling**: Graceful error states with helpful messages
 - **Responsive**: Adapts to different screen sizes and resolutions
@@ -42,9 +43,37 @@ After creating the app, you'll see:
 - **Client ID**: A numeric ID (e.g., 168413)
 - **Client Secret**: A secret string (keep this private)
 - **Access Token**: Your personal access token
-- **Refresh Token**: For long-term access (optional)
+- **Refresh Token**: For long-term access (**required for automatic token renewal**)
+- **Expires At**: Unix timestamp when the access token expires
 
-### 3. Find Your Club ID
+**Important**: You need to go through the OAuth flow to get both access and refresh tokens. The tokens shown in your app settings page are limited and don't include refresh tokens.
+
+### 3. Get OAuth Tokens (Recommended)
+
+For automatic token refresh, you need to complete the OAuth flow:
+
+1. **Get Authorization Code**: Visit this URL (replace YOUR_CLIENT_ID):
+   ```
+   https://www.strava.com/oauth/authorize?client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=http://localhost/exchange_token&approval_prompt=force&scope=activity:read_all
+   ```
+
+2. **Authorize the app** and copy the `code` from the redirect URL
+
+3. **Exchange for tokens** using curl (replace YOUR_CLIENT_ID, YOUR_CLIENT_SECRET, and AUTHORIZATION_CODE):
+   ```bash
+   curl -X POST https://www.strava.com/oauth/token \
+     -F client_id=YOUR_CLIENT_ID \
+     -F client_secret=YOUR_CLIENT_SECRET \
+     -F code=AUTHORIZATION_CODE \
+     -F grant_type=authorization_code
+   ```
+
+4. **Save the response** - you'll get:
+   - `access_token`: Set this as your access_token
+   - `refresh_token`: Set this as your refresh_token
+   - `expires_at`: Automatically managed by the app (no need to configure)
+
+### 4. Find Your Club ID
 
 1. Go to your Strava club page
 2. The URL will look like: `https://www.strava.com/clubs/YOUR_CLUB_ID`
@@ -100,6 +129,12 @@ screenly edge-app secret set client_secret=YOUR_CLIENT_SECRET
 
 # Set your Strava Access Token (secure)
 screenly edge-app secret set access_token=YOUR_ACCESS_TOKEN
+
+# Set your Strava Refresh Token (secure) - for automatic token renewal
+screenly edge-app secret set refresh_token=YOUR_REFRESH_TOKEN
+
+# Set your Strava Client Secret (secure) - required for token refresh
+screenly edge-app secret set client_secret=YOUR_CLIENT_SECRET
 
 # Set your Club ID
 screenly edge-app setting set club_id=YOUR_CLUB_ID
@@ -157,12 +192,26 @@ The app is optimized for all Screenly-supported resolutions:
 - Portrait orientations
 - Mobile screens (480px and below)
 
+## Automatic Token Management
+
+The app includes robust token management to ensure uninterrupted operation:
+
+- **Pure JavaScript management**: Token expiry is managed entirely in memory with no external dependencies
+- **Proactive refresh**: Tokens are refreshed 5 minutes before expiry (when expiry is known)
+- **Reactive handling**: If expiry time is unknown, handles token refresh automatically on 401 errors
+- **Automatic retry**: If a request fails due to token expiry, the app automatically refreshes and retries
+- **Zero configuration**: No need to set or manage expiry timestamps manually
+- **Error recovery**: Clear error messages guide users to resolve authentication issues
+- **No manual intervention**: Once configured, the app maintains itself without user interaction
+
+This is particularly important for digital signage where the display may run unattended for weeks or months.
+
 ## API Rate Limits
 
 The Strava API has rate limits:
 
-- 100 requests per 15 minutes
-- 1,000 requests per day
+- 200 requests per 15 minutes (increased from 100)
+- 2,000 requests per day (increased from 1,000)
 
 The app includes smart caching to minimize API calls:
 
@@ -177,7 +226,31 @@ The app includes smart caching to minimize API calls:
 **"Access token is required"**
 
 - Ensure you've set the access token: `screenly edge-app secret set access_token=YOUR_TOKEN`
-- Verify your token hasn't expired
+- Verify your token hasn't expired (check the browser console for expiry info)
+- If using refresh tokens, ensure all OAuth credentials are properly set
+
+**"Authentication failed" or Token Issues**
+
+- **Missing refresh token**: Complete the OAuth flow to get both access and refresh tokens
+- **Token expired**: The app will automatically refresh if you have a valid refresh_token and client_secret
+- **Invalid client credentials**: Verify your client_id and client_secret match your Strava app
+- **Token refresh failed**: Check the browser console for detailed error messages
+
+**Checking Token Status**
+
+Open the browser developer console and run:
+```javascript
+// Check overall token status and configuration
+StravaApp.getTokenInfo()
+
+// Test current token validity
+StravaApp.probeToken()
+
+// Manually refresh token (for testing)
+StravaApp.refreshToken()
+```
+
+The app automatically detects token expiry from API responses, so you don't need to manually configure expiration times.
 
 **"Club ID is required"**
 
