@@ -68,7 +68,7 @@
 
       // Update UI
       StravaUI.updateStats(activities, leaderboard)
-      StravaUI.renderLeaderboardWithAutoScroll(leaderboard)
+      StravaUI.renderLeaderboard(leaderboard.slice(0, 10)) // Limit to top 10 to fit screen
       StravaUI.updateLastUpdated()
       StravaUI.updateStatsLabels()
       StravaUI.updateLeaderboardTitle()
@@ -163,24 +163,8 @@
     }
   })
 
-  // Handle window resize to recalculate auto-scroll needs
-  let resizeTimeout
-  window.addEventListener('resize', () => {
-    // Debounce resize events
-    clearTimeout(resizeTimeout)
-    resizeTimeout = setTimeout(() => {
-      // Recalculate auto-scroll after resize
-      StravaUI.initializeAutoScroll()
-    }, 250)
-  })
-
-  // Handle orientation change for mobile devices
-  window.addEventListener('orientationchange', () => {
-    // Wait for orientation change to complete
-    setTimeout(() => {
-      StravaUI.initializeAutoScroll()
-    }, 500)
-  })
+  // Window resize and orientation change handlers (auto-scroll removed)
+  // These are kept minimal since auto-scroll is disabled
 
   // Expose some functions for debugging (can be removed in production)
   window.StravaApp = {
@@ -190,67 +174,6 @@
     testLocale: StravaUtils.testLocale,
     cleanup,
 
-    // Auto-scroll debugging functions
-    checkAutoScroll: () => {
-      const needed = StravaUI.checkAutoScrollNeeded()
-      console.log(`Auto-scroll needed: ${needed}`)
-      return needed
-    },
-    debugScrollDimensions: () => {
-      const container = document.getElementById('leaderboard-list')
-      const mainContainer = document.querySelector('.app-main')
-      const leaderboardHeader = document.querySelector('.leaderboard-header')
-
-      if (!container || !mainContainer) {
-        console.log('Required elements not found')
-        return
-      }
-
-      const headerHeight = leaderboardHeader ? leaderboardHeader.offsetHeight : 0
-      const mainHeight = mainContainer.clientHeight
-      const footerHeight = 80
-      const padding = 40
-      const availableHeight = mainHeight - headerHeight - footerHeight - padding
-      const contentHeight = container.scrollHeight
-      const overflowAmount = contentHeight - availableHeight
-
-      console.log('🔍 Auto-scroll Dimensions Debug:')
-      console.log(`Main container height: ${mainHeight}px`)
-      console.log(`Header height: ${headerHeight}px`)
-      console.log(`Footer height estimate: ${footerHeight}px`)
-      console.log(`Padding: ${padding}px`)
-      console.log(`Available height for list: ${availableHeight}px`)
-      console.log(`Content height: ${contentHeight}px`)
-      console.log(`Overflow amount: ${overflowAmount}px`)
-      console.log(`Auto-scroll needed: ${overflowAmount > 0}`)
-
-      return {
-        mainHeight,
-        headerHeight,
-        footerHeight,
-        padding,
-        availableHeight,
-        contentHeight,
-        overflowAmount,
-        autoScrollNeeded: overflowAmount > 0
-      }
-    },
-    enableAutoScroll: () => {
-      StravaUI.enableAutoScroll()
-      console.log('Auto-scroll manually enabled')
-    },
-    disableAutoScroll: () => {
-      StravaUI.disableAutoScroll()
-      console.log('Auto-scroll manually disabled')
-    },
-    setAutoScrollSpeed: (durationMs) => {
-      StravaUI.updateAutoScrollConfig({ scrollDuration: durationMs })
-      console.log(`Auto-scroll duration set to ${durationMs}ms`)
-    },
-    setAutoScrollThreshold: (threshold) => {
-      StravaUI.updateAutoScrollConfig({ enableThreshold: threshold })
-      console.log(`Auto-scroll threshold set to ${threshold}`)
-      StravaUI.initializeAutoScroll()
-    }
+    // Auto-scroll functionality has been removed - showing top 10 athletes only
   }
 })()

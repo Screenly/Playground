@@ -182,7 +182,7 @@ window.StravaAPI = (function () {
       .sort((a, b) => b.totalDistance - a.totalDistance)
 
     // Limit to max athletes setting
-    const maxAthletes = parseInt(screenly.settings.max_athletes) || 10
+    const maxAthletes = parseInt(screenly.settings.max_athletes) || 20
 
     return leaderboard.slice(0, maxAthletes)
   }
