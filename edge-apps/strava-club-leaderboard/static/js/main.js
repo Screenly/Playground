@@ -193,6 +193,7 @@
     cleanupCache: StravaCache.cleanupCache,
     testLocale: StravaUtils.testLocale,
     getTokenInfo: StravaAPI.getTokenInfo,
+    getTokenExpiryInfo: StravaAPI.getTokenExpiryInfo,
     showTokenExpiry: StravaAPI.showTokenExpiry,
     probeToken: StravaAPI.probeCurrentToken,
     refreshToken: StravaAPI.refreshAccessToken,

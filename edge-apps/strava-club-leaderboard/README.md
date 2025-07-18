@@ -46,33 +46,6 @@ After creating the app, you'll see:
 - **Refresh Token**: For long-term access (**required for automatic token renewal**)
 - **Expires At**: Unix timestamp when the access token expires
 
-**Important**: You need to go through the OAuth flow to get both access and refresh tokens. The tokens shown in your app settings page are limited and don't include refresh tokens.
-
-### 3. Get OAuth Tokens (Recommended)
-
-For automatic token refresh, you need to complete the OAuth flow:
-
-1. **Get Authorization Code**: Visit this URL (replace YOUR_CLIENT_ID):
-   ```
-   https://www.strava.com/oauth/authorize?client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=http://localhost/exchange_token&approval_prompt=force&scope=activity:read_all
-   ```
-
-2. **Authorize the app** and copy the `code` from the redirect URL
-
-3. **Exchange for tokens** using curl (replace YOUR_CLIENT_ID, YOUR_CLIENT_SECRET, and AUTHORIZATION_CODE):
-   ```bash
-   curl -X POST https://www.strava.com/oauth/token \
-     -F client_id=YOUR_CLIENT_ID \
-     -F client_secret=YOUR_CLIENT_SECRET \
-     -F code=AUTHORIZATION_CODE \
-     -F grant_type=authorization_code
-   ```
-
-4. **Save the response** - you'll get:
-   - `access_token`: Set this as your access_token
-   - `refresh_token`: Set this as your refresh_token
-   - `expires_at`: Automatically managed by the app (no need to configure)
-
 ### 4. Find Your Club ID
 
 1. Go to your Strava club page
@@ -250,6 +223,9 @@ StravaApp.getTokenInfo()
 
 // Show current token expiry details
 StravaApp.showTokenExpiry()
+
+// Get token expiry info without logging (for programmatic use)
+StravaApp.getTokenExpiryInfo()
 
 // Test current token validity
 StravaApp.probeToken()

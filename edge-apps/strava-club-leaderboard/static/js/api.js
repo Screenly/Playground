@@ -26,6 +26,53 @@ window.StravaAPI = (function () {
   let tokenRefreshPromise = null
   let tokenExpiresAt = null // Internal state for token expiry
 
+  // Helper function to calculate token expiry information
+  function getTokenExpiryInfo (includeExtended = false) {
+    if (!tokenExpiresAt) return null
+
+    const now = Math.floor(Date.now() / 1000)
+    const secondsUntilExpiry = tokenExpiresAt - now
+    const expiryInfo = {
+      seconds: secondsUntilExpiry,
+      minutes: Math.round(secondsUntilExpiry / 60),
+      hours: Math.round(secondsUntilExpiry / 3600),
+      expiryTime: new Date(tokenExpiresAt * 1000).toLocaleString(),
+      expiryTimeISO: new Date(tokenExpiresAt * 1000).toISOString()
+    }
+
+    if (includeExtended) {
+      expiryInfo.days = Math.round(secondsUntilExpiry / 86400)
+      expiryInfo.isExpired = secondsUntilExpiry <= 0
+      expiryInfo.needsRefresh = secondsUntilExpiry <= CONFIG.TOKEN_REFRESH_BUFFER
+    }
+
+    return expiryInfo
+  }
+
+  // Helper function to log token expiry information
+  function logTokenExpiry (options = {}) {
+    const expiryInfo = getTokenExpiryInfo(options.includeExtended)
+    if (!expiryInfo) return null
+
+    // Create a copy for logging (may exclude some fields)
+    const logInfo = { ...expiryInfo }
+
+    // Remove ISO format unless specifically requested
+    if (!options.includeISO) {
+      delete logInfo.expiryTimeISO
+    }
+
+    // Remove extended fields unless it's a summary log
+    if (!options.includeSummary && !options.includeExtended) {
+      delete logInfo.isExpired
+      delete logInfo.needsRefresh
+      delete logInfo.days
+    }
+
+    console.log('⏰ Token will expire in:', logInfo)
+    return expiryInfo
+  }
+
 
 
   // Check if token needs refresh (expires within buffer time)
@@ -143,14 +190,7 @@ window.StravaAPI = (function () {
         if (!tokenExpiresAt) {
           console.log('⚠️ Token expiry time not set - will handle expiry reactively when 401 occurs')
         } else {
-          const now = Math.floor(Date.now() / 1000)
-          const secondsUntilExpiry = tokenExpiresAt - now
-          console.log('⏰ Token will expire in:', {
-            seconds: secondsUntilExpiry,
-            minutes: Math.round(secondsUntilExpiry / 60),
-            hours: Math.round(secondsUntilExpiry / 3600),
-            expiryTime: new Date(tokenExpiresAt * 1000).toLocaleString()
-          })
+          logTokenExpiry({ includeSummary: false })
         }
         return true
       } else if (response.status === 401) {
@@ -180,16 +220,7 @@ window.StravaAPI = (function () {
     })
 
     // Always show expiry details if we have them
-    if (tokenExpiresAt) {
-      const secondsUntilExpiry = tokenExpiresAt - now
-      console.log('⏰ Token will expire in:', {
-        seconds: secondsUntilExpiry,
-        minutes: Math.round(secondsUntilExpiry / 60),
-        hours: Math.round(secondsUntilExpiry / 3600),
-        expiryTime: new Date(tokenExpiresAt * 1000).toLocaleString(),
-        expiryTimeISO: new Date(tokenExpiresAt * 1000).toISOString()
-      })
-    }
+    logTokenExpiry({ includeISO: true, includeSummary: true }) // Include ISO format for detailed validation
 
     // If we don't have expiry info, probe the current token first
     if (!tokenExpiresAt) {
@@ -228,17 +259,16 @@ window.StravaAPI = (function () {
     await ensureValidToken()
 
     // Show current token status before making request
+    console.log(`🚀 Making API request to: ${url}`)
     if (tokenExpiresAt) {
-      const now = Math.floor(Date.now() / 1000)
-      const secondsUntilExpiry = tokenExpiresAt - now
-      console.log(`🚀 Making API request to: ${url}`)
+      const expiryInfo = getTokenExpiryInfo()
       console.log('⏰ Current token expires in:', {
-        minutes: Math.round(secondsUntilExpiry / 60),
-        hours: Math.round(secondsUntilExpiry / 3600),
-        expiryTime: new Date(tokenExpiresAt * 1000).toLocaleString()
+        minutes: expiryInfo.minutes,
+        hours: expiryInfo.hours,
+        expiryTime: expiryInfo.expiryTime
       })
     } else {
-      console.log(`🚀 Making API request to: ${url} (no expiry time available)`)
+      console.log('⏰ No token expiry time available')
     }
 
     const headers = {
@@ -526,19 +556,7 @@ window.StravaAPI = (function () {
       return null
     }
 
-    const now = Math.floor(Date.now() / 1000)
-    const secondsUntilExpiry = tokenExpiresAt - now
-    const expiryInfo = {
-      seconds: secondsUntilExpiry,
-      minutes: Math.round(secondsUntilExpiry / 60),
-      hours: Math.round(secondsUntilExpiry / 3600),
-      days: Math.round(secondsUntilExpiry / 86400),
-      expiryTime: new Date(tokenExpiresAt * 1000).toLocaleString(),
-      expiryTimeISO: new Date(tokenExpiresAt * 1000).toISOString(),
-      isExpired: secondsUntilExpiry <= 0,
-      needsRefresh: secondsUntilExpiry <= CONFIG.TOKEN_REFRESH_BUFFER
-    }
-
+    const expiryInfo = getTokenExpiryInfo(true) // Include extended info
     console.log('⏰ Token will expire in:', expiryInfo)
     return expiryInfo
   }
@@ -554,6 +572,7 @@ window.StravaAPI = (function () {
     refreshAccessToken,
     probeCurrentToken,
     getTokenInfo,
+    getTokenExpiryInfo,
     showTokenExpiry,
     needsTokenRefresh,
     isTokenExpired
