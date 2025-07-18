@@ -3,6 +3,11 @@ import { onBeforeMount, onMounted } from 'vue'
 import { useScreenlyMetadataStore, useSettingsStore } from './stores/root-store'
 import InfoCard from './components/InfoCard.vue'
 
+import nameIcon from './assets/images/icons/name-icon.svg'
+import hardwareIcon from './assets/images/icons/hardware-icon.svg'
+import versionIcon from './assets/images/icons/version-icon.svg'
+import coordinatesIcon from './assets/images/icons/coordinates-icon.svg'
+
 const screenlyMetadataStore = useScreenlyMetadataStore()
 const settingsStore = useSettingsStore()
 
@@ -19,19 +24,19 @@ onMounted(() => {
   <div class="main-container main-container-grid">
     <InfoCard
       class="host-name-card"
-      icon="static/images/icons/name-icon.svg"
+      :icon="nameIcon"
       title="Host Name"
       :value="screenlyMetadataStore.hostname"
     />
     <InfoCard
       class="screen-name-card"
-      icon="./static/images/icons/name-icon.svg"
+      :icon="nameIcon"
       title="Name"
       :value="screenlyMetadataStore.screenName"
     />
     <InfoCard
       class="hardware-name-card"
-      icon="./static/images/icons/hardware-icon.svg"
+      :icon="hardwareIcon"
       title="Hardware"
       :value="screenlyMetadataStore.hardware"
     />
@@ -41,17 +46,17 @@ onMounted(() => {
     </InfoCard>
     <InfoCard
       class="version-name-card"
-      icon="./static/images/icons/version-icon.svg"
+      :icon="versionIcon"
       title="Version"
       :value="screenlyMetadataStore.screenlyVersion"
     />
     <InfoCard
       class="coordinates-card"
-      icon="./static/images/icons/coordinates-icon.svg"
+      :icon="coordinatesIcon"
       title="Coordinates"
       :value="screenlyMetadataStore.formattedCoordinates"
     />
-    <InfoCard class="labels-name-card" icon="./static/images/icons/version-icon.svg" title="Labels">
+    <InfoCard class="labels-name-card" :icon="versionIcon" title="Labels">
       <div class="label-chip-container">
         <div v-for="tag in screenlyMetadataStore.tags" :key="tag" class="label-chip">
           {{ tag }}

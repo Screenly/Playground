@@ -19,8 +19,10 @@ defineProps<{
       ></object>
       <span v-if="title" class="icon-card-text head-text">{{ title }}</span>
     </div>
-    <span v-if="value" class="icon-card-text">{{ value }}</span>
-    <slot />
+    <slot>
+      <span v-if="value" class="icon-card-text">{{ value }}</span>
+      <span v-else class="icon-card-text">N/A</span>
+    </slot>
   </div>
 </template>
 
