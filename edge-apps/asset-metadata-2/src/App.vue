@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted } from 'vue'
+import { onBeforeMount, onMounted, type Ref } from 'vue'
 import { useScreenlyMetadataStore, useSettingsStore } from './stores/root-store'
 import InfoCard from '@/components/InfoCard.vue'
 import NameIcon from '@/components/NameIcon.vue'
 import HardwareIcon from '@/components/HardwareIcon.vue'
 import VersionIcon from '@/components/VersionIcon.vue'
 import CoordinatesIcon from '@/components/CoordinatesIcon.vue'
+import screenlyLogo from '@/assets/images/screenly.svg'
 
 const screenlyMetadataStore = useScreenlyMetadataStore()
 const settingsStore = useSettingsStore()
 
-onBeforeMount(() => {
+onBeforeMount(async () => {
   settingsStore.setupTheme()
+  await settingsStore.setupBrandingLogo()
 })
 
 onMounted(() => {
@@ -61,7 +63,12 @@ const cards = [
 <template>
   <div class="main-container main-container-grid">
     <InfoCard class="brand-logo-card">
-      <img id="brand-logo" src="./assets/images/screenly.svg" class="brand-logo" alt="Brand Logo" />
+      <img
+        id="brand-logo"
+        :src="(settingsStore.brandLogoUrl as unknown as Ref<string>).value || screenlyLogo"
+        class="brand-logo"
+        alt="Brand Logo"
+      />
       <span class="info-text">Powered by Screenly</span>
     </InfoCard>
 
@@ -96,4 +103,6 @@ const cards = [
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+/* Add any additional styles here if needed */
+</style>

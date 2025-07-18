@@ -41,6 +41,7 @@ export const useSettingsStore = defineStore('settings', () => {
   const secondaryThemeColor = ref('')
   const tertiaryThemeColor = ref('')
   const backgroundThemeColor = ref('')
+  const brandLogoUrl = ref('')
 
   const setupTheme = () => {
     const tertiaryColor = '#FFFFFF'
@@ -79,12 +80,100 @@ export const useSettingsStore = defineStore('settings', () => {
     backgroundThemeColor.value = backgroundColor
   }
 
+  const setupBrandingLogo = async () => {
+    const theme = settings.value.theme || 'light'
+    const defaultLogo = 'assets/images/screenly.svg'
+
+    // Define settings
+    const lightLogo = settings.value.screenly_logo_light ?? ''
+    const darkLogo = settings.value.screenly_logo_dark ?? ''
+
+    // Set logo URLs based on theme
+    let logoUrl = ''
+    let fallbackUrl = ''
+
+    if (theme === 'light') {
+      logoUrl = lightLogo
+        ? `${screenly.cors_proxy_url}/${lightLogo}`
+        : `${screenly.cors_proxy_url}/${darkLogo}`
+      fallbackUrl = lightLogo || darkLogo || ''
+    } else if (theme === 'dark') {
+      logoUrl = darkLogo
+        ? `${screenly.cors_proxy_url}/${darkLogo}`
+        : `${screenly.cors_proxy_url}/${lightLogo}`
+      fallbackUrl = darkLogo || lightLogo
+    }
+
+    // Function to fetch and process the image
+    const fetchImage = async (fileUrl: string): Promise<string> => {
+      try {
+        const response = await fetch(fileUrl)
+        if (!response.ok) {
+          throw new Error(`Failed to fetch image from ${fileUrl}, status: ${response.status}`)
+        }
+
+        const blob = await response.blob()
+        const buffer = await blob.arrayBuffer()
+        const uintArray = new Uint8Array(buffer)
+
+        // Get the first 4 bytes for magic number detection
+        const hex = Array.from(uintArray.slice(0, 4))
+          .map((b) => b.toString(16).padStart(2, '0'))
+          .join('')
+          .toUpperCase()
+
+        // Convert the first few bytes to ASCII for text-based formats like SVG
+        const ascii = String.fromCharCode.apply(null, Array.from(uintArray.slice(0, 100))) // Check first 100 chars for XML/SVG tags
+        const pngMagicNumber = '89504E47'
+        const jpegMagicNumber = 'FFD8FF'
+
+        // Determine file type based on MIME type, magic number, or ASCII text
+        if (ascii.startsWith('<?xml') || ascii.startsWith('<svg')) {
+          // Convert to Base64 and return if SVG
+          const svgText = await blob.text()
+          const base64 = btoa(unescape(encodeURIComponent(svgText)))
+          return 'data:image/svg+xml;base64,' + base64
+        } else if (hex === pngMagicNumber || hex === jpegMagicNumber) {
+          // Checking PNG or JPEG/JPG magic number
+          return fileUrl
+        } else {
+          throw new Error('Unknown image type')
+        }
+      } catch (error) {
+        console.error('Error fetching image:', error)
+        throw error
+      }
+    }
+
+    // Try to fetch the image using the CORS proxy URL
+    try {
+      console.log('Attempting to fetch logo from:', logoUrl)
+      const processedLogoUrl = await fetchImage(logoUrl)
+      brandLogoUrl.value = processedLogoUrl
+      console.log('Logo URL set to:', brandLogoUrl.value)
+    } catch {
+      console.log('CORS fetch failed, trying fallback:', fallbackUrl)
+      // If CORS fails, try the fallback URL
+      try {
+        const processedFallbackUrl = await fetchImage(fallbackUrl)
+        brandLogoUrl.value = processedFallbackUrl
+        console.log('Fallback logo URL set to:', brandLogoUrl.value)
+      } catch {
+        console.log('Fallback failed, using default logo:', defaultLogo)
+        // If fallback fails, use the default logo
+        brandLogoUrl.value = defaultLogo
+      }
+    }
+  }
+
   return {
     settings,
     primaryThemeColor,
     secondaryThemeColor,
     tertiaryThemeColor,
     backgroundThemeColor,
+    brandLogoUrl,
     setupTheme,
+    setupBrandingLogo,
   }
 })

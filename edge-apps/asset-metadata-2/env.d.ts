@@ -16,6 +16,8 @@ declare global {
       screenly_color_accent?: string
       screenly_color_light?: string
       screenly_color_dark?: string
+      screenly_logo_light?: string
+      screenly_logo_dark?: string
       theme?: 'light' | 'dark'
     }
     cors_proxy_url: string
