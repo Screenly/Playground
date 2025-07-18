@@ -272,6 +272,9 @@ The app now provides comprehensive console logging:
 StravaApp.getCacheStats()
 StravaApp.checkCacheHealth()
 
+// Perform intelligent cache cleanup with detailed reporting
+StravaApp.cleanupCache()
+
 // Clear all cache (forces fresh data on next load)
 StravaApp.clearCache()
 

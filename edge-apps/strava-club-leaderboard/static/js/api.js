@@ -303,14 +303,19 @@ window.StravaAPI = (function () {
 
     // Fetch club details with caching
   async function fetchClubDetails (clubId) {
-    // Check cache first - club details don't change often, so cache for 1 hour
+        // Check cache first - club details don't change often, so cache for 1 hour
     const cacheKey = StravaCache.getCacheKey ?
       StravaCache.getCacheKey('details', clubId) :
       `strava_club_details_${clubId}`
 
-    console.log('🔍 Fetching club details:', { clubId, cacheKey })
+    if (!cacheKey) {
+      console.warn('❌ Failed to generate cache key for club details')
+      // Proceed without caching
+    }
 
-    const cachedData = StravaCache.getCachedData(cacheKey)
+        console.log('🔍 Fetching club details:', { clubId, cacheKey })
+
+    const cachedData = cacheKey ? StravaCache.getCachedData(cacheKey) : null
     if (cachedData) {
       console.log('✅ Club details loaded from cache using key:', cacheKey)
       return cachedData
@@ -321,9 +326,11 @@ window.StravaAPI = (function () {
       const clubData = await makeStravaRequest(url)
 
       // Cache club details for 1 hour since they rarely change
-      if (clubData) {
-        StravaCache.setCachedDataWithDuration(cacheKey, clubData, 60 * 60 * 1000) // 1 hour
-        console.log('💾 Club details cached for 1 hour using key:', cacheKey)
+      if (clubData && cacheKey) {
+        const cached = StravaCache.setCachedDataWithDuration(cacheKey, clubData, 60 * 60 * 1000) // 1 hour
+        if (cached) {
+          console.log('💾 Club details cached for 1 hour using key:', cacheKey)
+        }
       }
 
       return clubData
@@ -346,14 +353,19 @@ window.StravaAPI = (function () {
 
     // Fetch club activities with caching and pagination
   async function fetchClubActivities (clubId, page = 1) {
-    const cacheKey = StravaCache.getCacheKey ?
+        const cacheKey = StravaCache.getCacheKey ?
       StravaCache.getCacheKey('activities', clubId, 'recent', page) :
       `strava_club_activities_${clubId}_recent_${page}`
+
+    if (!cacheKey) {
+      console.warn('❌ Failed to generate cache key for club activities')
+      // Proceed without caching
+    }
 
     console.log(`🔍 Fetching club activities page ${page}:`, { clubId, page, cacheKey })
 
     // Check cache first
-    const cachedData = StravaCache.getCachedData(cacheKey)
+    const cachedData = cacheKey ? StravaCache.getCachedData(cacheKey) : null
     if (cachedData) {
       console.log(`✅ Club activities page ${page} loaded from cache using key:`, cacheKey)
       return cachedData
@@ -383,8 +395,12 @@ window.StravaAPI = (function () {
       const processedActivities = activities
 
       // Cache the processed activities (10 minutes default)
-      StravaCache.setCachedData(cacheKey, processedActivities)
-      console.log(`💾 Club activities page ${page} cached for 10 minutes using key:`, cacheKey)
+      if (cacheKey) {
+        const cached = StravaCache.setCachedData(cacheKey, processedActivities)
+        if (cached) {
+          console.log(`💾 Club activities page ${page} cached for 10 minutes using key:`, cacheKey)
+        }
+      }
 
       return processedActivities
     } catch (error) {

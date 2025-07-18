@@ -51,65 +51,92 @@ window.StravaCache = (function () {
     return null
   }
 
-  // Set cached data with default duration
-  function setCachedData (key, data) {
+  // Helper function for cache write with error handling
+  function writeToCache (key, cacheEntry) {
     try {
-      const cacheEntry = {
-        data,
-        timestamp: Date.now(),
-        version: 1 // Cache version for future migrations
-      }
       localStorage.setItem(key, JSON.stringify(cacheEntry))
+      return true
     } catch (error) {
       // Handle quota exceeded errors
       if (error.name === 'QuotaExceededError' || error.code === 22) {
+        console.warn('💾 Cache quota exceeded, attempting cleanup...')
         handleQuotaExceededError()
+
         // Try again after clearing
         try {
           localStorage.setItem(key, JSON.stringify(cacheEntry))
+          console.log('💾 Cache write successful after cleanup')
+          return true
         } catch (retryError) {
-          console.warn('Failed to cache data after cleanup:', retryError)
+          console.warn('❌ Failed to cache data after cleanup:', retryError)
+          return false
         }
       } else {
-        console.warn('Cache write error:', error)
+        console.warn('❌ Cache write error:', error)
+        return false
       }
     }
+  }
+
+  // Set cached data with default duration
+  function setCachedData (key, data) {
+    if (!key || data === undefined) {
+      console.warn('❌ Invalid cache parameters:', { key, hasData: data !== undefined })
+      return false
+    }
+
+    const cacheEntry = {
+      data,
+      timestamp: Date.now(),
+      version: 1 // Cache version for future migrations
+    }
+
+    return writeToCache(key, cacheEntry)
   }
 
   // Set cached data with custom duration
   function setCachedDataWithDuration (key, data, duration) {
-    try {
-      const cacheEntry = {
-        data,
-        timestamp: Date.now(),
-        customDuration: duration,
-        version: 1
-      }
-      localStorage.setItem(key, JSON.stringify(cacheEntry))
-    } catch (error) {
-      // Handle quota exceeded errors
-      if (error.name === 'QuotaExceededError' || error.code === 22) {
-        handleQuotaExceededError()
-        // Try again after clearing
-        try {
-          localStorage.setItem(key, JSON.stringify(cacheEntry))
-        } catch (retryError) {
-          console.warn('Failed to cache data after cleanup:', retryError)
-        }
-      } else {
-        console.warn('Cache write error:', error)
-      }
+    if (!key || data === undefined || !duration || duration <= 0) {
+      console.warn('❌ Invalid cache parameters:', {
+        key,
+        hasData: data !== undefined,
+        duration
+      })
+      return false
     }
+
+    const cacheEntry = {
+      data,
+      timestamp: Date.now(),
+      customDuration: duration,
+      version: 1
+    }
+
+    return writeToCache(key, cacheEntry)
   }
 
   // Clear all Strava-related cache
   function clearCache () {
-    const keys = Object.keys(localStorage)
-    keys.forEach(key => {
-      if (key.startsWith(CACHE_NAMESPACE)) {
+    const keysToRemove = []
+
+    // Collect all matching keys first (avoid modifying during iteration)
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i)
+      if (key && key.startsWith(CACHE_NAMESPACE)) {
+        keysToRemove.push(key)
+      }
+    }
+
+    // Remove collected keys
+    keysToRemove.forEach(key => {
+      try {
         localStorage.removeItem(key)
+      } catch (error) {
+        console.warn('Failed to remove cache key:', key, error)
       }
     })
+
+    console.log(`🧹 Cleared ${keysToRemove.length} cache entries`)
   }
 
   // Clear cache on authentication change (token refresh/change)
@@ -143,31 +170,45 @@ window.StravaCache = (function () {
 
   // Get cache size and statistics
   function getCacheStats () {
-    const keys = Object.keys(localStorage)
-    const cacheKeys = keys.filter(key => key.startsWith(CACHE_NAMESPACE))
-
+    const cacheInfo = []
     let totalSize = 0
-    const cacheInfo = cacheKeys.map(key => {
-      const value = localStorage.getItem(key)
-      const size = value ? value.length : 0
-      totalSize += size
 
-      try {
-        const parsed = JSON.parse(value)
-        return {
-          key,
-          size,
-          timestamp: parsed.timestamp,
-          age: Date.now() - parsed.timestamp
+    // Iterate through localStorage properly
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i)
+      if (key && key.startsWith(CACHE_NAMESPACE)) {
+        try {
+          const value = localStorage.getItem(key)
+          const size = value ? value.length : 0
+          totalSize += size
+
+          const parsed = JSON.parse(value)
+          cacheInfo.push({
+            key,
+            size,
+            timestamp: parsed.timestamp || 0,
+            age: parsed.timestamp ? Date.now() - parsed.timestamp : 0,
+            version: parsed.version || 0,
+            hasCustomDuration: !!parsed.customDuration,
+            customDuration: parsed.customDuration
+          })
+        } catch (error) {
+          // Handle corrupted entries
+          cacheInfo.push({
+            key,
+            size: 0,
+            timestamp: 0,
+            age: 0,
+            corrupted: true
+          })
         }
-      } catch (error) {
-        return { key, size, timestamp: 0, age: 0 }
       }
-    })
+    }
 
     return {
-      totalKeys: cacheKeys.length,
+      totalKeys: cacheInfo.length,
       totalSize,
+      totalSizeMB: Math.round(totalSize / 1024 / 1024 * 100) / 100,
       cacheInfo: cacheInfo.sort((a, b) => b.age - a.age) // Sort by age, oldest first
     }
   }
@@ -175,18 +216,38 @@ window.StravaCache = (function () {
   // Manage cache size by removing old entries
   function manageCacheSize (maxEntries = 50) {
     const stats = getCacheStats()
+    let removedCount = 0
 
-    if (stats.totalKeys > maxEntries) {
-      // Remove oldest entries
-      const toRemove = stats.cacheInfo.slice(maxEntries)
-      toRemove.forEach(item => {
+    // Remove corrupted entries first
+    const corruptedEntries = stats.cacheInfo.filter(item => item.corrupted)
+    corruptedEntries.forEach(item => {
+      try {
         localStorage.removeItem(item.key)
-      })
+        removedCount++
+      } catch (error) {
+        console.warn('Failed to remove corrupted cache entry:', item.key)
+      }
+    })
 
-      return toRemove.length
+    // Then remove oldest entries if still over limit
+    const validEntries = stats.cacheInfo.filter(item => !item.corrupted)
+    if (validEntries.length > maxEntries) {
+      const toRemove = validEntries.slice(maxEntries)
+      toRemove.forEach(item => {
+        try {
+          localStorage.removeItem(item.key)
+          removedCount++
+        } catch (error) {
+          console.warn('Failed to remove cache entry:', item.key)
+        }
+      })
     }
 
-    return 0
+    if (removedCount > 0) {
+      console.log(`🧹 Removed ${removedCount} cache entries (${corruptedEntries.length} corrupted)`)
+    }
+
+    return removedCount
   }
 
   // Check if cache is healthy (not too many entries, not too large)
@@ -212,15 +273,65 @@ window.StravaCache = (function () {
     }
   }
 
-  // Generate cache key with namespace
+  // Generate cache key with namespace and validation
   function getCacheKey (type, ...parts) {
-    return `${CACHE_NAMESPACE}${type}_${parts.join('_')}`
+    if (!type) {
+      console.warn('❌ Cache key type is required')
+      return null
+    }
+
+    // Filter out null/undefined parts and convert to string
+    const validParts = parts.filter(part => part !== null && part !== undefined)
+      .map(part => String(part))
+
+    if (validParts.length === 0) {
+      console.warn('❌ Cache key requires at least one additional part beyond type')
+      return null
+    }
+
+    const key = `${CACHE_NAMESPACE}${type}_${validParts.join('_')}`
+
+    // Validate key length (localStorage keys have practical limits)
+    if (key.length > 100) {
+      console.warn('⚠️ Cache key is very long, may cause issues:', key.length)
+    }
+
+    return key
   }
 
   // Clear cache on quota exceeded error
   function handleQuotaExceededError () {
-    console.warn('localStorage quota exceeded, clearing cache')
-    clearCache()
+    console.warn('💾 localStorage quota exceeded, performing cleanup...')
+
+    // First try to clean up old entries
+    const removedCount = manageCacheSize(20) // More aggressive cleanup
+
+    if (removedCount === 0) {
+      // If no old entries to remove, clear all cache
+      console.warn('💾 No old entries found, clearing all cache')
+      clearCache()
+    }
+  }
+
+  // Add cache cleanup with detailed reporting
+  function cleanupCache () {
+    const statsBefore = getCacheStats()
+    const removedCount = manageCacheSize()
+    const statsAfter = getCacheStats()
+
+    console.log('🧹 Cache cleanup report:', {
+      before: {
+        entries: statsBefore.totalKeys,
+        sizeMB: statsBefore.totalSizeMB
+      },
+      after: {
+        entries: statsAfter.totalKeys,
+        sizeMB: statsAfter.totalSizeMB
+      },
+      removed: removedCount
+    })
+
+    return { statsBefore, statsAfter, removedCount }
   }
 
   // Public API
@@ -235,7 +346,8 @@ window.StravaCache = (function () {
     manageCacheSize,
     checkCacheHealth,
     getCacheKey,
-    handleQuotaExceededError
+    handleQuotaExceededError,
+    cleanupCache
   }
 
   console.log('StravaCache module loaded with functions:', Object.keys(cacheAPI))

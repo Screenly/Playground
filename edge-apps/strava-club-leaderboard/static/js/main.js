@@ -190,6 +190,7 @@
     clearCache: StravaCache.clearCache,
     clearCacheForClub: StravaCache.clearCacheForClub,
     checkCacheHealth: StravaCache.checkCacheHealth,
+    cleanupCache: StravaCache.cleanupCache,
     testLocale: StravaUtils.testLocale,
     getTokenInfo: StravaAPI.getTokenInfo,
     showTokenExpiry: StravaAPI.showTokenExpiry,
