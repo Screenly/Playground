@@ -46,10 +46,13 @@ settings:
       You can find this in the club URL: https://www.strava.com/clubs/{club_id}, Use small letters.
   max_athletes:
     type: string
-    default_value: '10'
+    default_value: '15'
     title: Maximum Athletes to Display
     optional: false
     help_text: |
-      Maximum number of athletes to show in the leaderboard (1-10)
-      Default: 10 athletes. Shows the top athletes ranked by total distance.
+      Maximum number of athletes to show in the leaderboard (1-15)
+      The app automatically adjusts based on screen orientation:
+      • Landscape mode: Shows 6 athletes (optimized for wider screens)
+      • Portrait mode: Shows 15 athletes (optimized for taller screens)
+      This setting serves as an upper limit for portrait mode.
 

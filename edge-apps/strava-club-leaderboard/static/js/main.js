@@ -22,6 +22,26 @@
     // Note: Time filtering is never available due to Strava Club Activities API limitations
   }
 
+  // Helper function to get athlete count based on screen orientation
+  function getAthleteCountForOrientation () {
+    const isLandscape = window.innerWidth > window.innerHeight
+    return isLandscape ? 6 : 15 // 6 for landscape, 15 for portrait
+  }
+
+  // Re-render leaderboard with appropriate athlete count for current orientation
+  function updateLeaderboardForOrientation () {
+    if (appState.leaderboard && appState.leaderboard.length > 0) {
+      const athleteCount = getAthleteCountForOrientation()
+      StravaUI.renderLeaderboard(appState.leaderboard.slice(0, athleteCount))
+    }
+  }
+
+  // Handle orientation change with delay
+  const handleOrientationChange = () => {
+    // Small delay to ensure orientation change is complete
+    setTimeout(updateLeaderboardForOrientation, 100)
+  }
+
   // Main application logic
   async function loadLeaderboard () {
     if (appState.isLoading) return
@@ -68,7 +88,7 @@
 
       // Update UI
       StravaUI.updateStats(activities, leaderboard)
-      StravaUI.renderLeaderboard(leaderboard.slice(0, 10)) // Limit to top 10 to fit screen
+      StravaUI.renderLeaderboard(leaderboard.slice(0, getAthleteCountForOrientation())) // Responsive athlete count
       StravaUI.updateLastUpdated()
       StravaUI.updateStatsLabels()
       StravaUI.updateLeaderboardTitle()
@@ -152,6 +172,10 @@
   function cleanup () {
     stopRefreshTimer()
 
+    // Remove event listeners
+    window.removeEventListener('resize', updateLeaderboardForOrientation)
+    window.removeEventListener('orientationchange', handleOrientationChange)
+
     // Check cache health and clean up if needed
     const cacheHealth = StravaCache.checkCacheHealth()
     if (!cacheHealth.healthy) {
@@ -179,8 +203,9 @@
     }
   })
 
-  // Window resize and orientation change handlers (auto-scroll removed)
-  // These are kept minimal since auto-scroll is disabled
+    // Window resize and orientation change handlers
+  window.addEventListener('resize', updateLeaderboardForOrientation)
+  window.addEventListener('orientationchange', handleOrientationChange)
 
   // Expose some functions for debugging (can be removed in production)
   window.StravaApp = {
@@ -199,6 +224,9 @@
     refreshToken: StravaAPI.refreshAccessToken,
     cleanup,
 
-    // Auto-scroll functionality has been removed - showing top 10 athletes only
+    // Orientation-responsive athlete count functionality
+    getAthleteCountForOrientation,
+    updateLeaderboardForOrientation,
+    getCurrentOrientation: () => window.innerWidth > window.innerHeight ? 'landscape' : 'portrait'
   }
 })()
