@@ -21,11 +21,13 @@ A digital signage dashboard that displays employee information from Charlie HR, 
 ## Installation
 
 1. **Log in to Screenly CLI**
+
 ```bash
 screenly login
 ```
 
 2. **Create the Edge App**
+
 ```bash
 cd edge-apps/charlie-hr-app
 screenly edge-app create \
@@ -34,11 +36,13 @@ screenly edge-app create \
 ```
 
 3. **Deploy the App**
+
 ```bash
 screenly edge-app deploy
 ```
 
 4. **Create an Instance**
+
 ```bash
 screenly edge-app instance create
 ```
@@ -66,4 +70,3 @@ screenly edge-app setting set override_locale='en'
 ## Support
 
 For issues or questions, please contact Screenly support or open an issue in the repository.
-

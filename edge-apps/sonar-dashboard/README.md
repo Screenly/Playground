@@ -2,7 +2,7 @@
 
 ![Sonar Dashboard](static/img/sonar-dashboard-preview.jpg)
 
-A real-time dashboard Edge App that displays analytics from the [Sonar BLE Device Counter](https://github.com/Viktopia/sonar) - providing "*Analytics for the real world*" through Bluetooth Low Energy device tracking.
+A real-time dashboard Edge App that displays analytics from the [Sonar BLE Device Counter](https://github.com/Viktopia/sonar) - providing "_Analytics for the real world_" through Bluetooth Low Energy device tracking.
 
 ## 🎯 Overview
 
@@ -31,10 +31,10 @@ This Edge App creates a beautiful, real-time dashboard that visualizes data from
 │   Dashboard     │      API         │  Device Counter  │
 │   (Edge App)    │                  │  (Raspberry Pi)  │
 └─────────────────┘                  └──────────────────┘
-
 ```
 
 The dashboard connects to your Sonar instance via HTTP API calls, displaying:
+
 - Current scan results (`/api/latest`)
 - Time-series data (`/api/time-series`)
 - Historical analytics and trends
@@ -54,10 +54,10 @@ The dashboard connects to your Sonar instance via HTTP API calls, displaying:
 
 Configure the following settings in your Screenly dashboard:
 
-| Setting | Description | Example |
-|---------|-------------|---------|
+| Setting    | Description                       | Example         |
+| ---------- | --------------------------------- | --------------- |
 | `api_host` | IP address of your Sonar instance | `192.168.1.100` |
-| `api_port` | Port number (usually 8000) | `8000` |
+| `api_port` | Port number (usually 8000)        | `8000`          |
 
 ### Screenly Settings Configuration
 
@@ -72,6 +72,7 @@ Configure the following settings in your Screenly dashboard:
 ## 📊 Dashboard Sections
 
 ### Current Scan (Left Panel)
+
 - **Total Devices**: Current unique BLE devices detected
 - **iOS Devices**: Apple devices in proximity
 - **Other Devices**: Non-Apple BLE devices
@@ -79,16 +80,19 @@ Configure the following settings in your Screenly dashboard:
 - **Manufacturer Breakdown**: Top device manufacturers detected
 
 ### Last Hour Analytics (Top Right)
+
 - **Average Devices**: Mean device count over the last hour
 - **Peak Devices**: Maximum devices detected in the last hour
 - **iOS vs Other**: Breakdown of device types
 
 ### Session Analytics (Bottom Right)
+
 - **Total Sessions**: Number of device sessions tracked
 - **Active Sessions**: Currently active device sessions
 - **Average Dwell Time**: Mean time devices stay in range
 
 ### 24-Hour Timeline (Bottom)
+
 - Interactive histogram showing device activity over 24 hours
 - Real-time updates with current data highlighted
 - Timezone-aware timestamps
@@ -98,7 +102,9 @@ Configure the following settings in your Screenly dashboard:
 The dashboard consumes these endpoints from your Sonar instance:
 
 ### `/api/latest`
+
 Returns current scan results and recent statistics:
+
 ```json
 {
   "current_scan": {
@@ -120,7 +126,9 @@ Returns current scan results and recent statistics:
 ```
 
 ### `/api/time-series`
+
 Provides historical data for the timeline chart:
+
 ```json
 {
   "time_series": [
@@ -141,5 +149,3 @@ Provides historical data for the timeline chart:
 - **Space Utilization**: Analyze usage patterns in offices, libraries, or public spaces
 - **Marketing Insights**: Understand customer dwell time and visit patterns
 - **Security**: Monitor occupancy levels for safety compliance
-
-
