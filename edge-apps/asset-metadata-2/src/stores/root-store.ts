@@ -82,7 +82,6 @@ export const useSettingsStore = defineStore('settings', () => {
 
   const setupBrandingLogo = async () => {
     const theme = settings.value.theme || 'light'
-    const defaultLogo = 'assets/images/screenly.svg'
 
     // Define settings
     const lightLogo = settings.value.screenly_logo_light ?? ''
@@ -165,7 +164,8 @@ export const useSettingsStore = defineStore('settings', () => {
         const processedFallbackUrl = await fetchImage(fallbackUrl)
         brandLogoUrl.value = processedFallbackUrl
       } catch {
-        brandLogoUrl.value = defaultLogo
+        // Set to empty string so the template uses the imported screenlyLogo
+        brandLogoUrl.value = ''
       }
     }
   }
