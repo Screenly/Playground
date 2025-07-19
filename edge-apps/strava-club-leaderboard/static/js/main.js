@@ -25,7 +25,7 @@
   // Helper function to get athlete count based on screen orientation
   function getAthleteCountForOrientation () {
     const isLandscape = window.innerWidth > window.innerHeight
-    return isLandscape ? 6 : 15 // 6 for landscape, 15 for portrait
+    return isLandscape ? 6 : 14 // 6 for landscape, 14 for portrait
   }
 
   // Re-render leaderboard with appropriate athlete count for current orientation

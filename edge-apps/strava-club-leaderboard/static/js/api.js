@@ -503,10 +503,8 @@ window.StravaAPI = (function () {
     const leaderboard = Object.values(athleteStats)
       .sort((a, b) => b.totalDistance - a.totalDistance)
 
-    // Limit to max athletes setting
-    const maxAthletes = parseInt(screenly.settings.max_athletes) || 20
-
-    return leaderboard.slice(0, maxAthletes)
+    // Return all athletes - filtering will be handled by the main application logic
+    return leaderboard
   }
 
           // Get token info for debugging

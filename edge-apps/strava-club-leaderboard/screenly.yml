@@ -1,7 +1,7 @@
 ---
 syntax: manifest_v1
 id:
-description: Displays a leaderboard of Strava club activities with weekly/monthly rankings
+description: Displays a leaderboard of Strava club activities with responsive layout (6 athletes in landscape, 14 in portrait)
 icon: 'https://playground.srly.io/edge-apps/strava-club-leaderboard/static/images/icon.svg'
 author: Screenly, Inc.
 ready_signal: true
@@ -42,17 +42,6 @@ settings:
     title: Strava Club ID
     optional: false
     help_text: |
-      The ID of the Strava club to display leaderboard for.
+            The ID of the Strava club to display leaderboard for.
       You can find this in the club URL: https://www.strava.com/clubs/{club_id}, Use small letters.
-  max_athletes:
-    type: string
-    default_value: '15'
-    title: Maximum Athletes to Display
-    optional: false
-    help_text: |
-      Maximum number of athletes to show in the leaderboard (1-15)
-      The app automatically adjusts based on screen orientation:
-      • Landscape mode: Shows 6 athletes (optimized for wider screens)
-      • Portrait mode: Shows 15 athletes (optimized for taller screens)
-      This setting serves as an upper limit for portrait mode.
 
