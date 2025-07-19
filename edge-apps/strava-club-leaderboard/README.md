@@ -259,19 +259,19 @@ StravaApp.clearCacheForClub('YOUR_CLUB_ID')
 
 // Get current app state
 StravaApp.getState()
-```
 
+```
 The app automatically detects token expiry from API responses and manages cache intelligently, so you don't need to manually configure expiration times.
 
 **Console Log Examples:**
-```
-🔐 Token validation check: {expiresAt: "2024-01-15T14:30:00Z", secondsUntilExpiry: 18234, ...}
-🔍 Fetching club details: {clubId: "12345", cacheKey: "strava_club_details_12345"}
-✅ Club details loaded from cache using key: strava_club_details_12345
-⏰ Token will expire in: {minutes: 304, hours: 5, expiryTime: "1/15/2024, 2:30:00 PM"}
-🎉 Access token refreshed successfully!
-💾 Club activities page 1 cached for 10 minutes using key: strava_club_activities_12345_recent_1
-```
+
+- 🔐 Token validation check: {expiresAt: "2024-01-15T14:30:00Z", secondsUntilExpiry: 18234, ...}
+- 🔍 Fetching club details: {clubId: "12345", cacheKey: "strava_club_details_12345"}
+- ✅ Club details loaded from cache using key: strava_club_details_12345
+- ⏰ Token will expire in: {minutes: 304, hours: 5, expiryTime: "1/15/2024, 2:30:00 PM"}
+- 🎉 Access token refreshed successfully!
+- 💾 Club activities page 1 cached for 10 minutes using key: strava_club_activities_12345_recent_1
+
 
 **"Club ID is required"**
 

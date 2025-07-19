@@ -203,7 +203,7 @@
     }
   })
 
-    // Window resize and orientation change handlers
+  // Window resize and orientation change handlers
   window.addEventListener('resize', updateLeaderboardForOrientation)
   window.addEventListener('orientationchange', handleOrientationChange)
 

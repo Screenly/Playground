@@ -42,6 +42,6 @@ settings:
     title: Strava Club ID
     optional: false
     help_text: |
-            The ID of the Strava club to display leaderboard for.
+      The ID of the Strava club to display leaderboard for.
       You can find this in the club URL: https://www.strava.com/clubs/{club_id}, Use small letters.
 
