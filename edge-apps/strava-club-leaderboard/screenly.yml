@@ -19,33 +19,31 @@ settings:
     optional: false
     help_text: |
       Your Strava API Client Secret from https://www.strava.com/settings/api
-      Keep this secret secure - it's used for OAuth authentication.
+      Keep this secret secure.
     is_global: true
   access_token:
     type: secret
     title: Strava Access Token
     optional: false
     help_text: |
-      Your Strava API Access Token obtained via OAuth flow.
-      This token is required to access club activities data and will be automatically refreshed.
+      Your Strava Access Token from https://www.strava.com/settings/api
+      Keep this secret secure.
     is_global: true
   refresh_token:
     type: secret
     title: Strava Refresh Token
     optional: false
     help_text: |
-      Your Strava Refresh Token obtained via OAuth flow.
-      This token is used to automatically refresh expired access tokens.
-      Required for long-term operation without manual intervention.
+      Your Strava Refresh Token from https://www.strava.com/settings/api
+      Keep this secret secure.
     is_global: true
-
   club_id:
     type: string
     title: Strava Club ID
     optional: false
     help_text: |
       The ID of the Strava club to display leaderboard for.
-      You can find this in the club URL: https://www.strava.com/clubs/{club_id}
+      You can find this in the club URL: https://www.strava.com/clubs/{club_id}, Use small letters.
   max_athletes:
     type: string
     default_value: '10'

@@ -504,7 +504,12 @@
   .leaderboard-stat-value {
     font-size: clamp(1rem, calc(.75vw + .75vh), 1000rem);
   }
+
+  .leaderboard-item {
+    height: clamp(.75rem, calc(3.3vw + 3.3vh), 1000rem);
+  }
 }
+
 
 @media (max-width: 800px) and (orientation: portrait) {
   .logo-image {
@@ -553,5 +558,51 @@
 
   .stats-value {
     font-size: clamp(1.2rem, calc(1.25vw + 1.25vh), 1000rem);
+  }
+}
+
+
+@media (max-width: 4096px) and (orientation: landscape) {
+  .leaderboard-item {
+    height: clamp(.75rem, calc(3.25vw + 3.25vh), 1000rem);
+  }
+}
+
+@media (max-width: 3840px) and (orientation: landscape) {
+  .leaderboard-item {
+    height: clamp(.75rem, calc(3.455vw + 3.455vh), 1000rem);
+  }
+}
+
+@media (max-width: 2560px) and (orientation: landscape) {
+  .leaderboard-item {
+    height: clamp(.75rem, calc(3.5vw + 3.5vh), 1000rem);
+  }
+}
+
+@media (max-width: 1920px) and (orientation: landscape) {
+  .leaderboard-item {
+    height: clamp(.75rem, calc(3.45vw + 3.45vh), 1000rem);
+  }
+}
+
+@media (max-width: 800px) and (orientation: landscape) {
+  .app-header {
+    padding: clamp(1rem, calc(1vw + 1vh), 1000rem) clamp(1rem, calc(.5vw + .5vh), 1000rem);
+  }
+
+  .leaderboard-item-top-3 {
+    border: 0.2em solid var(--theme-color-primary);
+  }
+
+  .leaderboard-item {
+    height: clamp(.75rem, calc(3.25vw + 3.25vh), 1000rem);
+    border-radius: clamp(.5rem, calc(0.275vw + 0.811vh), 1000rem);
+  }
+
+  .leaderboard-rank {
+    width: clamp(0.5rem, calc(2.5vw + 2.5vh), 1000rem);
+    height: clamp(0.5rem, calc(2.5vw + 2.5vh), 1000rem);
+    font-size: clamp(.2rem, calc(1.75vw + 1.75vh), 1000rem);
   }
 }
