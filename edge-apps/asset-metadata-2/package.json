@@ -4,10 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "predev": "screenly edge-app run --generate-mock-data",
-    "dev": "vite build --watch --mode=development",
-    "predev:test": "screenly edge-app run --generate-mock-data",
-    "dev:test": "vite build --mode=development && vite preview",
+    "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "test:unit": "vitest",
@@ -16,7 +13,6 @@
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
-    "edge-app-server": "screenly edge-app run --path=dist/",
     "deploy": "screenly edge-app deploy --path dist/"
   },
   "dependencies": {
