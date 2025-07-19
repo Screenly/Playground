@@ -283,34 +283,8 @@ body {
   }
 }
 
-@media screen and (min-width: 2160px) and (orientation: portrait) {
-  .main-container {
-    gap: 5rem;
-    padding: 5rem;
-  }
-
-  .primary-container {
-    gap: 5rem;
-  }
-
-  .primary-card {
-    border-radius: 8rem;
-  }
-
-  .secondary-container {
-    gap: 5rem;
-  }
-
-  .row-container {
-    gap: 6rem;
-  }
-
-  .secondary-card {
-    border-radius: 8rem;
-  }
-}
-
-@media screen and (min-width: 3840px) and (orientation: landscape) {
+@media screen and (min-width: 2160px) and (orientation: portrait),
+  screen and (min-width: 3840px) and (orientation: landscape) {
   .main-container {
     gap: 5rem;
     padding: 5rem;
