@@ -283,7 +283,7 @@
   color: var(--theme-color-text-secondary);
   opacity: 0.8;
   transition: opacity 0.2s ease;
-  font-family: 'Noto Color Emoji', Inter;
+  font-family: 'Noto Color Emoji', Inter, sans-serif;
 }
 
 .footer-attribution {
@@ -470,7 +470,7 @@
 .error-icon {
   font-size: clamp(3rem, calc(3vw + 3vh), 12rem);
   color: var(--theme-color-error);
-  font-family: 'Noto Color Emoji', Inter;
+  font-family: 'Noto Color Emoji', Inter, sans-serif;
 }
 
 .error-title {
