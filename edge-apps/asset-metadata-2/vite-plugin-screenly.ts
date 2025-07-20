@@ -25,14 +25,14 @@ const screenlyConfig = {
 // Template function to generate the screenly object
 function generateScreenlyObject(config: typeof screenlyConfig) {
   return `// Generated screenly.js for development mode
-window.screenly = {
-  signalReadyForRendering: () => {
-    console.log('🟢 Screenly: App ready for rendering (dev mode)')
-  },
-  metadata: ${JSON.stringify(config.metadata, null, 2)},
-  settings: ${JSON.stringify(config.settings, null, 2)},
-  cors_proxy_url: ${JSON.stringify(config.cors_proxy_url)}
-}`
+    window.screenly = {
+      signalReadyForRendering: () => {
+        console.log('🟢 Screenly: App ready for rendering (dev mode)')
+      },
+      metadata: ${JSON.stringify(config.metadata, null, 2)},
+      settings: ${JSON.stringify(config.settings, null, 2)},
+      cors_proxy_url: ${JSON.stringify(config.cors_proxy_url)}
+    }`
 }
 
 export function screenlyPlugin(mode: string): Plugin {
@@ -52,16 +52,5 @@ export function screenlyPlugin(mode: string): Plugin {
         })
       }
     },
-    generateBundle() {
-      if (mode === 'development') {
-        const screenlyJsContent = generateScreenlyObject(screenlyConfig)
-
-        this.emitFile({
-          type: 'asset',
-          fileName: 'screenly.js',
-          source: screenlyJsContent
-        })
-      }
-    }
   }
 }

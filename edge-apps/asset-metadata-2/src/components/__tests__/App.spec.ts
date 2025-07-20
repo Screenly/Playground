@@ -4,7 +4,7 @@ import { createPinia, setActivePinia } from 'pinia'
 import { mount } from '@vue/test-utils'
 import App from '@/App.vue'
 
-// Mock screenly global
+// Override existing mocked values
 const mockScreenly = {
   metadata: {
     coordinates: [40.7128, -74.006] as [number, number],

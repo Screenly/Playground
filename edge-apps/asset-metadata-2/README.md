@@ -36,8 +36,34 @@ bun install
 bun run dev
 ```
 
-Run the following on a second terminal to generate mock data:
+## Unit Tests
+
+To run unit tests:
 
 ```bash
-screenly edge-app run --generate-mock-data --path dist/
+bun run test:unit
+```
+
+Press `q` to quit the test runner.
+
+## E2E Tests
+
+Install dependencies for the first run:
+
+```bash
+bun run playwright install-deps
+bun run playwright install
+```
+
+To run E2E tests:
+
+```bash
+bun run test:e2e
+```
+
+### Linting and Formatting
+
+```bash
+bun run lint
+bun run format
 ```

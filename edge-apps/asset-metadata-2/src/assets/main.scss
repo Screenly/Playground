@@ -1,9 +1,68 @@
 /* stylelint-disable selector-class-pattern, color-hex-length, at-rule-no-unknown, media-feature-range-notation, at-rule-empty-line-before */
 
-@use '@/assets/base.scss';
+@use '@/assets/base.scss' as *;
 
-/* Modifiers */
+// Mixins
+@mixin card-base {
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--theme-color-tertiary);
+}
 
+@mixin grid-position($column-start, $column-end, $row) {
+  grid-column: #{$column-start} / #{$column-end};
+  grid-row: #{$row};
+}
+
+@mixin responsive-container($gap, $padding) {
+  gap: $gap;
+  padding: $padding;
+}
+
+@mixin responsive-card($border-radius, $padding-left, $gap: null) {
+  border-radius: $border-radius;
+  padding-left: $padding-left;
+  @if $gap {
+    gap: $gap;
+  }
+}
+
+@mixin responsive-card-border-radius($border-radius) {
+  border-radius: $border-radius;
+}
+
+@mixin responsive-icon($width, $font-size) {
+  width: $width;
+  font-size: $font-size;
+}
+
+@mixin responsive-label-container($max-height, $gap: 0.2rem) {
+  min-height: auto;
+  max-height: $max-height;
+  overflow: hidden;
+  gap: $gap;
+}
+
+@mixin responsive-label-chip(
+  $font-size,
+  $padding: 0.5rem,
+  $border-radius: 0.5rem
+) {
+  font-size: $font-size;
+  padding: $padding;
+  border-radius: $border-radius;
+}
+
+@mixin responsive-brand-logo($width) {
+  width: $width;
+}
+
+@mixin responsive-info-text($font-size) {
+  font-size: $font-size;
+}
+
+// Base Layout
 .main-container-grid {
   height: 100%;
   width: 100%;
@@ -22,8 +81,7 @@
   gap: 1.5rem;
 }
 
-/* Custom Styles */
-
+// Card Components
 .host-name-card,
 .screen-name-card,
 .hardware-name-card,
@@ -31,10 +89,7 @@
 .version-name-card,
 .coordinates-card,
 .labels-name-card {
-  border-radius: 1rem;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--theme-color-tertiary);
+  @include card-base;
 }
 
 .icon-card {
@@ -51,34 +106,44 @@
   height: 100%;
 }
 
+// Grid Positioning - Landscape
 .host-name-card {
-  /* background-color: aqua; */
-  grid-column: 1 /7;
-  grid-row: 1;
+  @include grid-position(1, 7, 1);
   align-items: flex-start;
 }
 
 .screen-name-card {
-  /* background-color: bisque; */
-  grid-column: 7/13;
-  grid-row: 1;
+  @include grid-position(7, 13, 1);
   align-items: flex-start;
 }
 
 .hardware-name-card {
-  /* background-color: rgb(45, 180, 184); */
-  grid-column: 1/5;
-  grid-row: 2;
+  @include grid-position(1, 5, 2);
   align-items: flex-start;
 }
 
 .brand-logo-card {
-  /* background-color: chartreuse; */
-  grid-column: 5/9;
-  grid-row: 2;
+  @include grid-position(5, 9, 2);
   align-items: center;
 }
 
+.version-name-card {
+  @include grid-position(9, 13, 2);
+  align-items: flex-start;
+}
+
+.coordinates-card {
+  @include grid-position(1, 6, 3);
+  align-items: flex-start;
+}
+
+.labels-name-card {
+  @include grid-position(6, 13, 3);
+  align-items: flex-start;
+  overflow-y: hidden;
+}
+
+// Typography
 .head-text {
   font-weight: bold;
 }
@@ -91,27 +156,7 @@
   color: var(--theme-color-primary);
 }
 
-.version-name-card {
-  /* background-color: chocolate; */
-  grid-column: 9/13;
-  grid-row: 2;
-  align-items: flex-start;
-}
-
-.coordinates-card {
-  /* background-color: chocolate; */
-  grid-column: 1/6;
-  grid-row: 3;
-  align-items: flex-start;
-}
-
-.labels-name-card {
-  grid-column: 6/13;
-  grid-row: 3;
-  align-items: flex-start;
-  overflow-y: hidden;
-}
-
+// Label Components
 .label-chip-container {
   align-items: flex-start;
   display: flex;
@@ -132,6 +177,7 @@
   text-transform: uppercase;
 }
 
+// Portrait Layout
 @media (orientation: portrait) {
   .main-container-grid {
     width: 100%;
@@ -143,104 +189,85 @@
   }
 
   .host-name-card {
-    grid-column: 1/5;
-    grid-row: 1;
+    @include grid-position(1, 5, 1);
     height: 100%;
   }
 
   .screen-name-card {
-    grid-column: 5/10;
-    grid-row: 1;
+    @include grid-position(5, 10, 1);
     height: 100%;
   }
 
   .labels-name-card {
-    grid-column: 1/10;
-    grid-row: 2;
+    @include grid-position(1, 10, 2);
     height: 100%;
   }
 
   .hardware-name-card {
-    grid-column: 1/10;
-    grid-row: 3;
+    @include grid-position(1, 10, 3);
     height: 100%;
   }
 
   .version-name-card {
-    grid-column: 1/10;
-    grid-row: 4;
+    @include grid-position(1, 10, 4);
     height: 100%;
   }
 
   .coordinates-card {
-    grid-column: 1/7;
-    grid-row: 5;
+    @include grid-position(1, 7, 5);
     height: 100%;
   }
 
   .brand-logo-card {
-    grid-column: 7/10;
-    grid-row: 5;
+    @include grid-position(7, 10, 5);
     height: 100%;
   }
 }
 
-/* Media Queries */
-
-@media screen and (min-width: 480px) and (min-height: 800px) and (orientation: portrait) {
+// Media Queries - Portrait Small (480x800)
+@media screen and (min-width: $srly-breakpoint-portrait-sm) and (min-height: $srly-breakpoint-landscape-sm) and (orientation: portrait) {
   .host-name-card,
   .screen-name-card,
   .hardware-name-card,
   .version-name-card,
   .coordinates-card,
   .labels-name-card {
-    padding-left: 2rem;
-    gap: 1.5rem;
+    @include responsive-card(1rem, 2rem, 1.5rem);
+  }
+
+  .brand-logo-card {
+    @include responsive-card-border-radius(1rem);
   }
 
   .icon-card-icon {
-    width: 2.5rem;
+    @include responsive-icon(2.5rem, null);
   }
 
   .icon-card-text {
-    font-size: 1.3rem;
+    @include responsive-icon(null, 1.3rem);
   }
 
   .brand-logo {
-    width: 3.5rem;
+    @include responsive-brand-logo(3.5rem);
   }
 
   .info-text {
-    font-size: 0.6rem;
+    @include responsive-info-text(0.6rem);
   }
 
   .label-chip-container {
-    min-height: auto;
-    max-height: 3.8rem;
-    overflow: hidden;
+    @include responsive-label-container(3.8rem);
   }
 
   .label-chip {
-    font-size: 0.6rem;
-    padding: 0.5rem;
-    border-radius: 0.3rem;
+    @include responsive-label-chip(0.6rem, 0.5rem, 0.3rem);
   }
 }
 
-@media screen and (min-width: 720px) and (min-height: 1280px) and (orientation: portrait) {
+// Media Queries - Portrait Medium (720x1280)
+@media screen and (min-width: $srly-breakpoint-portrait-md) and (min-height: $srly-breakpoint-landscape-md) and (orientation: portrait) {
   .main-container-grid {
-    gap: 1.5rem;
-    padding: 1.5rem;
-  }
-
-  .host-name-card,
-  .screen-name-card,
-  .hardware-name-card,
-  .brand-logo-card,
-  .version-name-card,
-  .coordinates-card,
-  .labels-name-card {
-    border-radius: 1.2rem;
+    @include responsive-container(1.5rem, 1.5rem);
   }
 
   .host-name-card,
@@ -249,89 +276,82 @@
   .version-name-card,
   .coordinates-card,
   .labels-name-card {
-    padding-left: 3rem;
+    @include responsive-card(1.2rem, 3rem);
+  }
+
+  .brand-logo-card {
+    @include responsive-card-border-radius(1.2rem);
   }
 
   .icon-card-icon {
-    width: 3rem;
+    @include responsive-icon(3rem, null);
   }
 
   .icon-card-text {
-    font-size: 2rem;
+    @include responsive-icon(null, 2rem);
   }
 
   .brand-logo {
-    width: 5rem;
+    @include responsive-brand-logo(5rem);
   }
 
   .info-text {
-    font-size: 1rem;
+    @include responsive-info-text(1rem);
   }
 
   .label-chip-container {
-    /* height: 7rem; */
-    min-height: auto;
-    max-height: 7rem;
-    overflow: hidden;
+    @include responsive-label-container(7rem);
   }
 
   .label-chip {
-    font-size: 1rem;
+    @include responsive-label-chip(1rem);
   }
 }
 
-@media screen and (min-width: 800px) and (min-height: 480px) and (orientation: landscape) {
+// Media Queries - Landscape Small (800x480)
+@media screen and (min-width: $srly-breakpoint-landscape-sm) and (min-height: $srly-breakpoint-portrait-sm) and (orientation: landscape) {
   .host-name-card,
   .screen-name-card,
   .hardware-name-card,
   .version-name-card,
   .coordinates-card,
   .labels-name-card {
-    padding-left: 2rem;
+    @include responsive-card(1rem, 2rem);
+  }
+
+  .brand-logo-card {
+    @include responsive-card-border-radius(1rem);
   }
 
   .icon-card-icon {
-    width: 2.5rem;
+    @include responsive-icon(2.5rem, null);
   }
 
   .icon-card-text {
-    font-size: 1.7rem;
+    @include responsive-icon(null, 1.7rem);
   }
 
   .brand-logo {
-    width: 3.5rem;
+    @include responsive-brand-logo(3.5rem);
   }
 
   .info-text {
-    font-size: 0.8rem;
+    @include responsive-info-text(0.8rem);
   }
 
   .label-chip-container {
-    min-height: auto;
-    max-height: 4rem;
-    overflow: hidden;
+    @include responsive-label-container(4rem);
   }
 
   .label-chip {
-    font-size: 0.7rem;
-    border-radius: 0.3rem;
+    @include responsive-label-chip(0.7rem, 0.5rem, 0.3rem);
   }
 }
 
-@media screen and (min-width: 1080px) and (min-height: 1920px) and (orientation: portrait) {
+// Media Queries - Portrait Large (1080x1920)
+@media screen and (min-width: $srly-breakpoint-portrait-lg) and (min-height: $srly-breakpoint-landscape-lg) and (orientation: portrait) {
   .main-container-grid {
-    gap: 2.5rem;
-    padding: 2.5rem;
-  }
-
-  .host-name-card,
-  .screen-name-card,
-  .hardware-name-card,
-  .brand-logo-card,
-  .version-name-card,
-  .coordinates-card,
-  .labels-name-card {
-    border-radius: 2rem;
+    @include responsive-container(2.5rem, 2.5rem);
   }
 
   .host-name-card,
@@ -340,55 +360,43 @@
   .version-name-card,
   .coordinates-card,
   .labels-name-card {
-    padding-left: 4rem;
-    gap: 2.5rem;
+    @include responsive-card(2rem, 4rem, 2.5rem);
+  }
+
+  .brand-logo-card {
+    @include responsive-card-border-radius(2rem);
   }
 
   .icon-card-icon {
-    width: 4.5rem;
+    @include responsive-icon(4.5rem, null);
   }
 
   .icon-card-text {
-    font-size: 3rem;
+    @include responsive-icon(null, 3rem);
   }
 
   .label-chip-container {
-    min-height: auto;
-    max-height: 11rem;
-    overflow: hidden;
-    gap: 0.4rem;
+    @include responsive-label-container(11rem, 0.4rem);
   }
 
   .label-chip {
-    font-size: 1.8rem;
-    border-radius: 0.5rem;
-    padding: 0.7rem;
+    @include responsive-label-chip(1.8rem, 0.7rem, 0.5rem);
     padding-right: 1rem;
   }
 
   .brand-logo {
-    width: 10rem;
+    @include responsive-brand-logo(10rem);
   }
 
   .info-text {
-    font-size: 1.5rem;
+    @include responsive-info-text(1.5rem);
   }
 }
 
-@media screen and (min-width: 1280px) and (min-height: 720px) and (orientation: landscape) {
+// Media Queries - Landscape Medium (1280x720)
+@media screen and (min-width: $srly-breakpoint-landscape-md) and (min-height: $srly-breakpoint-portrait-md) and (orientation: landscape) {
   .main-container-grid {
-    gap: 1.5rem;
-    padding: 1.5rem;
-  }
-
-  .host-name-card,
-  .screen-name-card,
-  .hardware-name-card,
-  .brand-logo-card,
-  .version-name-card,
-  .coordinates-card,
-  .labels-name-card {
-    border-radius: 1.2rem;
+    @include responsive-container(1.5rem, 1.5rem);
   }
 
   .host-name-card,
@@ -397,52 +405,43 @@
   .version-name-card,
   .coordinates-card,
   .labels-name-card {
-    padding-left: 3rem;
+    @include responsive-card(1.2rem, 3rem);
+  }
+
+  .brand-logo-card {
+    @include responsive-card-border-radius(1.2rem);
   }
 
   .icon-card-icon {
-    width: 3rem;
+    @include responsive-icon(3rem, null);
   }
 
   .icon-card-text {
-    font-size: 2rem;
+    @include responsive-icon(null, 2rem);
   }
 
   .label-chip-container {
-    min-height: auto;
-    max-height: 7rem;
-    overflow: hidden;
-    gap: 0.3rem;
+    @include responsive-label-container(7rem, 0.3rem);
     padding-right: 1.5rem;
   }
 
   .label-chip {
-    font-size: 0.85rem;
+    @include responsive-label-chip(0.85rem);
   }
 
   .brand-logo {
-    width: 6rem;
+    @include responsive-brand-logo(6rem);
   }
 
   .info-text {
-    font-size: 1rem;
+    @include responsive-info-text(1rem);
   }
 }
 
-@media screen and (min-width: 1920px) and (min-height: 1080px) and (orientation: landscape) {
+// Media Queries - Landscape Large (1920x1080)
+@media screen and (min-width: $srly-breakpoint-landscape-lg) and (min-height: $srly-breakpoint-portrait-lg) and (orientation: landscape) {
   .main-container-grid {
-    gap: 2.5rem;
-    padding: 2.5rem;
-  }
-
-  .host-name-card,
-  .screen-name-card,
-  .hardware-name-card,
-  .brand-logo-card,
-  .version-name-card,
-  .coordinates-card,
-  .labels-name-card {
-    border-radius: 2rem;
+    @include responsive-container(2.5rem, 2.5rem);
   }
 
   .host-name-card,
@@ -451,54 +450,43 @@
   .version-name-card,
   .coordinates-card,
   .labels-name-card {
-    padding-left: 4rem;
-    gap: 2rem;
+    @include responsive-card(2rem, 4rem, 2rem);
+  }
+
+  .brand-logo-card {
+    @include responsive-card-border-radius(2rem);
   }
 
   .icon-card-icon {
-    width: 4.5rem;
+    @include responsive-icon(4.5rem, null);
   }
 
   .icon-card-text {
-    font-size: 3rem;
+    @include responsive-icon(null, 3rem);
   }
 
   .label-chip-container {
-    min-height: auto;
-    max-height: 10rem;
-    overflow: hidden;
-    gap: 0.3rem;
+    @include responsive-label-container(10rem, 0.3rem);
     padding-right: 2rem;
   }
 
   .label-chip {
-    font-size: 1.5rem;
-    padding: 0.7rem;
+    @include responsive-label-chip(1.5rem, 0.7rem);
   }
 
   .brand-logo {
-    width: 10rem;
+    @include responsive-brand-logo(10rem);
   }
 
   .info-text {
-    font-size: 1.5rem;
+    @include responsive-info-text(1.5rem);
   }
 }
 
-@media screen and (min-width: 2160px) and (min-height: 3840px) and (orientation: portrait) {
+// Media Queries - Portrait Extra Large (2160x3840)
+@media screen and (min-width: $srly-breakpoint-portrait-xl) and (min-height: $srly-breakpoint-landscape-xl) and (orientation: portrait) {
   .main-container-grid {
-    gap: 5rem;
-    padding: 5rem;
-  }
-
-  .host-name-card,
-  .screen-name-card,
-  .hardware-name-card,
-  .brand-logo-card,
-  .version-name-card,
-  .coordinates-card,
-  .labels-name-card {
-    border-radius: 3rem;
+    @include responsive-container(5rem, 5rem);
   }
 
   .host-name-card,
@@ -507,16 +495,19 @@
   .version-name-card,
   .coordinates-card,
   .labels-name-card {
-    padding-left: 8rem;
-    gap: 5rem;
+    @include responsive-card(3rem, 8rem, 5rem);
+  }
+
+  .brand-logo-card {
+    @include responsive-card-border-radius(3rem);
   }
 
   .icon-card-icon {
-    width: 9rem;
+    @include responsive-icon(9rem, null);
   }
 
   .icon-card-text {
-    font-size: 7rem;
+    @include responsive-icon(null, 7rem);
   }
 
   .icon-card {
@@ -524,24 +515,19 @@
   }
 
   .label-chip-container {
-    min-height: auto;
-    max-height: 20rem;
-    overflow: hidden;
-    gap: 0.9rem;
+    @include responsive-label-container(20rem, 0.9rem);
   }
 
   .label-chip {
-    font-size: 3.5rem;
-    padding: 1rem;
-    border-radius: 0.9rem;
+    @include responsive-label-chip(3.5rem, 1rem, 0.9rem);
   }
 
   .brand-logo {
-    width: 20rem;
+    @include responsive-brand-logo(20rem);
   }
 
   .info-text {
-    font-size: 3rem;
+    @include responsive-info-text(3rem);
   }
 
   .brand-logo-card {
@@ -549,20 +535,10 @@
   }
 }
 
-@media screen and (min-width: 3840px) and (min-height: 2160px) and (orientation: landscape) {
+// Media Queries - Landscape Extra Large (3840x2160)
+@media screen and (min-width: $srly-breakpoint-landscape-xl) and (min-height: $srly-breakpoint-portrait-xl) and (orientation: landscape) {
   .main-container-grid {
-    gap: 5rem;
-    padding: 5rem;
-  }
-
-  .host-name-card,
-  .screen-name-card,
-  .hardware-name-card,
-  .brand-logo-card,
-  .version-name-card,
-  .coordinates-card,
-  .labels-name-card {
-    border-radius: 4rem;
+    @include responsive-container(5rem, 5rem);
   }
 
   .host-name-card,
@@ -571,16 +547,19 @@
   .version-name-card,
   .coordinates-card,
   .labels-name-card {
-    padding-left: 8rem;
-    gap: 5rem;
+    @include responsive-card(4rem, 8rem, 5rem);
+  }
+
+  .brand-logo-card {
+    @include responsive-card-border-radius(4rem);
   }
 
   .icon-card-icon {
-    width: 7rem;
+    @include responsive-icon(7rem, null);
   }
 
   .icon-card-text {
-    font-size: 6rem;
+    @include responsive-icon(null, 6rem);
   }
 
   .icon-card {
@@ -588,25 +567,20 @@
   }
 
   .label-chip-container {
-    min-height: auto;
-    max-height: 21rem;
-    overflow: hidden;
-    gap: 0.9rem;
+    @include responsive-label-container(21rem, 0.9rem);
     padding-right: 1rem;
   }
 
   .label-chip {
-    font-size: 3.5rem;
-    border-radius: 0.8rem;
-    padding: 1.2rem;
+    @include responsive-label-chip(3.5rem, 1.2rem, 0.8rem);
   }
 
   .brand-logo {
-    width: 20rem;
+    @include responsive-brand-logo(20rem);
   }
 
   .info-text {
-    font-size: 3rem;
+    @include responsive-info-text(3rem);
   }
 
   .brand-logo-card {
@@ -614,7 +588,8 @@
   }
 }
 
-@media screen and (min-width: 4096px) and (orientation: landscape) {
+// Media Queries - Landscape 2XL (4096x2160)
+@media screen and (min-width: $srly-breakpoint-landscape-2xl) and (orientation: landscape) {
   .label-chip-container {
     gap: 0.9rem;
     padding-right: 2rem;

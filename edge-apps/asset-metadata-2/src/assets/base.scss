@@ -1,13 +1,74 @@
 /* stylelint-disable selector-class-pattern, color-hex-length, at-rule-no-unknown, media-feature-range-notation, at-rule-empty-line-before */
 
-/* Common Styles */
+// Variables
+$srly-font-family-primary: Aeonik, sans-serif;
+$srly-font-size-base: 14px;
 
-#app {
-  height: 100%;
-  width: 100%;
+// Colors
+$srly-color-primary: #972eff;
+$srly-color-secondary: #adafbe;
+$srly-color-tertiary: #fff;
+$srly-color-background: #c9cdd0;
+
+// Spacing
+$srly-spacing-xs: 1rem;
+$srly-spacing-sm: 1.5rem;
+$srly-spacing-md: 2rem;
+$srly-spacing-lg: 2.5rem;
+$srly-spacing-xl: 3rem;
+$srly-spacing-xxl: 5rem;
+
+// Border radius
+$srly-border-radius-sm: 2rem;
+$srly-border-radius-md: 2.5rem;
+$srly-border-radius-lg: 3rem;
+$srly-border-radius-xl: 4rem;
+$srly-border-radius-xxl: 7rem;
+$srly-border-radius-xxxl: 8rem;
+
+// Breakpoints - Portrait
+$srly-breakpoint-portrait-sm: 480px; // 480x800
+$srly-breakpoint-portrait-md: 720px; // 720x1280
+$srly-breakpoint-portrait-lg: 1080px; // 1080x1920
+$srly-breakpoint-portrait-xl: 2160px; // 2160x3840
+
+// Breakpoints - Landscape
+$srly-breakpoint-landscape-sm: 800px; // 800x480
+$srly-breakpoint-landscape-md: 1280px; // 1280x720
+$srly-breakpoint-landscape-lg: 1920px; // 1920x1080
+$srly-breakpoint-landscape-xl: 3840px; // 3840x2160
+$srly-breakpoint-landscape-2xl: 4096px; // 4096x2160
+
+// Mixins
+@mixin srly-portrait-layout {
+  flex-direction: column;
 }
 
-/* Global Fonts */
+@mixin srly-card-base {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: $srly-spacing-md;
+}
+
+@mixin srly-container-base {
+  display: flex;
+  flex-direction: column;
+  gap: $srly-spacing-md;
+  justify-content: space-between;
+}
+
+@mixin srly-responsive-spacing($gap, $padding) {
+  gap: $gap;
+  padding: $padding;
+}
+
+@mixin srly-responsive-border-radius($radius) {
+  border-radius: $radius;
+}
+
+// Font faces
 @font-face {
   font-family: Aeonik;
   src:
@@ -17,289 +78,193 @@
   font-style: normal;
 }
 
-/* Typography */
+// Base styles
 html {
-  font-size: 14px;
+  font-size: $srly-font-size-base;
 }
 
 body {
-  font-family: Aeonik, sans-serif;
+  font-family: $srly-font-family-primary;
   height: 100vh;
 }
 
-/* Colors (Theme) */
+// CSS Custom Properties
 :root {
-  --theme-color-primary: #972eff;
-  --theme-color-secondary: #adafbe;
-  --theme-color-tertiary: #fff;
-  --theme-color-background: #c9cdd0;
+  --theme-color-primary: #{$srly-color-primary};
+  --theme-color-secondary: #{$srly-color-secondary};
+  --theme-color-tertiary: #{$srly-color-tertiary};
+  --theme-color-background: #{$srly-color-background};
 }
 
-/* Reset */
+// Reset
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Components */
+// App container
+#app {
+  height: 100%;
+  width: 100%;
+}
 
+// Main layout
 .main-container {
   display: flex;
   flex-direction: row;
-  gap: 2rem;
+  gap: $srly-spacing-md;
   height: 100%;
-  padding: 2rem;
+  padding: $srly-spacing-md;
   background-color: var(--theme-color-background);
+
+  @media (orientation: portrait) {
+    @include srly-portrait-layout;
+  }
 }
 
+// Primary card
 .primary-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  @include srly-card-base;
   width: 50%;
   height: 100%;
-  border-radius: 3rem;
-  gap: 2rem;
+  border-radius: $srly-border-radius-lg;
   line-height: 1;
   background-color: var(--theme-color-primary);
   color: var(--theme-color-tertiary);
+
+  @media (orientation: portrait) {
+    width: 100%;
+    height: 50%;
+  }
 }
 
+// Primary container
 .primary-container {
+  @include srly-container-base;
   width: 50%;
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-  justify-content: space-between;
+  gap: $srly-spacing-lg;
 }
 
+// Secondary container
 .secondary-container {
+  @include srly-container-base;
   width: 50%;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  justify-content: space-between;
+
+  @media (orientation: portrait) {
+    width: 100%;
+    height: 50%;
+  }
 }
 
+// Row container
 .row-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  gap: 2rem;
+  gap: $srly-spacing-md;
   height: 50%;
 }
 
+// Secondary card
 .secondary-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  @include srly-card-base;
   width: 100%;
   height: auto;
-  gap: 2rem;
   border-radius: 3.481rem;
   background-color: var(--theme-color-tertiary);
 }
 
-/* Media Query */
-
-@media (orientation: portrait) {
+// Responsive breakpoints - Portrait
+@media screen and (min-width: $srly-breakpoint-portrait-sm) and (orientation: portrait) {
   .main-container {
-    flex-direction: column;
-  }
-
-  .primary-card {
-    width: 100%;
-    height: 50%;
-  }
-
-  .secondary-container {
-    width: 100%;
-    height: 50%;
-  }
-}
-
-/* 480px 720px Clock Container need to fix */
-
-/* TODO: Fix the Clock Circle issue : When Scale to .5, circle change to oval */
-
-@media screen and (min-width: 480px) and (orientation: portrait) {
-  .main-container {
-    gap: 1rem;
-    padding: 1rem;
+    @include srly-responsive-spacing($srly-spacing-xs, $srly-spacing-xs);
   }
 
   .primary-container {
-    gap: 1rem;
+    gap: $srly-spacing-xs;
   }
 
   .primary-card {
-    border-radius: 2rem;
+    @include srly-responsive-border-radius($srly-border-radius-sm);
   }
 
   .secondary-container {
-    gap: 1rem;
+    gap: $srly-spacing-xs;
   }
 
   .row-container {
-    gap: 1rem;
+    gap: $srly-spacing-xs;
   }
 
   .secondary-card {
-    border-radius: 2rem;
+    @include srly-responsive-border-radius($srly-border-radius-sm);
   }
 }
 
-@media screen and (min-width: 720px) and (orientation: portrait) {
+@media screen and (min-width: $srly-breakpoint-portrait-md) and (orientation: portrait) {
   .main-container {
-    gap: 1rem;
-    padding: 1rem;
+    @include srly-responsive-spacing($srly-spacing-xs, $srly-spacing-xs);
   }
 
   .primary-card {
-    border-radius: 2rem;
+    @include srly-responsive-border-radius($srly-border-radius-sm);
   }
 
   .secondary-container {
-    gap: 1rem;
+    gap: $srly-spacing-xs;
   }
 
   .row-container {
-    gap: 1rem;
+    gap: $srly-spacing-xs;
   }
 
   .secondary-card {
-    border-radius: 2rem;
+    @include srly-responsive-border-radius($srly-border-radius-sm);
   }
 }
 
-@media screen and (min-width: 800px) and (orientation: landscape) {
+@media screen and (min-width: $srly-breakpoint-portrait-lg) and (orientation: portrait) {
   .main-container {
-    gap: 1.5rem;
-    padding: 1rem;
+    @include srly-responsive-spacing($srly-spacing-xl, $srly-spacing-xl);
   }
 
   .primary-container {
-    gap: 1.5rem;
+    gap: $srly-spacing-xl;
   }
 
   .primary-card {
-    border-radius: 2rem;
+    @include srly-responsive-border-radius($srly-border-radius-xl);
   }
 
   .secondary-container {
-    gap: 1rem;
+    gap: $srly-spacing-xl;
   }
 
   .row-container {
-    gap: 1rem;
+    gap: $srly-spacing-xl;
   }
 
   .secondary-card {
-    border-radius: 2rem;
+    @include srly-responsive-border-radius($srly-border-radius-xl);
   }
 }
 
-@media screen and (min-width: 1080px) and (orientation: portrait) {
+@media screen and (min-width: $srly-breakpoint-portrait-xl) and (orientation: portrait) {
   .main-container {
-    gap: 3rem;
-    padding: 3rem;
+    @include srly-responsive-spacing($srly-spacing-xxl, $srly-spacing-xxl);
   }
 
   .primary-container {
-    gap: 3rem;
+    gap: $srly-spacing-xxl;
   }
 
   .primary-card {
-    border-radius: 4rem;
+    @include srly-responsive-border-radius($srly-border-radius-xxxl);
   }
 
   .secondary-container {
-    gap: 3rem;
-  }
-
-  .row-container {
-    gap: 3rem;
-  }
-
-  .secondary-card {
-    border-radius: 4rem;
-  }
-}
-
-@media screen and (min-width: 1280px) and (orientation: landscape) {
-  .main-container {
-    gap: 2rem;
-    padding: 2rem;
-  }
-
-  .primary-container {
-    gap: 2rem;
-  }
-
-  .primary-card {
-    border-radius: 2rem;
-  }
-
-  .secondary-container {
-    gap: 2rem;
-  }
-
-  .row-container {
-    gap: 2rem;
-  }
-
-  .secondary-card {
-    border-radius: 2.5rem;
-  }
-}
-
-@media screen and (min-width: 1920px) and (orientation: landscape) {
-  .main-container {
-    gap: 2.5rem;
-    padding: 2.5rem;
-  }
-
-  .primary-container {
-    gap: 2.5rem;
-  }
-
-  .primary-card {
-    border-radius: 2.5rem;
-  }
-
-  .secondary-container {
-    gap: 2.5rem;
-  }
-
-  .row-container {
-    gap: 2.5rem;
-  }
-
-  .secondary-card {
-    border-radius: 2.5rem;
-  }
-}
-
-@media screen and (min-width: 2160px) and (orientation: portrait),
-  screen and (min-width: 3840px) and (orientation: landscape) {
-  .main-container {
-    gap: 5rem;
-    padding: 5rem;
-  }
-
-  .primary-container {
-    gap: 5rem;
-  }
-
-  .primary-card {
-    border-radius: 8rem;
-  }
-
-  .secondary-container {
-    gap: 5rem;
+    gap: $srly-spacing-xxl;
   }
 
   .row-container {
@@ -307,26 +272,104 @@ body {
   }
 
   .secondary-card {
-    border-radius: 8rem;
+    @include srly-responsive-border-radius($srly-border-radius-xxxl);
   }
 }
 
-@media screen and (min-width: 4096px) and (orientation: landscape) {
+// Responsive breakpoints - Landscape
+@media screen and (min-width: $srly-breakpoint-landscape-sm) and (orientation: landscape) {
   .main-container {
-    gap: 5rem;
-    padding: 5rem;
+    @include srly-responsive-spacing($srly-spacing-sm, $srly-spacing-xs);
   }
 
   .primary-container {
-    gap: 5rem;
+    gap: $srly-spacing-sm;
   }
 
   .primary-card {
-    border-radius: 7rem;
+    @include srly-responsive-border-radius($srly-border-radius-sm);
   }
 
   .secondary-container {
-    gap: 5rem;
+    gap: $srly-spacing-xs;
+  }
+
+  .row-container {
+    gap: $srly-spacing-xs;
+  }
+
+  .secondary-card {
+    @include srly-responsive-border-radius($srly-border-radius-sm);
+  }
+}
+
+@media screen and (min-width: $srly-breakpoint-landscape-md) and (orientation: landscape) {
+  .main-container {
+    @include srly-responsive-spacing($srly-spacing-md, $srly-spacing-md);
+  }
+
+  .primary-container {
+    gap: $srly-spacing-md;
+  }
+
+  .primary-card {
+    @include srly-responsive-border-radius($srly-border-radius-sm);
+  }
+
+  .secondary-container {
+    gap: $srly-spacing-md;
+  }
+
+  .row-container {
+    gap: $srly-spacing-md;
+  }
+
+  .secondary-card {
+    @include srly-responsive-border-radius($srly-border-radius-md);
+  }
+}
+
+@media screen and (min-width: $srly-breakpoint-landscape-lg) and (orientation: landscape) {
+  .main-container {
+    @include srly-responsive-spacing($srly-spacing-lg, $srly-spacing-lg);
+  }
+
+  .primary-container {
+    gap: $srly-spacing-lg;
+  }
+
+  .primary-card {
+    @include srly-responsive-border-radius($srly-border-radius-md);
+  }
+
+  .secondary-container {
+    gap: $srly-spacing-lg;
+  }
+
+  .row-container {
+    gap: $srly-spacing-lg;
+  }
+
+  .secondary-card {
+    @include srly-responsive-border-radius($srly-border-radius-md);
+  }
+}
+
+@media screen and (min-width: $srly-breakpoint-landscape-xl) and (orientation: landscape) {
+  .main-container {
+    @include srly-responsive-spacing($srly-spacing-xxl, $srly-spacing-xxl);
+  }
+
+  .primary-container {
+    gap: $srly-spacing-xxl;
+  }
+
+  .primary-card {
+    @include srly-responsive-border-radius($srly-border-radius-xxxl);
+  }
+
+  .secondary-container {
+    gap: $srly-spacing-xxl;
   }
 
   .row-container {
@@ -334,6 +377,32 @@ body {
   }
 
   .secondary-card {
-    border-radius: 7rem;
+    @include srly-responsive-border-radius($srly-border-radius-xxxl);
+  }
+}
+
+@media screen and (min-width: $srly-breakpoint-landscape-2xl) and (orientation: landscape) {
+  .main-container {
+    @include srly-responsive-spacing($srly-spacing-xxl, $srly-spacing-xxl);
+  }
+
+  .primary-container {
+    gap: $srly-spacing-xxl;
+  }
+
+  .primary-card {
+    @include srly-responsive-border-radius($srly-border-radius-xxl);
+  }
+
+  .secondary-container {
+    gap: $srly-spacing-xxl;
+  }
+
+  .row-container {
+    gap: 6rem;
+  }
+
+  .secondary-card {
+    @include srly-responsive-border-radius($srly-border-radius-xxl);
   }
 }

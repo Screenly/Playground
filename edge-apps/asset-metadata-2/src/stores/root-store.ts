@@ -69,10 +69,22 @@ export const useSettingsStore = defineStore('settings', () => {
           : settings.value.screenly_color_dark
     }
 
-    document.documentElement.style.setProperty('--theme-color-primary', primaryColor)
-    document.documentElement.style.setProperty('--theme-color-secondary', secondaryColor)
-    document.documentElement.style.setProperty('--theme-color-tertiary', tertiaryColor)
-    document.documentElement.style.setProperty('--theme-color-background', backgroundColor)
+    document.documentElement.style.setProperty(
+      '--theme-color-primary',
+      primaryColor,
+    )
+    document.documentElement.style.setProperty(
+      '--theme-color-secondary',
+      secondaryColor,
+    )
+    document.documentElement.style.setProperty(
+      '--theme-color-tertiary',
+      tertiaryColor,
+    )
+    document.documentElement.style.setProperty(
+      '--theme-color-background',
+      backgroundColor,
+    )
 
     primaryThemeColor.value = primaryColor
     secondaryThemeColor.value = secondaryColor
@@ -108,7 +120,9 @@ export const useSettingsStore = defineStore('settings', () => {
       try {
         const response = await fetch(fileUrl)
         if (!response.ok) {
-          throw new Error(`Failed to fetch image from ${fileUrl}, status: ${response.status}`)
+          throw new Error(
+            `Failed to fetch image from ${fileUrl}, status: ${response.status}`,
+          )
         }
 
         const blob = await response.blob()
@@ -122,7 +136,10 @@ export const useSettingsStore = defineStore('settings', () => {
           .toUpperCase()
 
         // Convert the first few bytes to ASCII for text-based formats like SVG
-        const ascii = String.fromCharCode.apply(null, Array.from(uintArray.slice(0, 100))) // Check first 100 chars for XML/SVG tags
+        const ascii = String.fromCharCode.apply(
+          null,
+          Array.from(uintArray.slice(0, 100)),
+        ) // Check first 100 chars for XML/SVG tags
         const pngMagicNumber = '89504E47'
         const jpegMagicNumber = 'FFD8FF'
 
@@ -134,13 +151,16 @@ export const useSettingsStore = defineStore('settings', () => {
             svgReader.readAsText(blob)
             svgReader.onloadend = function () {
               try {
-                const base64 = btoa(unescape(encodeURIComponent(svgReader.result as string)))
+                const base64 = btoa(
+                  unescape(encodeURIComponent(svgReader.result as string)),
+                )
                 resolve('data:image/svg+xml;base64,' + base64)
               } catch (error) {
                 reject(error)
               }
             }
-            svgReader.onerror = () => reject(new Error('Failed to read SVG file'))
+            svgReader.onerror = () =>
+              reject(new Error('Failed to read SVG file'))
           })
         } else if (hex === pngMagicNumber || hex === jpegMagicNumber) {
           // Checking PNG or JPEG/JPG magic number

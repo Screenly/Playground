@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onBeforeMount, onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useScreenlyMetadataStore, useSettingsStore } from './stores/root-store'
 import InfoCard from '@/components/InfoCard.vue'
 import NameIcon from '@/components/NameIcon.vue'
@@ -11,6 +12,18 @@ import screenlyLogo from '@/assets/images/screenly.svg'
 const screenlyMetadataStore = useScreenlyMetadataStore()
 const settingsStore = useSettingsStore()
 
+// Destructure reactive properties while maintaining reactivity
+const {
+  hostname,
+  screenName,
+  hardware,
+  screenlyVersion,
+  formattedCoordinates,
+  tags,
+} = storeToRefs(screenlyMetadataStore)
+
+const { brandLogoUrl, primaryThemeColor } = storeToRefs(settingsStore)
+
 onBeforeMount(async () => {
   settingsStore.setupTheme()
   await settingsStore.setupBrandingLogo()
@@ -20,40 +33,39 @@ onMounted(() => {
   screenly.signalReadyForRendering()
 })
 
-// Card configuration for DRY rendering
 const cards = [
   {
     class: 'host-name-card',
     title: 'Host Name',
-    value: () => screenlyMetadataStore.hostname,
+    value: () => hostname.value,
     icon: NameIcon,
     iconLabel: 'Host Name',
   },
   {
     class: 'screen-name-card',
     title: 'Name',
-    value: () => screenlyMetadataStore.screenName,
+    value: () => screenName.value,
     icon: NameIcon,
     iconLabel: 'Name',
   },
   {
     class: 'hardware-name-card',
     title: 'Hardware',
-    value: () => screenlyMetadataStore.hardware,
+    value: () => hardware.value,
     icon: HardwareIcon,
     iconLabel: 'Hardware',
   },
   {
     class: 'version-name-card',
     title: 'Version',
-    value: () => screenlyMetadataStore.screenlyVersion,
+    value: () => screenlyVersion.value,
     icon: VersionIcon,
     iconLabel: 'Version',
   },
   {
     class: 'coordinates-card',
     title: 'Coordinates',
-    value: () => screenlyMetadataStore.formattedCoordinates,
+    value: () => formattedCoordinates.value,
     icon: CoordinatesIcon,
     iconLabel: 'Coordinates',
   },
@@ -65,7 +77,7 @@ const cards = [
     <InfoCard class="brand-logo-card">
       <img
         id="brand-logo"
-        :src="settingsStore.brandLogoUrl || screenlyLogo"
+        :src="brandLogoUrl || screenlyLogo"
         class="brand-logo"
         alt="Brand Logo"
       />
@@ -83,7 +95,7 @@ const cards = [
         <component
           :is="card.icon"
           class="icon-card-icon"
-          :color="settingsStore.primaryThemeColor"
+          :color="primaryThemeColor"
         />
         <span class="icon-card-text head-text">{{ card.iconLabel }}</span>
       </template>
@@ -91,11 +103,11 @@ const cards = [
 
     <InfoCard class="labels-name-card" title="Labels">
       <template #icon>
-        <VersionIcon class="icon-card-icon" :color="settingsStore.primaryThemeColor" />
+        <VersionIcon class="icon-card-icon" :color="primaryThemeColor" />
         <span class="icon-card-text head-text">Labels</span>
       </template>
       <div class="label-chip-container">
-        <div v-for="tag in screenlyMetadataStore.tags" :key="tag" class="label-chip">
+        <div v-for="tag in tags" :key="tag" class="label-chip">
           {{ tag }}
         </div>
       </div>
@@ -103,6 +115,4 @@ const cards = [
   </div>
 </template>
 
-<style scoped>
-/* Add any additional styles here if needed */
-</style>
+<style scoped></style>
