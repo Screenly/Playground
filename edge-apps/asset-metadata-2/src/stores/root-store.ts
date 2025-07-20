@@ -185,7 +185,7 @@ export const useSettingsStore = defineStore('settings', () => {
         brandLogoUrl.value = processedFallbackUrl
       } catch {
         // Set to empty string so the template uses the imported screenlyLogo
-        brandLogoUrl.value = ''
+        brandLogoUrl.value = fallbackUrl ?? ''
       }
     }
   }
