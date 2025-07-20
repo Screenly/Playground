@@ -1,11 +1,18 @@
 ---
 syntax: manifest_v1
-id:
+id: 01K0KYTZCX7G2QHCXGB9S0RE1E
 description: Displays a leaderboard of Strava club activities with responsive layout (6 athletes in landscape, 14 in portrait)
-icon: 'https://playground.srly.io/edge-apps/strava-club-leaderboard/static/images/icon.svg'
+icon: https://playground.srly.io/edge-apps/strava-club-leaderboard/static/images/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 settings:
+  access_token:
+    type: secret
+    title: Strava Access Token
+    optional: false
+    help_text: |
+      Your Strava Access Token from https://www.strava.com/settings/api
+      Keep this secret secure.
   client_id:
     type: string
     title: Strava Client ID
@@ -20,23 +27,6 @@ settings:
     help_text: |
       Your Strava API Client Secret from https://www.strava.com/settings/api
       Keep this secret secure.
-    is_global: true
-  access_token:
-    type: secret
-    title: Strava Access Token
-    optional: false
-    help_text: |
-      Your Strava Access Token from https://www.strava.com/settings/api
-      Keep this secret secure.
-    is_global: true
-  refresh_token:
-    type: secret
-    title: Strava Refresh Token
-    optional: false
-    help_text: |
-      Your Strava Refresh Token from https://www.strava.com/settings/api
-      Keep this secret secure.
-    is_global: true
   club_id:
     type: string
     title: Strava Club ID
@@ -44,4 +34,10 @@ settings:
     help_text: |
       The ID of the Strava club to display leaderboard for.
       You can find this in the club URL: https://www.strava.com/clubs/{club_id}, Use small letters.
-
+  refresh_token:
+    type: secret
+    title: Strava Refresh Token
+    optional: false
+    help_text: |
+      Your Strava Refresh Token from https://www.strava.com/settings/api
+      Keep this secret secure.
