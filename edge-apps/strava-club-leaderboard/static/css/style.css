@@ -1,5 +1,14 @@
 /* stylelint-disable media-feature-range-notation */
 
+
+@font-face {
+  font-family: 'Noto Color Emoji';
+  src: url('../fonts/NotoColorEmoji-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Strava Club Leaderboard Styles  */
 
 /* App Layout */
@@ -274,6 +283,7 @@
   color: var(--theme-color-text-secondary);
   opacity: 0.8;
   transition: opacity 0.2s ease;
+  font-family: 'Noto Color Emoji', Inter;
 }
 
 .footer-attribution {
@@ -460,6 +470,7 @@
 .error-icon {
   font-size: clamp(3rem, calc(3vw + 3vh), 12rem);
   color: var(--theme-color-error);
+  font-family: 'Noto Color Emoji', Inter;
 }
 
 .error-title {
