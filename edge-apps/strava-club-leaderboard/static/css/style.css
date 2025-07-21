@@ -257,16 +257,15 @@
 
 /* Footer */
 .app-footer {
-  padding: clamp(0.25rem, calc(0.25vw + 0.25vh), 1000rem) clamp(5rem, calc(0.5vw + 0.5vh), 1000rem); /* Minimal vertical padding for height control */
-  background-color: var(--theme-color-card);
+  padding: clamp(0.25rem, calc(0.25vw + 0.25vh), 1000rem) clamp(5rem, calc(0.5vw + 0.5vh), 1000rem);
   border-top: 1px solid var(--theme-color-border);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: clamp(0.5rem, calc(0.125vw + 0.125vh), 1000rem); /* Minimal gap for height control */
+  gap: clamp(0.5rem, calc(0.125vw + 0.125vh), 1000rem);
   align-items: center;
   margin-top: auto;
-  height: clamp(1rem, calc(3.5vw + 3.5vh), 1000rem); /* Direct height control */
+  height: clamp(1rem, calc(3.5vw + 3.5vh), 1000rem);
 }
 
 .footer-content {
@@ -274,12 +273,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.5rem, calc(0.5vw + 0.5vh), 1000rem); /* Reduced gap */
-  transition: opacity 0.2s ease;
+  gap: clamp(0.5rem, calc(0.5vw + 0.5vh), 1000rem);
 }
 
 .footer-text {
-  font-size: clamp(0.75rem, calc(0.5vw + 0.5vh), 1000rem); /* Reduced font size */
+  font-size: clamp(0.75rem, calc(0.5vw + 0.5vh), 1000rem);
   color: var(--theme-color-text-secondary);
   opacity: 0.8;
   transition: opacity 0.2s ease;
@@ -291,7 +289,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.75rem, calc(0.5vw + 0.5vh), 1000rem); /* Significantly reduced gap */
+  gap: clamp(0.75rem, calc(0.5vw + 0.5vh), 1000rem);
   flex-wrap: wrap;
 }
 
@@ -303,7 +301,7 @@
 }
 
 .footer-attribution-label {
-  font-size: clamp(0.5rem, calc(0.4vw + 0.4vh), 1000rem); /* Reduced font size */
+  font-size: clamp(0.5rem, calc(0.4vw + 0.4vh), 1000rem);
   color: var(--theme-color-text-secondary);
   opacity: 0.7;
   text-transform: uppercase;
