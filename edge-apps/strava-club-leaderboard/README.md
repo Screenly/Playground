@@ -2,7 +2,7 @@
 
 A beautiful, real-time leaderboard for Strava clubs that displays member rankings based on weekly or monthly activity data. Perfect for motivating team members and displaying club achievements on digital signage.
 
-
+![Strava Club Leaderboard](static/images/strava-club-leaderboard.png)
 
 ## Features
 
