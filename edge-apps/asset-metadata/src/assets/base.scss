@@ -68,6 +68,33 @@ $srly-breakpoint-landscape-2xl: 4096px; // 4096x2160
   border-radius: $radius;
 }
 
+@mixin srly-xl-layout(
+  $spacing,
+  $container-gap,
+  $primary-radius,
+  $secondary-radius,
+  $row-gap
+) {
+  .main-container {
+    @include srly-responsive-spacing($spacing, $spacing);
+  }
+  .primary-container {
+    gap: $container-gap;
+  }
+  .primary-card {
+    @include srly-responsive-border-radius($primary-radius);
+  }
+  .secondary-container {
+    gap: $container-gap;
+  }
+  .row-container {
+    gap: $row-gap;
+  }
+  .secondary-card {
+    @include srly-responsive-border-radius($secondary-radius);
+  }
+}
+
 // Font faces
 @font-face {
   font-family: Aeonik;
@@ -251,29 +278,13 @@ body {
 }
 
 @media screen and (min-width: $srly-breakpoint-portrait-xl) and (orientation: portrait) {
-  .main-container {
-    @include srly-responsive-spacing($srly-spacing-xxl, $srly-spacing-xxl);
-  }
-
-  .primary-container {
-    gap: $srly-spacing-xxl;
-  }
-
-  .primary-card {
-    @include srly-responsive-border-radius($srly-border-radius-xxxl);
-  }
-
-  .secondary-container {
-    gap: $srly-spacing-xxl;
-  }
-
-  .row-container {
-    gap: 6rem;
-  }
-
-  .secondary-card {
-    @include srly-responsive-border-radius($srly-border-radius-xxxl);
-  }
+  @include srly-xl-layout(
+    $srly-spacing-xxl,
+    $srly-spacing-xxl,
+    $srly-border-radius-xxxl,
+    $srly-border-radius-xxxl,
+    6rem
+  );
 }
 
 // Responsive breakpoints - Landscape
@@ -356,29 +367,13 @@ body {
 }
 
 @media screen and (min-width: $srly-breakpoint-landscape-xl) and (orientation: landscape) {
-  .main-container {
-    @include srly-responsive-spacing($srly-spacing-xxl, $srly-spacing-xxl);
-  }
-
-  .primary-container {
-    gap: $srly-spacing-xxl;
-  }
-
-  .primary-card {
-    @include srly-responsive-border-radius($srly-border-radius-xxxl);
-  }
-
-  .secondary-container {
-    gap: $srly-spacing-xxl;
-  }
-
-  .row-container {
-    gap: 6rem;
-  }
-
-  .secondary-card {
-    @include srly-responsive-border-radius($srly-border-radius-xxxl);
-  }
+  @include srly-xl-layout(
+    $srly-spacing-xxl,
+    $srly-spacing-xxl,
+    $srly-border-radius-xxxl,
+    $srly-border-radius-xxxl,
+    6rem
+  );
 }
 
 @media screen and (min-width: $srly-breakpoint-landscape-2xl) and (orientation: landscape) {
