@@ -1,6 +1,6 @@
 ---
 
-name: Update Edge App.
+name: Update Edge App
 
 on:
   workflow_dispatch:
@@ -47,18 +47,17 @@ jobs:
         with:
           ref: master
 
-      - name: 🛠 Install Node.js (React only)
+      - name: 🛠 Install Bun (React only)
         if: ${{ inputs.app_type == 'react' }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22.x
+        run: |
+          curl -fsSL https://bun.com/install | bash -s "bun-v1.2.19"
 
       - name: 🛠 Setup and Build React App
         if: ${{ inputs.app_type == 'react' }}
         working-directory: ${{ env.APP_PATH }}
         run: |
-          npm install
-          npm run build
+          bun install
+          bun run build
 
       - name: 🔄 Modify APP_PATH based on app type
         run: |
