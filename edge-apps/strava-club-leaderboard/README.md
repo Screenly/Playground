@@ -1,6 +1,6 @@
 # Strava Club Leaderboard Edge App
 
-A beautiful, real-time leaderboard for Strava clubs that displays member rankings based on weekly or monthly activity data. Perfect for motivating team members and displaying club achievements on digital signage.
+A beautiful, real-time leaderboard for Strava clubs that displays member rankings based on activity data. Perfect for motivating team members and displaying club achievements on Screenly Players.
 
 ![Strava Club Leaderboard](static/images/strava-club-leaderboard.png)
 
@@ -129,8 +129,8 @@ screenly edge-app setting set club_id=YOUR_CLUB_ID
   - Total elevation gained
   - Average distance per athlete
   - Total time spent
-- **Auto-refresh**: Updates every 5 minutes
-- **Time Period**: Shows "This Week" or "This Month" based on settings
+  - **Auto-refresh**: Updates every 5 minutes
+  - **Time Period**: Shows "This Week" or "This Month" based on settings
 
 ### Supported Screen Resolutions
 
