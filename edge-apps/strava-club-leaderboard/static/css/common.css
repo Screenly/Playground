@@ -1,0 +1,170 @@
+/* stylelint-disable media-feature-range-notation */
+
+/* Common Styles */
+
+/* Global Fonts */
+@font-face {
+  font-family: Inter;
+  src: url('../fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url('../fonts/Inter-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url('../fonts/Inter-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Typography - Base font size */
+html {
+  font-size: 14px;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  height: 100vh;
+  background-color: var(--theme-color-background);
+  color: var(--theme-color-text);
+  line-height: 1.5;
+}
+
+/* Colors (Theme) */
+:root {
+  --theme-color-primary: #FC4C02;
+  --theme-color-secondary: #454BD2;
+  --theme-color-tertiary: #FFF;
+  --theme-color-background: #F8F9FA;
+  --theme-color-card: #FFF;
+  --theme-color-text: #212529;
+  --theme-color-text-secondary: #6C757D;
+  --theme-color-border: #E9ECEF;
+  --theme-color-success: #28A745;
+  --theme-color-warning: #FFC107;
+  --theme-color-error: #DC3545;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --theme-color-background: #1A1A1A;
+  --theme-color-card: #2D2D2D;
+  --theme-color-text: #FFF;
+  --theme-color-text-secondary: #B0B0B0;
+  --theme-color-border: #404040;
+}
+
+/* Minimal Media Queries - Only for edge cases */
+@media (max-width: 320px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 3840px) {
+  html {
+    font-size: 24px;
+  }
+}
+
+/* Essential Utility Classes Only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.d-grid {
+  display: grid;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.rounded {
+  border-radius: clamp(1.223rem, calc(0.22vw + 0.638rem), 1000rem);
+}
+
+.rounded-lg {
+  border-radius: clamp(1.543rem, calc(0.275vw + 0.811rem), 1000rem);
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 2px 0 #0000000D;
+}
+
+.shadow {
+  box-shadow: 0 1px 3px 0 #0000001A, 0 1px 2px 0 #0000000D;
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px -1px #0000001A, 0 2px 4px -1px #0000000D;
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px #0000001A, 0 4px 6px -2px #0000000D;
+}

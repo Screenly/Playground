@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strava Club Leaderboard - Screenly Edge App</title>
+  <link href="static/css/common.css" rel="stylesheet">
+  <link href="static/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="app-header-left">
+        <div class="logo">
+          <img src="static/images/strava.svg" alt="Strava" class="logo-image">
+          <h1 class="logo-text">Club Leaderboard</h1>
+        </div>
+      </div>
+      <div class="app-header-right">
+        <div class="last-updated" id="last-updated">
+          <span class="last-updated-text">Updated: --:--</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="app-main">
+      <!-- Loading State -->
+      <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Loading club activities...</p>
+      </div>
+
+      <!-- Error State -->
+      <div class="error" id="error" style="display: none;">
+        <div class="error-icon">⚠️</div>
+        <h2 class="error-title">Unable to load leaderboard</h2>
+        <p class="error-message" id="error-message">Please check your settings and try again.</p>
+      </div>
+
+      <!-- Leaderboard -->
+      <div class="leaderboard" id="leaderboard" style="display: none;">
+        <div class="leaderboard-header">
+          <h2 class="leaderboard-title" id="leaderboard-title">Top Athletes</h2>
+          <div class="leaderboard-stats" id="leaderboard-stats">
+            <span class="stats-item">
+              <span class="stats-label">Total Activities:</span>
+              <span class="stats-value" id="total-activities">0</span>
+            </span>
+            <span class="stats-item">
+              <span class="stats-label">Total Distance:</span>
+              <span class="stats-value" id="total-distance">0 km</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="leaderboard-list" id="leaderboard-list">
+          <!-- Dynamic content will be populated here -->
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <span class="footer-text">📊 Showing recent club activities</span>
+        <div class="footer-attribution">
+          <div class="footer-attribution-item">
+            <img src="static/images/strava.svg" alt="Strava" class="footer-logo footer-logo-strava">
+          </div>
+          <span class="footer-attribution-label">&</span>
+          <div class="footer-attribution-item">
+            <img src="static/images/screenly.svg" alt="Screenly" class="footer-logo footer-logo-screenly">
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="screenly.js?version=1"></script>
+  <script src="static/js/utils.js"></script>
+  <script src="static/js/cache.js"></script>
+  <script src="static/js/api.js"></script>
+  <script src="static/js/ui.js"></script>
+  <script src="static/js/main.js"></script>
+</body>
+</html>
