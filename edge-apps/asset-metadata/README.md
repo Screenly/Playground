@@ -1,17 +1,69 @@
-# Screenly Asset Metadata
+# Screenly Edge App Template
 
-![Screenly Asset Metadata App Preview](static/images/asset-metadata-app-preview.jpg)
+## Prerequisites
 
-This Edge App displays the screen metadata - Hostname, Screen Name, Position , Hardware name, Firmware version, Labels, etc.
+- [Bun (1.2.2+)](https://bun.sh/docs/installation)
+- [Screenly Edge App CLI (v1.0.3+)](https://github.com/Screenly/cli?tab=readme-ov-file#installation)
 
-## Installation
+## Getting Started
 
 ```bash
-$ cd edge-apps/asset-metadata
-$ screenly edge-app create \
-    --name my-asset-metadata \
+bun install
+screenly edge-app create \
+    --name=EDGE_APP_NAME \
     --in-place
-$ screenly edge-app deploy
-[...]
-$ screenly edge-app instance create
+```
+
+## Create an Edge App Instance via CLI
+
+```bash
+screenly edge-app instance create --name=EDGE_APP_INSTANCE_NAME
+```
+
+## Deployment
+
+```bash
+bun run build
+bun run deploy
+```
+
+## Development
+
+Run the following on a terminal to start the development server:
+
+```bash
+bun install
+bun run dev
+```
+
+## Unit Tests
+
+To run unit tests:
+
+```bash
+bun run test:unit
+```
+
+Press `q` to quit the test runner.
+
+## E2E Tests
+
+Install dependencies for the first run:
+
+```bash
+bun run playwright install-deps
+bun run playwright install
+```
+
+To run E2E tests:
+
+```bash
+bun run test:e2e
+```
+
+### Linting and Formatting
+
+```bash
+bun run lint
+bun run format
 ```

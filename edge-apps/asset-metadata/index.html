@@ -1,67 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Asset Metadata</title>
-  <link href="static/styles/common.css" rel="stylesheet">
-  <link href="static/styles/styles.css" rel="stylesheet">
-</head>
-<body>
-  <div  class="main-container main-container-grid">
-    <div class="primary-card host-name-card">
-      <div class="icon-card">
-        <object id="name-icon" type="image/svg+xml" data="static/images/icons/name-icon.svg" class="icon-card-icon" alt="icon"></object>
-        <span class="icon-card-text head-text">Host Name</span>
-      </div>
-      <span class="icon-card-text host-name-text"></span>
-    </div>
-    <div class="primary-card screen-name-card">
-      <div class="icon-card">
-        <object id="name-icon" type="image/svg+xml" data="static/images/icons/name-icon.svg" class="icon-card-icon" alt="icon"></object>
-        <span class="icon-card-text head-text">Name</span>
-      </div>
-      <span class="icon-card-text screen-name-text"></span>
-    </div>
-    <div class="secondary-card hardware-name-card">
-      <div class="icon-card">
-        <object id="hardware-icon" type="image/svg+xml" data="static/images/icons/hardware-icon.svg" class="icon-card-icon" alt="icon"></object>
-        <span class="icon-card-text head-text">Hardware</span>
-      </div>
-      <span class="icon-card-text hardware-name-text"></span>
-    </div>
-    <div class="secondary-card brand-logo-card">
-      <img id="brand-logo" src="static/images/Screenly.svg" class="brand-logo" alt="Brand Logo" />
-      <span class="info-text">Powered by Screenly</span>
-    </div>
-    <div class="secondary-card version-name-card">
-      <div class="icon-card">
-        <object id="version-icon" type="image/svg+xml" data="static/images/icons/version-icon.svg" class="icon-card-icon" alt="icon"></object>
-        <span class="icon-card-text head-text">Version</span>
-      </div>
-      <span class="icon-card-text version-name-text"></span>
-    </div>
-    <div class="secondary-card coordinates-card">
-      <div class="icon-card">
-        <object id="coordinates-icon" type="image/svg+xml" data="static/images/icons/coordinates-icon.svg" class="icon-card-icon" alt="icon"></object>
-        <span class="icon-card-text head-text">Coordinates</span>
-      </div>
-      <span class="icon-card-text coordinates-name-text"></span>
-    </div>
-    <div class="secondary-card labels-name-card">
-      <div class="icon-card">
-        <object id="version-icon" type="image/svg+xml" data="static/images/icons/version-icon.svg" class="icon-card-icon" alt="icon"></object>
-        <span class="icon-card-text head-text">Labels</span>
-      </div>
-      <div class="label-chip-container">
-      </div>
-      </div>
-    </div>
-  </div>
-  <script src="screenly.js?version=1"></script>
-  <script src="https://browser.sentry-cdn.com/8.47.0/bundle.tracing.min.js"
-  integrity="sha384-wYec/atCKBIhxMeAqO4JgQzLgv7nPphrOELh1UduVUFqt5DXn0Ey8pqiYEyYvZZ3"
-  crossorigin="anonymous"></script>
-  <script src="static/js/main.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edge App</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="screenly.js?version=1"></script>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>
