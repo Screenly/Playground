@@ -284,6 +284,7 @@
   opacity: 0.8;
   transition: opacity 0.2s ease;
   font-family: 'Noto Color Emoji', Inter, sans-serif;
+  word-spacing: -0.8em;
 }
 
 .footer-attribution {
