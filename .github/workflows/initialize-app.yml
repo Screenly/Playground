@@ -53,6 +53,8 @@ jobs:
       - name: 🛠 Install Bun (React only)
         if: ${{ inputs.app_type == 'react' }}
         uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.2.2
 
       - name: 🛠 Setup and Build React App
         if: ${{ inputs.app_type == 'react' }}
