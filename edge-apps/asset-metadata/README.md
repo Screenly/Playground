@@ -1,4 +1,8 @@
-# Screenly Edge App Template
+# Screenly Asset Metadata
+
+![Screenly Asset Metadata App Preview](static/images/asset-metadata-app-preview.jpg)
+
+This Edge App displays the screen metadata - Hostname, Screen Name, Position , Hardware name, Firmware version, Labels, etc.
 
 ## Prerequisites
 
