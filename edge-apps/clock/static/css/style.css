@@ -274,7 +274,7 @@
 /* TODO: Fix the Clock Circle issue : When Scale to .5, circle change to oval */
 
 
-@media screen and (width >= 480px) and (orientation: portrait) {
+@media screen and (min-width: 480px) and (orientation: portrait) {
   .clock-container {
     transform: scale(.7);
   }
