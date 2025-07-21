@@ -46,23 +46,33 @@ describe('App', () => {
   it('renders properly', () => {
     const wrapper = mount(App)
 
-    // Check section headers
-    expect(wrapper.text()).toContain('Host Name')
-    expect(wrapper.text()).toContain('Name')
-    expect(wrapper.text()).toContain('Hardware')
-    expect(wrapper.text()).toContain('Version')
-    expect(wrapper.text()).toContain('Coordinates')
-    expect(wrapper.text()).toContain('Labels')
-    expect(wrapper.text()).toContain('Powered by Screenly')
+    // Section headers to check
+    const sectionHeaders: string[] = [
+      'Host Name',
+      'Name',
+      'Hardware',
+      'Version',
+      'Coordinates',
+      'Labels',
+      'Powered by Screenly',
+    ]
+    sectionHeaders.forEach((header) => {
+      expect(wrapper.text()).toContain(header)
+    })
 
-    // Check actual values
-    expect(wrapper.text()).toContain('test-host')
-    expect(wrapper.text()).toContain('test-screen')
-    expect(wrapper.text()).toContain('test-hardware')
-    expect(wrapper.text()).toContain('test-version')
-    expect(wrapper.text()).toContain('40.7128° N, 74.0060° W')
-    expect(wrapper.text()).toContain('tag1')
-    expect(wrapper.text()).toContain('tag2')
-    expect(wrapper.text()).toContain('tag3')
+    // Actual values to check
+    const values: string[] = [
+      'test-host',
+      'test-screen',
+      'test-hardware',
+      'test-version',
+      '40.7128° N, 74.0060° W',
+      'tag1',
+      'tag2',
+      'tag3',
+    ]
+    values.forEach((value) => {
+      expect(wrapper.text()).toContain(value)
+    })
   })
 })
