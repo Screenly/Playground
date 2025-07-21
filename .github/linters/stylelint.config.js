@@ -6,6 +6,6 @@ module.exports = {
     }
   ],
   rules: {
-    // Add your custom Stylelint rules here
+    'media-feature-range-notation': 'context'
   }
 }
