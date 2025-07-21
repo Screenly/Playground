@@ -54,7 +54,7 @@ jobs:
         if: ${{ inputs.app_type == 'react' }}
         run: |
           curl -fsSL https://bun.com/install | bash -s "bun-v1.2.19"
-          echo "$HOME/.bun/bin" >> $GITHUB_PATH
+          echo "$HOME/.bun/bin" >> "$GITHUB_PATH"
 
       - name: 🛠 Setup and Build React App
         if: ${{ inputs.app_type == 'react' }}
