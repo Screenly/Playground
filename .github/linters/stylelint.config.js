@@ -6,6 +6,6 @@ module.exports = {
     }
   ],
   rules: {
-    'media-feature-range-notation': 'prefix'
+    'media-feature-range-notation': 'context'
   }
 }
