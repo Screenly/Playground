@@ -44,10 +44,6 @@ jobs:
           # Full git history is needed to get a proper list of changed files within `super-linter`
           fetch-depth: 0
 
-      - name: Install `postcss-scss` globally
-        run: |
-          npm install -g postcss-scss
-
       ################################
       # Run Linter against code base #
       ################################
