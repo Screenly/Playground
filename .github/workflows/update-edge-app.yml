@@ -49,9 +49,7 @@ jobs:
 
       - name: 🛠 Install Bun (React only)
         if: ${{ inputs.app_type == 'react' }}
-        run: |
-          curl -fsSL https://bun.com/install | bash -s "bun-v1.2.19"
-          echo "$HOME/.bun/bin" >> "$GITHUB_PATH"
+        uses: oven-sh/setup-bun@v2
 
       - name: 🛠 Setup and Build React App
         if: ${{ inputs.app_type == 'react' }}
