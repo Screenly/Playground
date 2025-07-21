@@ -5,7 +5,10 @@ module.exports = {
   overrides: [
     {
       files: ['**/*.scss'],
-      customSyntax: 'postcss-scss',
+      customSyntax: 'postcss-scss'
+    },
+    {
+      files: ['**/*.scss'],
       rules: {
         'media-feature-range-notation': 'context'
       }
