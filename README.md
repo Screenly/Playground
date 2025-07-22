@@ -19,8 +19,9 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [QR Code Generator](https://github.com/Screenly/Playground/tree/master/edge-apps/qr-code) - An example of how to build unique QR Codes that embeds the screen metadata as UTM parameters.
 - [RSS Reader](https://github.com/Screenly/Playground/tree/master/edge-apps/rss-reader) - A simple RSS reader.
 - [Sonar Dashboard](https://github.com/Screenly/Playground/tree/master/edge-apps/sonar-dashboard) - A dashboard that displays the status of the [Sonar - BLE Device Counter](https://github.com/Viktopia/sonar).
+- [Strava Club Leaderboard](https://github.com/Screenly/Playground/tree/master/edge-apps/strava-club-leaderboard) - A leaderboard of Strava club activities.
 - [Simple Message App](https://github.com/Screenly/Playground/tree/master/edge-apps/simple-message-app) - A simple message app.
-- [TFL Bus Status App](https://github.com/Screenly/Playground/tree/master/edge-apps/tfl-bus-status) - An app to display TFL Bus Status for a given bus stop. A list of all bus stops can be found here -  [Bus Stop Lookup Tool](https://playground.srly.io/edge-apps/helpers/tfl/bus-stop-lookup/)
+- [TFL Bus Status App](https://github.com/Screenly/Playground/tree/master/edge-apps/tfl-bus-status) - An app to display TFL Bus Status for a given bus stop. A list of all bus stops can be found here - [Bus Stop Lookup Tool](https://playground.srly.io/edge-apps/helpers/tfl/bus-stop-lookup/)
 - [Weather App](https://github.com/Screenly/Playground/tree/master/edge-apps/weather) - A simple weather app.
 - [Welcome App](https://github.com/Screenly/Playground/tree/master/edge-apps/welcome-app) - A customizable welcome screen app.
 
