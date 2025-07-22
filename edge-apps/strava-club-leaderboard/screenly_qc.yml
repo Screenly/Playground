@@ -1,6 +1,6 @@
 ---
 syntax: manifest_v1
-id:
+id: 01K0PTKB6AMH6CKRZ2E5B07BQC
 description: Displays a leaderboard of Strava club activities.
 icon: https://playground.srly.io/edge-apps/strava-club-leaderboard/static/images/icon.svg
 author: Screenly, Inc.
