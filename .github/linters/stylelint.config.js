@@ -7,5 +7,5 @@ module.exports = {
   ],
   rules: {
     'media-feature-range-notation': 'prefix'
-  },
+  }
 }
