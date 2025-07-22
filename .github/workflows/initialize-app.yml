@@ -22,14 +22,14 @@ on:
         description: 'Display title of the edge app (used in instance.yml)'
         required: true
 
-      app_type:
-        description: 'Type of the Edge App (html or react)'
+      build_system:
+        description: 'Build system for the Edge App'
         required: true
-        default: 'html'
+        default: 'vanilla'
         type: choice
         options:
-          - html
-          - react
+          - vanilla
+          - bun
 
 run-name: Initializing ${{ inputs.edge_app_name }} in ${{ inputs.environment }}
 
@@ -51,13 +51,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 🛠 Install Bun (React only)
-        if: ${{ inputs.app_type == 'react' }}
+        if: ${{ inputs.build_system == 'bun' }}
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.2.2
 
       - name: 🛠 Setup and Build React App
-        if: ${{ inputs.app_type == 'react' }}
+        if: ${{ inputs.build_system == 'bun' }}
         working-directory: ${{ env.APP_PATH }}
         run: |
           bun install
@@ -65,7 +65,7 @@ jobs:
 
       - name: 🔄 Modify APP_PATH based on app type
         run: |
-          if [ "${{ inputs.app_type }}" = "react" ]; then
+          if [ "${{ inputs.build_system }}" = "bun" ]; then
             echo "APP_PATH=${{ env.APP_PATH }}/dist" >> "$GITHUB_ENV"
           fi
 
