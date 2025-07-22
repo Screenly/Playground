@@ -28,3 +28,8 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+
+test-results/
+playwright-report/
+
+mock-data.yml

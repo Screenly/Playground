@@ -1,6 +1,6 @@
 import { vi } from 'vitest'
 
-// Mock screenly global for all tests
+// Mock `screenly` global for all tests
 global.screenly = {
   signalReadyForRendering: vi.fn(),
   metadata: {

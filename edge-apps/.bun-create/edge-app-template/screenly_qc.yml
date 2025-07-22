@@ -1,6 +1,6 @@
 ---
 syntax: manifest_v1
-description: Replace this description with a description of your Edge App
+description: Displays the screen metadata like position on Google map, coordinates, hostname, etc.
 author: Screenly, Inc.
 ready_signal: true
 settings:

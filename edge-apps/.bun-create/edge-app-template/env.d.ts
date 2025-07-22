@@ -12,7 +12,14 @@ declare global {
       screen_name: string,
       tags: string[]
     }
-    settings: Record<string, unknown>
+    settings: Record<string, unknown> & {
+      screenly_color_accent?: string
+      screenly_color_light?: string
+      screenly_color_dark?: string
+      screenly_logo_light?: string
+      screenly_logo_dark?: string
+      theme?: 'light' | 'dark'
+    }
     cors_proxy_url: string
   }
 }
