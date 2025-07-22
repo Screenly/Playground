@@ -7,10 +7,10 @@
   "types": "dist/index.d.ts",
   "files": ["dist"],
   "exports": {
-    "./vite": {
-      "import": "./dist/vite.js",
-      "require": "./dist/vite.js",
-      "types": "./dist/vite.d.ts"
+    "./edge-apps/vite-plugins": {
+      "import": "./dist/vite-plugins.js",
+      "require": "./dist/vite-plugins.js",
+      "types": "./dist/vite-plugins.d.ts"
     },
     "./edge-apps/scss/base.scss": "./edge-apps/scss/base.scss"
   },
