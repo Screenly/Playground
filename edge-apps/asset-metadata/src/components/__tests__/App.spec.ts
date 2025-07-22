@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
+import { ref } from 'vue'
 
 import { mount } from '@vue/test-utils'
 import App from '@/App.vue'
@@ -16,7 +17,11 @@ const mockScreenly = {
     tags: ['tag1', 'tag2', 'tag3'],
   },
   signalReadyForRendering: vi.fn(),
-  settings: {},
+  settings: {
+    screenly_color_accent: '#000000',
+    screenly_color_light: '#000000',
+    screenly_color_dark: '#000000',
+  },
   cors_proxy_url: 'https://example.com',
 }
 
@@ -24,17 +29,21 @@ const mockScreenly = {
 global.screenly = mockScreenly
 
 // Mock the stores
-vi.mock('./stores/root-store', () => ({
+vi.mock('@/stores/metadata-store', () => ({
   useScreenlyMetadataStore: () => ({
-    hostname: 'test-host',
-    screenName: 'test-screen',
-    hardware: 'test-hardware',
-    screenlyVersion: 'test-version',
-    formattedCoordinates: '40.7128° N, 74.0060° W',
-    tags: ['tag1', 'tag2', 'tag3'],
+    hostname: ref('test-host'),
+    screenName: ref('test-screen'),
+    hardware: ref('test-hardware'),
+    screenlyVersion: ref('test-version'),
+    formattedCoordinates: ref('40.7128° N, 74.0060° W'),
+    tags: ref(['tag1', 'tag2', 'tag3']),
   }),
+}))
+vi.mock('@/stores/settings-store', () => ({
   useSettingsStore: () => ({
     setupTheme: vi.fn(),
+    setupBrandingLogo: vi.fn(),
+    primaryThemeColor: ref(mockScreenly.settings.screenly_color_accent),
   }),
 }))
 

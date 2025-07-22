@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { onBeforeMount, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useScreenlyMetadataStore } from './stores/metadata-store'
-import { useSettingsStore } from './stores/settings-store'
+import { useScreenlyMetadataStore } from '@/stores/metadata-store'
+import { useSettingsStore } from '@/stores/settings-store'
 import InfoCard from '@/components/InfoCard.vue'
 import NameIcon from '@/components/NameIcon.vue'
 import HardwareIcon from '@/components/HardwareIcon.vue'
