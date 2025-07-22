@@ -1,0 +1,36 @@
+{
+  "name": "screenly-playground",
+  "version": "0.0.0",
+  "description": "Utilities and reusable components for Screenly Edge App development",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "exports": {
+    "./vite": {
+      "import": "./dist/vite.js",
+      "require": "./dist/vite.js",
+      "types": "./dist/vite.d.ts"
+    },
+    "./edge-apps/scss/base.scss": "./edge-apps/scss/base.scss"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepare": "bun run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "fs": "^0.0.1-security",
+    "vite": "^7.0.5",
+    "yaml": "^2.8.0"
+  }
+}
