@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 import { existsSync } from 'fs'
-import { screenlyPlugin } from './vite-plugin-screenly'
+import { screenlyPlugin } from './screenly-vite-plugin'
 
 const manifestFileName = process.env.MANIFEST_FILE_NAME || 'screenly.yml'
 

@@ -40,6 +40,16 @@ bun install
 bun run dev
 ```
 
+Running the development server will generate a `mock-data.yml` file in the root of the project. This file is used to store the mock data for the screenly.js file.
+
+You can edit the `mock-data.yml` file to change the mock data for the screenly.js file. Refreshing the browser will reload the app with the new mock data.
+
+If you change `screenly.yml` to add, update or remove a setting, the `mock-data.yml` file should be removed so that the development server will generate a new one with the new settings.
+
+```bash
+bun run clear-mock-data && bun run dev
+```
+
 ## Unit Tests
 
 To run unit tests:
