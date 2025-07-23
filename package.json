@@ -14,13 +14,21 @@
       "require": "./dist/vite-plugins.js",
       "default": "./dist/vite-plugins.js"
     },
+    "./edge-apps/stores": {
+      "types": "./dist/stores/index.d.ts",
+      "import": "./dist/stores.js",
+      "require": "./dist/stores.js",
+      "default": "./dist/stores.js"
+    },
     "./edge-apps/scss/base.scss": "./edge-apps/scss/base.scss"
   },
   "directories": {
     "doc": "docs"
   },
   "scripts": {
-    "build": "vite build && tsc --emitDeclarationOnly",
+    "build:plugins": "vite --config vite.config.plugins.ts build",
+    "build:stores": "vite --config vite.config.stores.ts build",
+    "build": "bun run build:plugins && bun run build:stores && tsc --emitDeclarationOnly",
     "prepare": "bun run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -28,11 +36,13 @@
   "license": "ISC",
   "dependencies": {
     "typescript": "^5.8.3",
-    "yaml": "^2.8.0"
+    "yaml": "^2.8.0",
+    "pinia": "^3.0.3",
+    "vue": "^3.5.17"
   },
   "devDependencies": {
     "@types/node": "^24.1.0",
     "fs": "^0.0.1-security",
-    "vite": "^7.0.5"
+    "vite": "^7.0.0"
   }
 }
