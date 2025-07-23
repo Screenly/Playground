@@ -1,7 +1,6 @@
 import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
 
-export const useScreenlyMetadataStore = defineStore('metadata', () => {
+export const metadataStoreSetup = () => {
   const metadata = screenly.metadata
 
   const coordinates = ref(metadata.coordinates ?? '')
@@ -33,4 +32,4 @@ export const useScreenlyMetadataStore = defineStore('metadata', () => {
     tags,
     formattedCoordinates,
   }
-})
+}

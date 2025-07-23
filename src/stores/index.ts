@@ -1,4 +1,4 @@
-import { useSettingsStore } from '@/stores/settings-store'
-import { useScreenlyMetadataStore } from '@/stores/metadata-store'
+import { settingsStoreSetup } from '@/stores/settings-store'
+import { metadataStoreSetup } from '@/stores/metadata-store'
 
-export { useSettingsStore, useScreenlyMetadataStore }
+export { settingsStoreSetup, metadataStoreSetup }

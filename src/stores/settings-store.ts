@@ -1,7 +1,6 @@
 import { ref } from 'vue'
-import { defineStore } from 'pinia'
 
-export const useSettingsStore = defineStore('settings', () => {
+export const settingsStoreSetup = () => {
   const settings = ref(screenly.settings)
   const primaryThemeColor = ref('')
   const secondaryThemeColor = ref('')
@@ -166,4 +165,4 @@ export const useSettingsStore = defineStore('settings', () => {
     setupTheme,
     setupBrandingLogo,
   }
-})
+}
