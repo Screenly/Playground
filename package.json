@@ -8,9 +8,9 @@
   "files": ["dist"],
   "exports": {
     "./edge-apps/vite-plugins": {
-      "import": "./dist/vite-plugins.js",
-      "require": "./dist/vite-plugins.js",
-      "types": "./dist/vite-plugins.d.ts"
+      "import": "./dist/vite-plugins/index.js",
+      "require": "./dist/vite-plugins/index.js",
+      "types": "./dist/vite-plugins/index.d.ts"
     },
     "./edge-apps/scss/base.scss": "./edge-apps/scss/base.scss"
   },
