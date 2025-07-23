@@ -10,10 +10,11 @@ export default defineConfig({
       formats: ['es']
     },
     rollupOptions: {
-      external: ['vite', 'fs'],
+      external: ['vite', 'yaml', 'fs'],
       output: {
         globals: {
           vite: 'vite',
+          yaml: 'YAML',
           fs: 'fs'
         }
       }
