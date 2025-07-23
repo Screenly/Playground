@@ -10,15 +10,15 @@
   "exports": {
     "./edge-apps/vite-plugins": {
       "types": "./dist/vite-plugins/index.d.ts",
-      "import": "./dist/vite-plugins.js",
-      "require": "./dist/vite-plugins.js",
-      "default": "./dist/vite-plugins.js"
+      "import": "./dist/vite-plugins/index.js",
+      "require": "./dist/vite-plugins/index.js",
+      "default": "./dist/vite-plugins/index.js"
     },
     "./edge-apps/stores": {
       "types": "./dist/stores/index.d.ts",
-      "import": "./dist/stores.js",
-      "require": "./dist/stores.js",
-      "default": "./dist/stores.js"
+      "import": "./dist/stores/index.js",
+      "require": "./dist/stores/index.js",
+      "default": "./dist/stores/index.js"
     },
     "./edge-apps/scss/base.scss": "./edge-apps/scss/base.scss"
   },

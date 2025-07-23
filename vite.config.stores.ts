@@ -6,9 +6,10 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/stores/index.ts'),
       name: 'ScreenlyStores',
-      fileName: 'stores',
+      fileName: 'index',
       formats: ['es']
-    }
+    },
+    outDir: 'dist/stores'
   },
   resolve: {
     alias: {

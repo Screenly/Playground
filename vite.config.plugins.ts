@@ -6,9 +6,10 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/vite-plugins/index.ts'),
       name: 'ScreenlyVitePlugins',
-      fileName: 'vite-plugins',
+      fileName: 'index',
       formats: ['es']
     },
+    outDir: 'dist/vite-plugins',
     rollupOptions: {
       external: ['vite', 'fs'],
       output: {
