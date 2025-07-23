@@ -6,7 +6,7 @@
     "declarationDir": "dist",
     "outDir": "dist",
     "rootDir": "src",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
