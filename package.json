@@ -9,15 +9,10 @@
   "files": ["dist"],
   "exports": {
     "./edge-apps/vite-plugins": {
-      "import": "./dist/vite-plugins/index.js",
-      "require": "./dist/vite-plugins/index.js",
       "types": "./dist/vite-plugins/index.d.ts",
-      "default": "./dist/vite-plugins/index.js"
-    },
-    "./edge-apps/vite-plugins/dev-server-plugin": {
-      "import": "./dist/vite-plugins/dev-server-plugin.js",
-      "require": "./dist/vite-plugins/dev-server-plugin.js",
-      "types": "./dist/vite-plugins/dev-server-plugin.d.ts"
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./edge-apps/scss/base.scss": "./edge-apps/scss/base.scss"
   },
@@ -25,7 +20,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "vite build && tsc --emitDeclarationOnly",
     "prepare": "bun run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
