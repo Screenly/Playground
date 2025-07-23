@@ -10,9 +10,9 @@
   "exports": {
     "./edge-apps/vite-plugins": {
       "types": "./dist/vite-plugins/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "default": "./dist/index.js"
+      "import": "./dist/vite-plugins.js",
+      "require": "./dist/vite-plugins.js",
+      "default": "./dist/vite-plugins.js"
     },
     "./edge-apps/scss/base.scss": "./edge-apps/scss/base.scss"
   },

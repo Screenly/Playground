@@ -6,7 +6,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/vite-plugins/index.ts'),
       name: 'ScreenlyVitePlugins',
-      fileName: 'index',
+      fileName: 'vite-plugins',
       formats: ['es']
     },
     rollupOptions: {
