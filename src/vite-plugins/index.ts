@@ -1,1 +1,1 @@
-export { screenlyDevServer } from './dev-server-plugin.js'
+export { screenlyDevServer } from './dev-server-plugin'
