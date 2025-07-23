@@ -53,16 +53,29 @@ This will create a new Edge App with the name `<edge-app-name>` in the `edge-app
 
 > [!NOTE]
 > Don't forget to update `README.md` and `screenly.yml` as needed.
->
-> You can also use the `screenly-edge-app` CLI to run the Edge App locally.
 
 You can now run the local development server by running the following commands:
 
 ```bash
 cd <edge-app-name>
 bun dev
-screenly-edge-app run --path=dist/
 ```
+
+You'll get an output similar to the following:
+
+```plaintext
+  VITE v7.0.5  ready in 287 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  Vue DevTools: Open http://localhost:5173/__devtools__/ as a separate window
+  ➜  Vue DevTools: Press Alt(⌥)+Shift(⇧)+D in App to toggle the Vue DevTools
+  ➜  press h + enter to show help
+[vite-plugin-static-copy] Collected 2 items.
+```
+
+Open your browser and go to the URL indicated in the console output. The development server uses [Hot Module Replacement](https://vite.dev/guide/features.html#hot-module-replacement),
+which means that you don't need to reload the page when you make changes. The page automatically reloads when you save changes on your code.
 
 ## Other
 
