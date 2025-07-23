@@ -1,6 +1,7 @@
 {
   "name": "screenly-playground",
   "version": "0.0.0",
+  "type": "module",
   "description": "Utilities and reusable components for Screenly Edge App development",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -10,7 +11,8 @@
     "./edge-apps/vite-plugins": {
       "import": "./dist/vite-plugins/index.js",
       "require": "./dist/vite-plugins/index.js",
-      "types": "./dist/vite-plugins/index.d.ts"
+      "types": "./dist/vite-plugins/index.d.ts",
+      "default": "./dist/vite-plugins/index.js"
     },
     "./edge-apps/scss/base.scss": "./edge-apps/scss/base.scss"
   },
