@@ -16,6 +16,7 @@
     },
     "./edge-apps/vite-plugins/dev-server-plugin": {
       "import": "./dist/vite-plugins/dev-server-plugin.js",
+      "require": "./dist/vite-plugins/dev-server-plugin.js",
       "types": "./dist/vite-plugins/dev-server-plugin.d.ts"
     },
     "./edge-apps/scss/base.scss": "./edge-apps/scss/base.scss"
