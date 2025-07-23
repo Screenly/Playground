@@ -89,7 +89,7 @@ function generateMockDataFile() {
   return {}
 }
 
-export function screenlyPlugin(mode: string): Plugin {
+export function screenlyDevServer(mode: string): Plugin {
   return {
     name: 'generate-screenly-js',
     configureServer(server: ViteDevServer) {
