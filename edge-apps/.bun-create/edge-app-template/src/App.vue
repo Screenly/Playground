@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { onBeforeMount, onMounted, ref } from 'vue'
-import { useSettingsStore } from '@/stores/settings-store'
+import type { SettingsStore } from 'screenly-playground/edge-apps/stores'
 
-const settingsStore = useSettingsStore()
+import { useSettingsStore } from '@/stores'
+
+const settingsStore: SettingsStore = useSettingsStore()
 const message = ref('Get Started')
 
 settingsStore.setupTheme()
