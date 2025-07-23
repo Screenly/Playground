@@ -166,3 +166,5 @@ export const settingsStoreSetup = () => {
     setupBrandingLogo,
   }
 }
+
+export type SettingsStore = ReturnType<typeof settingsStoreSetup>

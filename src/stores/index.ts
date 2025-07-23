@@ -1,4 +1,4 @@
-import { settingsStoreSetup } from '@/stores/settings-store'
-import { metadataStoreSetup } from '@/stores/metadata-store'
-
-export { settingsStoreSetup, metadataStoreSetup }
+export { settingsStoreSetup } from '@/stores/settings-store'
+export { metadataStoreSetup } from '@/stores/metadata-store'
+export type { SettingsStore } from '@/stores/settings-store'
+export type { MetadataStore } from '@/stores/metadata-store'

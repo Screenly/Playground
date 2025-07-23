@@ -33,3 +33,5 @@ export const metadataStoreSetup = () => {
     formattedCoordinates,
   }
 }
+
+export type MetadataStore = ReturnType<typeof metadataStoreSetup>
