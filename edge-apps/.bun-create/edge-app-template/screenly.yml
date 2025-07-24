@@ -1,0 +1,34 @@
+---
+syntax: manifest_v1
+description: Replace this description with a description of your Edge App
+author: Screenly, Inc.
+ready_signal: true
+settings:
+  enable_analytics:
+    type: string
+    default_value: 'true'
+    title: enable_analytics
+    optional: true
+    is_global: true
+    help_text: Whether to enable analytics or not
+  sentry_dsn:
+    type: secret
+    title: Sentry Client Key
+    optional: true
+    help_text: Sentry Client Key from Sentry SDK for error capturing.
+    is_global: true
+  tag_manager_id:
+    type: string
+    default_value: ''
+    title: tag_manager_id
+    optional: true
+    is_global: true
+    help_text: Specify a Google Tag Manager ID
+  theme:
+    type: string
+    default_value: light
+    title: Theme
+    optional: false
+    help_text: |-
+      Determines the visual theme for the application.
+      Options are 'light' or 'dark'.
