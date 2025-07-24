@@ -1,0 +1,32 @@
+changelog:
+  exclude:
+    labels:
+      - chore
+  categories:
+    - title: Bug Fixes 🐞
+      labels:
+        - bug
+      include:
+        labels:
+          - library
+    - title: Features ✨
+      labels:
+        - enhancement
+      include:
+        labels:
+          - library
+    - title: Docs 📚
+      labels:
+        - documentation
+      include:
+        labels:
+          - library
+    - title: Other Changes
+      labels:
+        - '*'
+      include:
+        labels:
+          - library
+  include:
+    labels:
+      - library

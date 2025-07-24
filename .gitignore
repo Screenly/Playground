@@ -6,3 +6,4 @@ instagram/dist
 **/.DS_Store
 edge-apps/**/bootstrap/
 edge-apps/**/mock-data.yml
+dist/
