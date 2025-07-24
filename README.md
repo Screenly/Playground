@@ -25,6 +25,29 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [Weather App](https://github.com/Screenly/Playground/tree/master/edge-apps/weather) - A simple weather app.
 - [Welcome App](https://github.com/Screenly/Playground/tree/master/edge-apps/welcome-app) - A customizable welcome screen app.
 
+### TypeScript Library
+
+The Playground also offers a TypeScript library that contains utilities for building Edge Apps.
+The source code is located in the `src` directory.
+
+To install the library, run the following command:
+
+```bash
+bun add github:Screenly/Playground
+```
+
+This will install the latest version of the library in the default branch.
+
+You can also specify a specific version or branch:
+
+```bash
+bun add github:Screenly/Playground#vX.Y.Z
+bun add github:Screenly/Playground#[branch-name]
+```
+
+Details on how to use the library can be found in [this guide](/docs/typescript-library.md).
+
+
 ## Other
 
 - [Bootstrap](https://github.com/Screenly/playground/tree/master/bootstrap/): A digital signage optimized Bootstrap theme for our Playground apps.
