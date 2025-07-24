@@ -13,16 +13,19 @@ settings:
     title: Text Color
     optional: false
     help_text: |
-      The color of the text. If not provided, the default brand primary color will be used.
+      Sets the color of the 3D text. Defaults to your brand's primary color if not specified.
   text:
     type: string
     default_value: 'Screenly'
     title: 3D Text
     optional: true
-    help_text: The text to display in 3D. If not provided, the screen name will be used.
+    help_text: |
+      The text to display. Defaults to "Screenly" if left blank.
   background_color:
     type: string
     default_value: '#000000'
     title: Background Color
     optional: true
-    help_text: The background color of the text. If not provided, the default is black.
+    help_text: |
+      Sets the background color behind the 3D text. Defaults to black if not specified.
+
