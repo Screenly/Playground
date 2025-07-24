@@ -11,7 +11,8 @@ settings:
     default_value: 'false'
     title: Bypass CORS
     optional: true
-    help_text: Bypass CORS for the iCal URL
+    help_text: |
+      Enable this option to bypass CORS restrictions when loading the iCal URL.
   calendar_id:
     type: string
     default_value: primary
@@ -23,52 +24,61 @@ settings:
     default_value: monthly
     title: Calendar Mode
     optional: true
-    help_text: Choose between monthly, weekly, or daily calendar view
+    help_text: |
+      Select the calendar view mode. Options: monthly, weekly, or daily.
   calendar_source_type:
     type: string
     default_value: ical
     title: Calendar Source Type
     optional: true
-    help_text: Choose between 'api' or 'ical'
+    help_text: |
+      Choose the calendar source type: 'api' for Google API or 'ical' for iCal feed.
   client_id:
     type: secret
     title: Google OAuth Client ID
     optional: true
-    help_text: Specify the Google OAuth Client ID
+    help_text: |
+      Enter the Google OAuth 2.0 Client ID for API authentication.
   client_secret:
     type: secret
     title: Google OAuth Client Secret
     optional: true
-    help_text: Specify the Google OAuth Client Secret
+    help_text: |
+      Enter the Google OAuth 2.0 Client Secret for API authentication.
   enable_analytics:
     type: string
     default_value: 'true'
     title: Enable Analytics
     optional: true
-    help_text: Whether to disable Sentry and Google Analytics integrations
+    help_text: |
+      Enable or disable analytics tools like Sentry and Google Analytics.
     is_global: true
   ical_url:
     type: secret
     title: iCal URL
     optional: true
-    help_text: Specify the URL to the iCal feed
+    help_text: |
+      Provide the public iCal feed URL for your calendar.
   refresh_token:
     type: secret
     title: Google OAuth Refresh Token
     optional: true
-    help_text: Specify the Google OAuth Refresh Token
+    help_text: |
+      Enter the Google OAuth 2.0 refresh token to access the calendar data.
   sentry_dsn:
     type: secret
     title: Sentry Client Key
     optional: true
-    help_text: Sentry Client Key from Sentry SDK for error capturing.
+    help_text: |
+      Enter your Sentry DSN to enable error tracking and reporting.
     is_global: true
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z
     title: Google Tag Manager ID
     optional: true
-    help_text: Specify a Google Tag Manager ID
+    help_text: |
+      Enter your Google Tag Manager container ID (e.g., GTM-XXXXXXX).
     is_global: true
   theme:
     type: string
@@ -76,5 +86,4 @@ settings:
     title: Theme
     optional: false
     help_text: |
-      Determines the visual theme for the application.
-      Options are 'light' or 'dark'.
+      Choose the app's appearance. Options: 'light' or 'dark'.
