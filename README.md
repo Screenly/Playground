@@ -77,6 +77,28 @@ You'll get an output similar to the following:
 Open your browser and go to the URL indicated in the console output. The development server uses [Hot Module Replacement](https://vite.dev/guide/features.html#hot-module-replacement),
 which means that you don't need to reload the page when you make changes. The page automatically reloads when you save changes on your code.
 
+### TypeScript Library
+
+The Playground also offers a TypeScript library that contains utilities for building Edge Apps.
+The source code is located in the `src` directory.
+
+To install the library, run the following command:
+
+```bash
+bun add github:Screenly/Playground
+```
+
+This will install the latest version of the library in the default branch.
+
+You can also specify a specific version or branch:
+
+```bash
+bun add github:Screenly/Playground#vX.Y.Z
+bun add github:Screenly/Playground#[branch-name]
+```
+
+Details on how to use the library can be found in [this guide](/docs/typescript-library.md).
+
 ## Other
 
 - [Bootstrap](https://github.com/Screenly/playground/tree/master/bootstrap/): A digital signage optimized Bootstrap theme for our Playground apps.
