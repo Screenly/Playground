@@ -40,7 +40,7 @@
     "prettier": "3.5.3",
     "rimraf": "^6.0.1",
     "sass-embedded": "^1.89.2",
-    "screenly-playground": "github:Screenly/Playground#v0.0.0",
+    "screenly-playground": "github:Screenly/Playground#v0.1.0",
     "typescript": "~5.8.0",
     "vite": "^7.0.0",
     "vite-plugin-static-copy": "^3.1.1",
