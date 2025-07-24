@@ -6,29 +6,32 @@ icon: https://playground.srly.io/edge-apps/clock/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 settings:
-  enable_analytics:
-    type: string
-    default_value: 'true'
-    title: Enable Analytics
-    optional: true
-    help_text: Whether to disable Sentry and Google Analytics integrations
-    is_global: true
   override_locale:
     type: string
     default_value: en
     title: Override Locale
     optional: true
-    help_text: Specify a supported locale value (e.g., en_US).
+    help_text: |
+      Set the language/locale to use (e.g., en_US, fr_FR). Defaults to English if not specified.
   override_timezone:
     type: string
     default_value: ''
     title: Override Timezone
     optional: true
-    help_text: Specify a supported timezone value (e.g., Europe/London).
+    help_text: |
+      Set the timezone for the clock (e.g., Europe/London). Defaults to the player's timezone if left blank.
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z
     title: Google Tag Manager ID
     optional: true
-    help_text: Specify a Google Tag Manager ID
+    help_text: Enter your Google Tag Manager container ID.
+    is_global: true
+  enable_analytics:
+    type: string
+    default_value: 'true'
+    title: Enable Analytics
+    optional: true
+    help_text: |
+      Toggle to enable or disable Sentry and Google Analytics integrations.
     is_global: true
