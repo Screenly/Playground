@@ -11,54 +11,61 @@ settings:
     default_value: New Year Countdown
     title: Countdown Headline
     optional: false
-    help_text: Countdown header text value.
+    help_text: |
+      The headline text shown above the countdown timer.
   countdown_end_text:
     type: string
     default_value: Countdown Finished!
     title: Countdown End Text
     optional: false
-    help_text: Text to display when the countdown reaches zero.
+    help_text: |
+      The message shown when the countdown reaches zero.
   enable_analytics:
     type: string
     default_value: 'true'
     title: Enable Analytics
     optional: true
-    help_text: Whether to disable Sentry and Google Analytics integrations
+    help_text: |
+      Toggle to enable or disable Sentry and Google Analytics integrations.
     is_global: true
   override_locale:
     type: string
     default_value: en
     title: Override Locale
     optional: true
-    help_text: Specify a supported locale value (e.g., en_US).
+    help_text: |
+      Set the language/locale to use (e.g., en_US, fr_FR). Defaults to English if not specified.
   override_timezone:
     type: string
     default_value: ''
     title: Override Timezone
     optional: true
-    help_text: Specify a supported timezone value (e.g., Europe/London).
+    help_text: |
+      Set the timezone for the countdown (e.g., Europe/London). Defaults to the player's timezone if left blank.
   sentry_dsn:
     type: secret
     title: Sentry Client Key
     optional: true
-    help_text: Sentry Client Key from Sentry SDK for error capturing.
+    help_text: Enter your Sentry DSN to enable error tracking.
     is_global: true
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z
     title: Tag Manager ID
     optional: true
-    help_text: Specify a Google Tag Manager ID
+    help_text: Enter your Google Tag Manager container ID.
     is_global: true
   target_timestamp:
     type: string
     default_value: 2028-01-01T00:00:00
     title: Countdown Target
     optional: false
-    help_text: Target timestamp in ISO format (YYYY-MM-DDTHH:MM:SS)
+    help_text: |
+      The date and time the countdown will end (in ISO format: YYYY-MM-DDTHH:MM:SS).
   starting_timestamp:
     type: string
     default_value: 2025-01-01T00:00:00
     title: Starting Timestamp
     optional: false
-    help_text: Starting timestamp in ISO format (YYYY-MM-DDTHH:MM:SS)
+    help_text: |
+      The date and time the countdown begins (in ISO format: YYYY-MM-DDTHH:MM:SS).
