@@ -14,7 +14,8 @@
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
     "deploy": "screenly edge-app deploy --path dist/",
-    "clear-mock-data": "rimraf mock-data.yml"
+    "clear-mock-data": "rimraf mock-data.yml",
+    "prepare": "cd ../blueprint && bun install"
   },
   "dependencies": {
     "pinia": "^3.0.3",
