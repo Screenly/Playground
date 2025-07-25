@@ -1,19 +1,21 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted } from 'vue'
-import { storeToRefs } from 'pinia'
-import { useScreenlyMetadataStore } from '@/stores/metadata-store'
-import { useSettingsStore } from '@/stores/settings-store'
+import { onBeforeMount, onMounted, type Ref } from 'vue'
+import { defineStore, storeToRefs } from 'pinia'
 import InfoCard from '@/components/InfoCard.vue'
 import NameIcon from '@/components/NameIcon.vue'
 import HardwareIcon from '@/components/HardwareIcon.vue'
 import VersionIcon from '@/components/VersionIcon.vue'
 import CoordinatesIcon from '@/components/CoordinatesIcon.vue'
 import screenlyLogo from '@/assets/images/screenly.svg'
+import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
+import { settingsStoreSetup } from 'blueprint/stores/settings-store'
+
+const useScreenlyMetadataStore = defineStore('metadata', metadataStoreSetup)
+const useSettingsStore = defineStore('settingsStore', settingsStoreSetup)
 
 const screenlyMetadataStore = useScreenlyMetadataStore()
 const settingsStore = useSettingsStore()
 
-// Destructure reactive properties while maintaining reactivity
 const {
   hostname,
   screenName,
@@ -21,9 +23,21 @@ const {
   screenlyVersion,
   formattedCoordinates,
   tags,
-} = storeToRefs(screenlyMetadataStore)
+} = storeToRefs(screenlyMetadataStore) as unknown as {
+  hostname: Ref<string>
+  screenName: Ref<string>
+  hardware: Ref<string>
+  screenlyVersion: Ref<string>
+  formattedCoordinates: Ref<string>
+  tags: Ref<string[]>
+}
 
-const { brandLogoUrl, primaryThemeColor } = storeToRefs(settingsStore)
+const { brandLogoUrl, primaryThemeColor } = storeToRefs(
+  settingsStore,
+) as unknown as {
+  brandLogoUrl: Ref<string>
+  primaryThemeColor: Ref<string>
+}
 
 onBeforeMount(async () => {
   settingsStore.setupTheme()
