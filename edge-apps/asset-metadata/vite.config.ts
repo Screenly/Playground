@@ -36,7 +36,8 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      'blueprint': fileURLToPath(new URL('../blueprint/ts', import.meta.url))
+      'blueprint/stores': fileURLToPath(new URL('../blueprint/ts/stores', import.meta.url)),
+      'blueprint/scss': fileURLToPath(new URL('../blueprint/scss', import.meta.url))
     },
   },
 }))
