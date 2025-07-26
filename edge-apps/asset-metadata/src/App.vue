@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { onBeforeMount, onMounted, type Ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
-import InfoCard from '@/components/InfoCard.vue'
-import NameIcon from '@/components/NameIcon.vue'
-import HardwareIcon from '@/components/HardwareIcon.vue'
-import VersionIcon from '@/components/VersionIcon.vue'
-import CoordinatesIcon from '@/components/CoordinatesIcon.vue'
+import {
+  InfoCard,
+  NameIcon,
+  HardwareIcon,
+  VersionIcon,
+  CoordinatesIcon,
+} from 'blueprint/components'
 import screenlyLogo from '@/assets/images/screenly.svg'
 import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 import { settingsStoreSetup } from 'blueprint/stores/settings-store'

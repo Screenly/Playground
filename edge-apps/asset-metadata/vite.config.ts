@@ -38,7 +38,8 @@ export default defineConfig(({ mode }) => ({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
       'blueprint/stores': fileURLToPath(new URL('../blueprint/ts/stores', import.meta.url)),
-      'blueprint/scss': fileURLToPath(new URL('../blueprint/scss', import.meta.url))
+      'blueprint/scss': fileURLToPath(new URL('../blueprint/scss', import.meta.url)),
+      'blueprint/components': fileURLToPath(new URL('../blueprint/ts/components', import.meta.url))
     },
   },
 }))

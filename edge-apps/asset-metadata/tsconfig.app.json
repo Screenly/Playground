@@ -8,7 +8,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "blueprint/stores/*": ["../blueprint/ts/stores/*"],
-      "blueprint/scss/*": ["../blueprint/scss/*"]
+      "blueprint/scss/*": ["../blueprint/scss/*"],
+      "blueprint/components": ["../blueprint/ts/components"]
     }
   }
 }

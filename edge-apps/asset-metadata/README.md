@@ -27,9 +27,11 @@ screenly edge-app instance create --name=EDGE_APP_INSTANCE_NAME
 ## Deployment
 
 ```bash
-bun run build
 bun run deploy
 ```
+
+> [!NOTE]
+> The `deploy` command takes care of building the app as well.
 
 ## Development
 
