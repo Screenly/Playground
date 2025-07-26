@@ -99,8 +99,8 @@ $srly-breakpoint-landscape-2xl: 4096px; // 4096x2160
 @font-face {
   font-family: Aeonik;
   src:
-    url("@/assets/font/Aeonik-Regular.woff2") format("woff2"),
-    url("@/assets/font/Aeonik-Regular.woff") format("woff");
+    url('@/assets/font/Aeonik-Regular.woff2') format('woff2'),
+    url('@/assets/font/Aeonik-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }

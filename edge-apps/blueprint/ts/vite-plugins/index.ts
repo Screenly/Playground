@@ -1,1 +1,1 @@
-export { screenlyTestServer } from "./test-server";
+export { screenlyTestServer } from './test-server'
