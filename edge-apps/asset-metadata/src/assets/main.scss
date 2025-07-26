@@ -1,6 +1,6 @@
 /* stylelint-disable selector-class-pattern, color-hex-length, at-rule-no-unknown, media-feature-range-notation, at-rule-empty-line-before */
 
-@use '@/assets/base.scss' as *;
+@use 'blueprint/scss/base.scss' as *;
 
 // Mixins
 @mixin card-base {

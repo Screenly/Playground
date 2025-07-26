@@ -1,5 +1,6 @@
-import { defineConfig, type PlaywrightTestConfig } from '@playwright/test'
-import { playwrightConfig } from 'screenly-playground/edge-apps/configs'
+import process from 'node:process'
+import { defineConfig, devices, PlaywrightTestConfig } from '@playwright/test'
+import getPlaywrightConfig from '../blueprint/ts/configs/playwright'
 
 /**
  * Read environment variables from file.
@@ -10,4 +11,4 @@ import { playwrightConfig } from 'screenly-playground/edge-apps/configs'
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-export default defineConfig(playwrightConfig as PlaywrightTestConfig)
+export default defineConfig(getPlaywrightConfig(process, devices) as PlaywrightTestConfig)

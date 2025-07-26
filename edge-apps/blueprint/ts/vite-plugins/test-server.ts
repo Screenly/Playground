@@ -32,8 +32,6 @@ type BaseScreenlyMockData = {
   cors_proxy_url: string
 }
 
-const MOCK_DATA_FILE_NAME = 'mock-data.yml'
-
 const defaultScreenlyConfig = {
   metadata: {
     coordinates: [37.3861, -122.0839] as [number, number],
@@ -42,7 +40,7 @@ const defaultScreenlyConfig = {
     hardware: 'x86',
     location: 'Development Environment',
     screenly_version: 'development-server',
-    tags: ['Development']
+    tags: ['Development'],
   },
   settings: {
     enable_analytics: 'true',
@@ -50,12 +48,12 @@ const defaultScreenlyConfig = {
     theme: 'light' as const,
     screenly_color_accent: '#972EFF',
     screenly_color_light: '#ADAFBE',
-    screenly_color_dark: '#454BD2'
+    screenly_color_dark: '#454BD2',
   },
-  cors_proxy_url: 'http://127.0.0.1:8080'
+  cors_proxy_url: 'http://127.0.0.1:8080',
 }
 
-function generateScreenlyObject(config: typeof defaultScreenlyConfig) {
+function generateScreenlyObject(config: BaseScreenlyMockData) {
   return `
     // Generated screenly.js for development mode
     window.screenly = {
@@ -67,11 +65,16 @@ function generateScreenlyObject(config: typeof defaultScreenlyConfig) {
   `
 }
 
-function generateMockDataFile() {
+function generateMockData(): BaseScreenlyMockData {
   const manifest = YAML.parse(fs.readFileSync('screenly.yml', 'utf8'))
-  const screenlyConfig: BaseScreenlyMockData = { ...defaultScreenlyConfig }
+  const screenlyConfig: BaseScreenlyMockData = structuredClone(
+    defaultScreenlyConfig,
+  )
 
-  for (const [key, value] of Object.entries(manifest.settings) as [string, ScreenlyManifestField][]) {
+  for (const [key, value] of Object.entries(manifest.settings) as [
+    string,
+    ScreenlyManifestField,
+  ][]) {
     if (value.type === 'string') {
       const manifestField: ScreenlyManifestField = value
       const settingKey = key as keyof typeof screenlyConfig.settings
@@ -80,27 +83,18 @@ function generateMockDataFile() {
     }
   }
 
-  if (!fs.existsSync(MOCK_DATA_FILE_NAME)) {
-    fs.writeFileSync(
-      MOCK_DATA_FILE_NAME, YAML.stringify(screenlyConfig)
-    )
-  }
-
-  return {}
+  return screenlyConfig
 }
 
-export function screenlyDevServer(mode: string): Plugin {
+export function screenlyTestServer(mode: string): Plugin {
   return {
-    name: 'generate-screenly-js',
+    name: 'screenly-test-server',
     configureServer(server: ViteDevServer) {
-      if (mode === 'development') {
-        generateMockDataFile()
+      if (mode === 'test') {
+        const mockData = generateMockData()
 
         server.middlewares.use((req, res, next) => {
           if (req.url === '/screenly.js?version=1') {
-            const mockData = YAML.parse(
-              fs.readFileSync(MOCK_DATA_FILE_NAME, 'utf8')
-            )
             const screenlyJsContent = generateScreenlyObject(mockData)
 
             res.setHeader('Content-Type', 'application/javascript')

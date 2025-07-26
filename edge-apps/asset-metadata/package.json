@@ -4,7 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "prebuild:dev": "screenly edge-app run --generate-mock-data",
+    "build:dev": "vite build --watch --mode=development",
+    "dev": "screenly edge-app run --path=dist/",
+    "dev:test": "vite --mode test",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "test:unit": "vitest",
@@ -13,8 +16,10 @@
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
+    "predeploy": "bun run build",
     "deploy": "screenly edge-app deploy --path dist/",
-    "clear-mock-data": "rimraf mock-data.yml"
+    "clear-mock-data": "rimraf mock-data.yml",
+    "prepare": "cd ../blueprint && bun install"
   },
   "dependencies": {
     "pinia": "^3.0.3",

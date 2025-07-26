@@ -1,5 +1,6 @@
 # Screenly Edge App Template
 
+
 ## Prerequisites
 
 - [Bun (1.2.2+)](https://bun.sh/docs/installation)
@@ -23,28 +24,40 @@ screenly edge-app instance create --name=EDGE_APP_INSTANCE_NAME
 ## Deployment
 
 ```bash
-bun run build
 bun run deploy
 ```
 
+> [!NOTE]
+> The `deploy` command takes care of building the app as well.
+
 ## Development
 
-Run the following on a terminal to start the development server:
+Install the dependencies for the first run:
 
 ```bash
 bun install
+```
+
+Run the following on a terminal to start the build process in watch mode:
+
+```bash
+bun run build:dev
+```
+
+Open another terminal and run the following:
+
+```bash
 bun run dev
 ```
 
-Running the development server will generate a `mock-data.yml` file in the root of the project. This file is used to store the mock data for the screenly.js file.
+This will start the development server via the [Screenly CLI](https://github.com/Screenly/cli).
 
-You can edit the `mock-data.yml` file to change the mock data for the screenly.js file. Refreshing the browser will reload the app with the new mock data.
-
-If you change `screenly.yml` to add, update or remove a setting, the `mock-data.yml` file should be removed so that the development server will generate a new one with the new settings.
-
-```bash
-bun run clear-mock-data && bun run dev
+```plaintext
+$ screenly edge-app run --path=dist/
+Edge App emulator is running at http://127.0.0.1:38085/edge/1/index.html
 ```
+
+Copy the URL and paste it in the browser to see the app in action.
 
 ## Unit Tests
 
