@@ -1,1 +1,1 @@
-export { playwrightConfig } from './playwright'
+export { playwrightConfig } from "./playwright";

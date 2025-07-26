@@ -1,1 +1,1 @@
-export { screenlyDevServer } from '@/vite-plugins/dev-server-plugin'
+export { screenlyTestServer } from "./test-server";
