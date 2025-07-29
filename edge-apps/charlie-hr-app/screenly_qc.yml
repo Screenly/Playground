@@ -11,42 +11,47 @@ settings:
     default_value: ''
     title: Client ID
     optional: false
-    help_text: Enter your CharlieHR API Client ID.
+    help_text: |
+      Enter your CharlieHR API `Client ID`.
   client_secret:
     type: secret
     title: Client Secret
     optional: false
-    help_text: Enter your CharlieHR API Client Secret.
+    help_text: |
+      Enter your CharlieHR API `Client Secret`.
   enable_analytics:
     type: string
     default_value: 'true'
     title: Enable Analytics
     optional: true
-    help_text: |
-      Toggle to enable or disable Sentry and Google Analytics integrations.
+    help_text: Enable or disable Sentry and Google Analytics integrations.
     is_global: true
   override_locale:
     type: string
     default_value: en
     title: Override Locale
     optional: true
-    help_text: Set a supported locale code (e.g., en, de, fr).
+    help_text: |
+      Override the default locale with a supported language code (e.g., en, fr, de). Defaults to English if not specified.
   override_timezone:
     type: string
     default_value: ''
     title: Override Timezone
     optional: true
-    help_text: Set a supported timezone (e.g., Europe/London).
+    help_text: |
+      Override the default timezone with a supported timezone identifier (e.g., Europe/London, America/New_York). Defaults to the system timezone if left blank.
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z
     title: Google Tag Manager ID
     optional: true
-    help_text: Enter your Google Tag Manager container ID.
+    help_text: |
+      Enter your Google Tag Manager container ID to enable tracking and analytics.
     is_global: true
   sentry_dsn:
     type: secret
     title: Sentry DSN
     optional: true
     is_global: true
-    help_text: Enter your Sentry DSN to enable error tracking.
+    help_text: |
+      Enter your Sentry DSN to enable error tracking and monitoring.

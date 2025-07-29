@@ -12,12 +12,14 @@ settings:
     title: enable_analytics
     optional: true
     is_global: true
-    help_text: Whether to enable analytics or not
+    help_text: |
+      Toggle to enable or disable Sentry and Google Analytics integrations.
   sentry_dsn:
     type: secret
     title: Sentry Client Key
     optional: true
-    help_text: Sentry Client Key from Sentry SDK for error capturing.
+    help_text: |
+      Enter your Sentry DSN to enable error tracking.
     is_global: true
   tag_manager_id:
     type: string
@@ -25,12 +27,12 @@ settings:
     title: tag_manager_id
     optional: true
     is_global: true
-    help_text: Specify a Google Tag Manager ID
+    help_text: |
+      Enter your Google Tag Manager container ID to enable tracking and analytics.
   theme:
     type: string
     default_value: light
     title: Theme
     optional: false
-    help_text: |-
-      Determines the visual theme for the application.
-      Options are 'light' or 'dark'.
+    help_text: |
+      Select the visual theme for the app ('light' or 'dark').
