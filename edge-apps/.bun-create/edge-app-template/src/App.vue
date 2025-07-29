@@ -71,7 +71,7 @@ onMounted(() => {
             </span>
             (which conveniently is also my hostname), and I'm running on a
             <span id="screen-hardware">
-              <strong>{{ hardware }}</strong> </span
+              <strong>{{ hardware || 'virtual screen' }}</strong> </span
             >.
           </p>
         </div>
