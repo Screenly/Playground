@@ -15,26 +15,28 @@ settings:
     title: TFL API Key
     optional: false
     is_global: true
-    help_text: API Key from the TFL.
+    help_text: |
+      Enter your TFL API key to access Transport for London data.
+      You can get your API key from https://api-portal.tfl.gov.uk/.
   stop_id:
     type: string
     default_value: 490005186S1
     title: Bus Stop ID
     optional: false
     help_text: |
-      You can find your bus stop here:
-      https://playground.srly.io/edge-apps/helpers/tfl/bus-stop-lookup/
+      Enter the bus stop ID for the location you want to display.
+      You can find your bus stop ID using the lookup tool at https://playground.srly.io/edge-apps/helpers/tfl/bus-stop-lookup/
   sentry_dsn:
     type: secret
     title: Sentry Client Key
     optional: true
     is_global: true
-    help_text: Sentry Client Key from Sentry SDK for error capturing.
+    help_text: |
+      Enter your Sentry DSN to enable error tracking and monitoring.
   theme:
     type: string
     default_value: light
     title: Theme
     optional: false
-    help_text: |-
-      Determines the visual theme for the application.
-      Options are 'light' or 'dark'.
+    help_text: |
+      Select the visual theme for the application ('light' or 'dark').
