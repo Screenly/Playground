@@ -11,4 +11,4 @@ settings:
     title: iFrame URL
     optional: false
     help_text: |
-      Enter the iframe source URL (e.g., https://example.com) or a full <iframe> embed code.
+      Enter the iframe source URL (e.g., https://example.com) or a complete iframe embed code.
