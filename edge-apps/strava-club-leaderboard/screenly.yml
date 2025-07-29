@@ -11,33 +11,28 @@ settings:
     title: Strava Access Token
     optional: false
     help_text: |
-      Your Strava Access Token from https://www.strava.com/settings/api
-      Keep this secret secure.
+      Enter your Strava Access Token from https://www.strava.com/settings/api (keep this secure).
   client_id:
     type: string
     title: Strava Client ID
     optional: false
     help_text: |
-      Your Strava API Client ID from https://www.strava.com/settings/api
-      This is the public identifier for your Strava app.
+      Enter your Strava API Client ID from https://www.strava.com/settings/api (public identifier for your app).
   client_secret:
     type: secret
     title: Strava Client Secret
     optional: false
     help_text: |
-      Your Strava API Client Secret from https://www.strava.com/settings/api
-      Keep this secret secure.
+      Enter your Strava API Client Secret from https://www.strava.com/settings/api (keep this secure).
   club_id:
     type: string
     title: Strava Club ID
     optional: false
     help_text: |
-      The ID of the Strava club to display leaderboard for.
-      You can find this in the club URL: https://www.strava.com/clubs/{club_id}, Use small letters.
+      Enter the Strava club ID to display the leaderboard for. Find this in the club URL: https://www.strava.com/clubs/{club_id} (use lowercase letters).
   refresh_token:
     type: secret
     title: Strava Refresh Token
     optional: false
     help_text: |
-      Your Strava Refresh Token from https://www.strava.com/settings/api
-      Keep this secret secure.
+      Enter your Strava Refresh Token from https://www.strava.com/settings/api (keep this secure).

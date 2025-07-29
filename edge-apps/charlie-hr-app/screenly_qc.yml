@@ -1,7 +1,7 @@
 ---
 syntax: manifest_v1
 id: 01JZHR3FMNDC4RHTSKSCC6D15J
-description: CharlieHR App
+description: CharlieHR App, Displays your employee's information. Documented here https://www.screenly.io/edge-apps/charliehr-dashboard/ .
 icon: https://playground.srly.io/edge-apps/charlie-hr-app/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
@@ -11,41 +11,51 @@ settings:
     default_value: ''
     title: Client ID
     optional: false
-    help_text: Specify a CharlieHR API Client ID
+    help_text: |
+      Enter your CharlieHR API `Client ID`.
+      Follow this guide to get your `Client ID` https://www.screenly.io/edge-apps/charliehr-dashboard/
   client_secret:
     type: secret
     title: Client Secret
     optional: false
-    help_text: Specify a CharlieHR API Client Secret
+    help_text: |
+      Enter your CharlieHR API `Client Secret`.
+      Follow this guide to get your `Client Secret` https://www.screenly.io/edge-apps/charliehr-dashboard/
   enable_analytics:
     type: string
     default_value: 'true'
     title: Enable Analytics
     optional: true
-    help_text: Whether to disable Sentry and Google Analytics integrations
+    help_text: Enable or disable Sentry and Google Analytics integrations.
     is_global: true
   override_locale:
     type: string
     default_value: en
     title: Override Locale
     optional: true
-    help_text: Specify a supported locale value (e.g., en, de, fr, etc.).
+    help_text: |
+      Override the default locale with a supported language code (e.g., en, fr, de). Defaults to English if not specified.
+      You can find the available locales here: https://momentjs.com/
   override_timezone:
     type: string
     default_value: ''
     title: Override Timezone
     optional: true
-    help_text: Specify a supported timezone value (e.g., Europe/London).
+    help_text: |
+      Override the default timezone with a supported timezone identifier (e.g., Europe/London, America/New_York). Defaults to the system timezone if left blank.
+      You can find the available timezones here: https://momentjs.com/timezone/
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z
     title: Google Tag Manager ID
     optional: true
-    help_text: Specify a Google Tag Manager ID
+    help_text: |
+      Enter your Google Tag Manager container ID to enable tracking and analytics.
     is_global: true
   sentry_dsn:
     type: secret
     title: Sentry DSN
     optional: true
     is_global: true
-    help_text: Specify a Sentry DSN to enable error tracking.
+    help_text: |
+      Enter your Sentry DSN to enable error tracking and monitoring.

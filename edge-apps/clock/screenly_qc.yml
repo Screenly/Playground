@@ -11,24 +11,29 @@ settings:
     default_value: en
     title: Override Locale
     optional: true
-    help_text: Specify a supported locale value (e.g., en_US).
+    help_text: |
+      Override the default locale with a supported language code (e.g., en, fr, de). Defaults to English if not specified.
+      You can find the available locales here: https://momentjs.com/
   override_timezone:
     type: string
     default_value: ''
     title: Override Timezone
     optional: true
-    help_text: Specify a supported timezone value (e.g., Europe/London).
+    help_text: |
+      Override the default timezone with a supported timezone identifier (e.g., Europe/London, America/New_York). Defaults to the system timezone if left blank.
+      You can find the available timezones here: https://momentjs.com/timezone/
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z
     title: Google Tag Manager ID
     optional: true
-    help_text: Specify a Google Tag Manager ID
+    help_text: |
+      Enter your Google Tag Manager container ID to enable tracking and analytics.
     is_global: true
   enable_analytics:
     type: string
     default_value: 'true'
     title: Enable Analytics
     optional: true
-    help_text: Whether to disable Sentry and Google Analytics integrations
+    help_text: Enable or disable Sentry and Google Analytics integrations.
     is_global: true
