@@ -39,7 +39,7 @@ settings:
     title: iCal URL
     optional: true
     help_text: |
-      Enter the public iCal feed URL for your calendar, If calender source type is `ical`.
+      Enter the public iCal feed URL for your calendar. Only used when `calendar_source_type` is set to 'ical'.
   client_id:
     type: secret
     title: Google OAuth Client ID
