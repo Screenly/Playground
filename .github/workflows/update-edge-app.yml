@@ -47,13 +47,13 @@ jobs:
         with:
           ref: master
 
-      - name: 🛠 Install Bun (React only)
+      - name: 🛠 Install Bun (React/Vue only)
         if: ${{ inputs.build_system == 'bun' }}
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.2.2
 
-      - name: 🛠 Setup and Build React App
+      - name: 🛠 Setup and Build React/Vue App
         if: ${{ inputs.build_system == 'bun' }}
         working-directory: ${{ env.APP_PATH }}
         run: |
