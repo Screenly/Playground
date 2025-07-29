@@ -22,7 +22,7 @@ const mockScreenly = {
     screenly_color_light: '#000000',
     screenly_color_dark: '#000000',
     greeting: 'World',
-    secretWord: 'test-secret',
+    secret_word: 'test-secret',
   },
   cors_proxy_url: 'https://example.com',
 }
@@ -95,7 +95,7 @@ describe('App', () => {
       ...mockScreenly,
       settings: {
         ...mockScreenly.settings,
-        secretWord: undefined,
+        secret_word: undefined,
       },
     }
     global.screenly = mockScreenlyNoSecret

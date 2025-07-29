@@ -19,7 +19,7 @@ test('basic app structure test', async ({ page }) => {
       },
       settings: {
         greeting: 'World',
-        secretWord: 'test-secret',
+        secret_word: 'test-secret',
         screenly_color_accent: '#000000',
         screenly_color_light: '#000000',
         screenly_color_dark: '#000000',

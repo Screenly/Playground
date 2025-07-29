@@ -20,7 +20,7 @@ const { hostname, screenName, hardware, coordinates, location } = storeToRefs(
   location: Ref<string>
 }
 
-const secretWord = ref(screenly.settings.secretWord)
+const secretWord = ref(screenly.settings.secret_word)
 const greeting = ref(screenly.settings.greeting)
 
 onBeforeMount(async () => {
