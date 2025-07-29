@@ -12,21 +12,20 @@ settings:
     title: Countdown Headline
     optional: false
     help_text: |
-      The headline text shown above the countdown timer.
+      Enter the headline text that will be displayed above the countdown timer.
   countdown_end_text:
     type: string
     default_value: Countdown Finished!
     title: Countdown End Text
     optional: false
     help_text: |
-      The message shown when the countdown reaches zero.
+      Enter the message that will be displayed when the countdown reaches zero.
   enable_analytics:
     type: string
     default_value: 'true'
     title: Enable Analytics
     optional: true
-    help_text: |
-      Toggle to enable or disable Sentry and Google Analytics integrations.
+    help_text: Enable or disable Sentry and Google Analytics integrations.
     is_global: true
   override_locale:
     type: string
@@ -34,26 +33,30 @@ settings:
     title: Override Locale
     optional: true
     help_text: |
-      Set the language/locale to use (e.g., en_US, fr_FR). Defaults to English if not specified.
+      Override the default locale with a supported language code (e.g., en, fr, de). Defaults to English if not specified.
+      You can find the available locales here: https://momentjs.com/
   override_timezone:
     type: string
     default_value: ''
     title: Override Timezone
     optional: true
     help_text: |
-      Set the timezone for the countdown (e.g., Europe/London). Defaults to the player's timezone if left blank.
+      Override the default timezone with a supported timezone identifier (e.g., Europe/London, America/New_York). Defaults to the system timezone if left blank.
+      You can find the available timezones here: https://momentjs.com/timezone/
   sentry_dsn:
     type: secret
     title: Sentry Client Key
     optional: true
-    help_text: Enter your Sentry DSN to enable error tracking.
+    help_text: |
+      Enter your Sentry DSN to enable error tracking and monitoring.
     is_global: true
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z
     title: Tag Manager ID
     optional: true
-    help_text: Enter your Google Tag Manager container ID.
+    help_text: |
+      Enter your Google Tag Manager container ID to enable tracking and analytics.
     is_global: true
   target_timestamp:
     type: string
