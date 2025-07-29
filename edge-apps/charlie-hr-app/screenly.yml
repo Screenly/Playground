@@ -13,12 +13,14 @@ settings:
     optional: false
     help_text: |
       Enter your CharlieHR API `Client ID`.
+      Follow this guide to get your `Client ID` https://www.screenly.io/edge-apps/charliehr-dashboard/
   client_secret:
     type: secret
     title: Client Secret
     optional: false
     help_text: |
       Enter your CharlieHR API `Client Secret`.
+      Follow this guide to get your `Client Secret` https://www.screenly.io/edge-apps/charliehr-dashboard/
   enable_analytics:
     type: string
     default_value: 'true'
@@ -33,6 +35,7 @@ settings:
     optional: true
     help_text: |
       Override the default locale with a supported language code (e.g., en, fr, de). Defaults to English if not specified.
+      You can find the available locales here: https://momentjs.com/
   override_timezone:
     type: string
     default_value: ''
@@ -40,6 +43,7 @@ settings:
     optional: true
     help_text: |
       Override the default timezone with a supported timezone identifier (e.g., Europe/London, America/New_York). Defaults to the system timezone if left blank.
+      You can find the available timezones here: https://momentjs.com/timezone/
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z
