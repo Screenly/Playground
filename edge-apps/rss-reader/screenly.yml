@@ -19,7 +19,8 @@ settings:
     default_value: '1800'
     title: Cache Interval
     optional: false
-    help_text: Specify the interval (in seconds) used to periodically cache feeds.
+    help_text: |
+      Specify the interval (in seconds) used to periodically cache feeds.
   enable_analytics:
     type: string
     default_value: 'true'
@@ -32,25 +33,30 @@ settings:
     default_value: en
     title: Override Locale
     optional: true
-    help_text: Specify a supported locale value (e.g., en_US).
+    help_text: |
+      Override the default locale with a supported language code (e.g., en, fr, de). Defaults to English if not specified.
+      You can find the available locales here: https://momentjs.com/
   override_timezone:
     type: string
     default_value: ''
     title: Override Timezone
     optional: true
-    help_text: Specify a supported timezone value (e.g., Europe/London).
+    help_text: |
+      Override the default timezone with a supported timezone identifier (e.g., Europe/London, America/New_York). Defaults to the system timezone if left blank.
+      You can find the available timezones here: https://momentjs.com/timezone/
   rss_title:
     type: string
     default_value: BBC News
     title: RSS Title
     optional: false
-    help_text: The title of the website where the feeds were derived
+    help_text: The title of the website where the feeds were derived, default is `BBC News`.
   rss_url:
     type: string
     default_value: http://feeds.bbci.co.uk/news/rss.xml
     title: RSS URL
     optional: false
-    help_text: Specify the URL to where to get the data from.
+    help_text: |
+      Enter the URL of the RSS feed you want to display, default is `BBC News`.
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z

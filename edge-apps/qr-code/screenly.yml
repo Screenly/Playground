@@ -11,11 +11,10 @@ settings:
     title: Enable UTM
     optional: true
     help_text: |
-      Enabling it append UTM parameters as query strings to the URL before
-      converting it to a QR code.
+      Enable UTM parameter tracking by appending UTM query strings to the URL before generating the QR code.
   url:
     type: string
     default_value: https://www.screenly.io/
     title: URL
     optional: false
-    help_text: Specify a URL to be converted into a QR code
+    help_text: Enter the URL that will be encoded into the QR code.

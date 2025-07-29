@@ -11,7 +11,7 @@ settings:
     default_value: 'true'
     title: Enable Analytics
     optional: true
-    help_text: Whether to enable analytics or not
+    help_text: Enable or disable Sentry and Google Analytics integrations.
     is_global: true
   openweathermap_api_key:
     type: secret
@@ -19,13 +19,15 @@ settings:
     optional: false
     is_global: true
     help_text: |
-      Specify OpenWeatherMap API key.
+      Enter your OpenWeatherMap API key to access weather data.
+      You can get your API key from https://openweathermap.org/api.
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z
     title: Google Tag Manager ID
     optional: true
-    help_text: Specify a Google Tag Manager ID
+    help_text: |
+      Enter your Google Tag Manager container ID to enable tracking and analytics.
     is_global: true
   override_coordinates:
     type: string
@@ -33,17 +35,19 @@ settings:
     title: Override Coordinates
     optional: true
     help_text: |
-      Specify a comma-separated pair of coordinates (e.g., 37.8267,-122.4233).
-      If not specified, the app will attempt to use the device's coordinates.
+      Enter a comma-separated pair of coordinates (e.g., 37.8267,-122.4233). If not specified, the app will attempt to use the device's coordinates.
   override_locale:
     type: string
     default_value: 'en'
     title: Override Locale
     optional: true
-    help_text: Specify a supported locale value (e.g., en_US).
+    help_text: |
+      Override the default locale with a supported language code (e.g., en, fr, de). Defaults to English if not specified.
+      You can find the available locales here: https://momentjs.com/
   sentry_dsn:
     type: secret
     title: Sentry DSN
     optional: true
     is_global: true
-    help_text: Specify a Sentry DSN to enable error tracking.
+    help_text: |
+      Enter your Sentry DSN to enable error tracking and monitoring.

@@ -9,18 +9,19 @@ settings:
     default_value: 'true'
     title: Enable Analytics
     optional: true
-    help_text: Whether to enable analytics or not
+    help_text: Enable or disable Sentry and Google Analytics integrations.
     is_global: true
   instagram_api_token:
     type: secret
     title: Instagram API Token
     optional: false
     help_text: |
-      Specify an API key so that you'll have access to all the necessary data.
+      Enter your Instagram API token to access your Instagram posts and data.
   tag_manager_id:
     type: string
     default_value: ''
     title: Tag Manager ID
     optional: true
-    help_text: Specify a Google Tag Manager ID
+    help_text: |
+      Enter your Google Tag Manager container ID to enable tracking and analytics.
     is_global: true

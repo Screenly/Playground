@@ -11,4 +11,4 @@ settings:
     title: iFrame URL
     optional: false
     help_text: |
-      Provide an iframe URL (either full <iframe> tag or just the src, e.g. 'https://foobar.com').
+      Enter the iframe source URL (e.g., https://example.com) or a complete iframe embed code.
