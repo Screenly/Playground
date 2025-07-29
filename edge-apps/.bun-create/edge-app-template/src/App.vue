@@ -1,14 +1,6 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, type Ref } from 'vue'
+import { onBeforeMount, onMounted, ref, type Ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
-import {
-  InfoCard,
-  NameIcon,
-  HardwareIcon,
-  VersionIcon,
-  CoordinatesIcon,
-} from 'blueprint/components'
-import screenlyLogo from '@/assets/images/screenly.svg'
 import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 import { settingsStoreSetup } from 'blueprint/stores/settings-store'
 
@@ -18,28 +10,18 @@ const useSettingsStore = defineStore('settingsStore', settingsStoreSetup)
 const screenlyMetadataStore = useScreenlyMetadataStore()
 const settingsStore = useSettingsStore()
 
-const {
-  hostname,
-  screenName,
-  hardware,
-  screenlyVersion,
-  formattedCoordinates,
-  tags,
-} = storeToRefs(screenlyMetadataStore) as unknown as {
+const { hostname, screenName, hardware, coordinates, location } = storeToRefs(
+  screenlyMetadataStore,
+) as unknown as {
   hostname: Ref<string>
   screenName: Ref<string>
   hardware: Ref<string>
-  screenlyVersion: Ref<string>
-  formattedCoordinates: Ref<string>
-  tags: Ref<string[]>
+  coordinates: Ref<[number, number]>
+  location: Ref<string>
 }
 
-const { brandLogoUrl, primaryThemeColor } = storeToRefs(
-  settingsStore,
-) as unknown as {
-  brandLogoUrl: Ref<string>
-  primaryThemeColor: Ref<string>
-}
+const secretWord = ref(screenly.settings.secretWord)
+const greeting = ref(screenly.settings.greeting)
 
 onBeforeMount(async () => {
   settingsStore.setupTheme()
@@ -49,87 +31,105 @@ onBeforeMount(async () => {
 onMounted(() => {
   screenly.signalReadyForRendering()
 })
-
-const cards = [
-  {
-    class: 'host-name-card',
-    title: 'Host Name',
-    value: () => hostname.value,
-    icon: NameIcon,
-    iconLabel: 'Host Name',
-  },
-  {
-    class: 'screen-name-card',
-    title: 'Name',
-    value: () => screenName.value,
-    icon: NameIcon,
-    iconLabel: 'Name',
-  },
-  {
-    class: 'hardware-name-card',
-    title: 'Hardware',
-    value: () => hardware.value,
-    icon: HardwareIcon,
-    iconLabel: 'Hardware',
-  },
-  {
-    class: 'version-name-card',
-    title: 'Version',
-    value: () => screenlyVersion.value,
-    icon: VersionIcon,
-    iconLabel: 'Version',
-  },
-  {
-    class: 'coordinates-card',
-    title: 'Coordinates',
-    value: () => formattedCoordinates.value,
-    icon: CoordinatesIcon,
-    iconLabel: 'Coordinates',
-  },
-]
 </script>
 
 <template>
   <div class="main-container main-container-grid">
-    <InfoCard class="brand-logo-card">
-      <img
-        id="brand-logo"
-        :src="brandLogoUrl || screenlyLogo"
-        class="brand-logo"
-        alt="Brand Logo"
-      />
-      <span class="info-text">Powered by Screenly</span>
-    </InfoCard>
+    <div class="primary-container">
+      <div class="primary-card">
+        <div class="px-4 py-5 my-5 text-center">
+          <h1 class="main-header display-5 fw-bold">
+            <span id="greeting">
+              <template v-if="greeting"> Greetings, {{ greeting }}! </template>
+              <template v-else> Greetings! </template>
+            </span>
+          </h1>
 
-    <InfoCard
-      v-for="card in cards"
-      :key="card.class"
-      :class="card.class"
-      :title="card.title"
-      :value="card.value()"
-    >
-      <template #icon>
-        <component
-          :is="card.icon"
-          class="icon-card-icon"
-          :color="primaryThemeColor"
-        />
-        <span class="icon-card-text head-text">{{ card.iconLabel }}</span>
-      </template>
-    </InfoCard>
+          <p>
+            You secret word is
+            <template v-if="secretWord">
+              <strong>{{ secretWord }}</strong
+              >.
+            </template>
+            <template v-else> not set. </template>
+          </p>
 
-    <InfoCard class="labels-name-card" title="Labels">
-      <template #icon>
-        <VersionIcon class="icon-card-icon" :color="primaryThemeColor" />
-        <span class="icon-card-text head-text">Labels</span>
-      </template>
-      <div class="label-chip-container">
-        <div v-for="tag in tags" :key="tag" class="label-chip">
-          {{ tag }}
+          <p>
+            I'm <span id="screen-name">{{ screenName }}</span
+            >. Assuming you've pinned me in the right location,<br />I'm located
+            in <span id="screen-location">{{ location }}</span> (more precisely
+            at latitude <span id="screen-lat">{{ coordinates[0] }}</span
+            >&#176; and longitude
+            <span id="screen-lng">{{ coordinates[1] }}</span
+            >&#176;).
+          </p>
+
+          <p>
+            My Screenly ID is
+            <span id="screen-hostname">
+              <strong>{{ hostname }}</strong>
+            </span>
+            (which conveniently is also my hostname), and I'm running on a
+            <span id="screen-hardware">
+              <strong>{{ hardware }}</strong> </span
+            >.
+          </p>
         </div>
       </div>
-    </InfoCard>
+    </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+@mixin content-text($multiplier: 1) {
+  p {
+    font-size: 1rem * $multiplier;
+    margin-bottom: 0.75rem * $multiplier;
+  }
+}
+
+@mixin header-text($multiplier: 1) {
+  h1 {
+    font-size: 2.5rem * $multiplier;
+    margin-bottom: 1.75rem * $multiplier;
+  }
+}
+
+@mixin primary-card-padding($multiplier: 1) {
+  padding: 5rem * $multiplier;
+}
+
+.primary-container {
+  height: 100%;
+  width: 100%;
+}
+
+.primary-card {
+  height: 100%;
+  width: 100%;
+
+  @media (min-width: 800px) and (min-height: 480px) and (orientation: landscape) {
+    @include header-text(1);
+    @include content-text(1);
+    @include primary-card-padding(1);
+  }
+
+  @media (min-width: 1280px) and (min-height: 720px) and (orientation: landscape) {
+    @include header-text(1.5);
+    @include content-text(1.5);
+    @include primary-card-padding(1.5);
+  }
+
+  @media (min-width: 1920px) and (min-height: 1080px) and (orientation: landscape) {
+    @include header-text(2.25);
+    @include content-text(2.25);
+    @include primary-card-padding(2.25);
+  }
+
+  @media (min-width: 3840px) and (orientation: landscape) {
+    @include header-text(4.5);
+    @include content-text(4.5);
+    @include primary-card-padding(4.5);
+  }
+}
+</style>

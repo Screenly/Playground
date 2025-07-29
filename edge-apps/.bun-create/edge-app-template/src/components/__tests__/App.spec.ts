@@ -21,6 +21,8 @@ const mockScreenly = {
     screenly_color_accent: '#000000',
     screenly_color_light: '#000000',
     screenly_color_dark: '#000000',
+    greeting: 'World',
+    secretWord: 'test-secret',
   },
   cors_proxy_url: 'https://example.com',
 }
@@ -37,6 +39,8 @@ vi.mock('@/stores/metadata-store', () => ({
     screenlyVersion: ref('test-version'),
     formattedCoordinates: ref('40.7128° N, 74.0060° W'),
     tags: ref(['tag1', 'tag2', 'tag3']),
+    coordinates: ref([40.7128, -74.006]),
+    location: ref('test-location'),
   }),
 }))
 vi.mock('@/stores/settings-store', () => ({
@@ -52,36 +56,87 @@ describe('App', () => {
     setActivePinia(createPinia())
   })
 
-  it('renders properly', () => {
+  it('renders properly with greeting', () => {
     const wrapper = mount(App)
 
-    // Section headers to check
-    const sectionHeaders: string[] = [
-      'Host Name',
-      'Name',
-      'Hardware',
-      'Version',
-      'Coordinates',
-      'Labels',
-      'Powered by Screenly',
-    ]
-    sectionHeaders.forEach((header) => {
-      expect(wrapper.text()).toContain(header)
-    })
+    // Check for greeting and secret word
+    expect(wrapper.text()).toContain('Greetings, World!')
+    expect(wrapper.text()).toContain('You secret word is')
+    expect(wrapper.text()).toContain('test-secret')
 
-    // Actual values to check
-    const values: string[] = [
-      'test-host',
-      'test-screen',
-      'test-hardware',
-      'test-version',
-      '40.7128° N, 74.0060° W',
-      'tag1',
-      'tag2',
-      'tag3',
-    ]
-    values.forEach((value) => {
-      expect(wrapper.text()).toContain(value)
-    })
+    // Check for screen information
+    expect(wrapper.text()).toContain('test-screen')
+    expect(wrapper.text()).toContain('test-location')
+    expect(wrapper.text()).toContain('40.7128')
+    expect(wrapper.text()).toContain('-74.006')
+
+    // Check for hardware and hostname
+    expect(wrapper.text()).toContain('test-host')
+    expect(wrapper.text()).toContain('test-hardware')
+
+    // Check for specific text content
+    expect(wrapper.text()).toContain("I'm test-screen")
+    expect(wrapper.text()).toContain('My Screenly ID is')
+    expect(wrapper.text()).toContain('which conveniently is also my hostname')
+    expect(wrapper.text()).toContain("and I'm running on a")
+  })
+
+  it('displays coordinates correctly', () => {
+    const wrapper = mount(App)
+
+    // Check that coordinates are displayed with degree symbols
+    expect(wrapper.text()).toContain('40.7128°')
+    expect(wrapper.text()).toContain('-74.006°')
+  })
+
+  it('handles missing secret word', () => {
+    // Mock screenly with no secret word
+    const mockScreenlyNoSecret = {
+      ...mockScreenly,
+      settings: {
+        ...mockScreenly.settings,
+        secretWord: undefined,
+      },
+    }
+    global.screenly = mockScreenlyNoSecret
+
+    const wrapper = mount(App)
+
+    expect(wrapper.text()).toContain('not set')
+    expect(wrapper.text()).not.toContain('test-secret')
+  })
+
+  it('handles empty greeting', () => {
+    // Mock screenly with empty greeting
+    const mockScreenlyEmptyGreeting = {
+      ...mockScreenly,
+      settings: {
+        ...mockScreenly.settings,
+        greeting: '',
+      },
+    }
+    global.screenly = mockScreenlyEmptyGreeting
+
+    const wrapper = mount(App)
+
+    expect(wrapper.text()).toContain('Greetings!')
+    expect(wrapper.text()).not.toContain('Greetings, World!')
+  })
+
+  it('handles undefined greeting', () => {
+    // Mock screenly with undefined greeting
+    const mockScreenlyUndefinedGreeting = {
+      ...mockScreenly,
+      settings: {
+        ...mockScreenly.settings,
+        greeting: undefined,
+      },
+    }
+    global.screenly = mockScreenlyUndefinedGreeting
+
+    const wrapper = mount(App)
+
+    expect(wrapper.text()).toContain('Greetings!')
+    expect(wrapper.text()).not.toContain('Greetings, World!')
   })
 })
