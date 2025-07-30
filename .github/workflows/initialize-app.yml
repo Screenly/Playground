@@ -50,6 +50,8 @@ jobs:
     steps:
       - name: ⬇️ Checkout Repository
         uses: actions/checkout@v4
+        with:
+          ref: master
 
       - name: 🛠 Install Bun (React/Vue only)
         if: ${{ inputs.build_system == 'bun' }}
