@@ -4,6 +4,8 @@ name: Update Edge App
 
 on:
   workflow_dispatch:
+    branches:
+      - master
     inputs:
       environment:
         description: 'Environment to update edge app (stage or production)'
