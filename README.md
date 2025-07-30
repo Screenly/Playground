@@ -25,6 +25,80 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [Weather App](https://github.com/Screenly/Playground/tree/master/edge-apps/weather) - A simple weather app.
 - [Welcome App](https://github.com/Screenly/Playground/tree/master/edge-apps/welcome-app) - A customizable welcome screen app.
 
+### Creating a new Edge App from the template
+
+> [!IMPORTANT]
+> Make sure that you have the following installed before proceeding:
+>
+> - [Bun (1.2.2+)](https://bun.sh/docs/installation)
+> - [Screenly Edge App CLI (v1.0.3+)](https://github.com/Screenly/cli?tab=readme-ov-file#installation)
+
+After installing `bun` and the Screenly CLI, run the following command to create a new Edge App:
+
+```bash
+cd edge-apps/
+bun create --no-git edge-app-template <edge-app-name>
+```
+
+```plaintext
+Created <edge-app-name> project successfully
+
+# To get started, run:
+
+  cd <edge-app-name>
+  bun dev
+```
+
+This will create a new Edge App with the name `<edge-app-name>` in the `edge-apps` directory.
+
+> [!NOTE]
+> Don't forget to update `README.md` and `screenly.yml` as needed.
+
+You can now run the local development server by running the following commands:
+
+```bash
+cd <edge-app-name>
+bun dev
+```
+
+You'll get an output similar to the following:
+
+```plaintext
+  VITE v7.0.5  ready in 287 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  Vue DevTools: Open http://localhost:5173/__devtools__/ as a separate window
+  ➜  Vue DevTools: Press Alt(⌥)+Shift(⇧)+D in App to toggle the Vue DevTools
+  ➜  press h + enter to show help
+[vite-plugin-static-copy] Collected 2 items.
+```
+
+Open your browser and go to the URL indicated in the console output. The development server uses [Hot Module Replacement](https://vite.dev/guide/features.html#hot-module-replacement),
+which means that you don't need to reload the page when you make changes. The page automatically reloads when you save changes on your code.
+
+### TypeScript Library
+
+The Playground also offers a TypeScript library that contains utilities for building Edge Apps.
+The source code is located in the `src` directory.
+
+To install the library, run the following command:
+
+```bash
+bun add github:Screenly/Playground
+```
+
+This will install the latest version of the library in the default branch.
+
+You can also specify a specific version or branch:
+
+```bash
+bun add github:Screenly/Playground#vX.Y.Z
+bun add github:Screenly/Playground#[branch-name]
+```
+
+Details on how to use the library can be found in [this guide](/docs/typescript-library.md).
+
 ## Other
 
 - [Bootstrap](https://github.com/Screenly/playground/tree/master/bootstrap/): A digital signage optimized Bootstrap theme for our Playground apps.

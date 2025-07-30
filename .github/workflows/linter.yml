@@ -55,4 +55,5 @@ jobs:
           VALIDATE_TYPESCRIPT_ES: false
           VALIDATE_TYPESCRIPT_PRETTIER: false
           VALIDATE_TYPESCRIPT_STANDARD: false
+          CSS_FILE_NAME: stylelint.config.cjs
           DEFAULT_BRANCH: master

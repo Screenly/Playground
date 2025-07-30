@@ -2,19 +2,18 @@
 
 ## Prerequisites
 
-- Node.js (v22.0.0+)
-- npm (v10.9.0+)
+- Bun (v1.2.2+)
 - Screenly Edge App CLI (v1.0.3+)
 
 ## Getting Started
 
-We need to initialize the necessary Node.js dependencies and build the source
+We need to initialize the necessary dependencies and build the source
 code first so that a `dist` directory can be created. This is essential as a manifest file
 (which defaults to `screenly.yml`) and an `index.html` file is needed.
 
 ```bash
-npm install
-npm run build
+bun install
+bun run build
 screenly edge-app create \
     --name=EDGE_APP_NAME \
     --in-place \
@@ -75,8 +74,8 @@ screenly edge-app settings set ical_url=<YOUR_ICAL_URL>
 Run the following on a terminal to start the development server:
 
 ```bash
-npm install
-npm run dev
+bun install
+bun run dev
 ```
 
 Run the following on a second terminal to generate mock data:
