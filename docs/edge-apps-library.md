@@ -23,7 +23,7 @@ These components are designed to be used for Edge Apps generated from the templa
 
 The single-file components (SFCs) are located inside [`edge-apps/blueprint/ts/components`](/edge-apps/blueprint/ts/components).
 
-#### Usage
+#### Using components
 
 ```vue
 <script setup lang="ts">
@@ -37,7 +37,7 @@ import { PrimaryCard } from 'blueprint/components'
 </template>
 ```
 
-#### Contributing
+#### Writing new components
 
 It you want to create a reusable component, you can create a new SFC inside the [`edge-apps/blueprint/ts/components`](/edge-apps/blueprint/ts/components) directory. Create subdirectories if needed.
 
@@ -78,7 +78,7 @@ This library also contains utilities that can be used to create [Pinia](https://
 
 Edge Apps heavily rely on Screenly metadata and settings. The library contains utilities for creating stores, preventing the need to write the same code repeatedly.
 
-#### Usage
+#### Using stores
 
 You can use the `baseSettingsStoreSetup` function and pass it to the `defineStore` function to create a store.
 
@@ -92,7 +92,7 @@ const settingsStore: SettingsStore = useSettingsStore()
 settingsStore.setupTheme()
 ```
 
-#### Contributing
+#### Writing new stores
 
 You can create a new store by creating a new TypeScript file inside the [`edge-apps/blueprint/ts/stores`](/edge-apps/blueprint/ts/stores) directory. Create subdirectories if needed.
 
