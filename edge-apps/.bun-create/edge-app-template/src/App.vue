@@ -6,7 +6,10 @@ import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 import { PrimaryCard } from 'blueprint/components'
 
 const useScreenlyMetadataStore = defineStore('metadata', metadataStoreSetup)
-const useBaseSettingsStore = defineStore('baseSettingsStore', baseSettingsStoreSetup)
+const useBaseSettingsStore = defineStore(
+  'baseSettingsStore',
+  baseSettingsStoreSetup,
+)
 
 const screenlyMetadataStore = useScreenlyMetadataStore()
 const baseSettingsStore = useBaseSettingsStore()
