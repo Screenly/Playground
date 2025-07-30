@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 
-export const settingsStoreSetup = () => {
+export const baseSettingsStoreSetup = () => {
   const settings = ref(screenly.settings)
   const primaryThemeColor = ref('')
   const secondaryThemeColor = ref('')
@@ -167,4 +167,4 @@ export const settingsStoreSetup = () => {
   }
 }
 
-export type SettingsStore = ReturnType<typeof settingsStoreSetup>
+export type SettingsStore = ReturnType<typeof baseSettingsStoreSetup>

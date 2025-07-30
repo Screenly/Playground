@@ -69,8 +69,8 @@ Follow the instructions in the README file of the new Edge App for more details.
 
 ### TypeScript Library
 
-The Playground also offers a TypeScript library that contains utilities for building Edge Apps.
-The source code is located in the `src` directory.
+The Playground also offers an Edge Apps library that contains utilities for building Edge Apps including helper functions and reusable Vue components.
+The source code is located inside the `edge-apps/blueprint` directory.
 
 To install the library, run the following command:
 
@@ -87,7 +87,7 @@ bun add github:Screenly/Playground#vX.Y.Z
 bun add github:Screenly/Playground#[branch-name]
 ```
 
-Details on how to use the library can be found in [this guide](/docs/typescript-library.md).
+Details on how to use the library can be found in [this guide](/docs/edge-apps-library.md).
 
 ## Other
 
