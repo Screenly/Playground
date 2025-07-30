@@ -32,3 +32,15 @@ settings:
     help_text: |-
       Determines the visual theme for the application.
       Options are 'light' or 'dark'.
+  secret_word:
+    type: secret
+    title: secret title
+    optional: true
+    help_text: An example of a secret setting that is used in index.html
+  greeting:
+    type: string
+    default_value: ''
+    title: greeting title
+    optional: true
+    help_text: An example of a string setting that is used in index.html
+

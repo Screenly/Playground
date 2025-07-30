@@ -1,12 +1,15 @@
-export type ScreenlyObject = {
+/// <reference types="vite/client" />
+
+declare global {
+  var screenly: {
     signalReadyForRendering: () => void
     metadata: {
-      coordinates: [number, number],
-      hardware: string,
-      hostname: string,
-      location: string,
-      screenly_version: string,
-      screen_name: string,
+      coordinates: [number, number]
+      hardware: string
+      hostname: string
+      location: string
+      screenly_version: string
+      screen_name: string
       tags: string[]
     }
     settings: Record<string, unknown> & {
@@ -18,4 +21,7 @@ export type ScreenlyObject = {
       theme?: 'light' | 'dark'
     }
     cors_proxy_url: string
+  }
 }
+
+export {}
