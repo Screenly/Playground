@@ -4,8 +4,6 @@ name: Initialize Edge App
 
 on:
   workflow_dispatch:
-    branches:
-      - master
     inputs:
       environment:
         description: 'Target environment for initialization'
@@ -40,6 +38,7 @@ jobs:
   deploy:
     name: Initializing ${{ inputs.edge_app_name }} in ${{ inputs.environment }}
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
     environment: ${{ inputs.environment }}
     env:
       API_BASE_URL: ${{ inputs.environment == 'stage' && 'https://api.screenlyappstage.com' || 'https://api.screenlyapp.com' }}
