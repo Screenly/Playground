@@ -4,6 +4,8 @@ name: Initialize Edge App
 
 on:
   workflow_dispatch:
+    branches:
+      - master
     inputs:
       environment:
         description: 'Target environment for initialization'
