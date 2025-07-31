@@ -52,5 +52,8 @@
     "vite-plugin-vue-devtools": "^7.7.7",
     "vitest": "^3.2.4",
     "vue-tsc": "^2.2.10"
+  },
+  "bun-create": {
+    "start": "bun run build:dev # On one terminal session\n  bun run dev # On another terminal session"
   }
 }
