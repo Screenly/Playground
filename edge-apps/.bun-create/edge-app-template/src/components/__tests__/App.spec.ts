@@ -43,8 +43,8 @@ vi.mock('@/stores/metadata-store', () => ({
     location: ref('test-location'),
   }),
 }))
-vi.mock('@/stores/settings-store', () => ({
-  useSettingsStore: () => ({
+vi.mock('@/stores/base-settings-store', () => ({
+  useBaseSettingsStore: () => ({
     setupTheme: vi.fn(),
     setupBrandingLogo: vi.fn(),
     primaryThemeColor: ref(mockScreenly.settings.screenly_color_accent),

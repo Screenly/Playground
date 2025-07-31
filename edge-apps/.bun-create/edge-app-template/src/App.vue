@@ -2,14 +2,17 @@
 import { onBeforeMount, onMounted, ref, type Ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
-import { settingsStoreSetup } from 'blueprint/stores/settings-store'
+import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 import { PrimaryCard } from 'blueprint/components'
 
 const useScreenlyMetadataStore = defineStore('metadata', metadataStoreSetup)
-const useSettingsStore = defineStore('settingsStore', settingsStoreSetup)
+const useBaseSettingsStore = defineStore(
+  'baseSettingsStore',
+  baseSettingsStoreSetup,
+)
 
 const screenlyMetadataStore = useScreenlyMetadataStore()
-const settingsStore = useSettingsStore()
+const baseSettingsStore = useBaseSettingsStore()
 
 const { hostname, screenName, hardware, coordinates, location } = storeToRefs(
   screenlyMetadataStore,
@@ -25,8 +28,8 @@ const secretWord = ref(screenly.settings.secret_word)
 const greeting = ref(screenly.settings.greeting)
 
 onBeforeMount(async () => {
-  settingsStore.setupTheme()
-  await settingsStore.setupBrandingLogo()
+  baseSettingsStore.setupTheme()
+  await baseSettingsStore.setupBrandingLogo()
 })
 
 onMounted(() => {

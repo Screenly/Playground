@@ -10,13 +10,16 @@ import {
 } from 'blueprint/components'
 import screenlyLogo from '@/assets/images/screenly.svg'
 import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
-import { settingsStoreSetup } from 'blueprint/stores/settings-store'
+import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 
 const useScreenlyMetadataStore = defineStore('metadata', metadataStoreSetup)
-const useSettingsStore = defineStore('settingsStore', settingsStoreSetup)
+const useBaseSettingsStore = defineStore(
+  'baseSettingsStore',
+  baseSettingsStoreSetup,
+)
 
 const screenlyMetadataStore = useScreenlyMetadataStore()
-const settingsStore = useSettingsStore()
+const baseSettingsStore = useBaseSettingsStore()
 
 const {
   hostname,
@@ -35,15 +38,15 @@ const {
 }
 
 const { brandLogoUrl, primaryThemeColor } = storeToRefs(
-  settingsStore,
+  baseSettingsStore,
 ) as unknown as {
   brandLogoUrl: Ref<string>
   primaryThemeColor: Ref<string>
 }
 
 onBeforeMount(async () => {
-  settingsStore.setupTheme()
-  await settingsStore.setupBrandingLogo()
+  baseSettingsStore.setupTheme()
+  await baseSettingsStore.setupBrandingLogo()
 })
 
 onMounted(() => {
