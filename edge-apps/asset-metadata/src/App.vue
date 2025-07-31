@@ -7,6 +7,7 @@ import {
   HardwareIcon,
   VersionIcon,
   CoordinatesIcon,
+  BrandLogoCard,
 } from 'blueprint/components'
 import screenlyLogo from '@/assets/images/screenly.svg'
 import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
@@ -94,15 +95,7 @@ const cards = [
 
 <template>
   <div class="main-container main-container-grid">
-    <InfoCard class="brand-logo-card">
-      <img
-        id="brand-logo"
-        :src="brandLogoUrl || screenlyLogo"
-        class="brand-logo"
-        alt="Brand Logo"
-      />
-      <span class="info-text">Powered by Screenly</span>
-    </InfoCard>
+    <BrandLogoCard :logo-src="brandLogoUrl || screenlyLogo" />
 
     <InfoCard
       v-for="card in cards"
