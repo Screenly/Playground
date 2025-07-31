@@ -46,7 +46,8 @@ Created <edge-app-name> project successfully
 # To get started, run:
 
   cd <edge-app-name>
-  bun dev
+  bun run build:dev # On one terminal session
+  bun run dev # On another terminal session
 ```
 
 This will create a new Edge App with the name `<edge-app-name>` in the `edge-apps` directory.
