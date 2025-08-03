@@ -1,29 +1,16 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, ref, type Ref } from 'vue'
-import { defineStore, storeToRefs } from 'pinia'
-import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
+import { onBeforeMount, onMounted, ref } from 'vue'
+import { defineStore } from 'pinia'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 import { AnalogClock, BrandLogoCard } from 'blueprint/components'
 import { DigitalTime, DateDisplay } from '@/components'
 
-const useScreenlyMetadataStore = defineStore('metadata', metadataStoreSetup)
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
   baseSettingsStoreSetup,
 )
 
-const screenlyMetadataStore = useScreenlyMetadataStore()
 const baseSettingsStore = useBaseSettingsStore()
-
-const { hostname, screenName, hardware, coordinates, location } = storeToRefs(
-  screenlyMetadataStore,
-) as unknown as {
-  hostname: Ref<string>
-  screenName: Ref<string>
-  hardware: Ref<string>
-  coordinates: Ref<[number, number]>
-  location: Ref<string>
-}
 
 const brandLogoSrc = ref('/src/static/img/Screenly.svg')
 
