@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 import { AnalogClock, BrandLogoCard } from 'blueprint/components'
 import { DigitalTime, DateDisplay } from '@/components'
+import { useSettingsStore } from '@/stores/settings'
 
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
@@ -11,6 +12,7 @@ const useBaseSettingsStore = defineStore(
 )
 
 const baseSettingsStore = useBaseSettingsStore()
+const settingsStore = useSettingsStore()
 
 const brandLogoSrc = ref('/src/static/img/Screenly.svg')
 
@@ -20,6 +22,7 @@ onBeforeMount(async () => {
 })
 
 onMounted(() => {
+  settingsStore.init()
   screenly.signalReadyForRendering()
 })
 </script>

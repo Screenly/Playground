@@ -22,6 +22,11 @@
     "prepare": "cd ../blueprint && bun install"
   },
   "dependencies": {
+    "@photostructure/tz-lookup": "^11.1.0",
+    "country-locale-map": "^1.9.9",
+    "moment": "^2.30.1",
+    "moment-timezone": "^0.6.0",
+    "offline-geocode-city": "^1.0.2",
     "pinia": "^3.0.3",
     "vue": "^3.5.17",
     "yaml": "^2.8.0"
