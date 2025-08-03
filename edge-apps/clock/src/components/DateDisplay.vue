@@ -35,6 +35,8 @@ onUnmounted(() => {
 <style scoped lang="scss">
 .date-card {
   gap: 0.25rem;
+  width: 100%;
+  height: 100%;
 }
 
 .date-text {

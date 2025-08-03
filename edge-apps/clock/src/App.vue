@@ -1,16 +1,31 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted } from 'vue'
-import { defineStore } from 'pinia'
+import { onBeforeMount, onMounted, ref, type Ref } from 'vue'
+import { defineStore, storeToRefs } from 'pinia'
+import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
-import { AnalogClock } from 'blueprint/components'
-import { DigitalTime, DateDisplay, InfoCard } from '@/components'
+import { AnalogClock, BrandLogoCard } from 'blueprint/components'
+import { DigitalTime, DateDisplay } from '@/components'
 
+const useScreenlyMetadataStore = defineStore('metadata', metadataStoreSetup)
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
   baseSettingsStoreSetup,
 )
 
+const screenlyMetadataStore = useScreenlyMetadataStore()
 const baseSettingsStore = useBaseSettingsStore()
+
+const { hostname, screenName, hardware, coordinates, location } = storeToRefs(
+  screenlyMetadataStore,
+) as unknown as {
+  hostname: Ref<string>
+  screenName: Ref<string>
+  hardware: Ref<string>
+  coordinates: Ref<[number, number]>
+  location: Ref<string>
+}
+
+const brandLogoSrc = ref('/src/static/img/Screenly.svg')
 
 onBeforeMount(async () => {
   baseSettingsStore.setupTheme()
@@ -18,37 +33,6 @@ onBeforeMount(async () => {
 })
 
 onMounted(() => {
-  // Set theme colors
-  const primaryColor =
-    !screenly.settings.screenly_color_accent ||
-    screenly.settings.screenly_color_accent.toLowerCase() === '#ffffff'
-      ? '#972eff'
-      : screenly.settings.screenly_color_accent
-  const secondaryColor =
-    !screenly.settings.screenly_color_light ||
-    screenly.settings.screenly_color_light.toLowerCase() === '#ffffff'
-      ? '#adafbe'
-      : screenly.settings.screenly_color_light
-  const tertiaryColor = '#FFFFFF'
-  const backgroundColor = '#C9CDD0'
-
-  document.documentElement.style.setProperty(
-    '--theme-color-primary',
-    primaryColor,
-  )
-  document.documentElement.style.setProperty(
-    '--theme-color-secondary',
-    secondaryColor,
-  )
-  document.documentElement.style.setProperty(
-    '--theme-color-tertiary',
-    tertiaryColor,
-  )
-  document.documentElement.style.setProperty(
-    '--theme-color-background',
-    backgroundColor,
-  )
-
   screenly.signalReadyForRendering()
 })
 </script>
@@ -65,9 +49,7 @@ onMounted(() => {
         </div>
       </div>
       <div class="row-container">
-        <div class="secondary-card info-card">
-          <InfoCard />
-        </div>
+        <BrandLogoCard :logo-src="brandLogoSrc" />
         <div class="secondary-card">
           <DateDisplay />
         </div>
@@ -130,7 +112,29 @@ onMounted(() => {
   background-color: var(--theme-color-tertiary);
 }
 
-/* Media Query */
+/* BrandLogoCard overrides to match legacy styling */
+:deep(.brand-logo-card) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  background: var(--theme-color-tertiary);
+  border-radius: 3.481rem;
+  padding: 2rem;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+:deep(.brand-logo) {
+  width: 12rem;
+}
+
+:deep(.info-text) {
+  font-size: 1.75rem;
+  color: var(--theme-color-primary);
+}
+
 @media (orientation: portrait) {
   .main-container {
     flex-direction: column;
@@ -168,6 +172,19 @@ onMounted(() => {
   .secondary-card {
     border-radius: 2rem;
   }
+
+  :deep(.brand-logo-card) {
+    border-radius: 2rem;
+    padding: 1rem;
+  }
+
+  :deep(.brand-logo) {
+    width: 5rem;
+  }
+
+  :deep(.info-text) {
+    font-size: 1rem;
+  }
 }
 
 @media screen and (min-width: 720px) and (orientation: portrait) {
@@ -190,6 +207,19 @@ onMounted(() => {
 
   .secondary-card {
     border-radius: 2rem;
+  }
+
+  :deep(.brand-logo-card) {
+    border-radius: 2rem;
+    padding: 1rem;
+  }
+
+  :deep(.brand-logo) {
+    width: 9rem;
+  }
+
+  :deep(.info-text) {
+    font-size: 1.25rem;
   }
 }
 
@@ -214,6 +244,19 @@ onMounted(() => {
   .secondary-card {
     border-radius: 2rem;
   }
+
+  :deep(.brand-logo-card) {
+    border-radius: 2rem;
+    padding: 1rem;
+  }
+
+  :deep(.brand-logo) {
+    width: 5rem;
+  }
+
+  :deep(.info-text) {
+    font-size: 0.75rem;
+  }
 }
 
 @media screen and (min-width: 1080px) and (orientation: portrait) {
@@ -236,6 +279,19 @@ onMounted(() => {
 
   .secondary-card {
     border-radius: 4rem;
+  }
+
+  :deep(.brand-logo-card) {
+    border-radius: 4rem;
+    padding: 3rem;
+  }
+
+  :deep(.brand-logo) {
+    width: 12rem;
+  }
+
+  :deep(.info-text) {
+    font-size: 2rem;
   }
 }
 
@@ -260,6 +316,19 @@ onMounted(() => {
   .secondary-card {
     border-radius: 2.5rem;
   }
+
+  :deep(.brand-logo-card) {
+    border-radius: 2.5rem;
+    padding: 2rem;
+  }
+
+  :deep(.brand-logo) {
+    width: 8.5rem;
+  }
+
+  :deep(.info-text) {
+    font-size: 1.5rem;
+  }
 }
 
 @media screen and (min-width: 1920px) and (orientation: landscape) {
@@ -282,6 +351,19 @@ onMounted(() => {
 
   .secondary-card {
     border-radius: 3.5rem;
+  }
+
+  :deep(.brand-logo-card) {
+    border-radius: 3.5rem;
+    padding: 2.5rem;
+  }
+
+  :deep(.brand-logo) {
+    width: 13rem;
+  }
+
+  :deep(.info-text) {
+    font-size: 1.75rem;
   }
 }
 
@@ -306,6 +388,19 @@ onMounted(() => {
   .secondary-card {
     border-radius: 8rem;
   }
+
+  :deep(.brand-logo-card) {
+    border-radius: 8rem;
+    padding: 5rem;
+  }
+
+  :deep(.brand-logo) {
+    width: 22rem;
+  }
+
+  :deep(.info-text) {
+    font-size: 3.75rem;
+  }
 }
 
 @media screen and (min-width: 3840px) and (orientation: landscape) {
@@ -329,6 +424,19 @@ onMounted(() => {
   .secondary-card {
     border-radius: 8rem;
   }
+
+  :deep(.brand-logo-card) {
+    border-radius: 8rem;
+    padding: 5rem;
+  }
+
+  :deep(.brand-logo) {
+    width: 30rem;
+  }
+
+  :deep(.info-text) {
+    font-size: 3.75rem;
+  }
 }
 
 @media screen and (min-width: 4096px) and (orientation: landscape) {
@@ -351,6 +459,19 @@ onMounted(() => {
 
   .secondary-card {
     border-radius: 7rem;
+  }
+
+  :deep(.brand-logo-card) {
+    border-radius: 7rem;
+    padding: 5rem;
+  }
+
+  :deep(.brand-logo) {
+    width: 30rem;
+  }
+
+  :deep(.info-text) {
+    font-size: 3.75rem;
   }
 }
 </style>
