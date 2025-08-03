@@ -165,6 +165,7 @@ onMounted(() => {
   :deep(.brand-logo-card) {
     border-radius: 2rem;
     padding: 1rem;
+    gap: 1.5rem;
   }
 
   :deep(.brand-logo) {
@@ -201,6 +202,7 @@ onMounted(() => {
   :deep(.brand-logo-card) {
     border-radius: 2rem;
     padding: 1rem;
+    gap: 1.5rem;
   }
 
   :deep(.brand-logo) {
@@ -237,6 +239,7 @@ onMounted(() => {
   :deep(.brand-logo-card) {
     border-radius: 2rem;
     padding: 1rem;
+    gap: 1.5rem;
   }
 
   :deep(.brand-logo) {
@@ -273,6 +276,7 @@ onMounted(() => {
   :deep(.brand-logo-card) {
     border-radius: 4rem;
     padding: 3rem;
+    gap: 3rem;
   }
 
   :deep(.brand-logo) {
@@ -309,6 +313,7 @@ onMounted(() => {
   :deep(.brand-logo-card) {
     border-radius: 2.5rem;
     padding: 2rem;
+    gap: 3rem;
   }
 
   :deep(.brand-logo) {
@@ -345,6 +350,7 @@ onMounted(() => {
   :deep(.brand-logo-card) {
     border-radius: 3.5rem;
     padding: 2.5rem;
+    gap: 3rem;
   }
 
   :deep(.brand-logo) {
@@ -381,6 +387,7 @@ onMounted(() => {
   :deep(.brand-logo-card) {
     border-radius: 8rem;
     padding: 5rem;
+    gap: 5rem;
   }
 
   :deep(.brand-logo) {
@@ -417,6 +424,7 @@ onMounted(() => {
   :deep(.brand-logo-card) {
     border-radius: 8rem;
     padding: 5rem;
+    gap: 5rem;
   }
 
   :deep(.brand-logo) {
@@ -453,6 +461,7 @@ onMounted(() => {
   :deep(.brand-logo-card) {
     border-radius: 7rem;
     padding: 5rem;
+    gap: 5rem;
   }
 
   :deep(.brand-logo) {
