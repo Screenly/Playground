@@ -2,7 +2,8 @@
 import { onBeforeMount, onMounted } from 'vue'
 import { defineStore } from 'pinia'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
-import { AnalogClock, DigitalTime, DateDisplay, InfoCard } from './components'
+import { AnalogClock } from 'blueprint/components'
+import { DigitalTime, DateDisplay, InfoCard } from '@/components'
 
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
