@@ -36,7 +36,9 @@ onMounted(() => {
         </div>
       </div>
       <div class="row-container">
-        <BrandLogoCard :logo-src="brandLogoSrc" />
+        <div class="secondary-card">
+          <BrandLogoCard :logo-src="brandLogoSrc" />
+        </div>
         <div class="secondary-card">
           <DateDisplay />
         </div>
