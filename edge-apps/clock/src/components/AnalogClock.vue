@@ -76,7 +76,7 @@ onUnmounted(() => {
   <div class="clock-container">
     <div class="clock">
       <div class="seconds-bar">
-        <span v-for="i in 60" :key="i" :style="{ '--index': i }">
+        <span v-for="i in 8" :key="i" :style="{ '--index': i }">
           <p></p>
         </span>
       </div>
@@ -137,21 +137,17 @@ onUnmounted(() => {
 
 .seconds-bar span {
   position: absolute;
-  transform: rotate(calc(var(--index) * 6deg));
+  transform: rotate(calc(var(--index) * 45deg));
   inset: -1.43rem;
   text-align: center;
 }
 
 .clock .seconds-bar span p {
-  width: 0.21rem;
-  display: inline-block;
-  border-radius: 0.14rem;
-}
-
-.clock .seconds-bar span:nth-child(5n) p {
   background: var(--theme-color-primary);
   width: 0.36rem;
   height: 1.29rem;
+  display: inline-block;
+  border-radius: 0.14rem;
   transform: translateY(0.07rem);
 }
 
