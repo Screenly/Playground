@@ -1,3 +1,38 @@
 /* stylelint-disable selector-class-pattern, color-hex-length, at-rule-no-unknown, media-feature-range-notation, at-rule-empty-line-before */
 
 @use 'blueprint/scss/base.scss' as *;
+
+/* Global Fonts */
+@font-face {
+  font-family: Aeonik;
+  src:
+    url('../font/Aeonik-Regular.woff2') format('woff2'),
+    url('../font/Aeonik-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Typography */
+html {
+  font-size: 14px;
+}
+
+body {
+  font-family: Aeonik, sans-serif;
+  height: 100vh;
+}
+
+/* Colors (Theme) */
+:root {
+  --theme-color-primary: #972eff;
+  --theme-color-secondary: #adafbe;
+  --theme-color-tertiary: #fff;
+  --theme-color-background: #c9cdd0;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

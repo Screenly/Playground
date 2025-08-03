@@ -1,31 +1,15 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, ref, type Ref } from 'vue'
-import { defineStore, storeToRefs } from 'pinia'
-import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
+import { onBeforeMount, onMounted } from 'vue'
+import { defineStore } from 'pinia'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
-import { PrimaryCard } from 'blueprint/components'
+import { AnalogClock, DigitalTime, DateDisplay, InfoCard } from './components'
 
-const useScreenlyMetadataStore = defineStore('metadata', metadataStoreSetup)
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
   baseSettingsStoreSetup,
 )
 
-const screenlyMetadataStore = useScreenlyMetadataStore()
 const baseSettingsStore = useBaseSettingsStore()
-
-const { hostname, screenName, hardware, coordinates, location } = storeToRefs(
-  screenlyMetadataStore,
-) as unknown as {
-  hostname: Ref<string>
-  screenName: Ref<string>
-  hardware: Ref<string>
-  coordinates: Ref<[number, number]>
-  location: Ref<string>
-}
-
-const secretWord = ref(screenly.settings.secret_word)
-const greeting = ref(screenly.settings.greeting)
 
 onBeforeMount(async () => {
   baseSettingsStore.setupTheme()
@@ -33,85 +17,339 @@ onBeforeMount(async () => {
 })
 
 onMounted(() => {
+  // Set theme colors
+  const primaryColor =
+    !screenly.settings.screenly_color_accent ||
+    screenly.settings.screenly_color_accent.toLowerCase() === '#ffffff'
+      ? '#972eff'
+      : screenly.settings.screenly_color_accent
+  const secondaryColor =
+    !screenly.settings.screenly_color_light ||
+    screenly.settings.screenly_color_light.toLowerCase() === '#ffffff'
+      ? '#adafbe'
+      : screenly.settings.screenly_color_light
+  const tertiaryColor = '#FFFFFF'
+  const backgroundColor = '#C9CDD0'
+
+  document.documentElement.style.setProperty(
+    '--theme-color-primary',
+    primaryColor,
+  )
+  document.documentElement.style.setProperty(
+    '--theme-color-secondary',
+    secondaryColor,
+  )
+  document.documentElement.style.setProperty(
+    '--theme-color-tertiary',
+    tertiaryColor,
+  )
+  document.documentElement.style.setProperty(
+    '--theme-color-background',
+    backgroundColor,
+  )
+
   screenly.signalReadyForRendering()
 })
 </script>
 
 <template>
-  <div class="main-container main-container-grid">
-    <PrimaryCard>
-      <h1 class="main-header">
-        <span id="greeting">
-          <template v-if="greeting"> Greetings, {{ greeting }}! </template>
-          <template v-else> Greetings! </template>
-        </span>
-      </h1>
-
-      <p>
-        You secret word is
-        <template v-if="secretWord">
-          <strong>{{ secretWord }}</strong
-          >.
-        </template>
-        <template v-else> not set. </template>
-      </p>
-
-      <p>
-        I'm <strong id="screen-name">{{ screenName }}</strong
-        >. Assuming you've pinned me in the right location,<br />I'm located in
-        <strong id="screen-location">{{ location }}</strong> (more precisely at
-        latitude <strong id="screen-lat">{{ coordinates[0] }}</strong
-        >&#176; and longitude
-        <strong id="screen-lng">{{ coordinates[1] }}</strong
-        >&#176;).
-      </p>
-
-      <p>
-        My Screenly ID is
-        <span id="screen-hostname">
-          <strong>{{ hostname }}</strong>
-        </span>
-        (which conveniently is also my hostname), and I'm running on a
-        <span id="screen-hardware">
-          <strong>{{ hardware || 'virtual screen' }}</strong> </span
-        >.
-      </p>
-    </PrimaryCard>
+  <div class="main-container">
+    <div class="primary-card">
+      <AnalogClock />
+    </div>
+    <div class="secondary-container">
+      <div class="row-container">
+        <div class="secondary-card">
+          <DigitalTime />
+        </div>
+      </div>
+      <div class="row-container">
+        <div class="secondary-card info-card">
+          <InfoCard />
+        </div>
+        <div class="secondary-card">
+          <DateDisplay />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-@mixin content-text($multiplier: 1) {
-  p {
-    font-size: 1rem * $multiplier;
-    margin-bottom: 0.75rem * $multiplier;
+/* Common Styles */
+.main-container {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  height: 100%;
+  padding: 2rem;
+  background-color: var(--theme-color-background);
+}
+
+.primary-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  border-radius: 3rem;
+  gap: 2rem;
+  line-height: 1;
+  background-color: var(--theme-color-primary);
+  color: var(--theme-color-tertiary);
+}
+
+/* Secondary Container */
+.secondary-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+.row-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 2rem;
+  height: 50%;
+}
+
+.secondary-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  gap: 2rem;
+  border-radius: 3.481rem;
+  background-color: var(--theme-color-tertiary);
+}
+
+/* Media Query */
+@media (orientation: portrait) {
+  .main-container {
+    flex-direction: column;
+  }
+
+  .primary-card {
+    width: 100%;
+    height: 50%;
+  }
+
+  .secondary-container {
+    width: 100%;
+    height: 50%;
   }
 }
 
-@mixin header-text($multiplier: 1) {
-  h1 {
-    font-size: 2.5rem * $multiplier;
-    margin-bottom: 1.75rem * $multiplier;
+@media screen and (min-width: 480px) and (orientation: portrait) {
+  .main-container {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .primary-card {
+    border-radius: 2rem;
+  }
+
+  .secondary-container {
+    gap: 1rem;
+  }
+
+  .row-container {
+    gap: 1rem;
+  }
+
+  .secondary-card {
+    border-radius: 2rem;
   }
 }
 
-@media (min-width: 800px) and (min-height: 480px) and (orientation: landscape) {
-  @include header-text(1);
-  @include content-text(1);
+@media screen and (min-width: 720px) and (orientation: portrait) {
+  .main-container {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .primary-card {
+    border-radius: 2rem;
+  }
+
+  .secondary-container {
+    gap: 1rem;
+  }
+
+  .row-container {
+    gap: 1rem;
+  }
+
+  .secondary-card {
+    border-radius: 2rem;
+  }
 }
 
-@media (min-width: 1280px) and (min-height: 720px) and (orientation: landscape) {
-  @include header-text(1.5);
-  @include content-text(1.5);
+@media screen and (min-width: 800px) and (orientation: landscape) {
+  .main-container {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .primary-card {
+    border-radius: 2rem;
+  }
+
+  .secondary-container {
+    gap: 1rem;
+  }
+
+  .row-container {
+    gap: 1rem;
+  }
+
+  .secondary-card {
+    border-radius: 2rem;
+  }
 }
 
-@media (min-width: 1920px) and (min-height: 1080px) and (orientation: landscape) {
-  @include header-text(2.25);
-  @include content-text(2.25);
+@media screen and (min-width: 1080px) and (orientation: portrait) {
+  .main-container {
+    gap: 3rem;
+    padding: 3rem;
+  }
+
+  .primary-card {
+    border-radius: 4rem;
+  }
+
+  .secondary-container {
+    gap: 3rem;
+  }
+
+  .row-container {
+    gap: 3rem;
+  }
+
+  .secondary-card {
+    border-radius: 4rem;
+  }
 }
 
-@media (min-width: 3840px) and (orientation: landscape) {
-  @include header-text(4.5);
-  @include content-text(4.5);
+@media screen and (min-width: 1280px) and (orientation: landscape) {
+  .main-container {
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .primary-card {
+    border-radius: 2rem;
+  }
+
+  .secondary-container {
+    gap: 2rem;
+  }
+
+  .row-container {
+    gap: 2rem;
+  }
+
+  .secondary-card {
+    border-radius: 2.5rem;
+  }
+}
+
+@media screen and (min-width: 1920px) and (orientation: landscape) {
+  .main-container {
+    gap: 2.5rem;
+    padding: 2.5rem;
+  }
+
+  .primary-card {
+    border-radius: 3.5rem;
+  }
+
+  .secondary-container {
+    gap: 2.5rem;
+  }
+
+  .row-container {
+    gap: 2.4rem;
+  }
+
+  .secondary-card {
+    border-radius: 3.5rem;
+  }
+}
+
+@media screen and (min-width: 2160px) and (orientation: portrait) {
+  .main-container {
+    gap: 5rem;
+    padding: 5rem;
+  }
+
+  .primary-card {
+    border-radius: 8rem;
+  }
+
+  .secondary-container {
+    gap: 5rem;
+  }
+
+  .row-container {
+    gap: 6rem;
+  }
+
+  .secondary-card {
+    border-radius: 8rem;
+  }
+}
+
+@media screen and (min-width: 3840px) and (orientation: landscape) {
+  .main-container {
+    gap: 5rem;
+    padding: 5rem;
+  }
+
+  .primary-card {
+    border-radius: 8rem;
+  }
+
+  .secondary-container {
+    gap: 5rem;
+  }
+
+  .row-container {
+    gap: 6rem;
+  }
+
+  .secondary-card {
+    border-radius: 8rem;
+  }
+}
+
+@media screen and (min-width: 4096px) and (orientation: landscape) {
+  .main-container {
+    gap: 5rem;
+    padding: 5rem;
+  }
+
+  .primary-card {
+    border-radius: 7rem;
+  }
+
+  .secondary-container {
+    gap: 5rem;
+  }
+
+  .row-container {
+    gap: 6rem;
+  }
+
+  .secondary-card {
+    border-radius: 7rem;
+  }
 }
 </style>
