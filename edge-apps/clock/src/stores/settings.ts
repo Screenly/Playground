@@ -1,5 +1,7 @@
 import { type Ref, ref } from 'vue'
 import { defineStore } from 'pinia'
+import moment from 'moment-timezone'
+import tzlookup from '@photostructure/tz-lookup'
 
 const settingsStoreSetup = () => {
   const settings = screenly.settings
@@ -7,6 +9,8 @@ const settingsStoreSetup = () => {
   const overrideTimezone: Ref<string> = ref('')
   const tagManagerId: Ref<string> = ref('')
   const enableAnalytics: Ref<boolean> = ref(false)
+  const currentLocale: Ref<string> = ref('')
+  const currentTimezone: Ref<string> = ref('')
 
   const init = () => {
     overrideLocale.value = (settings.override_locale as string) ?? ''
@@ -16,11 +20,34 @@ const settingsStoreSetup = () => {
       (JSON.parse(settings.enable_analytics as string) as boolean) ?? false
   }
 
+  const initLocale = () => {
+    if (overrideLocale.value) {
+      if (moment.locales().includes(overrideLocale.value)) {
+        currentLocale.value = overrideLocale.value
+      }
+    }
+  }
+
+  const initTimezone = (latitude: number, longitude: number) => {
+    if (overrideTimezone.value) {
+      if (moment.tz.names().includes(overrideTimezone.value)) {
+        currentTimezone.value = overrideTimezone.value
+        return
+      }
+    }
+
+    currentTimezone.value = tzlookup(latitude, longitude)
+  }
+
   return {
     overrideLocale,
     overrideTimezone,
     tagManagerId,
     enableAnalytics,
+    currentLocale,
+    currentTimezone,
+    initLocale,
+    initTimezone,
     init,
   }
 }

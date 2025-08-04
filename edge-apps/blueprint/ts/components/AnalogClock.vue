@@ -12,49 +12,62 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const currentTime = ref(new Date())
-const formattedTime = ref('00:00')
-const period = ref('AM')
-const dayOfMonth = ref('00')
-const dayOfWeek = ref('MON')
 
 let clockTimer: ReturnType<typeof setInterval> | null = null
 
 const updateClock = () => {
-  const now = new Date()
-  currentTime.value = now
+  currentTime.value = new Date()
+}
 
-  // Format time based on locale preference (simplified - in real app would use moment.js)
-  const hours = now.getHours()
-  const minutes = now.getMinutes()
-  const is24Hour = props.locale !== 'en' // Simplified logic
+const getTimeInTimezone = (date: Date, timezone: string) => {
+  try {
+    // Use Intl.DateTimeFormat to get time in the specified timezone
+    const formatter = new Intl.DateTimeFormat('en-US', {
+      timeZone: timezone,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    })
 
-  if (is24Hour) {
-    formattedTime.value = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`
-    period.value = ''
-  } else {
-    const displayHours = hours % 12 || 12
-    formattedTime.value = `${displayHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`
-    period.value = hours >= 12 ? 'PM' : 'AM'
+    const parts = formatter.formatToParts(date)
+    const timeParts: Record<string, string> = {}
+
+    parts.forEach(part => {
+      if (part.type !== 'literal') {
+        timeParts[part.type] = part.value
+      }
+    })
+
+    return {
+      hours: parseInt(timeParts.hour || '0'),
+      minutes: parseInt(timeParts.minute || '0'),
+      seconds: parseInt(timeParts.second || '0')
+    }
+  } catch (error) {
+    console.warn(`Invalid timezone: ${timezone}, using UTC`, error)
+    // Fallback to UTC
+    return {
+      hours: date.getUTCHours(),
+      minutes: date.getUTCMinutes(),
+      seconds: date.getUTCSeconds()
+    }
   }
-
-  dayOfMonth.value = now.getDate().toString()
-  const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
-  dayOfWeek.value = days[now.getDay()]
 }
 
 const getHandRotation = (type: 'hour' | 'minute' | 'second') => {
-  const now = currentTime.value
-  const hours = now.getHours()
-  const minutes = now.getMinutes()
-  const seconds = now.getSeconds()
+  const timeInTz = getTimeInTimezone(currentTime.value, props.timezone)
 
   switch (type) {
     case 'hour':
-      return hours * 30 + minutes / 2
+      return timeInTz.hours * 30 + timeInTz.minutes / 2
     case 'minute':
-      return minutes * 6
+      return timeInTz.minutes * 6
     case 'second':
-      return seconds * 6
+      return timeInTz.seconds * 6
     default:
       return 0
   }
@@ -76,7 +89,7 @@ onUnmounted(() => {
   <div class="clock-container">
     <div class="clock">
       <div class="seconds-bar">
-        <span v-for="i in 8" :key="i" :style="{ '--index': i }">
+        <span v-for="i in 60" :key="i" :style="{ '--index': i }">
           <p></p>
         </span>
       </div>

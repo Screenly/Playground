@@ -2,6 +2,7 @@
 import { onBeforeMount, onMounted, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
+import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 import { AnalogClock, BrandLogoCard } from 'blueprint/components'
 import { DigitalTime, DateDisplay } from '@/components'
 import { useSettingsStore } from '@/stores/settings'
@@ -11,8 +12,11 @@ const useBaseSettingsStore = defineStore(
   baseSettingsStoreSetup,
 )
 
+const useMetadataStore = defineStore('metadataStore', metadataStoreSetup)
+
 const baseSettingsStore = useBaseSettingsStore()
 const settingsStore = useSettingsStore()
+const metadataStore = useMetadataStore()
 
 const brandLogoSrc = ref('/src/static/img/Screenly.svg')
 
@@ -23,6 +27,12 @@ onBeforeMount(async () => {
 
 onMounted(() => {
   settingsStore.init()
+  settingsStore.initLocale()
+  settingsStore.initTimezone(
+    metadataStore.coordinates[0],
+    metadataStore.coordinates[1],
+  )
+
   screenly.signalReadyForRendering()
 })
 </script>
@@ -30,7 +40,7 @@ onMounted(() => {
 <template>
   <div class="main-container">
     <div class="primary-card">
-      <AnalogClock />
+      <AnalogClock :timezone="settingsStore.currentTimezone" />
     </div>
     <div class="secondary-container">
       <div class="row-container">
