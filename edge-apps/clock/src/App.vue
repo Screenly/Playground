@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, ref } from 'vue'
-import { defineStore } from 'pinia'
+import { onBeforeMount, onMounted, type Ref } from 'vue'
+import { defineStore, storeToRefs } from 'pinia'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 import { AnalogClock, BrandLogoCard } from 'blueprint/components'
 import { DigitalTime, DateDisplay } from '@/components'
 import { useSettingsStore } from '@/stores/settings'
+import screenlyLogo from '@/assets/images/screenly.svg'
 
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
@@ -18,7 +19,9 @@ const baseSettingsStore = useBaseSettingsStore()
 const settingsStore = useSettingsStore()
 const metadataStore = useMetadataStore()
 
-const brandLogoSrc = ref('/src/static/img/Screenly.svg')
+const { brandLogoUrl } = storeToRefs(baseSettingsStore) as unknown as {
+  brandLogoUrl: Ref<string>
+}
 
 onBeforeMount(async () => {
   baseSettingsStore.setupTheme()
@@ -26,12 +29,12 @@ onBeforeMount(async () => {
 })
 
 onMounted(() => {
+  const latitude = metadataStore.coordinates[0]
+  const longitude = metadataStore.coordinates[1]
+
   settingsStore.init()
-  settingsStore.initLocale()
-  settingsStore.initTimezone(
-    metadataStore.coordinates[0],
-    metadataStore.coordinates[1],
-  )
+  settingsStore.initLocale(latitude, longitude)
+  settingsStore.initTimezone(latitude, longitude)
 
   screenly.signalReadyForRendering()
 })
@@ -50,7 +53,7 @@ onMounted(() => {
       </div>
       <div class="row-container">
         <div class="secondary-card">
-          <BrandLogoCard :logo-src="brandLogoSrc" />
+          <BrandLogoCard :logo-src="brandLogoUrl || screenlyLogo" />
         </div>
         <div class="secondary-card">
           <DateDisplay />
