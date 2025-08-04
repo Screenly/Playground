@@ -51,6 +51,9 @@ const settingsStoreSetup = () => {
     currentTimezone.value = tzlookup(latitude, longitude)
   }
 
+  // TODO: Create a function that handles `tag_manager_id`.
+  // TODO: Create a function that handles `enable_analytics`.
+
   return {
     overrideLocale,
     overrideTimezone,
