@@ -3,8 +3,8 @@ import { onBeforeMount, onMounted, type Ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
-import { AnalogClock, BrandLogoCard } from 'blueprint/components'
-import { DigitalTime, DateDisplay } from '@/components'
+import { AnalogClock } from 'blueprint/components'
+import { DigitalTime, DateDisplay, BrandLogoCard } from '@/components'
 import { useSettingsStore } from '@/stores/settings'
 import screenlyLogo from '@/assets/images/screenly.svg'
 
@@ -117,29 +117,6 @@ onMounted(() => {
   background-color: var(--theme-color-tertiary);
 }
 
-/* BrandLogoCard overrides to match legacy styling */
-:deep(.brand-logo-card) {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  background: var(--theme-color-tertiary);
-  border-radius: 3.481rem;
-  padding: 2rem;
-  margin: 0;
-  width: 100%;
-  height: 100%;
-}
-
-:deep(.brand-logo) {
-  width: 12rem;
-}
-
-:deep(.info-text) {
-  font-size: 1.75rem;
-  color: var(--theme-color-primary);
-}
-
 @media (orientation: portrait) {
   .main-container {
     flex-direction: column;
@@ -177,20 +154,6 @@ onMounted(() => {
   .secondary-card {
     border-radius: 2rem;
   }
-
-  :deep(.brand-logo-card) {
-    border-radius: 2rem;
-    padding: 1rem;
-    gap: 1.5rem;
-  }
-
-  :deep(.brand-logo) {
-    width: 5rem;
-  }
-
-  :deep(.info-text) {
-    font-size: 1rem;
-  }
 }
 
 @media screen and (min-width: 720px) and (orientation: portrait) {
@@ -213,20 +176,6 @@ onMounted(() => {
 
   .secondary-card {
     border-radius: 2rem;
-  }
-
-  :deep(.brand-logo-card) {
-    border-radius: 2rem;
-    padding: 1rem;
-    gap: 1.5rem;
-  }
-
-  :deep(.brand-logo) {
-    width: 9rem;
-  }
-
-  :deep(.info-text) {
-    font-size: 1.25rem;
   }
 }
 
@@ -251,20 +200,6 @@ onMounted(() => {
   .secondary-card {
     border-radius: 2rem;
   }
-
-  :deep(.brand-logo-card) {
-    border-radius: 2rem;
-    padding: 1rem;
-    gap: 1.5rem;
-  }
-
-  :deep(.brand-logo) {
-    width: 5rem;
-  }
-
-  :deep(.info-text) {
-    font-size: 0.75rem;
-  }
 }
 
 @media screen and (min-width: 1080px) and (orientation: portrait) {
@@ -287,20 +222,6 @@ onMounted(() => {
 
   .secondary-card {
     border-radius: 4rem;
-  }
-
-  :deep(.brand-logo-card) {
-    border-radius: 4rem;
-    padding: 3rem;
-    gap: 3rem;
-  }
-
-  :deep(.brand-logo) {
-    width: 12rem;
-  }
-
-  :deep(.info-text) {
-    font-size: 2rem;
   }
 }
 
@@ -325,20 +246,6 @@ onMounted(() => {
   .secondary-card {
     border-radius: 2.5rem;
   }
-
-  :deep(.brand-logo-card) {
-    border-radius: 2.5rem;
-    padding: 2rem;
-    gap: 3rem;
-  }
-
-  :deep(.brand-logo) {
-    width: 8.5rem;
-  }
-
-  :deep(.info-text) {
-    font-size: 1.5rem;
-  }
 }
 
 @media screen and (min-width: 1920px) and (orientation: landscape) {
@@ -361,20 +268,6 @@ onMounted(() => {
 
   .secondary-card {
     border-radius: 3.5rem;
-  }
-
-  :deep(.brand-logo-card) {
-    border-radius: 3.5rem;
-    padding: 2.5rem;
-    gap: 3rem;
-  }
-
-  :deep(.brand-logo) {
-    width: 13rem;
-  }
-
-  :deep(.info-text) {
-    font-size: 1.75rem;
   }
 }
 
@@ -399,20 +292,6 @@ onMounted(() => {
   .secondary-card {
     border-radius: 8rem;
   }
-
-  :deep(.brand-logo-card) {
-    border-radius: 8rem;
-    padding: 5rem;
-    gap: 5rem;
-  }
-
-  :deep(.brand-logo) {
-    width: 22rem;
-  }
-
-  :deep(.info-text) {
-    font-size: 3.75rem;
-  }
 }
 
 @media screen and (min-width: 3840px) and (orientation: landscape) {
@@ -436,20 +315,6 @@ onMounted(() => {
   .secondary-card {
     border-radius: 8rem;
   }
-
-  :deep(.brand-logo-card) {
-    border-radius: 8rem;
-    padding: 5rem;
-    gap: 5rem;
-  }
-
-  :deep(.brand-logo) {
-    width: 30rem;
-  }
-
-  :deep(.info-text) {
-    font-size: 3.75rem;
-  }
 }
 
 @media screen and (min-width: 4096px) and (orientation: landscape) {
@@ -472,20 +337,6 @@ onMounted(() => {
 
   .secondary-card {
     border-radius: 7rem;
-  }
-
-  :deep(.brand-logo-card) {
-    border-radius: 7rem;
-    padding: 5rem;
-    gap: 5rem;
-  }
-
-  :deep(.brand-logo) {
-    width: 30rem;
-  }
-
-  :deep(.info-text) {
-    font-size: 3.75rem;
   }
 }
 </style>
