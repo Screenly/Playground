@@ -4,7 +4,7 @@ import { defineStore, storeToRefs } from 'pinia'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 import { AnalogClock } from 'blueprint/components'
-import { DigitalTime, DateDisplay, BrandLogoCard } from '@/components'
+import { DigitalClock, DateDisplay, BrandLogoCard } from '@/components'
 import { useSettingsStore } from '@/stores/settings'
 import screenlyLogo from '@/assets/images/screenly.svg'
 
@@ -48,7 +48,7 @@ onMounted(() => {
     <div class="secondary-container">
       <div class="row-container">
         <div class="secondary-card">
-          <DigitalTime
+          <DigitalClock
             :timezone="settingsStore.currentTimezone"
             :locale="settingsStore.currentLocale"
           />
