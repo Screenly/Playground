@@ -48,7 +48,10 @@ onMounted(() => {
     <div class="secondary-container">
       <div class="row-container">
         <div class="secondary-card">
-          <DigitalTime />
+          <DigitalTime
+            :timezone="settingsStore.currentTimezone"
+            :locale="settingsStore.currentLocale"
+          />
         </div>
       </div>
       <div class="row-container">

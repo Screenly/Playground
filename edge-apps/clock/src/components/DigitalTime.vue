@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 
 interface Props {
   timezone?: string
@@ -19,26 +19,45 @@ const dayOfWeek = ref('MON')
 let timeTimer: ReturnType<typeof setInterval> | null = null
 
 const updateTime = () => {
-  const now = new Date()
-
-  // Format time based on locale preference (simplified - in real app would use moment.js)
-  const hours = now.getHours()
-  const minutes = now.getMinutes()
-  const is24Hour = props.locale !== 'en' // Simplified logic
-
-  if (is24Hour) {
-    formattedTime.value = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`
-    period.value = ''
-  } else {
-    const displayHours = hours % 12 || 12
-    formattedTime.value = `${displayHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`
-    period.value = hours >= 12 ? 'PM' : 'AM'
+  // Only update if timezone is available
+  if (!props.timezone) {
+    return
   }
 
-  dayOfMonth.value = now.getDate().toString()
+  const now = new Date()
+  const timeInTimezone = new Date(
+    now.toLocaleString('en-US', { timeZone: props.timezone }),
+  )
+
+  const formattedLocale = props.locale.replace('_', '-')
+
+  // Handle all formatting based on locale
+  const timeFormatter = new Intl.DateTimeFormat(formattedLocale, {
+    hour: 'numeric',
+    minute: '2-digit',
+  })
+
+  const formattedTimeString = timeFormatter.format(timeInTimezone)
+
+  // Split the formatted time to extract time and period
+  const timeParts = formattedTimeString.split(' ')
+  formattedTime.value = timeParts[0]
+  period.value = timeParts[1] || ''
+
+  dayOfMonth.value = timeInTimezone.getDate().toString()
   const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
-  dayOfWeek.value = days[now.getDay()]
+  dayOfWeek.value = days[timeInTimezone.getDay()]
 }
+
+watch(
+  () => props.timezone,
+  (newTimezone) => {
+    if (newTimezone) {
+      updateTime()
+    }
+  },
+  { immediate: true },
+)
 
 onMounted(() => {
   updateTime()
