@@ -41,107 +41,106 @@ onUnmounted(() => {
   gap: 0.25rem;
   width: 100%;
   height: 100%;
-}
 
-.date-text {
-  font-size: 5rem;
-  color: var(--theme-color-secondary);
-}
-
-.date-number {
-  line-height: 1;
-  font-size: 10rem;
-  color: var(--theme-color-primary);
-}
-
-/* Media Queries */
-@media screen and (min-width: 480px) and (orientation: portrait) {
   .date-text {
-    font-size: 3.5rem;
+    font-size: 5rem;
+    color: var(--theme-color-secondary);
   }
 
   .date-number {
-    font-size: 7rem;
-  }
-}
-
-@media screen and (min-width: 720px) and (orientation: portrait) {
-  .date-text {
-    font-size: 6rem;
-  }
-
-  .date-number {
+    line-height: 1;
     font-size: 10rem;
-  }
-}
-
-@media screen and (min-width: 800px) and (orientation: landscape) {
-  .date-text {
-    font-size: 3.4rem;
+    color: var(--theme-color-primary);
   }
 
-  .date-number {
-    font-size: 7rem;
-  }
-}
+  @media screen and (min-width: 480px) and (orientation: portrait) {
+    .date-text {
+      font-size: 3.5rem;
+    }
 
-@media screen and (min-width: 1080px) and (orientation: portrait) {
-  .date-text {
-    font-size: 10rem;
-  }
-
-  .date-number {
-    font-size: 16rem;
-  }
-}
-
-@media screen and (min-width: 1280px) and (orientation: landscape) {
-  .date-text {
-    font-size: 5.5rem;
+    .date-number {
+      font-size: 7rem;
+    }
   }
 
-  .date-number {
-    font-size: 13rem;
-  }
-}
+  @media screen and (min-width: 720px) and (orientation: portrait) {
+    .date-text {
+      font-size: 6rem;
+    }
 
-@media screen and (min-width: 1920px) and (orientation: landscape) {
-  .date-text {
-    font-size: 7rem;
-  }
-
-  .date-number {
-    font-size: 18rem;
-  }
-}
-
-@media screen and (min-width: 2160px) and (orientation: portrait) {
-  .date-text {
-    font-size: 17rem;
+    .date-number {
+      font-size: 10rem;
+    }
   }
 
-  .date-number {
-    font-size: 34rem;
-  }
-}
+  @media screen and (min-width: 800px) and (orientation: landscape) {
+    .date-text {
+      font-size: 3.4rem;
+    }
 
-@media screen and (min-width: 3840px) and (orientation: landscape) {
-  .date-text {
-    font-size: 17rem;
-  }
-
-  .date-number {
-    font-size: 34rem;
-  }
-}
-
-@media screen and (min-width: 4096px) and (orientation: landscape) {
-  .date-text {
-    font-size: 17rem;
+    .date-number {
+      font-size: 7rem;
+    }
   }
 
-  .date-number {
-    font-size: 34rem;
+  @media screen and (min-width: 1080px) and (orientation: portrait) {
+    .date-text {
+      font-size: 10rem;
+    }
+
+    .date-number {
+      font-size: 16rem;
+    }
+  }
+
+  @media screen and (min-width: 1280px) and (orientation: landscape) {
+    .date-text {
+      font-size: 5.5rem;
+    }
+
+    .date-number {
+      font-size: 13rem;
+    }
+  }
+
+  @media screen and (min-width: 1920px) and (orientation: landscape) {
+    .date-text {
+      font-size: 7rem;
+    }
+
+    .date-number {
+      font-size: 18rem;
+    }
+  }
+
+  @media screen and (min-width: 2160px) and (orientation: portrait) {
+    .date-text {
+      font-size: 17rem;
+    }
+
+    .date-number {
+      font-size: 34rem;
+    }
+  }
+
+  @media screen and (min-width: 3840px) and (orientation: landscape) {
+    .date-text {
+      font-size: 17rem;
+    }
+
+    .date-number {
+      font-size: 34rem;
+    }
+  }
+
+  @media screen and (min-width: 4096px) and (orientation: landscape) {
+    .date-text {
+      font-size: 17rem;
+    }
+
+    .date-number {
+      font-size: 34rem;
+    }
   }
 }
 </style>
