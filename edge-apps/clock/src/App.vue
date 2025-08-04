@@ -64,7 +64,6 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
-/* Common Styles */
 .main-container {
   display: flex;
   flex-direction: row;
@@ -72,271 +71,250 @@ onMounted(() => {
   height: 100%;
   padding: 2rem;
   background-color: var(--theme-color-background);
-}
 
-.primary-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
-  height: 100%;
-  border-radius: 3rem;
-  gap: 2rem;
-  line-height: 1;
-  background-color: var(--theme-color-primary);
-  color: var(--theme-color-tertiary);
-}
-
-/* Secondary Container */
-.secondary-container {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  justify-content: space-between;
-}
-
-.row-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 2rem;
-  height: 50%;
-}
-
-.secondary-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: auto;
-  gap: 2rem;
-  border-radius: 3.481rem;
-  background-color: var(--theme-color-tertiary);
-}
-
-@media (orientation: portrait) {
-  .main-container {
+  .primary-card {
+    display: flex;
     flex-direction: column;
-  }
-
-  .primary-card {
-    width: 100%;
-    height: 50%;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    border-radius: 3rem;
+    gap: 2rem;
+    line-height: 1;
+    background-color: var(--theme-color-primary);
+    color: var(--theme-color-tertiary);
   }
 
   .secondary-container {
-    width: 100%;
-    height: 50%;
-  }
-}
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: space-between;
 
-@media screen and (min-width: 480px) and (orientation: portrait) {
-  .main-container {
+    .row-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 2rem;
+      height: 50%;
+
+      .secondary-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: auto;
+        gap: 2rem;
+        border-radius: 3.481rem;
+        background-color: var(--theme-color-tertiary);
+      }
+    }
+  }
+
+  @media (orientation: portrait) {
+    flex-direction: column;
+
+    .primary-card {
+      width: 100%;
+      height: 50%;
+    }
+
+    .secondary-container {
+      width: 100%;
+      height: 50%;
+    }
+  }
+
+  @media screen and (min-width: 480px) and (orientation: portrait) {
     gap: 1rem;
     padding: 1rem;
+
+    .primary-card {
+      border-radius: 2rem;
+    }
+
+    .secondary-container {
+      gap: 1rem;
+
+      .row-container {
+        gap: 1rem;
+
+        .secondary-card {
+          border-radius: 2rem;
+        }
+      }
+    }
   }
 
-  .primary-card {
-    border-radius: 2rem;
-  }
-
-  .secondary-container {
-    gap: 1rem;
-  }
-
-  .row-container {
-    gap: 1rem;
-  }
-
-  .secondary-card {
-    border-radius: 2rem;
-  }
-}
-
-@media screen and (min-width: 720px) and (orientation: portrait) {
-  .main-container {
+  @media screen and (min-width: 720px) and (orientation: portrait) {
     gap: 1rem;
     padding: 1rem;
+
+    .primary-card {
+      border-radius: 2rem;
+    }
+
+    .secondary-container {
+      gap: 1rem;
+
+      .row-container {
+        gap: 1rem;
+
+        .secondary-card {
+          border-radius: 2rem;
+        }
+      }
+    }
   }
 
-  .primary-card {
-    border-radius: 2rem;
-  }
-
-  .secondary-container {
-    gap: 1rem;
-  }
-
-  .row-container {
-    gap: 1rem;
-  }
-
-  .secondary-card {
-    border-radius: 2rem;
-  }
-}
-
-@media screen and (min-width: 800px) and (orientation: landscape) {
-  .main-container {
+  @media screen and (min-width: 800px) and (orientation: landscape) {
     gap: 1rem;
     padding: 1rem;
+
+    .primary-card {
+      border-radius: 2rem;
+    }
+
+    .secondary-container {
+      gap: 1rem;
+
+      .row-container {
+        gap: 1rem;
+
+        .secondary-card {
+          border-radius: 2rem;
+        }
+      }
+    }
   }
 
-  .primary-card {
-    border-radius: 2rem;
-  }
-
-  .secondary-container {
-    gap: 1rem;
-  }
-
-  .row-container {
-    gap: 1rem;
-  }
-
-  .secondary-card {
-    border-radius: 2rem;
-  }
-}
-
-@media screen and (min-width: 1080px) and (orientation: portrait) {
-  .main-container {
+  @media screen and (min-width: 1080px) and (orientation: portrait) {
     gap: 3rem;
     padding: 3rem;
+
+    .primary-card {
+      border-radius: 4rem;
+    }
+
+    .secondary-container {
+      gap: 3rem;
+
+      .row-container {
+        gap: 3rem;
+
+        .secondary-card {
+          border-radius: 4rem;
+        }
+      }
+    }
   }
 
-  .primary-card {
-    border-radius: 4rem;
-  }
-
-  .secondary-container {
-    gap: 3rem;
-  }
-
-  .row-container {
-    gap: 3rem;
-  }
-
-  .secondary-card {
-    border-radius: 4rem;
-  }
-}
-
-@media screen and (min-width: 1280px) and (orientation: landscape) {
-  .main-container {
+  @media screen and (min-width: 1280px) and (orientation: landscape) {
     gap: 2rem;
     padding: 2rem;
+
+    .primary-card {
+      border-radius: 2rem;
+    }
+
+    .secondary-container {
+      gap: 2rem;
+
+      .row-container {
+        gap: 2rem;
+
+        .secondary-card {
+          border-radius: 2.5rem;
+        }
+      }
+    }
   }
 
-  .primary-card {
-    border-radius: 2rem;
-  }
-
-  .secondary-container {
-    gap: 2rem;
-  }
-
-  .row-container {
-    gap: 2rem;
-  }
-
-  .secondary-card {
-    border-radius: 2.5rem;
-  }
-}
-
-@media screen and (min-width: 1920px) and (orientation: landscape) {
-  .main-container {
+  @media screen and (min-width: 1920px) and (orientation: landscape) {
     gap: 2.5rem;
     padding: 2.5rem;
+
+    .primary-card {
+      border-radius: 3.5rem;
+    }
+
+    .secondary-container {
+      gap: 2.5rem;
+
+      .row-container {
+        gap: 2.4rem;
+
+        .secondary-card {
+          border-radius: 3.5rem;
+        }
+      }
+    }
   }
 
-  .primary-card {
-    border-radius: 3.5rem;
-  }
-
-  .secondary-container {
-    gap: 2.5rem;
-  }
-
-  .row-container {
-    gap: 2.4rem;
-  }
-
-  .secondary-card {
-    border-radius: 3.5rem;
-  }
-}
-
-@media screen and (min-width: 2160px) and (orientation: portrait) {
-  .main-container {
+  @media screen and (min-width: 2160px) and (orientation: portrait) {
     gap: 5rem;
     padding: 5rem;
+
+    .primary-card {
+      border-radius: 8rem;
+    }
+
+    .secondary-container {
+      gap: 5rem;
+
+      .row-container {
+        gap: 6rem;
+
+        .secondary-card {
+          border-radius: 8rem;
+        }
+      }
+    }
   }
 
-  .primary-card {
-    border-radius: 8rem;
-  }
-
-  .secondary-container {
-    gap: 5rem;
-  }
-
-  .row-container {
-    gap: 6rem;
-  }
-
-  .secondary-card {
-    border-radius: 8rem;
-  }
-}
-
-@media screen and (min-width: 3840px) and (orientation: landscape) {
-  .main-container {
+  @media screen and (min-width: 3840px) and (orientation: landscape) {
     gap: 5rem;
     padding: 5rem;
+
+    .primary-card {
+      border-radius: 8rem;
+    }
+
+    .secondary-container {
+      gap: 5rem;
+
+      .row-container {
+        gap: 6rem;
+
+        .secondary-card {
+          border-radius: 8rem;
+        }
+      }
+    }
   }
 
-  .primary-card {
-    border-radius: 8rem;
-  }
-
-  .secondary-container {
-    gap: 5rem;
-  }
-
-  .row-container {
-    gap: 6rem;
-  }
-
-  .secondary-card {
-    border-radius: 8rem;
-  }
-}
-
-@media screen and (min-width: 4096px) and (orientation: landscape) {
-  .main-container {
+  @media screen and (min-width: 4096px) and (orientation: landscape) {
     gap: 5rem;
     padding: 5rem;
-  }
 
-  .primary-card {
-    border-radius: 7rem;
-  }
+    .primary-card {
+      border-radius: 7rem;
+    }
 
-  .secondary-container {
-    gap: 5rem;
-  }
+    .secondary-container {
+      gap: 5rem;
 
-  .row-container {
-    gap: 6rem;
-  }
+      .row-container {
+        gap: 6rem;
 
-  .secondary-card {
-    border-radius: 7rem;
+        .secondary-card {
+          border-radius: 7rem;
+        }
+      }
+    }
   }
 }
 </style>
