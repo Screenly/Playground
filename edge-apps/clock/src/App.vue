@@ -59,7 +59,7 @@ onMounted(() => {
           <BrandLogoCard :logo-src="brandLogoUrl || screenlyLogo" />
         </div>
         <div class="secondary-card">
-          <DateDisplay />
+          <DateDisplay :timezone="settingsStore.currentTimezone" />
         </div>
       </div>
     </div>

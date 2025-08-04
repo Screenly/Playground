@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
+
+interface Props {
+  timezone?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  timezone: 'UTC',
+})
 
 const dayOfMonth = ref('00')
 const dayOfWeek = ref('MON')
@@ -7,10 +15,20 @@ const dayOfWeek = ref('MON')
 let dateTimer: ReturnType<typeof setInterval> | null = null
 
 const updateDate = () => {
+  if (!props.timezone) {
+    return
+  }
+
   const now = new Date()
-  dayOfMonth.value = now.getDate().toString()
+
+  // It doesn't matter what locale we use here, because we're only using the date.
+  const timezoneDate = new Date(
+    now.toLocaleString('en-US', { timeZone: props.timezone }),
+  )
+
+  dayOfMonth.value = timezoneDate.getDate().toString()
   const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
-  dayOfWeek.value = days[now.getDay()]
+  dayOfWeek.value = days[timezoneDate.getDay()]
 }
 
 onMounted(() => {
@@ -23,6 +41,13 @@ onUnmounted(() => {
     clearInterval(dateTimer)
   }
 })
+
+watch(
+  () => props.timezone,
+  () => {
+    updateDate()
+  },
+)
 </script>
 
 <template>
