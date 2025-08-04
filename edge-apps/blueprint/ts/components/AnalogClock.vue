@@ -30,13 +30,13 @@ const getTimeInTimezone = (date: Date, timezone: string) => {
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
-      hour12: false
+      hour12: false,
     })
 
     const parts = formatter.formatToParts(date)
     const timeParts: Record<string, string> = {}
 
-    parts.forEach(part => {
+    parts.forEach((part) => {
       if (part.type !== 'literal') {
         timeParts[part.type] = part.value
       }
@@ -45,7 +45,7 @@ const getTimeInTimezone = (date: Date, timezone: string) => {
     return {
       hours: parseInt(timeParts.hour || '0'),
       minutes: parseInt(timeParts.minute || '0'),
-      seconds: parseInt(timeParts.second || '0')
+      seconds: parseInt(timeParts.second || '0'),
     }
   } catch (error) {
     console.warn(`Invalid timezone: ${timezone}, using UTC`, error)
@@ -53,7 +53,7 @@ const getTimeInTimezone = (date: Date, timezone: string) => {
     return {
       hours: date.getUTCHours(),
       minutes: date.getUTCMinutes(),
-      seconds: date.getUTCSeconds()
+      seconds: date.getUTCSeconds(),
     }
   }
 }

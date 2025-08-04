@@ -1,5 +1,34 @@
 import { expect, test } from '@playwright/test'
 
+// Extend Window interface to include screenly property
+declare global {
+  interface Window {
+    screenly: {
+      signalReadyForRendering: () => void
+      metadata: {
+        coordinates: [number, number]
+        hostname: string
+        screen_name: string
+        hardware: string
+        location: string
+        screenly_version: string
+        tags: string[]
+      }
+      settings: {
+        theme: string
+        screenly_color_accent: string
+        screenly_color_light: string
+        screenly_color_dark: string
+        enable_analytics: string
+        tag_manager_id: string
+        override_timezone: string
+        override_locale: string
+      }
+      cors_proxy_url: string
+    }
+  }
+}
+
 // See here how to get started:
 // https://playwright.dev/docs/intro
 
@@ -18,21 +47,26 @@ test('basic app structure test', async ({ page }) => {
         tags: ['tag1', 'tag2', 'tag3'],
       },
       settings: {
-        greeting: 'World',
-        secret_word: 'test-secret',
-        screenly_color_accent: '#000000',
-        screenly_color_light: '#000000',
-        screenly_color_dark: '#000000',
+        theme: 'light',
+        screenly_color_accent: '#972EFF',
+        screenly_color_light: '#ADAFBE',
+        screenly_color_dark: '#454BD2',
         enable_analytics: 'true',
         tag_manager_id: '',
-        theme: 'light',
+        override_timezone: 'America/New_York',
+        override_locale: 'en',
       },
-      cors_proxy_url: 'https://example.com',
+      cors_proxy_url: 'http://127.0.0.1:8080',
     }
 
     const screenlyJsContent = `
       // Generated screenly.js for test mode
-      window.screenly = ${JSON.stringify(mockScreenlyData, null, 2)}
+      window.screenly = {
+        signalReadyForRendering: () => {},
+        metadata: ${JSON.stringify(mockScreenlyData.metadata, null, 2)},
+        settings: ${JSON.stringify(mockScreenlyData.settings, null, 2)},
+        cors_proxy_url: ${JSON.stringify(mockScreenlyData.cors_proxy_url)}
+      }
     `
 
     await route.fulfill({
@@ -44,24 +78,33 @@ test('basic app structure test', async ({ page }) => {
 
   await page.goto('/')
 
-  // Check for greeting and secret word
-  await expect(page.getByText('Greetings, World!')).toBeVisible()
-  await expect(page.getByText('You secret word is')).toBeVisible()
-  await expect(page.getByText('test-secret')).toBeVisible()
+  // Wait for the app to be ready and signal ready for rendering
+  await page.waitForFunction(() => {
+    return window.screenly && typeof window.screenly.signalReadyForRendering === 'function'
+  })
 
-  // Check for screen information
-  await expect(page.getByText('test-screen')).toBeVisible()
-  await expect(page.getByText('test-location')).toBeVisible()
-  await expect(page.getByText('40.7128°')).toBeVisible()
-  await expect(page.getByText('-74.006°')).toBeVisible()
+  // Wait for the digital clock to be visible
+  await page.locator('.secondary-card-number').waitFor({ timeout: 10000 })
 
-  // Check for hardware and hostname
-  await expect(page.getByText('test-host')).toBeVisible()
-  await expect(page.getByText('test-hardware')).toBeVisible()
+  // Wait for the time to be properly initialized (not 00:00)
+  await page.waitForFunction(() => {
+    const timeElement = document.querySelector('.secondary-card-number')
+    if (!timeElement) return false
+    const timeText = timeElement.textContent
+    return timeText && timeText !== '00:00' && timeText.includes(':')
+  }, { timeout: 10000 })
 
-  // Check for specific text content
-  await expect(page.getByText("I'm test-screen")).toBeVisible()
-  await expect(page.getByText('My Screenly ID is')).toBeVisible()
-  await expect(page.getByText('which conveniently is also my hostname')).toBeVisible()
-  await expect(page.getByText("and I'm running on a")).toBeVisible()
+  // Verify that the time is being displayed correctly
+  const timeElement = page.locator('.secondary-card-number')
+
+  await expect(timeElement).toHaveText(/^\d{1,2}:\d{2}$/) // Should match time format like "12:34"
+  await expect(timeElement).not.toHaveText('00:00')
+
+  // Verify that AM/PM is displayed if present
+  const amPmElement = page.locator('.secondary-card-time-am-pm')
+  await expect(amPmElement).toBeVisible()
+
+  // Verify that the clock container is visible
+  const clockContainer = page.locator('.secondary-card-number-container')
+  await expect(clockContainer).toBeVisible()
 })

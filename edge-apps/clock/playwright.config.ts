@@ -11,4 +11,6 @@ import getPlaywrightConfig from '../blueprint/ts/configs/playwright'
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-export default defineConfig(getPlaywrightConfig(process, devices) as PlaywrightTestConfig)
+
+const baseConfig = getPlaywrightConfig(process, devices) as PlaywrightTestConfig
+export default defineConfig(baseConfig)
