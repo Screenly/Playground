@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 export const metadataStoreSetup = () => {
   const metadata = screenly.metadata
 
-  const coordinates = ref(metadata.coordinates ?? '')
+  const coordinates = ref(metadata.coordinates ?? [0, 0])
   const hostname = ref(metadata.hostname ?? '')
   const screenName = ref(metadata.screen_name ?? '')
   const hardware = ref(metadata.hardware ?? '')
