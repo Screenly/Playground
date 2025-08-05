@@ -127,6 +127,7 @@ onUnmounted(() => {
   display: flex;
   justify-self: center;
   align-items: center;
+  aspect-ratio: 1 / 1;
 }
 
 .clock-container .clock {
@@ -324,7 +325,7 @@ onUnmounted(() => {
 /* Media Queries */
 @media screen and (min-width: 480px) and (orientation: portrait) {
   .clock-container {
-    transform: scale(0.7);
+    transform: scale(0.5);
   }
 }
 
