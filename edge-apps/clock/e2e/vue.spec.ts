@@ -1,31 +1,10 @@
 import { expect, test } from '@playwright/test'
+import type { ScreenlyObject } from '../../blueprint/ts/types.js'
 
 // Extend Window interface to include screenly property
 declare global {
   interface Window {
-    screenly: {
-      signalReadyForRendering: () => void
-      metadata: {
-        coordinates: [number, number]
-        hostname: string
-        screen_name: string
-        hardware: string
-        location: string
-        screenly_version: string
-        tags: string[]
-      }
-      settings: {
-        theme: string
-        screenly_color_accent: string
-        screenly_color_light: string
-        screenly_color_dark: string
-        enable_analytics: string
-        tag_manager_id: string
-        override_timezone: string
-        override_locale: string
-      }
-      cors_proxy_url: string
-    }
+    screenly: ScreenlyObject
   }
 }
 
