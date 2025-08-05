@@ -178,6 +178,10 @@ onUnmounted(() => {
   transition: transform 0.1s ease-in-out;
 }
 
+.hands-box .second {
+  transition: none;
+}
+
 .hands-box .hour {
   width: 20rem;
   height: 20rem;
