@@ -85,6 +85,13 @@ jobs:
           npx playwright install --with-deps
           bun run test:e2e
 
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: edge-apps/test-edge-app/playwright-report/
+          retention-days: 30
+
       - name: 🧹 Cleanup
         if: always()
         working-directory: edge-apps
