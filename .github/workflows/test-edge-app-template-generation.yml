@@ -1,0 +1,107 @@
+name: Test Edge App Template Generation
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [master]
+    paths:
+      - '.github/workflows/test-edge-app-template-generation.yml'
+      - 'edge-apps/.bun-create/edge-app-template/**'
+      - 'edge-apps/blueprint/**'
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/test-edge-app-template-generation.yml'
+      - 'edge-apps/.bun-create/edge-app-template/**'
+      - 'edge-apps/blueprint/**'
+
+jobs:
+  test-template-generation:
+    name: Test Edge App Template Generation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🛠 Install Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.2.2
+
+      - name: 🧪 Test Template Generation
+        working-directory: edge-apps
+        run: |
+          # Test template generation
+          bun create --no-git edge-app-template test-edge-app
+
+          # Verify the generated app structure
+          echo "Checking generated app structure..."
+          ls -la test-edge-app/
+
+          # Check if required files exist
+          if [ ! -f "test-edge-app/index.html" ]; then
+            echo "❌ index.html not found"
+            exit 1
+          fi
+
+          if [ ! -f "test-edge-app/screenly.yml" ]; then
+            echo "❌ screenly.yml not found"
+            exit 1
+          fi
+
+          if [ ! -f "test-edge-app/package.json" ]; then
+            echo "❌ package.json not found"
+            exit 1
+          fi
+
+          echo "✅ All required files found"
+
+      - name: 🧪 Test Build Process
+        working-directory: edge-apps/test-edge-app
+        run: |
+          # Install dependencies
+          bun install
+
+          # Test build process
+          bun run build
+
+          # Verify build output
+          if [ ! -d "dist" ]; then
+            echo "❌ dist directory not found after build"
+            exit 1
+          fi
+
+          echo "✅ Build process completed successfully"
+
+      - name: 🧪 Run Unit Tests
+        working-directory: edge-apps/test-edge-app
+        run: |
+          bun run test:unit
+
+      - name: 🧪 Run E2E Tests
+        working-directory: edge-apps/test-edge-app
+        run: |
+          npx playwright install --with-deps
+          bun run test:e2e
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: edge-apps/test-edge-app/playwright-report/
+          retention-days: 30
+
+      - name: 🧹 Cleanup
+        if: always()
+        working-directory: edge-apps
+        run: |
+          # Remove test app
+          rm -rf test-edge-app
+          echo "🧹 Cleanup completed"
+
+      - name: ✅ Test Summary
+        run: |
+          echo "✅ Edge App template generation test completed successfully"
+          echo "✅ Template generation works correctly"
+          echo "✅ Build process works correctly"
