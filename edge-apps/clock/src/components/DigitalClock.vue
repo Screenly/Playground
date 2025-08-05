@@ -33,7 +33,7 @@ const updateTime = () => {
 
   // Handle all formatting based on locale
   const timeFormatter = new Intl.DateTimeFormat(formattedLocale, {
-    hour: 'numeric',
+    hour: '2-digit',
     minute: '2-digit',
   })
 
