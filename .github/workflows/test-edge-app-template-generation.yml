@@ -82,7 +82,7 @@ jobs:
       - name: 🧪 Run E2E Tests
         working-directory: edge-apps/test-edge-app
         run: |
-          npx playwright install
+          npx playwright install --with-deps
           bun run test:e2e
 
       - name: 🧹 Cleanup
