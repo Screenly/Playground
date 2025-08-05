@@ -37,3 +37,10 @@ settings:
     optional: true
     help_text: Enable or disable Sentry and Google Analytics integrations.
     is_global: true
+  theme:
+    type: string
+    default_value: light
+    title: Theme
+    optional: false
+    help_text: |
+      Select the visual theme for the app ('light' or 'dark').
