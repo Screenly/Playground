@@ -4,21 +4,21 @@
 
 /* Global Fonts */
 @font-face {
-  font-family: Aeonik;
+  font-family: Inter;
   src:
-    url('../font/Aeonik-Regular.woff2') format('woff2'),
-    url('../font/Aeonik-Regular.woff') format('woff');
+    url('@/assets/font/Inter-VariableFont_opsz_wght.ttf') format('truetype'),
+    url('@/assets/font/Inter-Italic-VariableFont_opsz_wght.ttf')
+      format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
-/* Typography */
 html {
   font-size: 14px;
 }
 
 body {
-  font-family: Aeonik, sans-serif;
+  font-family: 'Inter', sans-serif;
   height: 100vh;
 }
 
