@@ -89,6 +89,8 @@ onUnmounted(() => {
     font-size: 14.5rem;
     color: var(--theme-color-primary);
     letter-spacing: 1rem;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
   }
 
   .secondary-card-time-am-pm {
