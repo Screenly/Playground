@@ -5,11 +5,13 @@ on:
   pull_request:
     branches: [master]
     paths:
+      - '.github/workflows/test-edge-app-template-generation.yml'
       - 'edge-apps/.bun-create/edge-app-template/**'
       - 'edge-apps/blueprint/**'
   push:
     branches: [master]
     paths:
+      - '.github/workflows/test-edge-app-template-generation.yml'
       - 'edge-apps/.bun-create/edge-app-template/**'
       - 'edge-apps/blueprint/**'
 
