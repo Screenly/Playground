@@ -1,0 +1,430 @@
+/* stylelint-disable media-feature-range-notation */
+
+/* Common Styles */
+
+/* Global Fonts */
+@font-face {
+  font-family: Aeonik;
+  src:
+    url('../fonts/Aeonik-Regular.woff2') format('woff2'),
+    url('../fonts/Aeonik-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Typography */
+html {
+  font-size: 14px;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Aeonik, sans-serif;
+  height: 100vh;
+  background-color: var(--theme-color-background);
+}
+
+/* Colors (Theme) */
+:root {
+  --theme-color-primary: #7e2cd2;
+  --theme-color-secondary: #454bd2;
+  --theme-color-tertiary: #fff;
+  --theme-color-background: #c9cdd0;
+
+  /* Padding, Gap, Border-Radius */
+
+  --custom-4k-padding: 5.714rem;
+  --custom-4k-gap: 5.714rem;
+  --custom-4k-border-radius-big: 6.857rem;
+  --custom-4k-border-radius-medium: 5.429rem;
+  --hd-padding: 2.857rem;
+  --hd-gap: 2.857rem;
+  --hd-border-radius-big: 3.429rem;
+  --hd-border-radius-medium: 2.714rem;
+  --custom-720-padding: 2.286rem;
+  --custom-720-gap: 2.286rem;
+  --custom-720-border-radius-big: 2.429rem;
+  --custom-720-border-radius-medium: 1.714rem;
+  --pi-padding: 1rem;
+  --pi-gap: 1rem;
+  --pi-border-radius-big: 1.571rem;
+  --pi-border-radius-medium: 1.143rem;
+}
+
+/* Components */
+.main-container {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  height: 100%;
+  padding: 2rem;
+  background-color: var(--theme-color-background);
+}
+
+.primary-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  border-radius: 3rem;
+  gap: 2rem;
+  line-height: 1;
+  background-color: var(--theme-color-primary);
+  color: var(--theme-color-tertiary);
+}
+
+.primary-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  justify-content: space-between;
+}
+
+.secondary-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+.row-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 2rem;
+  height: 50%;
+}
+
+.secondary-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  gap: 2rem;
+  border-radius: 3.481rem;
+  background-color: var(--theme-color-tertiary);
+}
+
+/* Media Query */
+
+@media (orientation: portrait) {
+  .main-container {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .primary-card {
+    width: 100%;
+    height: 50%;
+    order: 0;
+    min-width: 100%;
+    margin: 0;
+  }
+
+  .primary-card .calendar {
+    width: 100%;
+  }
+
+  .secondary-container {
+    display: flex;
+    width: 100%;
+    height: 50%;
+    flex-direction: row;
+    order: 1;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Remove the row-container's influence on width */
+  .row-container {
+    flex: 1;
+    min-width: 50%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .secondary-card {
+    width: 100%;
+    min-width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 2rem;
+  }
+
+  /* First row container contains calendar overview */
+  .row-container:first-child {
+    order: 1;
+  }
+
+  /* Last row container contains info card */
+  .row-container:last-child {
+    order: 0;
+  }
+
+  /* Ensure calendar grid takes full width */
+  .calendar-grid {
+    width: 100%;
+  }
+
+  /* Ensure calendar header takes full width */
+  .calendar-header {
+    width: 100%;
+  }
+
+  /* Ensure calendar weekdays take full width */
+  .calendar-weekdays {
+    width: 100%;
+  }
+}
+
+/* Default styles apply to large screens */
+
+/* 4K Landscape - 4096 × 2160 */
+@media screen and (max-width: 4096px) and (orientation: landscape) {
+  .main-container {
+    gap: var(--custom-4k-gap);
+    padding: var(--custom-4k-padding);
+  }
+
+  .primary-card {
+    border-radius: var(--custom-4k-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--custom-4k-border-radius-medium);
+  }
+}
+
+/* 4K Portrait - 2160 × 4096 */
+@media screen and (max-width: 2160px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--custom-4k-gap);
+    padding: var(--custom-4k-padding);
+  }
+
+  .primary-card {
+    border-radius: var(--custom-4k-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--custom-4k-border-radius-medium);
+  }
+}
+
+/* 4K Landscape - 3840 × 2160 */
+@media screen and (max-width: 3840px) and (orientation: landscape) {
+  .main-container {
+    gap: var(--custom-4k-gap);
+    padding: var(--custom-4k-padding);
+  }
+
+  .primary-card {
+    border-radius: var(--custom-4k-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--custom-4k-border-radius-medium);
+  }
+}
+
+/* 4K Portrait - 2160 × 3840 */
+@media screen and (max-width: 2160px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--custom-4k-gap);
+    padding: var(--custom-4k-padding);
+  }
+
+  .primary-card {
+    border-radius: var(--custom-4k-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--custom-4k-border-radius-medium);
+  }
+}
+
+/* Full HD Landscape - 1920 × 1080 */
+@media screen and (max-width: 1920px) and (orientation: landscape) {
+  .main-container {
+    gap: var(--hd-gap);
+    padding: var(--hd-padding);
+  }
+
+  .primary-card {
+    border-radius: var(--hd-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--hd-border-radius-medium);
+  }
+}
+
+/* Full HD Portrait - 1080 × 1920 */
+@media screen and (max-width: 1080px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--hd-gap);
+    padding: var(--hd-padding);
+  }
+
+  .primary-card {
+    border-radius: var(--hd-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--hd-border-radius-medium);
+  }
+}
+
+/* HD Landscape - 1280 × 720 */
+@media screen and (max-width: 1280px) and (orientation: landscape) {
+  .main-container {
+    gap: var(--custom-720-gap);
+    padding: var(--custom-720-padding);
+  }
+
+  .primary-card {
+    border-radius: var(--custom-720-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--custom-720-border-radius-medium);
+  }
+}
+
+/* HD Portrait - 720 × 1280 */
+@media screen and (max-width: 720px) and (orientation: portrait) {
+  .main-container {
+    gap: var(--custom-720-gap);
+    padding: var(--custom-720-padding);
+  }
+
+  .primary-card {
+    border-radius: var(--custom-720-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--custom-720-border-radius-medium);
+  }
+}
+
+/* Raspberry Pi Touch Display - Landscape 800 × 480 */
+@media screen and (max-width: 800px) and (orientation: landscape) {
+  .main-container {
+    gap: var(--pi-gap);
+    padding: var(--pi-padding);
+  }
+
+  .primary-card {
+    border-radius: var(--pi-border-radius-big);
+  }
+
+  .secondary-card {
+    border-radius: var(--pi-border-radius-medium);
+  }
+}
+
+/* Raspberry Pi Touch Display - Portrait 480 × 800 */
+@media screen and (max-width: 480px) and (orientation: portrait) {
+  .main-container {
+    padding: 0.44rem; /* 1rem * 0.44 */
+    gap: 0.44rem; /* 1rem * 0.44 */
+  }
+
+  .primary-card {
+    border-radius: 1.32rem; /* 3rem * 0.44 */
+    gap: 0.88rem; /* 2rem * 0.44 */
+  }
+
+  .primary-container {
+    gap: 1.1rem; /* 2.5rem * 0.44 */
+  }
+
+  .secondary-container {
+    gap: 0.88rem; /* 2rem * 0.44 */
+  }
+
+  .row-container {
+    gap: 0.88rem; /* 2rem * 0.44 */
+  }
+
+  .secondary-card {
+    border-radius: 1.32rem; /* 3rem * 0.44 */
+    gap: 0.88rem; /* 2rem * 0.44 */
+  }
+}
+
+/* Portrait mode styles for 720x1280 (0.67x scale) */
+@media screen and (min-width: 481px) and (max-width: 720px) and (orientation: portrait) {
+  .main-container {
+    padding: 0.67rem; /* 1rem * 0.67 */
+    gap: 0.67rem; /* 1rem * 0.67 */
+  }
+
+  .primary-card {
+    border-radius: 2.01rem; /* 3rem * 0.67 */
+    gap: 1.34rem; /* 2rem * 0.67 */
+  }
+
+  .primary-container {
+    gap: 1.675rem; /* 2.5rem * 0.67 */
+  }
+
+  .secondary-container {
+    gap: 1.34rem; /* 2rem * 0.67 */
+  }
+
+  .row-container {
+    gap: 1.34rem; /* 2rem * 0.67 */
+  }
+
+  .secondary-card {
+    border-radius: 2.01rem; /* 3rem * 0.67 */
+    gap: 1.34rem; /* 2rem * 0.67 */
+  }
+}
+
+/* Portrait mode styles for 2160x3840 (2x scale) */
+@media screen and (min-width: 2160px) and (orientation: portrait) {
+  .main-container {
+    padding: 2rem; /* 1rem * 2 */
+    gap: 2rem; /* 1rem * 2 */
+  }
+
+  .primary-card {
+    border-radius: 6rem; /* 3rem * 2 */
+    gap: 4rem; /* 2rem * 2 */
+  }
+
+  .primary-container {
+    gap: 5rem; /* 2.5rem * 2 */
+  }
+
+  .secondary-container {
+    gap: 4rem; /* 2rem * 2 */
+  }
+
+  .row-container {
+    gap: 4rem; /* 2rem * 2 */
+  }
+
+  .secondary-card {
+    border-radius: 6rem; /* 3rem * 2 */
+    gap: 4rem; /* 2rem * 2 */
+  }
+}

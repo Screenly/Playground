@@ -1,0 +1,141 @@
+.MonthlyCalendarView {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  * {
+    color: var(--theme-color-text);
+  }
+
+  &.primary-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    .events-container {
+      width: 100%;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      border-top-color: var(--theme-color-secondary);
+      border-top-style: solid;
+
+      .event-row {
+        display: contents;
+
+        .event-time {
+          text-align: right;
+          border-bottom-color: var(--theme-color-secondary);
+          border-bottom-style: solid;
+
+          &:first-child {
+            border-top: none;
+          }
+        }
+
+        .event-title {
+          border-bottom-color: var(--theme-color-secondary);
+          border-bottom-style: solid;
+
+          &:first-child {
+            border-top: none;
+          }
+
+          .event-dot {
+            color: var(--theme-color-primary);
+          }
+        }
+      }
+
+      .no-events {
+        grid-column: 1 / -1;
+        color: var(--theme-color-text);
+        opacity: 0.6;
+        text-align: center;
+      }
+    }
+  }
+}
+
+@mixin monthly-calendar-view($orientation: 'landscape', $multiplier: 1) {
+  .MonthlyCalendarView {
+    &.primary-card {
+      padding: 1.5rem * $multiplier;
+
+      .events-heading {
+        font-size: 0.6rem * $multiplier;
+
+        @if $orientation == 'portrait' {
+          margin-bottom: 1rem * $multiplier;
+        } @else {
+          margin-bottom: 0.75rem * $multiplier;
+        }
+      }
+
+      .events-container {
+        border-top-width: 0.01rem * $multiplier;
+
+        .event-row {
+          .event-time {
+            padding-top: 1.1rem * $multiplier;
+            padding-bottom: 1.1rem * $multiplier;
+            padding-right: 3.75rem * $multiplier;
+            font-size: 1rem * $multiplier;
+            border-bottom-width: 0.01rem * $multiplier;
+          }
+
+          .event-title {
+            padding-top: 1.1rem * $multiplier;
+            padding-bottom: 1.1rem * $multiplier;
+            font-size: 1rem * $multiplier;
+            border-bottom-width: 0.01rem * $multiplier;
+
+            .event-dot {
+              font-size: 1.2rem * $multiplier;
+              margin-right: 0.5rem * $multiplier;
+            }
+          }
+        }
+
+        .no-events {
+          font-size: 1rem * $multiplier;
+          padding: 2rem * $multiplier;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 800px) and (max-width: 1279px) and (orientation: landscape) {
+  @include monthly-calendar-view('landscape', 1);
+}
+
+@media screen and (min-width: 480px) and (max-width: 719px) and (orientation: portrait) {
+  @include monthly-calendar-view('portrait', 1);
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1919px) and (orientation: landscape) {
+  @include monthly-calendar-view('landscape', 1.5);
+}
+
+@media screen and (min-width: 720px) and (max-width: 1079px) and (orientation: portrait) {
+  @include monthly-calendar-view('portrait', 1.6);
+}
+
+@media screen and (min-width: 1920px) and (max-width: 3839px) and (orientation: landscape) {
+  @include monthly-calendar-view('landscape', 2.25);
+}
+
+@media screen and (min-width: 1080px) and (max-width: 2159px) and (orientation: portrait) {
+  @include monthly-calendar-view('portrait', 2.4);
+}
+
+@media screen and (min-width: 3840px) and (orientation: landscape) {
+  @include monthly-calendar-view('landscape', 4.5);
+}
+
+@media screen and (min-width: 2160px) and (orientation: portrait) {
+  @include monthly-calendar-view('portrait', 4.8);
+}
