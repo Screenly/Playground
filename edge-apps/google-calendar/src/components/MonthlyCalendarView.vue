@@ -4,24 +4,22 @@
       <h1>{{ currentDayOfWeek }}</h1>
     </div>
     <div class="events-container">
-      <div v-if="filteredEvents.length > 0">
-        <div
-          v-for="(event, index) in filteredEvents"
-          :key="index"
-          class="event-row"
-        >
-          <div class="event-time">
-            {{ formattedEventTimes[event.startTime] || '...' }}
-          </div>
-          <div class="event-details">
-            <div class="event-title">
-              <span class="event-dot">•</span>
-              {{ event.title }}
-            </div>
-          </div>
+      <div
+        v-for="(event, index) in filteredEvents"
+        :key="index"
+        class="event-row"
+      >
+        <div class="event-time">
+          {{ formattedEventTimes[event.startTime] || '...' }}
+        </div>
+        <div class="event-title">
+          <span class="event-dot">•</span>
+          {{ event.title }}
         </div>
       </div>
-      <div v-else class="no-events">No events scheduled for next 24 hours</div>
+      <div v-if="filteredEvents.length === 0" class="no-events">
+        No events scheduled for next 24 hours
+      </div>
     </div>
   </div>
 </template>

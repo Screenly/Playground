@@ -29,6 +29,7 @@
           text-align: right;
           border-bottom-color: var(--theme-color-secondary);
           border-bottom-style: solid;
+          font-feature-settings: 'tnum';
 
           &:first-child {
             border-top: none;
