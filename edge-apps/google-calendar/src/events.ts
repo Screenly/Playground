@@ -1,5 +1,3 @@
-/* global screenly */
-
 import ical from 'ical.js'
 import {
   GOOGLE_CALENDAR_API_BASE_URL,
@@ -7,6 +5,19 @@ import {
   DAILY_VIEW_EVENT_LIMIT,
 } from '@/constants'
 import type { CalendarEvent, ViewMode } from '@/constants'
+
+// Type for raw Google Calendar API event
+interface GoogleCalendarEvent {
+  summary: string
+  start: {
+    dateTime?: string
+    date?: string
+  }
+  end: {
+    dateTime?: string
+    date?: string
+  }
+}
 
 const getDateRangeForViewMode = (viewMode: ViewMode) => {
   const today = new Date()
@@ -30,11 +41,14 @@ const getDateRangeForViewMode = (viewMode: ViewMode) => {
   return { startDate, endDate }
 }
 
-const formatEvents = (events: any[], viewMode: ViewMode): CalendarEvent[] => {
+const formatEvents = (
+  events: GoogleCalendarEvent[],
+  viewMode: ViewMode,
+): CalendarEvent[] => {
   const formattedEvents: CalendarEvent[] = events.map((event) => ({
     title: event.summary,
-    startTime: event.start.dateTime || event.start.date,
-    endTime: event.end.dateTime || event.end.date,
+    startTime: event.start.dateTime || event.start.date || '',
+    endTime: event.end.dateTime || event.end.date || '',
     isAllDay: !event.start.dateTime,
   }))
 

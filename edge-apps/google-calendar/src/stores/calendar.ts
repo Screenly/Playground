@@ -18,6 +18,11 @@ import {
 import { TOKEN_REFRESH_INTERVAL } from '@/constants'
 import type { CalendarEvent, ViewMode } from '@/constants'
 
+// Extend Window interface to include our custom property
+interface ExtendedWindow extends Window {
+  __calendarCleanup?: () => void
+}
+
 export const useCalendarStore = defineStore('calendar', () => {
   // State
   const now = ref(new Date())
@@ -161,7 +166,7 @@ export const useCalendarStore = defineStore('calendar', () => {
       }
 
       // Store cleanup function in a way that can be accessed if needed
-      ;(window as any).__calendarCleanup = cleanup
+      ;(window as ExtendedWindow).__calendarCleanup = cleanup
     } catch (error) {
       console.error('Error initializing calendar:', error)
     }

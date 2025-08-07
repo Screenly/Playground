@@ -61,7 +61,6 @@ const locale = ref<string | null>(null)
 const isReady = ref(false)
 
 const now = computed(() => calendarStore.now)
-const weeklyViewTime = computed(() => calendarStore.weeklyViewTime)
 const events = computed(() => calendarStore.events)
 
 const timezone = getTimeZone()

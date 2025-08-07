@@ -226,12 +226,12 @@ export const initializeGlobalBrandingSettings = async (): Promise<void> => {
   try {
     const imageUrl = await fetchImage(logoUrl)
     imgElement.src = imageUrl
-  } catch (error) {
+  } catch {
     // If CORS fails, try the fallback URL
     try {
       const fallbackImageUrl = await fetchImage(fallbackUrl)
       imgElement.src = fallbackImageUrl
-    } catch (fallbackError) {
+    } catch {
       // If fallback fails, use the default logo
       imgElement.src = defaultLogo
     }
