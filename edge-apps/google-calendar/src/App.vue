@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, shallowRef } from 'vue'
-import { defineStore } from 'pinia'
+import { onBeforeMount, onMounted, shallowRef, type Ref } from 'vue'
+import { defineStore, storeToRefs } from 'pinia'
 
-import { AnalogClock } from 'blueprint/components'
+import { AnalogClock, BrandLogoCard } from 'blueprint/components'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 
 import { useCalendarStore } from '@/stores/calendar'
 import { useSettingsStore } from '@/stores/settings'
 import MonthlyCalendarView from '@/components/MonthlyCalendarView.vue'
 import CalendarOverview from '@/components/CalendarOverview.vue'
-import InfoCard from '@/components/InfoCard.vue'
 import DailyCalendarView from '@/components/DailyCalendarView.vue'
 import WeeklyCalendarView from '@/components/WeeklyCalendarView.vue'
+
+import screenlyLogo from '@/assets/images/screenly.svg'
 
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
@@ -32,6 +33,10 @@ const updateRefs = () => {
   calendarMode.value = settingsStore.calendarMode
   primaryThemeColor.value = baseSettingsStore.primaryThemeColor
   secondaryThemeColor.value = baseSettingsStore.secondaryThemeColor
+}
+
+const { brandLogoUrl } = storeToRefs(baseSettingsStore) as unknown as {
+  brandLogoUrl: Ref<string>
 }
 
 onBeforeMount(async () => {
@@ -56,7 +61,9 @@ onMounted(async () => {
 
     <div class="secondary-container">
       <div class="row-container">
-        <InfoCard />
+        <div class="secondary-card">
+          <BrandLogoCard :logo-src="brandLogoUrl || screenlyLogo" />
+        </div>
       </div>
       <div class="row-container">
         <CalendarOverview v-if="calendarMode === 'monthly'" />
