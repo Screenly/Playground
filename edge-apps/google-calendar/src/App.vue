@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, shallowRef, type Ref } from 'vue'
+import { onBeforeMount, onMounted, type Ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 
 import { AnalogClock, BrandLogoCard } from 'blueprint/components'
@@ -23,27 +23,21 @@ const baseSettingsStore = useBaseSettingsStore()
 const calendarStore = useCalendarStore()
 const settingsStore = useSettingsStore()
 
-// Use shallowRef for better performance on resource-constrained devices
-const calendarMode = shallowRef(settingsStore.calendarMode)
-const primaryThemeColor = shallowRef(baseSettingsStore.primaryThemeColor)
-const secondaryThemeColor = shallowRef(baseSettingsStore.secondaryThemeColor)
-
-// Watch for changes and update refs
-const updateRefs = () => {
-  calendarMode.value = settingsStore.calendarMode
-  primaryThemeColor.value = baseSettingsStore.primaryThemeColor
-  secondaryThemeColor.value = baseSettingsStore.secondaryThemeColor
+const { calendarMode } = storeToRefs(settingsStore) as unknown as {
+  calendarMode: Ref<string>
 }
 
-const { brandLogoUrl } = storeToRefs(baseSettingsStore) as unknown as {
+const { brandLogoUrl, primaryThemeColor } = storeToRefs(
+  baseSettingsStore,
+) as unknown as {
   brandLogoUrl: Ref<string>
+  primaryThemeColor: Ref<string>
 }
 
 onBeforeMount(async () => {
   baseSettingsStore.setupTheme()
   settingsStore.init()
   await baseSettingsStore.setupBrandingLogo()
-  updateRefs()
 })
 
 onMounted(async () => {
