@@ -173,7 +173,6 @@ export const useCalendarStore = defineStore('calendar', () => {
   }
 
   return {
-    // State
     now,
     weeklyViewTime,
     events,
@@ -181,13 +180,11 @@ export const useCalendarStore = defineStore('calendar', () => {
     locale,
     currentTokenRef,
     isInitialized,
-    // Getters
     calendarMode,
     currentDayOfWeek,
     currentDate,
     currentMonthName,
     currentYear,
-    // Actions
     updateDateTime,
     refreshAccessToken,
     fetchEvents,

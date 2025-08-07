@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onBeforeMount, onMounted } from 'vue'
+import { defineStore } from 'pinia'
 
 import { AnalogClock } from 'blueprint/components'
+import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
+import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 
 import { useCalendarStore } from '@/stores/calendar'
 import MonthlyCalendarView from '@/components/MonthlyCalendarView.vue'
@@ -10,12 +13,31 @@ import InfoCard from '@/components/InfoCard.vue'
 import DailyCalendarView from '@/components/DailyCalendarView.vue'
 import WeeklyCalendarView from '@/components/WeeklyCalendarView.vue'
 
+const useMetadataStore = defineStore('metadataStore', metadataStoreSetup)
+const useBaseSettingsStore = defineStore(
+  'baseSettingsStore',
+  baseSettingsStoreSetup,
+)
+
+const baseSettingsStore = useBaseSettingsStore()
+const metadataStore = useMetadataStore()
 const calendarStore = useCalendarStore()
 
 const calendarMode = computed(() => calendarStore.calendarMode)
+const primaryThemeColor = computed(() => baseSettingsStore.primaryThemeColor)
+const secondaryThemeColor = computed(
+  () => baseSettingsStore.secondaryThemeColor,
+)
+
+onBeforeMount(async () => {
+  baseSettingsStore.setupTheme()
+  await baseSettingsStore.setupBrandingLogo()
+})
 
 onMounted(async () => {
   await calendarStore.initialize()
+
+  screenly.signalReadyForRendering()
 })
 </script>
 
@@ -34,7 +56,7 @@ onMounted(async () => {
         <div
           class="secondary-card"
           :style="{
-            backgroundColor: 'var(--theme-color-primary)',
+            backgroundColor: primaryThemeColor,
           }"
         >
           <AnalogClock class="app-clock" />
