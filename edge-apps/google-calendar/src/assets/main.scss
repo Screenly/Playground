@@ -201,19 +201,6 @@
   z-index: -1;
 }
 
-/* Media Query */
-
-/* 480px 720px Clock Container need to fix */
-
-/* TODO: Fix the Clock Circle issue : When Scale to .5, circle change to oval */
-
-/* Scale factors based on 1920x1080 baseline:
-   800x480: ~0.42x
-   1280x720: ~0.67x
-   3840x2160: 2x
-   4096x2160: ~2.13x
-*/
-
 @media screen and (max-width: 1280px) {
   /* Calendar Grid Styles */
   .calendar {
@@ -385,10 +372,6 @@
 }
 
 @media screen and (min-width: 480px) and (orientation: portrait) {
-  .clock-container {
-    transform: scale(0.7);
-  }
-
   .secondary-container {
     gap: 1rem;
   }
@@ -428,10 +411,6 @@
 }
 
 @media screen and (min-width: 720px) and (orientation: portrait) {
-  .clock-container {
-    transform: scale(1);
-  }
-
   .secondary-container {
     gap: 1rem;
   }
@@ -470,10 +449,6 @@
 }
 
 @media screen and (min-width: 800px) and (orientation: landscape) {
-  .clock-container {
-    transform: scale(0.5);
-  }
-
   .secondary-container {
     gap: 1rem;
   }
@@ -513,10 +488,6 @@
 }
 
 @media screen and (min-width: 1080px) and (orientation: portrait) {
-  .clock-container {
-    transform: scale(1.25);
-  }
-
   .secondary-container {
     gap: 3rem;
   }
@@ -555,10 +526,6 @@
 }
 
 @media screen and (min-width: 1280px) and (orientation: landscape) {
-  .clock-container {
-    transform: scale(0.9);
-  }
-
   .secondary-container {
     gap: 2rem;
   }
@@ -603,10 +570,6 @@
 }
 
 @media screen and (min-width: 1920px) and (orientation: landscape) {
-  .clock-container {
-    transform: scale(1.25);
-  }
-
   .secondary-container {
     gap: 2.5rem;
   }
@@ -664,10 +627,6 @@
 }
 
 @media screen and (min-width: 2160px) and (orientation: portrait) {
-  .clock-container {
-    transform: scale(2.7);
-  }
-
   .secondary-container {
     gap: 5rem;
   }
@@ -741,10 +700,6 @@
     border-width: 2px;
   }
 
-  .clock-container {
-    transform: scale(2.7);
-  }
-
   .secondary-container {
     gap: 5rem;
   }
@@ -794,10 +749,6 @@
 }
 
 @media screen and (min-width: 4096px) and (orientation: landscape) {
-  .clock-container {
-    transform: scale(2.8);
-  }
-
   .secondary-container {
     gap: 5rem;
   }

@@ -37,7 +37,7 @@ onMounted(async () => {
             backgroundColor: 'var(--theme-color-primary)',
           }"
         >
-          <AnalogClock />
+          <AnalogClock class="app-clock" />
         </div>
       </div>
     </div>
@@ -47,7 +47,7 @@ onMounted(async () => {
 <style scoped lang="scss">
 $base-scale: 0.25;
 
-.clock-container {
+.app-clock {
   @media screen and (min-width: 800px) and (orientation: landscape) {
     transform: scale($base-scale);
   }
