@@ -16,7 +16,8 @@ import {
   fetchCalendarEventsFromICal,
 } from '@/events'
 import { TOKEN_REFRESH_INTERVAL } from '@/constants'
-import type { CalendarEvent, ViewMode } from '@/constants'
+import type { CalendarEvent } from '@/constants'
+import { useSettingsStore } from '@/stores/settings'
 
 // Extend Window interface to include our custom property
 interface ExtendedWindow extends Window {
@@ -34,10 +35,6 @@ export const useCalendarStore = defineStore('calendar', () => {
   const isInitialized = ref(false)
 
   // Getters
-  const calendarMode = computed((): ViewMode => {
-    return (screenly.settings.calendar_mode as ViewMode) || 'monthly'
-  })
-
   const currentDayOfWeek = computed(() => {
     return getFormattedDayOfWeek(now.value, locale.value)
   })
@@ -87,7 +84,8 @@ export const useCalendarStore = defineStore('calendar', () => {
   }
 
   const fetchEvents = async () => {
-    const { calendar_source_type: sourceType } = screenly.settings
+    const settingsStore = useSettingsStore()
+    const sourceType = settingsStore.calendarSourceType
 
     if (sourceType === 'api') {
       const token = currentTokenRef.value || (await refreshAccessToken())
@@ -131,7 +129,8 @@ export const useCalendarStore = defineStore('calendar', () => {
       // Set up events fetching
       let eventsInterval: NodeJS.Timeout | undefined
 
-      const { calendar_source_type: sourceType } = screenly.settings
+      const settingsStore = useSettingsStore()
+      const sourceType = settingsStore.calendarSourceType
 
       if (sourceType === 'api') {
         const token = await refreshAccessToken()
@@ -180,7 +179,6 @@ export const useCalendarStore = defineStore('calendar', () => {
     locale,
     currentTokenRef,
     isInitialized,
-    calendarMode,
     currentDayOfWeek,
     currentDate,
     currentMonthName,

@@ -7,6 +7,7 @@ import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 
 import { useCalendarStore } from '@/stores/calendar'
+import { useSettingsStore } from '@/stores/settings'
 import MonthlyCalendarView from '@/components/MonthlyCalendarView.vue'
 import CalendarOverview from '@/components/CalendarOverview.vue'
 import InfoCard from '@/components/InfoCard.vue'
@@ -22,8 +23,9 @@ const useBaseSettingsStore = defineStore(
 const baseSettingsStore = useBaseSettingsStore()
 const metadataStore = useMetadataStore()
 const calendarStore = useCalendarStore()
+const settingsStore = useSettingsStore()
 
-const calendarMode = computed(() => calendarStore.calendarMode)
+const calendarMode = computed(() => settingsStore.calendarMode)
 const primaryThemeColor = computed(() => baseSettingsStore.primaryThemeColor)
 const secondaryThemeColor = computed(
   () => baseSettingsStore.secondaryThemeColor,
@@ -31,6 +33,7 @@ const secondaryThemeColor = computed(
 
 onBeforeMount(async () => {
   baseSettingsStore.setupTheme()
+  settingsStore.init()
   await baseSettingsStore.setupBrandingLogo()
 })
 
