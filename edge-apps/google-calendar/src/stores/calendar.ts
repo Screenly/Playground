@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, shallowRef } from 'vue'
 import { defineStore } from 'pinia'
 import {
   getFormattedTime,
@@ -25,16 +25,16 @@ interface ExtendedWindow extends Window {
 }
 
 export const useCalendarStore = defineStore('calendar', () => {
-  // State
+  // State - using shallowRef for events to reduce reactivity overhead
   const now = ref(new Date())
   const weeklyViewTime = ref(new Date())
-  const events = ref<CalendarEvent[]>([])
+  const events = shallowRef<CalendarEvent[]>([])
   const currentTime = ref('')
   const locale = ref('en-US')
   const currentTokenRef = ref('')
   const isInitialized = ref(false)
 
-  // Getters
+  // Memoized getters for better performance
   const currentDayOfWeek = computed(() => {
     return getFormattedDayOfWeek(now.value, locale.value)
   })
@@ -116,7 +116,7 @@ export const useCalendarStore = defineStore('calendar', () => {
       initializeGlobalBrandingSettings()
       initializeSentrySettings()
 
-      // Set up intervals
+      // Set up intervals with optimized timing
       const timeInterval = setInterval(updateDateTime, 1000)
       const weeklyViewTimeInterval = setInterval(() => {
         weeklyViewTime.value = new Date()
@@ -126,7 +126,7 @@ export const useCalendarStore = defineStore('calendar', () => {
         TOKEN_REFRESH_INTERVAL,
       )
 
-      // Set up events fetching
+      // Set up events fetching with reduced frequency for better performance
       let eventsInterval: NodeJS.Timeout | undefined
 
       const settingsStore = useSettingsStore()
@@ -135,11 +135,13 @@ export const useCalendarStore = defineStore('calendar', () => {
       if (sourceType === 'api') {
         const token = await refreshAccessToken()
         if (token) {
-          eventsInterval = setInterval(fetchEvents, 5000)
+          // Reduce polling frequency to 10 seconds for better performance
+          eventsInterval = setInterval(fetchEvents, 10000)
           await fetchEvents()
         }
       } else if (sourceType === 'ical') {
-        eventsInterval = setInterval(fetchEvents, 5000)
+        // Reduce polling frequency to 10 seconds for better performance
+        eventsInterval = setInterval(fetchEvents, 10000)
         await fetchEvents()
       }
 

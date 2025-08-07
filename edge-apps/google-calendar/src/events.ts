@@ -126,13 +126,14 @@ export const fetchCalendarEventsFromICal = async (): Promise<
     const startTimestamp = startDate.getTime()
     const endTimestamp = endDate.getTime()
 
-    // Process events in chunks to prevent blocking
-    const chunkSize = 50
+    // Process events in larger chunks for better performance
+    const chunkSize = 100
     const events: CalendarEvent[] = []
 
     for (let i = 0; i < vevents.length; i += chunkSize) {
       const chunk = vevents.slice(i, i + chunkSize)
 
+      // Process chunk synchronously for better performance
       chunk.forEach((vevent) => {
         const event = new ical.Event(vevent)
         const eventStart = event.startDate.toJSDate()
@@ -153,8 +154,10 @@ export const fetchCalendarEventsFromICal = async (): Promise<
         })
       })
 
-      // Allow other operations to process
-      await new Promise((resolve) => setTimeout(resolve, 0))
+      // Only yield control every few chunks to reduce overhead
+      if (i % (chunkSize * 3) === 0) {
+        await new Promise((resolve) => setTimeout(resolve, 0))
+      }
     }
 
     // Sort events once

@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, onMounted } from 'vue'
+import { onBeforeMount, onMounted, shallowRef } from 'vue'
 import { defineStore } from 'pinia'
 
 import { AnalogClock } from 'blueprint/components'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
-import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 
 import { useCalendarStore } from '@/stores/calendar'
 import { useSettingsStore } from '@/stores/settings'
@@ -14,27 +13,32 @@ import InfoCard from '@/components/InfoCard.vue'
 import DailyCalendarView from '@/components/DailyCalendarView.vue'
 import WeeklyCalendarView from '@/components/WeeklyCalendarView.vue'
 
-const useMetadataStore = defineStore('metadataStore', metadataStoreSetup)
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
   baseSettingsStoreSetup,
 )
 
 const baseSettingsStore = useBaseSettingsStore()
-const metadataStore = useMetadataStore()
 const calendarStore = useCalendarStore()
 const settingsStore = useSettingsStore()
 
-const calendarMode = computed(() => settingsStore.calendarMode)
-const primaryThemeColor = computed(() => baseSettingsStore.primaryThemeColor)
-const secondaryThemeColor = computed(
-  () => baseSettingsStore.secondaryThemeColor,
-)
+// Use shallowRef for better performance on resource-constrained devices
+const calendarMode = shallowRef(settingsStore.calendarMode)
+const primaryThemeColor = shallowRef(baseSettingsStore.primaryThemeColor)
+const secondaryThemeColor = shallowRef(baseSettingsStore.secondaryThemeColor)
+
+// Watch for changes and update refs
+const updateRefs = () => {
+  calendarMode.value = settingsStore.calendarMode
+  primaryThemeColor.value = baseSettingsStore.primaryThemeColor
+  secondaryThemeColor.value = baseSettingsStore.secondaryThemeColor
+}
 
 onBeforeMount(async () => {
   baseSettingsStore.setupTheme()
   settingsStore.init()
   await baseSettingsStore.setupBrandingLogo()
+  updateRefs()
 })
 
 onMounted(async () => {

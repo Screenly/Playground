@@ -90,6 +90,43 @@ const weekStart = computed(() => {
   return d
 })
 
+// Pre-computed event map for better performance
+const eventMap = computed(() => {
+  if (!events.value) return new Map()
+
+  const map = new Map<string, CalendarEvent[]>()
+
+  events.value.forEach((event) => {
+    const eventStart = new Date(event.startTime)
+
+    // Use toLocaleString for proper hour and day extraction
+    const eventHour = parseInt(
+      eventStart.toLocaleString('en-US', {
+        hour: 'numeric',
+        hour12: false,
+        timeZone: timezone,
+      }),
+    )
+
+    const eventDayOfWeek = eventStart.toLocaleString('en-US', {
+      weekday: 'long',
+      timeZone: timezone,
+    })
+
+    const dayIndex = DAYS_OF_WEEK.findIndex((day) =>
+      day.toLowerCase().startsWith(eventDayOfWeek.toLowerCase().slice(0, 3)),
+    )
+
+    const key = `${dayIndex}-${eventHour}`
+    if (!map.has(key)) {
+      map.set(key, [])
+    }
+    map.get(key)!.push(event)
+  })
+
+  return map
+})
+
 // Generate time slots - optimized for performance
 const generateTimeSlots = async () => {
   try {
@@ -143,46 +180,13 @@ const generateTimeSlots = async () => {
   }
 }
 
-// Get events for a specific time slot and day
+// Get events for a specific time slot and day - optimized with pre-computed map
 const getEventsForTimeSlot = (
   hour: number,
   dayOffset: number,
 ): CalendarEvent[] => {
-  if (!events.value) return []
-
-  return events.value.filter((event) => {
-    const eventStart = new Date(event.startTime)
-
-    // Use toLocaleString for proper hour and day extraction
-    const eventHour = parseInt(
-      eventStart.toLocaleString('en-US', {
-        hour: 'numeric',
-        hour12: false,
-        timeZone: timezone,
-      }),
-    )
-
-    const eventDayOfWeek = eventStart.toLocaleString('en-US', {
-      weekday: 'long',
-      timeZone: timezone,
-    })
-
-    const dayIndex = DAYS_OF_WEEK.findIndex((day) =>
-      day.toLowerCase().startsWith(eventDayOfWeek.toLowerCase().slice(0, 3)),
-    )
-
-    const isBeforeMidnight = hour < 24
-    const isInWindow =
-      hour >= currentHourInfo.value.windowStart &&
-      hour < currentHourInfo.value.windowStart + WINDOW_HOURS
-
-    return (
-      dayIndex === dayOffset &&
-      eventHour === hour &&
-      isBeforeMidnight &&
-      isInWindow
-    )
-  })
+  const key = `${dayOffset}-${hour}`
+  return eventMap.value.get(key) || []
 }
 
 // Get header date for a specific day
@@ -204,8 +208,17 @@ const isToday = (dayIndex: number): boolean => {
   )
 }
 
-// Get style for an event
+// Memoized event style computation
+const eventStyleCache = new Map<string, Record<string, string>>()
+
+// Get style for an event - with caching for better performance
 const getEventStyle = (event: CalendarEvent): Record<string, string> => {
+  const cacheKey = `${event.startTime}-${event.endTime}`
+
+  if (eventStyleCache.has(cacheKey)) {
+    return eventStyleCache.get(cacheKey)!
+  }
+
   const startTime = new Date(event.startTime)
   const endTime = new Date(event.endTime)
 
@@ -261,6 +274,17 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
     baseStyle['border-bottom'] = '3px dotted var(--border-color, white)'
   }
 
+  // Cache the result
+  eventStyleCache.set(cacheKey, baseStyle)
+
+  // Limit cache size to prevent memory leaks
+  if (eventStyleCache.size > 100) {
+    const firstKey = eventStyleCache.keys().next().value
+    if (firstKey) {
+      eventStyleCache.delete(firstKey)
+    }
+  }
+
   return baseStyle
 }
 
@@ -296,6 +320,15 @@ const monthYearDisplay = computed(() => {
     return `${monthNames[date.getMonth()].toUpperCase()} ${date.getFullYear()}`
   }
 })
+
+// Clear style cache when events change
+watch(
+  events,
+  () => {
+    eventStyleCache.clear()
+  },
+  { deep: true },
+)
 
 watch([now, timezone, currentHourInfo], generateTimeSlots, { immediate: true })
 </script>
