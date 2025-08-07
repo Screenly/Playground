@@ -1,49 +1,3 @@
-<template>
-  <div class="primary-card weekly-view">
-    <div v-if="!isReady || timeSlots.length === 0" class="weekly-calendar">
-      <div style="padding: 2rem; text-align: center">Loading calendar...</div>
-    </div>
-    <div v-else class="weekly-calendar">
-      <div class="month-year-header">{{ monthYearDisplay }}</div>
-      <div class="week-header">
-        <div class="time-label-spacer" />
-        <div v-for="(day, index) in DAYS_OF_WEEK" :key="day" class="day-header">
-          <span>{{ day }} </span>
-          <span :class="{ 'current-date': isToday(index) }">
-            {{ getHeaderDate(index) }}
-          </span>
-        </div>
-      </div>
-      <div class="week-body">
-        <div v-for="slot in timeSlots" :key="slot.hour" class="week-row">
-          <div class="time-label">{{ slot.time }}</div>
-          <div
-            v-for="(_, dayIndex) in DAYS_OF_WEEK"
-            :key="`${dayIndex}-${slot.hour}`"
-            class="day-column"
-          >
-            <div class="hour-line" />
-            <div
-              v-for="event in getEventsForTimeSlot(slot.hour, dayIndex)"
-              :key="event.startTime"
-              class="calendar-event-item"
-              :style="getEventStyle(event)"
-            >
-              <div class="event-title">{{ event.title }}</div>
-              <WeeklyTimeDisplay
-                :start-time="event.startTime"
-                :end-time="event.endTime"
-                :locale="locale"
-                :timezone="timezone"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
 import { useCalendarStore } from '@/stores/calendar'
@@ -332,6 +286,52 @@ watch(
 
 watch([now, timezone, currentHourInfo], generateTimeSlots, { immediate: true })
 </script>
+
+<template>
+  <div class="primary-card weekly-view">
+    <div v-if="!isReady || timeSlots.length === 0" class="weekly-calendar">
+      <div style="padding: 2rem; text-align: center">Loading calendar...</div>
+    </div>
+    <div v-else class="weekly-calendar">
+      <div class="month-year-header">{{ monthYearDisplay }}</div>
+      <div class="week-header">
+        <div class="time-label-spacer" />
+        <div v-for="(day, index) in DAYS_OF_WEEK" :key="day" class="day-header">
+          <span>{{ day }} </span>
+          <span :class="{ 'current-date': isToday(index) }">
+            {{ getHeaderDate(index) }}
+          </span>
+        </div>
+      </div>
+      <div class="week-body">
+        <div v-for="slot in timeSlots" :key="slot.hour" class="week-row">
+          <div class="time-label">{{ slot.time }}</div>
+          <div
+            v-for="(_, dayIndex) in DAYS_OF_WEEK"
+            :key="`${dayIndex}-${slot.hour}`"
+            class="day-column"
+          >
+            <div class="hour-line" />
+            <div
+              v-for="event in getEventsForTimeSlot(slot.hour, dayIndex)"
+              :key="event.startTime"
+              class="calendar-event-item"
+              :style="getEventStyle(event)"
+            >
+              <div class="event-title">{{ event.title }}</div>
+              <WeeklyTimeDisplay
+                :start-time="event.startTime"
+                :end-time="event.endTime"
+                :locale="locale"
+                :timezone="timezone"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style scoped src="@/assets/weekly-calendar-view.css">
 /* Styles imported from CSS file */
