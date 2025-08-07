@@ -8,10 +8,6 @@ import DailyCalendarView from '@/components/DailyCalendarView.vue'
 import AnalogClock from '@/components/AnalogClock.vue'
 import WeeklyCalendarView from '@/components/WeeklyCalendarView.vue'
 
-// Import CSS styles
-import '@/assets/common.css'
-import '@/assets/style.css'
-
 const calendarStore = useCalendarStore()
 
 const calendarMode = computed(() => calendarStore.calendarMode)
