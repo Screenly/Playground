@@ -56,4 +56,3 @@ settings:
     optional: false
     help_text: |
       Enter the body text that will be displayed as the welcome message content.
-
