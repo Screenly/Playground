@@ -13,10 +13,18 @@ const props = withDefaults(defineProps<Props>(), {
 
 const currentTime = ref(new Date())
 
-let clockTimer: ReturnType<typeof setInterval> | null = null
+let animationFrameId: number | null = null
+let lastUpdateTime = 0
 
-const updateClock = () => {
-  currentTime.value = new Date()
+const updateClock = (timestamp: number) => {
+  // Only update every 1000ms (1 second) for better performance
+  if (timestamp - lastUpdateTime >= 1000) {
+    currentTime.value = new Date()
+    lastUpdateTime = timestamp
+  }
+
+  // Continue the animation loop
+  animationFrameId = requestAnimationFrame(updateClock)
 }
 
 const getTimeInTimezone = (date: Date, timezone: string) => {
@@ -74,13 +82,14 @@ const getHandRotation = (type: 'hour' | 'minute' | 'second') => {
 }
 
 onMounted(() => {
-  updateClock()
-  clockTimer = setInterval(updateClock, 1000)
+  currentTime.value = new Date()
+  lastUpdateTime = performance.now()
+  animationFrameId = requestAnimationFrame(updateClock)
 })
 
 onUnmounted(() => {
-  if (clockTimer) {
-    clearInterval(clockTimer)
+  if (animationFrameId) {
+    cancelAnimationFrame(animationFrameId)
   }
 })
 </script>
@@ -177,10 +186,16 @@ onUnmounted(() => {
   display: flex;
   justify-content: center;
   transition: transform 0.1s ease-in-out;
+  /* Enable hardware acceleration for smoother animations */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .hands-box .second {
   transition: none;
+  /* Disable transition for second hand to prevent stuttering */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .hands-box .hour {
