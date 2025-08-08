@@ -8,7 +8,6 @@ dayjs.extend(utc)
 dayjs.extend(dayJsTimezone)
 
 import { useCalendarStore } from '@/stores/calendar'
-import { getLocale } from '@/utils'
 import WeeklyTimeDisplay from '@/components/WeeklyTimeDisplay.vue'
 import type { CalendarEvent, TimeSlot } from '@/constants'
 
@@ -96,7 +95,7 @@ const eventMap = computed(() => {
 // Generate time slots - optimized for performance
 const generateTimeSlots = async () => {
   try {
-    const userLocale = await getLocale()
+    const userLocale = calendarStore.locale
     locale.value = userLocale
 
     const slots: TimeSlot[] = []
