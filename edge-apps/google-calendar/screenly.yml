@@ -58,6 +58,24 @@ settings:
     optional: true
     help_text: |
       Enter the public iCal feed URL for your calendar. Only used when `calendar_source_type` is set to 'ical'.
+  override_locale:
+    type: string
+    default_value: ''
+    title: Override Locale
+    optional: true
+    help_text: |
+      Enter the locale to override the default locale for the calendar.
+      If left blank, the default locale will be used.
+      Example: 'fr'
+  override_timezone:
+    type: string
+    default_value: ''
+    title: Override Timezone
+    optional: true
+    help_text: |
+      Enter the timezone to override the default timezone for the calendar.
+      If left blank, the default timezone will be used.
+      Example: 'America/New_York'
   refresh_token:
     type: secret
     title: Google OAuth Refresh Token

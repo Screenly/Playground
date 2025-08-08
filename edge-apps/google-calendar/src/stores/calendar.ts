@@ -103,11 +103,29 @@ export const useCalendarStore = defineStore('calendar', () => {
   }
 
   const setupLocale = async () => {
+    const settingsStore = useSettingsStore()
+    const overrideLocale = settingsStore.overrideLocale
+
+    if (overrideLocale) {
+      locale.value = overrideLocale
+      return
+    }
+
     try {
       const fetchedLocale = await getLocale()
       locale.value = fetchedLocale
     } catch (error) {
       console.error('Error fetching locale:', error)
+    }
+  }
+
+  const setupTimeZone = () => {
+    const settingsStore = useSettingsStore()
+    const overrideTimezone = settingsStore.overrideTimezone
+    if (overrideTimezone) {
+      timezone.value = overrideTimezone
+    } else {
+      timezone.value = getTimeZone()
     }
   }
 
@@ -153,7 +171,7 @@ export const useCalendarStore = defineStore('calendar', () => {
       await updateDateTime()
 
       // Initialize the time zone
-      timezone.value = getTimeZone()
+      setupTimeZone()
 
       // Signal ready for rendering
       try {
