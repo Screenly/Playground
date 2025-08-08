@@ -3,7 +3,7 @@ version: 2
 # See: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference#directories-or-directory--
 
 updates:
-  - package-ecosystem: "npm"
+  - package-ecosystem: "bun"
     directories:
       - "edge-apps/*"
     schedule:
