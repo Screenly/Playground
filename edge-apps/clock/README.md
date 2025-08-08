@@ -1,6 +1,6 @@
 # Screenly Clock App
 
-![Clock Screen](./static/images/Clock-Preview.png)
+![Clock Screen](./static/img/Clock-Preview.png)
 
 ## Prerequisites
 
