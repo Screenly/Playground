@@ -248,13 +248,9 @@ watch(
   { deep: true },
 )
 
-watch(
-  now,
-  () => {
-    generateTimeSlots()
-  },
-  { immediate: true },
-)
+watch([now, props.timezone, currentHourInfo], generateTimeSlots, {
+  immediate: true,
+})
 </script>
 
 <style scoped>
