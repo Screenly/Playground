@@ -54,7 +54,7 @@ onMounted(async () => {
 <template>
   <div class="main-container">
     <MonthlyCalendarView v-if="calendarMode === 'monthly'" />
-    <DailyCalendarView v-if="calendarMode === 'daily'" />
+    <DailyCalendarView :timezone="timezone" v-if="calendarMode === 'daily'" />
     <WeeklyCalendarView :timezone="timezone" v-if="calendarMode === 'weekly'" />
 
     <div class="secondary-container">

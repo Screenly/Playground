@@ -25,7 +25,7 @@ const getDateRangeForViewMode = (viewMode: ViewMode) => {
   const endDate = new Date(today)
 
   if (viewMode === VIEW_MODE.DAILY) {
-    // For daily view, start from current hour today
+    startDate.setHours(0, 0, 0, 0)
     endDate.setDate(endDate.getDate() + 1)
     endDate.setHours(0, 0, 0, 0)
   } else {
@@ -88,6 +88,7 @@ export const fetchCalendarEventsFromAPI = async (
     const calendarData = await calendarResponse.json()
 
     const events = calendarData.items || []
+
     return formatEvents(events, viewMode as ViewMode)
   } catch (error) {
     console.error('Error fetching calendar events:', error)
