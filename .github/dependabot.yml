@@ -1,0 +1,15 @@
+version: 2
+# Note: The directories key (plural) supports globbing and wildcards, unlike directory (singular).
+# See: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference#directories-or-directory--
+
+updates:
+  - package-ecosystem: "npm"
+    directories:
+      - "edge-apps/*"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "pip"
+    directory: "/edge-apps/queue-management-system/server"
+    schedule:
+      interval: "weekly"
