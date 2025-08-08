@@ -1,4 +1,4 @@
-import { ref, computed, shallowRef } from 'vue'
+import { ref, computed, shallowRef, type Ref } from 'vue'
 import { defineStore } from 'pinia'
 import {
   getFormattedTime,
@@ -10,6 +10,7 @@ import {
   getFormattedDayOfWeek,
   getAccessToken,
   getLocale,
+  getTimeZone,
 } from '@/utils'
 import {
   fetchCalendarEventsFromAPI,
@@ -26,13 +27,15 @@ interface ExtendedWindow extends Window {
 
 export const useCalendarStore = defineStore('calendar', () => {
   // State - using shallowRef for events to reduce reactivity overhead
-  const now = ref(new Date())
-  const weeklyViewTime = ref(new Date())
-  const events = shallowRef<CalendarEvent[]>([])
-  const currentTime = ref('')
-  const locale = ref('en-US')
-  const currentTokenRef = ref('')
-  const isInitialized = ref(false)
+  const now: Ref<Date> = ref(new Date())
+  const weeklyViewTime: Ref<Date> = ref(new Date())
+  const events: Ref<CalendarEvent[]> = shallowRef([])
+  const currentTime: Ref<string> = ref('')
+  const locale: Ref<string> = ref('en-US')
+  const currentTokenRef: Ref<string> = ref('')
+  const isInitialized: Ref<boolean> = ref(false)
+
+  const timezone: Ref<string> = ref('UTC')
 
   // Memoized getters for better performance
   const currentDayOfWeek = computed(() => {
@@ -149,6 +152,9 @@ export const useCalendarStore = defineStore('calendar', () => {
       await setupLocale()
       await updateDateTime()
 
+      // Initialize the time zone
+      timezone.value = getTimeZone()
+
       // Signal ready for rendering
       try {
         screenly.signalReadyForRendering()
@@ -190,5 +196,6 @@ export const useCalendarStore = defineStore('calendar', () => {
     fetchEvents,
     setupLocale,
     initialize,
+    timezone,
   }
 })

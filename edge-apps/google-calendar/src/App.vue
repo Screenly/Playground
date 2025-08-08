@@ -34,6 +34,10 @@ const { brandLogoUrl, primaryThemeColor } = storeToRefs(
   primaryThemeColor: Ref<string>
 }
 
+const { timezone } = storeToRefs(calendarStore) as {
+  timezone: Ref<string>
+}
+
 onBeforeMount(async () => {
   baseSettingsStore.setupTheme()
   settingsStore.init()
@@ -51,11 +55,7 @@ onMounted(async () => {
   <div class="main-container">
     <MonthlyCalendarView v-if="calendarMode === 'monthly'" />
     <DailyCalendarView v-if="calendarMode === 'daily'" />
-    <!-- TODO: Make the timezone dynamic based on the settings. -->
-    <WeeklyCalendarView
-      :timezone="'America/Los_Angeles'"
-      v-if="calendarMode === 'weekly'"
-    />
+    <WeeklyCalendarView :timezone="timezone" v-if="calendarMode === 'weekly'" />
 
     <div class="secondary-container">
       <div class="row-container">
@@ -71,7 +71,7 @@ onMounted(async () => {
             backgroundColor: primaryThemeColor,
           }"
         >
-          <AnalogClock class="app-clock" />
+          <AnalogClock class="app-clock" :timezone="timezone" />
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ import { GOOGLE_OAUTH_TOKEN_URL } from '@/constants'
 import type { CalendarDay } from '@/constants'
 
 export const getTimeZone = (): string => {
-  const [latitude, longitude] = screenly.metadata.coordinates
+  const [latitude, longitude]: [number, number] = screenly.metadata.coordinates
   return tzlookup(latitude, longitude)
 }
 
