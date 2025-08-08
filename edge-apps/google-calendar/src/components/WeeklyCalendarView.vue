@@ -1,12 +1,26 @@
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import dayJsTimezone from 'dayjs/plugin/timezone'
+
+dayjs.extend(utc)
+dayjs.extend(dayJsTimezone)
+
 import { useCalendarStore } from '@/stores/calendar'
-import { getLocale, getTimeZone } from '@/utils'
+import { getLocale } from '@/utils'
 import WeeklyTimeDisplay from '@/components/WeeklyTimeDisplay.vue'
 import type { CalendarEvent, TimeSlot } from '@/constants'
 
+interface Props {
+  timezone?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  timezone: 'UTC',
+})
+
 const DAYS_OF_WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-const WINDOW_HOURS = 12
 
 const calendarStore = useCalendarStore()
 
@@ -17,15 +31,13 @@ const isReady = ref(false)
 const now = computed(() => calendarStore.now)
 const events = computed(() => calendarStore.events)
 
-const timezone = getTimeZone()
-
 // Calculate current hour info - memoized for performance
 const currentHourInfo = computed(() => {
   const currentHour = parseInt(
     new Date(now.value).toLocaleString('en-US', {
       hour: 'numeric',
       hour12: false,
-      timeZone: timezone,
+      timeZone: props.timezone,
     }),
   )
   return {
@@ -58,13 +70,13 @@ const eventMap = computed(() => {
       eventStart.toLocaleString('en-US', {
         hour: 'numeric',
         hour12: false,
-        timeZone: timezone,
+        timeZone: props.timezone,
       }),
     )
 
     const eventDayOfWeek = eventStart.toLocaleString('en-US', {
       weekday: 'long',
-      timeZone: timezone,
+      timeZone: props.timezone,
     })
 
     const dayIndex = DAYS_OF_WEEK.findIndex((day) =>
@@ -88,17 +100,28 @@ const generateTimeSlots = async () => {
     locale.value = userLocale
 
     const slots: TimeSlot[] = []
-    const baseDate = new Date(now.value)
+    const currentHour = currentHourInfo.value.current
 
-    for (let i = 0; i < WINDOW_HOURS; i++) {
-      const hour = (currentHourInfo.value.start + i) % 24
+    // Calculate dynamic 12-hour window based on current time
+    // Constraints: 12 slots, ending at 12:00 AM (midnight)
+    let startHour: number
 
-      // Skip slots at or after midnight
-      if (hour === 0 || currentHourInfo.value.start + i >= 24) {
-        continue
-      }
+    if (currentHour > 12) {
+      // Afternoon/Evening: Show window ending at midnight
+      // Always show 11 hours before midnight to midnight (1:00 PM to 12:00 AM)
+      startHour = 13 // 1:00 PM
+    } else {
+      // Morning: Show window ending at midnight of the same day
+      // For current time X, show X to X+11 (ending at midnight)
+      startHour = currentHour
+    }
+
+    // Generate slots for the 12-hour window
+    for (let i = 0; i < 12; i++) {
+      const hour = (startHour + i) % 24
 
       // Use toLocaleTimeString for proper formatting
+      const baseDate = new Date(now.value)
       baseDate.setHours(hour, 0, 0, 0)
       const timeString = baseDate.toLocaleTimeString(userLocale, {
         hour: 'numeric',
@@ -117,11 +140,24 @@ const generateTimeSlots = async () => {
     console.error('Error generating time slots:', error)
     // Fallback to simple time slots if locale fetch fails
     const slots: TimeSlot[] = []
-    for (let i = 0; i < WINDOW_HOURS; i++) {
-      const hour = (currentHourInfo.value.start + i) % 24
-      if (hour === 0 || currentHourInfo.value.start + i >= 24) continue
+    const currentHour = currentHourInfo.value.current
 
-      const formattedHour = hour % 12 || 12
+    // Calculate dynamic 12-hour window based on current time
+    let startHour: number
+
+    if (currentHour > 12) {
+      // Afternoon/Evening: Show window ending at midnight
+      startHour = 13 // 1:00 PM
+    } else {
+      // Morning: Show window ending at midnight of the same day
+      startHour = currentHour
+    }
+
+    for (let i = 0; i < 12; i++) {
+      const hour = (startHour + i) % 24
+
+      // Fix the 12-hour format to properly show 12 AM
+      const formattedHour = hour === 0 ? 12 : hour % 12 || 12
       const ampm = hour < 12 ? 'AM' : 'PM'
 
       slots.push({
@@ -173,40 +209,37 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
     return eventStyleCache.get(cacheKey)!
   }
 
-  const startTime = new Date(event.startTime)
-  const endTime = new Date(event.endTime)
+  const startTime = dayjs(event.startTime).tz(props.timezone)
+  const endTime = dayjs(event.endTime).tz(props.timezone)
 
-  const startMinutes = startTime.getMinutes()
+  const startMinutes = startTime.minute()
   const topOffset = startMinutes === 0 ? 50 : (startMinutes / 60) * 100 + 50
 
-  // Calculate duration in hours and minutes
-  let durationHours = endTime.getHours() - startTime.getHours()
-  let durationMinutes = endTime.getMinutes() - startTime.getMinutes()
-
-  // Handle events that span across midnight
-  if (endTime.getDate() !== startTime.getDate()) {
-    // Add 24 hours to account for the day change
-    durationHours += 24
-  }
-
-  // Handle negative minutes
-  if (durationMinutes < 0) {
-    durationHours -= 1
-    durationMinutes += 60
-  }
+  // Calculate duration using dayjs
+  const duration = endTime.diff(startTime, 'minute', true)
+  const durationHours = duration / 60
 
   // Calculate the raw height
-  const rawHeight = (durationHours + durationMinutes / 60) * 100
+  const rawHeight = durationHours * 100
 
   // Determine the maximum visible height based on the last time slot
   const lastVisibleHour =
     timeSlots.value[timeSlots.value.length - 1]?.hour || 23
-  const maxVisibleHeight = (lastVisibleHour - startTime.getHours()) * 100
+
+  // For events that span across midnight, ensure they extend to at least touch the 12:00 AM line
+  let maxVisibleHeight: number
+  if (endTime.date() !== startTime.date()) {
+    // Event spans across midnight, ensure it extends to midnight (hour 0)
+    maxVisibleHeight = (24 - startTime.hour()) * 100
+  } else {
+    // Event is within the same day
+    maxVisibleHeight = (lastVisibleHour - startTime.hour()) * 100
+  }
 
   // Limit the height to the maximum visible height
   const height = Math.min(rawHeight, maxVisibleHeight)
 
-  const endHour = endTime.getHours()
+  const endHour = endTime.hour()
 
   // Create the base style object
   const baseStyle: Record<string, string> = {
@@ -219,8 +252,7 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
   // Check if the event extends beyond the visible time slots
   if (
     endHour >= lastVisibleHour ||
-    (endTime.getDate() !== startTime.getDate() &&
-      endHour < timeSlots.value[0]?.hour)
+    (endTime.date() !== startTime.date() && endHour < timeSlots.value[0]?.hour)
   ) {
     // Add the dotted border to indicate the event continues beyond the visible area
     baseStyle['border-bottom-left-radius'] = '0'
@@ -284,7 +316,9 @@ watch(
   { deep: true },
 )
 
-watch([now, timezone, currentHourInfo], generateTimeSlots, { immediate: true })
+watch([now, props.timezone, currentHourInfo], generateTimeSlots, {
+  immediate: true,
+})
 </script>
 
 <template>
@@ -323,7 +357,7 @@ watch([now, timezone, currentHourInfo], generateTimeSlots, { immediate: true })
                 :start-time="event.startTime"
                 :end-time="event.endTime"
                 :locale="locale"
-                :timezone="timezone"
+                :timezone="props.timezone"
               />
             </div>
           </div>

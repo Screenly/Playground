@@ -51,7 +51,11 @@ onMounted(async () => {
   <div class="main-container">
     <MonthlyCalendarView v-if="calendarMode === 'monthly'" />
     <DailyCalendarView v-if="calendarMode === 'daily'" />
-    <WeeklyCalendarView v-if="calendarMode === 'weekly'" />
+    <!-- TODO: Make the timezone dynamic based on the settings. -->
+    <WeeklyCalendarView
+      :timezone="'America/Los_Angeles'"
+      v-if="calendarMode === 'weekly'"
+    />
 
     <div class="secondary-container">
       <div class="row-container">
