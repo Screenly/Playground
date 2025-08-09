@@ -30,7 +30,7 @@
     "offline-geocode-city": "^1.0.2",
     "pinia": "^3.0.3",
     "vue": "^3.5.17",
-    "yaml": "^2.8.0"
+    "yaml": "^2.8.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.53.1",
