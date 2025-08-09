@@ -15,7 +15,7 @@ settings:
     is_global: true
   override_locale:
     type: string
-    default_value: en
+    default_value: ''
     title: Override Locale
     optional: true
     help_text: |
