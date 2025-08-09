@@ -6,6 +6,13 @@ icon: https://playground.srly.io/edge-apps/clock/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 settings:
+  enable_analytics:
+    type: string
+    default_value: 'true'
+    title: Enable Analytics
+    optional: true
+    help_text: Enable or disable Sentry and Google Analytics integrations.
+    is_global: true
   override_locale:
     type: string
     default_value: en
@@ -29,13 +36,6 @@ settings:
     optional: true
     help_text: |
       Enter your Google Tag Manager container ID to enable tracking and analytics.
-    is_global: true
-  enable_analytics:
-    type: string
-    default_value: 'true'
-    title: Enable Analytics
-    optional: true
-    help_text: Enable or disable Sentry and Google Analytics integrations.
     is_global: true
   theme:
     type: string

@@ -11,9 +11,9 @@ settings:
     default_value: 'true'
     title: enable_analytics
     optional: true
-    is_global: true
     help_text: |
       Toggle to enable or disable Sentry and Google Analytics integrations.
+    is_global: true
   sentry_dsn:
     type: secret
     title: Sentry Client Key
@@ -26,9 +26,9 @@ settings:
     default_value: ''
     title: tag_manager_id
     optional: true
-    is_global: true
     help_text: |
       Enter your Google Tag Manager container ID to enable tracking and analytics.
+    is_global: true
   theme:
     type: string
     default_value: light
@@ -36,4 +36,3 @@ settings:
     optional: false
     help_text: |
       Select the visual theme for the app ('light' or 'dark').
-
