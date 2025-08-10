@@ -8,7 +8,6 @@ export const VIEW_MODE = {
   MONTHLY: 'monthly',
 } as const
 
-export const DAILY_VIEW_EVENT_LIMIT = 3
 export const TOKEN_REFRESH_INTERVAL = 30 * 60 * 1000 // 30 minutes in milliseconds
 
 export type ViewMode = (typeof VIEW_MODE)[keyof typeof VIEW_MODE]

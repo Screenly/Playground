@@ -1,9 +1,5 @@
 import ical from 'ical.js'
-import {
-  GOOGLE_CALENDAR_API_BASE_URL,
-  VIEW_MODE,
-  DAILY_VIEW_EVENT_LIMIT,
-} from '@/constants'
+import { GOOGLE_CALENDAR_API_BASE_URL, VIEW_MODE } from '@/constants'
 import type { CalendarEvent, ViewMode } from '@/constants'
 
 // Type for raw Google Calendar API event
@@ -41,10 +37,7 @@ const getDateRangeForViewMode = (viewMode: ViewMode) => {
   return { startDate, endDate }
 }
 
-const formatEvents = (
-  events: GoogleCalendarEvent[],
-  viewMode: ViewMode,
-): CalendarEvent[] => {
+const formatEvents = (events: GoogleCalendarEvent[]): CalendarEvent[] => {
   const formattedEvents: CalendarEvent[] = events.map((event) => ({
     title: event.summary,
     startTime: event.start.dateTime || event.start.date || '',
@@ -52,9 +45,7 @@ const formatEvents = (
     isAllDay: !event.start.dateTime,
   }))
 
-  return viewMode === VIEW_MODE.DAILY
-    ? formattedEvents.slice(0, DAILY_VIEW_EVENT_LIMIT)
-    : formattedEvents
+  return formattedEvents
 }
 
 export const fetchCalendarEventsFromAPI = async (
@@ -89,7 +80,7 @@ export const fetchCalendarEventsFromAPI = async (
 
     const events = calendarData.items || []
 
-    return formatEvents(events, viewMode as ViewMode)
+    return formatEvents(events)
   } catch (error) {
     console.error('Error fetching calendar events:', error)
     return []
@@ -164,9 +155,7 @@ export const fetchCalendarEventsFromICal = async (): Promise<
     // Sort events once
     events.sort((a, b) => a.startTime.localeCompare(b.startTime))
 
-    return (viewMode as ViewMode) === VIEW_MODE.DAILY
-      ? events.slice(0, DAILY_VIEW_EVENT_LIMIT)
-      : events
+    return events
   } catch (error) {
     console.error('Error fetching calendar events:', error)
     return []
