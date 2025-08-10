@@ -23,6 +23,11 @@
           </div>
         </div>
       </div>
+      <div
+        v-if="showCurrentTimeIndicator"
+        class="current-time-indicator"
+        :style="{ top: `${currentTimePosition}%` }"
+      />
     </div>
   </div>
 </template>
@@ -248,11 +253,134 @@ watch(
   { deep: true },
 )
 
+// Calculate current time position for the red line
+const currentTimePosition = computed(() => {
+  if (timeSlots.value.length === 0) return 0
+
+  const currentHour = parseInt(
+    now.value.toLocaleString('en-US', {
+      hour: 'numeric',
+      hour12: false,
+      timeZone: props.timezone,
+    }),
+  )
+  const currentMinute = now.value.getMinutes()
+
+  // Find the time slot that contains the current hour
+  const currentSlotIndex = timeSlots.value.findIndex(
+    (slot) => slot.hour === currentHour,
+  )
+
+  if (currentSlotIndex === -1) return -1 // Hide indicator if current time is not in visible range
+
+  // Calculate the percentage position within the current hour
+  // Add 30 minutes to move the line further down
+  const minutePercentage = (currentMinute + 30) / 60
+
+  // Calculate position as percentage of total visible time slots
+  const position =
+    ((currentSlotIndex + minutePercentage) / timeSlots.value.length) * 100
+
+  return Math.max(0, Math.min(100, position))
+})
+
+// Check if current time indicator should be visible
+const showCurrentTimeIndicator = computed(() => {
+  return currentTimePosition.value >= 0 && currentTimePosition.value <= 100
+})
+
 watch([now, props.timezone, currentHourInfo], generateTimeSlots, {
   immediate: true,
 })
+
+// Update current time position every minute for smooth movement
+watch(
+  now,
+  () => {
+    // Force reactivity update for current time position
+    // The computed property will automatically recalculate
+  },
+  { immediate: true },
+)
 </script>
 
 <style scoped>
 /* Component-specific styles if needed */
+
+.daily-calendar {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.current-time-indicator {
+  position: absolute;
+  left: 8.25rem;
+  right: 0;
+  height: 2px;
+  background-color: #ea4335;
+  z-index: 10;
+  pointer-events: none;
+  /* box-shadow: 0 0 4px rgba(234, 67, 53, 0.5); */
+}
+
+.current-time-indicator::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  background-color: #ea4335;
+  border-radius: 50%;
+  /* box-shadow: 0 0 4px rgba(234, 67, 53, 0.5); */
+}
+
+/* 1280x720 (Scale factor ≈ 0.67x) */
+@media screen and (width <= 1280px) {
+  .current-time-indicator {
+    height: 1.34px;
+    left: 5.53rem;
+  }
+
+  .current-time-indicator::before {
+    left: -4.02px;
+    top: -2.01px;
+    width: 5.36px;
+    height: 5.36px;
+  }
+}
+
+/* 800x480 (Scale factor ≈ 0.42x) */
+@media screen and (width <= 800px) {
+  .current-time-indicator {
+    height: 0.84px;
+    left: 3.8rem;
+  }
+
+  .current-time-indicator::before {
+    left: -2.52px;
+    top: -1.26px;
+    width: 3.36px;
+    height: 3.36px;
+  }
+}
+
+/* 3840x2160 (4K - Scale factor ≈ 2x) */
+@media screen and (width >= 3840px) {
+  .current-time-indicator {
+    height: 4px;
+    left: 16.5rem;
+  }
+
+  .current-time-indicator::before {
+    left: -12px;
+    top: -6px;
+    width: 16px;
+    height: 16px;
+  }
+}
 </style>

@@ -306,6 +306,42 @@ const monthYearDisplay = computed(() => {
   }
 })
 
+// Calculate current time position for the red line
+const currentTimePosition = computed(() => {
+  if (timeSlots.value.length === 0) return 0
+
+  const currentHour = parseInt(
+    now.value.toLocaleString('en-US', {
+      hour: 'numeric',
+      hour12: false,
+      timeZone: props.timezone,
+    }),
+  )
+  const currentMinute = now.value.getMinutes()
+
+  // Find the time slot that contains the current hour
+  const currentSlotIndex = timeSlots.value.findIndex(
+    (slot) => slot.hour === currentHour,
+  )
+
+  if (currentSlotIndex === -1) return -1 // Hide indicator if current time is not in visible range
+
+  // Calculate the percentage position within the current hour
+  // Add 30 minutes to move the line further down
+  const minutePercentage = (currentMinute + 30) / 60
+
+  // Calculate position as percentage of total visible time slots
+  const position =
+    ((currentSlotIndex + minutePercentage) / timeSlots.value.length) * 100
+
+  return Math.max(0, Math.min(100, position))
+})
+
+// Check if current time indicator should be visible
+const showCurrentTimeIndicator = computed(() => {
+  return currentTimePosition.value >= 0 && currentTimePosition.value <= 100
+})
+
 // Clear style cache when events change
 watch(
   events,
@@ -318,6 +354,16 @@ watch(
 watch([now, props.timezone, currentHourInfo], generateTimeSlots, {
   immediate: true,
 })
+
+// Update current time position every minute for smooth movement
+watch(
+  now,
+  () => {
+    // Force reactivity update for current time position
+    // The computed property will automatically recalculate
+  },
+  { immediate: true },
+)
 </script>
 
 <template>
@@ -361,6 +407,11 @@ watch([now, props.timezone, currentHourInfo], generateTimeSlots, {
             </div>
           </div>
         </div>
+        <div
+          v-if="showCurrentTimeIndicator"
+          class="current-time-indicator"
+          :style="{ top: `${currentTimePosition}%` }"
+        />
       </div>
     </div>
   </div>
