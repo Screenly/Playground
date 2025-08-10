@@ -204,7 +204,7 @@ The response will include a `refresh_token` and an `access_token` that can last 
   "expires_in": 3599,
   "refresh_token": "1//06o8d....[REDACTED]....nlo",
   "scope": "https://www.googleapis.com/auth/calendar",
-  "token_type": "Bearer",
+  "token_type": "Bearer"
 }
 ```
 
