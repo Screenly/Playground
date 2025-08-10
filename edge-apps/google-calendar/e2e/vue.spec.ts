@@ -18,14 +18,18 @@ test('basic app structure test', async ({ page }) => {
         tags: ['tag1', 'tag2', 'tag3'],
       },
       settings: {
-        greeting: 'World',
-        secret_word: 'test-secret',
-        screenly_color_accent: '#000000',
-        screenly_color_light: '#000000',
-        screenly_color_dark: '#000000',
+        bypass_cors: false,
+        calendar_mode: 'daily',
         enable_analytics: 'true',
+        ical_url: 'https://example.com',
+        override_locale: '',
+        override_timezone: '',
+        refresh_token: '',
+        screenly_color_accent: '#000000',
+        screenly_color_dark: '#000000',
+        screenly_color_light: '#000000',
+        sentry_dsn: '',
         tag_manager_id: '',
-        theme: 'light',
       },
       cors_proxy_url: 'https://example.com',
     }
@@ -44,24 +48,10 @@ test('basic app structure test', async ({ page }) => {
 
   await page.goto('/')
 
-  // Check for greeting and secret word
-  await expect(page.getByText('Greetings, World!')).toBeVisible()
-  await expect(page.getByText('You secret word is')).toBeVisible()
-  await expect(page.getByText('test-secret')).toBeVisible()
+  // Check for "Powered by Screenly" text
+  await expect(page.getByText('Powered by Screenly')).toBeVisible()
 
-  // Check for screen information
-  await expect(page.getByText('test-screen')).toBeVisible()
-  await expect(page.getByText('test-location')).toBeVisible()
-  await expect(page.getByText('40.7128°')).toBeVisible()
-  await expect(page.getByText('-74.006°')).toBeVisible()
-
-  // Check for hardware and hostname
-  await expect(page.getByText('test-host')).toBeVisible()
-  await expect(page.getByText('test-hardware')).toBeVisible()
-
-  // Check for specific text content
-  await expect(page.getByText("I'm test-screen")).toBeVisible()
-  await expect(page.getByText('My Screenly ID is')).toBeVisible()
-  await expect(page.getByText('which conveniently is also my hostname')).toBeVisible()
-  await expect(page.getByText("and I'm running on a")).toBeVisible()
+  // Check for calendar app structure
+  await expect(page.locator('.main-container')).toBeVisible()
+  await expect(page.locator('.secondary-container')).toBeVisible()
 })
