@@ -61,7 +61,7 @@ settings:
       Enter the public iCal feed URL for your calendar. Only used when `calendar_source_type` is set to 'ical'.
   override_locale:
     type: string
-    default_value: 'en'
+    default_value: en
     title: Override Locale
     optional: true
     help_text: |
