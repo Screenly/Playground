@@ -70,6 +70,7 @@ onMounted(async () => {
           :style="{
             backgroundColor: primaryThemeColor,
           }"
+          v-if="['daily', 'weekly'].includes(calendarMode)"
         >
           <AnalogClock class="app-clock" :timezone="timezone" />
         </div>
