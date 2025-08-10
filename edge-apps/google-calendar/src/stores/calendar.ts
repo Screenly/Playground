@@ -20,6 +20,8 @@ import { TOKEN_REFRESH_INTERVAL } from '@/constants'
 import type { CalendarEvent } from '@/constants'
 import { useSettingsStore } from '@/stores/settings'
 
+const EVENTS_REFRESH_INTERVAL = 10000
+
 // Extend Window interface to include our custom property
 interface ExtendedWindow extends Window {
   __calendarCleanup?: () => void
@@ -157,12 +159,12 @@ export const useCalendarStore = defineStore('calendar', () => {
         const token = await refreshAccessToken()
         if (token) {
           // Reduce polling frequency to 10 seconds for better performance
-          eventsInterval = setInterval(fetchEvents, 10000)
+          eventsInterval = setInterval(fetchEvents, EVENTS_REFRESH_INTERVAL)
           await fetchEvents()
         }
       } else if (sourceType === 'ical') {
         // Reduce polling frequency to 10 seconds for better performance
-        eventsInterval = setInterval(fetchEvents, 10000)
+        eventsInterval = setInterval(fetchEvents, EVENTS_REFRESH_INTERVAL)
         await fetchEvents()
       }
 
