@@ -1,0 +1,71 @@
+.daily-calendar {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.current-time-indicator {
+  position: absolute;
+  left: 8.25rem;
+  right: 0;
+  height: 2px;
+  background-color: #ea4335;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.current-time-indicator::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  background-color: #ea4335;
+  border-radius: 50%;
+}
+
+@media screen and (width <= 800px) {
+  .current-time-indicator {
+    height: 0.84px;
+    left: 3.8rem;
+  }
+
+  .current-time-indicator::before {
+    left: -2.52px;
+    top: -1.26px;
+    width: 3.36px;
+    height: 3.36px;
+  }
+}
+
+@media screen and (width <= 1280px) {
+  .current-time-indicator {
+    height: 1.34px;
+    left: 5.53rem;
+  }
+
+  .current-time-indicator::before {
+    left: -4.02px;
+    top: -2.01px;
+    width: 5.36px;
+    height: 5.36px;
+  }
+}
+
+@media screen and (width >= 3840px) {
+  .current-time-indicator {
+    height: 4px;
+    left: 16.5rem;
+  }
+
+  .current-time-indicator::before {
+    left: -12px;
+    top: -6px;
+    width: 16px;
+    height: 16px;
+  }
+}
