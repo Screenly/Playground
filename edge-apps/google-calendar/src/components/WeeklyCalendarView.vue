@@ -417,6 +417,4 @@ watch(
   </div>
 </template>
 
-<style scoped src="@/assets/weekly-calendar-view.css">
-/* Styles imported from CSS file */
-</style>
+<style scoped src="@/assets/weekly-calendar-view.scss"></style>
