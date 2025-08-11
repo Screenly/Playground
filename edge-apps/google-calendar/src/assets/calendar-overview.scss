@@ -9,40 +9,95 @@
       display: flex;
       flex-direction: column;
       padding: 0;
+      width: 80%;
+      gap: 1.5rem;
+      color: var(--theme-color-primary);
 
       .calendar-header {
         color: var(--theme-color-tertiary);
+        font-size: 2.286rem;
+        text-align: center;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 2rem;
       }
 
       .calendar-weekdays {
         color: var(--theme-color-tertiary);
         margin-bottom: 0;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 0;
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        font-size: 1.714rem;
+        text-transform: uppercase;
       }
 
       .calendar-grid {
         display: grid;
         border-color: var(--theme-color-tertiary);
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        gap: 0;
+        border: 1px solid var(--theme-color-primary);
+        border-radius: 12px;
+        overflow: hidden;
 
         .calendar-cell {
           padding: 0.2rem;
           border-color: var(--theme-color-tertiary);
           color: var(--theme-color-tertiary);
+          padding: 3rem 0.5rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 2.286rem;
+          color: var(--theme-color-primary);
+          border-right: 1px solid var(--theme-color-primary);
+          border-bottom: 1px solid var(--theme-color-primary);
+
+          &:nth-child(7n) {
+            border-right: none;
+          }
 
           &:nth-child(7n + 1) {
             color: var(--theme-color-accent);
           }
 
-          &.current-day {
-            &::before {
-              background-color: transparent;
-            }
-
-            background-color: var(--theme-color-tertiary);
-            color: var(--theme-color-primary);
+          &:nth-last-child(-n + 7) {
+            border-bottom: none;
           }
 
           &.other-month {
             color: #ffffffbb;
+            color: var(--theme-color-secondary);
+
+            &:nth-child(7n + 1) {
+              color: var(--theme-color-secondary);
+            }
+          }
+
+          &.current-day {
+            &::before {
+              background-color: transparent;
+              content: '';
+              position: absolute;
+              width: 5.5rem;
+              height: 5.5rem;
+              background-color: var(--theme-color-primary);
+              border-radius: 50%;
+              z-index: -1;
+            }
+
+            background-color: var(--theme-color-tertiary);
+            color: var(--theme-color-primary);
+            position: relative;
+            color: var(--theme-color-tertiary);
+            background-color: transparent;
+            font-weight: normal;
+            z-index: 1;
           }
         }
       }
@@ -50,61 +105,488 @@
   }
 }
 
-@mixin calendar-overview($orientation: 'landscape', $multiplier: 1) {
+.calendar-overview-card {
+  padding: 3rem;
+  color: var(--theme-color-tertiary);
+  background-color: var(--theme-color-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
+  h1,
+  p {
+    padding: 0;
+    margin: 0;
+  }
+
+  .calendar-top,
+  .calendar-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .calendar-top {
+    gap: 1.7rem;
+  }
+
+  .calendar-bottom h1 {
+    text-align: left;
+  }
+
+  .calendar-date {
+    font-size: 2.5rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+  }
+
+  .month-name {
+    display: inline-flex;
+    align-items: center;
+    height: 4rem;
+    font-weight: bold;
+    font-size: 2.8rem;
+  }
+
+  .date-number-box {
+    background-color: var(--theme-color-tertiary);
+    color: var(--theme-color-primary);
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.5rem;
+    margin-right: 0.75rem;
+  }
+
+  .calendar-event {
+    font-size: 2rem;
+
+    p {
+      font-size: 0.9em;
+    }
+  }
+
+  .calendar-time {
+    font-size: 2.5rem;
+  }
+
+  .calendar-overview-event-item {
+    font-size: 1em;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .date-number-circle {
+    background-color: var(--theme-color-tertiary);
+    color: var(--theme-color-primary);
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.9rem;
+    font-weight: bold;
+    font-size: 2.2rem;
+  }
+
+  .info-text {
+    font-size: 1.75rem;
+  }
+
+  .brand-logo {
+    width: 15rem;
+  }
+}
+
+@media screen and (max-width: 480px) and (orientation: portrait) {
+  .calendar-overview-card {
+    .info-text {
+      font-size: 0.88rem;
+    }
+
+    .brand-logo {
+      width: 6.6rem;
+    }
+
+    .calendar-overview-event-item {
+      font-size: 0.7rem;
+      padding-top: 0.7rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 0.1rem solid rgb(255 255 255 / 75%);
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
   .CalendarOverview {
     &.secondary-card {
       .calendar {
+        width: 85%;
+        gap: 0.42rem;
+
         .calendar-header {
-          font-size: 0.85rem * $multiplier;
+          font-size: 0.96rem;
+          margin-bottom: 0.84rem;
         }
 
         .calendar-weekdays {
-          font-size: 0.65rem * $multiplier;
+          font-size: 0.72rem;
         }
 
         .calendar-grid {
-          border-width: 0.1rem * $multiplier;
+          border-radius: 5px;
+          border-width: 0.42px;
 
           .calendar-cell {
-            border-right-width: 0.1rem * $multiplier;
-            border-bottom-width: 0.1rem * $multiplier;
-            font-size: 0.65rem * $multiplier;
-            padding: 0.2rem * $multiplier;
+            padding: 1.26rem 0.21rem;
+            font-size: 0.96rem;
+            border-right-width: 0.42px;
+            border-bottom-width: 0.42px;
+
+            &.current-day::before {
+              width: 2.73rem;
+              height: 2.73rem;
+            }
           }
         }
       }
     }
   }
+
+  .calendar-overview-card {
+    padding: 1.25rem;
+
+    .calendar-top {
+      gap: 0.7rem;
+    }
+
+    .calendar-date {
+      font-size: 1.05rem;
+    }
+
+    .month-name {
+      height: 1.47rem;
+      font-size: 1.05rem;
+    }
+
+    .calendar-event {
+      font-size: 0.85rem;
+
+      p {
+        margin: 0 0 0.21rem;
+      }
+    }
+
+    .calendar-time {
+      font-size: 1.05rem;
+    }
+
+    .calendar-overview-event-item {
+      font-size: 0.95em;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .date-number-circle {
+      width: 1.8rem;
+      height: 1.8rem;
+      margin-right: 0.4rem;
+      font-size: 1rem;
+    }
+  }
 }
 
-@media screen and (min-width: 800px) and (max-width: 1279px) and (orientation: landscape) {
-  @include calendar-overview('landscape', 1);
+@media screen and (max-width: 1280px) {
+  .CalendarOverview {
+    &.secondary-card {
+      .calendar {
+        width: 90%;
+        gap: 0.67rem;
+
+        .calendar-header {
+          font-size: 1.53rem;
+          margin-bottom: 1.34rem;
+        }
+
+        .calendar-weekdays {
+          font-size: 1.15rem;
+        }
+
+        .calendar-grid {
+          border-radius: 8px;
+          border-width: 0.67px;
+
+          .calendar-cell {
+            padding: 2rem 0.335rem;
+            font-size: 1.53rem;
+            border-right-width: 0.67px;
+            border-bottom-width: 0.67px;
+
+            &.current-day::before {
+              width: 4.355rem;
+              height: 4.355rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .calendar-overview-card {
+    padding: 2.01rem;
+
+    .calendar-top {
+      gap: 1.139rem;
+    }
+
+    .calendar-date {
+      font-size: 1.675rem;
+    }
+
+    .month-name {
+      height: 2.345rem;
+    }
+
+    .date-number-box {
+      padding: 0.268rem 0.402rem;
+      border-radius: 0.335rem;
+      margin-right: 0.5025rem;
+    }
+
+    .calendar-event {
+      font-size: 1.34rem;
+
+      p {
+        margin: 0 0 0.335rem;
+      }
+    }
+
+    .calendar-time {
+      font-size: 1.675rem;
+    }
+
+    .info-text {
+      font-size: 1.17rem;
+    }
+
+    .brand-logo {
+      width: 5.695rem;
+    }
+
+    .calendar-overview-event-item {
+      font-size: 1.12rem;
+      padding-top: 0.8rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 0.16rem solid rgb(255 255 255 / 75%);
+    }
+
+    .date-number-circle {
+      width: 2.68rem;
+      height: 2.68rem;
+      margin-right: 0.5rem;
+    }
+  }
 }
 
-@media screen and (min-width: 480px) and (max-width: 719px) and (orientation: portrait) {
-  @include calendar-overview('portrait', 1);
+@media screen and (min-width: 481px) and (max-width: 720px) and (orientation: portrait) {
+  .calendar-overview-card {
+    .info-text {
+      font-size: 1.34rem;
+    }
+
+    .brand-logo {
+      width: 10rem;
+    }
+
+    .calendar-overview-event-item {
+      font-size: 1.05rem;
+      padding-top: 1.05rem;
+      padding-bottom: 1.05rem;
+      border-bottom: 0.15rem solid rgb(255 255 255 / 75%);
+    }
+  }
 }
 
-@media screen and (min-width: 1280px) and (max-width: 1919px) and (orientation: landscape) {
-  @include calendar-overview('landscape', 1.5);
+@media screen and (min-width: 721px) and (max-width: 1080px) and (orientation: portrait) {
+  .calendar-overview-card {
+    .calendar-overview-event-item {
+      font-size: 1.58rem;
+      padding-top: 1.58rem;
+      padding-bottom: 1.58rem;
+      border-bottom: 0.225rem solid rgb(255 255 255 / 75%);
+    }
+  }
 }
 
-@media screen and (min-width: 720px) and (max-width: 1079px) and (orientation: portrait) {
-  @include calendar-overview('portrait', 1.6);
+@media screen and (min-width: 801px) and (max-width: 1280px) and (orientation: landscape) {
+  .calendar-overview-card {
+    .calendar-overview-event-item {
+      font-size: 1.12rem;
+      padding-top: 0.8rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 0.16rem solid rgb(255 255 255 / 75%);
+    }
+
+    .date-number-circle {
+      width: 2.88rem;
+      height: 2.88rem;
+      margin-right: 0.64rem;
+      font-size: 1.6rem;
+    }
+  }
 }
 
-@media screen and (min-width: 1920px) and (max-width: 3839px) and (orientation: landscape) {
-  @include calendar-overview('landscape', 2.25);
+@media screen and (min-width: 1081px) and (max-width: 2160px) and (orientation: portrait) {
+  .calendar-overview-card {
+    .calendar-overview-event-item {
+      font-size: 3.15rem;
+      padding-top: 3.15rem;
+      padding-bottom: 3.15rem;
+      border-bottom: 0.45rem solid rgb(255 255 255 / 75%);
+    }
+  }
 }
 
-@media screen and (min-width: 1080px) and (max-width: 2159px) and (orientation: portrait) {
-  @include calendar-overview('portrait', 2.4);
+@media screen and (min-width: 1281px) and (max-width: 1920px) and (orientation: landscape) {
+  .calendar-overview-card {
+    .calendar-overview-event-item {
+      font-size: 1.68rem;
+      padding-top: 1.2rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 0.24rem solid rgb(255 255 255 / 75%);
+    }
+
+    .date-number-circle {
+      width: 4.32rem;
+      height: 4.32rem;
+      margin-right: 0.96rem;
+      font-size: 2.4rem;
+    }
+  }
 }
 
-@media screen and (min-width: 3840px) and (orientation: landscape) {
-  @include calendar-overview('landscape', 4.5);
+@media screen and (min-width: 1920px) and (orientation: landscape) {
+  .calendar-overview-card {
+    .calendar-overview-event-item {
+      font-size: 3.36rem;
+      padding-top: 2.4rem;
+      padding-bottom: 2.4rem;
+      border-bottom: 0.48rem solid rgb(255 255 255 / 75%);
+    }
+
+    .date-number-circle {
+      width: 8.64rem;
+      height: 8.64rem;
+      margin-right: 1.92rem;
+      font-size: 4.8rem;
+    }
+  }
+}
+
+@media screen and (min-width: 1921px) and (orientation: landscape) {
+  .calendar-overview-card {
+    .calendar-overview-event-item {
+      font-size: 3.36rem;
+      padding-top: 2.4rem;
+      padding-bottom: 2.4rem;
+      border-bottom: 0.48rem solid rgb(255 255 255 / 75%);
+    }
+
+    .date-number-circle {
+      width: 8.64rem;
+      height: 8.64rem;
+      margin-right: 1.92rem;
+      font-size: 4.8rem;
+    }
+  }
 }
 
 @media screen and (min-width: 2160px) and (orientation: portrait) {
-  @include calendar-overview('portrait', 4.8);
+  .calendar-overview-card {
+    padding: 6rem;
+
+    .info-text {
+      font-size: 4rem;
+    }
+
+    .brand-logo {
+      width: 30rem;
+    }
+
+    .calendar-overview-event-item {
+      font-size: 1.15em;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    .date-number-circle {
+      width: 8rem;
+      height: 8rem;
+      margin-right: 1.5rem;
+      font-size: 4rem;
+    }
+
+    .calendar-date {
+      font-size: 5rem;
+    }
+
+    .month-name {
+      font-size: 5rem;
+    }
+
+    .calendar-event p {
+      font-size: 1.3em;
+    }
+  }
+}
+
+@media screen and (min-width: 3840px) and (orientation: landscape) {
+  .calendar-overview-card {
+    padding: 6rem;
+
+    .calendar-overview-event-item {
+      font-size: 1.15em;
+      padding-top: 2.6rem;
+      padding-bottom: 2.6rem;
+    }
+
+    .month-name {
+      font-size: 6rem;
+      height: 8.4rem;
+    }
+
+    .date-number-circle {
+      width: 11rem;
+      height: 11rem;
+      font-size: 5.5rem;
+      margin-right: 1.8rem;
+    }
+  }
+}
+
+@media screen and (min-width: 4096px) and (orientation: landscape) {
+  .calendar-overview-card {
+    .date-number-circle {
+      width: 9.12rem;
+      height: 9.12rem;
+      margin-right: 2rem;
+    }
+
+    .info-text {
+      font-size: 3.73rem;
+    }
+  }
+}
+
+@media (orientation: portrait) {
+  .calendar-overview-card {
+    .calendar-overview-event-item {
+      font-size: 1.15em;
+    }
+  }
 }

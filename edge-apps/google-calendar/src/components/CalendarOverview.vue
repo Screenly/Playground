@@ -91,6 +91,4 @@ const calendarDays = computed((): CalendarDay[] => {
 })
 </script>
 
-<style scoped src="@/assets/calendar-overview.scss">
-/* Styles imported from SCSS file */
-</style>
+<style scoped src="@/assets/calendar-overview.scss"></style>
