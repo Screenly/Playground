@@ -5,67 +5,218 @@
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
-}
 
-.current-time-indicator {
-  position: absolute;
-  left: 8.25rem;
-  right: 0;
-  height: 2px;
-  background-color: #ea4335;
-  z-index: 10;
-  pointer-events: none;
-}
+  .time-slot {
+    display: flex;
+    align-items: center;
+    height: calc(100% / 12);
+    position: relative;
 
-.current-time-indicator::before {
-  content: '';
-  position: absolute;
-  left: -6px;
-  top: -3px;
-  width: 8px;
-  height: 8px;
-  background-color: #ea4335;
-  border-radius: 50%;
-}
+    .time-label {
+      width: 6rem;
+      color: var(--theme-color-text);
+      font-size: 1rem;
+      padding-right: 0.75rem;
+      text-align: right;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
 
-@media screen and (width <= 800px) {
+    .time-content {
+      flex: 1;
+      position: relative;
+      height: 100%;
+      min-width: 0;
+
+      .hour-line {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0;
+        right: 0;
+        height: 1px;
+        background-color: var(--theme-color-secondary);
+        z-index: 1;
+      }
+
+      .calendar-event-item {
+        position: absolute;
+        background-color: #e6e7e7;
+        color: var(--theme-color-text);
+        padding: 0.5rem;
+        border-radius: 0.3rem;
+        border-left-color: var(--theme-color-primary);
+        border-width: 0 0 0 0.4rem;
+        margin: 0.25rem;
+        font-size: 1rem;
+        z-index: 2;
+        left: 0;
+        right: 0.5rem;
+        min-height: 3.2rem;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+
+        > div {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          &:first-child {
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+          }
+        }
+      }
+    }
+  }
+
   .current-time-indicator {
-    height: 0.84px;
-    left: 3.8rem;
-  }
+    position: absolute;
+    left: 8.25rem;
+    right: 0;
+    height: 2px;
+    background-color: #ea4335;
+    z-index: 10;
+    pointer-events: none;
 
-  .current-time-indicator::before {
-    left: -2.52px;
-    top: -1.26px;
-    width: 3.36px;
-    height: 3.36px;
-  }
-}
-
-@media screen and (width <= 1280px) {
-  .current-time-indicator {
-    height: 1.34px;
-    left: 5.53rem;
-  }
-
-  .current-time-indicator::before {
-    left: -4.02px;
-    top: -2.01px;
-    width: 5.36px;
-    height: 5.36px;
+    &::before {
+      content: '';
+      position: absolute;
+      left: -6px;
+      top: -3px;
+      width: 8px;
+      height: 8px;
+      background-color: #ea4335;
+      border-radius: 50%;
+    }
   }
 }
 
-@media screen and (width >= 3840px) {
-  .current-time-indicator {
-    height: 4px;
-    left: 16.5rem;
-  }
+@media screen and (max-width: 800px) {
+  .daily-calendar {
+    padding: 0.84rem;
 
-  .current-time-indicator::before {
-    left: -12px;
-    top: -6px;
-    width: 16px;
-    height: 16px;
+    .time-slot {
+      .time-label {
+        width: 2.52rem;
+        font-size: 0.42rem;
+        padding-right: 0.315rem;
+      }
+
+      .time-content {
+        .calendar-event-item {
+          padding: 0.21rem;
+          border-radius: 0.13rem;
+          border-width: 0 0 0 0.17rem;
+          margin: 0.105rem;
+          font-size: 0.42rem;
+          right: 0.21rem;
+          min-height: 1.344rem;
+
+          > div:first-child {
+            margin-bottom: 0.105rem;
+          }
+        }
+      }
+    }
+
+    .current-time-indicator {
+      height: 0.84px;
+      left: 3.8rem;
+
+      &::before {
+        left: -2.52px;
+        top: -1.26px;
+        width: 3.36px;
+        height: 3.36px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 801px) and (max-width: 1919px) {
+  .daily-calendar {
+    padding: 1.34rem;
+
+    .time-slot {
+      .time-label {
+        width: 4.02rem;
+        font-size: 0.67rem;
+        padding-right: 0.5025rem;
+      }
+
+      .time-content {
+        .calendar-event-item {
+          padding: 0.335rem;
+          border-radius: 0.2rem;
+          border-width: 0 0 0 0.27rem;
+          margin: 0.1675rem;
+          font-size: 0.67rem;
+          right: 0.335rem;
+          min-height: 2.144rem;
+
+          > div:first-child {
+            margin-bottom: 0.1675rem;
+          }
+        }
+      }
+    }
+
+    .current-time-indicator {
+      height: 1.34px;
+      left: 5.53rem;
+
+      &::before {
+        left: -4.02px;
+        top: -2.01px;
+        width: 5.36px;
+        height: 5.36px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 3840px) {
+  .daily-calendar {
+    padding: 4rem;
+
+    .time-slot {
+      .time-label {
+        width: 12rem;
+        font-size: 2rem;
+        padding-right: 1.5rem;
+      }
+
+      .time-content {
+        .calendar-event-item {
+          padding: 1rem;
+          border-radius: 0.6rem;
+          border-width: 0 0 0 0.8rem;
+          margin: 0.5rem;
+          font-size: 2rem;
+          right: 1rem;
+          min-height: 6.4rem;
+
+          > div:first-child {
+            margin-bottom: 0.5rem;
+          }
+        }
+      }
+    }
+
+    .current-time-indicator {
+      height: 4px;
+      left: 16.5rem;
+
+      &::before {
+        left: -12px;
+        top: -6px;
+        width: 16px;
+        height: 16px;
+      }
+    }
   }
 }
