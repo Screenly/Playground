@@ -1,3 +1,41 @@
+@mixin daily-calendar-view($orientation: 'landscape', $multiplier: 1) {
+  .daily-calendar {
+    padding: 0.84rem * $multiplier;
+
+    .time-slot {
+      .time-label {
+        width: 2.52rem * $multiplier;
+        font-size: 0.42rem * $multiplier;
+        padding-right: 0.315rem * $multiplier;
+      }
+
+      .time-content {
+        .calendar-event-item {
+          padding: 0.25rem * $multiplier;
+          border-radius: 0.13rem * $multiplier;
+          border-width: 0 0 0 0.17rem * $multiplier;
+          margin: 0.105rem * $multiplier;
+          font-size: 0.42rem * $multiplier;
+          right: 0.21rem * $multiplier;
+          min-height: 1.344rem * $multiplier;
+          font-size: 0.4rem * $multiplier;
+
+          .event-title {
+            margin-bottom: 0.1rem * $multiplier;
+          }
+        }
+      }
+    }
+
+    .current-time-indicator {
+      height: 0.05rem * $multiplier;
+      top: 1rem * $multiplier;
+      left: 3.35rem * $multiplier;
+      right: 0.84rem * $multiplier;
+    }
+  }
+}
+
 .daily-calendar {
   position: relative;
   height: 100%;
@@ -46,8 +84,6 @@
         color: var(--theme-color-text);
         padding: 0.5rem;
         border-radius: 0.3rem;
-        border-left-color: var(--theme-color-primary);
-        border-width: 0 0 0 0.4rem;
         margin: 0.25rem;
         font-size: 1rem;
         z-index: 2;
@@ -63,11 +99,10 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+        }
 
-          &:first-child {
-            font-weight: bold;
-            margin-bottom: 0.25rem;
-          }
+        .event-title {
+          font-weight: bold;
         }
       }
     }
@@ -75,148 +110,24 @@
 
   .current-time-indicator {
     position: absolute;
-    left: 8.25rem;
-    right: 0;
-    height: 2px;
     background-color: #ea4335;
     z-index: 10;
     pointer-events: none;
-
-    &::before {
-      content: '';
-      position: absolute;
-      left: -6px;
-      top: -3px;
-      width: 8px;
-      height: 8px;
-      background-color: #ea4335;
-      border-radius: 50%;
-    }
   }
 }
 
-@media screen and (max-width: 800px) {
-  .daily-calendar {
-    padding: 0.84rem;
-
-    .time-slot {
-      .time-label {
-        width: 2.52rem;
-        font-size: 0.42rem;
-        padding-right: 0.315rem;
-      }
-
-      .time-content {
-        .calendar-event-item {
-          padding: 0.21rem;
-          border-radius: 0.13rem;
-          border-width: 0 0 0 0.17rem;
-          margin: 0.105rem;
-          font-size: 0.42rem;
-          right: 0.21rem;
-          min-height: 1.344rem;
-
-          > div:first-child {
-            margin-bottom: 0.105rem;
-          }
-        }
-      }
-    }
-
-    .current-time-indicator {
-      height: 0.84px;
-      left: 3.8rem;
-
-      &::before {
-        left: -2.52px;
-        top: -1.26px;
-        width: 3.36px;
-        height: 3.36px;
-      }
-    }
-  }
+@media screen and (min-width: 800px) and (orientation: landscape) {
+  @include daily-calendar-view('landscape', 1);
 }
 
-@media screen and (min-width: 801px) and (max-width: 1919px) {
-  .daily-calendar {
-    padding: 1.34rem;
-
-    .time-slot {
-      .time-label {
-        width: 4.02rem;
-        font-size: 0.67rem;
-        padding-right: 0.5025rem;
-      }
-
-      .time-content {
-        .calendar-event-item {
-          padding: 0.335rem;
-          border-radius: 0.2rem;
-          border-width: 0 0 0 0.27rem;
-          margin: 0.1675rem;
-          font-size: 0.67rem;
-          right: 0.335rem;
-          min-height: 2.144rem;
-
-          > div:first-child {
-            margin-bottom: 0.1675rem;
-          }
-        }
-      }
-    }
-
-    .current-time-indicator {
-      height: 1.34px;
-      left: 5.53rem;
-
-      &::before {
-        left: -4.02px;
-        top: -2.01px;
-        width: 5.36px;
-        height: 5.36px;
-      }
-    }
-  }
+@media screen and (min-width: 1280px) and (orientation: landscape) {
+  @include daily-calendar-view('landscape', 1.5);
 }
 
-@media screen and (min-width: 3840px) {
-  .daily-calendar {
-    padding: 4rem;
+@media screen and (min-width: 1920px) and (orientation: landscape) {
+  @include daily-calendar-view('landscape', 2.25);
+}
 
-    .time-slot {
-      .time-label {
-        width: 12rem;
-        font-size: 2rem;
-        padding-right: 1.5rem;
-      }
-
-      .time-content {
-        .calendar-event-item {
-          padding: 1rem;
-          border-radius: 0.6rem;
-          border-width: 0 0 0 0.8rem;
-          margin: 0.5rem;
-          font-size: 2rem;
-          right: 1rem;
-          min-height: 6.4rem;
-
-          > div:first-child {
-            margin-bottom: 0.5rem;
-          }
-        }
-      }
-    }
-
-    .current-time-indicator {
-      height: 4px;
-      left: 16.5rem;
-
-      &::before {
-        left: -12px;
-        top: -6px;
-        width: 16px;
-        height: 16px;
-      }
-    }
-  }
+@media screen and (min-width: 3840px) and (orientation: landscape) {
+  @include daily-calendar-view('landscape', 4.5);
 }

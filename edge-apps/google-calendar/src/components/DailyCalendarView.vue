@@ -14,7 +14,7 @@
             class="calendar-event-item"
             :style="getEventStyle(event)"
           >
-            <div style="margin-bottom: 0.5rem">
+            <div class="event-title">
               {{ event.title }}
             </div>
             <div>
@@ -202,7 +202,9 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
   const endTime = dayjs(event.endTime).tz(props.timezone)
 
   const startMinutes = startTime.minute()
-  const topOffset = startMinutes === 0 ? 50 : (startMinutes / 60) * 100 + 50
+  const baseOffset = 45
+  const topOffset =
+    startMinutes === 0 ? baseOffset : (startMinutes / 60) * 100 + baseOffset
 
   // Calculate duration using dayjs
   const duration = endTime.diff(startTime, 'minute', true)
@@ -232,7 +234,6 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
     top: `${topOffset}%`,
     height: `${height}%`,
     'border-radius': '6px',
-    border: '2px solid var(--border-color, white)',
   }
 
   // Cache the result
@@ -279,8 +280,8 @@ const currentTimePosition = computed(() => {
   if (currentSlotIndex === -1) return -1 // Hide indicator if current time is not in visible range
 
   // Calculate the percentage position within the current hour
-  // Add 30 minutes to move the line further down
-  const minutePercentage = (currentMinute + 30) / 60
+  // Add 45 minutes to move the line further down
+  const minutePercentage = (currentMinute + 45) / 60
 
   // Calculate position as percentage of total visible time slots
   const position =
