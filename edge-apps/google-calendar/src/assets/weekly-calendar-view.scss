@@ -16,6 +16,7 @@
   font-size: $font-size;
   overflow: hidden;
   color: var(--theme-color-text);
+  z-index: 2;
 }
 
 @mixin time-indicator-base($height, $left-position) {
@@ -127,6 +128,7 @@
     height: 1px;
     background-color: var(--theme-color-secondary);
     opacity: 0.5;
+    z-index: 1;
   }
 
   .calendar-event-item {
