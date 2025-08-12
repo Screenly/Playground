@@ -202,9 +202,7 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
   const endTime = dayjs(event.endTime).tz(props.timezone)
 
   const startMinutes = startTime.minute()
-  const baseOffset = 45
-  const topOffset =
-    startMinutes === 0 ? baseOffset : (startMinutes / 60) * 100 + baseOffset
+  const topOffset = startMinutes === 0 ? 50 : (startMinutes / 60) * 100 + 50
 
   // Calculate duration using dayjs
   const duration = endTime.diff(startTime, 'minute', true)
@@ -213,6 +211,10 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
   // Calculate the raw height
   const rawHeight = durationHours * 100
 
+  // Determine the maximum visible height based on the last time slot
+  const lastVisibleHour =
+    timeSlots.value[timeSlots.value.length - 1]?.hour || 23
+
   // For events that span across midnight, ensure they extend to at least touch the 12:00 AM line
   let maxVisibleHeight: number
   if (endTime.date() !== startTime.date()) {
@@ -220,14 +222,11 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
     maxVisibleHeight = (24 - startTime.hour()) * 100
   } else {
     // Event is within the same day
-    // Use a more reliable calculation that doesn't depend on timeSlots being populated
-    const eventEndHour = endTime.hour()
-    const eventStartHour = startTime.hour()
-    maxVisibleHeight = Math.max((eventEndHour - eventStartHour) * 100, 100) // Minimum 1 hour height
+    maxVisibleHeight = (lastVisibleHour - startTime.hour()) * 100
   }
 
-  // Limit the height to the maximum visible height, but ensure minimum height
-  const height = Math.max(Math.min(rawHeight, maxVisibleHeight), 100)
+  // Limit the height to the maximum visible height
+  const height = Math.min(rawHeight, maxVisibleHeight)
 
   // Create the base style object
   const baseStyle: Record<string, string> = {

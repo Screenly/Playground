@@ -10,6 +10,10 @@
       }
 
       .time-content {
+        .hour-line {
+          height: 0.05rem * $multiplier;
+        }
+
         .calendar-event-item {
           padding: 0.25rem * $multiplier;
           border-radius: 0.13rem * $multiplier;
@@ -73,7 +77,6 @@
         transform: translateY(-50%);
         left: 0;
         right: 0;
-        height: 1px;
         background-color: var(--theme-color-secondary);
         z-index: 1;
       }
