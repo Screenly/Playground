@@ -2,7 +2,6 @@ import { ref, computed, shallowRef, type Ref } from 'vue'
 import { defineStore } from 'pinia'
 import {
   getFormattedTime,
-  initializeGlobalBrandingSettings,
   initializeSentrySettings,
   getFormattedMonthName,
   getYear,
@@ -139,8 +138,7 @@ export const useCalendarStore = defineStore('calendar', () => {
       // Anywhere Screens won't always show UTC time.
       setupTimeZone()
 
-      // Initialize branding and Sentry
-      initializeGlobalBrandingSettings()
+      // Initialize Sentry
       initializeSentrySettings()
 
       // Set up intervals with optimized timing
