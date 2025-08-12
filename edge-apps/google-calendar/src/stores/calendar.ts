@@ -135,6 +135,10 @@ export const useCalendarStore = defineStore('calendar', () => {
     if (isInitialized.value) return
 
     try {
+      // We have to initialize the timezone as soon as we can so that
+      // Anywhere Screens won't always show UTC time.
+      setupTimeZone()
+
       // Initialize branding and Sentry
       initializeGlobalBrandingSettings()
       initializeSentrySettings()
@@ -171,9 +175,6 @@ export const useCalendarStore = defineStore('calendar', () => {
       // Set up locale and initial time
       await setupLocale()
       await updateDateTime()
-
-      // Initialize the time zone
-      setupTimeZone()
 
       // Signal ready for rendering
       try {
