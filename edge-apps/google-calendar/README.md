@@ -137,6 +137,10 @@ The first half requires browser interaction. The second half can be done only us
 
 ![Enable Google Calendar API](static/images/enable-google-calendar-api.png)
 
+#### Managing Services for Google Workspace users
+
+As an administrator, you can control who can use the Google Calendar API. More details can be found [here](https://support.google.com/a/answer/6002940).
+
 ### Part 2: Configuring OAuth Consent
 
 Follow the steps in the [this guide on configuring OAuth consent](https://developers.google.com/workspace/guides/configure-oauth-consent).
@@ -170,6 +174,11 @@ https://accounts.google.com/o/oauth2/v2/auth?client_id=YOUR_CLIENT_ID
 &prompt=consent
 &redirect_uri=YOUR_REDIRECT_URI
 ```
+
+> [!NOTE]
+> Setting the scope to `https://www.googleapis.com/auth/calendar` enables users to see, edit, and share, and permanently delete all the calendars that they have access to.
+> You could be more specific with the scope by setting it to something like `https://www.googleapis.com/auth/calendar.readonly`. More information can be found
+> [here](https://developers.google.com/workspace/calendar/api/auth#scopes).
 
 You will be prompted to select a Google account. Select the account you want to use to access your Google Calendar. Follow the instructions to allow access to your Google Calendar.
 
