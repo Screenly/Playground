@@ -8,7 +8,7 @@ dayjs.extend(utc)
 dayjs.extend(dayJsTimezone)
 
 import { useCalendarStore } from '@/stores/calendar'
-import WeeklyTimeDisplay from '@/components/WeeklyTimeDisplay.vue'
+import EventTimeRange from '@/components/EventTimeRange.vue'
 import type { CalendarEvent, TimeSlot } from '@/constants'
 
 interface Props {
@@ -398,7 +398,7 @@ watch(
               :style="getEventStyle(event)"
             >
               <div class="event-title">{{ event.title }}</div>
-              <WeeklyTimeDisplay
+              <EventTimeRange
                 :start-time="event.startTime"
                 :end-time="event.endTime"
                 :locale="locale"

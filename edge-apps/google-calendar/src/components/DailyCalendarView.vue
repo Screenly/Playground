@@ -18,7 +18,12 @@
               {{ event.title }}
             </div>
             <div>
-              <TimeDisplay :event="event" />
+              <EventTimeRange
+                :start-time="event.startTime"
+                :end-time="event.endTime"
+                :locale="locale"
+                :timezone="props.timezone"
+              />
             </div>
           </div>
         </div>
@@ -35,7 +40,7 @@
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
 import { useCalendarStore } from '@/stores/calendar'
-import TimeDisplay from '@/components/TimeDisplay.vue'
+import EventTimeRange from '@/components/EventTimeRange.vue'
 import type { CalendarEvent, TimeSlot } from '@/constants'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
