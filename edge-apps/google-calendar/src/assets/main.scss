@@ -8,7 +8,6 @@
   --theme-color-text: #000;
 }
 
-/* Base styles for landscape */
 .main-container {
   display: flex;
   flex-direction: row;
@@ -21,12 +20,12 @@
 .primary-card {
   width: 75%;
   background-color: var(--theme-color-tertiary);
-  order: 1; /* Move to right */
+  order: 1;
 }
 
 .secondary-container {
   width: 25%;
-  order: 0; /* Move to left */
+  order: 0;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -38,29 +37,27 @@
 }
 
 @media screen and (max-width: 1280px) {
-  /* Info Card */
   .info-text {
-    font-size: 1.17rem; /* 1.75rem * 0.67 */
+    font-size: 1.17rem;
   }
 
   .brand-logo {
-    width: 5.695rem; /* 8.5rem * 0.67 */
+    width: 5.695rem;
   }
 
   .info-card {
-    gap: 2.01rem; /* 3rem * 0.67 */
+    gap: 2.01rem;
   }
 }
 
 @media screen and (min-width: 3840px) and (orientation: landscape) {
   .main-container {
-    padding: 4rem; /* Increased from 2rem */
-    gap: 4rem; /* Increased from 2rem */
+    padding: 4rem;
+    gap: 4rem;
   }
 
-  /* Scale factor: 2x */
   .info-text {
-    font-size: 3.5rem; /* 1.75rem * 2 */
+    font-size: 3.5rem;
   }
 }
 
@@ -391,14 +388,12 @@
     font-size: 34rem;
   }
 
-  /* Scale factor: 2.13x */
   .info-text {
-    font-size: 3.73rem; /* 1.75rem * 2.13 */
+    font-size: 3.73rem;
   }
 }
 
 @media screen and (max-width: 800px) {
-  /* Adjust layout for smaller screens */
   .primary-card {
     width: 70%;
   }
@@ -407,9 +402,8 @@
     width: 30%;
   }
 
-  /* Info Card */
   .info-text {
-    font-size: 0.735rem; /* 1.75rem * 0.42 */
+    font-size: 0.735rem;
   }
 
   .brand-logo {
@@ -417,7 +411,6 @@
   }
 }
 
-/* Portrait mode styles */
 @media (orientation: portrait) {
   .main-container {
     flex-direction: column;
@@ -449,14 +442,12 @@
     min-width: 0;
   }
 
-  /* First row container contains info card */
   .row-container:first-child {
-    order: 0; /* Move to left in portrait */
+    order: 0;
   }
 
-  /* Last row container contains calendar overview */
   .row-container:last-child {
-    order: 1; /* Move to right in portrait */
+    order: 1;
   }
 
   .secondary-card {
@@ -466,21 +457,18 @@
   }
 }
 
-/* First row container contains calendar overview */
 .row-container:first-child {
-  order: 1; /* Move to bottom in landscape */
+  order: 1;
 }
 
-/* Last row container contains info card */
 .row-container:last-child {
-  order: 0; /* Move to top in landscape */
+  order: 0;
 }
 
-/* Portrait mode styles for 480x800 (0.44x scale) */
 @media screen and (max-width: 480px) and (orientation: portrait) {
   .main-container {
-    padding: 1.1rem; /* 2.5rem * 0.44 */
-    gap: 1.32rem; /* 3rem * 0.44 */
+    padding: 1.1rem;
+    gap: 1.32rem;
   }
 
   .primary-card {
@@ -509,11 +497,10 @@
   }
 }
 
-/* Portrait mode styles for 720x1280 (0.67x scale) */
 @media screen and (min-width: 481px) and (max-width: 720px) and (orientation: portrait) {
   .main-container {
-    padding: 1.675rem; /* 2.5rem * 0.67 */
-    gap: 2.01rem; /* 3rem * 0.67 */
+    padding: 1.675rem;
+    gap: 2.01rem;
   }
 
   .primary-card {
@@ -522,7 +509,7 @@
 
   .secondary-container {
     height: 35%;
-    gap: 2.01rem; /* 3rem * 0.67 */
+    gap: 2.01rem;
   }
 
   .info-text {
@@ -542,18 +529,16 @@
   }
 }
 
-/* Portrait mode styles for 1080x1920 (baseline) */
 @media screen and (min-width: 721px) and (max-width: 2159px) and (orientation: portrait) {
   .brand-logo {
     width: 15rem;
   }
 }
 
-/* Portrait mode styles for 2160x3840 (2x scale) */
 @media screen and (min-width: 2160px) and (orientation: portrait) {
   .main-container {
-    padding: 5rem; /* 2.5rem * 2 */
-    gap: 6rem; /* 3rem * 2 */
+    padding: 5rem;
+    gap: 6rem;
   }
 
   .primary-card {
@@ -562,7 +547,7 @@
 
   .secondary-container {
     height: 35%;
-    gap: 6rem; /* 3rem * 2 */
+    gap: 6rem;
   }
 
   .info-text {
