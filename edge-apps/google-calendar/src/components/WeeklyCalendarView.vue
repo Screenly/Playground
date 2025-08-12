@@ -244,8 +244,6 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
   const baseStyle: Record<string, string> = {
     top: `${topOffset}%`,
     height: `${height}%`,
-    'border-radius': '6px',
-    border: '2px solid var(--border-color, white)',
   }
 
   // Check if the event extends beyond the visible time slots
@@ -253,10 +251,8 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
     endHour >= lastVisibleHour ||
     (endTime.date() !== startTime.date() && endHour < timeSlots.value[0]?.hour)
   ) {
-    // Add the dotted border to indicate the event continues beyond the visible area
     baseStyle['border-bottom-left-radius'] = '0'
     baseStyle['border-bottom-right-radius'] = '0'
-    baseStyle['border-bottom'] = '3px dotted var(--border-color, white)'
   }
 
   // Cache the result
