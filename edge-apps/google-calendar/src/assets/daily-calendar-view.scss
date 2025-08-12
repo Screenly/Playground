@@ -1,4 +1,10 @@
-@mixin daily-calendar-view($orientation: 'landscape', $multiplier: 1) {
+@mixin daily-calendar-view($orientation: 'landscape', $base-multiplier: 1) {
+  $multiplier: $base-multiplier;
+
+  @if $orientation == 'portrait' {
+    $multiplier: $base-multiplier * 1.4;
+  }
+
   .daily-calendar {
     padding: 0.84rem * $multiplier;
 
@@ -133,4 +139,20 @@
 
 @media screen and (min-width: 3840px) and (orientation: landscape) {
   @include daily-calendar-view('landscape', 4.5);
+}
+
+@media screen and (min-width: 480px) and (orientation: portrait) {
+  @include daily-calendar-view('portrait', 1);
+}
+
+@media screen and (min-width: 720px) and (orientation: portrait) {
+  @include daily-calendar-view('portrait', 1.6);
+}
+
+@media screen and (min-width: 1080px) and (orientation: portrait) {
+  @include daily-calendar-view('portrait', 2.4);
+}
+
+@media screen and (min-width: 2160px) and (orientation: portrait) {
+  @include daily-calendar-view('portrait', 4.8);
 }
