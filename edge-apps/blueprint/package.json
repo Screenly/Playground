@@ -3,7 +3,7 @@
   "dependencies": {
     "vite": "^7.1.1",
     "vue": "^3.5.17",
-    "@playwright/test": "^1.53.1",
+    "@playwright/test": "^1.54.2",
     "yaml": "^2.8.1"
   }
 }
