@@ -31,11 +31,27 @@ const updateTime = () => {
 
   const formattedLocale = props.locale.replace('_', '-')
 
-  // Handle all formatting based on locale
-  const timeFormatter = new Intl.DateTimeFormat(formattedLocale, {
+  // Time formatter options
+  const timeFormatterOptions = {
     hour: '2-digit',
     minute: '2-digit',
-  })
+  } as Intl.DateTimeFormatOptions
+
+  // Handle all formatting based on locale with exception handling
+  let timeFormatter: Intl.DateTimeFormat
+  try {
+    timeFormatter = new Intl.DateTimeFormat(
+      formattedLocale,
+      timeFormatterOptions,
+    )
+  } catch (error) {
+    // Fallback to default locale if the provided locale is invalid
+    console.warn(
+      `Invalid locale "${formattedLocale}" provided, falling back to "en"`,
+      error,
+    )
+    timeFormatter = new Intl.DateTimeFormat('en', timeFormatterOptions)
+  }
 
   const formattedTimeString = timeFormatter.format(timeInTimezone)
 
