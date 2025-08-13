@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@photostructure/tz-lookup": "^11.1.0",
+    "@typescript-eslint/typescript-estree": "^8.39.1",
     "country-locale-map": "^1.9.9",
     "lz-ts": "^1.1.2",
     "moment": "^2.30.1",
