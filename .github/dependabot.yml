@@ -6,6 +6,7 @@ updates:
   - package-ecosystem: "bun"
     directories:
       - "edge-apps/*"
+      - "edge-apps/.bun-create/edge-app-template"
     schedule:
       interval: "weekly"
 
