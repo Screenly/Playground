@@ -7,7 +7,7 @@ import clm from 'country-locale-map'
 
 const settingsStoreSetup = () => {
   const settings = screenly.settings
-  const overrideLocale: Ref<string | null> = ref(null)
+  const overrideLocale: Ref<string> = ref('')
   const overrideTimezone: Ref<string> = ref('')
   const tagManagerId: Ref<string> = ref('')
   const enableAnalytics: Ref<boolean> = ref(false)
@@ -15,7 +15,7 @@ const settingsStoreSetup = () => {
   const currentTimezone: Ref<string> = ref('')
 
   const init = () => {
-    overrideLocale.value = (settings.override_locale as string) || null
+    overrideLocale.value = (settings.override_locale as string) ?? ''
     tagManagerId.value = (settings.tag_manager_id as string) ?? ''
     overrideTimezone.value = (settings.override_timezone as string) ?? ''
     enableAnalytics.value =
@@ -34,14 +34,10 @@ const settingsStoreSetup = () => {
       }
     }
 
-    try {
-      const data = getNearestCity(latitude, longitude)
-      const countryCode = data.countryIso2.toUpperCase()
+    const data = getNearestCity(latitude, longitude)
+    const countryCode = data.countryIso2.toUpperCase()
 
-      currentLocale.value = clm.getLocaleByAlpha2(countryCode) || defaultLocale
-    } catch {
-      currentLocale.value = defaultLocale
-    }
+    currentLocale.value = clm.getLocaleByAlpha2(countryCode) || defaultLocale
   }
 
   const initTimezone = (latitude: number, longitude: number) => {
