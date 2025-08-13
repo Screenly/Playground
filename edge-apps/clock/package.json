@@ -24,11 +24,9 @@
   "dependencies": {
     "@photostructure/tz-lookup": "^11.1.0",
     "@typescript-eslint/typescript-estree": "^8.39.1",
-    "country-locale-map": "^1.9.9",
     "lz-ts": "^1.1.2",
     "moment": "^2.30.1",
     "moment-timezone": "^0.6.0",
-    "offline-geocode-city": "^1.0.2",
     "pinia": "^3.0.3",
     "vue": "^3.5.17",
     "yaml": "^2.8.1"
