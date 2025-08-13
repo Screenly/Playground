@@ -66,7 +66,6 @@
   }
 
   .time-label-spacer {
-    width: 7rem;
     flex-shrink: 0;
   }
 
@@ -85,11 +84,6 @@
     position: relative;
   }
 
-  .current-time-indicator {
-    @include time-indicator-base(2px, 8.25rem);
-    @include time-indicator-dot(-6px, -3px, 8px);
-  }
-
   .week-row {
     display: flex;
     flex: 1;
@@ -97,21 +91,17 @@
   }
 
   .time-label {
-    width: 7rem;
-    padding: 0.5rem;
-    margin-right: 1rem;
     text-align: right;
     color: var(--theme-color-text);
     flex-shrink: 0;
     @include text-ellipsis;
-    font-size: 1.125rem;
     transform: translateY(25%);
   }
 
   .day-column {
     flex: 1;
     position: relative;
-    border-left: 1px solid var(--theme-color-secondary);
+    border-left-color: var(--theme-color-secondary);
   }
 
   .hour-line {
@@ -119,7 +109,6 @@
     top: 50%;
     left: 0;
     right: 0;
-    height: 1px;
     background-color: var(--theme-color-secondary);
     opacity: 0.5;
     z-index: 1;
@@ -131,24 +120,18 @@
   }
 
   .event-time {
-    font-size: 0.7rem;
     opacity: 0.9;
   }
 
   .month-year-header {
     text-align: left;
-    font-size: 1.75rem;
     font-weight: bold;
     color: var(--theme-color-text);
-    padding: 0.5rem 0 1rem 1.5rem;
   }
 }
 
 .current-date {
   @include flex-center;
-  min-width: 3.5rem;
-  height: 3.5rem;
-  padding: 0 0.375rem;
   border-radius: 50%;
   background-color: var(--theme-color-primary);
   color: var(--theme-color-tertiary);
@@ -180,6 +163,14 @@
       padding: 0.21rem * $multiplier;
       margin-right: 0.42rem * $multiplier;
       font-size: 0.47rem * $multiplier;
+    }
+
+    .day-column {
+      border-left: 1px * $multiplier solid var(--theme-color-secondary);
+    }
+
+    .hour-line {
+      height: 1px * $multiplier;
     }
 
     .calendar-event-item {
