@@ -48,7 +48,7 @@ export const useCalendarStore = defineStore('calendar', () => {
   })
 
   const currentMonthName = computed(() => {
-    return getFormattedMonthName(now.value)
+    return getFormattedMonthName(now.value, locale.value)
   })
 
   const currentYear = computed(() => {

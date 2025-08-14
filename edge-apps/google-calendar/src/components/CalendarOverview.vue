@@ -40,11 +40,7 @@ const weekDays = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
 
 // Generate calendar days with proper month handling
 const calendarDays = computed((): CalendarDay[] => {
-  const date = new Date(
-    currentYear.value,
-    new Date(`${currentMonthName.value} 1, ${currentYear.value}`).getMonth(),
-    1,
-  )
+  const date = new Date(currentYear.value, calendarStore.now.getMonth(), 1)
   const firstDayOfMonth = date.getDay() // 0-6 (Sunday-Saturday)
   const daysInMonth = new Date(
     currentYear.value,

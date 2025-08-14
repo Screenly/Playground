@@ -99,8 +99,8 @@ export const generateCalendarDays = (
   return days
 }
 
-export const getFormattedMonthName = (date: Date): string => {
-  return date.toLocaleString('default', { month: 'long' })
+export const getFormattedMonthName = (date: Date, locale = 'en-US'): string => {
+  return date.toLocaleDateString(locale, { month: 'long' })
 }
 
 export const getYear = (date: Date): number => date.getFullYear()
