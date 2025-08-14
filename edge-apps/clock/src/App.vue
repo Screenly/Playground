@@ -33,7 +33,7 @@ onMounted(() => {
   const longitude = metadataStore.coordinates[1]
 
   settingsStore.init()
-  settingsStore.initLocale(latitude, longitude)
+  settingsStore.initLocale()
   settingsStore.initTimezone(latitude, longitude)
 
   screenly.signalReadyForRendering()
