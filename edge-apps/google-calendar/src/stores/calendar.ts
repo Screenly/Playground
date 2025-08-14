@@ -108,7 +108,7 @@ export const useCalendarStore = defineStore('calendar', () => {
     const overrideLocale = settingsStore.overrideLocale
 
     if (overrideLocale) {
-      locale.value = overrideLocale
+      locale.value = overrideLocale.replace('_', '-')
       return
     }
 
