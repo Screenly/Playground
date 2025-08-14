@@ -8,9 +8,26 @@ updates:
       - "edge-apps/*"
       - "edge-apps/.bun-create/edge-app-template"
     schedule:
-      interval: "weekly"
+      interval: "daily"
+    groups:
+      bun:
+        patterns:
+          - "*"
 
   - package-ecosystem: "pip"
     directory: "/edge-apps/queue-management-system/server"
     schedule:
-      interval: "weekly"
+      interval: "daily"
+    groups:
+      pip:
+        patterns:
+          - "*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
