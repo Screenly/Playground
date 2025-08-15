@@ -211,3 +211,54 @@ import { AnalogClock } from 'blueprint/components'
 ![analog-clock-02](/docs/images/components/analog-clock-02.png)
 
 Take note that the time is now `05:00:00` (DST) in the screenshot above.
+
+## BrandLogoCard
+
+The `BrandLogoCard` component is a simple card component that can be used to display a custom logo with the text "Powered by Screenly".
+
+You can pass a `logo-src` prop to the component to display a custom logo. Think of the component as a wrapper around the `img` tag.
+
+Let's update the `App.vue` file with the following content:
+
+```vue
+<script setup lang="ts">
+import { InfoCard, BrandLogoCard } from 'blueprint/components'
+import logoSrc from '@/assets/images/screenly.svg'
+</script>
+
+<template>
+  <div class="main-container">
+    <InfoCard>
+      <h1 :style="{
+        fontSize: '5rem',
+      }">
+        Hello, world!
+      </h1>
+    </InfoCard>
+    <BrandLogoCard
+      :style="{
+        backgroundColor: '#FFFFFF',
+      }"
+      :logo-src="logoSrc"
+    />
+  </div>
+</template>
+
+<style scoped lang="scss">
+:deep(.brand-logo-card) {
+  .info-text {
+    color: var(--theme-color-primary);
+    font-size: 2rem;
+    margin-top: 1rem;
+  }
+}
+</style>
+```
+
+![brand-logo-card-01](/docs/images/components/brand-logo-card-01.png)
+
+## What's next?
+
+Now that you've learned how to use the reusable components, you can start using them or start writing your own components inside the `edge-apps/blueprint/ts/components` directory.
+
+Feel free to check out the [source code of Vue-based Edge Apps](/edge-apps) to see how the components are used across various use cases. You also check out the [source code of the template](/edge-apps/.bun-create/edge-app-template) as well.
