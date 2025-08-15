@@ -75,7 +75,7 @@ You can also override the default background color of the `PrimaryCard` componen
 
 ![primary-card-03](/docs/images/components/primary-card-03.png)
 
-### InfoCard
+## InfoCard
 
 The `InfoCard` is just like the `PrimaryCard` component but it only occupies half of the screen's width (in landscape mode) or height (in portrait mode).
 
@@ -167,3 +167,47 @@ import { InfoCard } from 'blueprint/components'
 ```
 
 ![info-card-03](/docs/images/components/info-card-03.png)
+
+## AnalogClock
+
+The `AnalogClock` component is a simple clock component that can be used to display the current time.
+
+```vue
+<script setup lang="ts">
+import { PrimaryCard, AnalogClock } from 'blueprint/components'
+</script>
+
+<template>
+  <div class="main-container">
+    <PrimaryCard>
+      <AnalogClock />
+    </PrimaryCard>
+  </div>
+</template>
+```
+
+![analog-clock-01](/docs/images/components/analog-clock-01.png)
+
+> [!NOTE]
+> The `AnalogClock` defaults to the current time in the UTC timezone. In the screenshot above, the time is set to `12:00:00`.
+
+If you want to change the timezone, you can pass a `timezone` prop to the component.
+For example, if you want to display the time in the `America/Los_Angeles` timezone, you can pass `America/Los_Angeles` to the `timezone` prop.
+
+```vue
+<script setup lang="ts">
+import { AnalogClock } from 'blueprint/components'
+</script>
+
+<template>
+  <div class="main-container">
+    <PrimaryCard>
+      <AnalogClock timezone="America/Los_Angeles" />
+    </PrimaryCard>
+  </div>
+</template>
+```
+
+![analog-clock-02](/docs/images/components/analog-clock-02.png)
+
+Take note that the time is now `05:00:00` (DST) in the screenshot above.
