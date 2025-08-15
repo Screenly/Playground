@@ -30,6 +30,9 @@ The default background color of the `PrimaryCard` component is `#972EFF`.
 
 ![primary-card-01](/docs/images/components/primary-card-01.png)
 
+> [!NOTE]
+> You need to wrap the `PrimaryCard` component in a `div` with the class `main-container` to ensure that the card is inside a gray-colored container that occupies the entire screen.
+
 Adding a text inside the `PrimaryCard` component will align the text to the center of the card.
 
 ```vue
