@@ -18,7 +18,9 @@ import { PrimaryCard } from 'blueprint/components'
 </script>
 
 <template>
-  <PrimaryCard></PrimaryCard>
+  <div class="main-container">
+    <PrimaryCard></PrimaryCard>
+  </div>
 </template>
 
 <style scoped lang="scss"></style>
@@ -32,9 +34,11 @@ Adding a text inside the `PrimaryCard` component will align the text to the cent
 
 ```vue
 <template>
-  <PrimaryCard>
-    <h1>Hello, world!</h1>
-  </PrimaryCard>
+  <div class="main-container">
+    <PrimaryCard>
+      <h1>Hello, world!</h1>
+    </PrimaryCard>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -50,13 +54,15 @@ You can also override the default background color of the `PrimaryCard` componen
 
 ```vue
 <template>
-  <PrimaryCard
-    :style="{
-      backgroundColor: '#FF3D92',
-    }"
-  >
-    <h1>Hello, world!</h1>
-  </PrimaryCard>
+  <div class="main-container">
+    <PrimaryCard
+      :style="{
+        backgroundColor: '#FF3D92',
+      }"
+    >
+      <h1>Hello, world!</h1>
+    </PrimaryCard>
+  </div>
 </template>
 ```
 
