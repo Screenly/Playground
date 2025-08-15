@@ -261,4 +261,4 @@ import logoSrc from '@/assets/images/screenly.svg'
 
 Now that you've learned how to use the reusable components, you can start using them or start writing your own components inside the `edge-apps/blueprint/ts/components` directory.
 
-Feel free to check out the [source code of Vue-based Edge Apps](/edge-apps) to see how the components are used across various use cases. You also check out the [source code of the template](/edge-apps/.bun-create/edge-app-template) as well.
+Feel free to check out the [source code of Vue-based Edge Apps](/edge-apps) to see how the components are used across various use cases. You can also check out the [source code of the template](/edge-apps/.bun-create/edge-app-template) as well.
