@@ -21,9 +21,10 @@ const settingsStoreSetup = () => {
   }
 
   const initLocale = () => {
-    const defaultLocale = navigator?.languages?.length
-      ? navigator.languages[0]
-      : navigator.language || 'en'
+    const defaultLocale =
+      (navigator?.languages?.length
+        ? navigator.languages[0]
+        : navigator.language) || 'en'
 
     if (overrideLocale.value) {
       // TODO: Use a modern library to check if the user-provided locale is valid.
