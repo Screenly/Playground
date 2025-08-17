@@ -28,7 +28,7 @@ const updateDate = () => {
 
   dayOfMonth.value = timezoneDate.getDate().toString()
   const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
-  dayOfWeek.value = days[timezoneDate.getDay()]
+  dayOfWeek.value = days[timezoneDate.getDay()] as string
 }
 
 onMounted(() => {
