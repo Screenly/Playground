@@ -62,9 +62,13 @@ const eventMap = computed(() => {
   const map = new Map<string, CalendarEvent[]>()
 
   // Get the visible hour range from time slots, but exclude hour 0 (12:00 AM)
-  const visibleHours = timeSlots.value.map(slot => slot.hour).filter(hour => hour !== 0)
-  const minVisibleHour = visibleHours.length > 0 ? Math.min(...visibleHours) : 13
-  const maxVisibleHour = visibleHours.length > 0 ? Math.max(...visibleHours) : 23
+  const visibleHours = timeSlots.value
+    .map((slot) => slot.hour)
+    .filter((hour) => hour !== 0)
+  const minVisibleHour =
+    visibleHours.length > 0 ? Math.min(...visibleHours) : 13
+  const maxVisibleHour =
+    visibleHours.length > 0 ? Math.max(...visibleHours) : 23
 
   events.value.forEach((event) => {
     const eventStart = new Date(event.startTime)
@@ -88,7 +92,13 @@ const eventMap = computed(() => {
     )
 
     // Only add events that fall within the visible time range (excluding hour 0)
-    if (dayIndex >= 0 && dayIndex < 7 && eventHour >= minVisibleHour && eventHour <= maxVisibleHour && eventHour !== 0) {
+    if (
+      dayIndex >= 0 &&
+      dayIndex < 7 &&
+      eventHour >= minVisibleHour &&
+      eventHour <= maxVisibleHour &&
+      eventHour !== 0
+    ) {
       const key = `${dayIndex}-${eventHour}`
       if (!map.has(key)) {
         map.set(key, [])
