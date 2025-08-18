@@ -57,3 +57,4 @@ jobs:
           VALIDATE_TYPESCRIPT_STANDARD: false
           CSS_FILE_NAME: stylelint.config.cjs
           DEFAULT_BRANCH: master
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
