@@ -57,12 +57,12 @@ const updateTime = () => {
 
   // Split the formatted time to extract time and period
   const timeParts = formattedTimeString.split(' ')
-  formattedTime.value = timeParts[0]
+  formattedTime.value = timeParts[0] || ''
   period.value = timeParts[1] || ''
 
   dayOfMonth.value = timeInTimezone.getDate().toString()
   const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
-  dayOfWeek.value = days[timeInTimezone.getDay()]
+  dayOfWeek.value = days[timeInTimezone.getDay()] as string
 }
 
 watch(
