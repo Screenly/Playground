@@ -57,9 +57,14 @@ const weekStart = computed(() => {
 
 // Pre-computed event map for better performance
 const eventMap = computed(() => {
-  if (!events.value) return new Map()
+  if (!events.value || timeSlots.value.length === 0) return new Map()
 
   const map = new Map<string, CalendarEvent[]>()
+
+  // Get the visible hour range from time slots, but exclude hour 0 (12:00 AM)
+  const visibleHours = timeSlots.value.map(slot => slot.hour).filter(hour => hour !== 0)
+  const minVisibleHour = visibleHours.length > 0 ? Math.min(...visibleHours) : 13
+  const maxVisibleHour = visibleHours.length > 0 ? Math.max(...visibleHours) : 23
 
   events.value.forEach((event) => {
     const eventStart = new Date(event.startTime)
@@ -82,11 +87,14 @@ const eventMap = computed(() => {
       day.toLowerCase().startsWith(eventDayOfWeek.toLowerCase().slice(0, 3)),
     )
 
-    const key = `${dayIndex}-${eventHour}`
-    if (!map.has(key)) {
-      map.set(key, [])
+    // Only add events that fall within the visible time range (excluding hour 0)
+    if (dayIndex >= 0 && dayIndex < 7 && eventHour >= minVisibleHour && eventHour <= maxVisibleHour && eventHour !== 0) {
+      const key = `${dayIndex}-${eventHour}`
+      if (!map.has(key)) {
+        map.set(key, [])
+      }
+      map.get(key)!.push(event)
     }
-    map.get(key)!.push(event)
   })
 
   return map
@@ -338,9 +346,9 @@ const showCurrentTimeIndicator = computed(() => {
   return currentTimePosition.value >= 0 && currentTimePosition.value <= 100
 })
 
-// Clear style cache when events change
+// Clear style cache when events or time slots change
 watch(
-  events,
+  [events, timeSlots],
   () => {
     eventStyleCache.clear()
   },
