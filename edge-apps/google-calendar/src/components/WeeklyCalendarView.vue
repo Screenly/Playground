@@ -61,14 +61,15 @@ const eventMap = computed(() => {
 
   const map = new Map<string, CalendarEvent[]>()
 
-  // Get the visible hour range from time slots, but exclude hour 0 (12:00 AM)
-  const visibleHours = timeSlots.value
-    .map((slot) => slot.hour)
-    .filter((hour) => hour !== 0)
-  const minVisibleHour =
-    visibleHours.length > 0 ? Math.min(...visibleHours) : 13
-  const maxVisibleHour =
-    visibleHours.length > 0 ? Math.max(...visibleHours) : 23
+  // Get the visible hour range from time slots
+  const visibleHours = timeSlots.value.map((slot) => slot.hour)
+  const minVisibleHour = Math.min(...visibleHours)
+  const maxVisibleHour = Math.max(...visibleHours)
+
+  // Determine if we're in the afternoon/evening window (1 PM to 12:00 AM)
+  // or morning window (current time to 11:00 AM)
+  const currentHour = currentHourInfo.value.current
+  const isAfternoonWindow = currentHour > 12
 
   events.value.forEach((event) => {
     const eventStart = new Date(event.startTime)
@@ -91,14 +92,17 @@ const eventMap = computed(() => {
       day.toLowerCase().startsWith(eventDayOfWeek.toLowerCase().slice(0, 3)),
     )
 
-    // Only add events that fall within the visible time range (excluding hour 0)
-    if (
+    // Only add events that fall within the visible time range
+    // For afternoon window: exclude hour 0 (12:00 AM)
+    // For morning window: include all visible hours
+    const isInVisibleRange =
       dayIndex >= 0 &&
       dayIndex < 7 &&
       eventHour >= minVisibleHour &&
       eventHour <= maxVisibleHour &&
-      eventHour !== 0
-    ) {
+      (!isAfternoonWindow || eventHour !== 0)
+
+    if (isInVisibleRange) {
       const key = `${dayIndex}-${eventHour}`
       if (!map.has(key)) {
         map.set(key, [])
