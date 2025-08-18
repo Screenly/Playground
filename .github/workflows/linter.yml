@@ -48,7 +48,7 @@ jobs:
       # Run Linter against code base #
       ################################
       - name: Lint Code Base
-        uses: github/super-linter@v7
+        uses: github/super-linter@v5
         env:
           VALIDATE_ALL_CODEBASE: false
           VALIDATE_HTML: false
@@ -57,4 +57,3 @@ jobs:
           VALIDATE_TYPESCRIPT_STANDARD: false
           CSS_FILE_NAME: stylelint.config.cjs
           DEFAULT_BRANCH: master
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
