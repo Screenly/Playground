@@ -9,7 +9,7 @@ import {
   CoordinatesIcon,
   BrandLogoCard,
 } from 'blueprint/components'
-import screenlyLogo from '@/assets/images/screenly.svg'
+import screenlyLogo from 'blueprint/assets/images/screenly.svg'
 import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 
