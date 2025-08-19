@@ -57,9 +57,19 @@ const weekStart = computed(() => {
 
 // Pre-computed event map for better performance
 const eventMap = computed(() => {
-  if (!events.value) return new Map()
+  if (!events.value || timeSlots.value.length === 0) return new Map()
 
   const map = new Map<string, CalendarEvent[]>()
+
+  // Get the visible hour range from time slots
+  const visibleHours = timeSlots.value.map((slot) => slot.hour)
+  const minVisibleHour = Math.min(...visibleHours)
+  const maxVisibleHour = Math.max(...visibleHours)
+
+  // Determine if we're in the afternoon/evening window (1 PM to 12:00 AM)
+  // or morning window (current time to 11:00 AM)
+  const currentHour = currentHourInfo.value.current
+  const isAfternoonWindow = currentHour > 12
 
   events.value.forEach((event) => {
     const eventStart = new Date(event.startTime)
@@ -82,11 +92,23 @@ const eventMap = computed(() => {
       day.toLowerCase().startsWith(eventDayOfWeek.toLowerCase().slice(0, 3)),
     )
 
-    const key = `${dayIndex}-${eventHour}`
-    if (!map.has(key)) {
-      map.set(key, [])
+    // Only add events that fall within the visible time range
+    // For afternoon window: exclude hour 0 (12:00 AM)
+    // For morning window: include all visible hours
+    const isInVisibleRange =
+      dayIndex >= 0 &&
+      dayIndex < 7 &&
+      eventHour >= minVisibleHour &&
+      eventHour <= maxVisibleHour &&
+      (!isAfternoonWindow || eventHour !== 0)
+
+    if (isInVisibleRange) {
+      const key = `${dayIndex}-${eventHour}`
+      if (!map.has(key)) {
+        map.set(key, [])
+      }
+      map.get(key)!.push(event)
     }
-    map.get(key)!.push(event)
   })
 
   return map
@@ -338,9 +360,9 @@ const showCurrentTimeIndicator = computed(() => {
   return currentTimePosition.value >= 0 && currentTimePosition.value <= 100
 })
 
-// Clear style cache when events change
+// Clear style cache when events or time slots change
 watch(
-  events,
+  [events, timeSlots],
   () => {
     eventStyleCache.clear()
   },
