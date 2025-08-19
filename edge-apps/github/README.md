@@ -1,6 +1,5 @@
 # Screenly Edge App Template
 
-
 ## Prerequisites
 
 - [Bun (1.2.2+)](https://bun.sh/docs/installation)

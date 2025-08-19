@@ -55,6 +55,9 @@ jobs:
           VALIDATE_TYPESCRIPT_ES: false
           VALIDATE_TYPESCRIPT_PRETTIER: false
           VALIDATE_TYPESCRIPT_STANDARD: false
+          VALIDATE_VUE: false
+          VALIDATE_VUE_PRETTIER: false
+          VALIDATE_JSCPD: false
           CSS_FILE_NAME: stylelint.config.cjs
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
