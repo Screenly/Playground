@@ -7,7 +7,6 @@ import { viteStaticCopy } from 'vite-plugin-static-copy'
 import { existsSync } from 'fs'
 
 import { screenlyTestServer } from '../blueprint/ts/vite-plugins'
-import { createBlueprintResolve } from '../blueprint/ts/configs/vite-config'
 
 const manifestFileName = process.env.MANIFEST_FILE_NAME || 'screenly.yml'
 
@@ -36,9 +35,12 @@ export default defineConfig(({ mode }) => ({
     })
   ],
   resolve: {
-    ...createBlueprintResolve(import.meta.url),
     alias: {
-      ...createBlueprintResolve(import.meta.url).alias,
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      'blueprint/stores': fileURLToPath(new URL('../blueprint/ts/stores', import.meta.url)),
+      'blueprint/scss': fileURLToPath(new URL('../blueprint/scss', import.meta.url)),
+      'blueprint/components': fileURLToPath(new URL('../blueprint/ts/components', import.meta.url)),
+      'blueprint/assets': fileURLToPath(new URL('../blueprint/assets', import.meta.url)),
       ...(mode === 'test' && {
         'lz-ts': fileURLToPath(new URL('./src/mocks/lz-ts-mock.ts', import.meta.url))
       })
