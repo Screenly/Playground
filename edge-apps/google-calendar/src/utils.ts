@@ -16,9 +16,10 @@ export const getTimeZone = (): string => {
 export async function getLocale(): Promise<string> {
   const [lat, lng] = screenly.metadata.coordinates
 
-  const defaultLocale = navigator?.languages?.length
-    ? navigator.languages[0].replace('_', '-')
-    : navigator.language.replace('_', '-')
+  const defaultLocale =
+    (navigator?.languages?.length
+      ? navigator.languages[0]
+      : navigator.language) || 'en'
 
   const data = await getNearestCity(lat, lng)
   const countryCode = data.countryIso2.toUpperCase()
