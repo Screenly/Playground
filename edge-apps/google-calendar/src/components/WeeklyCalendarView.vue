@@ -271,7 +271,9 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
   // Check if the event extends beyond the visible time slots
   if (
     endHour >= lastVisibleHour ||
-    (endTime.date() !== startTime.date() && endHour < timeSlots.value[0]?.hour)
+    (endTime.date() !== startTime.date() &&
+      timeSlots.value[0] &&
+      endHour < timeSlots.value[0].hour)
   ) {
     baseStyle['border-bottom-left-radius'] = '0'
     baseStyle['border-bottom-right-radius'] = '0'
@@ -300,7 +302,12 @@ const monthYearDisplay = computed(() => {
       month: 'long',
       year: 'numeric',
     })
-    const [month, year] = monthYear.split(' ')
+    const parts = monthYear.split(' ')
+    const month = parts[0]
+    const year = parts[1]
+    if (!month || !year) {
+      throw new Error('Invalid month/year format')
+    }
     return `${month.toUpperCase()} ${year}`
   } catch (error) {
     console.error('Error formatting month/year:', error)
@@ -320,7 +327,12 @@ const monthYearDisplay = computed(() => {
       'November',
       'December',
     ]
-    return `${monthNames[date.getMonth()].toUpperCase()} ${date.getFullYear()}`
+    const monthIndex = date.getMonth()
+    const monthName = monthNames[monthIndex]
+    if (!monthName) {
+      throw new Error(`Invalid month index: ${monthIndex}`)
+    }
+    return `${monthName.toUpperCase()} ${date.getFullYear()}`
   }
 })
 
