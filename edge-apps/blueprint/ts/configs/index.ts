@@ -1,1 +1,1 @@
-export { playwrightConfig } from './playwright'
+export { createBlueprintAliases, createBlueprintResolve } from './vite-config'
