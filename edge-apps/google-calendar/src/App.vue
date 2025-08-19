@@ -12,7 +12,7 @@ import CalendarOverview from '@/components/CalendarOverview.vue'
 import DailyCalendarView from '@/components/DailyCalendarView.vue'
 import WeeklyCalendarView from '@/components/WeeklyCalendarView.vue'
 
-import screenlyLogo from '@/assets/images/screenly.svg'
+import screenlyLogo from 'blueprint/assets/images/screenly.svg'
 
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',

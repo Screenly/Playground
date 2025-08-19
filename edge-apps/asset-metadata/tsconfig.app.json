@@ -9,7 +9,8 @@
       "@/*": ["./src/*"],
       "blueprint/stores/*": ["../blueprint/ts/stores/*"],
       "blueprint/scss/*": ["../blueprint/scss/*"],
-      "blueprint/components": ["../blueprint/ts/components"]
+      "blueprint/components": ["../blueprint/ts/components"],
+      "blueprint/assets/*": ["../blueprint/assets/*"]
     }
   }
 }

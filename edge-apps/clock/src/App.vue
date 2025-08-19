@@ -6,7 +6,7 @@ import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 import { AnalogClock } from 'blueprint/components'
 import { DigitalClock, DateDisplay, BrandLogoCard } from '@/components'
 import { useSettingsStore } from '@/stores/settings'
-import screenlyLogo from '@/assets/images/screenly.svg'
+import screenlyLogo from 'blueprint/assets/images/screenly.svg'
 
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
