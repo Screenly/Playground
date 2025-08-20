@@ -83,7 +83,7 @@ jobs:
           APPS_WITH_BUILD_SYSTEM="${APPS_WITH_BUILD_SYSTEM# }"
           if [[ -n "$APPS_WITH_BUILD_SYSTEM" ]]; then
             # Convert space-separated string to JSON array
-            JSON_ARRAY=$(echo "$APPS_WITH_BUILD_SYSTEM" | tr ' ' '\n' | jq -R . | jq -s .)
+            JSON_ARRAY=$(echo "$APPS_WITH_BUILD_SYSTEM" | tr ' ' '\n' | jq -R . | jq -s -c .)
             echo "apps-with-build-system=$JSON_ARRAY" >> "$GITHUB_OUTPUT"
           else
             echo "apps-with-build-system=[]" >> "$GITHUB_OUTPUT"
