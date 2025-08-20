@@ -1,0 +1,180 @@
+name: Edge App Checks
+
+on:
+  push:
+    branches-ignore: [master, main]
+    paths:
+      - 'edge-apps/**'
+  pull_request:
+    branches: [master, main]
+    paths:
+      - 'edge-apps/**'
+
+jobs:
+  detect-changes:
+    name: Detect Changed Edge Apps
+    runs-on: ubuntu-latest
+    outputs:
+      changed-apps: ${{ steps.changes.outputs.changed-apps }}
+      apps-with-build-system: ${{ steps.build-system-check.outputs.apps-with-build-system }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v46
+        with:
+          files: |
+            edge-apps/**
+          files_ignore: |
+            edge-apps/**/node_modules/**
+            edge-apps/**/dist/**
+            edge-apps/**/.git/**
+            edge-apps/**/*.log
+
+      - name: Extract changed Edge Apps
+        id: changes
+        run: |
+          # Get list of changed files
+          CHANGED_FILES="${{ steps.changed-files.outputs.all_changed_files }}"
+
+          # Extract unique Edge App directories that have changes
+          CHANGED_APPS=""
+          for file in $CHANGED_FILES; do
+            if [[ $file == edge-apps/* ]]; then
+              # Extract the app name (first directory after edge-apps/)
+              APP_NAME=$(echo "$file" | cut -d'/' -f2)
+              if [[ -n "$APP_NAME" && "$APP_NAME" != "helpers" && "$APP_NAME" != ".bun-create" ]]; then
+                # Add to list if not already present
+                if [[ ! " $CHANGED_APPS " =~ " $APP_NAME " ]]; then
+                  CHANGED_APPS="$CHANGED_APPS $APP_NAME"
+                fi
+              fi
+            fi
+          done
+
+          # Remove leading space and set output
+          CHANGED_APPS=$(echo "$CHANGED_APPS" | sed 's/^ *//')
+          echo "changed-apps=$CHANGED_APPS" >> $GITHUB_OUTPUT
+          echo "Changed Edge Apps: $CHANGED_APPS"
+
+      - name: Check which apps have build systems
+        id: build-system-check
+        run: |
+          CHANGED_APPS="${{ steps.changes.outputs.changed-apps }}"
+          APPS_WITH_BUILD_SYSTEM=""
+
+          for app in $CHANGED_APPS; do
+            if [[ -f "edge-apps/$app/package.json" ]]; then
+              APPS_WITH_BUILD_SYSTEM="$APPS_WITH_BUILD_SYSTEM $app"
+            fi
+          done
+
+          # Remove leading space and convert to JSON array
+          APPS_WITH_BUILD_SYSTEM=$(echo "$APPS_WITH_BUILD_SYSTEM" | sed 's/^ *//')
+          if [[ -n "$APPS_WITH_BUILD_SYSTEM" ]]; then
+            # Convert space-separated string to JSON array
+            JSON_ARRAY=$(echo "$APPS_WITH_BUILD_SYSTEM" | tr ' ' '\n' | jq -R . | jq -s .)
+            echo "apps-with-build-system=$JSON_ARRAY" >> $GITHUB_OUTPUT
+          else
+            echo "apps-with-build-system=[]" >> $GITHUB_OUTPUT
+          fi
+          echo "Apps with build system: $APPS_WITH_BUILD_SYSTEM"
+
+  run-checks:
+    name: Run Checks for ${{ matrix.app }}
+    runs-on: ubuntu-latest
+    needs: detect-changes
+    strategy:
+      matrix:
+        app: ${{ fromJSON(needs.detect-changes.outputs.apps-with-build-system) }}
+      fail-fast: false
+    if: needs.detect-changes.outputs.apps-with-build-system != '[]'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.2.2
+
+      - name: Install dependencies
+        working-directory: edge-apps/${{ matrix.app }}
+        run: bun install
+
+      - name: Run linting
+        working-directory: edge-apps/${{ matrix.app }}
+        run: |
+          if bun run --help | grep -q "lint"; then
+            echo "Running linting for ${{ matrix.app }}..."
+            bun run lint
+          else
+            echo "No lint script found for ${{ matrix.app }}, skipping..."
+          fi
+
+      - name: Run formatting check
+        working-directory: edge-apps/${{ matrix.app }}
+        run: |
+          if bun run --help | grep -q "format"; then
+            echo "Running formatting check for ${{ matrix.app }}..."
+            bun run format
+          else
+            echo "No format script found for ${{ matrix.app }}, skipping..."
+          fi
+
+      - name: Run unit tests
+        working-directory: edge-apps/${{ matrix.app }}
+        run: |
+          if bun run --help | grep -q "test:unit"; then
+            echo "Running unit tests for ${{ matrix.app }}..."
+            bun run test:unit
+          else
+            echo "No test:unit script found for ${{ matrix.app }}, skipping..."
+          fi
+
+      - name: Run E2E tests
+        working-directory: edge-apps/${{ matrix.app }}
+        run: |
+          if bun run --help | grep -q "test:e2e"; then
+            echo "Running E2E tests for ${{ matrix.app }}..."
+            bun run test:e2e
+          else
+            echo "No test:e2e script found for ${{ matrix.app }}, skipping..."
+          fi
+
+      - name: Build application
+        working-directory: edge-apps/${{ matrix.app }}
+        run: |
+          if bun run --help | grep -q "build"; then
+            echo "Building ${{ matrix.app }}..."
+            bun run build
+          else
+            echo "No build script found for ${{ matrix.app }}, skipping..."
+          fi
+
+  summary:
+    name: Summary
+    runs-on: ubuntu-latest
+    needs: [detect-changes, run-checks]
+    if: always()
+    steps:
+      - name: Check if any apps were processed
+        run: |
+          if [[ "${{ needs.detect-changes.outputs.changed-apps }}" == "" ]]; then
+            echo "No Edge Apps were changed."
+          elif [[ "${{ needs.detect-changes.outputs.apps-with-build-system }}" == "[]" ]]; then
+            echo "Changed Edge Apps don't have build systems: ${{ needs.detect-changes.outputs.changed-apps }}"
+          else
+            echo "Processed Edge Apps with build systems: ${{ needs.detect-changes.outputs.apps-with-build-system }}"
+          fi
+
+      - name: Check for failures
+        if: needs.run-checks.result == 'failure'
+        run: |
+          echo "Some Edge App checks failed. Please review the logs above."
+          exit 1
