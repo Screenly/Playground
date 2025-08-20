@@ -125,6 +125,10 @@ jobs:
         working-directory: edge-apps/${{ matrix.app }}
         run: bun run test:unit
 
+      - name: Build application
+        working-directory: edge-apps/${{ matrix.app }}
+        run: bun run build
+
       - name: Install Playwright dependencies
         working-directory: edge-apps/${{ matrix.app }}
         run: npx playwright install --with-deps
@@ -136,10 +140,6 @@ jobs:
           max_attempts: 5
           retry_on: error
           command: cd edge-apps/${{ matrix.app }} && bun run test:e2e
-
-      - name: Build application
-        working-directory: edge-apps/${{ matrix.app }}
-        run: bun run build
 
   summary:
     name: Summary
