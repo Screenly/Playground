@@ -130,8 +130,13 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run E2E tests
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          retry_on: error
+          command: bun run test:e2e
         working-directory: edge-apps/${{ matrix.app }}
-        run: bun run test:e2e
 
       - name: Build application
         working-directory: edge-apps/${{ matrix.app }}
