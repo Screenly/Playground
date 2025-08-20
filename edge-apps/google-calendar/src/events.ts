@@ -1,6 +1,13 @@
 import ical from 'ical.js'
 import { GOOGLE_CALENDAR_API_BASE_URL, VIEW_MODE } from '@/constants'
 import type { CalendarEvent, ViewMode } from '@/constants'
+import { useSettingsStore } from '@/stores/settings'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import dayJsTimezone from 'dayjs/plugin/timezone'
+
+dayjs.extend(utc)
+dayjs.extend(dayJsTimezone)
 
 // Type for raw Google Calendar API event
 interface GoogleCalendarEvent {
@@ -16,22 +23,25 @@ interface GoogleCalendarEvent {
 }
 
 const getDateRangeForViewMode = (viewMode: ViewMode) => {
-  const today = new Date()
-  const startDate = new Date(today)
-  const endDate = new Date(today)
+  const settingsStore = useSettingsStore()
+  const timezone = settingsStore.overrideTimezone || 'UTC'
+
+  // Use dayjs to get current time in the target timezone, ignoring browser timezone
+  const nowInTimezone = dayjs().tz(timezone)
+  const todayInTimezone = nowInTimezone.startOf('day')
+
+  let startDate: Date
+  let endDate: Date
 
   if (viewMode === VIEW_MODE.DAILY) {
-    startDate.setHours(0, 0, 0, 0)
-    endDate.setDate(endDate.getDate() + 1)
-    endDate.setHours(0, 0, 0, 0)
+    // For daily view, start at midnight in the target timezone
+    startDate = todayInTimezone.toDate()
+    endDate = todayInTimezone.add(1, 'day').toDate()
   } else {
-    // For weekly view, show full week
-    const currentDay = startDate.getDay()
-    startDate.setDate(startDate.getDate() - currentDay)
-    startDate.setHours(0, 0, 0, 0)
-
-    endDate.setTime(startDate.getTime())
-    endDate.setDate(startDate.getDate() + 7)
+    // For weekly view, show full week starting from Sunday in the target timezone
+    const weekStart = todayInTimezone.startOf('week')
+    startDate = weekStart.toDate()
+    endDate = weekStart.add(7, 'days').toDate()
   }
 
   return { startDate, endDate }
