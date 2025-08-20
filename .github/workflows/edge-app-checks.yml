@@ -2,7 +2,7 @@ name: Edge App Checks
 
 on:
   push:
-    branches-ignore:
+    branches:
       - master
     paths:
       - "edge-apps/**"
@@ -51,7 +51,7 @@ jobs:
             if [[ "$file" == edge-apps/* ]]; then
               # Extract the app name (first directory after edge-apps/)
               APP_NAME=$(echo "$file" | cut -d'/' -f2)
-              if [[ -n "$APP_NAME" && "$APP_NAME" != "helpers" && "$APP_NAME" != ".bun-create" ]]; then
+              if [[ -n "$APP_NAME" && "$APP_NAME" != "helpers" && "$APP_NAME" != ".bun-create" && "$APP_NAME" != "blueprint" ]]; then
                 # Add to list if not already present
                 if [[ ! " $CHANGED_APPS " =~ $APP_NAME ]]; then
                   CHANGED_APPS="$CHANGED_APPS $APP_NAME"
