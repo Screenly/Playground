@@ -2,11 +2,13 @@ name: Edge App Checks
 
 on:
   push:
-    branches-ignore: [master, main]
+    branches-ignore:
+      - master
     paths:
       - 'edge-apps/**'
   pull_request:
-    branches: [master, main]
+    branches:
+      - master
     paths:
       - 'edge-apps/**'
 
@@ -43,13 +45,15 @@ jobs:
 
           # Extract unique Edge App directories that have changes
           CHANGED_APPS=""
-          for file in $CHANGED_FILES; do
-            if [[ $file == edge-apps/* ]]; then
+          # Read CHANGED_FILES into an array
+          read -ra FILES_ARRAY <<< "$CHANGED_FILES"
+          for file in "${FILES_ARRAY[@]}"; do
+            if [[ "$file" == edge-apps/* ]]; then
               # Extract the app name (first directory after edge-apps/)
               APP_NAME=$(echo "$file" | cut -d'/' -f2)
               if [[ -n "$APP_NAME" && "$APP_NAME" != "helpers" && "$APP_NAME" != ".bun-create" ]]; then
                 # Add to list if not already present
-                if [[ ! " $CHANGED_APPS " =~ " $APP_NAME " ]]; then
+                if [[ ! " $CHANGED_APPS " =~ $APP_NAME ]]; then
                   CHANGED_APPS="$CHANGED_APPS $APP_NAME"
                 fi
               fi
@@ -57,8 +61,8 @@ jobs:
           done
 
           # Remove leading space and set output
-          CHANGED_APPS=$(echo "$CHANGED_APPS" | sed 's/^ *//')
-          echo "changed-apps=$CHANGED_APPS" >> $GITHUB_OUTPUT
+          CHANGED_APPS="${CHANGED_APPS# }"
+          echo "changed-apps=$CHANGED_APPS" >> "$GITHUB_OUTPUT"
           echo "Changed Edge Apps: $CHANGED_APPS"
 
       - name: Check which apps have build systems
@@ -67,20 +71,22 @@ jobs:
           CHANGED_APPS="${{ steps.changes.outputs.changed-apps }}"
           APPS_WITH_BUILD_SYSTEM=""
 
-          for app in $CHANGED_APPS; do
+          # Read CHANGED_APPS into an array
+          read -ra APPS_ARRAY <<< "$CHANGED_APPS"
+          for app in "${APPS_ARRAY[@]}"; do
             if [[ -f "edge-apps/$app/package.json" ]]; then
               APPS_WITH_BUILD_SYSTEM="$APPS_WITH_BUILD_SYSTEM $app"
             fi
           done
 
           # Remove leading space and convert to JSON array
-          APPS_WITH_BUILD_SYSTEM=$(echo "$APPS_WITH_BUILD_SYSTEM" | sed 's/^ *//')
+          APPS_WITH_BUILD_SYSTEM="${APPS_WITH_BUILD_SYSTEM# }"
           if [[ -n "$APPS_WITH_BUILD_SYSTEM" ]]; then
             # Convert space-separated string to JSON array
             JSON_ARRAY=$(echo "$APPS_WITH_BUILD_SYSTEM" | tr ' ' '\n' | jq -R . | jq -s .)
-            echo "apps-with-build-system=$JSON_ARRAY" >> $GITHUB_OUTPUT
+            echo "apps-with-build-system=$JSON_ARRAY" >> "$GITHUB_OUTPUT"
           else
-            echo "apps-with-build-system=[]" >> $GITHUB_OUTPUT
+            echo "apps-with-build-system=[]" >> "$GITHUB_OUTPUT"
           fi
           echo "Apps with build system: $APPS_WITH_BUILD_SYSTEM"
 
