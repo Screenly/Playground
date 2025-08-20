@@ -115,53 +115,23 @@ jobs:
 
       - name: Run linting
         working-directory: edge-apps/${{ matrix.app }}
-        run: |
-          if bun run --help | grep -q "lint"; then
-            echo "Running linting for ${{ matrix.app }}..."
-            bun run lint
-          else
-            echo "No lint script found for ${{ matrix.app }}, skipping..."
-          fi
+        run: bun run lint
 
       - name: Run formatting check
         working-directory: edge-apps/${{ matrix.app }}
-        run: |
-          if bun run --help | grep -q "format"; then
-            echo "Running formatting check for ${{ matrix.app }}..."
-            bun run format
-          else
-            echo "No format script found for ${{ matrix.app }}, skipping..."
-          fi
+        run: bun run format
 
       - name: Run unit tests
         working-directory: edge-apps/${{ matrix.app }}
-        run: |
-          if bun run --help | grep -q "test:unit"; then
-            echo "Running unit tests for ${{ matrix.app }}..."
-            bun run test:unit
-          else
-            echo "No test:unit script found for ${{ matrix.app }}, skipping..."
-          fi
+        run: bun run test:unit
 
       - name: Run E2E tests
         working-directory: edge-apps/${{ matrix.app }}
-        run: |
-          if bun run --help | grep -q "test:e2e"; then
-            echo "Running E2E tests for ${{ matrix.app }}..."
-            bun run test:e2e
-          else
-            echo "No test:e2e script found for ${{ matrix.app }}, skipping..."
-          fi
+        run: bun run test:e2e
 
       - name: Build application
         working-directory: edge-apps/${{ matrix.app }}
-        run: |
-          if bun run --help | grep -q "build"; then
-            echo "Building ${{ matrix.app }}..."
-            bun run build
-          else
-            echo "No build script found for ${{ matrix.app }}, skipping..."
-          fi
+        run: bun run build
 
   summary:
     name: Summary
