@@ -17,7 +17,7 @@ jobs:
     name: Detect Changed Edge Apps
     runs-on: ubuntu-latest
     outputs:
-      changed-apps: ${{ steps.changes.outputs.changed-apps }}
+      changed-apps: ${{ steps.extract-changes.outputs.changed-apps }}
       apps-with-build-system: ${{ steps.build-system-check.outputs.apps-with-build-system }}
     steps:
       - name: Checkout code
@@ -37,8 +37,8 @@ jobs:
             edge-apps/**/.git/**
             edge-apps/**/*.log
 
-            - name: Extract changed Edge Apps
-        id: changes
+      - name: Extract changed Edge Apps
+        id: extract-changes
         run: |
           # Get list of changed files
           CHANGED_FILES="${{ steps.changed-files.outputs.all_changed_files }}"
@@ -95,7 +95,7 @@ jobs:
       - name: Check which apps have build systems
         id: build-system-check
         run: |
-          CHANGED_APPS="${{ steps.changes.outputs.changed-apps }}"
+          CHANGED_APPS="${{ steps.extract-changes.outputs.changed-apps }}"
           APPS_WITH_BUILD_SYSTEM=""
 
           # Read CHANGED_APPS into an array
