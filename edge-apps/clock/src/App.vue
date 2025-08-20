@@ -32,8 +32,6 @@ onMounted(() => {
   const latitude = metadataStore.coordinates[0]
   const longitude = metadataStore.coordinates[1]
 
-  document.title = 'Clock' // TODO: Remove this after testing.
-
   settingsStore.init()
   settingsStore.initLocale()
   settingsStore.initTimezone(latitude, longitude)
