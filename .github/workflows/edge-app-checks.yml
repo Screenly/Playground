@@ -129,7 +129,7 @@ jobs:
         working-directory: edge-apps/${{ matrix.app }}
         run: bun run build
 
-      - name: Install Playwright dependencies
+      - name: Install E2E dependencies
         working-directory: edge-apps/${{ matrix.app }}
         run: npx playwright install --with-deps
 
