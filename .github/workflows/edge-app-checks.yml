@@ -5,12 +5,12 @@ on:
     branches-ignore:
       - master
     paths:
-      - 'edge-apps/**'
+      - "edge-apps/**"
   pull_request:
     branches:
       - master
     paths:
-      - 'edge-apps/**'
+      - "edge-apps/**"
 
 jobs:
   detect-changes:
