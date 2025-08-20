@@ -14,7 +14,7 @@ Go ahead and open the `App.vue` file and replace the content with the following:
 
 ```vue
 <script setup lang="ts">
-import { PrimaryCard } from 'blueprint/components'
+import { PrimaryCard } from "blueprint/components";
 </script>
 
 <template>
@@ -81,7 +81,7 @@ The `InfoCard` is just like the `PrimaryCard` component but it only occupies hal
 
 ```vue
 <script setup lang="ts">
-import { InfoCard } from 'blueprint/components'
+import { InfoCard } from "blueprint/components";
 </script>
 
 <template>
@@ -101,7 +101,7 @@ You can also add another `InfoCard` component so that it sits side-by-side with 
 
 ```vue
 <script setup lang="ts">
-import { InfoCard } from 'blueprint/components'
+import { InfoCard } from "blueprint/components";
 </script>
 
 <template>
@@ -111,9 +111,7 @@ import { InfoCard } from 'blueprint/components'
         padding: '5rem',
       }"
     >
-      <h1 style="font-size: 7rem;">
-        One makes you larger...
-      </h1>
+      <h1 style="font-size: 7rem;">One makes you larger...</h1>
     </InfoCard>
     <InfoCard
       :style="{
@@ -121,9 +119,7 @@ import { InfoCard } from 'blueprint/components'
         padding: '1rem',
       }"
     >
-      <h1 style="font-size: 3rem;">
-        ...and another makes you small
-      </h1>
+      <h1 style="font-size: 3rem;">...and another makes you small</h1>
     </InfoCard>
   </div>
 </template>
@@ -135,7 +131,7 @@ What's unique about the `InfoCard` component is that you can pass an `value` pro
 
 ```vue
 <script setup lang="ts">
-import { InfoCard } from 'blueprint/components'
+import { InfoCard } from "blueprint/components";
 </script>
 
 <template>
@@ -174,7 +170,7 @@ The `AnalogClock` component is a simple clock component that can be used to disp
 
 ```vue
 <script setup lang="ts">
-import { PrimaryCard, AnalogClock } from 'blueprint/components'
+import { PrimaryCard, AnalogClock } from "blueprint/components";
 </script>
 
 <template>
@@ -196,7 +192,7 @@ For example, if you want to display the time in the `America/Los_Angeles` timezo
 
 ```vue
 <script setup lang="ts">
-import { AnalogClock } from 'blueprint/components'
+import { AnalogClock } from "blueprint/components";
 </script>
 
 <template>
@@ -222,16 +218,18 @@ Let's update the `App.vue` file with the following content:
 
 ```vue
 <script setup lang="ts">
-import { InfoCard, BrandLogoCard } from 'blueprint/components'
-import logoSrc from '@/assets/images/screenly.svg'
+import { InfoCard, BrandLogoCard } from "blueprint/components";
+import logoSrc from "@/assets/images/screenly.svg";
 </script>
 
 <template>
   <div class="main-container">
     <InfoCard>
-      <h1 :style="{
-        fontSize: '5rem',
-      }">
+      <h1
+        :style="{
+          fontSize: '5rem',
+        }"
+      >
         Hello, world!
       </h1>
     </InfoCard>
@@ -263,7 +261,7 @@ The `DigitalClock` component is a simple clock component that can be used to dis
 
 ```vue
 <script setup lang="ts">
-import { DigitalClock, PrimaryCard } from 'blueprint/components'
+import { DigitalClock, PrimaryCard } from "blueprint/components";
 </script>
 
 <template>
@@ -288,7 +286,7 @@ You can also pass a `timezone` and a `locale` prop to the component.
 
 ```vue
 <script setup lang="ts">
-import { DigitalClock, PrimaryCard } from 'blueprint/components'
+import { DigitalClock, PrimaryCard } from "blueprint/components";
 </script>
 
 <template>
@@ -298,10 +296,7 @@ import { DigitalClock, PrimaryCard } from 'blueprint/components'
         backgroundColor: '#FFFFFF',
       }"
     >
-      <DigitalClock
-        timezone="Europe/London"
-        locale="en-GB"
-      />
+      <DigitalClock timezone="Europe/London" locale="en-GB" />
     </PrimaryCard>
   </div>
 </template>
