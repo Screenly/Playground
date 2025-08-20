@@ -304,6 +304,35 @@ import { DigitalClock, PrimaryCard } from "blueprint/components";
 
 ![digital-clock-02](/docs/images/components/digital-clock-02.png)
 
+## DateDisplay
+
+The `DateDisplay` component is a simple date component that can be used to display the current date and day of the week.
+
+Here's an example that shows `DateDisplay` and `AnalogClock` side-by-side.
+
+```vue
+<script setup lang="ts">
+import { DateDisplay, AnalogClock, InfoCard } from "blueprint/components";
+</script>
+
+<template>
+  <div class="main-container">
+    <InfoCard
+      :style="{
+        backgroundColor: '#FFFFFF',
+      }"
+    >
+      <DateDisplay />
+    </InfoCard>
+    <InfoCard>
+      <AnalogClock />
+    </InfoCard>
+  </div>
+</template>
+```
+
+![date-display-01](/docs/images/components/date-display-01.png)
+
 ## What's next?
 
 Now that you've learned how to use the reusable components, you can start using them or start writing your own components inside the `edge-apps/blueprint/ts/components` directory.
