@@ -257,6 +257,58 @@ import logoSrc from '@/assets/images/screenly.svg'
 
 ![brand-logo-card-01](/docs/images/components/brand-logo-card-01.png)
 
+## DigitalClock
+
+The `DigitalClock` component is a simple clock component that can be used to display the current time.
+
+```vue
+<script setup lang="ts">
+import { DigitalClock, PrimaryCard } from 'blueprint/components'
+</script>
+
+<template>
+  <div class="main-container">
+    <PrimaryCard
+      :style="{
+        backgroundColor: '#FFFFFF',
+      }"
+    >
+      <DigitalClock />
+    </PrimaryCard>
+  </div>
+</template>
+```
+
+![digital-clock-01](/docs/images/components/digital-clock-01.png)
+
+> [!NOTE]
+> The `DigitalClock` defaults to the current time in the UTC timezone. The local defaults to `en`.
+
+You can also pass a `timezone` and a `locale` prop to the component.
+
+```vue
+<script setup lang="ts">
+import { DigitalClock, PrimaryCard } from 'blueprint/components'
+</script>
+
+<template>
+  <div class="main-container">
+    <PrimaryCard
+      :style="{
+        backgroundColor: '#FFFFFF',
+      }"
+    >
+      <DigitalClock
+        timezone="Europe/London"
+        locale="en-GB"
+      />
+    </PrimaryCard>
+  </div>
+</template>
+```
+
+![digital-clock-02](/docs/images/components/digital-clock-02.png)
+
 ## What's next?
 
 Now that you've learned how to use the reusable components, you can start using them or start writing your own components inside the `edge-apps/blueprint/ts/components` directory.
