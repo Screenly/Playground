@@ -45,8 +45,6 @@ onBeforeMount(async () => {
 })
 
 onMounted(async () => {
-  document.title = 'Google Calendar' // TODO: Remove this after testing.
-
   await calendarStore.initialize()
 
   screenly.signalReadyForRendering()
