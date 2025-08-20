@@ -3,7 +3,7 @@
 ![RSS Reader Edge App Preview](./static/img/rss-app-preview.png)
 
 This Edge App displays articles from an RSS feed.
-It's uses [Alpine.js](https://alpinejs.dev/) for reactivity.
+It uses [Alpine.js](https://alpinejs.dev/) for reactivity.
 
 ## Running the Edge App emulator
 
