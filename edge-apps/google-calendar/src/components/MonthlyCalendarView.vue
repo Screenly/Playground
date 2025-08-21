@@ -1,12 +1,20 @@
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
 import { useCalendarStore } from '@/stores/calendar'
+import { useSettingsStore } from '@/stores/settings'
 import { getFormattedTime } from '@/utils'
 import type { CalendarEvent } from '@/constants'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import dayJsTimezone from 'dayjs/plugin/timezone'
+
+dayjs.extend(utc)
+dayjs.extend(dayJsTimezone)
 
 const MAX_EVENTS = 7
 
 const calendarStore = useCalendarStore()
+const settingsStore = useSettingsStore()
 
 const todayEvents = ref<CalendarEvent[]>([])
 const tomorrowEvents = ref<CalendarEvent[]>([])
@@ -15,38 +23,43 @@ const formattedEventTimes = ref<Record<string, string>>({})
 const currentDayOfWeek = computed(() => calendarStore.currentDayOfWeek)
 const events = computed(() => calendarStore.events)
 const locale = computed(() => calendarStore.locale)
+const timezone = computed(() => settingsStore.overrideTimezone || 'UTC')
 
 const filterAndFormatEvents = async () => {
-  // Filter events for today and tomorrow separately
-  const now = new Date()
-  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-  const todayEnd = new Date(todayStart)
-  todayEnd.setDate(todayStart.getDate() + 1)
+  // Get current time in the target timezone
+  const nowInTimezone = dayjs().tz(timezone.value)
+  const todayInTimezone = nowInTimezone.startOf('day')
+  const tomorrowInTimezone = todayInTimezone.add(1, 'day')
 
-  const tomorrowStart = new Date(todayStart)
-  tomorrowStart.setDate(todayStart.getDate() + 1)
-  const tomorrowEnd = new Date(tomorrowStart)
-  tomorrowEnd.setDate(tomorrowStart.getDate() + 1)
-
-  // Filter today's events
+  // Filter today's events (from now until end of today)
   const todayEventsList = events.value.filter((event: CalendarEvent) => {
-    const eventStart = new Date(event.startTime)
-    return eventStart >= now && eventStart < todayEnd
+    const eventStart = dayjs(event.startTime).tz(timezone.value)
+    return (
+      eventStart.isAfter(nowInTimezone) &&
+      eventStart.isBefore(tomorrowInTimezone)
+    )
   })
 
-  // Filter tomorrow's events
+  // Filter tomorrow's events (full day tomorrow)
+  const dayAfterTomorrow = tomorrowInTimezone.add(1, 'day')
   const tomorrowEventsList = events.value.filter((event: CalendarEvent) => {
-    const eventStart = new Date(event.startTime)
-    return eventStart >= tomorrowStart && eventStart < tomorrowEnd
+    const eventStart = dayjs(event.startTime).tz(timezone.value)
+    return (
+      eventStart.isAfter(tomorrowInTimezone) &&
+      eventStart.isBefore(dayAfterTomorrow)
+    )
   })
 
   // Sort events by start time
-  todayEventsList.sort(
-    (a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime(),
-  )
-  tomorrowEventsList.sort(
-    (a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime(),
-  )
+  const sortByStartTime = (a: CalendarEvent, b: CalendarEvent) => {
+    return (
+      dayjs(a.startTime).tz(timezone.value).valueOf() -
+      dayjs(b.startTime).tz(timezone.value).valueOf()
+    )
+  }
+
+  todayEventsList.sort(sortByStartTime)
+  tomorrowEventsList.sort(sortByStartTime)
 
   // Distribute events to maintain total around MAX_EVENTS
   let limitedTodayEvents: CalendarEvent[]
@@ -73,7 +86,7 @@ const filterAndFormatEvents = async () => {
   for (const event of allEvents) {
     try {
       const formattedTime = await getFormattedTime(
-        new Date(event.startTime),
+        dayjs(event.startTime).tz(timezone.value).toDate(),
         locale.value,
       )
       times[event.startTime] = formattedTime
@@ -85,12 +98,11 @@ const filterAndFormatEvents = async () => {
   formattedEventTimes.value = { ...formattedEventTimes.value, ...times }
 }
 
-watch([events, locale], filterAndFormatEvents, { immediate: true })
+watch([events, locale, timezone], filterAndFormatEvents, { immediate: true })
 </script>
 
 <template>
   <div class="MonthlyCalendarView primary-card">
-    <!-- Today's Events -->
     <div class="events-heading">
       <h1>{{ currentDayOfWeek }}</h1>
     </div>
@@ -109,7 +121,6 @@ watch([events, locale], filterAndFormatEvents, { immediate: true })
       </div>
     </div>
 
-    <!-- Tomorrow's Events -->
     <div v-if="tomorrowEvents.length > 0" class="events-heading">
       <h1>TOMORROW</h1>
     </div>
