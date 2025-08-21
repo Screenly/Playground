@@ -77,9 +77,6 @@ vi.mock('blueprint/components', () => ({
     template: '<div class="analog-clock">Analog Clock</div>',
     props: ['timezone'],
   },
-}))
-
-vi.mock('@/components', () => ({
   DigitalClock: {
     name: 'DigitalClock',
     template: '<div class="digital-clock">12:34</div>',
@@ -90,6 +87,9 @@ vi.mock('@/components', () => ({
     template: '<div class="date-display">Monday, January 1, 2024</div>',
     props: ['timezone'],
   },
+}))
+
+vi.mock('@/components', () => ({
   BrandLogoCard: {
     name: 'BrandLogoCard',
     template: '<div class="brand-logo">Brand Logo</div>',
