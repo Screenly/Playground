@@ -37,11 +37,20 @@ const getDateRangeForViewMode = (viewMode: ViewMode) => {
     // For daily view, start at midnight in the target timezone
     startDate = todayInTimezone.toDate()
     endDate = todayInTimezone.add(1, 'day').toDate()
-  } else {
+  } else if (viewMode === VIEW_MODE.WEEKLY) {
     // For weekly view, show full week starting from Sunday in the target timezone
     const weekStart = todayInTimezone.startOf('week')
     startDate = weekStart.toDate()
     endDate = weekStart.add(7, 'days').toDate()
+  } else if (viewMode === VIEW_MODE.MONTHLY) {
+    // For monthly view, show full month starting from the first day of the month
+    const monthStart = todayInTimezone.startOf('month')
+    startDate = monthStart.toDate()
+    endDate = monthStart.add(1, 'month').toDate()
+  } else {
+    // Default to daily view
+    startDate = todayInTimezone.toDate()
+    endDate = todayInTimezone.add(1, 'day').toDate()
   }
 
   return { startDate, endDate }
