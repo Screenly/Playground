@@ -101,15 +101,12 @@ Update `mock-data.yml` and update the values of `calendar_source_type` with `ica
 > Updating `mock-data.yml` will not trigger a rebuild of the Edge App. As of the moment,
 > you will need to change files inside the `src` directory to trigger a rebuild.
 
-## Linting
-
-We use [standard](https://standardjs.com/) to lint the codebase.
+## Linting and Formatting
 
 ```bash
-npx standard --fix # Automatically fixes linting errors.
+bun run lint
+bun run format
 ```
-
-Some rules are not automatically fixable, so you will need to fix them manually.
 
 ## Obtaining an OAuth Client ID, Client Secret, and Refresh Token
 
