@@ -18,7 +18,7 @@
         </div>
       </div>
       <div v-if="filteredEvents.length === 0" class="no-events">
-        No events scheduled for next 24 hours
+        No events scheduled for today
       </div>
     </div>
   </div>
@@ -42,10 +42,11 @@ const events = computed(() => calendarStore.events)
 const locale = computed(() => calendarStore.locale)
 
 const filterAndFormatEvents = async () => {
-  // Filter events for next 24 hours
+  // Filter events for current day only
   const now = new Date()
   const tomorrow = new Date(now)
-  tomorrow.setHours(now.getHours() + 24)
+  tomorrow.setDate(now.getDate() + 1)
+  tomorrow.setHours(0, 0, 0, 0)
 
   const upcomingEvents = events.value.filter((event: CalendarEvent) => {
     const eventStart = new Date(event.startTime)
