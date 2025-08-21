@@ -69,9 +69,11 @@
         font-size: 0.6rem * $multiplier;
 
         @if $orientation == 'portrait' {
-          margin-bottom: 1rem * $multiplier;
+          margin-top: 1rem * $multiplier;
+          margin-bottom: 0.5rem * $multiplier;
         } @else {
-          margin-bottom: 0.75rem * $multiplier;
+          margin-top: 1rem * $multiplier;
+          margin-bottom: 0.5rem * $multiplier;
         }
       }
 
@@ -82,26 +84,26 @@
           .event-time {
             padding-top: 1.1rem * $multiplier;
             padding-bottom: 1.1rem * $multiplier;
-            padding-right: 3.75rem * $multiplier;
-            font-size: 1rem * $multiplier;
+            padding-right: 2rem * $multiplier;
+            font-size: 0.85rem * $multiplier;
             border-bottom-width: 0.01rem * $multiplier;
           }
 
           .event-title {
             padding-top: 1.1rem * $multiplier;
             padding-bottom: 1.1rem * $multiplier;
-            font-size: 1rem * $multiplier;
+            font-size: 0.85rem * $multiplier;
             border-bottom-width: 0.01rem * $multiplier;
 
             .event-dot {
-              font-size: 1.2rem * $multiplier;
+              font-size: 1rem * $multiplier;
               margin-right: 0.5rem * $multiplier;
             }
           }
         }
 
         .no-events {
-          font-size: 1rem * $multiplier;
+          font-size: 0.85rem * $multiplier;
           padding: 2rem * $multiplier;
         }
       }
@@ -110,7 +112,7 @@
 }
 
 @media screen and (min-width: 800px) and (max-width: 1279px) and (orientation: landscape) {
-  @include monthly-calendar-view('landscape', 1);
+  @include monthly-calendar-view('landscape', 0.75);
 }
 
 @media screen and (min-width: 480px) and (max-width: 719px) and (orientation: portrait) {
@@ -118,7 +120,7 @@
 }
 
 @media screen and (min-width: 1280px) and (max-width: 1919px) and (orientation: landscape) {
-  @include monthly-calendar-view('landscape', 1.5);
+  @include monthly-calendar-view('landscape', 1.3);
 }
 
 @media screen and (min-width: 720px) and (max-width: 1079px) and (orientation: portrait) {
@@ -126,7 +128,7 @@
 }
 
 @media screen and (min-width: 1920px) and (max-width: 3839px) and (orientation: landscape) {
-  @include monthly-calendar-view('landscape', 2.25);
+  @include monthly-calendar-view('landscape', 2);
 }
 
 @media screen and (min-width: 1080px) and (max-width: 2159px) and (orientation: portrait) {
