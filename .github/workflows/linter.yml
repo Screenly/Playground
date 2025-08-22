@@ -30,6 +30,9 @@ jobs:
     name: Lint Code Base
     # Set the agent to run on
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
 
     ##################
     # Load all steps #
@@ -43,12 +46,13 @@ jobs:
         with:
           # Full git history is needed to get a proper list of changed files within `super-linter`
           fetch-depth: 0
+          persist-credentials: false
 
       ################################
       # Run Linter against code base #
       ################################
       - name: Lint Code Base
-        uses: super-linter/super-linter@v8
+        uses: super-linter/super-linter@ffde3b2b33b745cb612d787f669ef9442b1339a6
         env:
           VALIDATE_ALL_CODEBASE: false
           VALIDATE_HTML: false
@@ -59,6 +63,7 @@ jobs:
           VALIDATE_VUE_PRETTIER: false
           VALIDATE_JSCPD: false
           VALIDATE_CHECKOV: false
+          VALIDATE_TRIVY: false
           CSS_FILE_NAME: stylelint.config.cjs
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

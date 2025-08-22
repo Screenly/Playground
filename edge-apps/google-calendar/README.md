@@ -101,15 +101,12 @@ Update `mock-data.yml` and update the values of `calendar_source_type` with `ica
 > Updating `mock-data.yml` will not trigger a rebuild of the Edge App. As of the moment,
 > you will need to change files inside the `src` directory to trigger a rebuild.
 
-## Linting
-
-We use [standard](https://standardjs.com/) to lint the codebase.
+## Linting and Formatting
 
 ```bash
-npx standard --fix # Automatically fixes linting errors.
+bun run lint
+bun run format
 ```
-
-Some rules are not automatically fixable, so you will need to fix them manually.
 
 ## Obtaining an OAuth Client ID, Client Secret, and Refresh Token
 
@@ -139,7 +136,7 @@ The first half requires browser interaction. The second half can be done only us
 
 #### Managing Services for Google Workspace users
 
-As an administrator, you can control who can use the Google Calendar API. More details can be found [here](https://support.google.com/a/answer/6002940).
+As an administrator, you can control who can use the Google Calendar API. More details can be found [in this support article](https://support.google.com/a/answer/6002940).
 
 ### Part 2: Configuring OAuth Consent
 
@@ -178,7 +175,7 @@ https://accounts.google.com/o/oauth2/v2/auth?client_id=YOUR_CLIENT_ID
 > [!NOTE]
 > Setting the scope to `https://www.googleapis.com/auth/calendar` enables users to see, edit, and share, and permanently delete all the calendars that they have access to.
 > You could be more specific with the scope by setting it to something like `https://www.googleapis.com/auth/calendar.readonly`. More information can be found
-> [here](https://developers.google.com/workspace/calendar/api/auth#scopes).
+> [in this guide](https://developers.google.com/workspace/calendar/api/auth#scopes).
 
 You will be prompted to select a Google account. Select the account you want to use to access your Google Calendar. Follow the instructions to allow access to your Google Calendar.
 
