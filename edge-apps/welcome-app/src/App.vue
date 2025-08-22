@@ -5,7 +5,7 @@ import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 import { AnalogClock, DateDisplay } from 'blueprint/components'
 import { useSettingsStore } from '@/stores/settings'
-// import screenlyLogo from 'blueprint/assets/images/screenly.svg'
+import screenlyLogo from 'blueprint/assets/images/screenly.svg'
 
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
@@ -52,7 +52,7 @@ onMounted(() => {
         <span class="welcome-message">{{ welcomeMessage }}</span>
       </div>
       <div class="primary-card info-card">
-        <img :src="brandLogoUrl" class="brand-logo" alt="Brand Logo" />
+        <img :src="brandLogoUrl || screenlyLogo" class="brand-logo" alt="Brand Logo" />
         <span class="info-text">Powered by Screenly</span>
       </div>
     </div>
