@@ -1,49 +1,43 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, ref, type Ref } from 'vue'
+import { onBeforeMount, onMounted, computed, type Ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
-import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
-import { PrimaryCard } from 'blueprint/components'
-import { AnalogClock } from 'blueprint/components'
-import WelcomeMessage from './components/WelcomeMessage.vue'
-import DateDisplay from './components/DateDisplay.vue'
-import BrandInfoCard from './components/BrandInfoCard.vue'
-import { useSettingsStore } from './stores/settings'
+import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
+import { AnalogClock, DateDisplay } from 'blueprint/components'
+import { useSettingsStore } from '@/stores/settings'
+// import screenlyLogo from 'blueprint/assets/images/screenly.svg'
 
-const useScreenlyMetadataStore = defineStore('metadata', metadataStoreSetup)
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
   baseSettingsStoreSetup,
 )
 
-const screenlyMetadataStore = useScreenlyMetadataStore()
+const useMetadataStore = defineStore('metadataStore', metadataStoreSetup)
+
 const baseSettingsStore = useBaseSettingsStore()
 const settingsStore = useSettingsStore()
+const metadataStore = useMetadataStore()
 
-const { coordinates } = storeToRefs(
-  screenlyMetadataStore,
-) as unknown as {
-  coordinates: Ref<[number, number]>
+const { brandLogoUrl } = storeToRefs(baseSettingsStore) as unknown as {
+  brandLogoUrl: Ref<string>
 }
+
+// Computed properties for settings
+const welcomeHeading = computed(() => settingsStore.settings.value.welcome_heading || 'Welcome')
+const welcomeMessage = computed(() => settingsStore.settings.value.welcome_message || 'to the team')
 
 onBeforeMount(async () => {
   baseSettingsStore.setupTheme()
   await baseSettingsStore.setupBrandingLogo()
-
-  // Initialize settings
-  settingsStore.init()
-
-  // Apply theme colors
-  settingsStore.applyThemeColors()
 })
 
-onMounted(async () => {
-  const latitude = coordinates.value[0]
-  const longitude = coordinates.value[1]
+onMounted(() => {
+  const latitude = metadataStore.coordinates[0]
+  const longitude = metadataStore.coordinates[1]
 
-  // Initialize locale and timezone
-  await settingsStore.initLocale(latitude, longitude)
-  await settingsStore.initTimezone(latitude, longitude)
+  settingsStore.init()
+  settingsStore.initLocale()
+  settingsStore.initTimezone(latitude, longitude)
 
   screenly.signalReadyForRendering()
 })
@@ -54,17 +48,12 @@ onMounted(async () => {
     <!-- Primary Container-->
     <div class="primary-container">
       <div class="primary-card welcome-card">
-        <WelcomeMessage
-          :heading="settingsStore.settings.value.welcome_heading"
-          :message="settingsStore.settings.value.welcome_message"
-        />
+        <span class="welcome-heading">{{ welcomeHeading }}</span>
+        <span class="welcome-message">{{ welcomeMessage }}</span>
       </div>
       <div class="primary-card info-card">
-        <BrandInfoCard
-          :logo-src="settingsStore.getBrandLogoUrl()"
-          logo-alt="Brand Logo"
-          info-text="Powered by Screenly"
-        />
+        <img :src="brandLogoUrl" class="brand-logo" alt="Brand Logo" />
+        <span class="info-text">Powered by Screenly</span>
       </div>
     </div>
     <!-- Row Container with modules -->
@@ -76,17 +65,19 @@ onMounted(async () => {
         />
       </div>
       <div class="secondary-card clock-card">
-                <AnalogClock
-          :timezone="settingsStore.currentTimezone.value"
-          :locale="settingsStore.currentLocale.value"
-        />
+        <div class="clock-div">
+          <AnalogClock
+            :timezone="settingsStore.currentTimezone.value"
+            :locale="settingsStore.currentLocale.value"
+          />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-/* Container Configurations */
+// Container configurations matching the HTML version
 .main-container {
   display: flex;
   flex-direction: row;
@@ -124,6 +115,7 @@ onMounted(async () => {
 
 .info-card {
   align-items: flex-end;
+  flex-direction: row;
   justify-content: space-between;
 }
 
@@ -154,14 +146,52 @@ onMounted(async () => {
 
 .clock-card {
   background-color: var(--theme-color-primary);
-
-  /* Scale the blueprint clock component to match the HTML version */
-  :deep(.clock-container) {
-    transform: scale(1.3);
-  }
 }
 
-/* Media Query Portrait */
+// Text and element configurations
+.welcome-heading {
+  font-size: clamp(1rem, 6vw + 6vh, 1000rem);
+  margin: clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 2vw + 2vh, 1000rem) 0 clamp(1rem, 3vw + 3vh, 1000rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 100%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  height: calc(1.10em * 1);
+  overflow: hidden;
+}
+
+.welcome-message {
+  font-size: clamp(1rem, 5vw + 5vh, 1000rem);
+  font-weight: 400;
+  margin: 0 clamp(1rem, 2vw + 2vh, 1000rem) 0 clamp(1rem, 3vw + 3vh, 1000rem);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  height: calc(1.10em * 1);
+  overflow: hidden;
+}
+
+.brand-logo {
+  margin: 0 0 clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 3vw + 3vh, 1000rem);
+  width: clamp(1rem, 6.3vw + 6.3vh, 1000rem);
+}
+
+.info-text {
+  font-size: clamp(0.8rem, .70vw + .70vh, 1000rem);
+  margin: 0 clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 3vw + 3vh, 1000rem) 0;
+}
+
+.clock-div {
+  transform: scale(1.3);
+}
+
+// Media Query Portrait
 @media (orientation: portrait) {
   .main-container {
     flex-direction: column;
@@ -195,11 +225,17 @@ onMounted(async () => {
   .welcome-card {
     gap: clamp(1rem, 1vw + 2vh, 1000rem);
   }
+
+  .welcome-heading {
+    font-size: clamp(1rem, 5vw + 5vh, 1000rem);
+  }
+
+  .welcome-message {
+    font-size: clamp(1rem, 3vw + 3vh, 1000rem);
+  }
 }
 
-/* Media Query Landscape */
-
-/* QHD/WQHD Monitors - 2560×1440 */
+// Responsive breakpoints
 @media screen and (max-width: 2560px) and (orientation: landscape) {
   .main-container {
     gap: var(--hd-gap);
@@ -218,45 +254,29 @@ onMounted(async () => {
     gap: var(--hd-gap);
   }
 
-  .clock-card {
-    :deep(.clock-container) {
-      transform: scale(0.8);
-    }
+  .clock-div {
+    transform: scale(.8);
   }
 }
 
-/* Full HD Landscape - 1920 × 1080 */
 @media screen and (max-width: 1920px) and (orientation: landscape) {
-  .row-container {
-    gap: var(--hd-gap);
-  }
-
-  .clock-card {
-    :deep(.clock-container) {
-      transform: scale(0.6);
-    }
+  .clock-div {
+    transform: scale(.6);
   }
 }
 
-/* Custom resolution - 1680 × 962 (Landscape) */
 @media screen and (max-width: 1680px) and (orientation: landscape) {
-  .clock-card {
-    :deep(.clock-container) {
-      transform: scale(0.55);
-    }
+  .clock-div {
+    transform: scale(.55);
   }
 }
 
-/* Laptop Standard - 1366×768 */
 @media screen and (max-width: 1366px) and (orientation: landscape) {
-  .clock-card {
-    :deep(.clock-container) {
-      transform: scale(0.45);
-    }
+  .clock-div {
+    transform: scale(.45);
   }
 }
 
-/* HD Landscape - 1280 × 720 */
 @media screen and (max-width: 1280px) and (orientation: landscape) {
   .main-container {
     gap: var(--custom-720-gap);
@@ -276,24 +296,26 @@ onMounted(async () => {
   }
 
   .clock-card {
-   height: 47%;
+    height: 47%;
+  }
 
-    :deep(.clock-container) {
-      transform: scale(0.45);
-    }
+  .clock-div {
+    transform: scale(.45);
   }
 }
 
-/* Tablets & Small Laptops - 1024×768 & 1024×600 */
+@media screen and (max-width: 1080px) and (orientation: landscape) {
+  .clock-div {
+    transform: scale(.40);
+  }
+}
+
 @media screen and (max-width: 1024px) and (orientation: landscape) {
-  .clock-card {
-    :deep(.clock-container) {
-      transform: scale(0.35);
-    }
+  .clock-div {
+    transform: scale(.35);
   }
 }
 
-/* Raspberry Pi Touch Display - Landscape 800 × 480 */
 @media screen and (max-width: 800px) and (orientation: landscape) {
   .main-container {
     gap: var(--pi-gap);
@@ -312,16 +334,11 @@ onMounted(async () => {
     gap: var(--pi-gap);
   }
 
-  .clock-card {
-    :deep(.clock-container) {
-      transform: scale(0.27);
-    }
+  .clock-div {
+    transform: scale(.27);
   }
 }
 
-/* Portrait Media Queries */
-
-/* 4K Portrait - 4096 × 2160 */
 @media screen and (max-width: 3840px) and (orientation: portrait) {
   .main-container {
     gap: var(--custom-4k-gap);
@@ -340,14 +357,11 @@ onMounted(async () => {
     gap: var(--custom-4k-gap);
   }
 
-  .clock-card {
-    :deep(.clock-container) {
-      transform: scale(1.35);
-    }
+  .clock-div {
+    transform: scale(1.35);
   }
 }
 
-/* QHD Portrait - 2560 × 1440 */
 @media screen and (max-width: 2159px) and (orientation: portrait) {
   .main-container {
     gap: var(--hd-gap);
@@ -366,23 +380,17 @@ onMounted(async () => {
     gap: var(--hd-gap);
   }
 
-  .clock-card {
-    :deep(.clock-container) {
-      transform: scale(0.85);
-    }
+  .clock-div {
+    transform: scale(.85);
   }
 }
 
-/* Full HD Portrait - 1080 × 1920 */
 @media screen and (max-width: 1080px) and (orientation: portrait) {
-  .clock-card {
-    :deep(.clock-container) {
-      transform: scale(0.65);
-    }
+  .clock-div {
+    transform: scale(.65);
   }
 }
 
-/* HD Portrait - 720 × 1280 */
 @media screen and (max-width: 720px) and (orientation: portrait) {
   .main-container {
     gap: var(--custom-720-gap);
@@ -401,14 +409,11 @@ onMounted(async () => {
     gap: var(--custom-720-gap);
   }
 
-  .clock-card {
-    :deep(.clock-container) {
-      transform: scale(0.45);
-    }
+  .clock-div {
+    transform: scale(.45);
   }
 }
 
-/* Raspberry Pi Touch Display - Portrait 480 × 800 */
 @media screen and (max-width: 480px) and (orientation: portrait) {
   .main-container {
     gap: var(--pi-gap);
@@ -427,10 +432,8 @@ onMounted(async () => {
     gap: var(--pi-gap);
   }
 
-  .clock-card {
-    :deep(.clock-container) {
-      transform: scale(0.25);
-    }
+  .clock-div {
+    transform: scale(.25);
   }
 }
 </style>
