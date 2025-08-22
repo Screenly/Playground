@@ -16,36 +16,19 @@ bun install
 bun run build
 screenly edge-app create \
     --name=EDGE_APP_NAME \
-    --in-place \
-    --path=dist
-```
-
-Since the `dist` directory is ignored by Git, we need to sync `./dist/screenly.yml` with
-`./screenly.yml`.
-
-```bash
-cp ./dist/screenly.yml ./screenly.yml
+    --in-place
 ```
 
 ## Create an Edge App Instance via CLI
 
 ```bash
-screenly edge-app instance create --path=dist
-```
-
-An `instance.yml` file will be created inside the `dist` directory. Sync `./dist/instance.yml`
-with your current project directory:
-
-```bash
-cp ./dist/instance.yml .
+screenly edge-app instance create --name=EDGE_APP_INSTANCE_NAME
 ```
 
 ## Deployment
 
-Run the following on a terminal to build the Edge App:
-
 ```bash
-screenly edge-app deploy --path dist/
+bun run deploy
 ```
 
 **Option 1: Getting Calendar Events via API**
@@ -71,48 +54,59 @@ screenly edge-app settings set ical_url=<YOUR_ICAL_URL>
 
 ## Development
 
-Run the following on a terminal to start the development server:
+Install the dependencies for the first run:
 
 ```bash
 bun install
+```
+
+Run the following on a terminal to start the build process in watch mode:
+
+```bash
+bun run build:dev
+```
+
+Open another terminal and run the following:
+
+```bash
 bun run dev
 ```
 
-Run the following on a second terminal to generate mock data:
+This will start the development server via the [Screenly CLI](https://github.com/Screenly/cli).
 
-```bash
-screenly edge-app run --generate-mock-data --path dist/
+```plaintext
+$ screenly edge-app run --path=dist/
+Edge App emulator is running at http://127.0.0.1:38085/edge/1/index.html
 ```
+
+Copy the URL and paste it in the browser to see the app in action.
 
 **Option 1: Getting Calendar Events via API**
 
-Update `dist/mock-data.yml` and update the values of `refresh_token`, `client_id`, and `client_secret` with the values you obtained in the [Obtaining an OAuth Client ID, Client Secret, and Refresh Token](#obtaining-an-oauth-client-id-client-secret-and-refresh-token) section.
+Update `mock-data.yml` and update the values of `refresh_token`, `client_id`, and `client_secret` with the values you obtained in the [Obtaining an OAuth Client ID, Client Secret, and Refresh Token](#obtaining-an-oauth-client-id-client-secret-and-refresh-token) section.
 
-Update `dist/mock-data.yml` and update the values of `calendar_source_type` with `api`.
+Update `mock-data.yml` and update the values of `calendar_source_type` with `api`.
 
 **Option 2: Getting Calendar Events via iCal**
 
 See [the section on Getting the iCal URL](#getting-the-ical-url) for instructions on how to get the iCal URL.
 
-Update `dist/mock-data.yml` and update the values of `ical_url` and `bypass_cors` with the URL of the iCal feed you want to use and `true` respectively.
+Update `mock-data.yml` and update the values of `ical_url` and `bypass_cors` with the URL of the iCal feed you want to use and `true` respectively.
 
-Update `dist/mock-data.yml` and update the values of `calendar_source_type` with `ical`.
+Update `mock-data.yml` and update the values of `calendar_source_type` with `ical`.
 
-### Running the Development Server
+**Caveats**
 
-```bash
-screenly edge-app run --path dist/
-```
+> [!NOTE]
+> Updating `mock-data.yml` will not trigger a rebuild of the Edge App. As of the moment,
+> you will need to change files inside the `src` directory to trigger a rebuild.
 
-## Linting
-
-We use [standard](https://standardjs.com/) to lint the codebase.
+## Linting and Formatting
 
 ```bash
-npx standard --fix # Automatically fixes linting errors.
+bun run lint
+bun run format
 ```
-
-Some rules are not automatically fixable, so you will need to fix them manually.
 
 ## Obtaining an OAuth Client ID, Client Secret, and Refresh Token
 
@@ -139,6 +133,10 @@ The first half requires browser interaction. The second half can be done only us
 - Click **Enable** to enable the Google Calendar API.
 
 ![Enable Google Calendar API](static/images/enable-google-calendar-api.png)
+
+#### Managing Services for Google Workspace users
+
+As an administrator, you can control who can use the Google Calendar API. More details can be found [in this support article](https://support.google.com/a/answer/6002940).
 
 ### Part 2: Configuring OAuth Consent
 
@@ -174,6 +172,11 @@ https://accounts.google.com/o/oauth2/v2/auth?client_id=YOUR_CLIENT_ID
 &redirect_uri=YOUR_REDIRECT_URI
 ```
 
+> [!NOTE]
+> Setting the scope to `https://www.googleapis.com/auth/calendar` enables users to see, edit, and share, and permanently delete all the calendars that they have access to.
+> You could be more specific with the scope by setting it to something like `https://www.googleapis.com/auth/calendar.readonly`. More information can be found
+> [in this guide](https://developers.google.com/workspace/calendar/api/auth#scopes).
+
 You will be prompted to select a Google account. Select the account you want to use to access your Google Calendar. Follow the instructions to allow access to your Google Calendar.
 
 Once redirected to your `redirect_uri`, check the address bar for the `code` parameter. In the screenshot below, the `code` parameter is `[AUTHORIZATION_CODE]`. Take note that the real authorization code is redacted for privacy reasons.
@@ -207,7 +210,7 @@ The response will include a `refresh_token` and an `access_token` that can last 
   "expires_in": 3599,
   "refresh_token": "1//06o8d....[REDACTED]....nlo",
   "scope": "https://www.googleapis.com/auth/calendar",
-  "token_type": "Bearer",
+  "token_type": "Bearer"
 }
 ```
 

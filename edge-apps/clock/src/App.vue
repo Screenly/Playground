@@ -3,10 +3,10 @@ import { onBeforeMount, onMounted, type Ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
-import { AnalogClock } from 'blueprint/components'
-import { DigitalClock, DateDisplay, BrandLogoCard } from '@/components'
+import { AnalogClock, DigitalClock, DateDisplay } from 'blueprint/components'
+import { BrandLogoCard } from '@/components'
 import { useSettingsStore } from '@/stores/settings'
-import screenlyLogo from '@/assets/images/screenly.svg'
+import screenlyLogo from 'blueprint/assets/images/screenly.svg'
 
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
@@ -33,7 +33,7 @@ onMounted(() => {
   const longitude = metadataStore.coordinates[1]
 
   settingsStore.init()
-  settingsStore.initLocale(latitude, longitude)
+  settingsStore.initLocale()
   settingsStore.initTimezone(latitude, longitude)
 
   screenly.signalReadyForRendering()

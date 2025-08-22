@@ -2,8 +2,6 @@ import { type Ref, ref } from 'vue'
 import { defineStore } from 'pinia'
 import moment from 'moment-timezone'
 import tzlookup from '@photostructure/tz-lookup'
-import { getNearestCity } from 'offline-geocode-city'
-import clm from 'country-locale-map'
 
 const settingsStoreSetup = () => {
   const settings = screenly.settings
@@ -22,22 +20,19 @@ const settingsStoreSetup = () => {
       (JSON.parse(settings.enable_analytics as string) as boolean) ?? false
   }
 
-  const initLocale = (latitude: number, longitude: number) => {
-    const defaultLocale = navigator?.languages?.length
-      ? navigator.languages[0]
-      : navigator.language || 'en'
+  const initLocale = () => {
+    const defaultLocale =
+      (navigator?.languages?.length
+        ? navigator.languages[0]
+        : navigator.language) || 'en'
 
     if (overrideLocale.value) {
-      if (moment.locales().includes(overrideLocale.value)) {
-        currentLocale.value = overrideLocale.value
-        return
-      }
+      // TODO: Use a modern library to check if the user-provided locale is valid.
+      currentLocale.value = overrideLocale.value
+      return
     }
 
-    const data = getNearestCity(latitude, longitude)
-    const countryCode = data.countryIso2.toUpperCase()
-
-    currentLocale.value = clm.getLocaleByAlpha2(countryCode) || defaultLocale
+    currentLocale.value = defaultLocale
   }
 
   const initTimezone = (latitude: number, longitude: number) => {
