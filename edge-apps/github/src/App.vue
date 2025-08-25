@@ -4,6 +4,9 @@ import { defineStore, storeToRefs } from 'pinia'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 import { PrimaryCard, AnalogClock, BrandLogoCard } from 'blueprint/components'
 
+import { useGithubApiStore } from '@/stores/github-api'
+import { useSettingsStore } from '@/stores/settings'
+
 import screenlyLogo from 'blueprint/assets/images/screenly.svg'
 
 const useBaseSettingsStore = defineStore(
@@ -12,6 +15,8 @@ const useBaseSettingsStore = defineStore(
 )
 
 const baseSettingsStore = useBaseSettingsStore()
+const githubApiStore = useGithubApiStore()
+const settingsStore = useSettingsStore()
 
 const { primaryThemeColor, brandLogoUrl } = storeToRefs(
   baseSettingsStore,
@@ -25,7 +30,10 @@ onBeforeMount(async () => {
   await baseSettingsStore.setupBrandingLogo()
 })
 
-onMounted(() => {
+onMounted(async () => {
+  settingsStore.init()
+  await githubApiStore.init()
+
   screenly.signalReadyForRendering()
 })
 </script>
@@ -49,14 +57,19 @@ onMounted(() => {
     </div>
 
     <PrimaryCard>
-      <h1>Hello, World!</h1>
+      <h1>{{ githubApiStore.username }}</h1>
     </PrimaryCard>
   </div>
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/analog-clock-overrides.scss';
-@import '@/assets/brand-logo-card-overrides.scss';
+@use '@/assets/analog-clock-overrides.scss' as *;
+@use '@/assets/brand-logo-card-overrides.scss' as *;
+
+.primary-card {
+  justify-content: start;
+  align-items: start;
+}
 
 .row-container {
   @media screen and (orientation: portrait) {
