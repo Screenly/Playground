@@ -235,7 +235,17 @@ onMounted(() => {
   }
 }
 
+
+
 // Responsive breakpoints
+
+@media screen and (max-width: 4096px) and (orientation: landscape) {
+  .clock-div {
+    transform: scale(.5);
+  }
+}
+
+
 @media screen and (max-width: 2560px) and (orientation: landscape) {
   .main-container {
     gap: var(--hd-gap);
