@@ -1,31 +1,24 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, ref, type Ref } from 'vue'
+import { onBeforeMount, onMounted, type Ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
-import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
-import { PrimaryCard } from 'blueprint/components'
+import { PrimaryCard, AnalogClock, BrandLogoCard } from 'blueprint/components'
 
-const useScreenlyMetadataStore = defineStore('metadata', metadataStoreSetup)
+import screenlyLogo from 'blueprint/assets/images/screenly.svg'
+
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
   baseSettingsStoreSetup,
 )
 
-const screenlyMetadataStore = useScreenlyMetadataStore()
 const baseSettingsStore = useBaseSettingsStore()
 
-const { hostname, screenName, hardware, coordinates, location } = storeToRefs(
-  screenlyMetadataStore,
+const { primaryThemeColor, brandLogoUrl } = storeToRefs(
+  baseSettingsStore,
 ) as unknown as {
-  hostname: Ref<string>
-  screenName: Ref<string>
-  hardware: Ref<string>
-  coordinates: Ref<[number, number]>
-  location: Ref<string>
+  primaryThemeColor: Ref<string>
+  brandLogoUrl: Ref<string>
 }
-
-const secretWord = ref(screenly.settings.secret_word)
-const greeting = ref(screenly.settings.greeting)
 
 onBeforeMount(async () => {
   baseSettingsStore.setupTheme()
@@ -41,15 +34,50 @@ onMounted(() => {
   <div class="main-container">
     <div class="secondary-container">
       <div class="row-container">
-        <div class="secondary-card"></div>
-      </div>
-      <div class="row-container">
-        <div class="secondary-card"></div>
+        <div
+          class="secondary-card"
+          :style="{
+            backgroundColor: primaryThemeColor,
+          }"
+        >
+          <AnalogClock />
+        </div>
+        <div class="secondary-card">
+          <BrandLogoCard :logo-src="brandLogoUrl || screenlyLogo" />
+        </div>
       </div>
     </div>
 
-    <PrimaryCard></PrimaryCard>
+    <PrimaryCard>
+      <h1>Hello, World!</h1>
+    </PrimaryCard>
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+@import '@/assets/analog-clock-overrides.scss';
+@import '@/assets/brand-logo-card-overrides.scss';
+
+.row-container {
+  @media screen and (orientation: portrait) {
+    flex-direction: row;
+    height: 100%;
+  }
+
+  @media screen and (orientation: landscape) {
+    flex-direction: column;
+    height: 100%;
+  }
+}
+
+.secondary-card {
+  @media screen and (orientation: portrait) {
+    width: 50%;
+  }
+
+  @media screen and (orientation: landscape) {
+    width: 100%;
+    height: 50%;
+  }
+}
+</style>
