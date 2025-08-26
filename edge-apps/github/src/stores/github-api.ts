@@ -12,6 +12,7 @@ const githubApiStoreSetup = () => {
   const username = ref<string>('')
   const init = async () => {
     if (githubToken.value) {
+      // TODO: Use Axios instead of Fetch.
       const response = await fetch(`${GITHUB_API_URL}/user`, {
         headers: {
           Authorization: `Bearer ${githubToken.value}`,
