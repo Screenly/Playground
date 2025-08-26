@@ -236,15 +236,13 @@ onMounted(() => {
 }
 
 
-
 // Responsive breakpoints
 
 @media screen and (max-width: 4096px) and (orientation: landscape) {
   .clock-div {
-    transform: scale(.5);
+    transform: scale(.45);
   }
 }
-
 
 @media screen and (max-width: 2560px) and (orientation: landscape) {
   .main-container {
@@ -265,27 +263,27 @@ onMounted(() => {
   }
 
   .clock-div {
-    transform: scale(.8);
+    transform: scale(.65);
   }
 }
 
 @media screen and (max-width: 1920px) and (orientation: landscape) {
   .clock-div {
-    transform: scale(.6);
+    transform: scale(.5);
   }
 }
 
-@media screen and (max-width: 1680px) and (orientation: landscape) {
-  .clock-div {
-    transform: scale(.55);
-  }
-}
+// @media screen and (max-width: 1680px) and (orientation: landscape) {
+//   .clock-div {
+//     transform: scale(.55);
+//   }
+// }
 
-@media screen and (max-width: 1366px) and (orientation: landscape) {
-  .clock-div {
-    transform: scale(.45);
-  }
-}
+// @media screen and (max-width: 1366px) and (orientation: landscape) {
+//   .clock-div {
+//     transform: scale(.45);
+//   }
+// }
 
 @media screen and (max-width: 1280px) and (orientation: landscape) {
   .main-container {
@@ -320,11 +318,11 @@ onMounted(() => {
   }
 }
 
-@media screen and (max-width: 1024px) and (orientation: landscape) {
-  .clock-div {
-    transform: scale(.35);
-  }
-}
+// @media screen and (max-width: 1024px) and (orientation: landscape) {
+//   .clock-div {
+//     transform: scale(.35);
+//   }
+// }
 
 @media screen and (max-width: 800px) and (orientation: landscape) {
   .main-container {
@@ -345,7 +343,7 @@ onMounted(() => {
   }
 
   .clock-div {
-    transform: scale(.27);
+    transform: scale(.5);
   }
 }
 
