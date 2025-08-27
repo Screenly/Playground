@@ -65,11 +65,12 @@ onMounted(() => {
         <span class="date-text">MON</span>
         <span class="date-number">05</span>
       </div>
-      <div class="secondary-card clock-card">
-        <div class="clock-div">
-          <!-- TODO: Add clock here when ready. -->
-          <!-- <AnalogClock /> -->
-        </div>
+      <div class="secondary-card">
+        <AnalogClock
+          :style="{
+            backgroundColor: '#EFEFEF',
+          }"
+        />
       </div>
     </div>
   </div>
@@ -110,6 +111,13 @@ onMounted(() => {
     display: flex !important;
     flex-direction: row !important;
     justify-content: space-between !important;
+
+    // Force equal width for all secondary cards
+    .secondary-card {
+      flex: 1 1 33.333% !important;
+      max-width: 33.333% !important;
+      min-width: 0 !important;
+    }
   }
 }
 
@@ -344,53 +352,39 @@ onMounted(() => {
   color: var(--theme-color-primary);
 }
 
-.clock-card {
-  // Clock card specific styles handled by .secondary-card
-}
+$base-scale: 0.2;
 
-/* Clock Scaling */
-.clock-div {
-  transform: scale(0.45);
-
-  @media screen and (max-width: 800px) and (orientation: landscape) {
-    transform: scale(0.2);
+.clock-container {
+  @media screen and (min-width: 800px) and (orientation: landscape) {
+    transform: scale($base-scale);
   }
 
-  @media screen and (max-width: 1024px) and (orientation: landscape) {
-    transform: scale(0.25);
+  @media screen and (min-width: 1280px) and (orientation: landscape) {
+    transform: scale($base-scale * 1.5);
   }
 
-  @media screen and (max-width: 1280px) and (orientation: landscape) {
-    transform: scale(0.35);
+  @media screen and (min-width: 1920px) and (orientation: landscape) {
+    transform: scale($base-scale * 2.25);
   }
 
-  @media screen and (max-width: 1366px) and (orientation: landscape) {
-    transform: scale(0.3);
+  @media screen and (min-width: 3840px) and (orientation: landscape) {
+    transform: scale($base-scale * 4.5);
   }
 
-  @media screen and (max-width: 1920px) and (orientation: landscape) {
-    transform: scale(0.45);
+  @media screen and (min-width: 480px) and (orientation: portrait) {
+    transform: scale($base-scale * 1);
   }
 
-  @media screen and (max-width: 2560px) and (orientation: landscape) {
-    transform: scale(0.5);
+  @media screen and (min-width: 720px) and (orientation: portrait) {
+    transform: scale($base-scale * 1.6);
   }
 
-  // Portrait scaling
-  @media screen and (max-width: 480px) and (orientation: portrait) {
-    transform: scale(0.2);
+  @media screen and (min-width: 1080px) and (orientation: portrait) {
+    transform: scale($base-scale * 2.4);
   }
 
-  @media screen and (max-width: 720px) and (orientation: portrait) {
-    transform: scale(0.3);
-  }
-
-  @media screen and (max-width: 1080px) and (orientation: portrait) {
-    transform: scale(0.45);
-  }
-
-  @media screen and (max-width: 2160px) and (orientation: portrait) {
-    transform: scale(0.85);
+  @media screen and (min-width: 2160px) and (orientation: portrait) {
+    transform: scale($base-scale * 4.8);
   }
 }
 </style>
