@@ -150,7 +150,7 @@ onMounted(() => {
 
 // Text and element configurations
 .welcome-heading {
-  font-size: clamp(1rem, calc(6vw + 6vh), 1000rem);
+  font-size: clamp(1rem, calc(5.5vw + 5.5vh), 1000rem);
   margin: clamp(1rem, calc(2.5vw + 2.5vh), 1000rem) clamp(1rem, calc(2vw + 2vh), 1000rem) 0 clamp(1rem, calc(3vw + 3vh), 1000rem);
   font-weight: 600;
   letter-spacing: -0.04em;
@@ -165,7 +165,7 @@ onMounted(() => {
 }
 
 .welcome-message {
-  font-size: clamp(1rem, calc(5vw + 5vh), 1000rem);
+  font-size: clamp(1rem, calc(4.5vw + 4.5vh), 1000rem);
   font-weight: 400;
   margin: 0 clamp(1rem, calc(2vw + 2vh), 1000rem) 0 clamp(1rem, calc(3vw + 3vh), 1000rem);
   display: -webkit-box;
@@ -178,7 +178,7 @@ onMounted(() => {
 }
 
 .brand-logo {
-  margin: 0 0 clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 3vw + 3vh, 1000rem);
+  margin: 0 0 clamp(1rem, calc(2.5vw + 2.5vh), 1000rem) clamp(1rem, calc(3vw + 3vh), 1000rem);
   width: clamp(1rem, calc(6.2vw + 6.2vh), 1000rem);
 }
 
