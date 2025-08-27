@@ -235,15 +235,25 @@ onMounted(() => {
 
   .welcome-card {
     gap: clamp(1rem, 1vw + 2vh, 1000rem);
+
   }
 
   .welcome-heading {
     font-size: clamp(1rem, 5vw + 5vh, 1000rem);
-
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    height: unset;
+    min-height: 1.1em;
+    max-height: calc(1.1em * 3);
   }
 
   .welcome-message {
     font-size: clamp(1rem, 3vw + 3vh, 1000rem);
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    height: unset;
+    min-height: 1.1em;
+    max-height: calc(1.1em * 4);
   }
 }
 
