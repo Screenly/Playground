@@ -3,7 +3,10 @@ import { onBeforeMount, onMounted, ref, type Ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
-import { PrimaryCard } from 'blueprint/components'
+import {
+  PrimaryCard,
+  AnalogClock,
+} from 'blueprint/components'
 
 const useScreenlyMetadataStore = defineStore('metadata', metadataStoreSetup)
 const useBaseSettingsStore = defineStore(
@@ -39,79 +42,197 @@ onMounted(() => {
 
 <template>
   <div class="main-container main-container-grid">
-    <PrimaryCard>
-      <h1 class="main-header">
-        <span id="greeting">
-          <template v-if="greeting"> Greetings, {{ greeting }}! </template>
-          <template v-else> Greetings! </template>
-        </span>
-      </h1>
-
-      <p>
-        You secret word is
-        <template v-if="secretWord">
-          <strong>{{ secretWord }}</strong
-          >.
-        </template>
-        <template v-else> not set. </template>
-      </p>
-
-      <p>
-        I'm <strong id="screen-name">{{ screenName }}</strong
-        >. Assuming you've pinned me in the right location,<br />I'm located in
-        <strong id="screen-location">{{ location }}</strong> (more precisely at
-        latitude <strong id="screen-lat">{{ coordinates[0] }}</strong
-        >&#176; and longitude
-        <strong id="screen-lng">{{ coordinates[1] }}</strong
-        >&#176;).
-      </p>
-
-      <p>
-        My Screenly ID is
-        <span id="screen-hostname">
-          <strong>{{ hostname }}</strong>
-        </span>
-        (which conveniently is also my hostname), and I'm running on a
-        <span id="screen-hardware">
-          <strong>{{ hardware || 'virtual screen' }}</strong> </span
-        >.
-      </p>
-    </PrimaryCard>
+    <!-- Primary Container with Message Head -->
+    <div class="primary-container">
+      <div class="primary-card message-head">
+        <span class="message-head-content">Simple Message App</span>
+      </div>
+    </div>
+    <!-- Secondary Container for message body -->
+    <div class="secondary-container">
+      <div class="message-body secondary-card">
+        <span class="message-body-content">A simple message app allows users to display text on a screen, making it a basic tool for digital signage. Users can input and edit both the heading and message body directly from the Screenly dashboard.</span>
+      </div>
+    </div>
+    <!-- Row Container with modules -->
+    <div class="row-container">
+      <div class="secondary-card info-card">
+        <img src="/static/img/icon.svg" class="brand-logo" alt="Brand Logo" />
+        <span class="info-text">Powered by Screenly</span>
+      </div>
+      <div class="secondary-card date-card">
+        <span class="date-text">MON</span>
+        <span class="date-number">05</span>
+      </div>
+      <div class="secondary-card clock-card">
+        <div class="clock-div">
+          <AnalogClock />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-@mixin content-text($multiplier: 1) {
-  p {
-    font-size: 1rem * $multiplier;
-    margin-bottom: 0.75rem * $multiplier;
+/* Grid Layout Styles */
+
+.main-container-grid {
+  display: grid !important;
+  grid-template-rows: 2fr 0.5fr 0.125fr 0.25fr 0.125fr 0.25fr 0.5fr !important;
+  grid-template-columns: 3fr 0.25fr 0.5fr 0.5fr 0.5fr !important;
+  gap: 2rem !important;
+  height: 100% !important;
+  width: 100% !important;
+
+  .primary-container {
+    width: 100% !important;
+    grid-area: 1 / 1 / 4 / 3 !important;
+
+    .primary-card {
+      width: 100% !important;
+      height: 100% !important;
+    }
+  }
+
+  .secondary-container {
+    width: 100% !important;
+    border-radius: 3rem !important;
+    background-color: #fff !important;
+    grid-area: 1 / 3 / 8 / 6 !important;
+  }
+
+  .row-container {
+    height: 100% !important;
+    grid-area: 4 / 1 / 8 / 3 !important;
+    gap: 2rem !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
   }
 }
 
-@mixin header-text($multiplier: 1) {
-  h1 {
-    font-size: 2.5rem * $multiplier;
-    margin-bottom: 1.75rem * $multiplier;
+/* Message Content Styles */
+.message-head-content {
+  font-size: 14rem;
+  padding: 10rem;
+  font-weight: bold;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 4;
+  height: calc(1.15em * 5);
+  overflow: hidden;
+}
+
+.primary-card.message-head {
+  align-items: flex-start !important;
+  justify-content: normal !important;
+}
+
+.message-body-content {
+  font-size: 6rem;
+  padding: 10rem;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 17;
+  height: calc(1.14em * 20);
+  overflow: hidden;
+}
+
+.message-body {
+  display: flex;
+  align-items: flex-start;
+  justify-content: normal;
+}
+
+/* Card Styles */
+.info-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  background-color: var(--theme-color-tertiary);
+}
+
+.brand-logo {
+  width: 12rem;
+}
+
+.info-text {
+  font-size: 1.75rem;
+  color: var(--theme-color-primary);
+}
+
+.date-card {
+  gap: 0.25rem;
+  background-color: var(--theme-color-tertiary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.date-text {
+  font-size: 5rem;
+  color: var(--theme-color-secondary);
+}
+
+.date-number {
+  line-height: 1;
+  font-size: 11rem;
+  color: var(--theme-color-primary);
+}
+
+.clock-card {
+  background-color: var(--theme-color-tertiary);
+}
+
+/* Clock Scaling */
+.clock-div {
+  transform: scale(0.45);
+
+  @media screen and (max-width: 800px) and (orientation: landscape) {
+    transform: scale(0.2);
   }
-}
 
-@media (min-width: 800px) and (min-height: 480px) and (orientation: landscape) {
-  @include header-text(1);
-  @include content-text(1);
-}
+  @media screen and (max-width: 1024px) and (orientation: landscape) {
+    transform: scale(0.25);
+  }
 
-@media (min-width: 1280px) and (min-height: 720px) and (orientation: landscape) {
-  @include header-text(1.5);
-  @include content-text(1.5);
-}
+  @media screen and (max-width: 1280px) and (orientation: landscape) {
+    transform: scale(0.35);
+  }
 
-@media (min-width: 1920px) and (min-height: 1080px) and (orientation: landscape) {
-  @include header-text(2.25);
-  @include content-text(2.25);
-}
+  @media screen and (max-width: 1366px) and (orientation: landscape) {
+    transform: scale(0.3);
+  }
 
-@media (min-width: 3840px) and (orientation: landscape) {
-  @include header-text(4.5);
-  @include content-text(4.5);
+  @media screen and (max-width: 1920px) and (orientation: landscape) {
+    transform: scale(0.45);
+  }
+
+  @media screen and (max-width: 2560px) and (orientation: landscape) {
+    transform: scale(0.5);
+  }
+
+  // Portrait scaling
+  @media screen and (max-width: 480px) and (orientation: portrait) {
+    transform: scale(0.2);
+  }
+
+  @media screen and (max-width: 720px) and (orientation: portrait) {
+    transform: scale(0.3);
+  }
+
+  @media screen and (max-width: 1080px) and (orientation: portrait) {
+    transform: scale(0.45);
+  }
+
+  @media screen and (max-width: 2160px) and (orientation: portrait) {
+    transform: scale(0.85);
+  }
 }
 </style>
