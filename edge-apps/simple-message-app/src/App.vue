@@ -3,10 +3,7 @@ import { onBeforeMount, onMounted, ref, type Ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
-import {
-  PrimaryCard,
-  AnalogClock,
-} from 'blueprint/components'
+import { PrimaryCard, AnalogClock } from 'blueprint/components'
 
 const useScreenlyMetadataStore = defineStore('metadata', metadataStoreSetup)
 const useBaseSettingsStore = defineStore(
@@ -51,7 +48,11 @@ onMounted(() => {
     <!-- Secondary Container for message body -->
     <div class="secondary-container">
       <div class="message-body secondary-card">
-        <span class="message-body-content">A simple message app allows users to display text on a screen, making it a basic tool for digital signage. Users can input and edit both the heading and message body directly from the Screenly dashboard.</span>
+        <span class="message-body-content"
+          >A simple message app allows users to display text on a screen, making
+          it a basic tool for digital signage. Users can input and edit both the
+          heading and message body directly from the Screenly dashboard.</span
+        >
       </div>
     </div>
     <!-- Row Container with modules -->
@@ -66,7 +67,8 @@ onMounted(() => {
       </div>
       <div class="secondary-card clock-card">
         <div class="clock-div">
-          <AnalogClock />
+          <!-- TODO: Add clock here when ready. -->
+          <!-- <AnalogClock /> -->
         </div>
       </div>
     </div>
@@ -123,6 +125,74 @@ onMounted(() => {
   -webkit-line-clamp: 4;
   height: calc(1.15em * 5);
   overflow: hidden;
+
+  // Responsive font sizing to match legacy app
+  @media screen and (max-width: 1920px) and (orientation: landscape) {
+    font-size: 7rem;
+    padding: 5rem;
+  }
+
+  @media screen and (max-width: 1680px) and (orientation: landscape) {
+    font-size: 6rem;
+    padding: 4rem;
+  }
+
+  @media screen and (max-width: 1600px) and (orientation: landscape) {
+    font-size: 5.5rem;
+  }
+
+  @media screen and (max-width: 1366px) and (orientation: landscape) {
+    font-size: 5rem;
+  }
+
+  @media screen and (max-width: 1280px) and (orientation: landscape) {
+    font-size: 4.5rem;
+    padding: 3rem;
+    -webkit-line-clamp: 4;
+    height: calc(1.15em * 5);
+  }
+
+  @media screen and (max-width: 1080px) and (orientation: landscape) {
+    font-size: 4.5rem;
+    padding: 6rem;
+  }
+
+  @media screen and (max-width: 1024px) and (orientation: landscape) {
+    font-size: 3.2rem;
+    padding: 3rem;
+  }
+
+  @media screen and (max-width: 800px) and (orientation: landscape) {
+    font-size: 3rem;
+    padding: 2.5rem;
+    -webkit-line-clamp: 4;
+    height: calc(1.2em * 5);
+  }
+
+  // Portrait responsive sizes
+  @media screen and (max-width: 2160px) and (orientation: portrait) {
+    -webkit-line-clamp: 6;
+    height: calc(1.15em * 7);
+  }
+
+  @media screen and (max-width: 1080px) and (orientation: portrait) {
+    font-size: 7rem;
+    padding: 5rem;
+  }
+
+  @media screen and (max-width: 720px) and (orientation: portrait) {
+    font-size: 4.5rem;
+    padding: 4rem;
+    -webkit-line-clamp: 6;
+    height: calc(1.17em * 7);
+  }
+
+  @media screen and (max-width: 480px) and (orientation: portrait) {
+    font-size: 3.5rem;
+    padding: 2rem;
+    -webkit-line-clamp: 5;
+    height: calc(1.17em * 6);
+  }
 }
 
 .primary-card.message-head {
@@ -140,6 +210,91 @@ onMounted(() => {
   -webkit-line-clamp: 17;
   height: calc(1.14em * 20);
   overflow: hidden;
+
+  // Responsive font sizing to match legacy app
+  @media screen and (max-width: 3840px) and (orientation: landscape) {
+    padding: 9rem;
+  }
+
+  @media screen and (max-width: 2560px) and (orientation: landscape) {
+    font-size: 3.2rem;
+    padding: 4rem;
+  }
+
+  @media screen and (max-width: 1920px) and (orientation: landscape) {
+    font-size: 3rem;
+    padding: 4rem;
+    -webkit-line-clamp: 17;
+    height: calc(1.13em * 20);
+  }
+
+  @media screen and (max-width: 1680px) and (orientation: landscape) {
+    font-size: 2.5rem;
+    padding: 3rem;
+    -webkit-line-clamp: 18;
+    height: calc(1.13em * 21);
+  }
+
+  @media screen and (max-width: 1600px) and (orientation: landscape) {
+    font-size: 2.3rem;
+  }
+
+  @media screen and (max-width: 1366px) and (orientation: landscape) {
+    font-size: 1.95rem;
+    height: calc(1.15em * 21);
+  }
+
+  @media screen and (max-width: 1280px) and (orientation: landscape) {
+    font-size: 2rem;
+    padding: 2.5rem;
+    -webkit-line-clamp: 17;
+    height: calc(1.13em * 20);
+  }
+
+  @media screen and (max-width: 1080px) and (orientation: landscape) {
+    font-size: 2rem;
+    padding: 2.5rem;
+  }
+
+  @media screen and (max-width: 1024px) and (orientation: landscape) {
+    font-size: 1.5rem;
+    height: calc(1.16em * 20);
+  }
+
+  @media screen and (max-width: 800px) and (orientation: landscape) {
+    font-size: 1.25rem;
+    padding: 2.5rem;
+    -webkit-line-clamp: 18;
+    height: calc(1.12em * 22);
+  }
+
+  // Portrait responsive sizes
+  @media screen and (max-width: 2160px) and (orientation: portrait) {
+    padding: 6rem;
+    -webkit-line-clamp: 9;
+    height: calc(1.13em * 11);
+  }
+
+  @media screen and (max-width: 1080px) and (orientation: portrait) {
+    font-size: 3rem;
+    padding: 4rem;
+    -webkit-line-clamp: 8;
+    height: calc(1.13em * 10);
+  }
+
+  @media screen and (max-width: 720px) and (orientation: portrait) {
+    font-size: 2rem;
+    padding: 2.5rem;
+    -webkit-line-clamp: 8;
+    height: calc(1.14em * 10);
+  }
+
+  @media screen and (max-width: 480px) and (orientation: portrait) {
+    font-size: 1.3rem;
+    padding: 1.2rem;
+    -webkit-line-clamp: 8;
+    height: calc(1.23em * 9);
+  }
 }
 
 .message-body {
@@ -149,12 +304,20 @@ onMounted(() => {
 }
 
 /* Card Styles */
+.secondary-card {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  height: auto !important;
+  gap: 2rem !important;
+  border-radius: 3.481rem !important;
+  background-color: var(--theme-color-tertiary) !important;
+}
+
 .info-card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 2rem;
-  background-color: var(--theme-color-tertiary);
 }
 
 .brand-logo {
@@ -168,11 +331,6 @@ onMounted(() => {
 
 .date-card {
   gap: 0.25rem;
-  background-color: var(--theme-color-tertiary);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .date-text {
@@ -187,7 +345,7 @@ onMounted(() => {
 }
 
 .clock-card {
-  background-color: var(--theme-color-tertiary);
+  // Clock card specific styles handled by .secondary-card
 }
 
 /* Clock Scaling */
