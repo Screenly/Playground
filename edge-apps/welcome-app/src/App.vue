@@ -150,8 +150,8 @@ onMounted(() => {
 
 // Text and element configurations
 .welcome-heading {
-  font-size: clamp(1rem, 6vw + 6vh, 1000rem);
-  margin: clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 2vw + 2vh, 1000rem) 0 clamp(1rem, 3vw + 3vh, 1000rem);
+  font-size: clamp(1rem, calc(6vw + 6vh), 1000rem);
+  margin: clamp(1rem, calc(2.5vw + 2.5vh), 1000rem) clamp(1rem, calc(2vw + 2vh), 1000rem) 0 clamp(1rem, calc(3vw + 3vh), 1000rem);
   font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 100%;
@@ -160,26 +160,26 @@ onMounted(() => {
   text-overflow: ellipsis;
   -webkit-line-clamp: 1;
   line-clamp: 1;
-  height: calc(1.10em * 1);
+  height: 1.1em;
   overflow: hidden;
 }
 
 .welcome-message {
-  font-size: clamp(1rem, 5vw + 5vh, 1000rem);
+  font-size: clamp(1rem, calc(5vw + 5vh), 1000rem);
   font-weight: 400;
-  margin: 0 clamp(1rem, 2vw + 2vh, 1000rem) 0 clamp(1rem, 3vw + 3vh, 1000rem);
+  margin: 0 clamp(1rem, calc(2vw + 2vh), 1000rem) 0 clamp(1rem, calc(3vw + 3vh), 1000rem);
   display: -webkit-box;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
-  height: calc(1.10em * 1);
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  height: 2.1em;
   overflow: hidden;
 }
 
 .brand-logo {
   margin: 0 0 clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 3vw + 3vh, 1000rem);
-  width: clamp(1rem, 6.3vw + 6.3vh, 1000rem);
+  width: clamp(1rem, calc(6.2vw + 6.2vh), 1000rem);
 }
 
 .info-text {
@@ -190,6 +190,17 @@ onMounted(() => {
 .clock-div {
   transform: scale(1.3);
 }
+
+// Global date number override
+
+.date-card :deep(.date-number) {
+  font-size: clamp(1rem, calc(6.5vw + 6.5vh), 1000rem);
+}
+
+.date-card :deep(.date-text) {
+  font-size: clamp(1rem, calc(3vw + 3vh), 1000rem);
+}
+
 
 // Media Query Portrait
 @media (orientation: portrait) {
@@ -228,6 +239,7 @@ onMounted(() => {
 
   .welcome-heading {
     font-size: clamp(1rem, 5vw + 5vh, 1000rem);
+
   }
 
   .welcome-message {
@@ -366,7 +378,7 @@ onMounted(() => {
   }
 
   .clock-div {
-    transform: scale(1.35);
+    transform: scale(.45);
   }
 }
 
@@ -395,7 +407,7 @@ onMounted(() => {
 
 @media screen and (max-width: 1080px) and (orientation: portrait) {
   .clock-div {
-    transform: scale(.65);
+    transform: scale(.5);
   }
 }
 
@@ -418,7 +430,7 @@ onMounted(() => {
   }
 
   .clock-div {
-    transform: scale(.45);
+    transform: scale(.4);
   }
 }
 
@@ -441,7 +453,7 @@ onMounted(() => {
   }
 
   .clock-div {
-    transform: scale(.25);
+    transform: scale(.5);
   }
 }
 </style>
