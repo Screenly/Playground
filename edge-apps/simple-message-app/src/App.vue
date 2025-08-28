@@ -80,9 +80,11 @@ onMounted(() => {
 @use '@/assets/brand-logo-card-overrides.scss' as *;
 
 .main-container-grid {
-  display: grid;
-  grid-template-rows: 2fr 0.5fr 0.125fr 0.25fr 0.125fr 0.25fr 0.5fr;
-  grid-template-columns: 3fr 0.25fr 0.5fr 0.5fr 0.5fr;
+  @media (orientation: landscape) {
+    display: grid;
+    grid-template-rows: 2fr 0.5fr 0.125fr 0.25fr 0.125fr 0.25fr 0.5fr;
+    grid-template-columns: 3fr 0.25fr 0.5fr 0.5fr 0.5fr;
+  }
 
   .primary-container {
     width: 100%;
@@ -112,6 +114,28 @@ onMounted(() => {
       .info-card {
         gap: 2rem; // TODO: Make this dynamic.
       }
+    }
+  }
+}
+
+@media (orientation: portrait) {
+  .main-container-grid {
+    display: flex;
+    flex-direction: column;
+
+    .row-container {
+      width: 100%;
+      height: 20%;
+    }
+
+    .primary-container {
+      width: 100%;
+      height: 50%;
+    }
+
+    .secondary-container {
+      width: 100%;
+      height: 30%;
     }
   }
 }
