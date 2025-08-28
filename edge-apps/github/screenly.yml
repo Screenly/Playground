@@ -1,0 +1,20 @@
+---
+syntax: manifest_v1
+description: Replace this description with a description of your Edge App
+author: Screenly, Inc.
+ready_signal: true
+settings:
+  github_token:
+    type: secret
+    title: GitHub Token
+    optional: false
+    help_text: |-
+      A GitHub personal access token
+  theme:
+    type: string
+    default_value: light
+    title: Theme
+    optional: false
+    help_text: |-
+      Determines the visual theme for the application.
+      Options are 'light' or 'dark'.

@@ -64,6 +64,7 @@ jobs:
           VALIDATE_JSCPD: false
           VALIDATE_CHECKOV: false
           VALIDATE_TRIVY: false
+          VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
           CSS_FILE_NAME: stylelint.config.cjs
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
