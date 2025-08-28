@@ -53,7 +53,6 @@ onMounted(() => {
     <div class="secondary-container">
       <MessageBody />
     </div>
-    <!-- Row Container with modules -->
     <div class="row-container">
       <div class="secondary-card">
         <BrandLogoCard
