@@ -1,20 +1,28 @@
 <script setup lang="ts">
 import { onBeforeMount, onMounted, type Ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
+import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
-import { AnalogClock, BrandLogoCard } from 'blueprint/components'
+import { AnalogClock, BrandLogoCard, DateDisplay } from 'blueprint/components'
+import { useSettingsStore } from '@/stores/settings'
 
 import screenlyLogo from 'blueprint/assets/images/screenly.svg'
 
+const useMetadataStore = defineStore('metadataStore', metadataStoreSetup)
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
   baseSettingsStoreSetup,
 )
 
+const metadataStore = useMetadataStore()
 const baseSettingsStore = useBaseSettingsStore()
+const settingsStore = useSettingsStore()
 
 const { brandLogoUrl } = storeToRefs(baseSettingsStore) as unknown as {
   brandLogoUrl: Ref<string>
+}
+const { coordinates } = storeToRefs(metadataStore) as unknown as {
+  coordinates: Ref<[number, number]>
 }
 
 onBeforeMount(async () => {
@@ -23,6 +31,13 @@ onBeforeMount(async () => {
 })
 
 onMounted(() => {
+  const latitude = coordinates.value[0]
+  const longitude = coordinates.value[1]
+
+  settingsStore.init()
+  settingsStore.initLocale()
+  settingsStore.initTimezone(latitude, longitude)
+
   screenly.signalReadyForRendering()
 })
 </script>
@@ -51,9 +66,8 @@ onMounted(() => {
         <BrandLogoCard :logo-src="brandLogoUrl || screenlyLogo" />
       </div>
 
-      <div class="secondary-card date-card">
-        <span class="date-text">MON</span>
-        <span class="date-number">05</span>
+      <div class="secondary-card">
+        <DateDisplay :timezone="settingsStore.currentTimezone" />
       </div>
       <div class="secondary-card">
         <AnalogClock
@@ -328,21 +342,6 @@ onMounted(() => {
 
 .info-text {
   font-size: 1.75rem;
-  color: var(--theme-color-primary);
-}
-
-.date-card {
-  gap: 0.25rem;
-}
-
-.date-text {
-  font-size: 5rem;
-  color: var(--theme-color-secondary);
-}
-
-.date-number {
-  line-height: 1;
-  font-size: 11rem;
   color: var(--theme-color-primary);
 }
 </style>

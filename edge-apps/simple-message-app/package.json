@@ -22,8 +22,10 @@
     "prepare": "cd ../blueprint && bun install"
   },
   "dependencies": {
+    "@photostructure/tz-lookup": "^11.2.1",
+    "moment-timezone": "^0.6.0",
     "pinia": "^3.0.3",
-    "vue": "^3.5.17",
+    "vue": "^3.5.19",
     "yaml": "^2.8.0"
   },
   "devDependencies": {
