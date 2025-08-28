@@ -115,6 +115,8 @@ onMounted(() => {
         gap: 2rem; // TODO: Make this dynamic.
       }
     }
+
+    @include brand-logo-card-overrides;
   }
 }
 
