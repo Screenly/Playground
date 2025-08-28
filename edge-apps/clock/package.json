@@ -22,7 +22,7 @@
     "prepare": "cd ../blueprint && bun install"
   },
   "dependencies": {
-    "@photostructure/tz-lookup": "^11.1.0",
+    "@photostructure/tz-lookup": "^11.2.1",
     "@typescript-eslint/typescript-estree": "^8.41.0",
     "lz-ts": "^1.1.2",
     "moment": "^2.30.1",
