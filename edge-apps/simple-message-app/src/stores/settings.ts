@@ -1,6 +1,6 @@
 import { type Ref, ref } from 'vue'
 import { defineStore } from 'pinia'
-import moment from 'moment-timezone'
+import moment from 'moment-timezone' // TODO: Use `dayjs` instead.
 import tzlookup from '@photostructure/tz-lookup'
 
 const settingsStoreSetup = () => {
