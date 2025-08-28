@@ -80,9 +80,6 @@ onMounted(() => {
 @use '@/assets/analog-clock-overrides.scss' as *;
 @use '@/assets/brand-logo-card-overrides.scss' as *;
 
-// Section: Grid Layout Styles
-// TODO: Move to a separate SCSS file.
-
 .main-container-grid {
   display: grid;
   grid-template-rows: 2fr 0.5fr 0.125fr 0.25fr 0.125fr 0.25fr 0.5fr;
@@ -99,28 +96,22 @@ onMounted(() => {
   }
 
   .secondary-container {
-    width: 100% !important;
-    border-radius: 3rem !important;
-    background-color: #fff !important;
-    grid-area: 1 / 3 / 8 / 6 !important;
+    width: 100%;
+    border-radius: 3rem; // TODO: Make this dynamic.
+    background-color: #fff;
+    grid-area: 1 / 3 / 8 / 6;
   }
 
   .row-container {
-    height: 100% !important;
-    grid-area: 4 / 1 / 8 / 3 !important;
-    gap: 2rem !important;
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: space-between !important;
+    height: 100%;
+    grid-area: 4 / 1 / 8 / 3;
 
-    // Force equal width for all secondary cards
     .secondary-card {
-      flex: 1 1 33.333% !important;
-      max-width: 33.333% !important;
-      min-width: 0 !important;
+      // Force equal width for all secondary cards inside the row container.
+      min-width: 0;
 
       .info-card {
-        gap: 2rem;
+        gap: 2rem; // TODO: Make this dynamic.
       }
     }
   }
