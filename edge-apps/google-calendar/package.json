@@ -26,7 +26,7 @@
     "@sentry/browser": "^10.7.0",
     "@sentry/vue": "^10.7.0",
     "country-locale-map": "^1.9.9",
-    "dayjs": "^1.11.14",
+    "dayjs": "^1.11.15",
     "ical.js": "^2.2.1",
     "offline-geocode-city": "^1.0.2",
     "pinia": "^3.0.3",
