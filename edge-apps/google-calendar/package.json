@@ -22,11 +22,11 @@
     "prepare": "cd ../blueprint && bun install"
   },
   "dependencies": {
-    "@photostructure/tz-lookup": "^11.1.0",
-    "@sentry/browser": "^10.6.0",
-    "@sentry/vue": "^10.6.0",
+    "@photostructure/tz-lookup": "^11.2.1",
+    "@sentry/browser": "^10.7.0",
+    "@sentry/vue": "^10.7.0",
     "country-locale-map": "^1.9.9",
-    "dayjs": "^1.11.13",
+    "dayjs": "^1.11.14",
     "ical.js": "^2.2.1",
     "offline-geocode-city": "^1.0.2",
     "pinia": "^3.0.3",
