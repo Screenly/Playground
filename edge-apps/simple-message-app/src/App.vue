@@ -4,6 +4,8 @@ import { defineStore } from 'pinia'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 import { AnalogClock } from 'blueprint/components'
 
+import screenlyLogo from 'blueprint/assets/images/screenly.svg'
+
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
   baseSettingsStoreSetup,
@@ -42,7 +44,7 @@ onMounted(() => {
     <!-- Row Container with modules -->
     <div class="row-container">
       <div class="secondary-card info-card">
-        <img src="/static/img/icon.svg" class="brand-logo" alt="Brand Logo" />
+        <img :src="screenlyLogo" class="brand-logo" alt="Brand Logo" />
         <span class="info-text">Powered by Screenly</span>
       </div>
       <div class="secondary-card date-card">
