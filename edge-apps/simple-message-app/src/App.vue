@@ -5,6 +5,7 @@ import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 import { AnalogClock, BrandLogoCard, DateDisplay } from 'blueprint/components'
 import { useSettingsStore } from '@/stores/settings'
+import MessageHead from '@/components/MessageHead.vue'
 
 import screenlyLogo from 'blueprint/assets/images/screenly.svg'
 
@@ -44,13 +45,10 @@ onMounted(() => {
 
 <template>
   <div class="main-container main-container-grid">
-    <!-- Primary Container with Message Head -->
     <div class="primary-container">
-      <div class="primary-card message-head">
-        <span class="message-head-content">Simple Message App</span>
-      </div>
+      <MessageHead />
     </div>
-    <!-- Secondary Container for message body -->
+
     <div class="secondary-container">
       <div class="message-body secondary-card">
         <span class="message-body-content"
@@ -127,93 +125,6 @@ onMounted(() => {
       min-width: 0 !important;
     }
   }
-}
-
-/* Message Content Styles */
-.message-head-content {
-  font-size: 14rem;
-  padding: 10rem;
-  font-weight: bold;
-  line-height: 1.25;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 4;
-  height: calc(1.15em * 5);
-  overflow: hidden;
-
-  // Responsive font sizing to match legacy app
-  @media screen and (max-width: 1920px) and (orientation: landscape) {
-    font-size: 7rem;
-    padding: 5rem;
-  }
-
-  @media screen and (max-width: 1680px) and (orientation: landscape) {
-    font-size: 6rem;
-    padding: 4rem;
-  }
-
-  @media screen and (max-width: 1600px) and (orientation: landscape) {
-    font-size: 5.5rem;
-  }
-
-  @media screen and (max-width: 1366px) and (orientation: landscape) {
-    font-size: 5rem;
-  }
-
-  @media screen and (max-width: 1280px) and (orientation: landscape) {
-    font-size: 4.5rem;
-    padding: 3rem;
-    -webkit-line-clamp: 4;
-    height: calc(1.15em * 5);
-  }
-
-  @media screen and (max-width: 1080px) and (orientation: landscape) {
-    font-size: 4.5rem;
-    padding: 6rem;
-  }
-
-  @media screen and (max-width: 1024px) and (orientation: landscape) {
-    font-size: 3.2rem;
-    padding: 3rem;
-  }
-
-  @media screen and (max-width: 800px) and (orientation: landscape) {
-    font-size: 3rem;
-    padding: 2.5rem;
-    -webkit-line-clamp: 4;
-    height: calc(1.2em * 5);
-  }
-
-  // Portrait responsive sizes
-  @media screen and (max-width: 2160px) and (orientation: portrait) {
-    -webkit-line-clamp: 6;
-    height: calc(1.15em * 7);
-  }
-
-  @media screen and (max-width: 1080px) and (orientation: portrait) {
-    font-size: 7rem;
-    padding: 5rem;
-  }
-
-  @media screen and (max-width: 720px) and (orientation: portrait) {
-    font-size: 4.5rem;
-    padding: 4rem;
-    -webkit-line-clamp: 6;
-    height: calc(1.17em * 7);
-  }
-
-  @media screen and (max-width: 480px) and (orientation: portrait) {
-    font-size: 3.5rem;
-    padding: 2rem;
-    -webkit-line-clamp: 5;
-    height: calc(1.17em * 6);
-  }
-}
-
-.primary-card.message-head {
-  align-items: flex-start !important;
-  justify-content: normal !important;
 }
 
 .message-body-content {
