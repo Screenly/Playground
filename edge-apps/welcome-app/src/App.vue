@@ -160,7 +160,7 @@ onMounted(() => {
   text-overflow: ellipsis;
   -webkit-line-clamp: 1;
   line-clamp: 1;
-  height: 1.1em;
+  height: 1.05em;
   overflow: hidden;
 }
 
@@ -352,6 +352,11 @@ onMounted(() => {
     padding: var(--pi-padding);
   }
 
+  .welcome-message {
+    height: 2.09em;
+  }
+
+
   .primary-container {
     border-radius: var(--pi-border-radius-big);
   }
@@ -367,6 +372,7 @@ onMounted(() => {
   .clock-div {
     transform: scale(.5);
   }
+
 }
 
 @media screen and (max-width: 3840px) and (orientation: portrait) {
