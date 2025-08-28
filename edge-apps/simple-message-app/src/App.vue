@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted } from 'vue'
-import { defineStore } from 'pinia'
+import { onBeforeMount, onMounted, type Ref } from 'vue'
+import { defineStore, storeToRefs } from 'pinia'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
-import { AnalogClock } from 'blueprint/components'
+import { AnalogClock, BrandLogoCard } from 'blueprint/components'
 
 import screenlyLogo from 'blueprint/assets/images/screenly.svg'
 
@@ -12,6 +12,10 @@ const useBaseSettingsStore = defineStore(
 )
 
 const baseSettingsStore = useBaseSettingsStore()
+
+const { brandLogoUrl } = storeToRefs(baseSettingsStore) as unknown as {
+  brandLogoUrl: Ref<string>
+}
 
 onBeforeMount(async () => {
   baseSettingsStore.setupTheme()
@@ -43,10 +47,10 @@ onMounted(() => {
     </div>
     <!-- Row Container with modules -->
     <div class="row-container">
-      <div class="secondary-card info-card">
-        <img :src="screenlyLogo" class="brand-logo" alt="Brand Logo" />
-        <span class="info-text">Powered by Screenly</span>
+      <div class="secondary-card">
+        <BrandLogoCard :logo-src="brandLogoUrl || screenlyLogo" />
       </div>
+
       <div class="secondary-card date-card">
         <span class="date-text">MON</span>
         <span class="date-number">05</span>
@@ -63,7 +67,8 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
-/* Grid Layout Styles */
+// Section: Grid Layout Styles
+// TODO: Move to a separate SCSS file.
 
 .main-container-grid {
   display: grid !important;
@@ -337,6 +342,162 @@ onMounted(() => {
   font-size: 11rem;
   color: var(--theme-color-primary);
 }
+
+// Section: Brand Logo Card Style Overrides
+// TODO: Move to a separate SCSS file.
+.secondary-card {
+  :deep(.brand-logo-card) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    background: var(--theme-color-tertiary);
+    border-radius: 3.481rem;
+    padding: 2rem;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+
+    .brand-logo {
+      width: 12rem;
+    }
+
+    .info-text {
+      font-size: 1.75rem;
+      color: var(--theme-color-primary);
+    }
+
+    @media screen and (min-width: 480px) and (orientation: portrait) {
+      border-radius: 2rem;
+      padding: 1rem;
+      gap: 1.5rem;
+
+      .brand-logo {
+        width: 5rem;
+      }
+
+      .info-text {
+        font-size: 1rem;
+      }
+    }
+
+    @media screen and (min-width: 720px) and (orientation: portrait) {
+      border-radius: 2rem;
+      padding: 1rem;
+      gap: 1.5rem;
+
+      .brand-logo {
+        width: 9rem;
+      }
+
+      .info-text {
+        font-size: 1.25rem;
+      }
+    }
+
+    @media screen and (min-width: 800px) and (orientation: landscape) {
+      border-radius: 2rem;
+      padding: 1rem;
+      gap: 1.5rem;
+
+      .brand-logo {
+        width: 5rem;
+      }
+
+      .info-text {
+        font-size: 0.75rem;
+      }
+    }
+
+    @media screen and (min-width: 1080px) and (orientation: portrait) {
+      border-radius: 4rem;
+      padding: 3rem;
+      gap: 3rem;
+
+      .brand-logo {
+        width: 12rem;
+      }
+
+      .info-text {
+        font-size: 2rem;
+      }
+    }
+
+    @media screen and (min-width: 1280px) and (orientation: landscape) {
+      border-radius: 2.5rem;
+      padding: 2rem;
+      gap: 3rem;
+
+      .brand-logo {
+        width: 8.5rem;
+      }
+
+      .info-text {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media screen and (min-width: 1920px) and (orientation: landscape) {
+      border-radius: 3.5rem;
+      padding: 2.5rem;
+      gap: 3rem;
+
+      .brand-logo {
+        width: 13rem;
+      }
+
+      .info-text {
+        font-size: 1.75rem;
+      }
+    }
+
+    @media screen and (min-width: 2160px) and (orientation: portrait) {
+      border-radius: 8rem;
+      padding: 5rem;
+      gap: 5rem;
+
+      .brand-logo {
+        width: 22rem;
+      }
+
+      .info-text {
+        font-size: 3.75rem;
+      }
+    }
+
+    @media screen and (min-width: 3840px) and (orientation: landscape) {
+      border-radius: 8rem;
+      padding: 5rem;
+      gap: 5rem;
+
+      .brand-logo {
+        width: 30rem;
+      }
+
+      .info-text {
+        font-size: 3.75rem;
+      }
+    }
+
+    @media screen and (min-width: 4096px) and (orientation: landscape) {
+      border-radius: 7rem;
+      padding: 5rem;
+      gap: 5rem;
+
+      .brand-logo {
+        width: 30rem;
+      }
+
+      .info-text {
+        font-size: 3.75rem;
+      }
+    }
+  }
+}
+
+// Section: Analog Clock Style Overrides
+// TODO: Move to a separate SCSS file.
 
 $base-scale: 0.2;
 
