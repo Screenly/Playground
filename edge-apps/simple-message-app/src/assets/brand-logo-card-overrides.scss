@@ -1,12 +1,24 @@
+@mixin base-brand-logo-card-overrides($multiplier: 1) {
+  padding: 1rem * $multiplier;
+  gap: 1.25rem * $multiplier;
+
+  .brand-logo {
+    width: 5rem * $multiplier;
+  }
+
+  .info-text {
+    font-size: 0.8rem * $multiplier;
+  }
+}
+
 @mixin brand-logo-card-overrides {
-  .secondary-card {
+  .main-container-grid .row-container .secondary-card {
     :deep(.brand-logo-card) {
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 2rem;
       background: var(--theme-color-tertiary);
-      border-radius: 3.481rem;
       padding: 2rem;
       margin: 0;
       width: 100%;
@@ -22,130 +34,36 @@
         color: var(--theme-color-primary);
       }
 
-      @media screen and (min-width: 480px) and (orientation: portrait) {
-        border-radius: 2rem;
-        padding: 1rem;
-        gap: 1.5rem;
-
-        .brand-logo {
-          width: 5rem;
-        }
-
-        .info-text {
-          font-size: 1rem;
-        }
+      @media screen and (max-width: 800px) and (orientation: landscape) {
+        @include base-brand-logo-card-overrides(1);
       }
 
-      @media screen and (min-width: 720px) and (orientation: portrait) {
-        border-radius: 2rem;
-        padding: 1rem;
-        gap: 1.5rem;
-
-        .brand-logo {
-          width: 9rem;
-        }
-
-        .info-text {
-          font-size: 1.25rem;
-        }
+      @media screen and (min-width: 801px) and (max-width: 1280px) and (orientation: landscape) {
+        @include base-brand-logo-card-overrides(1.5);
       }
 
-      @media screen and (min-width: 800px) and (orientation: landscape) {
-        border-radius: 2rem;
-        padding: 1rem;
-        gap: 1.25rem;
-
-        .brand-logo {
-          width: 5rem;
-        }
-
-        .info-text {
-          font-size: 0.7rem;
-        }
+      @media screen and (min-width: 1281px) and (max-width: 1920px) and (orientation: landscape) {
+        @include base-brand-logo-card-overrides(2.25);
       }
 
-      @media screen and (min-width: 1080px) and (orientation: portrait) {
-        border-radius: 4rem;
-        padding: 3rem;
-        gap: 3rem;
-
-        .brand-logo {
-          width: 12rem;
-        }
-
-        .info-text {
-          font-size: 2rem;
-        }
+      @media screen and (min-width: 1921px) and (orientation: landscape) {
+        @include base-brand-logo-card-overrides(4.5);
       }
 
-      @media screen and (min-width: 1280px) and (orientation: landscape) {
-        border-radius: 2.5rem;
-        padding: 2rem;
-        gap: 3rem;
-
-        .brand-logo {
-          width: 8.5rem;
-        }
-
-        .info-text {
-          font-size: 1.5rem;
-        }
+      @media screen and (max-width: 480px) and (orientation: portrait) {
+        @include base-brand-logo-card-overrides(1);
       }
 
-      @media screen and (min-width: 1920px) and (orientation: landscape) {
-        border-radius: 3.5rem;
-        padding: 2.5rem;
-        gap: 3rem;
-
-        .brand-logo {
-          width: 13rem;
-        }
-
-        .info-text {
-          font-size: 1.75rem;
-        }
+      @media screen and (min-width: 481px) and (max-width: 720px) and (orientation: portrait) {
+        @include base-brand-logo-card-overrides(1.5);
       }
 
-      @media screen and (min-width: 2160px) and (orientation: portrait) {
-        border-radius: 8rem;
-        padding: 5rem;
-        gap: 5rem;
-
-        .brand-logo {
-          width: 22rem;
-        }
-
-        .info-text {
-          font-size: 3.75rem;
-        }
+      @media screen and (min-width: 721px) and (max-width: 1080px) and (orientation: portrait) {
+        @include base-brand-logo-card-overrides(2.25);
       }
 
-      @media screen and (min-width: 3840px) and (orientation: landscape) {
-        border-radius: 8rem;
-        padding: 5rem;
-        gap: 5rem;
-
-        .brand-logo {
-          width: 30rem;
-        }
-
-        .info-text {
-          font-size: 3.75rem;
-        }
-      }
-
-      @media screen and (min-width: 4096px) and (orientation: landscape) {
-        border-radius: 7rem;
-        padding: 5rem;
-        gap: 5rem;
-
-        .brand-logo {
-          width: 30rem;
-        }
-
-        .info-text {
-          font-size: 3.75rem;
-        }
+      @media screen and (min-width: 1081px) and (orientation: portrait) {
+        @include base-brand-logo-card-overrides(4.5);
       }
     }
   }

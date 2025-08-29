@@ -1,0 +1,57 @@
+@use '@/assets/variables.scss' as *;
+
+@mixin border-radius-overrides {
+  .main-container-grid {
+    .secondary-container,
+    .secondary-card {
+      // Landscape
+
+      // 4K Landscape - 4096 × 2160
+      @media screen and (max-width: 4096px) and (orientation: landscape) {
+        border-radius: $custom-4k-border-radius-medium;
+      }
+
+      // QHD/WQHD Monitors - 2560×1440
+      @media screen and (max-width: 2560px) and (orientation: landscape) {
+        border-radius: $hd-border-radius-medium;
+      }
+
+      // Full HD Landscape - 1920 × 1080
+      @media screen and (max-width: 1920px) and (orientation: landscape) {
+        border-radius: $hd-border-radius-medium;
+      }
+
+      // Laptop, Standard - 1366×768
+      @media screen and (max-width: 1366px) and (orientation: landscape) {
+        border-radius: $custom-720-border-radius-medium;
+      }
+
+      // HD Landscape - 1280 × 720
+      @media screen and (max-width: 1280px) and (orientation: landscape) {
+        border-radius: $custom-720-border-radius-medium;
+      }
+
+      // Raspberry Pi Touch Display - Landscape 800 × 480
+      @media screen and (max-width: 800px) and (orientation: landscape) {
+        border-radius: $pi-border-radius-medium;
+      }
+
+      // Portrait
+
+      // 4K Portrait - 2160 × 4096
+      @media screen and (max-width: 2160px) and (orientation: portrait) {
+        border-radius: $custom-4k-border-radius-medium;
+      }
+
+      // Full HD Portrait - 1080 × 1920
+      @media screen and (max-width: 1080px) and (orientation: portrait) {
+        border-radius: $hd-border-radius-medium;
+      }
+
+      // Raspberry Pi Touch Display - Portrait 480 × 800
+      @media screen and (max-width: 480px) and (orientation: portrait) {
+        border-radius: $pi-border-radius-medium;
+      }
+    }
+  }
+}

@@ -78,6 +78,7 @@ onMounted(() => {
 <style scoped lang="scss">
 @use '@/assets/analog-clock-overrides.scss' as *;
 @use '@/assets/brand-logo-card-overrides.scss' as *;
+@use '@/assets/border-radius-overrides.scss' as *;
 
 .main-container-grid {
   @media (orientation: landscape) {
@@ -115,8 +116,6 @@ onMounted(() => {
         gap: 2rem; // TODO: Make this dynamic.
       }
     }
-
-    @include brand-logo-card-overrides;
   }
 }
 
@@ -141,4 +140,7 @@ onMounted(() => {
     }
   }
 }
+
+@include brand-logo-card-overrides;
+@include border-radius-overrides;
 </style>
