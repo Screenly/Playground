@@ -1,6 +1,5 @@
 import { type Ref, ref } from 'vue'
 import { defineStore } from 'pinia'
-import moment from 'moment-timezone' // TODO: Use `dayjs` instead.
 import tzlookup from '@photostructure/tz-lookup'
 
 const settingsStoreSetup = () => {
@@ -45,10 +44,9 @@ const settingsStoreSetup = () => {
 
   const initTimezone = (latitude: number, longitude: number) => {
     if (overrideTimezone.value) {
-      if (moment.tz.names().includes(overrideTimezone.value)) {
-        currentTimezone.value = overrideTimezone.value
-        return
-      }
+      // TODO: Add a check if the timezone is valid.
+      currentTimezone.value = overrideTimezone.value
+      return
     }
 
     currentTimezone.value = tzlookup(latitude, longitude)

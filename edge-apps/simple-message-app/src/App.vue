@@ -69,6 +69,7 @@ onMounted(() => {
           :style="{
             backgroundColor: '#EFEFEF',
           }"
+          :timezone="settingsStore.currentTimezone"
         />
       </div>
     </div>
