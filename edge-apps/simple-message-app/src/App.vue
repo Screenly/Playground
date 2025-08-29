@@ -47,11 +47,11 @@ onMounted(() => {
 <template>
   <div class="main-container main-container-grid">
     <div class="primary-container">
-      <MessageHead />
+      <MessageHead :value="settingsStore.messageHeader" />
     </div>
 
     <div class="secondary-container">
-      <MessageBody />
+      <MessageBody :value="settingsStore.messageBody" />
     </div>
     <div class="row-container">
       <div class="secondary-card">
@@ -101,7 +101,6 @@ onMounted(() => {
 
   .secondary-container {
     width: 100%;
-    border-radius: 3rem; // TODO: Make this dynamic.
     background-color: #fff;
     grid-area: 1 / 3 / 8 / 6;
   }

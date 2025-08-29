@@ -1,8 +1,16 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+interface Props {
+  value: string
+}
+
+defineProps<Props>()
+</script>
 
 <template>
   <div class="primary-card message-head">
-    <span class="message-head-content">Simple Message App</span>
+    <span class="message-head-content">
+      {{ value }}
+    </span>
   </div>
 </template>
 

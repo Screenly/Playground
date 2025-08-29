@@ -11,6 +11,13 @@ const settingsStoreSetup = () => {
   const enableAnalytics: Ref<boolean> = ref(false)
   const currentLocale: Ref<string> = ref('')
   const currentTimezone: Ref<string> = ref('')
+  const messageHeader: Ref<string> = ref('')
+  const messageBody: Ref<string> = ref('')
+
+  const initMessage = () => {
+    messageHeader.value = settings.message_header as string
+    messageBody.value = settings.message_body as string
+  }
 
   const init = () => {
     overrideLocale.value = (settings.override_locale as string) ?? ''
@@ -18,6 +25,8 @@ const settingsStoreSetup = () => {
     overrideTimezone.value = (settings.override_timezone as string) ?? ''
     enableAnalytics.value =
       (JSON.parse(settings.enable_analytics as string) as boolean) ?? false
+
+    initMessage()
   }
 
   const initLocale = () => {
@@ -52,6 +61,8 @@ const settingsStoreSetup = () => {
     enableAnalytics,
     currentLocale,
     currentTimezone,
+    messageHeader,
+    messageBody,
     initLocale,
     initTimezone,
     init,

@@ -1,13 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+interface Props {
+  value: string
+}
+
+defineProps<Props>()
+</script>
 
 <template>
   <span>
     <div class="message-body secondary-card">
-      <span class="message-body-content"
-        >A simple message app allows users to display text on a screen, making
-        it a basic tool for digital signage. Users can input and edit both the
-        heading and message body directly from the Screenly dashboard.</span
-      >
+      <span class="message-body-content">{{ value }}</span>
     </div>
   </span>
 </template>
