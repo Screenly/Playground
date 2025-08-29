@@ -80,6 +80,7 @@ onMounted(() => {
 @use '@/assets/brand-logo-card-overrides.scss' as *;
 @use '@/assets/border-radius-overrides.scss' as *;
 @use '@/assets/date-display-overrides.scss' as *;
+@use '@/assets/gap-overrides.scss' as *;
 
 .main-container-grid {
   @media (orientation: landscape) {
@@ -112,10 +113,6 @@ onMounted(() => {
     .secondary-card {
       // Force equal width for all secondary cards inside the row container.
       min-width: 0;
-
-      .info-card {
-        gap: 2rem; // TODO: Make this dynamic.
-      }
     }
   }
 }
@@ -144,4 +141,5 @@ onMounted(() => {
 
 @include brand-logo-card-overrides;
 @include border-radius-overrides;
+@include gap-overrides;
 </style>
