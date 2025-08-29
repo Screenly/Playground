@@ -1,9 +1,11 @@
 import { type Ref, ref } from 'vue'
 import { defineStore } from 'pinia'
 import tzlookup from '@photostructure/tz-lookup'
+import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 
 const settingsStoreSetup = () => {
   const settings = screenly.settings
+  const metadataStore = defineStore('metadataStore', metadataStoreSetup)()
   const overrideLocale: Ref<string> = ref('')
   const overrideTimezone: Ref<string> = ref('')
   const tagManagerId: Ref<string> = ref('')
@@ -26,6 +28,14 @@ const settingsStoreSetup = () => {
       (JSON.parse(settings.enable_analytics as string) as boolean) ?? false
 
     initMessage()
+    initLocale()
+
+    // Retrieve coordinates from metadata store
+    const coordinates = metadataStore.coordinates
+    if (coordinates && coordinates.length === 2) {
+      const [latitude, longitude] = coordinates
+      initTimezone(latitude, longitude)
+    }
   }
 
   const initLocale = () => {
