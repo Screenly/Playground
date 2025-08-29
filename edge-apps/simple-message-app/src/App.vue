@@ -79,6 +79,7 @@ onMounted(() => {
 @use '@/assets/analog-clock-overrides.scss' as *;
 @use '@/assets/brand-logo-card-overrides.scss' as *;
 @use '@/assets/border-radius-overrides.scss' as *;
+@use '@/assets/date-display-overrides.scss' as *;
 
 .main-container-grid {
   @media (orientation: landscape) {
