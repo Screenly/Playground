@@ -23,10 +23,10 @@
   },
   "dependencies": {
     "@photostructure/tz-lookup": "^11.2.1",
-    "@sentry/browser": "^10.7.0",
-    "@sentry/vue": "^10.7.0",
+    "@sentry/browser": "^10.8.0",
+    "@sentry/vue": "^10.8.0",
     "country-locale-map": "^1.9.9",
-    "dayjs": "^1.11.14",
+    "dayjs": "^1.11.17",
     "ical.js": "^2.2.1",
     "offline-geocode-city": "^1.0.2",
     "pinia": "^3.0.3",
