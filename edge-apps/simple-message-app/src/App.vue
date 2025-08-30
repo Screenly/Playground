@@ -54,12 +54,14 @@ onMounted(() => {
         <DateDisplay :timezone="settingsStore.currentTimezone" />
       </div>
       <div class="secondary-card">
-        <AnalogClock
-          :style="{
-            backgroundColor: '#EFEFEF',
-          }"
-          :timezone="settingsStore.currentTimezone"
-        />
+        <div>
+          <AnalogClock
+            :style="{
+              backgroundColor: '#EFEFEF',
+            }"
+            :timezone="settingsStore.currentTimezone"
+          />
+        </div>
       </div>
     </div>
   </div>

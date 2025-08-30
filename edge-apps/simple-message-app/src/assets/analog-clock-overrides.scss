@@ -2,34 +2,42 @@ $landscape-base-scale: 0.2;
 $portrait-base-scale: 0.19;
 
 .clock-container {
+  // Landscape - 800x480
   @media screen and (max-width: 800px) and (orientation: landscape) {
     transform: scale($landscape-base-scale);
   }
 
+  // Landscape - 1280x720
   @media screen and (min-width: 801px) and (max-width: 1280px) and (orientation: landscape) {
     transform: scale($landscape-base-scale * 1.5);
   }
 
+  // Landscape - 1920x1080
   @media screen and (min-width: 1281px) and (max-width: 1920px) and (orientation: landscape) {
     transform: scale($landscape-base-scale * 2.25);
   }
 
+  // Landscape - 1920x1080
   @media screen and (min-width: 1921px) and (orientation: landscape) {
     transform: scale($landscape-base-scale * 4.5);
   }
 
+  // Portrait - 480x800
   @media screen and (max-width: 480px) and (orientation: portrait) {
     transform: scale($portrait-base-scale * 1);
   }
 
+  // Portrait - 720x1280
   @media screen and (min-width: 481px) and (max-width: 720px) and (orientation: portrait) {
     transform: scale($portrait-base-scale * 1.6);
   }
 
+  // Portrait - 1080x1920
   @media screen and (min-width: 721px) and (max-width: 1080px) and (orientation: portrait) {
     transform: scale($portrait-base-scale * 2.4);
   }
 
+  // Portrait - 2160x3840
   @media screen and (min-width: 1081px) and (orientation: portrait) {
     transform: scale($portrait-base-scale * 4.8);
   }
