@@ -54,14 +54,12 @@ onMounted(() => {
         <DateDisplay :timezone="settingsStore.currentTimezone" />
       </div>
       <div class="secondary-card">
-        <div>
-          <AnalogClock
-            :style="{
-              backgroundColor: '#EFEFEF',
-            }"
-            :timezone="settingsStore.currentTimezone"
-          />
-        </div>
+        <AnalogClock
+          :style="{
+            backgroundColor: '#EFEFEF',
+          }"
+          :timezone="settingsStore.currentTimezone"
+        />
       </div>
     </div>
   </div>
@@ -80,8 +78,6 @@ onMounted(() => {
     grid-template-rows: 2fr 0.5fr 0.125fr 0.25fr 0.125fr 0.25fr 0.5fr;
     grid-template-columns: 3fr 0.25fr 0.5fr 0.5fr 0.5fr;
   }
-
-  overflow: hidden;
 
   .primary-container {
     width: 100%;
