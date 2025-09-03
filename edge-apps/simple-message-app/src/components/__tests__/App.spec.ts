@@ -25,7 +25,7 @@ const mockScreenly = {
     screenly_color_accent: '#000000',
     screenly_color_dark: '#000000',
     screenly_color_light: '#000000',
-    theme: 'light',
+    theme: 'light' as const,
   },
   cors_proxy_url: 'https://example.com',
 }
