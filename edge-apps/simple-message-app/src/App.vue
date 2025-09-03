@@ -81,6 +81,8 @@ onMounted(() => {
     grid-template-columns: 3fr 0.25fr 0.5fr 0.5fr 0.5fr;
   }
 
+  overflow: hidden;
+
   .primary-container {
     width: 100%;
     grid-area: 1 / 1 / 4 / 3;
