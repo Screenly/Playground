@@ -3,6 +3,7 @@ import { createPinia, setActivePinia } from 'pinia'
 
 import { mount } from '@vue/test-utils'
 import App from '@/App.vue'
+import { useSettingsStore } from '@/stores/settings'
 
 // Override existing mocked values
 const mockScreenly = {
@@ -36,10 +37,36 @@ global.screenly = mockScreenly
 describe('App', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
+    // Override the global screenly object with our mock
+    global.screenly = mockScreenly
   })
 
   it('should display "Powered by Screenly" text', () => {
     const wrapper = mount(App)
+    const settingsStore = useSettingsStore()
+    settingsStore.init()
     expect(wrapper.text()).toContain('Powered by Screenly')
+  })
+
+  it('should display the message header', async () => {
+    const settingsStore = useSettingsStore()
+    settingsStore.init()
+    const wrapper = mount(App)
+
+    // Wait for Vue to update the DOM
+    // await wrapper.vm.$nextTick()
+
+    expect(wrapper.text()).toContain('Test message header')
+  })
+
+  it('should display the message body', async () => {
+    const settingsStore = useSettingsStore()
+    settingsStore.init()
+    const wrapper = mount(App)
+
+    // Wait for Vue to update the DOM
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.text()).toContain('Test message body')
   })
 })
