@@ -54,12 +54,14 @@ onMounted(() => {
         <DateDisplay :timezone="settingsStore.currentTimezone" />
       </div>
       <div class="secondary-card">
-        <AnalogClock
-          :style="{
-            backgroundColor: '#EFEFEF',
-          }"
-          :timezone="settingsStore.currentTimezone"
-        />
+        <div class="clock-wrapper">
+          <AnalogClock
+            :style="{
+              backgroundColor: '#EFEFEF',
+            }"
+            :timezone="settingsStore.currentTimezone"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -102,6 +104,16 @@ onMounted(() => {
     .secondary-card {
       // Force equal width for all secondary cards inside the row container.
       min-width: 0;
+    }
+
+    .clock-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      aspect-ratio: 1 / 1;
+      max-width: 100%;
+      max-height: 100%;
+      overflow: hidden;
     }
   }
 }
