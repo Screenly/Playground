@@ -8,6 +8,27 @@ test('basic app structure test', async ({ page }) => {
   await page.route('/screenly.js?version=1', async (route) => {
     const mockScreenlyData = {
       signalReadyForRendering: () => {},
+      metadata: {
+        coordinates: [40.7128, -74.006],
+        hostname: 'test-host',
+        screen_name: 'test-screen',
+        hardware: 'test-hardware',
+        location: 'test-location',
+        screenly_version: 'test-version',
+        tags: ['tag1', 'tag2', 'tag3'],
+      },
+      settings: {
+        api_key: 'test-api-key',
+        screenly_color_accent: '#972EFF',
+        screenly_color_light: '#ADAFBE',
+        screenly_color_dark: '#454BD2',
+        enable_analytics: 'true',
+        override_locale: 'en',
+        override_timezone: 'UTC',
+        sentry_dsn: '',
+        tag_manager_id: '',
+      },
+      cors_proxy_url: 'https://example.com',
     }
 
     const screenlyJsContent = `
@@ -24,6 +45,12 @@ test('basic app structure test', async ({ page }) => {
 
   await page.goto('/')
 
-  // Check for app title
-  await expect(page.getByText('BambooHR App')).toBeVisible()
+  // Check for dashboard title
+  await expect(page.getByText('BambooHR Dashboard')).toBeVisible()
+  await expect(page.getByText('Powered by Screenly')).toBeVisible()
+
+  // Check for dashboard sections
+  await expect(page.getByText('On Leave Today')).toBeVisible()
+  await expect(page.getByText('Birthdays')).toBeVisible()
+  await expect(page.getByText('Anniversaries')).toBeVisible()
 })
