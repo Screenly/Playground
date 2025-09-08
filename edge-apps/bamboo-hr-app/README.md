@@ -53,8 +53,7 @@ screenly edge-app instance create
 Set your BambooHR API credentials:
 
 ```bash
-screenly edge-app setting set client_id=YOUR_CLIENT_ID
-screenly edge-app setting set client_secret=YOUR_CLIENT_SECRET
+screenly edge-app setting set api_key=YOUR_API_KEY
 ```
 
 ### Timezone and Locale
