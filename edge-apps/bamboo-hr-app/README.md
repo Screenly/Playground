@@ -1,92 +1,72 @@
-# Screenly Edge App Template
+# BambooHR App
 
+A digital signage dashboard that displays employee information from Bamboo HR, including birthdays, work anniversaries, and current leave status. Perfect for office displays and team spaces.
+
+## Features
+
+- Real-time employee information display
+- Birthday and work anniversary celebrations
+- Current leave status tracking
+- Automatic timezone and locale detection
+- Automatic brand colors and logo from Screenly brand page
+- Responsive design for any screen size
 
 ## Prerequisites
 
-- [Bun (1.2.2+)](https://bun.sh/docs/installation)
-- [Screenly Edge App CLI (v1.0.3+)](https://github.com/Screenly/cli?tab=readme-ov-file#installation)
+- Bun (1.2.2+)
+- Bamboo HR API credentials
+- Screenly CLI installed (see [installation guide](https://github.com/Screenly/cli))
 
-## Getting Started
+## Installation
+
+1. **Log in to Screenly CLI**
 
 ```bash
-bun install
+screenly login
+```
+
+2. **Create the Edge App**
+
+```bash
+cd edge-apps/bamboo-hr-app
 screenly edge-app create \
-    --name=EDGE_APP_NAME \
+    --name bamboo-hr-app \
     --in-place
 ```
 
-## Create an Edge App Instance via CLI
+3. **Deploy the App**
 
 ```bash
-screenly edge-app instance create --name=EDGE_APP_INSTANCE_NAME
+bun install && bun run deploy
 ```
 
-## Deployment
+4. **Create an Instance**
 
 ```bash
-bun run deploy
+screenly edge-app instance create
 ```
 
-> [!NOTE]
-> The `deploy` command takes care of building the app as well.
+## Configuration
 
-## Development
+### API Credentials
 
-Install the dependencies for the first run:
+Set your BambooHR API credentials:
 
 ```bash
-bun install
+screenly edge-app setting set client_id=YOUR_CLIENT_ID
+screenly edge-app setting set client_secret=YOUR_CLIENT_SECRET
 ```
 
-Run the following on a terminal to start the build process in watch mode:
+### Timezone and Locale
+
+Override the default timezone and locale if needed:
 
 ```bash
-bun run build:dev
+screenly edge-app setting set override_timezone='Europe/London'
+screenly edge-app setting set override_locale='en'
 ```
 
-Open another terminal and run the following:
+## Support
 
-```bash
-bun run dev
-```
+For issues or questions, please contact Screenly support or open an issue in the repository.
 
-This will start the development server via the [Screenly CLI](https://github.com/Screenly/cli).
-
-```plaintext
-$ screenly edge-app run --path=dist/
-Edge App emulator is running at http://127.0.0.1:38085/edge/1/index.html
-```
-
-Copy the URL and paste it in the browser to see the app in action.
-
-## Unit Tests
-
-To run unit tests:
-
-```bash
-bun run test:unit
-```
-
-Press `q` to quit the test runner.
-
-## E2E Tests
-
-Install dependencies for the first run:
-
-```bash
-bun run playwright install-deps
-bun run playwright install
-```
-
-To run E2E tests:
-
-```bash
-bun run test:e2e
-```
-
-### Linting and Formatting
-
-```bash
-bun run lint
-bun run format
-```
