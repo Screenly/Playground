@@ -3,6 +3,8 @@ import { ref, onBeforeMount, onMounted, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 
+import screenlyLogo from 'blueprint/assets/images/screenly.svg'
+
 interface Employee {
   id: number
   firstName: string
@@ -114,7 +116,7 @@ const mockAnniversaries: Anniversary[] = [
 
 // Computed properties
 const brandLogoUrl = computed(() => {
-  return baseSettingsStore.brandLogoUrl || '/static/images/Screenly.svg'
+  return baseSettingsStore.brandLogoUrl || screenlyLogo
 })
 
 // Methods
