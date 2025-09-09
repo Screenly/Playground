@@ -5,40 +5,13 @@ import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 
 import screenlyLogo from 'blueprint/assets/images/screenly.svg'
 import { useSettingsStore } from '@/stores/settings'
-
-interface Employee {
-  id: number
-  firstName: string
-  lastName: string
-  birthdate?: string
-  startDate?: string
-  avatar?: string | null
-  displayName?: string
-}
-
-interface Leave {
-  id: number
-  employee: Employee
-  request_type: string
-  start_date: string
-  end_date: string
-}
-
-interface Birthday {
-  id: number
-  firstName: string
-  lastName: string
-  birthdate: string
-  avatar?: string | null
-}
-
-interface Anniversary {
-  id: number
-  firstName: string
-  lastName: string
-  startDate: string
-  avatar?: string | null
-}
+import {
+  useHrDataStore,
+  type MockEmployee,
+  type Leave,
+  type Birthday,
+  type Anniversary,
+} from '@/stores/hr-data'
 
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
@@ -47,74 +20,10 @@ const useBaseSettingsStore = defineStore(
 
 const baseSettingsStore = useBaseSettingsStore()
 const settingsStore = useSettingsStore()
+const hrDataStore = useHrDataStore()
 
 // Reactive data
-const loading = ref(true)
 const currentTime = ref('')
-const leaves = ref<Leave[]>([])
-const birthdays = ref<Birthday[]>([])
-const anniversaries = ref<Anniversary[]>([])
-
-// Mock data for BambooHR
-const mockEmployees = [
-  {
-    id: 1,
-    firstName: 'John',
-    lastName: 'Doe',
-    birthdate: '1990-05-15',
-    startDate: '2020-01-15',
-    avatar: null,
-    displayName: 'John Doe',
-  },
-  {
-    id: 2,
-    firstName: 'Jane',
-    lastName: 'Smith',
-    birthdate: '1988-03-22',
-    startDate: '2019-06-10',
-    avatar: null,
-    displayName: 'Jane Smith',
-  },
-  {
-    id: 3,
-    firstName: 'Mike',
-    lastName: 'Johnson',
-    birthdate: '1992-12-08',
-    startDate: '2021-03-01',
-    avatar: null,
-    displayName: 'Mike Johnson',
-  },
-]
-
-const mockLeaves: Leave[] = [
-  {
-    id: 1,
-    employee: mockEmployees[0] as Employee,
-    request_type: 'Vacation',
-    start_date: '2024-01-15',
-    end_date: '2024-01-15',
-  },
-]
-
-const mockBirthdays: Birthday[] = [
-  {
-    id: 1,
-    firstName: 'Alice',
-    lastName: 'Brown',
-    birthdate: '1991-01-15',
-    avatar: null,
-  },
-]
-
-const mockAnniversaries: Anniversary[] = [
-  {
-    id: 1,
-    firstName: 'Bob',
-    lastName: 'Wilson',
-    startDate: '2020-01-15',
-    avatar: null,
-  },
-]
 
 // Computed properties
 const brandLogoUrl = computed(() => {
@@ -150,7 +59,7 @@ const updateClock = () => {
   currentTime.value = `${time} — ${date}`
 }
 
-const getInitials = (employee: Employee | Birthday | Anniversary) => {
+const getInitials = (employee: MockEmployee | Birthday | Anniversary) => {
   return `${employee.firstName.charAt(0)}${employee.lastName.charAt(0)}`
 }
 
@@ -237,10 +146,7 @@ const loadMockData = () => {
     return
   }
 
-  leaves.value = mockLeaves
-  birthdays.value = mockBirthdays
-  anniversaries.value = mockAnniversaries
-  loading.value = false
+  hrDataStore.loadMockData()
 }
 
 onBeforeMount(async () => {
@@ -276,17 +182,17 @@ onMounted(() => {
         <h2 class="dashboard-card__title">🏖️ On Leave Today</h2>
         <ul
           class="dashboard-card__list"
-          :class="{ 'dashboard-card--loading': loading }"
+          :class="{ 'dashboard-card--loading': hrDataStore.loading }"
         >
-          <template v-if="loading">
+          <template v-if="hrDataStore.loading">
             <li class="dashboard-card__item">Loading...</li>
           </template>
-          <template v-else-if="leaves.length === 0">
+          <template v-else-if="!hrDataStore.hasLeaves()">
             <li class="dashboard-card__empty">No upcoming leaves.</li>
           </template>
           <template v-else>
             <li
-              v-for="leave in leaves"
+              v-for="leave in hrDataStore.leaves"
               :key="leave.id"
               class="dashboard-card__item"
             >
@@ -323,17 +229,17 @@ onMounted(() => {
         <h2 class="dashboard-card__title">🎂 Birthdays</h2>
         <ul
           class="dashboard-card__list"
-          :class="{ 'dashboard-card--loading': loading }"
+          :class="{ 'dashboard-card--loading': hrDataStore.loading }"
         >
-          <template v-if="loading">
+          <template v-if="hrDataStore.loading">
             <li class="dashboard-card__item">Loading...</li>
           </template>
-          <template v-else-if="birthdays.length === 0">
+          <template v-else-if="!hrDataStore.hasBirthdays()">
             <li class="dashboard-card__empty">No upcoming birthdays.</li>
           </template>
           <template v-else>
             <li
-              v-for="birthday in birthdays"
+              v-for="birthday in hrDataStore.birthdays"
               :key="birthday.id"
               class="dashboard-card__item"
             >
@@ -369,17 +275,17 @@ onMounted(() => {
         <h2 class="dashboard-card__title">🎉 Anniversaries</h2>
         <ul
           class="dashboard-card__list"
-          :class="{ 'dashboard-card--loading': loading }"
+          :class="{ 'dashboard-card--loading': hrDataStore.loading }"
         >
-          <template v-if="loading">
+          <template v-if="hrDataStore.loading">
             <li class="dashboard-card__item">Loading...</li>
           </template>
-          <template v-else-if="anniversaries.length === 0">
+          <template v-else-if="!hrDataStore.hasAnniversaries()">
             <li class="dashboard-card__empty">No upcoming anniversaries.</li>
           </template>
           <template v-else>
             <li
-              v-for="anniversary in anniversaries"
+              v-for="anniversary in hrDataStore.anniversaries"
               :key="anniversary.id"
               class="dashboard-card__item"
             >
