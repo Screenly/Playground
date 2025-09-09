@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 
 import screenlyLogo from 'blueprint/assets/images/screenly.svg'
+import { useSettingsStore } from '@/stores/settings'
 
 interface Employee {
   id: number
@@ -45,6 +46,7 @@ const useBaseSettingsStore = defineStore(
 )
 
 const baseSettingsStore = useBaseSettingsStore()
+const settingsStore = useSettingsStore()
 
 // Reactive data
 const loading = ref(true)
@@ -121,23 +123,11 @@ const brandLogoUrl = computed(() => {
 
 // Methods
 const getLocale = (): string => {
-  const overrideLocale = screenly.settings?.override_locale
-  if (overrideLocale && typeof overrideLocale === 'string') {
-    return overrideLocale
-  }
-  return (
-    (navigator?.languages?.length
-      ? navigator.languages[0]
-      : navigator.language) || 'en'
-  )
+  return settingsStore.getLocale()
 }
 
 const getTimezone = (): string => {
-  const overrideTimezone = screenly.settings?.override_timezone
-  if (overrideTimezone && typeof overrideTimezone === 'string') {
-    return overrideTimezone
-  }
-  return Intl.DateTimeFormat().resolvedOptions().timeZone
+  return settingsStore.getTimezone()
 }
 
 const updateClock = () => {
@@ -239,7 +229,7 @@ const formatAnniversaryText = (startDate: string) => {
 }
 
 const validateApiKey = () => {
-  return true
+  return settingsStore.hasValidApiKey()
 }
 
 const loadMockData = () => {
@@ -254,6 +244,7 @@ const loadMockData = () => {
 }
 
 onBeforeMount(async () => {
+  settingsStore.init()
   baseSettingsStore.setupTheme()
   await baseSettingsStore.setupBrandingLogo()
 })

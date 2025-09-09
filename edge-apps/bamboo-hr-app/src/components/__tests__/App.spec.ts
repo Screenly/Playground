@@ -2,7 +2,8 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
 
 import { mount } from '@vue/test-utils'
-import App from '../../App.vue'
+import App from '@/App.vue'
+import { useSettingsStore } from '@/stores/settings'
 
 // Mock global screenly object
 global.screenly = {
@@ -33,6 +34,8 @@ global.screenly = {
 describe('App', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
+    const settingsStore = useSettingsStore()
+    settingsStore.init()
   })
 
   it('renders properly with dashboard title', () => {
