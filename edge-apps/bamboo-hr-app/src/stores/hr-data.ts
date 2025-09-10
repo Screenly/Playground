@@ -1,5 +1,6 @@
 import { type Ref, ref } from 'vue'
 import { defineStore } from 'pinia'
+import { useSettingsStore } from '@/stores/settings'
 
 interface MockEmployee {
   id: number
@@ -35,6 +36,14 @@ interface Anniversary {
   avatar?: string | null
 }
 
+interface Employee {
+  id: number
+  firstName: string
+  lastName: string
+  dateOfBirth: string
+  hireDate: string
+}
+
 const hrDataStoreSetup = () => {
   // State
   const loading: Ref<boolean> = ref(true)
@@ -44,6 +53,7 @@ const hrDataStoreSetup = () => {
   const leaves: Ref<Leave[]> = ref([])
   const birthdays: Ref<Birthday[]> = ref([])
   const anniversaries: Ref<Anniversary[]> = ref([])
+  const employees: Ref<Employee[]> = ref([])
 
   // Mock data for development/testing
   const mockEmployees: MockEmployee[] = [
@@ -106,7 +116,33 @@ const hrDataStoreSetup = () => {
     },
   ]
 
-  // Actions
+  const fetchEmployeeData = async () => {
+    const settingsStore = useSettingsStore()
+    const bambooHrApiBaseUrl = `https://${settingsStore.subdomain}.bamboohr.com/api/v1`
+
+    const response = await fetch(
+      `${screenly.cors_proxy_url}/${bambooHrApiBaseUrl}/reports/custom`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Basic ${btoa(settingsStore.apiKey + ':')}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fields: ['firstName', 'lastName', 'dateOfBirth', 'hireDate'],
+        }),
+      },
+    )
+
+    const data = await response.json()
+    employees.value = data.employees
+  }
+
+  const init = async () => {
+    await fetchEmployeeData()
+  }
+
   const setLoading = (isLoading: boolean) => {
     loading.value = isLoading
   }
@@ -194,8 +230,10 @@ const hrDataStoreSetup = () => {
     leaves,
     birthdays,
     anniversaries,
+    employees,
 
     // Actions
+    init,
     setLoading,
     setError,
     setLeaves,

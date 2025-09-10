@@ -155,10 +155,12 @@ onBeforeMount(async () => {
   await baseSettingsStore.setupBrandingLogo()
 })
 
-onMounted(() => {
+onMounted(async () => {
   updateClock()
   setInterval(updateClock, 1000)
   loadMockData()
+
+  await hrDataStore.init()
   screenly.signalReadyForRendering()
 })
 </script>
