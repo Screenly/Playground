@@ -38,7 +38,7 @@ interface Anniversary {
   id: number
   firstName: string
   lastName: string
-  startDate: string
+  hireDate: string
   avatar?: string | null
 }
 
@@ -99,16 +99,6 @@ const hrDataStoreSetup = () => {
       request_type: 'Vacation',
       start_date: '2024-01-15',
       end_date: '2024-01-15',
-    },
-  ]
-
-  const mockAnniversaries: Anniversary[] = [
-    {
-      id: 1,
-      firstName: 'Bob',
-      lastName: 'Wilson',
-      startDate: '2020-01-15',
-      avatar: null,
     },
   ]
 
@@ -188,6 +178,57 @@ const hrDataStoreSetup = () => {
     }
   }
 
+  const setAnniversaryData = async () => {
+    try {
+      const settingsStore = useSettingsStore()
+      const userTimezone = settingsStore.getTimezone() || 'UTC'
+
+      // Get current date in user's timezone for comparison
+      const today = dayjs().tz(userTimezone)
+      const nextWeek = dayjs().tz(userTimezone).add(7, 'day')
+
+      // Filter employees whose work anniversaries are within the next 7 days
+      const upcomingAnniversaries = employees.value.filter(
+        (employee: Employee) => {
+          if (!employee.hireDate) return false
+
+          // Parse hireDate as date-only (no timezone conversion for anniversaries)
+          // Work anniversaries should be treated as calendar dates, not timestamps
+          const hireDate = dayjs(employee.hireDate)
+
+          // Create anniversary dates for this year and next year (keep as date-only)
+          const thisYearAnniversary = hireDate.year(today.year())
+          const nextYearAnniversary = hireDate.year(today.year() + 1)
+
+          // Check if anniversary is within the next 7 days (this year or next year)
+          // Compare with current date in user's timezone
+          const isThisYearInRange =
+            thisYearAnniversary.isAfter(today.subtract(1, 'day')) &&
+            thisYearAnniversary.isBefore(nextWeek.add(1, 'day'))
+          const isNextYearInRange =
+            nextYearAnniversary.isAfter(today.subtract(1, 'day')) &&
+            nextYearAnniversary.isBefore(nextWeek.add(1, 'day'))
+
+          return isThisYearInRange || isNextYearInRange
+        },
+      )
+
+      const anniversaryData: Anniversary[] = upcomingAnniversaries.map(
+        (employee: Employee) => ({
+          id: employee.id,
+          firstName: employee.firstName,
+          lastName: employee.lastName,
+          hireDate: employee.hireDate,
+          avatar: null,
+        }),
+      )
+
+      anniversaries.value = anniversaryData
+    } catch {
+      setError('Failed to load anniversary data')
+    }
+  }
+
   const init = async () => {
     setLoading(true)
     setError(null)
@@ -195,6 +236,7 @@ const hrDataStoreSetup = () => {
     try {
       await fetchEmployeeData()
       await setBirthdayData()
+      await setAnniversaryData()
     } catch {
       setError('Failed to load employee data')
     } finally {
@@ -214,17 +256,12 @@ const hrDataStoreSetup = () => {
     leaves.value = newLeaves
   }
 
-  const setAnniversaries = (newAnniversaries: Anniversary[]) => {
-    anniversaries.value = newAnniversaries
-  }
-
   const loadMockData = () => {
     setLoading(true)
     setError(null)
 
     try {
       setLeaves(mockLeaves)
-      setAnniversaries(mockAnniversaries)
     } catch (err) {
       setError('Failed to load mock data')
       console.error('Error loading mock data:', err)
@@ -236,7 +273,7 @@ const hrDataStoreSetup = () => {
   const clearData = () => {
     setLeaves([])
     birthdays.value = []
-    setAnniversaries([])
+    anniversaries.value = []
     setError(null)
   }
 
@@ -291,7 +328,6 @@ const hrDataStoreSetup = () => {
     setLoading,
     setError,
     setLeaves,
-    setAnniversaries,
     loadMockData,
     clearData,
     refreshData,

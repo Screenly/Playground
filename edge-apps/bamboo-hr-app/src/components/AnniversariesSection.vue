@@ -1,53 +1,64 @@
 <script setup lang="ts">
 import { useHrDataStore } from '@/stores/hr-data'
+import { useSettingsStore } from '@/stores/settings'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
+
+// Extend dayjs with plugins
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 const hrDataStore = useHrDataStore()
+const settingsStore = useSettingsStore()
 
 const getInitials = (employee: { firstName: string; lastName: string }) => {
   return `${employee.firstName.charAt(0)}${employee.lastName.charAt(0)}`
 }
 
 const formatUpcomingDate = (dateStr: string) => {
-  const date = new Date(dateStr)
-  const today = new Date()
-  const tomorrow = new Date(today)
-  tomorrow.setDate(tomorrow.getDate() + 1)
+  const userLocale = settingsStore.getLocale() || 'en'
 
-  const currentYear = today.getFullYear()
-  date.setFullYear(currentYear)
+  // Parse the date as a date-only value (no timezone conversion for anniversaries)
+  // Work anniversaries should be treated as calendar dates, not timestamps
+  const anniversaryDate = dayjs(dateStr)
 
-  if (
-    date.getDate() === today.getDate() &&
-    date.getMonth() === today.getMonth()
-  ) {
+  // Get current date in user's timezone for comparison
+  const userTimezone = settingsStore.getTimezone() || 'UTC'
+  const today = dayjs().tz(userTimezone)
+  const tomorrow = dayjs().tz(userTimezone).add(1, 'day')
+
+  // Create anniversary for current year (keep it as a date-only value)
+  const thisYearAnniversary = anniversaryDate.year(today.year())
+
+  // Check if anniversary is today or tomorrow (compare date parts only)
+  if (thisYearAnniversary.isSame(today, 'day')) {
     return 'Today'
-  } else if (
-    date.getDate() === tomorrow.getDate() &&
-    date.getMonth() === tomorrow.getMonth()
-  ) {
+  } else if (thisYearAnniversary.isSame(tomorrow, 'day')) {
     return 'Tomorrow'
   }
 
-  return date.toLocaleDateString('en', {
-    weekday: 'short',
-    month: 'short',
-    day: 'numeric',
-  })
+  // Format the date in user's locale
+  return thisYearAnniversary.locale(userLocale).format('ddd, MMM D')
 }
 
-const formatAnniversaryText = (startDate: string) => {
-  const start = new Date(startDate)
-  const today = new Date()
-  let years = today.getFullYear() - start.getFullYear()
+const formatAnniversaryText = (hireDate: string) => {
+  const userTimezone = settingsStore.getTimezone() || 'UTC'
+  const today = dayjs().tz(userTimezone)
 
-  if (
-    today.getMonth() < start.getMonth() ||
-    (today.getMonth() === start.getMonth() && today.getDate() < start.getDate())
-  ) {
+  // Parse hireDate as date-only (no timezone conversion)
+  const hireDateParsed = dayjs(hireDate)
+
+  // Calculate years of service
+  let years = today.year() - hireDateParsed.year()
+
+  // Adjust if the anniversary hasn't occurred yet this year
+  const thisYearAnniversary = hireDateParsed.year(today.year())
+  if (today.isBefore(thisYearAnniversary)) {
     years--
   }
 
-  const dateText = formatUpcomingDate(startDate)
+  const dateText = formatUpcomingDate(hireDate)
   return `${years} Year${years !== 1 ? 's' : ''} Anniversary (${dateText})`
 }
 </script>
@@ -89,7 +100,7 @@ const formatAnniversaryText = (startDate: string) => {
                 {{ anniversary.firstName }} {{ anniversary.lastName }}
               </div>
               <div class="employee-card__details">
-                {{ formatAnniversaryText(anniversary.startDate) }}
+                {{ formatAnniversaryText(anniversary.hireDate) }}
               </div>
             </div>
           </div>
