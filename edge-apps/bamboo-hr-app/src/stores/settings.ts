@@ -4,8 +4,9 @@ import { defineStore } from 'pinia'
 const settingsStoreSetup = () => {
   const settings = screenly.settings
 
-  // BambooHR API settings
+  // BambooHR settings
   const apiKey: Ref<string> = ref('')
+  const subdomain: Ref<string> = ref('')
 
   // Analytics settings
   const enableAnalytics: Ref<boolean> = ref(true)
@@ -17,7 +18,8 @@ const settingsStoreSetup = () => {
   const overrideTimezone: Ref<string | null> = ref(null)
 
   const init = () => {
-    // BambooHR API settings
+    // BambooHR settings
+    subdomain.value = (settings.subdomain as string) ?? ''
     apiKey.value = (settings.api_key as string) ?? ''
 
     // Analytics settings
@@ -60,6 +62,7 @@ const settingsStoreSetup = () => {
   return {
     // State
     apiKey,
+    subdomain,
     enableAnalytics,
     tagManagerId,
     sentryDsn,

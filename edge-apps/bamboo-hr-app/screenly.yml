@@ -38,6 +38,13 @@ settings:
     optional: true
     help_text: Sentry Client Key from Sentry SDK for error capturing.
     is_global: true
+  subdomain:
+    type: string
+    title: Subdomain
+    optional: false
+    help_text: |
+      Enter your BambooHR subdomain. For example, if your BambooHR URL is
+      https://example.bamboohr.com, your subdomain is `example`.
   tag_manager_id:
     type: string
     default_value: ''
