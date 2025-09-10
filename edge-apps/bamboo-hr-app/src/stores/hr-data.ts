@@ -182,7 +182,7 @@ const hrDataStoreSetup = () => {
         }),
       )
 
-      setBirthdays(birthdayData)
+      birthdays.value = birthdayData
     } catch {
       setError('Failed to load birthday data')
     }
@@ -214,10 +214,6 @@ const hrDataStoreSetup = () => {
     leaves.value = newLeaves
   }
 
-  const setBirthdays = (newBirthdays: Birthday[]) => {
-    birthdays.value = newBirthdays
-  }
-
   const setAnniversaries = (newAnniversaries: Anniversary[]) => {
     anniversaries.value = newAnniversaries
   }
@@ -239,7 +235,7 @@ const hrDataStoreSetup = () => {
 
   const clearData = () => {
     setLeaves([])
-    setBirthdays([])
+    birthdays.value = []
     setAnniversaries([])
     setError(null)
   }
@@ -295,7 +291,6 @@ const hrDataStoreSetup = () => {
     setLoading,
     setError,
     setLeaves,
-    setBirthdays,
     setAnniversaries,
     loadMockData,
     clearData,
