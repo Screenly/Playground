@@ -1,38 +1,45 @@
 <script setup lang="ts">
 import { useHrDataStore } from '@/stores/hr-data'
+import { useSettingsStore } from '@/stores/settings'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
+
+// Extend dayjs with UTC and timezone plugins
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 const hrDataStore = useHrDataStore()
+const settingsStore = useSettingsStore()
 
 const getInitials = (employee: { firstName: string; lastName: string }) => {
   return `${employee.firstName.charAt(0)}${employee.lastName.charAt(0)}`
 }
 
 const formatUpcomingDate = (dateStr: string) => {
-  const date = new Date(dateStr)
-  const today = new Date()
-  const tomorrow = new Date(today)
-  tomorrow.setDate(tomorrow.getDate() + 1)
+  const userLocale = settingsStore.getLocale() || 'en'
 
-  const currentYear = today.getFullYear()
-  date.setFullYear(currentYear)
+  // Parse the date as a date-only value (no timezone conversion for birthdays)
+  // Birthdays should be treated as calendar dates, not timestamps
+  const birthDate = dayjs(dateStr)
 
-  if (
-    date.getDate() === today.getDate() &&
-    date.getMonth() === today.getMonth()
-  ) {
+  // Get current date in user's timezone for comparison
+  const userTimezone = settingsStore.getTimezone() || 'UTC'
+  const today = dayjs().tz(userTimezone)
+  const tomorrow = dayjs().tz(userTimezone).add(1, 'day')
+
+  // Create birthday for current year (keep it as a date-only value)
+  const thisYearBirthday = birthDate.year(today.year())
+
+  // Check if birthday is today or tomorrow (compare date parts only)
+  if (thisYearBirthday.isSame(today, 'day')) {
     return 'Today'
-  } else if (
-    date.getDate() === tomorrow.getDate() &&
-    date.getMonth() === tomorrow.getMonth()
-  ) {
+  } else if (thisYearBirthday.isSame(tomorrow, 'day')) {
     return 'Tomorrow'
   }
 
-  return date.toLocaleDateString('en', {
-    weekday: 'short',
-    month: 'short',
-    day: 'numeric',
-  })
+  // Format the date in user's locale
+  return thisYearBirthday.locale(userLocale).format('ddd, MMM D')
 }
 </script>
 
@@ -73,7 +80,7 @@ const formatUpcomingDate = (dateStr: string) => {
                 {{ birthday.firstName }} {{ birthday.lastName }}
               </div>
               <div class="employee-card__details">
-                {{ formatUpcomingDate(birthday.birthdate) }}
+                {{ formatUpcomingDate(birthday.dateOfBirth) }}
               </div>
             </div>
           </div>

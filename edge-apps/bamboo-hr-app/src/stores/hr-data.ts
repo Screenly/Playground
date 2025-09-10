@@ -1,6 +1,12 @@
 import { type Ref, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useSettingsStore } from '@/stores/settings'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 interface MockEmployee {
   id: number
@@ -24,7 +30,7 @@ interface Birthday {
   id: number
   firstName: string
   lastName: string
-  birthdate: string
+  dateOfBirth: string
   avatar?: string | null
 }
 
@@ -96,16 +102,6 @@ const hrDataStoreSetup = () => {
     },
   ]
 
-  const mockBirthdays: Birthday[] = [
-    {
-      id: 1,
-      firstName: 'Alice',
-      lastName: 'Brown',
-      birthdate: '1991-01-15',
-      avatar: null,
-    },
-  ]
-
   const mockAnniversaries: Anniversary[] = [
     {
       id: 1,
@@ -135,12 +131,75 @@ const hrDataStoreSetup = () => {
       },
     )
 
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`)
+    }
+
     const data = await response.json()
-    employees.value = data.employees
+    employees.value = data.employees || []
+  }
+
+  const setBirthdayData = async () => {
+    try {
+      const settingsStore = useSettingsStore()
+      const userTimezone = settingsStore.getTimezone() || 'UTC'
+
+      // Get current date in user's timezone for comparison
+      const today = dayjs().tz(userTimezone)
+      const nextWeek = dayjs().tz(userTimezone).add(7, 'day')
+
+      // Filter employees whose birthdays are within the next 7 days
+      const upcomingBirthdays = employees.value.filter((employee: Employee) => {
+        if (!employee.dateOfBirth) return false
+
+        // Parse dateOfBirth as date-only (no timezone conversion for birthdays)
+        // Birthdays should be treated as calendar dates, not timestamps
+        const birthDate = dayjs(employee.dateOfBirth)
+
+        // Create birthday dates for this year and next year (keep as date-only)
+        const thisYearBirthday = birthDate.year(today.year())
+        const nextYearBirthday = birthDate.year(today.year() + 1)
+
+        // Check if birthday is within the next 7 days (this year or next year)
+        // Compare with current date in user's timezone
+        const isThisYearInRange =
+          thisYearBirthday.isAfter(today.subtract(1, 'day')) &&
+          thisYearBirthday.isBefore(nextWeek.add(1, 'day'))
+        const isNextYearInRange =
+          nextYearBirthday.isAfter(today.subtract(1, 'day')) &&
+          nextYearBirthday.isBefore(nextWeek.add(1, 'day'))
+
+        return isThisYearInRange || isNextYearInRange
+      })
+
+      const birthdayData: Birthday[] = upcomingBirthdays.map(
+        (employee: Employee) => ({
+          id: employee.id,
+          firstName: employee.firstName,
+          lastName: employee.lastName,
+          dateOfBirth: employee.dateOfBirth,
+          avatar: null,
+        }),
+      )
+
+      setBirthdays(birthdayData)
+    } catch {
+      setError('Failed to load birthday data')
+    }
   }
 
   const init = async () => {
-    await fetchEmployeeData()
+    setLoading(true)
+    setError(null)
+
+    try {
+      await fetchEmployeeData()
+      await setBirthdayData()
+    } catch {
+      setError('Failed to load employee data')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const setLoading = (isLoading: boolean) => {
@@ -169,7 +228,6 @@ const hrDataStoreSetup = () => {
 
     try {
       setLeaves(mockLeaves)
-      setBirthdays(mockBirthdays)
       setAnniversaries(mockAnniversaries)
     } catch (err) {
       setError('Failed to load mock data')

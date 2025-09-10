@@ -51,6 +51,5 @@ test('basic app structure test', async ({ page }) => {
 
   // Check for dashboard sections
   await expect(page.getByText('On Leave Today')).toBeVisible()
-  await expect(page.getByText('Birthdays')).toBeVisible()
   await expect(page.getByText('Anniversaries')).toBeVisible()
 })
