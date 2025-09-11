@@ -8,16 +8,6 @@ import timezone from 'dayjs/plugin/timezone'
 dayjs.extend(utc)
 dayjs.extend(timezone)
 
-interface MockEmployee {
-  id: number
-  firstName: string
-  lastName: string
-  birthdate?: string
-  startDate?: string
-  avatar?: string | null
-  displayName?: string
-}
-
 interface Leave {
   id: number
   name: string
@@ -65,7 +55,6 @@ const hrDataStoreSetup = () => {
   const error: Ref<string | null> = ref(null)
 
   // HR Data
-  const leaves: Ref<Leave[]> = ref([])
   const birthdays: Ref<Birthday[]> = ref([])
   const anniversaries: Ref<Anniversary[]> = ref([])
   const employees: Ref<Employee[]> = ref([])
@@ -198,6 +187,15 @@ const hrDataStoreSetup = () => {
     }
   }
 
+  const getLeaveType = (type: string) => {
+    switch (type) {
+      case 'timeOff':
+        return 'Vacation'
+      default:
+        return 'Vacation'
+    }
+  }
+
   const fetchLeaveData = async () => {
     try {
       const settingsStore = useSettingsStore()
@@ -222,7 +220,7 @@ const hrDataStoreSetup = () => {
           name: item.name,
           start: item.start,
           end: item.end,
-          type: item.type,
+          type: getLeaveType(item.type),
         }),
       )
 
@@ -256,10 +254,6 @@ const hrDataStoreSetup = () => {
     error.value = errorMessage
   }
 
-  const setLeaves = (newLeaves: Leave[]) => {
-    leaves.value = newLeaves
-  }
-
   // Getters
   const hasLeaves = () => {
     return employeesOnLeave.value.length > 0
@@ -273,31 +267,10 @@ const hrDataStoreSetup = () => {
     return anniversaries.value.length > 0
   }
 
-  const hasAnyData = () => {
-    return hasLeaves() || hasBirthdays() || hasAnniversaries()
-  }
-
-  const getLeavesCount = () => {
-    return leaves.value.length
-  }
-
-  const getBirthdaysCount = () => {
-    return birthdays.value.length
-  }
-
-  const getAnniversariesCount = () => {
-    return anniversaries.value.length
-  }
-
-  const getTotalCount = () => {
-    return getLeavesCount() + getBirthdaysCount() + getAnniversariesCount()
-  }
-
   return {
     // State
     loading,
     error,
-    leaves,
     birthdays,
     anniversaries,
     employees,
@@ -307,17 +280,11 @@ const hrDataStoreSetup = () => {
     init,
     setLoading,
     setError,
-    setLeaves,
 
     // Getters
     hasLeaves,
     hasBirthdays,
     hasAnniversaries,
-    hasAnyData,
-    getLeavesCount,
-    getBirthdaysCount,
-    getAnniversariesCount,
-    getTotalCount,
   }
 }
 
@@ -326,4 +293,4 @@ export const useHrDataStore = defineStore('hrData', hrDataStoreSetup)
 export type HrDataStore = ReturnType<typeof hrDataStoreSetup>
 
 // Export types for use in components
-export type { MockEmployee, Leave, Birthday, Anniversary, EmployeeOnLeave }
+export type { Leave, Birthday, Anniversary, EmployeeOnLeave }
