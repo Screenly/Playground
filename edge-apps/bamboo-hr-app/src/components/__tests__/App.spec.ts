@@ -4,7 +4,6 @@ import { createPinia, setActivePinia } from 'pinia'
 import { mount } from '@vue/test-utils'
 import App from '@/App.vue'
 import { useSettingsStore } from '@/stores/settings'
-import { useHrDataStore } from '@/stores/hr-data'
 
 // Mock global screenly object
 global.screenly = {
@@ -36,9 +35,7 @@ describe('App', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
     const settingsStore = useSettingsStore()
-    const hrDataStore = useHrDataStore()
     settingsStore.init()
-    hrDataStore.loadMockData()
   })
 
   it('renders properly with dashboard title', () => {

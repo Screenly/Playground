@@ -20,10 +20,19 @@ interface MockEmployee {
 
 interface Leave {
   id: number
-  employee: MockEmployee
-  request_type: string
-  start_date: string
-  end_date: string
+  name: string
+  start: string
+  end: string
+  type: string
+}
+
+interface EmployeeOnLeave {
+  employeeId: number
+  name: string
+  start: string
+  end: string
+  type: string
+  avatar?: string | null
 }
 
 interface Birthday {
@@ -60,47 +69,7 @@ const hrDataStoreSetup = () => {
   const birthdays: Ref<Birthday[]> = ref([])
   const anniversaries: Ref<Anniversary[]> = ref([])
   const employees: Ref<Employee[]> = ref([])
-
-  // Mock data for development/testing
-  const mockEmployees: MockEmployee[] = [
-    {
-      id: 1,
-      firstName: 'John',
-      lastName: 'Doe',
-      birthdate: '1990-05-15',
-      startDate: '2020-01-15',
-      avatar: null,
-      displayName: 'John Doe',
-    },
-    {
-      id: 2,
-      firstName: 'Jane',
-      lastName: 'Smith',
-      birthdate: '1988-03-22',
-      startDate: '2019-06-10',
-      avatar: null,
-      displayName: 'Jane Smith',
-    },
-    {
-      id: 3,
-      firstName: 'Mike',
-      lastName: 'Johnson',
-      birthdate: '1992-12-08',
-      startDate: '2021-03-01',
-      avatar: null,
-      displayName: 'Mike Johnson',
-    },
-  ]
-
-  const mockLeaves: Leave[] = [
-    {
-      id: 1,
-      employee: mockEmployees[0] as MockEmployee,
-      request_type: 'Vacation',
-      start_date: '2024-01-15',
-      end_date: '2024-01-15',
-    },
-  ]
+  const employeesOnLeave: Ref<EmployeeOnLeave[]> = ref([])
 
   const fetchEmployeeData = async () => {
     const settingsStore = useSettingsStore()
@@ -183,7 +152,7 @@ const hrDataStoreSetup = () => {
       const settingsStore = useSettingsStore()
       const userTimezone = settingsStore.getTimezone() || 'UTC'
 
-      // Get current date in user's timezone for comparison
+      // Get current date in user's timezone for compariso            'Content-Type': 'application/json',n
       const today = dayjs().tz(userTimezone)
       const nextWeek = dayjs().tz(userTimezone).add(7, 'day')
 
@@ -229,12 +198,47 @@ const hrDataStoreSetup = () => {
     }
   }
 
+  const fetchLeaveData = async () => {
+    try {
+      const settingsStore = useSettingsStore()
+      const bambooHrApiBaseUrl = `https://${settingsStore.subdomain}.bamboohr.com/api/v1`
+
+      const response = await fetch(
+        `${screenly.cors_proxy_url}/${bambooHrApiBaseUrl}/time_off/whos_out`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Basic ${btoa(settingsStore.apiKey + ':')}`,
+            Accept: 'application/json',
+          },
+        },
+      )
+
+      const data = await response.json()
+
+      const employeesOnLeaveData: EmployeeOnLeave[] = data.map(
+        (item: EmployeeOnLeave) => ({
+          employeeId: item.employeeId,
+          name: item.name,
+          start: item.start,
+          end: item.end,
+          type: item.type,
+        }),
+      )
+
+      employeesOnLeave.value = employeesOnLeaveData
+    } catch {
+      setError('Failed to load leave data')
+    }
+  }
+
   const init = async () => {
     setLoading(true)
     setError(null)
 
     try {
       await fetchEmployeeData()
+      await fetchLeaveData()
       await setBirthdayData()
       await setAnniversaryData()
     } catch {
@@ -256,34 +260,9 @@ const hrDataStoreSetup = () => {
     leaves.value = newLeaves
   }
 
-  const loadMockData = () => {
-    setLoading(true)
-    setError(null)
-
-    try {
-      setLeaves(mockLeaves)
-    } catch (err) {
-      setError('Failed to load mock data')
-      console.error('Error loading mock data:', err)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const clearData = () => {
-    setLeaves([])
-    birthdays.value = []
-    anniversaries.value = []
-    setError(null)
-  }
-
-  const refreshData = () => {
-    loadMockData()
-  }
-
   // Getters
   const hasLeaves = () => {
-    return leaves.value.length > 0
+    return employeesOnLeave.value.length > 0
   }
 
   const hasBirthdays = () => {
@@ -322,15 +301,13 @@ const hrDataStoreSetup = () => {
     birthdays,
     anniversaries,
     employees,
+    employeesOnLeave,
 
     // Actions
     init,
     setLoading,
     setError,
     setLeaves,
-    loadMockData,
-    clearData,
-    refreshData,
 
     // Getters
     hasLeaves,
@@ -349,4 +326,4 @@ export const useHrDataStore = defineStore('hrData', hrDataStoreSetup)
 export type HrDataStore = ReturnType<typeof hrDataStoreSetup>
 
 // Export types for use in components
-export type { MockEmployee, Leave, Birthday, Anniversary }
+export type { MockEmployee, Leave, Birthday, Anniversary, EmployeeOnLeave }

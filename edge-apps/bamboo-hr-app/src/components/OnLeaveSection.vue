@@ -1,21 +1,26 @@
 <script setup lang="ts">
-import { useHrDataStore, type Leave } from '@/stores/hr-data'
+import { useHrDataStore, type EmployeeOnLeave } from '@/stores/hr-data'
 
 const hrDataStore = useHrDataStore()
 
-const getInitials = (employee: { firstName: string; lastName: string }) => {
-  return `${employee.firstName.charAt(0)}${employee.lastName.charAt(0)}`
+const getInitials = (name: string) => {
+  const parts = name.trim().split(/\s+/)
+  if (parts.length === 0) return ''
+  if (parts.length === 1) return parts[0]?.charAt(0) ?? ''
+  const firstName = parts.slice(0, -1).join(' ')
+  const lastName = parts[parts.length - 1]
+  return `${firstName?.charAt(0) ?? ''}${lastName?.charAt(0) ?? ''}`
 }
 
-const formatLeaveDate = (leave: Leave) => {
-  if (!leave.start_date || !leave.end_date) return 'No date'
+const formatLeaveDate = (leave: EmployeeOnLeave) => {
+  if (!leave.start || !leave.end) return 'No date'
 
-  const startDate = new Date(leave.start_date).toLocaleDateString('en', {
+  const startDate = new Date(leave.start).toLocaleDateString('en', {
     weekday: 'short',
     month: 'short',
     day: 'numeric',
   })
-  const endDate = new Date(leave.end_date).toLocaleDateString('en', {
+  const endDate = new Date(leave.end).toLocaleDateString('en', {
     weekday: 'short',
     month: 'short',
     day: 'numeric',
@@ -44,30 +49,30 @@ const formatLeaveDate = (leave: Leave) => {
       </template>
       <template v-else>
         <li
-          v-for="leave in hrDataStore.leaves"
-          :key="leave.id"
+          v-for="leave in hrDataStore.employeesOnLeave"
+          :key="leave.employeeId"
           class="dashboard-card__item"
         >
           <div class="employee-card">
-            <template v-if="leave.employee.avatar">
+            <template v-if="leave.avatar">
               <img
-                :src="leave.employee.avatar"
-                :alt="`${leave.employee.firstName} ${leave.employee.lastName}`"
+                :src="leave.avatar"
+                :alt="`${leave.name}`"
                 class="employee-card__avatar"
               />
             </template>
             <template v-else>
               <div class="employee-card__avatar-placeholder">
-                {{ getInitials(leave.employee) }}
+                {{ getInitials(leave.name) }}
               </div>
             </template>
             <div class="employee-card__info">
               <div class="employee-card__name">
-                {{ leave.employee.firstName }} {{ leave.employee.lastName }}
+                {{ leave.name }}
               </div>
               <div class="employee-card__details">
                 <div>{{ formatLeaveDate(leave) }}</div>
-                <div>{{ leave.request_type }}</div>
+                <div>{{ leave.type }}</div>
               </div>
             </div>
           </div>

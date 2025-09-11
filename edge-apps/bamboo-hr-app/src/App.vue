@@ -56,18 +56,6 @@ const updateClock = () => {
   currentTime.value = `${time} — ${date}`
 }
 
-const validateApiKey = () => {
-  return settingsStore.hasValidApiKey()
-}
-
-const loadMockData = () => {
-  if (!validateApiKey()) {
-    return
-  }
-
-  hrDataStore.loadMockData()
-}
-
 onBeforeMount(async () => {
   settingsStore.init()
   baseSettingsStore.setupTheme()
@@ -77,7 +65,6 @@ onBeforeMount(async () => {
 onMounted(async () => {
   updateClock()
   setInterval(updateClock, 1000)
-  loadMockData()
 
   await hrDataStore.init()
   screenly.signalReadyForRendering()
