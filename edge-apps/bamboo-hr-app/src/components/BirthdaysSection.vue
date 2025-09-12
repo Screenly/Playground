@@ -58,7 +58,7 @@ const formatUpcomingDate = (dateStr: string) => {
       </template>
       <template v-else>
         <li
-          v-for="birthday in hrDataStore.birthdays"
+          v-for="birthday in hrDataStore.birthdaysStore.birthdays"
           :key="birthday.id"
           class="dashboard-card__item"
         >

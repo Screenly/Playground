@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useHrDataStore, type EmployeeOnLeave } from '@/stores/hr-data'
+import { useHrDataStore } from '@/stores/hr-data'
+import { type EmployeeOnLeave } from '@/stores/leaves'
 
 const hrDataStore = useHrDataStore()
 
@@ -49,7 +50,7 @@ const formatLeaveDate = (leave: EmployeeOnLeave) => {
       </template>
       <template v-else>
         <li
-          v-for="leave in hrDataStore.employeesOnLeave"
+          v-for="leave in hrDataStore.leavesStore.employeesOnLeave"
           :key="leave.employeeId"
           class="dashboard-card__item"
         >

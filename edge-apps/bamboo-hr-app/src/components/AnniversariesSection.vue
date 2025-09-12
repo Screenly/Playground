@@ -78,7 +78,7 @@ const formatAnniversaryText = (hireDate: string) => {
       </template>
       <template v-else>
         <li
-          v-for="anniversary in hrDataStore.anniversaries"
+          v-for="anniversary in hrDataStore.anniversariesStore.anniversaries"
           :key="anniversary.id"
           class="dashboard-card__item"
         >
