@@ -21,6 +21,10 @@ const hrDataStoreSetup = () => {
   const anniversariesStore = useAnniversariesStore()
   const leavesStore = useLeavesStore()
 
+  // Auto-refresh interval
+  const REFRESH_INTERVAL = 30000 // 30 seconds
+  let refreshInterval: NodeJS.Timeout | null = null
+
   const fetchEmployeeData = async () => {
     const settingsStore = useSettingsStore()
     const bambooHrApiBaseUrl = `https://${settingsStore.subdomain}.bamboohr.com/api/v1`
@@ -48,15 +52,31 @@ const hrDataStoreSetup = () => {
     employees.value = data.employees || []
   }
 
-  const init = async () => {
-    setLoading(true)
-    setError(null)
-
+  const refreshData = async () => {
     try {
       await fetchEmployeeData()
       await leavesStore.fetchLeaveData()
       await birthdaysStore.setBirthdayData(employees.value)
       await anniversariesStore.setAnniversaryData(employees.value)
+    } catch {
+      setError('Failed to refresh employee data')
+    }
+  }
+
+  const startAutoRefresh = () => {
+    if (refreshInterval) {
+      clearInterval(refreshInterval)
+    }
+    refreshInterval = setInterval(refreshData, REFRESH_INTERVAL)
+  }
+
+  const init = async () => {
+    setLoading(true)
+    setError(null)
+
+    try {
+      await refreshData()
+      startAutoRefresh()
     } catch {
       setError('Failed to load employee data')
     } finally {
