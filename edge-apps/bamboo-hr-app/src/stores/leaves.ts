@@ -52,13 +52,41 @@ const leavesStoreSetup = () => {
 
       const data = await response.json()
 
-      const employeesOnLeaveData: EmployeeOnLeave[] = data.map(
-        (item: EmployeeOnLeave) => ({
-          employeeId: item.employeeId,
-          name: item.name,
-          start: item.start,
-          end: item.end,
-          type: getLeaveType(item.type),
+      const employeesOnLeaveData: EmployeeOnLeave[] = await Promise.all(
+        data.map(async (item: EmployeeOnLeave) => {
+          let avatarUrl: string | null = null
+
+          try {
+            // Fetch employee photo
+            const photoResponse = await fetch(
+              `${screenly.cors_proxy_url}/${bambooHrApiBaseUrl}/employees/${item.employeeId}/photo/large`,
+              {
+                method: 'GET',
+                headers: {
+                  Authorization: `Basic ${btoa(settingsStore.apiKey + ':')}`,
+                },
+              },
+            )
+
+            if (photoResponse.ok) {
+              const imageBlob = await photoResponse.blob()
+              avatarUrl = URL.createObjectURL(imageBlob)
+            }
+          } catch (error) {
+            console.warn(
+              `Failed to fetch photo for employee ${item.employeeId}:`,
+              error,
+            )
+          }
+
+          return {
+            employeeId: item.employeeId,
+            name: item.name,
+            start: item.start,
+            end: item.end,
+            type: getLeaveType(item.type),
+            avatar: avatarUrl,
+          }
         }),
       )
 

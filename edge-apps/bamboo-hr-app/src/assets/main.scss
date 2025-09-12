@@ -224,8 +224,8 @@ body {
 }
 
 .employee-card__avatar-placeholder {
-  width: clamp(2rem, 3vw + 3vh, 50rem);
-  height: clamp(2rem, 3vw + 3vh, 50rem);
+  width: clamp(2rem, 4vw + 4vh, 100rem);
+  height: clamp(2rem, 4vw + 4vh, 100rem);
   border-radius: 50%;
   background: var(--theme-color-primary);
   display: flex;
@@ -233,7 +233,7 @@ body {
   justify-content: center;
   color: var(--text-color-light);
   font-weight: 600;
-  font-size: 1rem;
+  font-size: clamp(0.75rem, 1.5vw + 1.5vh, 3rem);
   border: 2px solid var(--theme-color-primary);
   transition: all 0.3s ease;
 }
