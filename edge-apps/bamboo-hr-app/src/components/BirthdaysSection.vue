@@ -14,16 +14,13 @@ const hrDataStore = useHrDataStore()
 const settingsStore = useSettingsStore()
 
 const formatUpcomingDate = (dateStr: string) => {
-  const userLocale = settingsStore.getLocale() || 'en'
-
   // Parse the date as a date-only value (no timezone conversion for birthdays)
   // Birthdays should be treated as calendar dates, not timestamps
   const birthDate = dayjs(dateStr)
 
   // Get current date in user's timezone for comparison
-  const userTimezone = settingsStore.getTimezone() || 'UTC'
-  const today = dayjs().tz(userTimezone)
-  const tomorrow = dayjs().tz(userTimezone).add(1, 'day')
+  const today = dayjs().tz(settingsStore.currentTimezone)
+  const tomorrow = dayjs().tz(settingsStore.currentTimezone).add(1, 'day')
 
   // Create birthday for current year (keep it as a date-only value)
   const thisYearBirthday = birthDate.year(today.year())
@@ -36,7 +33,9 @@ const formatUpcomingDate = (dateStr: string) => {
   }
 
   // Format the date in user's locale
-  return thisYearBirthday.locale(userLocale).format('ddd, MMM D')
+  return thisYearBirthday
+    .locale(settingsStore.currentLocale)
+    .format('ddd, MMM D')
 }
 </script>
 

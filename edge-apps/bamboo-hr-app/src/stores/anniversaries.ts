@@ -27,7 +27,7 @@ const anniversariesStoreSetup = () => {
   const setAnniversaryData = async (employees: Employee[]) => {
     try {
       const settingsStore = useSettingsStore()
-      const userTimezone = settingsStore.getTimezone() || 'UTC'
+      const userTimezone = settingsStore.currentTimezone || 'UTC'
 
       // Get current date in user's timezone for comparison
       const today = dayjs().tz(userTimezone)

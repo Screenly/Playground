@@ -1,5 +1,7 @@
 import { type Ref, ref } from 'vue'
 import { defineStore } from 'pinia'
+import moment from 'moment-timezone'
+import tzlookup from '@photostructure/tz-lookup'
 
 const settingsStoreSetup = () => {
   const settings = screenly.settings
@@ -14,8 +16,10 @@ const settingsStoreSetup = () => {
   const sentryDsn: Ref<string> = ref('')
 
   // Localization settings
-  const overrideLocale: Ref<string | null> = ref(null)
-  const overrideTimezone: Ref<string | null> = ref(null)
+  const overrideLocale: Ref<string> = ref('')
+  const overrideTimezone: Ref<string> = ref('')
+  const currentLocale: Ref<string> = ref('')
+  const currentTimezone: Ref<string> = ref('')
 
   const init = () => {
     // BambooHR settings
@@ -29,8 +33,8 @@ const settingsStoreSetup = () => {
     sentryDsn.value = (settings.sentry_dsn as string) ?? ''
 
     // Localization settings
-    overrideLocale.value = (settings.override_locale as string) || null
-    overrideTimezone.value = (settings.override_timezone as string) || null
+    overrideLocale.value = (settings.override_locale as string) ?? ''
+    overrideTimezone.value = (settings.override_timezone as string) ?? ''
   }
 
   const hasValidApiKey = () => {
@@ -49,14 +53,29 @@ const settingsStoreSetup = () => {
     return tagManagerId.value && tagManagerId.value.trim() !== ''
   }
 
-  const getLocale = (): string => {
-    return overrideLocale.value || navigator.language || 'en'
+  const initLocale = () => {
+    const defaultLocale =
+      (navigator?.languages?.length
+        ? navigator.languages[0]
+        : navigator.language) || 'en'
+
+    if (overrideLocale.value) {
+      currentLocale.value = overrideLocale.value
+      return
+    }
+
+    currentLocale.value = defaultLocale
   }
 
-  const getTimezone = (): string => {
-    return (
-      overrideTimezone.value || Intl.DateTimeFormat().resolvedOptions().timeZone
-    )
+  const initTimezone = (latitude: number, longitude: number) => {
+    if (overrideTimezone.value) {
+      if (moment.tz.names().includes(overrideTimezone.value)) {
+        currentTimezone.value = overrideTimezone.value
+        return
+      }
+    }
+
+    currentTimezone.value = tzlookup(latitude, longitude)
   }
 
   return {
@@ -68,6 +87,8 @@ const settingsStoreSetup = () => {
     sentryDsn,
     overrideLocale,
     overrideTimezone,
+    currentLocale,
+    currentTimezone,
 
     // Methods
     init,
@@ -75,8 +96,8 @@ const settingsStoreSetup = () => {
     isAnalyticsEnabled,
     hasSentryConfig,
     hasTagManagerConfig,
-    getLocale,
-    getTimezone,
+    initLocale,
+    initTimezone,
   }
 }
 

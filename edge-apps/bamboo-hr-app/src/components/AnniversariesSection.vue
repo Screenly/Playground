@@ -14,16 +14,13 @@ const hrDataStore = useHrDataStore()
 const settingsStore = useSettingsStore()
 
 const formatUpcomingDate = (dateStr: string) => {
-  const userLocale = settingsStore.getLocale() || 'en'
-
   // Parse the date as a date-only value (no timezone conversion for anniversaries)
   // Work anniversaries should be treated as calendar dates, not timestamps
   const anniversaryDate = dayjs(dateStr)
 
   // Get current date in user's timezone for comparison
-  const userTimezone = settingsStore.getTimezone() || 'UTC'
-  const today = dayjs().tz(userTimezone)
-  const tomorrow = dayjs().tz(userTimezone).add(1, 'day')
+  const today = dayjs().tz(settingsStore.currentTimezone)
+  const tomorrow = dayjs().tz(settingsStore.currentTimezone).add(1, 'day')
 
   // Create anniversary for current year (keep it as a date-only value)
   const thisYearAnniversary = anniversaryDate.year(today.year())
@@ -36,12 +33,13 @@ const formatUpcomingDate = (dateStr: string) => {
   }
 
   // Format the date in user's locale
-  return thisYearAnniversary.locale(userLocale).format('ddd, MMM D')
+  return thisYearAnniversary
+    .locale(settingsStore.currentLocale)
+    .format('ddd, MMM D')
 }
 
 const formatAnniversaryText = (hireDate: string) => {
-  const userTimezone = settingsStore.getTimezone() || 'UTC'
-  const today = dayjs().tz(userTimezone)
+  const today = dayjs().tz(settingsStore.currentTimezone)
 
   // Parse hireDate as date-only (no timezone conversion)
   const hireDateParsed = dayjs(hireDate)

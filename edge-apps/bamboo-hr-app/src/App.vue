@@ -2,6 +2,7 @@
 import { ref, onBeforeMount, onMounted, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
+import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 
 import screenlyLogo from 'blueprint/assets/images/screenly.svg'
 import { useSettingsStore } from '@/stores/settings'
@@ -15,8 +16,11 @@ const useBaseSettingsStore = defineStore(
   baseSettingsStoreSetup,
 )
 
+const useMetadataStore = defineStore('metadataStore', metadataStoreSetup)
+
 const baseSettingsStore = useBaseSettingsStore()
 const settingsStore = useSettingsStore()
+const metadataStore = useMetadataStore()
 const hrDataStore = useHrDataStore()
 
 // Reactive data
@@ -28,18 +32,10 @@ const brandLogoUrl = computed(() => {
 })
 
 // Methods
-const getLocale = (): string => {
-  return settingsStore.getLocale()
-}
-
-const getTimezone = (): string => {
-  return settingsStore.getTimezone()
-}
-
 const updateClock = () => {
   const now = new Date()
-  const locale = getLocale()
-  const timezone = getTimezone()
+  const locale = settingsStore.currentLocale
+  const timezone = settingsStore.currentTimezone
 
   const time = now.toLocaleTimeString(locale, {
     hour12: false,
@@ -63,6 +59,13 @@ onBeforeMount(async () => {
 })
 
 onMounted(async () => {
+  const latitude = metadataStore.coordinates[0]
+  const longitude = metadataStore.coordinates[1]
+
+  settingsStore.init()
+  settingsStore.initLocale()
+  settingsStore.initTimezone(latitude, longitude)
+
   updateClock()
   setInterval(updateClock, 1000)
 
