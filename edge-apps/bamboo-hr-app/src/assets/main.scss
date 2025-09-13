@@ -80,7 +80,7 @@ body {
   width: 100%;
 }
 
-.app__header {
+.app-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -93,32 +93,32 @@ body {
   z-index: 100;
 }
 
-.app__header-right {
+.app-header-right {
   display: flex;
   align-items: center;
   gap: clamp(1rem, 0.5vw + 0.5vh, 50rem);
 }
 
-.app__header-left {
+.app-header-left {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 }
 
-.app__header-title {
+.app-header-title {
   color: var(--theme-color-primary);
   font-size: clamp(1rem, 1vw + 1vh, 50rem);
   font-weight: 600;
   letter-spacing: -0.5px;
 }
 
-.app__header-screenly {
+.app-header-screenly {
   color: var(--text-color-secondary);
   font-size: clamp(0.75rem, 0.5vw + 0.5vh, 40rem);
   opacity: 0.8;
 }
 
-.app__clock {
+.app-clock {
   font-size: clamp(1rem, 1vw + 1vh, 50rem);
   font-weight: 500;
   color: var(--theme-color-secondary);
@@ -130,7 +130,7 @@ body {
   width: auto;
 }
 
-.app__main {
+.app-main {
   flex: 1;
   display: flex;
   flex-wrap: wrap;
@@ -142,7 +142,7 @@ body {
   overflow-y: auto;
 }
 
-.dashboard-card__item {
+.dashboard-card-item {
   font-size: clamp(1rem, 1vw + 1vh, 50rem);
   padding: 1rem;
   border-bottom: 1px solid var(--border-color-primary);
@@ -170,7 +170,7 @@ body {
   box-shadow: 0 4px 8px var(--shadow-color-medium);
 }
 
-.dashboard-card__title {
+.dashboard-card-title {
   font-family: Inter, 'Noto Color Emoji', sans-serif;
   font-size: clamp(1rem, 1vw + 1vh, 50rem);
   flex-shrink: 0;
@@ -180,7 +180,7 @@ body {
   color: var(--theme-color-primary);
 }
 
-.dashboard-card__list {
+.dashboard-card-list {
   list-style: none;
   overflow-y: auto;
   padding: 0.5rem;
@@ -192,15 +192,15 @@ body {
   gap: 0.75rem;
 }
 
-.dashboard-card__list::-webkit-scrollbar {
+.dashboard-card-list::-webkit-scrollbar {
   display: none;
 }
 
-.dashboard-card__item:last-child {
+.dashboard-card-item:last-child {
   border-bottom: none;
 }
 
-.dashboard-card__item:hover {
+.dashboard-card-item:hover {
   background: var(--bg-color-card-hover);
   transform: translateX(0.5rem);
   box-shadow: 0 4px 8px var(--shadow-color-medium);
@@ -213,7 +213,7 @@ body {
   transition: all 0.3s ease;
 }
 
-.employee-card__avatar {
+.employee-card-avatar {
   height: clamp(2rem, 4vw + 4vh, 100rem);
   width: clamp(2rem, 4vw + 4vh, 100rem);
   border-radius: 50%;
@@ -223,7 +223,7 @@ body {
   transition: all 0.3s ease;
 }
 
-.employee-card__avatar-placeholder {
+.employee-card-avatar-placeholder {
   width: clamp(2rem, 4vw + 4vh, 100rem);
   height: clamp(2rem, 4vw + 4vh, 100rem);
   border-radius: 50%;
@@ -238,18 +238,18 @@ body {
   transition: all 0.3s ease;
 }
 
-.dashboard-card__item:hover .employee-card__avatar,
-.dashboard-card__item:hover .employee-card__avatar-placeholder {
+.dashboard-card-item:hover .employee-card-avatar,
+.dashboard-card-item:hover .employee-card-avatar-placeholder {
   transform: scale(1.05);
   border-color: var(--theme-color-secondary);
 }
 
-.employee-card__info {
+.employee-card-info {
   flex: 1;
   min-width: 0;
 }
 
-.employee-card__name {
+.employee-card-name {
   font-weight: 500;
   font-size: clamp(1rem, 0.8vw + 0.8vh, 50rem);
   margin-bottom: clamp(0.5rem, 0.5vw + 0.5vh, 50rem);
@@ -257,7 +257,7 @@ body {
   transition: all 0.3s ease;
 }
 
-.employee-card__details {
+.employee-card-details {
   color: var(--text-color-secondary);
   font-size: clamp(1rem, 0.7vw + 0.7vh, 50rem);
   display: flex;
@@ -266,11 +266,11 @@ body {
   transition: all 0.3s ease;
 }
 
-.dashboard-card__item:hover .employee-card__name {
+.dashboard-card-item:hover .employee-card-name {
   color: var(--theme-color-secondary);
 }
 
-.dashboard-card__empty {
+.dashboard-card-empty {
   text-align: center;
   padding: 1.5rem;
   color: var(--text-color-secondary);
@@ -281,12 +281,12 @@ body {
   font-size: clamp(1rem, 0.7vw + 0.7vh, 50rem);
 }
 
-.dashboard-card--loading {
+.dashboard-card-loading {
   opacity: 0.5;
   pointer-events: none;
 }
 
-.dashboard-card--loading .dashboard-card__item {
+.dashboard-card-loading .dashboard-card-item {
   animation: pulse 1.5s infinite;
 }
 
@@ -305,12 +305,12 @@ body {
 }
 
 @media (orientation: portrait) {
-  .app__main {
+  .app-main {
     flex-direction: column;
   }
 
-  .app__header-left,
-  .app__clock {
+  .app-header-left,
+  .app-clock {
     font-size: clamp(1rem, 1vw + 1vh, 50rem);
   }
 

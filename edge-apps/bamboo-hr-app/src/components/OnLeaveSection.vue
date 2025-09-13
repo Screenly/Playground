@@ -29,41 +29,41 @@ const formatLeaveDate = (leave: EmployeeOnLeave) => {
 
 <template>
   <section class="dashboard-card">
-    <h2 class="dashboard-card__title">🏖️ On Leave</h2>
+    <h2 class="dashboard-card-title">🏖️ On Leave</h2>
     <ul
-      class="dashboard-card__list"
-      :class="{ 'dashboard-card--loading': hrDataStore.loading }"
+      class="dashboard-card-list"
+      :class="{ 'dashboard-card-loading': hrDataStore.loading }"
     >
       <template v-if="hrDataStore.loading">
-        <li class="dashboard-card__item">Loading...</li>
+        <li class="dashboard-card-item">Loading...</li>
       </template>
       <template v-else-if="!hrDataStore.hasLeaves()">
-        <li class="dashboard-card__empty">No upcoming leaves.</li>
+        <li class="dashboard-card-empty">No upcoming leaves.</li>
       </template>
       <template v-else>
         <li
           v-for="leave in hrDataStore.leavesStore.employeesOnLeave"
           :key="leave.employeeId"
-          class="dashboard-card__item"
+          class="dashboard-card-item"
         >
           <div class="employee-card">
             <template v-if="leave.avatar">
               <img
                 :src="leave.avatar"
                 :alt="`${leave.name}`"
-                class="employee-card__avatar"
+                class="employee-card-avatar"
               />
             </template>
             <template v-else>
-              <div class="employee-card__avatar-placeholder">
+              <div class="employee-card-avatar-placeholder">
                 {{ getInitials(leave.name) }}
               </div>
             </template>
-            <div class="employee-card__info">
-              <div class="employee-card__name">
+            <div class="employee-card-info">
+              <div class="employee-card-name">
                 {{ leave.name }}
               </div>
-              <div class="employee-card__details">
+              <div class="employee-card-details">
                 <div>{{ formatLeaveDate(leave) }}</div>
                 <div>{{ leave.type }}</div>
               </div>

@@ -42,43 +42,43 @@ const formatUpcomingDate = (dateStr: string) => {
 
 <template>
   <section class="dashboard-card">
-    <h2 class="dashboard-card__title">🎂 Birthdays</h2>
+    <h2 class="dashboard-card-title">🎂 Birthdays</h2>
     <ul
-      class="dashboard-card__list"
-      :class="{ 'dashboard-card--loading': hrDataStore.loading }"
+      class="dashboard-card-list"
+      :class="{ 'dashboard-card-loading': hrDataStore.loading }"
     >
       <template v-if="hrDataStore.loading">
-        <li class="dashboard-card__item">Loading...</li>
+        <li class="dashboard-card-item">Loading...</li>
       </template>
       <template v-else-if="!hrDataStore.hasBirthdays()">
-        <li class="dashboard-card__empty">No upcoming birthdays.</li>
+        <li class="dashboard-card-empty">No upcoming birthdays.</li>
       </template>
       <template v-else>
         <li
           v-for="birthday in hrDataStore.birthdaysStore.birthdays"
           :key="birthday.id"
-          class="dashboard-card__item"
+          class="dashboard-card-item"
         >
           <div class="employee-card">
             <template v-if="birthday.avatar">
               <img
                 :src="birthday.avatar"
                 :alt="`${birthday.firstName} ${birthday.lastName}`"
-                class="employee-card__avatar"
+                class="employee-card-avatar"
               />
             </template>
             <template v-else>
-              <div class="employee-card__avatar-placeholder">
+              <div class="employee-card-avatar-placeholder">
                 {{
                   getInitialsFromNames(birthday.firstName, birthday.lastName)
                 }}
               </div>
             </template>
-            <div class="employee-card__info">
-              <div class="employee-card__name">
+            <div class="employee-card-info">
+              <div class="employee-card-name">
                 {{ birthday.firstName }} {{ birthday.lastName }}
               </div>
-              <div class="employee-card__details">
+              <div class="employee-card-details">
                 {{ formatUpcomingDate(birthday.dateOfBirth) }}
               </div>
             </div>

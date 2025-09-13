@@ -62,33 +62,33 @@ const formatAnniversaryText = (hireDate: string) => {
 
 <template>
   <section class="dashboard-card">
-    <h2 class="dashboard-card__title">🎉 Anniversaries</h2>
+    <h2 class="dashboard-card-title">🎉 Anniversaries</h2>
     <ul
-      class="dashboard-card__list"
-      :class="{ 'dashboard-card--loading': hrDataStore.loading }"
+      class="dashboard-card-list"
+      :class="{ 'dashboard-card-loading': hrDataStore.loading }"
     >
       <template v-if="hrDataStore.loading">
-        <li class="dashboard-card__item">Loading...</li>
+        <li class="dashboard-card-item">Loading...</li>
       </template>
       <template v-else-if="!hrDataStore.hasAnniversaries()">
-        <li class="dashboard-card__empty">No upcoming anniversaries.</li>
+        <li class="dashboard-card-empty">No upcoming anniversaries.</li>
       </template>
       <template v-else>
         <li
           v-for="anniversary in hrDataStore.anniversariesStore.anniversaries"
           :key="anniversary.id"
-          class="dashboard-card__item"
+          class="dashboard-card-item"
         >
           <div class="employee-card">
             <template v-if="anniversary.avatar">
               <img
                 :src="anniversary.avatar"
                 :alt="`${anniversary.firstName} ${anniversary.lastName}`"
-                class="employee-card__avatar"
+                class="employee-card-avatar"
               />
             </template>
             <template v-else>
-              <div class="employee-card__avatar-placeholder">
+              <div class="employee-card-avatar-placeholder">
                 {{
                   getInitialsFromNames(
                     anniversary.firstName,
@@ -97,11 +97,11 @@ const formatAnniversaryText = (hireDate: string) => {
                 }}
               </div>
             </template>
-            <div class="employee-card__info">
-              <div class="employee-card__name">
+            <div class="employee-card-info">
+              <div class="employee-card-name">
                 {{ anniversary.firstName }} {{ anniversary.lastName }}
               </div>
-              <div class="employee-card__details">
+              <div class="employee-card-details">
                 {{ formatAnniversaryText(anniversary.hireDate) }}
               </div>
             </div>

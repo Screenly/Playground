@@ -73,18 +73,18 @@ onMounted(async () => {
 
 <template>
   <div class="app">
-    <header class="app__header">
-      <div class="app__header-left">
-        <div class="app__header-title">BambooHR Dashboard</div>
-        <div class="app__header-screenly">Powered by Screenly</div>
+    <header class="app-header">
+      <div class="app-header-left">
+        <div class="app-header-title">BambooHR Dashboard</div>
+        <div class="app-header-screenly">Powered by Screenly</div>
       </div>
-      <div class="app__header-right">
-        <div class="app__clock">{{ currentTime }}</div>
+      <div class="app-header-right">
+        <div class="app-clock">{{ currentTime }}</div>
         <img :src="brandLogoUrl" alt="Brand Logo" class="brand-logo" />
       </div>
     </header>
 
-    <main class="app__main">
+    <main class="app-main">
       <OnLeaveSection />
       <BirthdaysSection />
       <AnniversariesSection />
