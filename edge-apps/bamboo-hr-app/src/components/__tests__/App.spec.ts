@@ -50,7 +50,7 @@ describe('App', () => {
     const wrapper = mount(App)
 
     // Check for dashboard sections
-    expect(wrapper.text()).toContain('On Leave Today')
+    expect(wrapper.text()).toContain('On Leave')
     expect(wrapper.text()).toContain('Birthdays')
     expect(wrapper.text()).toContain('Anniversaries')
   })

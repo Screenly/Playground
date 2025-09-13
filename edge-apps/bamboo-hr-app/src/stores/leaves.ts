@@ -1,6 +1,7 @@
 import { type Ref, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useSettingsStore } from '@/stores/settings'
+import { fetchEmployeeAvatar } from '@/utils/avatar'
 
 export interface Leave {
   id: number
@@ -54,30 +55,7 @@ const leavesStoreSetup = () => {
 
       const employeesOnLeaveData: EmployeeOnLeave[] = await Promise.all(
         data.map(async (item: EmployeeOnLeave) => {
-          let avatarUrl: string | null = null
-
-          try {
-            // Fetch employee photo
-            const photoResponse = await fetch(
-              `${screenly.cors_proxy_url}/${bambooHrApiBaseUrl}/employees/${item.employeeId}/photo/large`,
-              {
-                method: 'GET',
-                headers: {
-                  Authorization: `Basic ${btoa(settingsStore.apiKey + ':')}`,
-                },
-              },
-            )
-
-            if (photoResponse.ok) {
-              const imageBlob = await photoResponse.blob()
-              avatarUrl = URL.createObjectURL(imageBlob)
-            }
-          } catch (error) {
-            console.warn(
-              `Failed to fetch photo for employee ${item.employeeId}:`,
-              error,
-            )
-          }
+          const avatarUrl = await fetchEmployeeAvatar(item.employeeId)
 
           return {
             employeeId: item.employeeId,

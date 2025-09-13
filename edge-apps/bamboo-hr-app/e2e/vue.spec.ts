@@ -50,7 +50,12 @@ test('basic app structure test', async ({ page }) => {
   await expect(page.getByText('Powered by Screenly')).toBeVisible()
 
   // Check for dashboard sections
-  await expect(page.getByText('On Leave Today')).toBeVisible()
+  await expect(page.getByText('🏖️ On Leave')).toBeVisible()
+  await expect(page.getByText('🎂 Birthdays')).toBeVisible()
+  await expect(page.getByText('🎉 Anniversaries')).toBeVisible()
+
+  // Check for dashboard sections
+  await expect(page.getByText('No upcoming leaves')).toBeVisible()
   await expect(page.getByText('No upcoming birthdays')).toBeVisible()
   await expect(page.getByText('No upcoming anniversaries')).toBeVisible()
 })

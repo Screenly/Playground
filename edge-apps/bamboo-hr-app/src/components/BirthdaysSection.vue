@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useHrDataStore } from '@/stores/hr-data'
 import { useSettingsStore } from '@/stores/settings'
+import { getInitialsFromNames } from '@/utils/avatar'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
@@ -11,10 +12,6 @@ dayjs.extend(timezone)
 
 const hrDataStore = useHrDataStore()
 const settingsStore = useSettingsStore()
-
-const getInitials = (employee: { firstName: string; lastName: string }) => {
-  return `${employee.firstName.charAt(0)}${employee.lastName.charAt(0)}`
-}
 
 const formatUpcomingDate = (dateStr: string) => {
   const userLocale = settingsStore.getLocale() || 'en'
@@ -72,7 +69,9 @@ const formatUpcomingDate = (dateStr: string) => {
             </template>
             <template v-else>
               <div class="employee-card__avatar-placeholder">
-                {{ getInitials(birthday) }}
+                {{
+                  getInitialsFromNames(birthday.firstName, birthday.lastName)
+                }}
               </div>
             </template>
             <div class="employee-card__info">
