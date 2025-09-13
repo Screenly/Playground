@@ -25,6 +25,8 @@ const hrDataStore = useHrDataStore()
 
 // Reactive data
 const currentTime = ref('')
+const hasError = ref(false)
+const errorMessage = ref('')
 
 // Computed properties
 const brandLogoUrl = computed(() => {
@@ -52,6 +54,11 @@ const updateClock = () => {
   currentTime.value = `${time} — ${date}`
 }
 
+const showError = (message: string) => {
+  hasError.value = true
+  errorMessage.value = message
+}
+
 onBeforeMount(async () => {
   settingsStore.init()
   baseSettingsStore.setupTheme()
@@ -59,18 +66,31 @@ onBeforeMount(async () => {
 })
 
 onMounted(async () => {
-  const latitude = metadataStore.coordinates[0]
-  const longitude = metadataStore.coordinates[1]
+  // Validate API key
+  if (!settingsStore.hasValidApiKey()) {
+    showError('Missing API credentials. Please check your configuration.')
+    screenly.signalReadyForRendering()
+    return
+  }
 
-  settingsStore.init()
-  settingsStore.initLocale()
-  settingsStore.initTimezone(latitude, longitude)
+  try {
+    const latitude = metadataStore.coordinates[0]
+    const longitude = metadataStore.coordinates[1]
 
-  updateClock()
-  setInterval(updateClock, 1000)
+    settingsStore.init()
+    settingsStore.initLocale()
+    settingsStore.initTimezone(latitude, longitude)
 
-  await hrDataStore.init()
-  screenly.signalReadyForRendering()
+    updateClock()
+    setInterval(updateClock, 1000)
+
+    await hrDataStore.init()
+  } catch (error) {
+    console.error('Failed to initialize application:', error)
+    showError('Failed to initialize the application. Please try again later.')
+  } finally {
+    screenly.signalReadyForRendering()
+  }
 })
 </script>
 
@@ -88,9 +108,15 @@ onMounted(async () => {
     </header>
 
     <main class="app-main">
-      <OnLeaveSection />
-      <BirthdaysSection />
-      <AnniversariesSection />
+      <div v-if="hasError" class="dashboard-card error-card">
+        <h2 class="dashboard-card-title error-title">Error</h2>
+        <p class="error-message">{{ errorMessage }}</p>
+      </div>
+      <template v-else>
+        <OnLeaveSection />
+        <BirthdaysSection />
+        <AnniversariesSection />
+      </template>
     </main>
   </div>
 </template>

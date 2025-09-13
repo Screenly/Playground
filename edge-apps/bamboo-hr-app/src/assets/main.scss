@@ -318,3 +318,18 @@ body {
     height: clamp(1rem, 2.5vw + 2.5vh, 100rem);
   }
 }
+
+.error-card {
+  flex: 1;
+  text-align: center;
+  padding: 2rem;
+}
+
+.error-title {
+  color: #dc3545;
+}
+
+.error-message {
+  color: var(--text-color-secondary);
+  margin-top: 1rem;
+}
