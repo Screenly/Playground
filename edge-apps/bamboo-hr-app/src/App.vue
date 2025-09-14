@@ -39,18 +39,42 @@ const updateClock = () => {
   const locale = settingsStore.currentLocale
   const timezone = settingsStore.currentTimezone
 
-  const time = now.toLocaleTimeString(locale, {
-    hour12: false,
+  // Get time in the specified timezone
+  const timeInTimezone = new Date(
+    now.toLocaleString('en-US', { timeZone: timezone }),
+  )
+
+  const formattedLocale = locale.replace('_', '-')
+
+  // Time formatter options - let Intl.DateTimeFormat handle the format based on locale
+  const timeFormatterOptions = {
     hour: '2-digit',
     minute: '2-digit',
-    timeZone: timezone,
-  })
-  const date = now.toLocaleDateString(locale, {
+  } as Intl.DateTimeFormatOptions
+
+  // Handle all formatting based on locale with exception handling
+  let timeFormatter: Intl.DateTimeFormat
+  try {
+    timeFormatter = new Intl.DateTimeFormat(
+      formattedLocale,
+      timeFormatterOptions,
+    )
+  } catch (error) {
+    // Fallback to default locale if the provided locale is invalid
+    console.warn(
+      `Invalid locale "${formattedLocale}" provided, falling back to "en"`,
+      error,
+    )
+    timeFormatter = new Intl.DateTimeFormat('en', timeFormatterOptions)
+  }
+
+  const time = timeFormatter.format(timeInTimezone)
+  const date = timeInTimezone.toLocaleDateString(formattedLocale, {
     weekday: 'short',
     month: 'short',
     day: 'numeric',
-    timeZone: timezone,
   })
+
   currentTime.value = `${time} — ${date}`
 }
 
