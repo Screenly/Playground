@@ -1,5 +1,5 @@
 import ical from 'ical.js'
-import { GOOGLE_CALENDAR_API_BASE_URL, VIEW_MODE } from '@/constants'
+import { VIEW_MODE } from '@/constants'
 import type { CalendarEvent, ViewMode } from '@/constants'
 import { useSettingsStore } from '@/stores/settings'
 import dayjs from 'dayjs'
@@ -8,19 +8,6 @@ import dayJsTimezone from 'dayjs/plugin/timezone'
 
 dayjs.extend(utc)
 dayjs.extend(dayJsTimezone)
-
-// Type for raw Google Calendar API event
-interface GoogleCalendarEvent {
-  summary: string
-  start: {
-    dateTime?: string
-    date?: string
-  }
-  end: {
-    dateTime?: string
-    date?: string
-  }
-}
 
 const getDateRangeForViewMode = (viewMode: ViewMode) => {
   const settingsStore = useSettingsStore()
@@ -54,56 +41,6 @@ const getDateRangeForViewMode = (viewMode: ViewMode) => {
   }
 
   return { startDate, endDate }
-}
-
-const formatEvents = (events: GoogleCalendarEvent[]): CalendarEvent[] => {
-  const formattedEvents: CalendarEvent[] = events.map((event) => ({
-    title: event.summary,
-    startTime: event.start.dateTime || event.start.date || '',
-    endTime: event.end.dateTime || event.end.date || '',
-    isAllDay: !event.start.dateTime,
-  }))
-
-  return formattedEvents
-}
-
-export const fetchCalendarEventsFromAPI = async (
-  accessToken: string,
-): Promise<CalendarEvent[]> => {
-  try {
-    const { calendar_mode: viewMode, calendar_id: calendarId } =
-      screenly.settings
-
-    const { startDate, endDate } = getDateRangeForViewMode(viewMode as ViewMode)
-
-    // Add timeMin and timeMax parameters to only fetch relevant events
-    const params = new URLSearchParams({
-      timeMin: startDate.toISOString(),
-      timeMax: endDate.toISOString(),
-      orderBy: 'startTime',
-      singleEvents: 'true',
-      timeZone: 'UTC',
-    })
-    const calendarUrl =
-      `${GOOGLE_CALENDAR_API_BASE_URL}/` +
-      `${encodeURIComponent(calendarId as string)}/` +
-      `events?${params.toString()}`
-
-    const calendarResponse = await fetch(calendarUrl, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
-    const calendarData = await calendarResponse.json()
-
-    const events = calendarData.items || []
-
-    return formatEvents(events)
-  } catch (error) {
-    console.error('Error fetching calendar events:', error)
-    return []
-  }
 }
 
 export const fetchCalendarEventsFromICal = async (): Promise<

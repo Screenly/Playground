@@ -7,15 +7,10 @@ import {
   getYear,
   getDate,
   getFormattedDayOfWeek,
-  getAccessToken,
   getLocale,
   getTimeZone,
 } from '@/utils'
-import {
-  fetchCalendarEventsFromAPI,
-  fetchCalendarEventsFromICal,
-} from '@/events'
-import { TOKEN_REFRESH_INTERVAL } from '@/constants'
+import { fetchCalendarEventsFromICal } from '@/events'
 import type { CalendarEvent } from '@/constants'
 import { useSettingsStore } from '@/stores/settings'
 
@@ -33,7 +28,6 @@ export const useCalendarStore = defineStore('calendar', () => {
   const events: Ref<CalendarEvent[]> = shallowRef([])
   const currentTime: Ref<string> = ref('')
   const locale: Ref<string> = ref('en-US')
-  const currentTokenRef: Ref<string> = ref('')
   const isInitialized: Ref<boolean> = ref(false)
 
   const timezone: Ref<string> = ref('UTC')
@@ -63,44 +57,9 @@ export const useCalendarStore = defineStore('calendar', () => {
     currentTime.value = time
   }
 
-  const refreshAccessToken = async (): Promise<string | null> => {
-    try {
-      const {
-        refresh_token: refreshToken,
-        client_id: clientId,
-        client_secret: clientSecret,
-      } = screenly.settings
-
-      if (refreshToken && clientId && clientSecret) {
-        const newToken = await getAccessToken(
-          refreshToken as string,
-          clientId as string,
-          clientSecret as string,
-        )
-        currentTokenRef.value = newToken
-        return newToken
-      }
-      return null
-    } catch (error) {
-      console.error('Error refreshing access token:', error)
-      return null
-    }
-  }
-
   const fetchEvents = async () => {
-    const settingsStore = useSettingsStore()
-    const sourceType = settingsStore.calendarSourceType
-
-    if (sourceType === 'api') {
-      const token = currentTokenRef.value || (await refreshAccessToken())
-      if (token) {
-        const fetchedEvents = await fetchCalendarEventsFromAPI(token)
-        events.value = fetchedEvents
-      }
-    } else if (sourceType === 'ical') {
-      const fetchedEvents = await fetchCalendarEventsFromICal()
-      events.value = fetchedEvents
-    }
+    const fetchedEvents = await fetchCalendarEventsFromICal()
+    events.value = fetchedEvents
   }
 
   const setupLocale = async () => {
@@ -146,29 +105,10 @@ export const useCalendarStore = defineStore('calendar', () => {
       const weeklyViewTimeInterval = setInterval(() => {
         weeklyViewTime.value = new Date()
       }, 60000)
-      const tokenInterval = setInterval(
-        refreshAccessToken,
-        TOKEN_REFRESH_INTERVAL,
-      )
 
       // Set up events fetching with reduced frequency for better performance
-      let eventsInterval: NodeJS.Timeout | undefined
-
-      const settingsStore = useSettingsStore()
-      const sourceType = settingsStore.calendarSourceType
-
-      if (sourceType === 'api') {
-        const token = await refreshAccessToken()
-        if (token) {
-          // Reduce polling frequency to 10 seconds for better performance
-          eventsInterval = setInterval(fetchEvents, EVENTS_REFRESH_INTERVAL)
-          await fetchEvents()
-        }
-      } else if (sourceType === 'ical') {
-        // Reduce polling frequency to 10 seconds for better performance
-        eventsInterval = setInterval(fetchEvents, EVENTS_REFRESH_INTERVAL)
-        await fetchEvents()
-      }
+      const eventsInterval = setInterval(fetchEvents, EVENTS_REFRESH_INTERVAL)
+      await fetchEvents()
 
       // Set up locale and initial time
       await setupLocale()
@@ -187,8 +127,7 @@ export const useCalendarStore = defineStore('calendar', () => {
       const cleanup = () => {
         clearInterval(timeInterval)
         clearInterval(weeklyViewTimeInterval)
-        clearInterval(tokenInterval)
-        if (eventsInterval) clearInterval(eventsInterval)
+        clearInterval(eventsInterval)
       }
 
       // Store cleanup function in a way that can be accessed if needed
@@ -204,14 +143,12 @@ export const useCalendarStore = defineStore('calendar', () => {
     events,
     currentTime,
     locale,
-    currentTokenRef,
     isInitialized,
     currentDayOfWeek,
     currentDate,
     currentMonthName,
     currentYear,
     updateDateTime,
-    refreshAccessToken,
     fetchEvents,
     setupLocale,
     initialize,
