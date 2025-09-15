@@ -8,7 +8,7 @@ ready_signal: true
 settings:
   bypass_cors:
     type: string
-    default_value: 'false'
+    default_value: 'true'
     title: Bypass CORS
     optional: true
     help_text: |
@@ -37,7 +37,7 @@ settings:
   ical_url:
     type: secret
     title: iCal URL
-    optional: true
+    optional: false
     help_text: |
       Enter the public iCal feed URL for your calendar.
   override_locale:
