@@ -50,6 +50,12 @@ screenly edge-app instance create
 
 ### API Credentials
 
+Set your BambooHR subdomain:
+
+```bash
+screenly edge-app setting set subdomain=YOUR_SUBDOMAIN
+```
+
 Set your BambooHR API credentials:
 
 ```bash
