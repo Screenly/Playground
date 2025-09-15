@@ -1,8 +1,8 @@
 ---
 syntax: manifest_v1
 id: 01JY4ARF0H5TAWWEG24KJGW33X
-description: Screenly Google Calendar Edge App
-icon: https://playground.srly.io/edge-apps/google-calendar/src/img/icon.svg
+description: Screenly Calendar Edge App
+icon: https://playground.srly.io/edge-apps/calendar/src/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 settings:
