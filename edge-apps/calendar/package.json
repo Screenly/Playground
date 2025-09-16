@@ -19,7 +19,8 @@
     "predeploy": "bun run build",
     "deploy": "screenly edge-app deploy --delete-missing-settings=true --path=dist/",
     "clear-mock-data": "rimraf mock-data.yml",
-    "prepare": "cd ../blueprint && bun install"
+    "prepare": "cd ../blueprint && bun install",
+    "cors-proxy-server": "bun ../blueprint/scripts/cors-proxy-server.js"
   },
   "dependencies": {
     "@photostructure/tz-lookup": "^11.2.1",
