@@ -46,36 +46,17 @@ Install the dependencies for the first run:
 bun install
 ```
 
-Run the following on a terminal to start the build process in watch mode:
-
-```bash
-bun run build:dev
-```
-
-Open another terminal and run the following:
+Run the following command to start the development server:
 
 ```bash
 bun run dev
 ```
 
-This will start the development server via the [Screenly CLI](https://github.com/Screenly/cli).
-
-```plaintext
-$ screenly edge-app run --path=dist/
-Edge App emulator is running at http://127.0.0.1:38085/edge/1/index.html
-```
-
-Copy the URL and paste it in the browser to see the app in action.
+This will start the development server via the [Screenly CLI](https://github.com/Screenly/cli) and opens the app in the browser.
 
 See [the section on Getting the iCal URL](#getting-the-ical-url) for instructions on how to get the iCal URL.
 
 Update `mock-data.yml` and update the values of `ical_url` and `bypass_cors` with the URL of the iCal feed you want to use and `true` respectively.
-
-**Caveats**
-
-> [!NOTE]
-> Updating `mock-data.yml` will not trigger a rebuild of the Edge App. As of the moment,
-> you will need to change files inside the `src` directory to trigger a rebuild.
 
 ## Linting and Formatting
 

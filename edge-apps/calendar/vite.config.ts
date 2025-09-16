@@ -6,7 +6,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 import { existsSync } from 'fs'
 
-import { screenlyTestServer } from '../blueprint/ts/vite-plugins'
+import { screenlyTestServer, watchMockDataPlugin } from '../blueprint/ts/vite-plugins'
 
 const manifestFileName = process.env.MANIFEST_FILE_NAME || 'screenly.yml'
 
@@ -16,6 +16,7 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     vue(),
     vueDevTools(),
+    ...(mode === 'development' ? [watchMockDataPlugin() as unknown as Plugin] : []),
     screenlyTestServer(mode) as unknown as Plugin,
     viteStaticCopy({
       targets: [
