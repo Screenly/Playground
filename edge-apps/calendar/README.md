@@ -77,18 +77,6 @@ Update `mock-data.yml` and update the values of `ical_url` and `bypass_cors` wit
 > Updating `mock-data.yml` will not trigger a rebuild of the Edge App. As of the moment,
 > you will need to change files inside the `src` directory to trigger a rebuild.
 
-### CORS Proxy for Local Development
-
-Some iCal endpoints do not include permissive CORS headers. For local development, run the shared CORS proxy to avoid browser CORS errors.
-
-Start the proxy in a separate terminal (from the `edge-apps/calendar` directory):
-
-```bash
-bun run cors-proxy-server
-```
-
-This starts a proxy on `http://localhost:8080`.
-
 ## Linting and Formatting
 
 ```bash

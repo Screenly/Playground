@@ -6,7 +6,8 @@
   "scripts": {
     "prebuild:dev": "screenly edge-app run --generate-mock-data",
     "build:dev": "vite build --watch --mode=development",
-    "dev": "screenly edge-app run --path=dist/",
+    "dev": "run-p dev:edge cors-proxy-server",
+    "dev:edge": "screenly edge-app run --path=dist/",
     "dev:test": "vite --mode test",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
