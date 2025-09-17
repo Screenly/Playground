@@ -2,6 +2,7 @@ import { type Ref, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useSettingsStore } from '@/stores/settings'
 import { fetchEmployeeAvatar } from '@/utils/avatar'
+import { MAX_ITEMS_PER_COLUMN } from '@/constants'
 
 export interface Leave {
   id: number
@@ -68,7 +69,10 @@ const leavesStoreSetup = () => {
         }),
       )
 
-      employeesOnLeave.value = employeesOnLeaveData
+      employeesOnLeave.value = employeesOnLeaveData.slice(
+        0,
+        MAX_ITEMS_PER_COLUMN,
+      )
     } catch {
       setError('Failed to load leave data')
     }

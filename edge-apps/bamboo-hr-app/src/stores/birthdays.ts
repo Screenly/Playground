@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import { useSettingsStore } from '@/stores/settings'
 import { type Employee } from '@/types/employee'
 import { fetchEmployeeAvatar } from '@/utils/avatar'
+import { MAX_ITEMS_PER_COLUMN } from '@/constants'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
@@ -71,7 +72,7 @@ const birthdaysStoreSetup = () => {
         }),
       )
 
-      birthdays.value = birthdayData
+      birthdays.value = birthdayData.slice(0, MAX_ITEMS_PER_COLUMN)
     } catch {
       setError('Failed to load birthday data')
     }
