@@ -99,7 +99,7 @@ async function getWeatherApiData (context) {
   const queryParams = stringifyQueryParams({
     lat: context.lat,
     lon: context.lng,
-    units: 'metric', // TODO: Make this dependent on the current location.
+    units: 'metric',
     cnt: 10,
     appid: context.apiKey
   })
