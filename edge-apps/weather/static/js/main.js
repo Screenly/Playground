@@ -207,70 +207,44 @@ function checkIfInRange (ranges, code) {
 
 function getWeatherImagesById (context, id = 800, dt) {
   // List of codes - https://openweathermap.org/weather-conditions
-  // To do - Refactor
   const isNight = checkIfNight(context, dt)
-  const hasNightBg = checkIfInRange([[200, 399], [500, 699], [800, 804]], id)
   let icon
-  let bg
 
   if (id >= 200 && id <= 299) {
     icon = 'thunderstorm'
-    bg = 'thunderstorm'
   }
 
   if (id >= 300 && id <= 399) {
     icon = 'drizzle'
-    bg = 'drizzle'
   }
 
   if (id >= 500 && id <= 599) {
     icon = 'rain'
-    bg = 'rain'
   }
 
   if (id >= 600 && id <= 699) {
     icon = 'snow'
-    bg = 'snow'
   }
 
   if (id >= 700 && id <= 799) {
-    // To do - Handle all 7xx cases
+    // Handle all 7xx cases
     icon = 'haze'
-
-    if (id === 701 || id === 721 || id === 741) {
-      bg = 'haze'
-    } else if (id === 711) {
-      bg = 'smoke'
-    } else if (id === 731 || id === 751 || id === 761) {
-      bg = 'sand'
-    } else if (id === 762) {
-      bg = 'volcanic-ash'
-    } else if (id === 771) {
-      // To do - change image squall
-      bg = 'volcanic-ash'
-    } else if (id === 781) {
-      bg = 'tornado'
-    }
   }
 
   if (id === 800) {
     icon = 'clear'
-    bg = 'clear'
   }
 
   if (id === 801) {
     icon = 'partially-cloudy'
-    bg = 'cloudy'
   }
 
   if (id >= 802 && id <= 804) {
     icon = 'mostly-cloudy'
-    bg = 'cloudy'
   }
 
   return {
-    icon: isNight && hasNightPair(icon) ? `${icon}-night` : icon,
-    bg: isNight && hasNightBg ? `${bg}-night` : bg
+    icon: isNight && hasNightPair(icon) ? `${icon}-night` : icon
   }
 
   // Helper function to check if an icon has a night pair
@@ -343,10 +317,7 @@ async function refreshWeather (context) {
 
       if (Array.isArray(weather) && weather.length > 0) {
         const { id, description } = weather[0]
-        const { icon, bg } = getWeatherImagesById(context, id, dt)
-        if ((id !== context.currentWeatherId) || (`bg-${bg}` !== context.bgClass)) {
-          context.bgClass = `bg-${bg}`
-        }
+        const { icon } = getWeatherImagesById(context, id, dt)
 
         context.currentWeatherIcon = icons[icon]
         context.currentWeatherStatus = description
@@ -384,7 +355,6 @@ async function refreshWeather (context) {
 
 function getWeatherData () {
   return {
-    bgClass: '',
     city: '',
     currentDate: '',
     currentFormattedTempScale: '',
