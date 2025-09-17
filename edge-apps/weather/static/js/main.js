@@ -32,7 +32,61 @@ class AppCache {
   }
 }
 
-// getWeatherApiData from main.js
+// getReverseGeocodingData - Get city info from coordinates
+async function getReverseGeocodingData (context) {
+  const stringifyQueryParams = (params) => {
+    return Object.entries(params).map(
+      ([key, value]) => `${key}=${value}`
+    ).join('&')
+  }
+
+  const endpointUrl = 'http://api.openweathermap.org/geo/1.0/reverse'
+
+  const queryParams = stringifyQueryParams({
+    lat: context.lat,
+    lon: context.lng,
+    limit: 1,
+    appid: context.apiKey
+  })
+
+  let result
+  const appCache = new AppCache({ keyName: 'location' })
+
+  try {
+    const response = await fetch(`${endpointUrl}?${queryParams}`)
+    const data = await response.json()
+
+    if (!Array.isArray(data) || data.length === 0) {
+      throw new Error('No location data found for the provided coordinates')
+    }
+
+    const { name, country, state } = data[0]
+    const timestamp = String(new Date())
+
+    result = { name, country, state, timestamp }
+
+    appCache.clear()
+    appCache.set(result)
+  } catch (error) {
+    console.error('Reverse geocoding error:', error)
+
+    result = appCache.get()
+
+    const requiredKeys = ['name', 'country']
+    const isComplete = requiredKeys.every((key) => {
+      return Object.prototype.hasOwnProperty.call(result, key)
+    })
+
+    if (!isComplete) {
+      // Fallback to a generic location if no cached data
+      result = { name: 'Unknown Location', country: 'N/A', state: null, timestamp: String(new Date()) }
+    }
+  }
+
+  return result
+}
+
+// getWeatherApiData - Get weather forecast data only
 async function getWeatherApiData (context) {
   const stringifyQueryParams = (params) => {
     return Object.entries(params).map(
@@ -64,19 +118,20 @@ async function getWeatherApiData (context) {
     context.error = false
 
     appCache.clear()
-    const { city: { name, country, timezone }, list } = data
+    // Only extract weather data and timezone, not city info
+    const { city: { timezone }, list } = data
 
     const timestamp = String(new Date())
 
-    result = { name, country, timezone, list, timestamp }
+    result = { timezone, list, timestamp }
 
     appCache.set(result)
   } catch (error) {
-    console.error(error)
+    console.error('Weather API error:', error)
 
     result = appCache.get()
 
-    const requiredKeys = ['name', 'country', 'timezone', 'list']
+    const requiredKeys = ['timezone', 'list']
     const isComplete = requiredKeys.every((key) => {
       return Object.prototype.hasOwnProperty.call(result, key)
     })
@@ -255,14 +310,30 @@ const getTemp = (context, temp) => {
 
 async function refreshWeather (context) {
   try {
-    const data = await getWeatherApiData(context)
-    if (data.list !== undefined) {
-      const { name, country, timezone: tzOffset, list } = data
+    // Get location data and weather data separately
+    const [locationData, weatherData] = await Promise.all([
+      getReverseGeocodingData(context),
+      getWeatherApiData(context)
+    ])
+
+    // Handle location data
+    if (locationData && locationData.name) {
       // We only want to set these values once.
       if (!context.firstFetchComplete) {
+        const { name, country } = locationData
+        // Display only city name and country
         context.city = `${name}, ${country}`
-        context.tzOffset = parseInt(tzOffset / 60) // in minutes
         context.tempScale = countriesUsingFahrenheit.includes(country) ? 'F' : 'C'
+      }
+    }
+
+    // Handle weather data
+    if (weatherData && weatherData.list !== undefined) {
+      const { timezone: tzOffset, list } = weatherData
+
+      // We only want to set these values once.
+      if (!context.firstFetchComplete) {
+        context.tzOffset = parseInt(tzOffset / 60) // in minutes
         context.firstFetchComplete = true
         context.isLoading = false
       }
@@ -305,6 +376,7 @@ async function refreshWeather (context) {
       }))
     }
   } catch (error) {
+    console.error('Error refreshing weather data:', error)
     context.error = true
     context.errorMessage = error.message
   }
