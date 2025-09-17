@@ -30,6 +30,7 @@ export async function getLocale(): Promise<string> {
 export const getFormattedTime = async (
   date: Date = new Date(),
   locale: string | null = null,
+  timezone?: string,
 ): Promise<string> => {
   const resolvedLocale = locale || (await getLocale())
   const intlLocale = new Intl.Locale(resolvedLocale)
@@ -46,7 +47,7 @@ export const getFormattedTime = async (
   return date.toLocaleTimeString(resolvedLocale, {
     hour: hourFormat,
     minute: '2-digit',
-    timeZone: getTimeZone(),
+    timeZone: timezone || 'UTC',
   })
 }
 
