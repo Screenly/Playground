@@ -40,7 +40,7 @@ async function getReverseGeocodingData (context) {
     ).join('&')
   }
 
-  const endpointUrl = 'http://api.openweathermap.org/geo/1.0/reverse'
+  const endpointUrl = 'https://api.openweathermap.org/geo/1.0/reverse'
 
   const queryParams = stringifyQueryParams({
     lat: context.lat,
