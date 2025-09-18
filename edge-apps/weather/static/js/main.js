@@ -1,5 +1,6 @@
 /* global Alpine, icons, moment, clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry */
 /* eslint-disable no-unused-vars */
+/* prettier-ignore-file */
 
 const DEFAULT_LOGO_URL = 'static/images/screenly.svg'
 
@@ -279,7 +280,7 @@ function getWeatherImagesById (context, id = 800, dt) {
 */
 
 const countriesUsingFahrenheit = ['US', 'BS', 'KY', 'LR', 'PW', 'FM', 'MH']
-const celsiusToFahrenheit = (temp) => ((1.8 * temp) + 32)
+const celsiusToFahrenheit = (temp) => (1.8 * temp) + 32
 const getTemp = (context, temp) => {
   return Math.round(
     context.tempScale === 'C' ? temp : celsiusToFahrenheit(temp)
