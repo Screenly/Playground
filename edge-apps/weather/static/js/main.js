@@ -60,7 +60,11 @@ async function getReverseGeocodingData (context) {
       throw new Error('No location data found for the provided coordinates')
     }
 
-    const { name, country, state } = data[0]
+    const { name, country, state } = data[0] || {}
+    if (!name || !country) {
+      throw new Error('Incomplete location data received')
+    }
+
     const timestamp = String(new Date())
 
     result = { name, country, state, timestamp }
@@ -70,7 +74,7 @@ async function getReverseGeocodingData (context) {
   } catch (error) {
     console.error('Reverse geocoding error:', error)
 
-    result = appCache.get()
+    result = appCache.get() || {}
 
     const requiredKeys = ['name', 'country']
     const isComplete = requiredKeys.every((key) => {
