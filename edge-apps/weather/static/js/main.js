@@ -1,5 +1,5 @@
 /* global Alpine, icons, moment, clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry */
-/* eslint-disable no-unused-vars, no-useless-catch */
+/* eslint-disable no-unused-vars */
 
 const DEFAULT_LOGO_URL = 'static/images/screenly.svg'
 
