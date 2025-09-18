@@ -1,7 +1,7 @@
 /* global Alpine, icons, moment, clm, moment, OfflineGeocodeCity, screenly, tzlookup, Sentry */
 /* eslint-disable no-unused-vars */
 
-const DEFAULT_LOGO_URL = "static/images/screenly.svg"
+const DEFAULT_LOGO_URL = 'static/images/screenly.svg'
 
 // AppCache
 class AppCache {
@@ -13,7 +13,7 @@ class AppCache {
       localStorage.setItem(this.keyName, JSON.stringify(this.data))
     } else {
       this.data = JSON.parse(localStorage.getItem(this.keyName))
-      console.debug("Database setup complete")
+      console.debug('Database setup complete')
     }
   }
 
@@ -37,10 +37,10 @@ async function getReverseGeocodingData(context) {
   const stringifyQueryParams = (params) => {
     return Object.entries(params)
       .map(([key, value]) => `${key}=${value}`)
-      .join("&")
+      .join('&')
   }
 
-  const endpointUrl = "https://api.openweathermap.org/geo/1.0/reverse"
+  const endpointUrl = 'https://api.openweathermap.org/geo/1.0/reverse'
 
   const queryParams = stringifyQueryParams({
     lat: context.lat,
@@ -50,19 +50,19 @@ async function getReverseGeocodingData(context) {
   })
 
   let result
-  const appCache = new AppCache({ keyName: "location" })
+  const appCache = new AppCache({ keyName: 'location' })
 
   try {
     const response = await fetch(`${endpointUrl}?${queryParams}`)
     const data = await response.json()
 
     if (!Array.isArray(data) || data.length === 0) {
-      throw new Error("No location data found for the provided coordinates")
+      throw new Error('No location data found for the provided coordinates')
     }
 
     const { name, country, state } = data[0] || {}
     if (!name || !country) {
-      throw new Error("Incomplete location data received")
+      throw new Error('Incomplete location data received')
     }
 
     const timestamp = String(new Date())
@@ -72,11 +72,11 @@ async function getReverseGeocodingData(context) {
     appCache.clear()
     appCache.set(result)
   } catch (error) {
-    console.error("Reverse geocoding error:", error)
+    console.error('Reverse geocoding error:', error)
 
     result = appCache.get() || {}
 
-    const requiredKeys = ["name", "country"]
+    const requiredKeys = ['name', 'country']
     const isComplete = requiredKeys.every((key) => {
       return Object.prototype.hasOwnProperty.call(result, key)
     })
@@ -84,8 +84,8 @@ async function getReverseGeocodingData(context) {
     if (!isComplete) {
       // Fallback to a generic location if no cached data
       result = {
-        name: "Unknown Location",
-        country: "N/A",
+        name: 'Unknown Location',
+        country: 'N/A',
         state: null,
         timestamp: String(new Date()),
       }
@@ -100,27 +100,27 @@ async function getWeatherApiData(context) {
   const stringifyQueryParams = (params) => {
     return Object.entries(params)
       .map(([key, value]) => `${key}=${value}`)
-      .join("&")
+      .join('&')
   }
 
-  const endpointUrl = "https://api.openweathermap.org/data/2.5/forecast"
+  const endpointUrl = 'https://api.openweathermap.org/data/2.5/forecast'
 
   const queryParams = stringifyQueryParams({
     lat: context.lat,
     lon: context.lng,
-    units: "metric",
+    units: 'metric',
     cnt: 10,
     appid: context.apiKey,
   })
 
   let result
-  const appCache = new AppCache({ keyName: "weather" })
+  const appCache = new AppCache({ keyName: 'weather' })
 
   try {
     const response = await fetch(`${endpointUrl}?${queryParams}`)
     const data = await response.json()
 
-    if (data.cod !== "200") {
+    if (data.cod !== '200') {
       throw new Error(data.message)
     }
 
@@ -139,11 +139,11 @@ async function getWeatherApiData(context) {
 
     appCache.set(result)
   } catch (error) {
-    console.error("Weather API error:", error)
+    console.error('Weather API error:', error)
 
     result = appCache.get()
 
-    const requiredKeys = ["timezone", "list"]
+    const requiredKeys = ['timezone', 'list']
     const isComplete = requiredKeys.every((key) => {
       return Object.prototype.hasOwnProperty.call(result, key)
     })
@@ -159,10 +159,10 @@ function formatTime(today, locale) {
   moment.locale(locale)
   const is24HourFormat = moment
     .localeData(locale)
-    .longDateFormat("LT")
-    .includes("H")
+    .longDateFormat('LT')
+    .includes('H')
 
-  return moment(today).format(is24HourFormat ? "HH:mm" : "hh:mm A")
+  return moment(today).format(is24HourFormat ? 'HH:mm' : 'hh:mm A')
 }
 
 async function getLocale(lat, lng) {
@@ -226,36 +226,36 @@ function getWeatherImagesById(context, id = 800, dt) {
   let icon
 
   if (id >= 200 && id <= 299) {
-    icon = "thunderstorm"
+    icon = 'thunderstorm'
   }
 
   if (id >= 300 && id <= 399) {
-    icon = "drizzle"
+    icon = 'drizzle'
   }
 
   if (id >= 500 && id <= 599) {
-    icon = "rain"
+    icon = 'rain'
   }
 
   if (id >= 600 && id <= 699) {
-    icon = "snow"
+    icon = 'snow'
   }
 
   if (id >= 700 && id <= 799) {
     // Handle all 7xx cases
-    icon = "haze"
+    icon = 'haze'
   }
 
   if (id === 800) {
-    icon = "clear"
+    icon = 'clear'
   }
 
   if (id === 801) {
-    icon = "partially-cloudy"
+    icon = 'partially-cloudy'
   }
 
   if (id >= 802 && id <= 804) {
-    icon = "mostly-cloudy"
+    icon = 'mostly-cloudy'
   }
 
   return {
@@ -265,14 +265,14 @@ function getWeatherImagesById(context, id = 800, dt) {
   // Helper function to check if an icon has a night pair
   function hasNightPair(icon) {
     const noNightPairIcons = [
-      "chancesleet",
-      "cloudy",
-      "drizzle",
-      "fewdrops",
-      "fog",
-      "haze",
-      "snow",
-      "windy",
+      'chancesleet',
+      'cloudy',
+      'drizzle',
+      'fewdrops',
+      'fog',
+      'haze',
+      'snow',
+      'windy',
     ]
     return !noNightPairIcons.includes(icon)
   }
@@ -289,11 +289,11 @@ function getWeatherImagesById(context, id = 800, dt) {
  * Marshall Islands.
  */
 
-const countriesUsingFahrenheit = ["US", "BS", "KY", "LR", "PW", "FM", "MH"]
+const countriesUsingFahrenheit = ['US', 'BS', 'KY', 'LR', 'PW', 'FM', 'MH']
 const celsiusToFahrenheit = (temp) => 1.8 * temp + 32
 const getTemp = (context, temp) => {
   return Math.round(
-    context.tempScale === "C" ? temp : celsiusToFahrenheit(temp),
+    context.tempScale === 'C' ? temp : celsiusToFahrenheit(temp),
   )
 }
 
@@ -313,8 +313,8 @@ async function refreshWeather(context) {
         // Display only city name and country
         context.city = `${name}, ${country}`
         context.tempScale = countriesUsingFahrenheit.includes(country)
-          ? "F"
-          : "C"
+          ? 'F'
+          : 'C'
       }
     }
 
@@ -347,7 +347,7 @@ async function refreshWeather(context) {
         context.currentWeatherId = id
       }
 
-      const windowSize = window.matchMedia("(orientation: portrait)").matches
+      const windowSize = window.matchMedia('(orientation: portrait)').matches
         ? 4
         : 7
       const currentWindow = list.slice(
@@ -376,7 +376,7 @@ async function refreshWeather(context) {
       )
     }
   } catch (error) {
-    console.error("Error refreshing weather data:", error)
+    console.error('Error refreshing weather data:', error)
     context.error = true
     context.errorMessage = error.message
   }
@@ -384,22 +384,22 @@ async function refreshWeather(context) {
 
 function getWeatherData() {
   return {
-    city: "",
-    currentDate: "",
-    currentFormattedTempScale: "",
+    city: '',
+    currentDate: '',
+    currentFormattedTempScale: '',
     currentTemp: null,
-    currentWeatherIcon: "",
+    currentWeatherIcon: '',
     currentWeatherId: 0,
-    currentWeatherStatus: "",
+    currentWeatherStatus: '',
     error: false,
-    errorMessage: "",
+    errorMessage: '',
     firstFetchComplete: false,
     forecastedItems: [],
-    timeHour: "",
-    timeMinutes: "",
-    timeAmPm: "",
-    dateText: "",
-    dateNumber: "",
+    timeHour: '',
+    timeMinutes: '',
+    timeAmPm: '',
+    dateText: '',
+    dateNumber: '',
     showAmPm: true,
     brandLogo: DEFAULT_LOGO_URL,
     async fetchImage(fileUrl) {
@@ -417,14 +417,14 @@ function getWeatherData() {
 
         // Get the first 4 bytes for magic number detection
         const hex = Array.from(uintArray.slice(0, 4))
-          .map((b) => b.toString(16).padStart(2, "0"))
-          .join("")
+          .map((b) => b.toString(16).padStart(2, '0'))
+          .join('')
           .toUpperCase()
 
         // Convert the first few bytes to ASCII for text-based formats like SVG
         const ascii = String.fromCharCode.apply(null, uintArray.slice(0, 100))
 
-        if (ascii.startsWith("<?xml") || ascii.startsWith("<svg")) {
+        if (ascii.startsWith('<?xml') || ascii.startsWith('<svg')) {
           return new Promise((resolve) => {
             const svgReader = new FileReader()
             svgReader.readAsText(blob)
@@ -432,22 +432,22 @@ function getWeatherData() {
               const base64 = btoa(
                 unescape(encodeURIComponent(svgReader.result)),
               )
-              resolve("data:image/svg+xml;base64," + base64)
+              resolve('data:image/svg+xml;base64,' + base64)
             }
           })
-        } else if (hex === "89504E47" || hex.startsWith("FFD8FF")) {
+        } else if (hex === '89504E47' || hex.startsWith('FFD8FF')) {
           return fileUrl
         } else {
-          throw new Error("Unknown image type")
+          throw new Error('Unknown image type')
         }
       } catch (error) {
-        console.error("Error fetching image:", error)
+        console.error('Error fetching image:', error)
         throw error
       }
     },
     async initBrandLogo() {
       const corsUrl =
-        screenly.cors_proxy_url + "/" + screenly.settings.screenly_logo_dark
+        screenly.cors_proxy_url + '/' + screenly.settings.screenly_logo_dark
       const fallbackUrl = screenly.settings.screenly_logo_dark
 
       try {
@@ -463,14 +463,14 @@ function getWeatherData() {
     init: async function () {
       if (screenly.settings.override_coordinates) {
         const coordinates = screenly.settings.override_coordinates
-          .split(",")
+          .split(',')
           .map((coord) => parseFloat(coord.trim()))
         if (
           coordinates.length === 2 &&
           !isNaN(coordinates[0]) &&
           !isNaN(coordinates[1])
         ) {
-          [this.lat, this.lng] = coordinates
+          ;[this.lat, this.lng] = coordinates
         } else {
           console.warn(
             'Invalid override_coordinates format. Expected "lat,lng"',
@@ -479,7 +479,7 @@ function getWeatherData() {
       }
 
       if (!this.lat || !this.lng) {
-        [this.lat, this.lng] = screenly.metadata?.coordinates || [0, 0]
+        ;[this.lat, this.lng] = screenly.metadata?.coordinates || [0, 0]
       }
 
       this.apiKey = screenly.settings.openweathermap_api_key
@@ -514,33 +514,33 @@ function getWeatherData() {
         momentObject.locale(locale)
       }
 
-      const dayOfMonth = momentObject.format("D")
+      const dayOfMonth = momentObject.format('D')
       const formattedTime = formatTime(momentObject, locale)
-      const [hours, minutes] = formattedTime.split(" ")[0].split(":")
-      const ampm = formattedTime.split(" ")[1] || ""
+      const [hours, minutes] = formattedTime.split(' ')[0].split(':')
+      const ampm = formattedTime.split(' ')[1] || ''
 
       // Update time values
       this.timeHour = hours
       this.timeMinutes = minutes
       this.showAmPm = !!ampm
       this.timeAmPm = ampm
-      this.dateText = momentObject.format("ddd").toUpperCase()
+      this.dateText = momentObject.format('ddd').toUpperCase()
       this.dateNumber = dayOfMonth
     },
     isLoading: true,
     lat: 0,
     lng: 0,
     settings: {},
-    tempScale: "C",
+    tempScale: 'C',
     tzOffset: 0,
   }
 }
 
-document.addEventListener("alpine:init", () => {
-  Alpine.data("weather", getWeatherData)
+document.addEventListener('alpine:init', () => {
+  Alpine.data('weather', getWeatherData)
 })
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const sentryDsn = screenly.settings.sentry_dsn
   // Initiate Sentry.
   if (sentryDsn) {
@@ -548,50 +548,50 @@ document.addEventListener("DOMContentLoaded", async () => {
       dsn: sentryDsn,
     })
   } else {
-    console.warn("Sentry DSN is not defined. Sentry will not be initialized.")
+    console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
   }
 
   // constant colors
-  const tertiaryColor = "#FFFFFF"
-  const backgroundColor = "#C9CDD0"
+  const tertiaryColor = '#FFFFFF'
+  const backgroundColor = '#C9CDD0'
 
   // Brand details fetching from settings
   const primaryColor =
     !screenly.settings.screenly_color_accent ||
-    screenly.settings.screenly_color_accent.toLowerCase() === "#ffffff"
-      ? "#7e2cd2"
+    screenly.settings.screenly_color_accent.toLowerCase() === '#ffffff'
+      ? '#7e2cd2'
       : screenly.settings.screenly_color_accent
   const secondaryColor =
     !screenly.settings.screenly_color_light ||
-    screenly.settings.screenly_color_light.toLowerCase() === "#ffffff"
-      ? "#454bd2"
+    screenly.settings.screenly_color_light.toLowerCase() === '#ffffff'
+      ? '#454bd2'
       : screenly.settings.screenly_color_light
 
   document.documentElement.style.setProperty(
-    "--theme-color-primary",
+    '--theme-color-primary',
     primaryColor,
   )
   document.documentElement.style.setProperty(
-    "--theme-color-secondary",
+    '--theme-color-secondary',
     secondaryColor,
   )
   document.documentElement.style.setProperty(
-    "--theme-color-tertiary",
+    '--theme-color-tertiary',
     tertiaryColor,
   )
   document.documentElement.style.setProperty(
-    "--theme-color-background",
+    '--theme-color-background',
     backgroundColor,
   )
 
   // Change the color of circles inside SVG objects
-  const svgObjects = document.querySelectorAll("#location-pin-icon")
+  const svgObjects = document.querySelectorAll('#location-pin-icon')
   svgObjects.forEach(function (svgObject) {
-    svgObject.addEventListener("load", function () {
+    svgObject.addEventListener('load', function () {
       const svgDoc = this.contentDocument
-      const path = svgDoc.querySelector("path")
+      const path = svgDoc.querySelector('path')
       if (path) {
-        path.setAttribute("fill", secondaryColor)
+        path.setAttribute('fill', secondaryColor)
       }
     })
   })
