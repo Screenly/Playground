@@ -30,7 +30,7 @@ const hrDataStoreSetup = () => {
     const bambooHrApiBaseUrl = `https://${settingsStore.subdomain}.bamboohr.com/api/v1`
 
     const response = await fetch(
-      `${screenly.cors_proxy_url}/${bambooHrApiBaseUrl}/reports/custom`,
+      `${screenly.cors_proxy_url}/${bambooHrApiBaseUrl}/datasets/employee`,
       {
         method: 'POST',
         headers: {
@@ -39,7 +39,14 @@ const hrDataStoreSetup = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          fields: ['firstName', 'lastName', 'dateOfBirth', 'hireDate'],
+          fields: [
+            'eeid',
+            'firstName',
+            'lastName',
+            'dateOfBirth',
+            'hireDate',
+            'employeePhoto',
+          ],
         }),
       },
     )
@@ -49,13 +56,14 @@ const hrDataStoreSetup = () => {
     }
 
     const data = await response.json()
-    employees.value = data.employees || []
+
+    employees.value = data.data || []
   }
 
   const refreshData = async () => {
     try {
       await fetchEmployeeData()
-      await leavesStore.fetchLeaveData()
+      await leavesStore.fetchLeaveData(employees.value)
       await birthdaysStore.setBirthdayData(employees.value)
       await anniversariesStore.setAnniversaryData(employees.value)
     } catch {

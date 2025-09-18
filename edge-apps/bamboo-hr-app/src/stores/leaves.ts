@@ -1,8 +1,8 @@
 import { type Ref, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useSettingsStore } from '@/stores/settings'
-import { fetchEmployeeAvatar } from '@/utils/avatar'
-import { MAX_ITEMS_PER_COLUMN } from '@/constants'
+import { type Employee } from '@/types/employee'
+import { MAX_ITEMS_PER_COLUMN, DEFAULT_EMPLOYEE_PHOTO_URL } from '@/constants'
 
 export interface Leave {
   id: number
@@ -36,7 +36,7 @@ const leavesStoreSetup = () => {
     }
   }
 
-  const fetchLeaveData = async () => {
+  const fetchLeaveData = async (employees: Employee[] = []) => {
     try {
       const settingsStore = useSettingsStore()
       const bambooHrApiBaseUrl = `https://${settingsStore.subdomain}.bamboohr.com/api/v1`
@@ -54,9 +54,24 @@ const leavesStoreSetup = () => {
 
       const data = await response.json()
 
-      const employeesOnLeaveData: EmployeeOnLeave[] = await Promise.all(
-        data.map(async (item: EmployeeOnLeave) => {
-          const avatarUrl = await fetchEmployeeAvatar(item.employeeId)
+      const employeesOnLeaveData: EmployeeOnLeave[] = data.map(
+        (item: EmployeeOnLeave) => {
+          const employee = employees.find(
+            (emp) => Number(emp.eeid) === item.employeeId,
+          )
+          let avatar = null
+
+          if (employee) {
+            // Employee found - check if it's the default photo
+            if (employee.employeePhoto === DEFAULT_EMPLOYEE_PHOTO_URL) {
+              avatar = null // Use initials fallback
+            } else {
+              avatar = employee.employeePhoto // Use real photo
+            }
+          } else {
+            // Employee not found - use initials fallback
+            avatar = null
+          }
 
           return {
             employeeId: item.employeeId,
@@ -64,9 +79,9 @@ const leavesStoreSetup = () => {
             start: item.start,
             end: item.end,
             type: getLeaveType(item.type),
-            avatar: avatarUrl,
+            avatar,
           }
-        }),
+        },
       )
 
       employeesOnLeave.value = employeesOnLeaveData.slice(

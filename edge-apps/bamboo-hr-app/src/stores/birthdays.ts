@@ -2,8 +2,7 @@ import { type Ref, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useSettingsStore } from '@/stores/settings'
 import { type Employee } from '@/types/employee'
-import { fetchEmployeeAvatar } from '@/utils/avatar'
-import { MAX_ITEMS_PER_COLUMN } from '@/constants'
+import { MAX_ITEMS_PER_COLUMN, DEFAULT_EMPLOYEE_PHOTO_URL } from '@/constants'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
@@ -58,18 +57,21 @@ const birthdaysStoreSetup = () => {
         return isThisYearInRange || isNextYearInRange
       })
 
-      const birthdayData: Birthday[] = await Promise.all(
-        upcomingBirthdays.map(async (employee: Employee) => {
-          const avatarUrl = await fetchEmployeeAvatar(employee.id)
+      const birthdayData: Birthday[] = upcomingBirthdays.map(
+        (employee: Employee) => {
+          const avatar =
+            employee.employeePhoto === DEFAULT_EMPLOYEE_PHOTO_URL
+              ? null
+              : employee.employeePhoto
 
           return {
             id: employee.id,
             firstName: employee.firstName,
             lastName: employee.lastName,
             dateOfBirth: employee.dateOfBirth,
-            avatar: avatarUrl,
+            avatar,
           }
-        }),
+        },
       )
 
       birthdays.value = birthdayData.slice(0, MAX_ITEMS_PER_COLUMN)
