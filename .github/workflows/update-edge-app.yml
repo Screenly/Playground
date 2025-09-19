@@ -18,6 +18,11 @@ on:
         description: 'Folder name of the edge app (under edge-apps/)'
         required: true
 
+      delete_missing_settings:
+        description: 'Delete missing settings'
+        default: false
+        type: boolean
+
       build_system:
         description: 'Build system for the Edge App'
         required: true
@@ -71,4 +76,4 @@ jobs:
         uses: screenly/cli@master
         with:
           screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
-          cli_commands: edge-app deploy --path="${{ env.APP_PATH }}"
+          cli_commands: edge-app deploy --path="${{ env.APP_PATH }}" --delete-missing-settings=${{ inputs.delete_missing_settings }}
