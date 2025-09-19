@@ -1,32 +1,31 @@
 ---
-
 name: Update Edge App
 
 on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Environment to update edge app (stage or production)'
+        description: "Environment to update edge app (stage or production)"
         required: true
-        default: 'stage'
+        default: "stage"
         type: choice
         options:
           - stage
           - production
 
       edge_app_name:
-        description: 'Folder name of the edge app (under edge-apps/)'
+        description: "Folder name of the edge app (under edge-apps/)"
         required: true
 
       delete_missing_settings:
-        description: 'Delete missing settings'
+        description: "Delete missing settings"
         default: false
         type: boolean
 
       build_system:
-        description: 'Build system for the Edge App'
+        description: "Build system for the Edge App"
         required: true
-        default: 'vanilla'
+        default: "vanilla"
         type: choice
         options:
           - vanilla
