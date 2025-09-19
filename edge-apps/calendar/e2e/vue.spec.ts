@@ -24,7 +24,6 @@ test('basic app structure test', async ({ page }) => {
         ical_url: 'https://example.com',
         override_locale: '',
         override_timezone: '',
-        refresh_token: '',
         screenly_color_accent: '#000000',
         screenly_color_dark: '#000000',
         screenly_color_light: '#000000',
