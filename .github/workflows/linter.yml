@@ -68,4 +68,3 @@ jobs:
           CSS_FILE_NAME: stylelint.config.cjs
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
