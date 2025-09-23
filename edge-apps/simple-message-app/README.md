@@ -24,19 +24,13 @@ Install the dependencies for the first run:
 bun install
 ```
 
-Run the following on a terminal to start the build process in watch mode:
-
-```bash
-bun run build:dev
-```
-
-Open another terminal and run the following:
+Run the development environment with a single command:
 
 ```bash
 bun run dev
 ```
 
-This will start the development server via the [Screenly CLI](https://github.com/Screenly/cli).
+This will build in watch mode and start the development server via [Screenly CLI](https://github.com/Screenly/cli).
 
 ## Tweaking the settings
 
