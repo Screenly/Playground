@@ -20,11 +20,23 @@ const updateDate = () => {
   }
 
   const now = new Date()
+  let timezoneDate: Date
 
-  // It doesn't matter what locale we use here, because we're only using the date.
-  const timezoneDate = new Date(
-    now.toLocaleString('en-US', { timeZone: props.timezone }),
-  )
+  try {
+    // It doesn't matter what locale we use here, because we're only using the date.
+    timezoneDate = new Date(
+      now.toLocaleString('en-US', { timeZone: props.timezone }),
+    )
+
+    // Validate the date is not invalid
+    if (isNaN(timezoneDate.getTime())) {
+      throw new Error('Invalid date result')
+    }
+  } catch (error) {
+    console.warn(`Invalid timezone: ${props.timezone}, using UTC`, error)
+    // Fallback to UTC
+    timezoneDate = new Date(now.getTime())
+  }
 
   dayOfMonth.value = timezoneDate.getDate().toString()
   const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
