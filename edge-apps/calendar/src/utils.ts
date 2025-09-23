@@ -5,7 +5,6 @@ import clm from 'country-locale-map'
 import { getNearestCity } from 'offline-geocode-city'
 import * as Sentry from '@sentry/vue'
 
-import { GOOGLE_OAUTH_TOKEN_URL } from '@/constants'
 import type { CalendarDay } from '@/constants'
 
 export const getTimeZone = (): string => {
@@ -31,6 +30,7 @@ export async function getLocale(): Promise<string> {
 export const getFormattedTime = async (
   date: Date = new Date(),
   locale: string | null = null,
+  timezone?: string,
 ): Promise<string> => {
   const resolvedLocale = locale || (await getLocale())
   const intlLocale = new Intl.Locale(resolvedLocale)
@@ -47,7 +47,7 @@ export const getFormattedTime = async (
   return date.toLocaleTimeString(resolvedLocale, {
     hour: hourFormat,
     minute: '2-digit',
-    timeZone: getTimeZone(),
+    timeZone: timezone || 'UTC',
   })
 }
 
@@ -110,28 +110,6 @@ export const getDate = (date: Date): number => date.getDate()
 
 export const getFormattedDayOfWeek = (date: Date, locale = 'en-US'): string => {
   return date.toLocaleDateString(locale, { weekday: 'long' }).toUpperCase()
-}
-
-export const getAccessToken = async (
-  refreshToken: string,
-  clientId: string,
-  clientSecret: string,
-): Promise<string> => {
-  const response = await fetch(GOOGLE_OAUTH_TOKEN_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams({
-      refresh_token: refreshToken,
-      client_id: clientId,
-      client_secret: clientSecret,
-      grant_type: 'refresh_token',
-    }),
-  })
-  const data = await response.json()
-
-  return data.access_token
 }
 
 export const initializeSentrySettings = (): void => {

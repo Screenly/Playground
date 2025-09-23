@@ -70,20 +70,9 @@
           }
 
           &.current-day {
-            &::before {
-              background-color: transparent;
-              content: '';
-              position: absolute;
-              background-color: var(--theme-color-primary);
-              border-radius: 50%;
-              z-index: -1;
-            }
-
             background-color: var(--theme-color-tertiary);
             color: var(--theme-color-primary);
             position: relative;
-            color: var(--theme-color-tertiary);
-            background-color: transparent;
             font-weight: normal;
             z-index: 1;
           }

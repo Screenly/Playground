@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
 import { useCalendarStore } from '@/stores/calendar'
-import { useSettingsStore } from '@/stores/settings'
 import { getFormattedTime } from '@/utils'
 import type { CalendarEvent } from '@/constants'
 import dayjs from 'dayjs'
@@ -14,7 +13,14 @@ dayjs.extend(dayJsTimezone)
 const MAX_EVENTS = 7
 
 const calendarStore = useCalendarStore()
-const settingsStore = useSettingsStore()
+
+interface Props {
+  timezone?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  timezone: 'UTC',
+})
 
 const todayEvents = ref<CalendarEvent[]>([])
 const tomorrowEvents = ref<CalendarEvent[]>([])
@@ -23,17 +29,16 @@ const formattedEventTimes = ref<Record<string, string>>({})
 const currentDayOfWeek = computed(() => calendarStore.currentDayOfWeek)
 const events = computed(() => calendarStore.events)
 const locale = computed(() => calendarStore.locale)
-const timezone = computed(() => settingsStore.overrideTimezone || 'UTC')
 
 const filterAndFormatEvents = async () => {
   // Get current time in the target timezone
-  const nowInTimezone = dayjs().tz(timezone.value)
+  const nowInTimezone = dayjs().tz(props.timezone)
   const todayInTimezone = nowInTimezone.startOf('day')
   const tomorrowInTimezone = todayInTimezone.add(1, 'day')
 
   // Filter today's events (from now until end of today)
   const todayEventsList = events.value.filter((event: CalendarEvent) => {
-    const eventStart = dayjs(event.startTime).tz(timezone.value)
+    const eventStart = dayjs(event.startTime).tz(props.timezone)
     return (
       eventStart.isAfter(nowInTimezone) &&
       eventStart.isBefore(tomorrowInTimezone)
@@ -43,7 +48,7 @@ const filterAndFormatEvents = async () => {
   // Filter tomorrow's events (full day tomorrow)
   const dayAfterTomorrow = tomorrowInTimezone.add(1, 'day')
   const tomorrowEventsList = events.value.filter((event: CalendarEvent) => {
-    const eventStart = dayjs(event.startTime).tz(timezone.value)
+    const eventStart = dayjs(event.startTime).tz(props.timezone)
     return (
       eventStart.isAfter(tomorrowInTimezone) &&
       eventStart.isBefore(dayAfterTomorrow)
@@ -53,8 +58,8 @@ const filterAndFormatEvents = async () => {
   // Sort events by start time
   const sortByStartTime = (a: CalendarEvent, b: CalendarEvent) => {
     return (
-      dayjs(a.startTime).tz(timezone.value).valueOf() -
-      dayjs(b.startTime).tz(timezone.value).valueOf()
+      dayjs(a.startTime).tz(props.timezone).valueOf() -
+      dayjs(b.startTime).tz(props.timezone).valueOf()
     )
   }
 
@@ -86,8 +91,9 @@ const filterAndFormatEvents = async () => {
   for (const event of allEvents) {
     try {
       const formattedTime = await getFormattedTime(
-        dayjs(event.startTime).tz(timezone.value).toDate(),
+        dayjs(event.startTime).tz(props.timezone).toDate(),
         locale.value,
+        props.timezone,
       )
       times[event.startTime] = formattedTime
     } catch (error) {
@@ -98,7 +104,9 @@ const filterAndFormatEvents = async () => {
   formattedEventTimes.value = { ...formattedEventTimes.value, ...times }
 }
 
-watch([events, locale, timezone], filterAndFormatEvents, { immediate: true })
+watch([events, locale, () => props.timezone], filterAndFormatEvents, {
+  immediate: true,
+})
 </script>
 
 <template>

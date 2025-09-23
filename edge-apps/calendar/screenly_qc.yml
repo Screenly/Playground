@@ -1,14 +1,14 @@
 ---
 syntax: manifest_v1
-id: 01JY4ARF0H5TAWWEG24KJGW33X
-description: Screenly Google Calendar Edge App
-icon: https://playground.srly.io/edge-apps/google-calendar/src/img/icon.svg
+id: 01JZHNQJRE2D6PB67HQHWG6PKA
+description: Screenly Calendar Edge App QC
+icon: https://playground.srly.io/edge-apps/calendar/src/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 settings:
   bypass_cors:
     type: string
-    default_value: 'false'
+    default_value: 'true'
     title: Bypass CORS
     optional: true
     help_text: |
@@ -27,25 +27,6 @@ settings:
     optional: true
     help_text: |
       Select the calendar view mode ('monthly', 'weekly', or 'daily').
-  calendar_source_type:
-    type: string
-    default_value: ical
-    title: Calendar Source Type
-    optional: true
-    help_text: |
-      Choose the calendar source type ('api' for Google API or 'ical' for iCal feed).
-  client_id:
-    type: secret
-    title: Google OAuth Client ID
-    optional: true
-    help_text: |
-      Enter your Google OAuth 2.0 Client ID for API authentication (keep this secure).
-  client_secret:
-    type: secret
-    title: Google OAuth Client Secret
-    optional: true
-    help_text: |
-      Enter your Google OAuth 2.0 Client Secret for API authentication (keep this secure).
   enable_analytics:
     type: string
     default_value: 'true'
@@ -56,9 +37,9 @@ settings:
   ical_url:
     type: secret
     title: iCal URL
-    optional: true
+    optional: false
     help_text: |
-      Enter the public iCal feed URL for your calendar. Only used when `calendar_source_type` is set to 'ical'.
+      Enter the public iCal feed URL for your calendar.
   override_locale:
     type: string
     default_value: en
@@ -77,12 +58,6 @@ settings:
       Enter the timezone to override the default timezone for the calendar.
       If left blank, the default timezone will be used.
       Example: 'America/New_York'
-  refresh_token:
-    type: secret
-    title: Google OAuth Refresh Token
-    optional: true
-    help_text: |
-      Enter your Google OAuth 2.0 refresh token to access calendar data (keep this secure).
   sentry_dsn:
     type: secret
     title: Sentry Client Key
