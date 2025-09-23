@@ -4,9 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "prebuild:dev": "screenly edge-app run --generate-mock-data",
-    "build:dev": "vite build --watch --mode=development",
-    "dev": "screenly edge-app run --path=dist/",
+    "generate-mock-data": "screenly edge-app run --generate-mock-data",
+    "build:dev": "vite build --mode=development",
+    "build:dev:watch": "vite build --mode=development --watch",
+    "predev": "bun run generate-mock-data && bun run build:dev",
+    "dev": "run-p build:dev:watch dev:edge",
+    "dev:edge": "screenly edge-app run --path=dist/",
     "dev:test": "vite --mode test",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
@@ -15,7 +18,7 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
-    "format": "prettier --write src/",
+    "format": "prettier --write src/ README.md index.html",
     "predeploy": "bun run build",
     "deploy": "screenly edge-app deploy --path dist/",
     "clear-mock-data": "rimraf mock-data.yml",
@@ -54,6 +57,6 @@
     "vue-tsc": "^3.0.7"
   },
   "bun-create": {
-    "start": "bun run build:dev # On one terminal session\n  bun run dev # On another terminal session"
+    "start": "bun run dev"
   }
 }

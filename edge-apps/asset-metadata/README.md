@@ -41,26 +41,13 @@ Install the dependencies for the first run:
 bun install
 ```
 
-Run the following on a terminal to start the build process in watch mode:
-
-```bash
-bun run build:dev
-```
-
-Open another terminal and run the following:
+Run the development environment with a single command:
 
 ```bash
 bun run dev
 ```
 
-This will start the development server via the [Screenly CLI](https://github.com/Screenly/cli).
-
-```plaintext
-$ screenly edge-app run --path=dist/
-Edge App emulator is running at http://127.0.0.1:38085/edge/1/index.html
-```
-
-Copy the URL and paste it in the browser to see the app in action.
+This will build in watch mode and start the development server via [Screenly CLI](https://github.com/Screenly/cli).
 
 ## Unit Tests
 
