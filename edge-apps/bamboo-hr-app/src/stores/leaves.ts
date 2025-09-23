@@ -3,6 +3,16 @@ import { defineStore } from 'pinia'
 import { useSettingsStore } from '@/stores/settings'
 import { type Employee } from '@/types/employee'
 import { MAX_ITEMS_PER_COLUMN, DEFAULT_EMPLOYEE_PHOTO_URL } from '@/constants'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.extend(isSameOrAfter)
+dayjs.extend(isSameOrBefore)
 
 export interface Leave {
   id: number
@@ -39,7 +49,11 @@ const leavesStoreSetup = () => {
   const fetchLeaveData = async (employees: Employee[] = []) => {
     try {
       const settingsStore = useSettingsStore()
+      const userTimezone = settingsStore.currentTimezone || 'UTC'
       const bambooHrApiBaseUrl = `https://${settingsStore.subdomain}.bamboohr.com/api/v1`
+
+      // Get current date (start of day) in user's timezone for comparison
+      const today = dayjs().tz(userTimezone).startOf('day')
 
       const response = await fetch(
         `${screenly.cors_proxy_url}/${bambooHrApiBaseUrl}/time_off/whos_out`,
@@ -54,7 +68,16 @@ const leavesStoreSetup = () => {
 
       const data = await response.json()
 
-      const employeesOnLeaveData: EmployeeOnLeave[] = data.map(
+      // Filter to only show people on leave for today
+      const todayLeaves = data.filter((item: Leave) => {
+        const startDate = dayjs(item.start).tz(userTimezone).startOf('day')
+        const endDate = dayjs(item.end).tz(userTimezone).startOf('day')
+
+        // Check if today falls within the leave period (inclusive)
+        return today.isSameOrAfter(startDate) && today.isSameOrBefore(endDate)
+      })
+
+      const employeesOnLeaveData: EmployeeOnLeave[] = todayLeaves.map(
         (item: EmployeeOnLeave) => {
           const employee = employees.find(
             (emp) => Number(emp.eeid) === item.employeeId,

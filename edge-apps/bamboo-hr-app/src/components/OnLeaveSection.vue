@@ -29,7 +29,7 @@ const formatLeaveDate = (leave: EmployeeOnLeave) => {
 
 <template>
   <section class="dashboard-card">
-    <h2 class="dashboard-card-title">🏖️ On Leave</h2>
+    <h2 class="dashboard-card-title">🏖️ On Leave Today</h2>
     <ul
       class="dashboard-card-list"
       :class="{ 'dashboard-card-loading': hrDataStore.loading }"
