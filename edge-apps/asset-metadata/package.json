@@ -4,9 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "prebuild:dev": "screenly edge-app run --generate-mock-data",
-    "build:dev": "vite build --watch --mode=development",
-    "dev": "screenly edge-app run --path=dist/",
+    "generate-mock-data": "screenly edge-app run --generate-mock-data",
+    "build:dev": "vite build --mode=development",
+    "build:dev:watch": "vite build --mode=development --watch",
+    "predev": "bun run generate-mock-data && bun run build:dev",
+    "dev": "run-p build:dev:watch dev:edge",
+    "dev:edge": "screenly edge-app run --path=dist/",
     "dev:test": "vite --mode test",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
@@ -22,13 +25,13 @@
     "prepare": "cd ../blueprint && bun install"
   },
   "dependencies": {
-    "@typescript-eslint/typescript-estree": "^8.44.0",
+    "@typescript-eslint/typescript-estree": "^8.44.1",
     "pinia": "^3.0.3",
     "vue": "^3.5.21",
     "yaml": "^2.8.1"
   },
   "devDependencies": {
-    "@playwright/test": "^1.55.0",
+    "@playwright/test": "^1.55.1",
     "@tsconfig/node22": "^22.0.2",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^24.5.2",
@@ -40,18 +43,18 @@
     "@vue/tsconfig": "^0.8.1",
     "eslint": "^9.36.0",
     "eslint-plugin-playwright": "^2.2.2",
-    "eslint-plugin-vue": "~10.4.0",
-    "jiti": "^2.4.2",
+    "eslint-plugin-vue": "~10.5.0",
+    "jiti": "^2.6.0",
     "jsdom": "^27.0.0",
     "npm-run-all2": "^8.0.4",
     "prettier": "3.6.2",
     "rimraf": "^6.0.1",
-    "sass-embedded": "^1.92.1",
+    "sass-embedded": "^1.93.2",
     "typescript": "~5.9.2",
-    "vite": "^7.1.6",
+    "vite": "^7.1.7",
     "vite-plugin-static-copy": "^3.1.2",
     "vite-plugin-vue-devtools": "^8.0.2",
     "vitest": "^3.2.4",
-    "vue-tsc": "^3.0.7"
+    "vue-tsc": "^3.0.8"
   }
 }

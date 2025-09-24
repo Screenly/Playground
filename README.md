@@ -46,8 +46,7 @@ Created <edge-app-name> project successfully
 # To get started, run:
 
   cd <edge-app-name>
-  bun run build:dev # On one terminal session
-  bun run dev # On another terminal session
+  bun run dev
 ```
 
 This will create a new Edge App with the name `<edge-app-name>` in the `edge-apps` directory.
@@ -55,18 +54,14 @@ This will create a new Edge App with the name `<edge-app-name>` in the `edge-app
 > [!NOTE]
 > Don't forget to update `README.md` and `screenly.yml` as needed.
 
-You can now run the local development server by running the following commands in two separate terminal sessions:
+You can now run the local development server with a single command:
 
 ```bash
 cd <edge-app-name>
-bun run build:dev
+bun run dev
 ```
 
-```bash
-bun run dev # This will start the development server.
-```
-
-Follow the instructions in the README file of the new Edge App for more details.
+Follow the instructions in the `README.md` file of the new Edge App for more details.
 
 ### TypeScript Library
 
