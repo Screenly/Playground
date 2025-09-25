@@ -27,8 +27,8 @@
   },
   "dependencies": {
     "@photostructure/tz-lookup": "^11.2.1",
-    "@sentry/browser": "^10.14.0",
-    "@sentry/vue": "^10.14.0",
+    "@sentry/browser": "^10.15.0",
+    "@sentry/vue": "^10.15.0",
     "country-locale-map": "^1.9.9",
     "dayjs": "^1.11.18",
     "ical.js": "^2.2.1",
