@@ -1,5 +1,5 @@
 (function () {
-  const OAUTH_TOKENS_URL = 'https://api.screenly.local/api/v3/edge-apps/oauth/tokens/';
+  const OAUTH_TOKENS_URL = 'https://api.screenlyapp.com/api/v3/edge-apps/oauth/tokens';
   const DEFAULT_TOKEN_REFRESH_SEC = 30 * 60; // refresh token every 30 minutes
 
   function getEmbedTypeFromUrl(url) {
@@ -15,8 +15,7 @@
     if (screenly.settings.embed_token) {
       return screenly.settings.embed_token;
     }
-
-    var response = await fetch(`${OAUTH_TOKENS_URL}?setting=embed_token`, {
+    var response = await fetch(`${OAUTH_TOKENS_URL}/embed_token/`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
