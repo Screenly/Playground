@@ -1,70 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="utf-8">
     <title>Screenly Power BI Edge App</title>
-
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-      }
-      #embedContainer {
-        width: 100%;
-        height: 100vh;
-        margin: 0 auto;
-      }
-      #embedContainer iframe {
-        border: 0;
-      }
-    </style>
-</head>
-
-<body>
     <script src="screenly.js?version=1"></script>
-    <script
-            src="https://js.sentry-cdn.com/9a6126e33d68a0bbc0a4ab71f563b318.min.js"
-            crossorigin="anonymous"
-    ></script>
-    <div id="embedContainer"></div>
-    <script>
-        // Define the function first
-        function initializePowerBI() {
-            // Embed the content
-            var embedContainer = document.getElementById('embedContainer');
-            //var powerbiInstance = new powerbi.PowerBI();
-            var models = window['powerbi-client'].models;
-
-            // Configuration settings for embedding
-            var embedConfiguration = {
-                type: screenly.settings.power_bi_resource_type.toLowerCase(),
-                tokenType: models.TokenType.Embed,
-                accessToken: screenly.settings.power_bi_access_token,
-                embedUrl: screenly.settings.power_bi_embed_url,
-                id: screenly.settings.power_bi_resource_id,
-                permissions: models.Permissions.All,
-                settings: {
-                    filterPaneEnabled: false,
-                    navContentPaneEnabled: false
-                }
-            };
-
-            // Use `page_name` setting to deeplink to a given report
-            if (screenly.settings && screenly.settings.power_bi_page_name) {
-                embedConfiguration.pageName = screenly.settings.power_bi_page_name;
-            }
-
-            var report = powerbi.embed(embedContainer, embedConfiguration);
-            report.on("rendered", function () {
-              screenly.signalReadyForRendering();
-            });
-        }
-
-    </script>
-
-    <!-- Load the Power BI JavaScript SDK and then call the function -->
-    <script src="powerbi.min.js" onload="initializePowerBI()"></script>
-
-</body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="static/css/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="embed-container"></div>
+  </body>
+  <script src="static/js/panic-overlay.min.js"></script>
+  <script src="static/js/main.js"></script>
+  <script src="static/js/powerbi.min.js" onload="initializePowerBI()"></script>
 </html>
