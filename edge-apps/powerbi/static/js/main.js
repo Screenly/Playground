@@ -15,6 +15,7 @@
     if (screenly.settings.embed_token) {
       return screenly.settings.embed_token;
     }
+
     var response = await fetch(`${OAUTH_TOKENS_URL}/embed_token/`, {
       method: 'GET',
       headers: {
@@ -74,5 +75,5 @@
     }
   }
 
-  window.initializePowerBI = initializePowerBI;
+  initializePowerBI();
 })();
