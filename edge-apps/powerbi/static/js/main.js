@@ -16,7 +16,7 @@
       return screenly.settings.embed_token;
     }
 
-    var response = await fetch(OAUTH_TOKENS_URL, {
+    var response = await fetch(`${OAUTH_TOKENS_URL}?setting=embed_token`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -24,8 +24,8 @@
       },
     });
 
-    const { embed_token: tokenData } = await response.json();
-    return tokenData.token;
+    const { token } = await response.json();
+    return token;
   }
 
   function initTokenRefreshLoop(report) {

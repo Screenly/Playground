@@ -14,8 +14,10 @@ settings:
     optional: false
     help_text: |
       {
-        "syntax": "edge_app_json_editor_v1",
-        "type": "oauth:power_bi:embed_url"
+        "schema_version": 1,
+        "properties": {
+          "type": "oauth:power_bi:embed_url"
+        }
       }
   embed_token:
     type: secret
@@ -23,6 +25,8 @@ settings:
     optional: true
     help_text: |
       {
-        "syntax": "edge_app_json_editor_v1",
-        "type": "oauth:power_bi:embed_token"
+        "schema_version": 1,
+        "properties": {
+          "type": "oauth:power_bi:embed_token"
+        }
       }
