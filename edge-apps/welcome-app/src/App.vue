@@ -45,7 +45,6 @@ onMounted(() => {
 
 <template>
   <div class="main-container">
-    <!-- Primary Container-->
     <div class="primary-container">
       <div class="primary-card welcome-card">
         <span class="welcome-heading">{{ welcomeHeading }}</span>
@@ -56,7 +55,7 @@ onMounted(() => {
         <span class="info-text">Powered by Screenly</span>
       </div>
     </div>
-    <!-- Row Container with modules -->
+
     <div class="row-container">
       <div class="secondary-card date-card">
         <DateDisplay
@@ -77,7 +76,7 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
-// Container configurations matching the HTML version
+
 .main-container {
   display: flex;
   flex-direction: row;
@@ -295,18 +294,6 @@ onMounted(() => {
   }
 }
 
-// @media screen and (max-width: 1680px) and (orientation: landscape) {
-//   .clock-div {
-//     transform: scale(.55);
-//   }
-// }
-
-// @media screen and (max-width: 1366px) and (orientation: landscape) {
-//   .clock-div {
-//     transform: scale(.45);
-//   }
-// }
-
 @media screen and (max-width: 1280px) and (orientation: landscape) {
   .main-container {
     gap: var(--custom-720-gap);
@@ -340,11 +327,6 @@ onMounted(() => {
   }
 }
 
-// @media screen and (max-width: 1024px) and (orientation: landscape) {
-//   .clock-div {
-//     transform: scale(.35);
-//   }
-// }
 
 @media screen and (max-width: 800px) and (orientation: landscape) {
   .main-container {
