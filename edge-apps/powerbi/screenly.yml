@@ -38,4 +38,3 @@ settings:
     default_value: false
     help_text: |
       For debugging purposes to display errors on the screen.
-  
