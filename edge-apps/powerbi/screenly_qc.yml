@@ -32,9 +32,15 @@ settings:
         }
       }
   display_errors:
-    type: boolean
+    type: string
     title: Display Errors
     optional: true
     default_value: false
     help_text: |
-      For debugging purposes to display errors on the screen.
+      {
+        "schema_version": 1,
+        "properties": {
+          "type": "boolean",
+          "help_text": "For debugging purposes to display errors on the screen."
+        }
+      }
