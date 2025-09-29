@@ -1,23 +1,45 @@
 <template>
   <div class="table-container">
-    <h2 v-if="title && title.trim()" class="table-title">{{ title }}</h2>
-    <table class="csv-table" v-if="data.length > 0">
+    <h2
+      v-if="title && title.trim()"
+      class="table-title"
+    >
+      {{ title }}
+    </h2>
+    <table
+      v-if="data.length > 0"
+      class="csv-table"
+    >
       <thead v-if="headers.length > 0">
         <tr>
-          <th v-for="(header, index) in headers" :key="index">
+          <th
+            v-for="(header, index) in headers"
+            :key="index"
+          >
             {{ header }}
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(row, rowIndex) in rows" :key="rowIndex">
-          <td v-for="(cell, cellIndex) in row" :key="cellIndex">
+        <tr
+          v-for="(row, rowIndex) in rows"
+          :key="rowIndex"
+        >
+          <td
+            v-for="(cell, cellIndex) in row"
+            :key="cellIndex"
+          >
             {{ cell }}
           </td>
         </tr>
       </tbody>
     </table>
-    <div v-else class="no-data">No data to display</div>
+    <div
+      v-else
+      class="no-data"
+    >
+      No data to display
+    </div>
   </div>
 </template>
 

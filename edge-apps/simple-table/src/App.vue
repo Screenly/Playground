@@ -1,9 +1,9 @@
 <template>
   <div class="app">
     <TableDisplay
+      v-if="tableData.length > 0"
       :data="tableData"
       :title="tableTitle"
-      v-if="tableData.length > 0"
     />
   </div>
 </template>
