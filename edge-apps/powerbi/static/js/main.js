@@ -75,5 +75,6 @@
     }
   }
 
+  panic.configure({ handleErrors: screenly.settings.display_errors || false });
   initializePowerBI();
 })();

@@ -31,3 +31,10 @@ settings:
           "help_text": "The URL of the Power BI dashboard or report to display."
         }
       }
+  display_errors:
+    type: boolean
+    title: Display Errors
+    optional: true
+    default_value: false
+    help_text: |
+      For debugging purposes to display errors on the screen.
