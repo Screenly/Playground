@@ -15,29 +15,20 @@ import TableDisplay from "./components/TableDisplay.vue";
 const tableData = ref<string[][]>([]);
 const tableTitle = ref<string>("");
 
-const parseCsv = (text: string): string[][] => {
-  const lines = text.trim().split("\n");
-  return lines.map((line) => {
-    const result: string[] = [];
-    let current = "";
-    let inQuotes = false;
+const parseCsv = async (text: string): Promise<string[][]> => {
+  const Papa = (await import('papaparse')).default;
 
-    for (let i = 0; i < line.length; i++) {
-      const char = line[i];
-
-      if (char === '"') {
-        inQuotes = !inQuotes;
-      } else if (char === "," && !inQuotes) {
-        result.push(current.trim());
-        current = "";
-      } else {
-        current += char;
-      }
-    }
-
-    result.push(current.trim());
-    return result;
+  const result = Papa.parse(text, {
+    header: false,
+    skipEmptyLines: true,
+    dynamicTyping: false
   });
+
+  if (result.errors.length > 0) {
+    throw new Error(`CSV parsing error: ${result.errors[0].message}`);
+  }
+
+  return result.data as string[][];
 };
 
 const setupTheme = () => {
@@ -45,16 +36,17 @@ const setupTheme = () => {
 
   const settings = screenly.settings;
   const theme = settings.theme || "light";
-  const lightColor = settings.screenly_color_light || "#ffffff";
-  const darkColor = settings.screenly_color_dark || "#2c3e50";
+  const lightColor = (settings.screenly_color_light as string) || "#ffffff";
+  const darkColor = (settings.screenly_color_dark as string) || "#2c3e50";
 
   // Determine base theme color
-  let baseColor;
-  if (settings.theme_color && settings.theme_color.trim()) {
+  let baseColor: string;
+  if (typeof settings.theme_color === 'string' && settings.theme_color.trim()) {
     baseColor = settings.theme_color;
+  } else if (theme === "dark") {
+    baseColor = lightColor;
   } else {
-    // Use light color for dark theme, dark color for light theme
-    baseColor = theme === "dark" ? lightColor : darkColor;
+    baseColor = darkColor;
   }
 
   // Generate 3 backgrounds and 3 foregrounds from the single base color
@@ -252,14 +244,19 @@ const adjustColorHSV = (
   return hsvToHex(newHue, newSaturation, newValue);
 };
 
-onMounted(() => {
+onMounted(async () => {
   setupTheme();
 
   // Get CSV content and title from screenly settings
   if (typeof screenly !== "undefined" && screenly.settings?.content) {
-    tableData.value = parseCsv(screenly.settings.content);
-    tableTitle.value = screenly.settings.title || "";
-    screenly.signalReadyForRendering();
+    try {
+      tableData.value = await parseCsv(screenly.settings.content);
+      tableTitle.value = (screenly.settings.title as string) || "";
+      screenly.signalReadyForRendering();
+    } catch (error) {
+      console.error('Failed to parse CSV:', error);
+      screenly.signalReadyForRendering();
+    }
   }
 });
 </script>

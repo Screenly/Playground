@@ -25,11 +25,13 @@
     "prepare": "cd ../blueprint && bun install"
   },
   "dependencies": {
+    "papaparse": "^5.5.3",
+    "pinia": "^3.0.3",
     "vue": "^3.5.22",
-    "yaml": "^2.8.0",
-    "pinia": "^3.0.3"
+    "yaml": "^2.8.0"
   },
   "devDependencies": {
+    "@types/papaparse": "^5.3.16",
     "@typescript-eslint/eslint-plugin": "^8.45.0",
     "@typescript-eslint/parser": "^8.45.0",
     "@vitejs/plugin-vue": "^6.0.0",
