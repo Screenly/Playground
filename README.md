@@ -15,7 +15,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [Charlie HR App](https://github.com/Screenly/Playground/tree/master/edge-apps/charlie-hr-app) - Displays employee birthdays, work anniversaries and other HR events from Charlie HR.
 - [Flying Toasters App](https://github.com/Screenly/Playground/tree/master/edge-apps/flying-toasters) - A simple toaster app that flies around the screen.
 - [iFrame App](https://github.com/Screenly/Playground/tree/master/edge-apps/iframe) - A simple iFrame app.
-- [Power BI](https://github.com/Screenly/Playground/tree/master/edge-apps/powerbi) - A Power BI Edge App for securely accessing dashboards and reports.
+- [Power BI](https://github.com/Screenly/Playground/tree/master/edge-apps/powerbi-legacy) - A Power BI Edge App for securely accessing dashboards and reports.
 - [QR Code Generator](https://github.com/Screenly/Playground/tree/master/edge-apps/qr-code) - An example of how to build unique QR Codes that embeds the screen metadata as UTM parameters.
 - [RSS Reader](https://github.com/Screenly/Playground/tree/master/edge-apps/rss-reader) - A simple RSS reader.
 - [Sonar Dashboard](https://github.com/Screenly/Playground/tree/master/edge-apps/sonar-dashboard) - A dashboard that displays the status of the [Sonar - BLE Device Counter](https://github.com/Viktopia/sonar).
