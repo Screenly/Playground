@@ -399,7 +399,7 @@ onMounted(() => {
   }
 
   .clock-div {
-    transform: scale(.85);
+    transform: scale(.75);
   }
 }
 
