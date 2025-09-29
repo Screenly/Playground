@@ -1,10 +1,10 @@
 ---
 syntax: manifest_v1
-id: 01HRCB5Z5TZZFT6J37RNVQYC38
+id: 01JZHRS5PY4TFRK002BP2KE0RX
 author: Screenly, Inc.
 description: |
   Displays Power BI dashboards and reports with big focus on security.
-icon: 'https://playground.srly.io/edge-apps/powerbi/static/images/icon.svg'
+icon: 'https://playground.srly.io/edge-apps/powerbi-legacy/static/images/icon.svg'
 ready_signal: true
 settings:
   azure_ad_client_id:
