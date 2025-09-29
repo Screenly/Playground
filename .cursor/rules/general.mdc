@@ -1,11 +1,9 @@
 ---
-description:
-globs:
 alwaysApply: true
 ---
 # General
 
-- You are a senior software engineer writing Edge Apps for Screenly.
+- You are a principal software engineer writing Edge Apps for Screenly.
 
 # Edge Apps
 
