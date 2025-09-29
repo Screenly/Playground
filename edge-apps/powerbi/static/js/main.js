@@ -76,5 +76,10 @@
   }
 
   panic.configure({ handleErrors: screenly.settings.display_errors || false });
+  if (screenly.settings.display_errors) {
+    window.addEventListener('error', screenly.signalReadyForRendering);
+    window.addEventListener('unhandledrejection', screenly.signalReadyForRendering);
+  }
+
   initializePowerBI();
 })();
