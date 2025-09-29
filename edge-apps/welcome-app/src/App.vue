@@ -164,21 +164,21 @@ onMounted(() => {
 }
 
 .welcome-message {
-  font-size: clamp(1rem, calc(4.5vw + 4.5vh), 1000rem);
+  font-size: clamp(1rem, calc(4vw + 4vh), 1000rem);
   font-weight: 400;
   margin: 0 clamp(1rem, calc(2vw + 2vh), 1000rem) 0 clamp(1rem, calc(3vw + 3vh), 1000rem);
   display: -webkit-box;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  height: 2.1em;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  height: 3.1em;
   overflow: hidden;
 }
 
 .brand-logo {
   margin: 0 0 clamp(1rem, calc(2.5vw + 2.5vh), 1000rem) clamp(1rem, calc(3vw + 3vh), 1000rem);
-  width: clamp(1rem, calc(6.2vw + 6.2vh), 1000rem);
+  width: clamp(1rem, calc(4vw + 4vh), 1000rem);
 }
 
 .info-text {
@@ -241,18 +241,18 @@ onMounted(() => {
     font-size: clamp(1rem, 5vw + 5vh, 1000rem);
     -webkit-line-clamp: 3;
     line-clamp: 3;
-    height: unset;
-    min-height: 1.1em;
-    max-height: calc(1.1em * 3);
+    // height: unset;
+    // min-height: calc(1.1em * 4);
+    // max-height: calc(1.1em * 3);
   }
 
   .welcome-message {
     font-size: clamp(1rem, 3vw + 3vh, 1000rem);
-    -webkit-line-clamp: 4;
-    line-clamp: 4;
-    height: unset;
-    min-height: 1.1em;
-    max-height: calc(1.1em * 4);
+    -webkit-line-clamp: 9;
+    line-clamp: 9;
+    height:9.1em; ;
+    // min-height: calc(1.1em * 4);
+    // max-height: calc(1.1em * 4);
   }
 }
 
@@ -392,6 +392,12 @@ onMounted(() => {
 
   .secondary-card {
     border-radius: var(--hd-border-radius-medium);
+  }
+
+  .welcome-message {
+    -webkit-line-clamp: 8;
+    line-clamp: 8;
+    height: 8.1em;
   }
 
   .row-container {
