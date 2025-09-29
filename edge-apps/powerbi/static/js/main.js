@@ -75,8 +75,8 @@
     }
   }
 
-  panic.configure({ handleErrors: screenly.settings.display_errors || false });
-  if (screenly.settings.display_errors) {
+  panic.configure({ handleErrors: (screenly.settings.display_errors == "true") || false });
+  if (screenly.settings.display_errors == "true") {
     window.addEventListener('error', screenly.signalReadyForRendering);
     window.addEventListener('unhandledrejection', screenly.signalReadyForRendering);
   }
