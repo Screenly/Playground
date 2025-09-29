@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Indoor Sensor Dashboard</title>
+    <script src="screenly.js?version=1"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #18192a;
+        color: #fff;
+        font-family: 'Inter', Arial, sans-serif;
+        min-height: 100vh;
+        min-width: 100vw;
+        width: 100vw;
+        height: 100vh;
+        overflow-x: hidden;
+      }
+      .dashboard-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        min-width: 100vw;
+        width: 100vw;
+        height: 100vh;
+        box-sizing: border-box;
+        padding: 2vw 2vw;
+      }
+      .dashboard-title {
+        font-size: 3vw;
+        font-weight: 700;
+        margin-bottom: 2vw;
+        letter-spacing: 1px;
+        text-align: center;
+      }
+      .metrics-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2vw;
+        justify-content: center;
+        width: 100%;
+        max-width: 1600px;
+      }
+      .metric-card {
+        background: #23243a;
+        border-radius: 1.5rem;
+        box-shadow: 0 4px 24px 0 rgba(0,0,0,0.2);
+        padding: 2vw 2.5vw;
+        min-width: 180px;
+        min-height: 180px;
+        flex: 1 1 220px;
+        max-width: 320px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 2vw;
+        transition: box-shadow 0.2s;
+      }
+      .metric-card:hover {
+        box-shadow: 0 8px 32px 0 rgba(126,44,210,0.3);
+      }
+      .metric-label {
+        font-size: 1.2vw;
+        color: #aaa;
+        margin-bottom: 0.5vw;
+        text-align: center;
+      }
+      .metric-value {
+        font-size: 2.5vw;
+        font-weight: 600;
+        color: #7E2CD2;
+        margin-bottom: 0.2vw;
+        text-align: center;
+      }
+      .metric-unit {
+        font-size: 1.1vw;
+        color: #fff;
+        opacity: 0.7;
+        text-align: center;
+      }
+      .metric-icon {
+        font-size: 2.2vw;
+        margin-bottom: 0.5vw;
+        text-align: center;
+      }
+      @media (max-width: 900px), (max-height: 600px) {
+        .dashboard-title {
+          font-size: 5vw;
+        }
+        .metric-card {
+          min-width: 120px;
+          min-height: 120px;
+          padding: 3vw 2vw;
+        }
+        .metric-label, .metric-unit {
+          font-size: 2.5vw;
+        }
+        .metric-value {
+          font-size: 4vw;
+        }
+        .metric-icon {
+          font-size: 4vw;
+        }
+      }
+      @media (max-width: 600px), (max-height: 400px) {
+        .dashboard-title {
+          font-size: 7vw;
+        }
+        .metrics-row {
+          flex-direction: column;
+          gap: 3vw;
+        }
+        .metric-card {
+          min-width: 90vw;
+          max-width: 98vw;
+          min-height: 80px;
+          padding: 4vw 2vw;
+        }
+        .metric-label, .metric-unit {
+          font-size: 3.5vw;
+        }
+        .metric-value {
+          font-size: 6vw;
+        }
+        .metric-icon {
+          font-size: 6vw;
+        }
+      }
+      @media (orientation: portrait) {
+        .metrics-row {
+          flex-direction: column;
+          align-items: center;
+        }
+        .metric-card {
+          width: 90vw;
+          max-width: 98vw;
+        }
+      }
+    </style>
+    <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <div class="dashboard-title">Indoor Sensor Dashboard</div>
+      <div class="metrics-row">
+        <div class="metric-card">
+          <div class="metric-icon">🌡️</div>
+          <div class="metric-label">Temperature</div>
+          <div class="metric-value" id="temperature-value">--</div>
+          <div class="metric-unit" id="temperature-unit">°C</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon">💧</div>
+          <div class="metric-label">Humidity</div>
+          <div class="metric-value" id="humidity-value">--</div>
+          <div class="metric-unit" id="humidity-unit">%</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon">🧪</div>
+          <div class="metric-label">VOC</div>
+          <div class="metric-value" id="voc-value">--</div>
+          <div class="metric-unit" id="voc-unit">ppb</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon">🟩</div>
+          <div class="metric-label">eCO₂</div>
+          <div class="metric-value" id="eco2-value">--</div>
+          <div class="metric-unit" id="eco2-unit">ppm</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Helper to parse Prometheus metrics
+      function parsePrometheusMetrics(text) {
+        const lines = text.split('\n');
+        const metrics = {};
+        for (const line of lines) {
+          if (line.startsWith('esphome_sensor_value')) {
+            const match = line.match(/esphome_sensor_value\{([^}]*)\}\s+([\d.\-eE]+)/);
+            if (match) {
+              const labels = {};
+              match[1].split(',').forEach(pair => {
+                const [k, v] = pair.split('=');
+                if (k && v) labels[k.trim()] = v.trim().replace(/^"|"$/g, '');
+              });
+              metrics[labels.id] = {
+                value: match[2],
+                unit: labels.unit || ''
+              };
+            }
+          }
+        }
+        return metrics;
+      }
+
+      async function fetchAndUpdateMetrics() {
+        const endpoint = screenly.settings.prometheus_endpoint;
+        const tempId = screenly.settings.temperature_metric_id || 'airing_cabinet_temperature';
+        const humId = screenly.settings.humidity_metric_id || 'airing_cabinet_humidity';
+        const vocId = screenly.settings.voc_metric_id || 'airing_cabinet_total_volatile_organic_compound';
+        const eco2Id = screenly.settings.eco2_metric_id || 'airing_cabinet_eco2_value';
+        if (!endpoint) {
+          document.getElementById('temperature-value').innerText = '--';
+          document.getElementById('humidity-value').innerText = '--';
+          document.getElementById('voc-value').innerText = '--';
+          document.getElementById('eco2-value').innerText = '--';
+          // Optionally, display a user-friendly message on the dashboard
+          if (!document.getElementById('endpoint-warning')) {
+            const warning = document.createElement('div');
+            warning.id = 'endpoint-warning';
+            warning.style.color = '#ffb347';
+            warning.style.marginTop = '2rem';
+            warning.style.fontSize = '1.2rem';
+            warning.innerText = 'Prometheus endpoint is not set. Please configure it in the Edge App settings.';
+            document.querySelector('.dashboard-container').appendChild(warning);
+          }
+          return;
+        } else {
+          const warning = document.getElementById('endpoint-warning');
+          if (warning) warning.remove();
+        }
+        try {
+          const resp = await fetch(endpoint);
+          const text = await resp.text();
+          const metrics = parsePrometheusMetrics(text);
+          // Temperature
+          if (metrics[tempId]) {
+            document.getElementById('temperature-value').innerText = metrics[tempId].value;
+            document.getElementById('temperature-unit').innerText = metrics[tempId].unit || '°C';
+          } else {
+            document.getElementById('temperature-value').innerText = '--';
+          }
+          // Humidity
+          if (metrics[humId]) {
+            document.getElementById('humidity-value').innerText = metrics[humId].value;
+            document.getElementById('humidity-unit').innerText = metrics[humId].unit || '%';
+          } else {
+            document.getElementById('humidity-value').innerText = '--';
+          }
+          // VOC
+          if (metrics[vocId]) {
+            document.getElementById('voc-value').innerText = metrics[vocId].value;
+            document.getElementById('voc-unit').innerText = metrics[vocId].unit || 'ppb';
+          } else {
+            document.getElementById('voc-value').innerText = '--';
+          }
+          // eCO2
+          if (metrics[eco2Id]) {
+            document.getElementById('eco2-value').innerText = metrics[eco2Id].value;
+            document.getElementById('eco2-unit').innerText = metrics[eco2Id].unit || 'ppm';
+          } else {
+            document.getElementById('eco2-value').innerText = '--';
+          }
+        } catch (e) {
+          document.getElementById('temperature-value').innerText = '--';
+          document.getElementById('humidity-value').innerText = '--';
+          document.getElementById('voc-value').innerText = '--';
+          document.getElementById('eco2-value').innerText = '--';
+        }
+      }
+      fetchAndUpdateMetrics();
+      setInterval(fetchAndUpdateMetrics, 5000);
+    </script>
+  </body>
+</html>
