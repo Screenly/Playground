@@ -1,11 +1,5 @@
 <template>
   <div class="table-container">
-    <h2
-      v-if="title && title.trim()"
-      class="table-title"
-    >
-      {{ title }}
-    </h2>
     <table
       v-if="data.length > 0"
       class="csv-table"
@@ -48,7 +42,6 @@ import { computed } from "vue";
 
 const props = defineProps<{
   data: string[][];
-  title?: string;
 }>();
 
 const headers = computed(() => {
@@ -68,26 +61,25 @@ const rows = computed(() => {
   .csv-table {
     width: 100%;
     border-collapse: collapse;
-    font-family:
-      -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+    font-family: var(--font-family-primary, Aeonik, sans-serif);
 
     thead {
       th {
-        background: var(--theme-color-header-bg, #2980b9);
-        color: var(--theme-color-header-text, #ffffff);
+        background: var(--theme-color-secondary, #adafbe);
+        color: var(--theme-color-tertiary, #ffffff);
         padding: 1rem 0.75rem;
         text-align: left;
         font-weight: bold;
-        border-right: 1px solid var(--theme-color-header-bg, #2980b9);
-        border-bottom: 1px solid var(--theme-color-header-bg, #2980b9);
+        border: none;
+        position: sticky;
+        top: 0;
+        z-index: 1;
 
         &:first-child {
-          border-left: none;
           padding-left: 1.5rem;
         }
 
         &:last-child {
-          border-right: none;
           text-align: right;
           padding-right: 1.5rem;
         }
@@ -96,20 +88,22 @@ const rows = computed(() => {
 
     tbody {
       tr {
+        &:nth-child(even) {
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+
         td {
           padding: 0.75rem;
-          border-right: 1px solid var(--theme-color-default-bg, #dee2e6);
-          border-bottom: 1px solid var(--theme-color-default-bg, #dee2e6);
-          color: var(--theme-color-default-text, #2c3e50);
-          background: var(--theme-color-default-bg, #ffffff);
+          color: var(--theme-color-tertiary, #ffffff);
+          background: transparent;
+          border: none;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
           &:first-child {
-            border-left: none;
             padding-left: 1.5rem;
           }
 
           &:last-child {
-            border-right: none;
             text-align: right;
             padding-right: 1.5rem;
           }
@@ -120,23 +114,11 @@ const rows = computed(() => {
 
   .no-data {
     text-align: center;
-    color: var(--theme-color-default-text, #7f8c8d);
+    color: var(--theme-color-tertiary, #ffffff);
     font-size: 1.2rem;
     padding: 2rem;
+    font-family: var(--font-family-primary, Aeonik, sans-serif);
   }
 }
 
-.table-title {
-  color: var(--theme-color-title-text, #2c3e50);
-  background-color: var(--theme-color-title-bg, #f8f9fa);
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 0;
-  padding: 1rem;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 2em;
-}
 </style>

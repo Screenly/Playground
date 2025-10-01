@@ -1,16 +1,35 @@
 <template>
-  <div class="app">
-    <TableDisplay
-      v-if="tableData.length > 0"
-      :data="tableData"
-      :title="tableTitle"
-    />
+  <div class="main-container">
+    <div class="primary-container">
+      <div v-if="tableTitle && tableTitle.trim()" class="row-container">
+        <InfoCard
+          :value="tableTitle"
+          class="title-card"
+        />
+        <InfoCard class="clock-card">
+          <DigitalClock />
+        </InfoCard>
+      </div>
+      <InfoCard v-if="tableData.length > 0" class="table-card">
+        <TableDisplay :data="tableData" />
+      </InfoCard>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onBeforeMount, onMounted } from "vue";
+import { defineStore } from "pinia";
+import { baseSettingsStoreSetup } from "blueprint/stores/base-settings-store";
+import { InfoCard, DigitalClock } from "blueprint/components";
 import TableDisplay from "./components/TableDisplay.vue";
+
+const useBaseSettingsStore = defineStore(
+  'baseSettingsStore',
+  baseSettingsStoreSetup,
+);
+
+const baseSettingsStore = useBaseSettingsStore();
 
 const tableData = ref<string[][]>([]);
 const tableTitle = ref<string>("");
@@ -31,222 +50,12 @@ const parseCsv = async (text: string): Promise<string[][]> => {
   return result.data as string[][];
 };
 
-const setupTheme = () => {
-  if (typeof screenly === "undefined") return;
 
-  const settings = screenly.settings;
-  const theme = settings.theme || "light";
-  const lightColor = (settings.screenly_color_light as string) || "#ffffff";
-  const darkColor = (settings.screenly_color_dark as string) || "#2c3e50";
-
-  // Determine base theme color
-  let baseColor: string;
-  if (typeof settings.theme_color === 'string' && settings.theme_color.trim()) {
-    baseColor = settings.theme_color;
-  } else if (theme === "dark") {
-    baseColor = lightColor;
-  } else {
-    baseColor = darkColor;
-  }
-
-  // Generate 3 backgrounds and 3 foregrounds from the single base color
-  let titleBg, headerBg, defaultBg, titleText, headerText, defaultText;
-
-  if (theme === "dark") {
-    const textLightness = 0.8; // Light text for dark backgrounds
-
-    // Dark theme: dark backgrounds, light text
-    titleBg = adjustColorHSV(
-      baseColor,
-      undefined,
-      Math.min(0.2, hexToHSV(baseColor)[1]),
-      0.1,
-    ); // Title background: darkest
-    headerBg = adjustColorHSV(
-      baseColor,
-      undefined,
-      Math.min(0.15, hexToHSV(baseColor)[1]),
-      0.15,
-    ); // Header background: medium
-    defaultBg = adjustColorHSV(
-      baseColor,
-      undefined,
-      Math.min(0.1, hexToHSV(baseColor)[1]),
-      0.2,
-    ); // Default background: lightest
-
-    titleText = adjustColorHSV(
-      baseColor,
-      undefined,
-      Math.min(0.2, hexToHSV(baseColor)[1]),
-      textLightness,
-    ); // Title text: max 20% saturation
-    headerText = adjustColorHSV(
-      baseColor,
-      undefined,
-      Math.min(0.15, hexToHSV(baseColor)[1]),
-      textLightness,
-    ); // Header text: max 15% saturation
-    defaultText = adjustColorHSV(
-      baseColor,
-      undefined,
-      Math.min(0.1, hexToHSV(baseColor)[1]),
-      textLightness,
-    ); // Body text: max 10% saturation
-  } else {
-    const textLightness = 0.3; // Dark text for light backgrounds
-
-    // Light theme: light backgrounds, dark text
-    titleBg = adjustColorHSV(
-      baseColor,
-      undefined,
-      Math.min(0.2, hexToHSV(baseColor)[1]),
-      0.8,
-    ); // Title background: 0.8 value, 20% saturation
-    headerBg = adjustColorHSV(
-      baseColor,
-      undefined,
-      Math.min(0.15, hexToHSV(baseColor)[1]),
-      0.85,
-    ); // Header background: medium
-    defaultBg = adjustColorHSV(
-      baseColor,
-      undefined,
-      Math.min(0.1, hexToHSV(baseColor)[1]),
-      0.9,
-    ); // Default background: 0.9 lightness, 10% saturation
-
-    titleText = adjustColorHSV(
-      baseColor,
-      undefined,
-      Math.min(0.2, hexToHSV(baseColor)[1]),
-      textLightness,
-    ); // Title text: max 20% saturation
-    headerText = adjustColorHSV(
-      baseColor,
-      undefined,
-      Math.min(0.15, hexToHSV(baseColor)[1]),
-      textLightness,
-    ); // Header text: max 15% saturation
-    defaultText = adjustColorHSV(
-      baseColor,
-      undefined,
-      Math.min(0.1, hexToHSV(baseColor)[1]),
-      textLightness,
-    ); // Body text: max 10% saturation
-  }
-
-  document.documentElement.style.setProperty("--theme-color-title-bg", titleBg);
-  document.documentElement.style.setProperty(
-    "--theme-color-header-bg",
-    headerBg,
-  );
-  document.documentElement.style.setProperty(
-    "--theme-color-default-bg",
-    defaultBg,
-  );
-  document.documentElement.style.setProperty(
-    "--theme-color-title-text",
-    titleText,
-  );
-  document.documentElement.style.setProperty(
-    "--theme-color-header-text",
-    headerText,
-  );
-  document.documentElement.style.setProperty(
-    "--theme-color-default-text",
-    defaultText,
-  );
-};
-
-// Helper function to convert hex to HSV
-const hexToHSV = (hex: string): [number, number, number] => {
-  const red = parseInt(hex.slice(1, 3), 16) / 255;
-  const green = parseInt(hex.slice(3, 5), 16) / 255;
-  const blue = parseInt(hex.slice(5, 7), 16) / 255;
-
-  const max = Math.max(red, green, blue);
-  const min = Math.min(red, green, blue);
-  const diff = max - min;
-
-  let hue = 0;
-  if (diff !== 0) {
-    if (max === red) hue = ((green - blue) / diff) % 6;
-    else if (max === green) hue = (blue - red) / diff + 2;
-    else hue = (red - green) / diff + 4;
-  }
-  hue = Math.round(hue * 60);
-  if (hue < 0) hue += 360;
-
-  const saturation = max === 0 ? 0 : diff / max;
-  const value = max;
-
-  return [hue, saturation, value];
-};
-
-// Helper function to convert HSV to hex
-const hsvToHex = (hue: number, saturation: number, value: number): string => {
-  const chroma = value * saturation;
-  const huePrime = hue / 60;
-  const secondaryComponent = chroma * (1 - Math.abs((huePrime % 2) - 1));
-  const lightnessAdjustment = value - chroma;
-
-  let red = 0,
-    green = 0,
-    blue = 0;
-  if (hue < 60) {
-    red = chroma;
-    green = secondaryComponent;
-    blue = 0;
-  } else if (hue < 120) {
-    red = secondaryComponent;
-    green = chroma;
-    blue = 0;
-  } else if (hue < 180) {
-    red = 0;
-    green = chroma;
-    blue = secondaryComponent;
-  } else if (hue < 240) {
-    red = 0;
-    green = secondaryComponent;
-    blue = chroma;
-  } else if (hue < 300) {
-    red = secondaryComponent;
-    green = 0;
-    blue = chroma;
-  } else {
-    red = chroma;
-    green = 0;
-    blue = secondaryComponent;
-  }
-
-  red = Math.round((red + lightnessAdjustment) * 255);
-  green = Math.round((green + lightnessAdjustment) * 255);
-  blue = Math.round((blue + lightnessAdjustment) * 255);
-
-  return `#${red.toString(16).padStart(2, "0")}${green.toString(16).padStart(2, "0")}${blue.toString(16).padStart(2, "0")}`;
-};
-
-// Helper function to adjust HSV values of a color
-const adjustColorHSV = (
-  hex: string,
-  hue?: number,
-  saturation?: number,
-  value?: number,
-): string => {
-  const [currentHue, currentSaturation, currentValue] = hexToHSV(hex);
-
-  const newHue = hue !== undefined ? hue * 360 : currentHue;
-  const newSaturation =
-    saturation !== undefined ? saturation : currentSaturation;
-  const newValue = value !== undefined ? value : currentValue;
-
-  return hsvToHex(newHue, newSaturation, newValue);
-};
+onBeforeMount(() => {
+  baseSettingsStore.setupTheme();
+});
 
 onMounted(async () => {
-  setupTheme();
-
   // Get CSV content and title from screenly settings
   if (typeof screenly !== "undefined" && screenly.settings?.content) {
     try {
@@ -261,10 +70,71 @@ onMounted(async () => {
 });
 </script>
 
-<style scoped>
-.app {
+<style scoped lang="scss">
+.primary-container {
   width: 100%;
-  height: 100vh;
-  background-color: var(--theme-color-default-bg, #ffffff);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.row-container {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  width: 100%;
+  height: auto;
+}
+
+.title-card {
+  flex: 1;
+  height: auto;
+  min-height: auto;
+}
+
+:deep(.title-card .primary-card) {
+  justify-content: center;
+  align-items: center;
+}
+
+:deep(.title-card .icon-card-text) {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.clock-card {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 200px;
+}
+
+:deep(.clock-card .primary-card) {
+  justify-content: center;
+  align-items: center;
+}
+
+.table-card {
+  flex: 1 1 0;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+:deep(.table-container) {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+:deep(.csv-table) {
+  flex: 1;
+  height: 0;
+  overflow: auto;
 }
 </style>

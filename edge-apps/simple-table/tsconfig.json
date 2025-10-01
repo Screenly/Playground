@@ -17,9 +17,13 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "blueprint/stores/*": ["../blueprint/ts/stores/*"],
+      "blueprint/scss/*": ["../blueprint/scss/*"],
+      "blueprint/components": ["../blueprint/ts/components"],
+      "blueprint/assets/*": ["../blueprint/assets/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"],
+  "include": ["../blueprint/ts/env.d.ts", "src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
