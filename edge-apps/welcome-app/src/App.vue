@@ -92,7 +92,8 @@ onMounted(() => {
   width: 75%;
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  // gap: 2.5rem;
+  gap: clamp(2rem, 1vw + 1vh, 1000rem);
   justify-content: space-between;
 }
 
@@ -233,7 +234,8 @@ onMounted(() => {
   }
 
   .welcome-card {
-    gap: clamp(1rem, 1vw + 2vh, 1000rem);
+    //gap: clamp(1rem, 1vw + 2vh, 1000rem);
+    gap: clamp(2rem, 1vw + 1vh, 1000rem);
 
   }
 
@@ -335,7 +337,7 @@ onMounted(() => {
   }
 
   .welcome-message {
-    height: 2.09em;
+    height: 3.09em;
   }
 
 
@@ -454,6 +456,12 @@ onMounted(() => {
 
   .row-container {
     gap: var(--pi-gap);
+  }
+
+  .welcome-message {
+    -webkit-line-clamp: 7;
+    line-clamp: 7;
+    height: 7.1em;
   }
 
   .clock-div {
