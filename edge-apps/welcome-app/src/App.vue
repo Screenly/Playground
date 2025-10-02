@@ -76,6 +76,7 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/analog-clock-overrides.scss' as *;
 
 .main-container {
   display: flex;
@@ -92,7 +93,6 @@ onMounted(() => {
   width: 75%;
   display: flex;
   flex-direction: column;
-  // gap: 2.5rem;
   gap: clamp(2rem, 1vw + 1vh, 1000rem);
   justify-content: space-between;
 }
@@ -187,10 +187,6 @@ onMounted(() => {
   margin: 0 clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 3vw + 3vh, 1000rem) 0;
 }
 
-.clock-div {
-  transform: scale(1.3);
-}
-
 // Global date number override
 
 .date-card :deep(.date-number) {
@@ -229,12 +225,7 @@ onMounted(() => {
     order: 2;
   }
 
-  .clock-card {
-    order: 1;
-  }
-
   .welcome-card {
-    //gap: clamp(1rem, 1vw + 2vh, 1000rem);
     gap: clamp(2rem, 1vw + 1vh, 1000rem);
 
   }
@@ -243,29 +234,18 @@ onMounted(() => {
     font-size: clamp(1rem, 5vw + 5vh, 1000rem);
     -webkit-line-clamp: 3;
     line-clamp: 3;
-    // height: unset;
-    // min-height: calc(1.1em * 4);
-    // max-height: calc(1.1em * 3);
   }
 
   .welcome-message {
     font-size: clamp(1rem, 3vw + 3vh, 1000rem);
     -webkit-line-clamp: 9;
     line-clamp: 9;
-    height:9.1em; ;
-    // min-height: calc(1.1em * 4);
-    // max-height: calc(1.1em * 4);
+    height:9.1em;
   }
 }
 
 
 // Responsive breakpoints
-
-@media screen and (max-width: 4096px) and (orientation: landscape) {
-  .clock-div {
-    transform: scale(.45);
-  }
-}
 
 @media screen and (max-width: 2560px) and (orientation: landscape) {
   .main-container {
@@ -285,16 +265,8 @@ onMounted(() => {
     gap: var(--hd-gap);
   }
 
-  .clock-div {
-    transform: scale(.65);
-  }
 }
 
-@media screen and (max-width: 1920px) and (orientation: landscape) {
-  .clock-div {
-    transform: scale(.5);
-  }
-}
 
 @media screen and (max-width: 1280px) and (orientation: landscape) {
   .main-container {
@@ -313,22 +285,7 @@ onMounted(() => {
   .row-container {
     gap: var(--custom-720-gap);
   }
-
-  .clock-card {
-    height: 47%;
-  }
-
-  .clock-div {
-    transform: scale(.45);
-  }
 }
-
-@media screen and (max-width: 1080px) and (orientation: landscape) {
-  .clock-div {
-    transform: scale(.40);
-  }
-}
-
 
 @media screen and (max-width: 800px) and (orientation: landscape) {
   .main-container {
@@ -352,11 +309,6 @@ onMounted(() => {
   .row-container {
     gap: var(--pi-gap);
   }
-
-  .clock-div {
-    transform: scale(.5);
-  }
-
 }
 
 @media screen and (max-width: 3840px) and (orientation: portrait) {
@@ -375,10 +327,6 @@ onMounted(() => {
 
   .row-container {
     gap: var(--custom-4k-gap);
-  }
-
-  .clock-div {
-    transform: scale(.45);
   }
 }
 
@@ -405,16 +353,6 @@ onMounted(() => {
   .row-container {
     gap: var(--hd-gap);
   }
-
-  .clock-div {
-    transform: scale(.75);
-  }
-}
-
-@media screen and (max-width: 1080px) and (orientation: portrait) {
-  .clock-div {
-    transform: scale(.5);
-  }
 }
 
 @media screen and (max-width: 720px) and (orientation: portrait) {
@@ -433,10 +371,6 @@ onMounted(() => {
 
   .row-container {
     gap: var(--custom-720-gap);
-  }
-
-  .clock-div {
-    transform: scale(.4);
   }
 }
 
@@ -462,10 +396,6 @@ onMounted(() => {
     -webkit-line-clamp: 7;
     line-clamp: 7;
     height: 7.1em;
-  }
-
-  .clock-div {
-    transform: scale(.5);
   }
 }
 </style>
