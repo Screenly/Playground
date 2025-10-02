@@ -16,4 +16,3 @@ ignorePatterns:
   - "**/*.min.js"
   - "**/node_modules/**"
   - "**/dist/**"
-
