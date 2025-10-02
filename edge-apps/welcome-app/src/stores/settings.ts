@@ -20,7 +20,7 @@ export const useSettingsStore = () => {
     }
   }
 
-  const initTimezone = (latitude: number, longitude: number) => {
+  const initTimezone = (_latitude: number, _longitude: number) => {
     const overrideTimezone = settings.value.override_timezone
 
     if (overrideTimezone) {
@@ -28,7 +28,7 @@ export const useSettingsStore = () => {
         Intl.DateTimeFormat(undefined, { timeZone: overrideTimezone })
         currentTimezone.value = overrideTimezone
         return
-      } catch (error) {
+      } catch (_error) {
         console.warn(`Invalid timezone: ${overrideTimezone}. Using fallback.`)
       }
     }
@@ -36,7 +36,7 @@ export const useSettingsStore = () => {
     try {
       const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
       currentTimezone.value = timeZone || 'UTC'
-    } catch (error) {
+    } catch (_error) {
       console.warn('Could not determine timezone, using UTC')
       currentTimezone.value = 'UTC'
     }
@@ -50,7 +50,7 @@ export const useSettingsStore = () => {
         new Intl.DateTimeFormat(overrideLocale)
         currentLocale.value = overrideLocale
         return
-      } catch (error) {
+      } catch (_error) {
         console.warn(`Invalid locale: ${overrideLocale}. Using fallback.`)
       }
     }
