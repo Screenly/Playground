@@ -18,13 +18,15 @@ test('basic app structure test', async ({ page }) => {
         tags: ['tag1', 'tag2', 'tag3'],
       },
       settings: {
-        greeting: 'World',
-        secret_word: 'test-secret',
-        screenly_color_accent: '#000000',
-        screenly_color_light: '#000000',
-        screenly_color_dark: '#000000',
         enable_analytics: 'true',
-        tag_manager_id: '',
+        override_locale: 'en',
+        override_timezone: 'America/New_York',
+        screenly_color_accent: '#000000',
+        screenly_color_dark: '#000000',
+        screenly_color_light: '#000000',
+        tag_manager_id: 'GTM-P123Q456',
+        welcome_heading: 'Welcome',
+        welcome_message: 'to the team',
         theme: 'light',
       },
       cors_proxy_url: 'https://example.com',
@@ -44,26 +46,15 @@ test('basic app structure test', async ({ page }) => {
 
   await page.goto('/')
 
-  // Check for greeting and secret word
-  await expect(page.getByText('Greetings, World!')).toBeVisible()
-  await expect(page.getByText('You secret word is')).toBeVisible()
-  await expect(page.getByText('test-secret')).toBeVisible()
+  // Check for "Powered by Screenly" text
+  await expect(page.getByText('Powered by Screenly')).toBeVisible()
 
-  // Check for screen information
-  await expect(page.getByText('test-screen')).toBeVisible()
-  await expect(page.getByText('test-location')).toBeVisible()
-  await expect(page.getByText('40.7128°')).toBeVisible()
-  await expect(page.getByText('-74.006°')).toBeVisible()
+  // Check for welcome heading and message
+  await expect(page.getByText('Welcome')).toBeVisible()
+  await expect(page.getByText('to the team')).toBeVisible()
 
-  // Check for hardware and hostname
-  await expect(page.getByText('test-host')).toBeVisible()
-  await expect(page.getByText('test-hardware')).toBeVisible()
-
-  // Check for specific text content
-  await expect(page.getByText("I'm test-screen")).toBeVisible()
-  await expect(page.getByText('My Screenly ID is')).toBeVisible()
-  await expect(
-    page.getByText('which conveniently is also my hostname'),
-  ).toBeVisible()
-  await expect(page.getByText("and I'm running on a")).toBeVisible()
+  // Check for app structure
+  await expect(page.locator('.main-container')).toBeVisible()
+  await expect(page.locator('.primary-container')).toBeVisible()
+  await expect(page.locator('.row-container')).toBeVisible()
 })
