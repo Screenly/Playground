@@ -2,3 +2,6 @@
 **/static/js/vendor/**
 **/vendor/**
 vendor/
+*.min.js
+panic-overlay.min.js
+powerbi.min.js
