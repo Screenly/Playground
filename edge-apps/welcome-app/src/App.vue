@@ -6,8 +6,8 @@ import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 import { AnalogClock, DateDisplay } from 'blueprint/components'
 import { useSettingsStore } from '@/stores/settings'
 import screenlyLogo from 'blueprint/assets/images/screenly.svg'
-import WelcomeHead from '@/components/WelcomeHead.vue'
-import WelcomeMessage from '@/components/WelcomeMessage.vue'
+import WelcomeHead from '@/components/welcomeHead.vue'
+import WelcomeMessage from '@/components/welcomeMessage.vue'
 
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
@@ -38,8 +38,9 @@ onBeforeMount(async () => {
 })
 
 onMounted(() => {
-  const latitude = metadataStore.coordinates[0]
-  const longitude = metadataStore.coordinates[1]
+  const coordinates = metadataStore.coordinates.value
+  const latitude = coordinates?.[0] ?? 0
+  const longitude = coordinates?.[1] ?? 0
 
   settingsStore.init()
   settingsStore.initLocale()

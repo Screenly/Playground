@@ -20,7 +20,7 @@ const mockScreenly = {
   settings: {
     welcome_heading: 'Welcome',
     welcome_message: 'to the team',
-    theme: 'light',
+    theme: 'light' as 'light' | 'dark',
     override_locale: 'en',
     override_timezone: 'America/New_York',
     screenly_color_accent: '#000000',
@@ -43,7 +43,7 @@ vi.mock('blueprint/stores/base-settings-store', () => ({
 
 vi.mock('blueprint/stores/metadata-store', () => ({
   metadataStoreSetup: () => ({
-    coordinates: [40.7128, -74.006],
+    coordinates: ref([40.7128, -74.006]),
   }),
 }))
 
