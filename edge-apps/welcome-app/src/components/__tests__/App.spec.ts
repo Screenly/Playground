@@ -5,8 +5,9 @@ import { ref } from 'vue'
 import { mount } from '@vue/test-utils'
 import App from '@/App.vue'
 
-// Override existing mocked values
+// Mock global screenly object
 const mockScreenly = {
+  signalReadyForRendering: vi.fn(),
   metadata: {
     coordinates: [40.7128, -74.006] as [number, number],
     hostname: 'test-host',
@@ -16,39 +17,48 @@ const mockScreenly = {
     screenly_version: 'test-version',
     tags: ['tag1', 'tag2', 'tag3'],
   },
-  signalReadyForRendering: vi.fn(),
   settings: {
+    welcome_heading: 'Welcome',
+    welcome_message: 'to the team',
+    theme: 'light',
+    override_locale: 'en',
+    override_timezone: 'America/New_York',
     screenly_color_accent: '#000000',
-    screenly_color_light: '#000000',
     screenly_color_dark: '#000000',
-    greeting: 'World',
-    secret_word: 'test-secret',
+    screenly_color_light: '#000000',
   },
   cors_proxy_url: 'https://example.com',
 }
 
-// Mock global screenly object
 global.screenly = mockScreenly
 
-// Mock the stores
-vi.mock('@/stores/metadata-store', () => ({
-  useScreenlyMetadataStore: () => ({
-    hostname: ref('test-host'),
-    screenName: ref('test-screen'),
-    hardware: ref('test-hardware'),
-    screenlyVersion: ref('test-version'),
-    formattedCoordinates: ref('40.7128° N, 74.0060° W'),
-    tags: ref(['tag1', 'tag2', 'tag3']),
-    coordinates: ref([40.7128, -74.006]),
-    location: ref('test-location'),
-  }),
-}))
-vi.mock('@/stores/base-settings-store', () => ({
-  useBaseSettingsStore: () => ({
+// Mock blueprint stores
+vi.mock('blueprint/stores/base-settings-store', () => ({
+  baseSettingsStoreSetup: () => ({
     setupTheme: vi.fn(),
     setupBrandingLogo: vi.fn(),
-    primaryThemeColor: ref(mockScreenly.settings.screenly_color_accent),
+    brandLogoUrl: ref(''),
   }),
+}))
+
+vi.mock('blueprint/stores/metadata-store', () => ({
+  metadataStoreSetup: () => ({
+    coordinates: [40.7128, -74.006],
+  }),
+}))
+
+// Mock blueprint components
+vi.mock('blueprint/components', () => ({
+  AnalogClock: {
+    name: 'AnalogClock',
+    template: '<div class="analog-clock">Mock Clock</div>',
+    props: ['timezone', 'locale'],
+  },
+  DateDisplay: {
+    name: 'DateDisplay',
+    template: '<div class="date-display">Mock Date</div>',
+    props: ['timezone', 'locale'],
+  },
 }))
 
 describe('App', () => {
@@ -56,87 +66,53 @@ describe('App', () => {
     setActivePinia(createPinia())
   })
 
-  it('renders properly with greeting', () => {
+  it('renders welcome heading and message', () => {
     const wrapper = mount(App)
 
-    // Check for greeting and secret word
-    expect(wrapper.text()).toContain('Greetings, World!')
-    expect(wrapper.text()).toContain('You secret word is')
-    expect(wrapper.text()).toContain('test-secret')
-
-    // Check for screen information
-    expect(wrapper.text()).toContain('test-screen')
-    expect(wrapper.text()).toContain('test-location')
-    expect(wrapper.text()).toContain('40.7128')
-    expect(wrapper.text()).toContain('-74.006')
-
-    // Check for hardware and hostname
-    expect(wrapper.text()).toContain('test-host')
-    expect(wrapper.text()).toContain('test-hardware')
-
-    // Check for specific text content
-    expect(wrapper.text()).toContain("I'm test-screen")
-    expect(wrapper.text()).toContain('My Screenly ID is')
-    expect(wrapper.text()).toContain('which conveniently is also my hostname')
-    expect(wrapper.text()).toContain("and I'm running on a")
+    expect(wrapper.text()).toContain('Welcome')
+    expect(wrapper.text()).toContain('to the team')
   })
 
-  it('displays coordinates correctly', () => {
+  it('renders clock and date components', () => {
     const wrapper = mount(App)
 
-    // Check that coordinates are displayed with degree symbols
-    expect(wrapper.text()).toContain('40.7128°')
-    expect(wrapper.text()).toContain('-74.006°')
+    expect(wrapper.find('.analog-clock').exists()).toBe(true)
+    expect(wrapper.find('.date-display').exists()).toBe(true)
   })
 
-  it('handles missing secret word', () => {
-    // Mock screenly with no secret word
-    const mockScreenlyNoSecret = {
+  it('calls signalReadyForRendering on mount', () => {
+    mount(App)
+
+    expect(mockScreenly.signalReadyForRendering).toHaveBeenCalled()
+  })
+
+  it('handles missing welcome heading', () => {
+    global.screenly = {
       ...mockScreenly,
       settings: {
         ...mockScreenly.settings,
-        secret_word: undefined,
+        welcome_heading: undefined,
+        theme: 'light' as 'light' | 'dark',
       },
     }
-    global.screenly = mockScreenlyNoSecret
 
     const wrapper = mount(App)
 
-    expect(wrapper.text()).toContain('not set')
-    expect(wrapper.text()).not.toContain('test-secret')
+    expect(wrapper.text()).toContain('Welcome') // default fallback
   })
 
-  it('handles empty greeting', () => {
-    // Mock screenly with empty greeting
-    const mockScreenlyEmptyGreeting = {
+  it('handles missing welcome message', () => {
+    global.screenly = {
       ...mockScreenly,
       settings: {
         ...mockScreenly.settings,
-        greeting: '',
+        welcome_message: undefined,
+        theme: 'light' as 'light' | 'dark',
       },
     }
-    global.screenly = mockScreenlyEmptyGreeting
 
     const wrapper = mount(App)
 
-    expect(wrapper.text()).toContain('Greetings!')
-    expect(wrapper.text()).not.toContain('Greetings, World!')
-  })
-
-  it('handles undefined greeting', () => {
-    // Mock screenly with undefined greeting
-    const mockScreenlyUndefinedGreeting = {
-      ...mockScreenly,
-      settings: {
-        ...mockScreenly.settings,
-        greeting: undefined,
-      },
-    }
-    global.screenly = mockScreenlyUndefinedGreeting
-
-    const wrapper = mount(App)
-
-    expect(wrapper.text()).toContain('Greetings!')
-    expect(wrapper.text()).not.toContain('Greetings, World!')
+    expect(wrapper.text()).toContain('to the team') // default fallback
   })
 })
