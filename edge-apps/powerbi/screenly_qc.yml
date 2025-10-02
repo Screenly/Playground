@@ -1,12 +1,25 @@
 ---
 syntax: manifest_v1
-id: 01K62VJT7P1VKKE64523667E4B
+id: 01K6AHJXEFEYGZ7J0T3R4YJXTE
 description: |
   Displays Power BI dashboards and reports with big focus on security.
 icon: https://playground.srly.io/edge-apps/powerbi/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 settings:
+  display_errors:
+    type: string
+    default_value: 'false'
+    title: Display Errors
+    optional: true
+    help_text: |
+      {
+        "schema_version": 1,
+        "properties": {
+          "type": "boolean",
+          "help_text": "For debugging purposes to display errors on the screen."
+        }
+      }
   embed_token:
     type: secret
     title: Embed Token
@@ -29,18 +42,5 @@ settings:
         "properties": {
           "type": "oauth:power_bi:embed_url",
           "help_text": "The URL of the Power BI dashboard or report to display."
-        }
-      }
-  display_errors:
-    type: string
-    title: Display Errors
-    optional: true
-    default_value: false
-    help_text: |
-      {
-        "schema_version": 1,
-        "properties": {
-          "type": "boolean",
-          "help_text": "For debugging purposes to display errors on the screen."
         }
       }
