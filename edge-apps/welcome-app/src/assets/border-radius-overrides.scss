@@ -5,8 +5,8 @@
     border-radius: $custom-4k-border-radius-big;
 
     @media screen and (max-width: 2560px) and (orientation: landscape) {
-        border-radius: $hd-border-radius-big;
-      }
+      border-radius: $hd-border-radius-big;
+    }
 
     @media screen and (max-width: 1280px) and (orientation: landscape) {
       border-radius: $custom-720-border-radius-big;

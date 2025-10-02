@@ -21,26 +21,42 @@ export default defineConfig(({ mode }) => ({
       targets: [
         {
           src: manifestFileName,
-          dest: '.'
+          dest: '.',
         },
-        ...(mode === 'development' ? [{
-          src: 'mock-data.yml',
-          dest: '.'
-        }] : []),
-        ...(mode === 'development' && existsSync('instance.yml') ? [{
-          src: 'instance.yml',
-          dest: '.'
-        }] : [])
-      ]
-    })
+        ...(mode === 'development'
+          ? [
+              {
+                src: 'mock-data.yml',
+                dest: '.',
+              },
+            ]
+          : []),
+        ...(mode === 'development' && existsSync('instance.yml')
+          ? [
+              {
+                src: 'instance.yml',
+                dest: '.',
+              },
+            ]
+          : []),
+      ],
+    }),
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      'blueprint/stores': fileURLToPath(new URL('../blueprint/ts/stores', import.meta.url)),
-      'blueprint/scss': fileURLToPath(new URL('../blueprint/scss', import.meta.url)),
-      'blueprint/components': fileURLToPath(new URL('../blueprint/ts/components', import.meta.url)),
-      'blueprint/assets': fileURLToPath(new URL('../blueprint/assets', import.meta.url)),
+      'blueprint/stores': fileURLToPath(
+        new URL('../blueprint/ts/stores', import.meta.url),
+      ),
+      'blueprint/scss': fileURLToPath(
+        new URL('../blueprint/scss', import.meta.url),
+      ),
+      'blueprint/components': fileURLToPath(
+        new URL('../blueprint/ts/components', import.meta.url),
+      ),
+      'blueprint/assets': fileURLToPath(
+        new URL('../blueprint/assets', import.meta.url),
+      ),
     },
   },
 }))

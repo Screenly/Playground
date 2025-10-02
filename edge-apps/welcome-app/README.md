@@ -62,7 +62,6 @@ Alternatively, you can call `moment.locales()`, which returns all the supported 
 
 Setting invalid values for the timezone won't crash the app itself, it'll just fall back to the default time.
 
-
 ## Development Prerequisites
 
 - [Bun (1.2.2+)](https://bun.sh/docs/installation)

@@ -62,6 +62,8 @@ test('basic app structure test', async ({ page }) => {
   // Check for specific text content
   await expect(page.getByText("I'm test-screen")).toBeVisible()
   await expect(page.getByText('My Screenly ID is')).toBeVisible()
-  await expect(page.getByText('which conveniently is also my hostname')).toBeVisible()
+  await expect(
+    page.getByText('which conveniently is also my hostname'),
+  ).toBeVisible()
   await expect(page.getByText("and I'm running on a")).toBeVisible()
 })

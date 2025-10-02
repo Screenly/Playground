@@ -16,7 +16,8 @@ defineProps<Props>()
 .welcome-message {
   font-size: clamp(1rem, calc(4vw + 4vh), 1000rem);
   font-weight: 400;
-  margin: 0 clamp(1rem, calc(2vw + 2vh), 1000rem) 0 clamp(1rem, calc(3vw + 3vh), 1000rem);
+  margin: 0 clamp(1rem, calc(2vw + 2vh), 1000rem) 0
+    clamp(1rem, calc(3vw + 3vh), 1000rem);
   display: -webkit-box;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;

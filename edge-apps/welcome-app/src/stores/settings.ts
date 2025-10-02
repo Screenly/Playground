@@ -29,7 +29,7 @@ export const useSettingsStore = () => {
         Intl.DateTimeFormat(undefined, { timeZone: overrideTimezone })
         currentTimezone.value = overrideTimezone
         return
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
         console.warn(`Invalid timezone: ${overrideTimezone}. Using fallback.`)
       }
@@ -38,7 +38,7 @@ export const useSettingsStore = () => {
     try {
       const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
       currentTimezone.value = timeZone || 'UTC'
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       console.warn('Could not determine timezone, using UTC')
       currentTimezone.value = 'UTC'
@@ -53,7 +53,7 @@ export const useSettingsStore = () => {
         new Intl.DateTimeFormat(overrideLocale)
         currentLocale.value = overrideLocale
         return
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
         console.warn(`Invalid locale: ${overrideLocale}. Using fallback.`)
       }
@@ -72,6 +72,6 @@ export const useSettingsStore = () => {
     settings,
     init,
     initTimezone,
-    initLocale
+    initLocale,
   }
 }

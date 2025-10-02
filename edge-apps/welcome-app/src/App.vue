@@ -25,8 +25,12 @@ const { brandLogoUrl } = storeToRefs(baseSettingsStore) as unknown as {
 }
 
 // Computed properties for settings
-const welcomeHeading = computed(() => settingsStore.settings.value.welcome_heading || 'Welcome')
-const welcomeMessage = computed(() => settingsStore.settings.value.welcome_message || 'to the team')
+const welcomeHeading = computed(
+  () => settingsStore.settings.value.welcome_heading || 'Welcome',
+)
+const welcomeMessage = computed(
+  () => settingsStore.settings.value.welcome_message || 'to the team',
+)
 
 onBeforeMount(async () => {
   baseSettingsStore.setupTheme()
@@ -53,7 +57,11 @@ onMounted(() => {
         <WelcomeMessage :value="welcomeMessage" />
       </div>
       <div class="primary-card info-card">
-        <img :src="brandLogoUrl || screenlyLogo" class="brand-logo" alt="Brand Logo" />
+        <img
+          :src="brandLogoUrl || screenlyLogo"
+          class="brand-logo"
+          alt="Brand Logo"
+        />
         <span class="info-text">Powered by Screenly</span>
       </div>
     </div>
@@ -139,7 +147,8 @@ onMounted(() => {
   align-items: center;
 }
 
-.date-card, .clock-card {
+.date-card,
+.clock-card {
   height: 50%;
   width: 100%;
 }
@@ -149,13 +158,15 @@ onMounted(() => {
 }
 
 .brand-logo {
-  margin: 0 0 clamp(1rem, calc(2.5vw + 2.5vh), 1000rem) clamp(1rem, calc(3vw + 3vh), 1000rem);
+  margin: 0 0 clamp(1rem, calc(2.5vw + 2.5vh), 1000rem)
+    clamp(1rem, calc(3vw + 3vh), 1000rem);
   width: clamp(1rem, calc(4vw + 4vh), 1000rem);
 }
 
 .info-text {
-  font-size: clamp(0.8rem, .70vw + .70vh, 1000rem);
-  margin: 0 clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 3vw + 3vh, 1000rem) 0;
+  font-size: clamp(0.8rem, 0.7vw + 0.7vh, 1000rem);
+  margin: 0 clamp(1rem, 2.5vw + 2.5vh, 1000rem) clamp(1rem, 3vw + 3vh, 1000rem)
+    0;
 }
 
 // Global date number override
@@ -186,7 +197,8 @@ onMounted(() => {
     flex-direction: row;
   }
 
-  .date-card, .clock-card {
+  .date-card,
+  .clock-card {
     height: 100%;
     width: 50%;
   }

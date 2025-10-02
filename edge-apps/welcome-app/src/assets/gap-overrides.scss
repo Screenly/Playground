@@ -6,8 +6,8 @@
     padding: $custom-4k-padding;
 
     @media (orientation: portrait) {
-     flex-direction: column;
-     display: flex;
+      flex-direction: column;
+      display: flex;
     }
 
     @media screen and (max-width: 2560px) and (orientation: landscape) {
@@ -81,5 +81,4 @@
   .welcome-card {
     gap: clamp(2rem, 1vw + 1vh, 1000rem);
   }
-
 }
