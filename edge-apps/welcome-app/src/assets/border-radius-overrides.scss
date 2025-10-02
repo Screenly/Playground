@@ -1,0 +1,67 @@
+@use '@/assets/variables.scss' as *;
+
+@mixin border-radius-overrides {
+  .primary-container {
+    border-radius: $custom-4k-border-radius-big;
+
+    @media screen and (max-width: 2560px) and (orientation: landscape) {
+        border-radius: $hd-border-radius-big;
+      }
+
+    @media screen and (max-width: 1280px) and (orientation: landscape) {
+      border-radius: $custom-720-border-radius-big;
+    }
+
+    @media screen and (max-width: 800px) and (orientation: landscape) {
+      border-radius: $pi-border-radius-big;
+    }
+
+    @media screen and (max-width: 3840px) and (orientation: portrait) {
+      border-radius: $custom-4k-border-radius-big;
+    }
+
+    @media screen and (max-width: 2159px) and (orientation: portrait) {
+      border-radius: $hd-border-radius-big;
+    }
+
+    @media screen and (max-width: 720px) and (orientation: portrait) {
+      border-radius: $custom-720-border-radius-big;
+    }
+
+    @media screen and (max-width: 480px) and (orientation: portrait) {
+      border-radius: $pi-border-radius-big;
+    }
+  }
+
+  .secondary-card {
+    border-radius: $custom-4k-border-radius-medium;
+
+    @media screen and (max-width: 2560px) and (orientation: landscape) {
+      border-radius: $hd-border-radius-medium;
+    }
+
+    @media screen and (max-width: 1280px) and (orientation: landscape) {
+      border-radius: $custom-720-border-radius-medium;
+    }
+
+    @media screen and (max-width: 800px) and (orientation: landscape) {
+      border-radius: $pi-border-radius-medium;
+    }
+
+    @media screen and (max-width: 3840px) and (orientation: portrait) {
+      border-radius: $custom-4k-border-radius-medium;
+    }
+
+    @media screen and (max-width: 2159px) and (orientation: portrait) {
+      border-radius: $hd-border-radius-medium;
+    }
+
+    @media screen and (max-width: 720px) and (orientation: portrait) {
+      border-radius: $custom-720-border-radius-medium;
+    }
+
+    @media screen and (max-width: 480px) and (orientation: portrait) {
+      border-radius: $pi-border-radius-medium;
+    }
+  }
+}
