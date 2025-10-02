@@ -7,11 +7,6 @@ export interface WelcomeSettings {
   override_locale?: string
   override_timezone?: string
   sentry_dsn?: string
-  screenly_color_accent?: string
-  screenly_color_light?: string
-  screenly_color_dark?: string
-  screenly_logo_light?: string
-  screenly_logo_dark?: string
 }
 
 export const useSettingsStore = () => {
