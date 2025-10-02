@@ -1,0 +1,11 @@
+# Ignore vendor directories
+**/vendor/**
+**/static/js/vendor/**
+
+# Ignore all minified JavaScript files
+**/*.min.js
+
+# Ignore node_modules and dist directories
+**/node_modules/**
+**/dist/**
+
