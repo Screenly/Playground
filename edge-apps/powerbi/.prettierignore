@@ -1,3 +1,4 @@
 # Ignore all files in this directory from Prettier formatting
-static/js/vendor/*
-static/js/vendor/**
+**/static/js/vendor/**
+**/vendor/**
+vendor/
