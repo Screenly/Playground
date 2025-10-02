@@ -1,2 +1,3 @@
 # Ignore all files in this directory from eslint formatting
-static/js/vendor/
+static/js/vendor/*
+static/js/vendor/**
