@@ -6,6 +6,8 @@ import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
 import { AnalogClock, DateDisplay } from 'blueprint/components'
 import { useSettingsStore } from '@/stores/settings'
 import screenlyLogo from 'blueprint/assets/images/screenly.svg'
+import WelcomeHead from '@/components/WelcomeHead.vue'
+import WelcomeMessage from '@/components/WelcomeMessage.vue'
 
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
@@ -47,8 +49,8 @@ onMounted(() => {
   <div class="main-container">
     <div class="primary-container">
       <div class="primary-card welcome-card">
-        <span class="welcome-heading">{{ welcomeHeading }}</span>
-        <span class="welcome-message">{{ welcomeMessage }}</span>
+        <WelcomeHead :value="welcomeHeading" />
+        <WelcomeMessage :value="welcomeMessage" />
       </div>
       <div class="primary-card info-card">
         <img :src="brandLogoUrl || screenlyLogo" class="brand-logo" alt="Brand Logo" />
@@ -83,15 +85,12 @@ onMounted(() => {
 .main-container {
   display: flex;
   flex-direction: row;
-  // gap: var(--custom-4k-gap);
   height: 100%;
-  // padding: var(--custom-4k-padding);
   background-color: var(--theme-color-background);
 }
 
 .primary-container {
   background-color: var(--theme-color-tertiary);
-  // border-radius: var(--custom-4k-border-radius-big);
   width: 75%;
   display: flex;
   flex-direction: column;
@@ -134,7 +133,6 @@ onMounted(() => {
   height: 100%;
   gap: unset;
   background-color: var(--theme-color-tertiary);
-  // border-radius: var(--custom-4k-border-radius-medium);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -148,35 +146,6 @@ onMounted(() => {
 
 .clock-card {
   background-color: var(--theme-color-primary);
-}
-
-// Text and element configurations
-.welcome-heading {
-  font-size: clamp(1rem, calc(5.5vw + 5.5vh), 1000rem);
-  margin: clamp(1rem, calc(2.5vw + 2.5vh), 1000rem) clamp(1rem, calc(2vw + 2vh), 1000rem) 0 clamp(1rem, calc(3vw + 3vh), 1000rem);
-  font-weight: 600;
-  letter-spacing: -0.04em;
-  line-height: 100%;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
-  height: 1.05em;
-  overflow: hidden;
-}
-
-.welcome-message {
-  font-size: clamp(1rem, calc(4vw + 4vh), 1000rem);
-  font-weight: 400;
-  margin: 0 clamp(1rem, calc(2vw + 2vh), 1000rem) 0 clamp(1rem, calc(3vw + 3vh), 1000rem);
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  height: 3.1em;
-  overflow: hidden;
 }
 
 .brand-logo {
@@ -198,7 +167,6 @@ onMounted(() => {
 .date-card :deep(.date-text) {
   font-size: clamp(1rem, calc(3vw + 3vh), 1000rem);
 }
-
 
 // Media Query Portrait
 @media (orientation: portrait) {
@@ -226,49 +194,8 @@ onMounted(() => {
   .date-card {
     order: 2;
   }
-
-  .welcome-heading {
-    font-size: clamp(1rem, 5vw + 5vh, 1000rem);
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-  }
-
-  .welcome-message {
-    font-size: clamp(1rem, 3vw + 3vh, 1000rem);
-    -webkit-line-clamp: 9;
-    line-clamp: 9;
-    height:9.1em;
-  }
-}
-
-
-// Responsive breakpoints
-
-@media screen and (max-width: 800px) and (orientation: landscape) {
-  .welcome-message {
-    height: 3.09em;
-  }
-}
-
-
-@media screen and (max-width: 2159px) and (orientation: portrait) {
-  .welcome-message {
-    -webkit-line-clamp: 8;
-    line-clamp: 8;
-    height: 8.1em;
-  }
-}
-
-
-@media screen and (max-width: 480px) and (orientation: portrait) {
-  .welcome-message {
-    -webkit-line-clamp: 7;
-    line-clamp: 7;
-    height: 7.1em;
-  }
 }
 
 @include border-radius-overrides;
 @include gap-overrides;
-
 </style>
