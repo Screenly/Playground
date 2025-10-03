@@ -70,4 +70,4 @@ jobs:
           CSS_FILE_NAME: stylelint.config.cjs
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PRETTIER_COMMAND_OPTIONS: "--config .prettierrc.json --check"
+          PRETTIER_COMMAND_OPTIONS: "--config .github/linters/.prettierrc.json --check"
