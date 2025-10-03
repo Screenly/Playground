@@ -1,3 +1,5 @@
+/* global screenly, panic */
+
 (function () {
   const DEFAULT_TOKEN_REFRESH_SEC = 30 * 60; // refresh token every 30 minutes
 
