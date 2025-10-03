@@ -3,6 +3,8 @@
 
 const DEFAULT_LOGO_URL = 'static/images/screenly.svg'
 
+// nico: temporary comment; will delete later
+
 // AppCache
 class AppCache {
   constructor({ keyName }) {
