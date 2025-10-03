@@ -1,0 +1,41 @@
+---
+syntax: manifest_v1
+id: 01K6AEE7J9FKRZQWGE678G9PTV
+description: Simple Table App - Display CSV data as a formatted table
+author: Screenly, Inc.
+ready_signal: true
+entrypoint:
+  type: file
+settings:
+  content:
+    type: string
+    default_value: |
+      Name,Age
+      John,25
+      Jane,30
+    title: CSV Content
+    optional: false
+    help_text: |
+      Enter your CSV data here. The first row will be treated as headers.
+      Use commas to separate columns and new lines to separate rows.
+  title:
+    type: string
+    default_value: ''
+    title: Table Title
+    optional: true
+    help_text: |
+      Optional title to display above the table. Leave empty to hide.
+  theme_color:
+    type: string
+    default_value: ''
+    title: Theme Color
+    optional: true
+    help_text: |
+      Base color for the theme. If empty, uses appropriate branding color for the selected theme.
+  theme:
+    type: string
+    default_value: light
+    title: Theme
+    optional: false
+    help_text: |
+      Select the visual theme for the application ('light' or 'dark').

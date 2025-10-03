@@ -1,0 +1,1 @@
+{"root":["../blueprint/ts/env.d.ts","./src/env.d.ts","./src/main.ts","./src/types/screenly.d.ts","./src/app.vue","./src/components/tabledisplay.vue"],"errors":true,"version":"5.9.2"}
