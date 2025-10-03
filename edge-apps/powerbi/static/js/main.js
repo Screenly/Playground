@@ -56,11 +56,12 @@
   async function initializePowerBI() {
     const models = window['powerbi-client'].models;
     const embedUrl = screenly.settings.embed_url;
+    const resourceType = getEmbedTypeFromUrl(embedUrl);
 
     const report = window.powerbi.embed(document.getElementById('embed-container'), {
       embedUrl: embedUrl,
       accessToken: await getEmbedToken(),
-      type: getEmbedTypeFromUrl(embedUrl),
+      type: resourceType,
       tokenType: models.TokenType.Embed,
       permissions: models.Permissions.All,
       settings: {
@@ -69,14 +70,22 @@
       },
     });
 
-    report.on('rendered', screenly.signalReadyForRendering);
+    if (resourceType === 'report') {
+      report.on('rendered', screenly.signalReadyForRendering);
+    } else if (resourceType === 'dashboard') {
+      report.on('loaded', () => {
+        setTimeout(screenly.signalReadyForRendering, 1000);
+      });
+    }
 
     if (!screenly.settings.embed_token) {
       initTokenRefreshLoop(report);
     }
   }
 
-  panic.configure({ handleErrors: screenly.settings.display_errors == 'true' || false });
+  panic.configure({
+    handleErrors: screenly.settings.display_errors == 'true' || false,
+  });
   if (screenly.settings.display_errors == 'true') {
     window.addEventListener('error', screenly.signalReadyForRendering);
     window.addEventListener('unhandledrejection', screenly.signalReadyForRendering);
