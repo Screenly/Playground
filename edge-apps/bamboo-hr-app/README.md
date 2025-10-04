@@ -71,6 +71,31 @@ screenly edge-app setting set override_timezone='Europe/London'
 screenly edge-app setting set override_locale='en'
 ```
 
+## Deployment
+
+```bash
+bun run deploy
+```
+
+> [!NOTE]
+> The `deploy` command takes care of building the app as well.
+
+## Development
+
+Install the dependencies for the first run:
+
+```bash
+bun install
+```
+
+Run the development environment with a single command:
+
+```bash
+bun run dev
+```
+
+This will build in watch mode and start the development server via [Screenly CLI](https://github.com/Screenly/cli).
+
 ## Support
 
 For issues or questions, please contact Screenly support or open an issue in the repository.
