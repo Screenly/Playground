@@ -1,1 +1,3 @@
-*.min.js
+**/*.min.js
+edge-apps/powerbi-legacy/
+edge-apps/powerbi-legacy/**
