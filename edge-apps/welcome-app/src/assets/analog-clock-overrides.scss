@@ -1,0 +1,65 @@
+/**
+ * Analog Clock Overrides
+ *
+ * This file contains the overrides for the analog clock component.
+ * It is used to scale the clock based on the screen size and orientation.
+ *
+ * @author Screenly
+ * @version 1.0.0
+ */
+
+.clock-card {
+  @media (orientation: portrait) {
+    order: 1;
+  }
+
+  @media screen and (max-width: 1280px) and (orientation: landscape) {
+    height: 47%;
+  }
+}
+
+.clock-div {
+  @media screen and (max-width: 4096px) and (orientation: landscape) {
+    transform: scale(0.45);
+  }
+
+  @media screen and (max-width: 2560px) and (orientation: landscape) {
+    transform: scale(0.65);
+  }
+
+  @media screen and (max-width: 1920px) and (orientation: landscape) {
+    transform: scale(0.5);
+  }
+
+  @media screen and (max-width: 1280px) and (orientation: landscape) {
+    transform: scale(0.45);
+  }
+
+  @media screen and (max-width: 1080px) and (orientation: landscape) {
+    transform: scale(0.4);
+  }
+
+  @media screen and (max-width: 800px) and (orientation: landscape) {
+    transform: scale(0.5);
+  }
+
+  @media screen and (max-width: 3840px) and (orientation: portrait) {
+    transform: scale(0.45);
+  }
+
+  @media screen and (max-width: 2159px) and (orientation: portrait) {
+    transform: scale(0.75);
+  }
+
+  @media screen and (max-width: 1080px) and (orientation: portrait) {
+    transform: scale(0.5);
+  }
+
+  @media screen and (max-width: 720px) and (orientation: portrait) {
+    transform: scale(0.4);
+  }
+
+  @media screen and (max-width: 480px) and (orientation: portrait) {
+    transform: scale(0.5);
+  }
+}
