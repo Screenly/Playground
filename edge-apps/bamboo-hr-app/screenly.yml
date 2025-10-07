@@ -1,6 +1,6 @@
 ---
 syntax: manifest_v1
-description: Replace this description with a description of your Edge App
+description: Display's employee information like leaves, birthdays, and anniversaries from BambooHR
 icon: https://playground.srly.io/edge-apps/bamboo-hr-app/static/images/icon.svg
 author: Screenly, Inc.
 ready_signal: true
