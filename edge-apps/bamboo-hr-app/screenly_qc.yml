@@ -1,6 +1,7 @@
 ---
 syntax: manifest_v1
 description: Replace this description with a description of your Edge App
+icon: https://playground.srly.io/edge-apps/bamboo-hr-app/static/images/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 settings:
