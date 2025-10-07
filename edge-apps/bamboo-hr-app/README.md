@@ -96,6 +96,10 @@ bun run dev
 
 This will build in watch mode and start the development server via [Screenly CLI](https://github.com/Screenly/cli).
 
+## Known Issues
+
+This app does not work on Screenly Anywhere screens at the moment. It currently supports only physical players (Screenly Player and Screenly Player Max).
+
 ## Support
 
 For issues or questions, please contact Screenly support or open an issue in the repository.
