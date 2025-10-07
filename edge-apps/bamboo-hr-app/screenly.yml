@@ -1,0 +1,55 @@
+---
+syntax: manifest_v1
+description: Replace this description with a description of your Edge App
+icon: https://playground.srly.io/edge-apps/bamboo-hr-app/static/images/icon.svg
+author: Screenly, Inc.
+ready_signal: true
+settings:
+  api_key:
+    type: secret
+    title: API Key
+    optional: false
+    help_text: |
+      Enter your BambooHR API key.
+      Follow this guide to get your `API Key` https://documentation.bamboohr.com/docs/getting-started
+  enable_analytics:
+    type: string
+    default_value: 'true'
+    title: enable_analytics
+    optional: true
+    help_text: Whether to enable analytics or not
+    is_global: true
+  override_locale:
+    type: string
+    default_value: en
+    title: Override Locale
+    optional: true
+    help_text: |
+      Override the default locale with a supported language code (e.g., en, fr, de). Defaults to English if not specified.
+  override_timezone:
+    type: string
+    default_value: ''
+    title: Override Timezone
+    optional: true
+    help_text: |
+      Override the default timezone with a supported timezone identifier (e.g., Europe/London, America/New_York). Defaults to the system timezone if left blank.
+  sentry_dsn:
+    type: secret
+    title: Sentry Client Key
+    optional: true
+    help_text: Sentry Client Key from Sentry SDK for error capturing.
+    is_global: true
+  subdomain:
+    type: string
+    title: Subdomain
+    optional: false
+    help_text: |
+      Enter your BambooHR subdomain. For example, if your BambooHR URL is
+      https://example.bamboohr.com, your subdomain is `example`.
+  tag_manager_id:
+    type: string
+    default_value: ''
+    title: tag_manager_id
+    optional: true
+    help_text: Specify a Google Tag Manager ID
+    is_global: true
