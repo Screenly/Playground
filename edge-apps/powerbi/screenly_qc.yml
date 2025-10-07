@@ -16,7 +16,8 @@ settings:
         "schema_version": 1,
         "properties": {
           "type": "boolean",
-          "help_text": "For debugging purposes to display errors on the screen."
+          "help_text": "For debugging purposes to display errors on the screen.",
+          "advanced": true
         }
       }
   embed_token:
