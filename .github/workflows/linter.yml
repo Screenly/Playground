@@ -52,9 +52,11 @@ jobs:
       # Run Linter against code base #
       ################################
       - name: Lint Code Base
-        uses: super-linter/super-linter@ffde3b2b33b745cb612d787f669ef9442b1339a6
+        uses: super-linter/super-linter@7bba2eeb89d01dc9bfd93c497477a57e72c83240
         env:
           VALIDATE_ALL_CODEBASE: false
+          VALIDATE_BIOME_FORMAT: false
+          VALIDATE_BIOME_LINT: false
           VALIDATE_HTML: false
           VALIDATE_TYPESCRIPT_ES: false
           VALIDATE_TYPESCRIPT_PRETTIER: false
@@ -68,3 +70,5 @@ jobs:
           CSS_FILE_NAME: stylelint.config.cjs
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FILTER_REGEX_EXCLUDE: '.*edge-apps/powerbi-legacy/.*'
+          PRETTIER_COMMAND_OPTIONS: '--config .github/linters/.prettierrc.json --check'
