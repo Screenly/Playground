@@ -38,9 +38,9 @@ onBeforeMount(async () => {
 })
 
 onMounted(() => {
-  const coordinates = metadataStore.coordinates.value
-  const latitude = coordinates?.[0] ?? 0
-  const longitude = coordinates?.[1] ?? 0
+  const coordinates = metadataStore.coordinates
+  const latitude = coordinates[0] ?? 0
+  const longitude = coordinates[1] ?? 0
 
   settingsStore.init()
   settingsStore.initLocale()
