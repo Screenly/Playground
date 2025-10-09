@@ -63,7 +63,7 @@ export const useSettingsStore = () => {
       ? navigator.languages[0]
       : navigator.language || 'en'
 
-    currentLocale.value = defaultLocale
+    currentLocale.value = defaultLocale || 'en'
   }
 
   return {
