@@ -1,117 +1,139 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, ref, type Ref } from 'vue'
-import { defineStore, storeToRefs } from 'pinia'
-import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
-import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
-import { PrimaryCard } from 'blueprint/components'
+import { ref, onBeforeMount, onMounted } from "vue";
+import { defineStore } from "pinia";
+import { baseSettingsStoreSetup } from "blueprint/stores/base-settings-store";
+import { InfoCard, DigitalClock } from "blueprint/components";
+import TableDisplay from "./components/TableDisplay.vue";
 
-const useScreenlyMetadataStore = defineStore('metadata', metadataStoreSetup)
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
   baseSettingsStoreSetup,
-)
+);
 
-const screenlyMetadataStore = useScreenlyMetadataStore()
-const baseSettingsStore = useBaseSettingsStore()
+const baseSettingsStore = useBaseSettingsStore();
 
-const { hostname, screenName, hardware, coordinates, location } = storeToRefs(
-  screenlyMetadataStore,
-) as unknown as {
-  hostname: Ref<string>
-  screenName: Ref<string>
-  hardware: Ref<string>
-  coordinates: Ref<[number, number]>
-  location: Ref<string>
-}
+const tableData = ref<string[][]>([]);
+const tableTitle = ref<string>("");
 
-const secretWord = ref(screenly.settings.secret_word)
-const greeting = ref(screenly.settings.greeting)
+const parseCsv = async (text: string): Promise<string[][]> => {
+  const Papa = (await import('papaparse')).default;
 
-onBeforeMount(async () => {
-  baseSettingsStore.setupTheme()
-  await baseSettingsStore.setupBrandingLogo()
-})
+  const result = Papa.parse(text, {
+    header: false,
+    skipEmptyLines: true,
+    dynamicTyping: false
+  });
 
-onMounted(() => {
-  screenly.signalReadyForRendering()
-})
+  if (result.errors.length > 0) {
+    throw new Error(`CSV parsing error: ${result.errors[0].message}`);
+  }
+
+  return result.data as string[][];
+};
+
+
+onBeforeMount(() => {
+  baseSettingsStore.setupTheme();
+});
+
+onMounted(async () => {
+  if (typeof screenly !== "undefined" && screenly.settings?.content) {
+    try {
+      tableData.value = await parseCsv(screenly.settings.content);
+      tableTitle.value = (screenly.settings.title as string) || "";
+      screenly.signalReadyForRendering();
+    } catch (error) {
+      console.error('Failed to parse CSV:', error);
+      screenly.signalReadyForRendering();
+    }
+  }
+});
 </script>
 
 <template>
-  <div class="main-container main-container-grid">
-    <PrimaryCard>
-      <h1 class="main-header">
-        <span id="greeting">
-          <template v-if="greeting"> Greetings, {{ greeting }}! </template>
-          <template v-else> Greetings! </template>
-        </span>
-      </h1>
-
-      <p>
-        You secret word is
-        <template v-if="secretWord">
-          <strong>{{ secretWord }}</strong
-          >.
-        </template>
-        <template v-else> not set. </template>
-      </p>
-
-      <p>
-        I'm <strong id="screen-name">{{ screenName }}</strong
-        >. Assuming you've pinned me in the right location,<br />I'm located in
-        <strong id="screen-location">{{ location }}</strong> (more precisely at
-        latitude <strong id="screen-lat">{{ coordinates[0] }}</strong
-        >&#176; and longitude
-        <strong id="screen-lng">{{ coordinates[1] }}</strong
-        >&#176;).
-      </p>
-
-      <p>
-        My Screenly ID is
-        <span id="screen-hostname">
-          <strong>{{ hostname }}</strong>
-        </span>
-        (which conveniently is also my hostname), and I'm running on a
-        <span id="screen-hardware">
-          <strong>{{ hardware || 'virtual screen' }}</strong> </span
-        >.
-      </p>
-    </PrimaryCard>
+  <div class="main-container">
+    <div class="primary-container">
+      <div v-if="tableTitle && tableTitle.trim()" class="row-container">
+        <InfoCard
+          :value="tableTitle"
+          class="title-card"
+        />
+        <InfoCard class="clock-card">
+          <DigitalClock />
+        </InfoCard>
+      </div>
+      <InfoCard v-if="tableData.length > 0" class="table-card">
+        <TableDisplay :data="tableData" />
+      </InfoCard>
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-@mixin content-text($multiplier: 1) {
-  p {
-    font-size: 1rem * $multiplier;
-    margin-bottom: 0.75rem * $multiplier;
-  }
+.primary-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-@mixin header-text($multiplier: 1) {
-  h1 {
-    font-size: 2.5rem * $multiplier;
-    margin-bottom: 1.75rem * $multiplier;
-  }
+.row-container {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  width: 100%;
+  height: auto;
 }
 
-@media (min-width: 800px) and (min-height: 480px) and (orientation: landscape) {
-  @include header-text(1);
-  @include content-text(1);
+.title-card {
+  flex: 1;
+  height: auto;
+  min-height: auto;
 }
 
-@media (min-width: 1280px) and (min-height: 720px) and (orientation: landscape) {
-  @include header-text(1.5);
-  @include content-text(1.5);
+:deep(.title-card .primary-card) {
+  justify-content: center;
+  align-items: center;
 }
 
-@media (min-width: 1920px) and (min-height: 1080px) and (orientation: landscape) {
-  @include header-text(2.25);
-  @include content-text(2.25);
+:deep(.title-card .icon-card-text) {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 
-@media (min-width: 3840px) and (orientation: landscape) {
-  @include header-text(4.5);
-  @include content-text(4.5);
+.clock-card {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 200px;
+}
+
+:deep(.clock-card .primary-card) {
+  justify-content: center;
+  align-items: center;
+}
+
+.table-card {
+  flex: 1 1 0;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+  justify-content: start;
+}
+
+:deep(.table-container) {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+:deep(.csv-table) {
+  flex: 1;
+  height: 0;
+  overflow: auto;
 }
 </style>

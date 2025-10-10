@@ -1,45 +1,41 @@
 ---
 syntax: manifest_v1
-description: Replace this description with a description of your Edge App
+id: 01K6AEE7J9FKRZQWGE678G9PTV
+description: Simple Table App - Display CSV data as a formatted table
 author: Screenly, Inc.
 ready_signal: true
+entrypoint:
+  type: file
 settings:
-  enable_analytics:
+  content:
     type: string
-    default_value: 'true'
-    title: enable_analytics
-    optional: true
-    help_text: Whether to enable analytics or not
-    is_global: true
-  greeting:
-    type: string
-    default_value: ''
-    title: greeting title
-    optional: true
-    help_text: An example of a string setting that is used in index.html
-  secret_word:
-    type: secret
-    title: secret title
-    optional: true
-    help_text: An example of a secret setting that is used in index.html
-  sentry_dsn:
-    type: secret
-    title: Sentry Client Key
-    optional: true
-    help_text: Sentry Client Key from Sentry SDK for error capturing.
-    is_global: true
-  tag_manager_id:
+    default_value: |
+      Name,Age
+      John,25
+      Jane,30
+    title: CSV Content
+    optional: false
+    help_text: |
+      Enter your CSV data here. The first row will be treated as headers.
+      Use commas to separate columns and new lines to separate rows.
+  title:
     type: string
     default_value: ''
-    title: tag_manager_id
+    title: Table Title
     optional: true
-    help_text: Specify a Google Tag Manager ID
-    is_global: true
+    help_text: |
+      Optional title to display above the table. Leave empty to hide.
+  theme_color:
+    type: string
+    default_value: ''
+    title: Theme Color
+    optional: true
+    help_text: |
+      Base color for the theme. If empty, uses appropriate branding color for the selected theme.
   theme:
     type: string
     default_value: light
     title: Theme
     optional: false
-    help_text: |-
-      Determines the visual theme for the application.
-      Options are 'light' or 'dark'.
+    help_text: |
+      Select the visual theme for the application ('light' or 'dark').
