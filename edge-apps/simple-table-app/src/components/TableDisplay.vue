@@ -1,56 +1,51 @@
 <template>
   <div class="table-container">
-    <table
-      v-if="data.length > 0"
-      class="csv-table"
+    <h3
+      v-if="title"
+      :style="{
+        paddingTop: '1rem',
+        paddingBottom: '1rem',
+        paddingLeft: '1.5rem',
+        textAlign: 'center',
+      }"
     >
+      {{ title }}
+    </h3>
+    <table v-if="data.length > 0" class="csv-table">
       <thead v-if="headers.length > 0">
         <tr>
-          <th
-            v-for="(header, index) in headers"
-            :key="index"
-          >
+          <th v-for="(header, index) in headers" :key="index">
             {{ header }}
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr
-          v-for="(row, rowIndex) in rows"
-          :key="rowIndex"
-        >
-          <td
-            v-for="(cell, cellIndex) in row"
-            :key="cellIndex"
-          >
+        <tr v-for="(row, rowIndex) in rows" :key="rowIndex">
+          <td v-for="(cell, cellIndex) in row" :key="cellIndex">
             {{ cell }}
           </td>
         </tr>
       </tbody>
     </table>
-    <div
-      v-else
-      class="no-data"
-    >
-      No data to display
-    </div>
+    <div v-else class="no-data">No data to display</div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed } from 'vue'
 
 const props = defineProps<{
-  data: string[][];
-}>();
+  data: string[][]
+  title?: string
+}>()
 
 const headers = computed(() => {
-  return props.data.length > 0 ? props.data[0] : [];
-});
+  return props.data.length > 0 ? props.data[0] : []
+})
 
 const rows = computed(() => {
-  return props.data.length > 1 ? props.data.slice(1) : [];
-});
+  return props.data.length > 1 ? props.data.slice(1) : []
+})
 </script>
 
 <style scoped lang="scss">
@@ -120,5 +115,4 @@ const rows = computed(() => {
     font-family: var(--font-family-primary, Aeonik, sans-serif);
   }
 }
-
 </style>

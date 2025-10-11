@@ -1,69 +1,59 @@
 <script setup lang="ts">
-import { ref, onBeforeMount, onMounted } from "vue";
-import { defineStore } from "pinia";
-import { baseSettingsStoreSetup } from "blueprint/stores/base-settings-store";
-import { InfoCard, DigitalClock } from "blueprint/components";
-import TableDisplay from "./components/TableDisplay.vue";
+import { ref, onBeforeMount, onMounted } from 'vue'
+import { defineStore } from 'pinia'
+import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
+import { InfoCard } from 'blueprint/components'
+import TableDisplay from './components/TableDisplay.vue'
 
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
   baseSettingsStoreSetup,
-);
+)
 
-const baseSettingsStore = useBaseSettingsStore();
+const baseSettingsStore = useBaseSettingsStore()
 
-const tableData = ref<string[][]>([]);
-const tableTitle = ref<string>("");
+const tableData = ref<string[][]>([])
+const tableTitle = ref<string>('')
 
 const parseCsv = async (text: string): Promise<string[][]> => {
-  const Papa = (await import('papaparse')).default;
+  const Papa = (await import('papaparse')).default
 
   const result = Papa.parse(text, {
     header: false,
     skipEmptyLines: true,
-    dynamicTyping: false
-  });
+    dynamicTyping: false,
+  })
 
   if (result.errors.length > 0) {
-    throw new Error(`CSV parsing error: ${result.errors[0].message}`);
+    throw new Error(`CSV parsing error: ${result.errors[0].message}`)
   }
 
-  return result.data as string[][];
-};
-
+  return result.data as string[][]
+}
 
 onBeforeMount(() => {
-  baseSettingsStore.setupTheme();
-});
+  baseSettingsStore.setupTheme()
+})
 
 onMounted(async () => {
-  if (typeof screenly !== "undefined" && screenly.settings?.content) {
+  if (typeof screenly !== 'undefined' && screenly.settings?.content) {
     try {
-      tableData.value = await parseCsv(screenly.settings.content);
-      tableTitle.value = (screenly.settings.title as string) || "";
-      screenly.signalReadyForRendering();
+      tableData.value = await parseCsv(screenly.settings.content)
+      tableTitle.value = (screenly.settings.title as string) || ''
+      screenly.signalReadyForRendering()
     } catch (error) {
-      console.error('Failed to parse CSV:', error);
-      screenly.signalReadyForRendering();
+      console.error('Failed to parse CSV:', error)
+      screenly.signalReadyForRendering()
     }
   }
-});
+})
 </script>
 
 <template>
   <div class="main-container">
     <div class="primary-container">
-      <div v-if="tableTitle && tableTitle.trim()" class="row-container">
-        <InfoCard
-          :value="tableTitle"
-          class="title-card"
-        />
-        <InfoCard class="clock-card">
-          <DigitalClock />
-        </InfoCard>
-      </div>
       <InfoCard v-if="tableData.length > 0" class="table-card">
-        <TableDisplay :data="tableData" />
+        <TableDisplay :data="tableData" :title="tableTitle" />
       </InfoCard>
     </div>
   </div>
