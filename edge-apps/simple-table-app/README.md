@@ -1,78 +1,95 @@
-# Screenly Edge App Template
+# Simple Table App
 
-## Prerequisites
+A minimalist edge app for Screenly that displays CSV data as a beautifully formatted table with sophisticated single-color theming.
 
-- [Bun (1.2.2+)](https://bun.sh/docs/installation)
-- [Screenly Edge App CLI (v1.0.3+)](https://github.com/Screenly/cli?tab=readme-ov-file#installation)
+## Features
 
-## Getting Started
+- **CSV Data Display**: Renders CSV content with automatic header detection
+- **Single-Color Theming**: Generates entire color scheme from one base color using HSV manipulation
+- **Light/Dark Theme Support**: Automatically adjusts colors for optimal readability
+- **Responsive Design**: Clean, minimal table layout that works on all screen sizes
+- **Visual Hierarchy**: Subtle saturation and lightness variations create clear content hierarchy
 
-```bash
-bun install
-screenly edge-app create \
-    --name=EDGE_APP_NAME \
-    --in-place
-```
+## Settings
 
-## Create an Edge App Instance via CLI
+### Required Settings
 
-```bash
-screenly edge-app instance create --name=EDGE_APP_INSTANCE_NAME
-```
+- **CSV Content** (`content`): Your CSV data with comma-separated values. First row is treated as headers.
 
-## Deployment
+### Optional Settings
 
-```bash
-bun run deploy
-```
+- **Table Title** (`title`): Optional title displayed above the table
+- **Theme Color** (`theme_color`): Base color for the entire theme. If empty, uses Screenly's default colors
+- **Theme** (`theme`): Choose 'light' or 'dark' theme (default: light)
 
-> [!NOTE]
-> The `deploy` command takes care of building the app as well.
+## Color System
+
+The app uses a sophisticated HSV-based color system that generates all colors from a single base color:
+
+### Backgrounds (Light → Dark hierarchy)
+
+- **Title Background**: Most saturated (up to 20%), darkest
+- **Header Background**: Medium saturated (up to 15%), medium darkness
+- **Default Background**: Least saturated (up to 10%), lightest
+
+### Text Colors
+
+All text uses consistent lightness with varying saturation levels:
+
+- **Title Text**: Maximum 20% saturation
+- **Header Text**: Maximum 15% saturation
+- **Body Text**: Maximum 10% saturation
+
+## Technical Details
+
+- **Framework**: Vue.js 3 with Composition API and TypeScript
+- **Build System**: Vite with SCSS support
+- **CSV Parsing**: Custom parser with quote handling
+- **Styling**: Modern CSS with flexbox and custom properties
 
 ## Development
 
-Install the dependencies for the first run:
-
 ```bash
+# Install dependencies
 bun install
-```
 
-Run the development environment with a single command:
-
-```bash
+# Start development server
 bun run dev
+
+# Build for production
+bun run build
+
+# Build only (without dev server)
+bun run build-only
 ```
 
-This will build in watch mode and start the development server via [Screenly CLI](https://github.com/Screenly/cli).
+## File Structure
 
-## Unit Tests
+```
+src/
+├── App.vue                 # Main app with theming logic
+├── components/
+│   └── TableDisplay.vue   # Table component
+└── assets/
+    └── favicon.ico        # App icon
 
-To run unit tests:
-
-```bash
-bun run test:unit
+dist/                      # Built files
+├── index.html
+├── mock-data.yml         # Test data
+└── assets/               # Compiled CSS/JS
 ```
 
-Press `q` to quit the test runner.
+## CSV Format
 
-## E2E Tests
+The app accepts standard CSV format:
 
-Install dependencies for the first run:
-
-```bash
-bun run playwright install-deps
-bun run playwright install
+```csv
+Name, Surname, Age
+John, Smith, 25
+Jane, Brown, 30
 ```
 
-To run E2E tests:
-
-```bash
-bun run test:e2e
-```
-
-### Linting and Formatting
-
-```bash
-bun run lint
-bun run format
-```
+- First row is automatically treated as headers
+- Comma-separated values
+- Quote handling for values containing commas
+- Last column is automatically right-aligned (ideal for numeric data)
