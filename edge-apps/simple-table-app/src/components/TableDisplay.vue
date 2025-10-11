@@ -12,7 +12,7 @@
       {{ title }}
     </h3>
     <table v-if="data.length > 0" class="csv-table">
-      <thead v-if="headers.length > 0">
+      <thead v-if="headers && headers.length > 0">
         <tr>
           <th v-for="(header, index) in headers" :key="index">
             {{ header }}

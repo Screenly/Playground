@@ -25,7 +25,7 @@ const parseCsv = async (text: string): Promise<string[][]> => {
   })
 
   if (result.errors.length > 0) {
-    throw new Error(`CSV parsing error: ${result.errors[0].message}`)
+    throw new Error(`CSV parsing error: ${result.errors[0]?.message}`)
   }
 
   return result.data as string[][]
@@ -38,7 +38,7 @@ onBeforeMount(() => {
 onMounted(async () => {
   if (typeof screenly !== 'undefined' && screenly.settings?.content) {
     try {
-      tableData.value = await parseCsv(screenly.settings.content)
+      tableData.value = await parseCsv(screenly.settings.content as string)
       tableTitle.value = (screenly.settings.title as string) || ''
       screenly.signalReadyForRendering()
     } catch (error) {
