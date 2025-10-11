@@ -1,14 +1,6 @@
 <template>
   <div class="table-container">
-    <h3
-      v-if="title"
-      :style="{
-        paddingTop: '1rem',
-        paddingBottom: '1rem',
-        paddingLeft: '1.5rem',
-        textAlign: 'center',
-      }"
-    >
+    <h3 v-if="title" class="table-title">
       {{ title }}
     </h3>
     <table v-if="data.length > 0" class="csv-table">
@@ -49,6 +41,8 @@ const rows = computed(() => {
 </script>
 
 <style scoped lang="scss">
+@use '@/assets/table-display.scss';
+
 .table-container {
   width: 100%;
   overflow-x: auto;
