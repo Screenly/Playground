@@ -1,6 +1,8 @@
 .table-container {
   width: 100%;
-  overflow-x: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 
   .table-title {
     padding-top: 1rem;
@@ -10,9 +12,12 @@
   }
 
   .csv-table {
+    flex: 1;
+    height: 0;
     width: 100%;
     border-collapse: collapse;
     font-family: var(--font-family-primary, Aeonik, sans-serif);
+    overflow: auto;
 
     thead {
       th {

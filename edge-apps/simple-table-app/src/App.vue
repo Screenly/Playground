@@ -75,17 +75,4 @@ onMounted(async () => {
   overflow: hidden;
   justify-content: start;
 }
-
-:deep(.table-container) {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-:deep(.csv-table) {
-  flex: 1;
-  height: 0;
-  overflow: auto;
-}
 </style>
