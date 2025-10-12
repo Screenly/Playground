@@ -68,44 +68,6 @@ onMounted(async () => {
   gap: 2rem;
 }
 
-.row-container {
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
-  width: 100%;
-  height: auto;
-}
-
-.title-card {
-  flex: 1;
-  height: auto;
-  min-height: auto;
-}
-
-:deep(.title-card .primary-card) {
-  justify-content: center;
-  align-items: center;
-}
-
-:deep(.title-card .icon-card-text) {
-  font-size: 2rem;
-  font-weight: bold;
-  text-align: center;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}
-
-.clock-card {
-  flex: 0 0 auto;
-  width: auto;
-  min-width: 200px;
-}
-
-:deep(.clock-card .primary-card) {
-  justify-content: center;
-  align-items: center;
-}
-
 .table-card {
   flex: 1 1 0;
   width: 100%;
