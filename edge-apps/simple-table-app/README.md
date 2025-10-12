@@ -65,7 +65,7 @@ bun run build-only
 
 ## File Structure
 
-```
+```plaintext
 src/
 ├── App.vue                 # Main app with theming logic
 ├── components/
