@@ -5,9 +5,6 @@
   overflow: hidden;
 
   .table-title {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-left: 1.5rem;
     text-align: center;
   }
 
@@ -23,7 +20,6 @@
       th {
         background: var(--theme-color-secondary, #adafbe);
         color: var(--theme-color-tertiary, #ffffff);
-        padding: 1rem 0.75rem;
         text-align: left;
         font-weight: bold;
         border: none;
@@ -31,13 +27,8 @@
         top: 0;
         z-index: 1;
 
-        &:first-child {
-          padding-left: 1.5rem;
-        }
-
         &:last-child {
           text-align: right;
-          padding-right: 1.5rem;
         }
       }
     }
@@ -49,19 +40,12 @@
         }
 
         td {
-          padding: 0.75rem;
           color: var(--theme-color-tertiary, #ffffff);
           background: transparent;
           border: none;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-
-          &:first-child {
-            padding-left: 1.5rem;
-          }
 
           &:last-child {
             text-align: right;
-            padding-right: 1.5rem;
           }
         }
       }
@@ -71,8 +55,52 @@
   .no-data {
     text-align: center;
     color: var(--theme-color-tertiary, #ffffff);
+    font-family: var(--font-family-primary, Aeonik, sans-serif);
+  }
+}
+
+.table-container {
+  .table-title {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+
+  .csv-table {
+    thead {
+      th {
+        padding: 1rem 0.75rem;
+
+        &:first-child {
+          padding-left: 1.5rem;
+        }
+
+        &:last-child {
+          padding-right: 1.5rem;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          padding: 0.75rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+          &:first-child {
+            padding-left: 1.5rem;
+          }
+
+          &:last-child {
+            padding-right: 1.5rem;
+          }
+        }
+      }
+    }
+  }
+
+  .no-data {
     font-size: 1.2rem;
     padding: 2rem;
-    font-family: var(--font-family-primary, Aeonik, sans-serif);
   }
 }
