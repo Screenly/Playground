@@ -59,24 +59,26 @@ bun run dev
 # Build for production
 bun run build
 
-# Build only (without dev server)
+# Build only (without type checking)
 bun run build-only
 ```
 
-## File Structure
+## Project Structure
 
 ```plaintext
 src/
-├── App.vue                 # Main app with theming logic
+├── App.vue                      # Main app with theming logic
+├── main.ts                      # Application entry point
 ├── components/
-│   └── TableDisplay.vue   # Table component
+│   └── TableDisplay.vue         # Table component
 └── assets/
-    └── favicon.ico        # App icon
+    ├── main.scss                # Global styles
+    ├── table-display.scss       # Responsive table styles with mixins
+    └── font/                    # Aeonik font files
 
-dist/                      # Built files
-├── index.html
-├── mock-data.yml         # Test data
-└── assets/               # Compiled CSS/JS
+public/                          # Static assets
+screenly.yml                     # Edge App configuration
+mock-data.yml                    # Test data
 ```
 
 ## CSV Format
