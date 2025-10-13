@@ -1,6 +1,5 @@
 ---
 syntax: manifest_v1
-id: 01K6AEE7J9FKRZQWGE678G9PTV
 description: Simple Table App - Display CSV data as a formatted table
 author: Screenly, Inc.
 ready_signal: true
