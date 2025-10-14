@@ -67,18 +67,20 @@ bun run build-only
 
 ```plaintext
 src/
-├── App.vue                      # Main app with theming logic
+├── App.vue                      # Main app component
 ├── main.ts                      # Application entry point
 ├── components/
-│   └── TableDisplay.vue         # Table component
+│   ├── TableDisplay.vue         # Table component with header
+│   └── TimeDisplay.vue          # Time display component
+├── stores/
+│   └── settings.ts              # Settings store (timezone/locale)
 └── assets/
     ├── main.scss                # Global styles
-    ├── table-display.scss       # Responsive table styles with mixins
+    ├── table-display.scss       # Responsive table styles
+    ├── time-display.scss        # Time display styles
     └── font/                    # Aeonik font files
 
-public/                          # Static assets
 screenly.yml                     # Edge App configuration
-mock-data.yml                    # Test data
 ```
 
 ## CSV Format
