@@ -10,12 +10,15 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 
 - [3D Text](https://github.com/Screenly/Playground/tree/master/edge-apps/3d-text) - A 3D text display app that renders text with depth and shadow effects.
 - [Asset Metadata](https://github.com/Screenly/Playground/tree/master/edge-apps/asset-metadata) - An example implementation of Screenly's metadata.
+- [BambooHR App](https://github.com/Screenly/Playground/tree/master/edge-apps/bamboo-hr-app) -  Displays employee birthdays, work anniversaries and other HR events from BambooHR.
+- [Calendar App](https://github.com/Screenly/Playground/tree/master/edge-apps/calendar) - A simple calendar app that shows events from iCal data.
 - [Clock App](https://github.com/Screenly/Playground/tree/master/edge-apps/clock) - A simple clock app.
 - [Countdown Timer](https://github.com/Screenly/Playground/tree/master/edge-apps/countdown-timer) - A simple countdown timer app.
-- [Charlie HR App](https://github.com/Screenly/Playground/tree/master/edge-apps/charlie-hr-app) - Displays employee birthdays, work anniversaries and other HR events from Charlie HR.
+- [CharlieHR App](https://github.com/Screenly/Playground/tree/master/edge-apps/charlie-hr-app) - Displays employee birthdays, work anniversaries and other HR events from CharlieHR.
+- [Fake Dashboard](https://github.com/Screenly/Playground/tree/master/edge-apps/fake-dashboard) - A simple fake dashboard screen to display simulated website analytics, including live visitor count, traffic sources, and device usage.
 - [Flying Toasters App](https://github.com/Screenly/Playground/tree/master/edge-apps/flying-toasters) - A simple toaster app that flies around the screen.
 - [iFrame App](https://github.com/Screenly/Playground/tree/master/edge-apps/iframe) - A simple iFrame app.
-- [Power BI](https://github.com/Screenly/Playground/tree/master/edge-apps/powerbi-legacy) - A Power BI Edge App for securely accessing dashboards and reports.
+- [Power BI](https://github.com/Screenly/Playground/tree/master/edge-apps/powerbi) - A Power BI Edge App for securely accessing dashboards and reports.
 - [QR Code Generator](https://github.com/Screenly/Playground/tree/master/edge-apps/qr-code) - An example of how to build unique QR Codes that embeds the screen metadata as UTM parameters.
 - [RSS Reader](https://github.com/Screenly/Playground/tree/master/edge-apps/rss-reader) - A simple RSS reader.
 - [Sonar Dashboard](https://github.com/Screenly/Playground/tree/master/edge-apps/sonar-dashboard) - A dashboard that displays the status of the [Sonar - BLE Device Counter](https://github.com/Viktopia/sonar).
