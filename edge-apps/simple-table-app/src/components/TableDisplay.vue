@@ -21,9 +21,9 @@ const rows = computed(() => {
 <template>
   <div class="table-container">
     <div class="table-header">
-      <h3 v-if="title" class="table-title">
+      <p v-if="title" class="table-title">
         {{ title }}
-      </h3>
+      </p>
       <div class="time-display-wrapper">
         <TimeDisplay :timezone="timezone" :locale="locale" />
       </div>

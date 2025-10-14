@@ -82,5 +82,6 @@ onMounted(async () => {
   min-height: 0;
   overflow: hidden;
   justify-content: start;
+  background-color: var(--theme-color-tertiary);
 }
 </style>
