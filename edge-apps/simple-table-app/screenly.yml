@@ -38,3 +38,17 @@ settings:
     optional: true
     help_text: |
       Optional title to display above the table. Leave empty to hide.
+  override_timezone:
+    type: string
+    default_value: ''
+    title: Override Timezone
+    optional: true
+    help_text: |
+      Override the timezone for time display. Leave empty to use the player's location-based timezone.
+  override_locale:
+    type: string
+    default_value: ''
+    title: Override Locale
+    optional: true
+    help_text: |
+      Override the locale for time formatting. Leave empty to use the browser's default locale.

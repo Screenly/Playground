@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 import { InfoCard } from 'blueprint/components'
 import TableDisplay from './components/TableDisplay.vue'
+import { useSettingsStore } from '@/stores/settings'
 import Papa from 'papaparse'
 
 const useBaseSettingsStore = defineStore(
@@ -12,6 +13,7 @@ const useBaseSettingsStore = defineStore(
 )
 
 const baseSettingsStore = useBaseSettingsStore()
+const settingsStore = useSettingsStore()
 
 const tableData = ref<string[][]>([])
 const tableTitle = ref<string>('')
@@ -35,6 +37,8 @@ onBeforeMount(() => {
 })
 
 onMounted(async () => {
+  settingsStore.init()
+
   if (typeof screenly !== 'undefined' && screenly.settings?.content) {
     try {
       tableData.value = parseCsv(screenly.settings.content as string)
@@ -52,7 +56,12 @@ onMounted(async () => {
   <div class="main-container">
     <div class="primary-container">
       <InfoCard v-if="tableData.length > 0" class="table-card">
-        <TableDisplay :data="tableData" :title="tableTitle" />
+        <TableDisplay
+          :data="tableData"
+          :title="tableTitle"
+          :timezone="settingsStore.currentTimezone"
+          :locale="settingsStore.currentLocale"
+        />
       </InfoCard>
     </div>
   </div>

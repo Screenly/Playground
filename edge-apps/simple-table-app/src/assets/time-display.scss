@@ -1,0 +1,62 @@
+.time-display-container {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+
+  .time-display-time {
+    color: var(--theme-color-tertiary);
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+
+  .time-display-period {
+    color: var(--theme-color-tertiary);
+  }
+}
+
+@mixin time-display($orientation: 'landscape', $multiplier: 1) {
+  .time-display-container {
+    gap: 0.25rem * $multiplier;
+
+    .time-display-time {
+      font-size: 1rem * $multiplier;
+      letter-spacing: 0.05rem * $multiplier;
+    }
+
+    .time-display-period {
+      font-size: 0.75rem * $multiplier;
+    }
+  }
+}
+
+@media screen and (min-width: 800px) and (orientation: landscape) {
+  @include time-display('landscape', 0.75);
+}
+
+@media screen and (min-width: 1280px) and (orientation: landscape) {
+  @include time-display('landscape', 1.3);
+}
+
+@media screen and (min-width: 1920px) and (orientation: landscape) {
+  @include time-display('landscape', 2);
+}
+
+@media screen and (min-width: 3840px) and (orientation: landscape) {
+  @include time-display('landscape', 4.5);
+}
+
+@media screen and (min-width: 480px) and (orientation: portrait) {
+  @include time-display('portrait', 1);
+}
+
+@media screen and (min-width: 720px) and (orientation: portrait) {
+  @include time-display('portrait', 1.6);
+}
+
+@media screen and (min-width: 1080px) and (orientation: portrait) {
+  @include time-display('portrait', 2.4);
+}
+
+@media screen and (min-width: 2160px) and (orientation: portrait) {
+  @include time-display('portrait', 4.8);
+}

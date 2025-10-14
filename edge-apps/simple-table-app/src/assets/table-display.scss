@@ -4,8 +4,21 @@
   flex-direction: column;
   overflow: hidden;
 
+  .table-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
   .table-title {
-    text-align: center;
+    text-align: left;
+    margin: 0;
+  }
+
+  .time-display-wrapper {
+    margin-left: auto;
   }
 
   .csv-table {
@@ -61,12 +74,16 @@
 
 @mixin table-display($orientation: 'landscape', $multiplier: 1) {
   .table-container {
-    font-size: 0.5rem * $multiplier;
+    font-size: 0.75rem * $multiplier;
+
+    .table-header {
+      padding: 0.8rem * $multiplier 0.8rem * $multiplier 0.7rem * $multiplier
+        0.8rem * $multiplier;
+    }
 
     .table-title {
-      padding-top: 0.5rem * $multiplier;
-      padding-bottom: 0.5rem * $multiplier;
-      padding-left: 0.75rem * $multiplier;
+      margin: 0;
+      font-size: 1rem * $multiplier;
     }
 
     .csv-table {

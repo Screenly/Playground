@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import TimeDisplay from './TimeDisplay.vue'
 
 const props = defineProps<{
   data: string[][]
   title?: string
+  timezone?: string
+  locale?: string
 }>()
 
 const headers = computed(() => {
@@ -17,9 +20,14 @@ const rows = computed(() => {
 
 <template>
   <div class="table-container">
-    <h3 v-if="title" class="table-title">
-      {{ title }}
-    </h3>
+    <div class="table-header">
+      <h3 v-if="title" class="table-title">
+        {{ title }}
+      </h3>
+      <div class="time-display-wrapper">
+        <TimeDisplay :timezone="timezone" :locale="locale" />
+      </div>
+    </div>
     <table v-if="data.length > 0" class="csv-table">
       <thead v-if="headers && headers.length > 0">
         <tr>
