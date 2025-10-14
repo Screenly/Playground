@@ -12,6 +12,16 @@
     align-items: center;
   }
 
+  .table-header-left {
+    display: flex;
+    align-items: center;
+  }
+
+  .brand-logo {
+    height: auto;
+    width: auto;
+  }
+
   .table-title {
     text-align: left;
     margin: 0;
@@ -91,6 +101,14 @@
       padding: 1rem * $multiplier 1.25rem * $multiplier 1rem * $multiplier
         1.25rem * $multiplier;
       gap: 1rem * $multiplier;
+    }
+
+    .table-header-left {
+      gap: 1rem * $multiplier;
+    }
+
+    .brand-logo {
+      height: 2rem * $multiplier;
     }
 
     .table-title {

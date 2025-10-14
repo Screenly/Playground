@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, onBeforeMount, onMounted } from 'vue'
+import { ref, computed, onBeforeMount, onMounted } from 'vue'
 import { defineStore } from 'pinia'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 import { InfoCard } from 'blueprint/components'
+import screenlyLogo from 'blueprint/assets/images/screenly.svg'
 import TableDisplay from './components/TableDisplay.vue'
 import { useSettingsStore } from '@/stores/settings'
 import Papa from 'papaparse'
@@ -18,6 +19,10 @@ const settingsStore = useSettingsStore()
 const tableData = ref<string[][]>([])
 const tableTitle = ref<string>('')
 
+const brandLogoUrl = computed(() => {
+  return baseSettingsStore.brandLogoUrl || screenlyLogo
+})
+
 const parseCsv = (text: string): string[][] => {
   const result = Papa.parse(text, {
     header: false,
@@ -32,8 +37,9 @@ const parseCsv = (text: string): string[][] => {
   return result.data as string[][]
 }
 
-onBeforeMount(() => {
+onBeforeMount(async () => {
   baseSettingsStore.setupTheme()
+  await baseSettingsStore.setupBrandingLogo()
 })
 
 onMounted(async () => {
@@ -61,6 +67,7 @@ onMounted(async () => {
           :title="tableTitle"
           :timezone="settingsStore.currentTimezone"
           :locale="settingsStore.currentLocale"
+          :brand-logo-url="brandLogoUrl"
         />
       </InfoCard>
     </div>

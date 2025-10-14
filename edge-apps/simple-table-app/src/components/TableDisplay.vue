@@ -7,6 +7,7 @@ const props = defineProps<{
   title?: string
   timezone?: string
   locale?: string
+  brandLogoUrl?: string
 }>()
 
 const headers = computed(() => {
@@ -21,9 +22,17 @@ const rows = computed(() => {
 <template>
   <div class="table-container">
     <div class="table-header">
-      <p v-if="title" class="table-title">
-        {{ title }}
-      </p>
+      <div class="table-header-left">
+        <img
+          v-if="brandLogoUrl"
+          :src="brandLogoUrl"
+          alt="Brand Logo"
+          class="brand-logo"
+        />
+        <p v-if="title" class="table-title">
+          {{ title }}
+        </p>
+      </div>
       <div class="time-display-wrapper">
         <TimeDisplay :timezone="timezone" :locale="locale" />
       </div>
