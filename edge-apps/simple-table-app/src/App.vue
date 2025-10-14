@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 import { InfoCard } from 'blueprint/components'
 import TableDisplay from './components/TableDisplay.vue'
+import Papa from 'papaparse'
 
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
@@ -15,9 +16,7 @@ const baseSettingsStore = useBaseSettingsStore()
 const tableData = ref<string[][]>([])
 const tableTitle = ref<string>('')
 
-const parseCsv = async (text: string): Promise<string[][]> => {
-  const Papa = (await import('papaparse')).default
-
+const parseCsv = (text: string): string[][] => {
   const result = Papa.parse(text, {
     header: false,
     skipEmptyLines: true,
@@ -38,7 +37,7 @@ onBeforeMount(() => {
 onMounted(async () => {
   if (typeof screenly !== 'undefined' && screenly.settings?.content) {
     try {
-      tableData.value = await parseCsv(screenly.settings.content as string)
+      tableData.value = parseCsv(screenly.settings.content as string)
       tableTitle.value = (screenly.settings.title as string) || ''
       screenly.signalReadyForRendering()
     } catch (error) {
