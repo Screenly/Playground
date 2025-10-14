@@ -2,7 +2,7 @@
 syntax: manifest_v1
 id: 01JZHPBTR1RMMHATDHAJ0V4H7N
 description: Screenly Welcome App.
-icon: https://playground.srly.io/edge-apps/welcome-app/static/img/icon.svg
+icon: https://playground.srly.io/edge-apps/welcome-app/static/images/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 settings:
