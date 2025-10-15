@@ -5,9 +5,9 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: "Environment to update (stage or production)"
+        description: 'Environment to update (stage or production)'
         required: true
-        default: "stage"
+        default: 'stage'
         type: choice
         options:
           - stage
@@ -19,27 +19,27 @@ on:
         type: string
 
       override_app_name:
-        description: "Override app name (optional, leave empty to use deployed-apps.yml)"
+        description: 'Override app name (optional, leave empty to use deployed-apps.yml)'
         required: false
         type: string
 
       override_description:
-        description: "Override app description (optional, leave empty to use deployed-apps.yml)"
+        description: 'Override app description (optional, leave empty to use deployed-apps.yml)'
         required: false
         type: string
 
       override_rss_title:
-        description: "Override RSS title (optional, leave empty to use deployed-apps.yml)"
+        description: 'Override RSS title (optional, leave empty to use deployed-apps.yml)'
         required: false
         type: string
 
       override_icon_url:
-        description: "Override icon URL (optional, leave empty to use deployed-apps.yml)"
+        description: 'Override icon URL (optional, leave empty to use deployed-apps.yml)'
         required: false
         type: string
 
       override_rss_url:
-        description: "Override RSS URL (optional, leave empty to use deployed-apps.yml)"
+        description: 'Override RSS URL (optional, leave empty to use deployed-apps.yml)'
         required: false
         type: string
 

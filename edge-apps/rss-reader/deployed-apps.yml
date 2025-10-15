@@ -12,9 +12,9 @@
 
 apps:
   bbc-news:
-    id: "01K7M3JVGZ3D3KWMZEZ298SDC9"
-    app_name: "BBC News"
-    description: "Latest news from BBC World Service"
-    rss_title: "BBC News"
-    icon_url: "https://playground.srly.io/edge-apps/rss-reader/static/img/icon.svg"
-    rss_url: "http://feeds.bbci.co.uk/news/rss.xml"
+    id: '01K7M3JVGZ3D3KWMZEZ298SDC9'
+    app_name: 'BBC News'
+    description: 'Latest news from BBC World Service'
+    rss_title: 'BBC News'
+    icon_url: 'https://playground.srly.io/edge-apps/rss-reader/static/img/icon.svg'
+    rss_url: 'http://feeds.bbci.co.uk/news/rss.xml'

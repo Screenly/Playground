@@ -5,43 +5,43 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: "Environment to initialize in (stage or production)"
+        description: 'Environment to initialize in (stage or production)'
         required: true
-        default: "stage"
+        default: 'stage'
         type: choice
         options:
           - stage
           - production
 
       app_name:
-        description: "App Name (used for instance title)"
+        description: 'App Name (used for instance title)'
         required: true
         type: string
-        default: "BBC News"
+        default: 'BBC News'
 
       app_description:
-        description: "App Description (used in manifest description)"
+        description: 'App Description (used in manifest description)'
         required: true
         type: string
-        default: "Latest news from BBC World Service"
+        default: 'Latest news from BBC World Service'
 
       rss_title:
-        description: "RSS Title (title to display in the app)"
+        description: 'RSS Title (title to display in the app)'
         required: true
         type: string
-        default: "BBC News"
+        default: 'BBC News'
 
       icon_url:
-        description: "Icon URL (publicly accessible icon image)"
+        description: 'Icon URL (publicly accessible icon image)'
         required: true
         type: string
-        default: "https://playground.srly.io/edge-apps/rss-reader/static/img/icon.svg"
+        default: 'https://playground.srly.io/edge-apps/rss-reader/static/img/icon.svg'
 
       rss_url:
-        description: "RSS Feed URL"
+        description: 'RSS Feed URL'
         required: true
         type: string
-        default: "http://feeds.bbci.co.uk/news/rss.xml"
+        default: 'http://feeds.bbci.co.uk/news/rss.xml'
 
 run-name: Initialize RSS Reader - ${{ inputs.app_name }} in ${{ inputs.environment }}
 

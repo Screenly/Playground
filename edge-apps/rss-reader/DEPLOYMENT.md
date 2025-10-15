@@ -46,12 +46,12 @@ Updates one or all RSS reader apps.
 ```yaml
 apps:
   app-key:
-    id: "APP_ID"
-    app_name: "Instance Title"
-    description: "Manifest Description"
-    rss_title: "UI Title"
-    icon_url: "https://..."
-    rss_url: "https://..."
+    id: 'APP_ID'
+    app_name: 'Instance Title'
+    description: 'Manifest Description'
+    rss_title: 'UI Title'
+    icon_url: 'https://...'
+    rss_url: 'https://...'
 ```
 
 ## Examples
