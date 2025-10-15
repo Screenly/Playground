@@ -9,6 +9,7 @@ Deploy multiple custom RSS reader apps from a single template using GitHub Actio
 Creates a new RSS reader app.
 
 **Inputs:**
+
 - Environment (stage/production)
 - App Name (instance title)
 - App Description (manifest description)
@@ -17,6 +18,7 @@ Creates a new RSS reader app.
 - RSS Feed URL
 
 **Steps:**
+
 1. Run workflow with inputs
 2. Note the generated App ID from logs
 3. Add app to `deployed-apps.yml`
@@ -26,11 +28,13 @@ Creates a new RSS reader app.
 Updates one or all RSS reader apps.
 
 **Inputs:**
+
 - Environment (required)
 - App key (empty = all apps, specific key = one app)
 - Override fields (optional)
 
 **Behavior:**
+
 - Reads settings from `deployed-apps.yml`
 - Applies overrides if provided
 - Updates specified app(s)
@@ -53,24 +57,28 @@ apps:
 ## Examples
 
 **Create new app:**
+
 1. Run "Initialize" workflow
 2. Copy App ID from logs
 3. Add to `deployed-apps.yml`
 
 **Update one app:**
-```
+
+```yml
 App key: bbc-news
 (overrides: optional)
 ```
 
 **Update all apps:**
-```
+
+```yml
 App key: (empty)
 (overrides: optional)
 ```
 
 **Change RSS URL:**
-```
+
+```yml
 App key: bbc-news
 Override RSS URL: https://new-url.com
 ```
