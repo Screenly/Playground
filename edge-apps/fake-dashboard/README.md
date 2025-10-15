@@ -1,4 +1,5 @@
 # Fake Dashboard App
+
 ![Sonar Dashboard](static/img/fake-dashboard-preview.webp)
 
 A Simple digital signage dashboard that displays simulated website analytics, including live visitor count, traffic sources, and device usage.
@@ -27,6 +28,4 @@ $ screenly edge-app instance create
 # Alternatively, you can use --latest in place of --revision.
 ```
 
-For More Details, Please check [Fake Dashboard Edge App Page](https://www.screenly.io/edge-apps/fake-dashboard/). 
-
-
+For More Details, Please check [Fake Dashboard Edge App Page](https://www.screenly.io/edge-apps/fake-dashboard/).
