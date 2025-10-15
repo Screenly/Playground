@@ -1,0 +1,233 @@
+---
+name: Update RSS Reader Apps
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to update (stage or production)"
+        required: true
+        default: "stage"
+        type: choice
+        options:
+          - stage
+          - production
+
+      app_key:
+        description: "App key (leave empty to update ALL apps, or enter one key like 'bbc-news')"
+        required: false
+        type: string
+
+      override_description:
+        description: "Override description (optional, leave empty to use deployed-apps.yml)"
+        required: false
+        type: string
+
+      override_icon_url:
+        description: "Override icon URL (optional, leave empty to use deployed-apps.yml)"
+        required: false
+        type: string
+
+      override_rss_url:
+        description: "Override RSS URL (optional, leave empty to use deployed-apps.yml)"
+        required: false
+        type: string
+
+      override_rss_title:
+        description: "Override RSS title (optional, leave empty to use deployed-apps.yml)"
+        required: false
+        type: string
+
+run-name: Update RSS Reader${{ inputs.app_key && format(' - {0}', inputs.app_key) || 's (ALL)' }} in ${{ inputs.environment }}
+
+jobs:
+  prepare:
+    name: Prepare App Matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      app_count: ${{ steps.set-matrix.outputs.app_count }}
+    
+    steps:
+      - name: ⬇️ Checkout Repository
+        uses: actions/checkout@v5
+        with:
+          ref: master
+
+      - name: 🛠 Install yq
+        uses: mikefarah/yq@master
+
+      - name: 📋 Generate App Matrix
+        id: set-matrix
+        run: |
+          CONFIG_FILE="edge-apps/rss-reader/deployed-apps.yml"
+          APP_KEY_INPUT="${{ inputs.app_key }}"
+          
+          echo "📋 Reading deployed apps from $CONFIG_FILE"
+          
+          if [ -n "$APP_KEY_INPUT" ]; then
+            # Single app update
+            echo "🎯 Single app mode: $APP_KEY_INPUT"
+            
+            # Check if app exists
+            if ! yq ".apps.$APP_KEY_INPUT" "$CONFIG_FILE" | grep -q "id:"; then
+              echo "❌ Error: App key '$APP_KEY_INPUT' not found in $CONFIG_FILE"
+              echo "Available apps:"
+              yq '.apps | keys' "$CONFIG_FILE"
+              exit 1
+            fi
+            
+            # Create single-item matrix
+            MATRIX=$(yq -o=json '.apps | to_entries | map(select(.key == "'"$APP_KEY_INPUT"'") | {"key": .key, "id": .value.id})' "$CONFIG_FILE")
+            APP_COUNT=1
+          else
+            # All apps update
+            echo "🚀 All apps mode"
+            
+            # Extract all app keys and IDs into a JSON array
+            MATRIX=$(yq -o=json '.apps | to_entries | map({"key": .key, "id": .value.id})' "$CONFIG_FILE")
+            APP_COUNT=$(echo "$MATRIX" | yq 'length')
+          fi
+          
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+          echo "app_count=$APP_COUNT" >> $GITHUB_OUTPUT
+          
+          echo ""
+          echo "✅ Found $APP_COUNT app(s) to update:"
+          echo "$MATRIX" | yq -P
+  
+  deploy:
+    name: Update ${{ matrix.app.key }}
+    needs: prepare
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' && needs.prepare.outputs.app_count > 0
+    environment: ${{ inputs.environment }}
+    strategy:
+      matrix:
+        app: ${{ fromJson(needs.prepare.outputs.matrix) }}
+      fail-fast: false  # Continue updating other apps even if one fails
+    
+    env:
+      API_BASE_URL: ${{ inputs.environment == 'stage' && 'https://api.screenlyappstage.com' || 'https://api.screenlyapp.com' }}
+      APP_NAME: rss-reader
+      APP_PATH: edge-apps/rss-reader
+      SCREENLY_API_TOKEN: ${{ secrets.SCREENLY_API_TOKEN }}
+      MANIFEST_FILE_NAME: ${{ inputs.environment == 'stage' && 'screenly_qc.yml' || 'screenly.yml' }}
+
+    steps:
+      - name: ⬇️ Checkout Repository
+        uses: actions/checkout@v5
+        with:
+          ref: master
+
+      - name: 🛠 Install yq
+        uses: mikefarah/yq@master
+
+      - name: 🔧 Update manifest from config
+        run: |
+          MANIFEST_FILE="${{ env.APP_PATH }}/${{ env.MANIFEST_FILE_NAME }}"
+          CONFIG_FILE="${{ env.APP_PATH }}/deployed-apps.yml"
+          APP_ID="${{ matrix.app.id }}"
+          APP_KEY="${{ matrix.app.key }}"
+          
+          echo "📝 Updating manifest for: $APP_KEY (ID: $APP_ID)"
+          
+          # Load config from deployed-apps.yml
+          CONFIG_DESC=$(yq ".apps.$APP_KEY.description" "$CONFIG_FILE")
+          CONFIG_ICON=$(yq ".apps.$APP_KEY.icon_url" "$CONFIG_FILE")
+          CONFIG_RSS_URL=$(yq ".apps.$APP_KEY.rss_url" "$CONFIG_FILE")
+          CONFIG_RSS_TITLE=$(yq ".apps.$APP_KEY.rss_title" "$CONFIG_FILE")
+          
+          echo ""
+          echo "📖 Loaded from deployed-apps.yml:"
+          echo "   Description: $CONFIG_DESC"
+          echo "   Icon URL: $CONFIG_ICON"
+          echo "   RSS URL: $CONFIG_RSS_URL"
+          echo "   RSS Title: $CONFIG_RSS_TITLE"
+          
+          # Apply overrides if provided, otherwise use config values
+          FINAL_DESC="${{ inputs.override_description }}"
+          if [ -z "$FINAL_DESC" ]; then
+            FINAL_DESC="$CONFIG_DESC"
+          else
+            echo ""
+            echo "🔧 Override: Description = $FINAL_DESC"
+          fi
+          
+          FINAL_ICON="${{ inputs.override_icon_url }}"
+          if [ -z "$FINAL_ICON" ]; then
+            FINAL_ICON="$CONFIG_ICON"
+          else
+            echo "🔧 Override: Icon URL = $FINAL_ICON"
+          fi
+          
+          FINAL_RSS_URL="${{ inputs.override_rss_url }}"
+          if [ -z "$FINAL_RSS_URL" ]; then
+            FINAL_RSS_URL="$CONFIG_RSS_URL"
+          else
+            echo "🔧 Override: RSS URL = $FINAL_RSS_URL"
+          fi
+          
+          FINAL_RSS_TITLE="${{ inputs.override_rss_title }}"
+          if [ -z "$FINAL_RSS_TITLE" ]; then
+            FINAL_RSS_TITLE="$CONFIG_RSS_TITLE"
+          else
+            echo "🔧 Override: RSS Title = $FINAL_RSS_TITLE"
+          fi
+          
+          # Update manifest with final values
+          echo ""
+          echo "✅ Updating manifest with:"
+          yq -i '.id = "'"$APP_ID"'"' "$MANIFEST_FILE"
+          echo "   App ID: $APP_ID"
+          
+          yq -i '.description = "'"$FINAL_DESC"'"' "$MANIFEST_FILE"
+          echo "   Description: $FINAL_DESC"
+          
+          yq -i '.icon = "'"$FINAL_ICON"'"' "$MANIFEST_FILE"
+          echo "   Icon URL: $FINAL_ICON"
+          
+          yq -i '.settings.rss_url.default_value = "'"$FINAL_RSS_URL"'"' "$MANIFEST_FILE"
+          echo "   RSS URL: $FINAL_RSS_URL"
+          
+          yq -i '.settings.rss_title.default_value = "'"$FINAL_RSS_TITLE"'"' "$MANIFEST_FILE"
+          echo "   RSS Title: $FINAL_RSS_TITLE"
+
+      - name: 📋 Show updated manifest
+        run: |
+          echo "📄 Manifest for ${{ matrix.app.key }}:"
+          cat ${{ env.APP_PATH }}/${{ env.MANIFEST_FILE_NAME }}
+
+      - name: 🚀 Deploy Edge App
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
+          cli_commands: edge-app deploy --path="${{ env.APP_PATH }}" --delete-missing-settings=false
+
+      - name: ✅ Deployment Complete
+        run: |
+          echo "✅ Successfully updated ${{ matrix.app.key }}"
+  
+  summary:
+    name: Deployment Summary
+    needs: [prepare, deploy]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - name: 📊 Summary
+        run: |
+          echo "🎉 Update All RSS Readers Workflow Complete"
+          echo ""
+          echo "📊 Summary:"
+          echo "   Environment: ${{ inputs.environment }}"
+          echo "   Apps processed: ${{ needs.prepare.outputs.app_count }}"
+          echo ""
+          if [ "${{ needs.deploy.result }}" == "success" ]; then
+            echo "✅ All apps updated successfully!"
+          elif [ "${{ needs.deploy.result }}" == "failure" ]; then
+            echo "⚠️  Some apps failed to update. Check individual job logs."
+          else
+            echo "ℹ️  Deployment status: ${{ needs.deploy.result }}"
+          fi
+
