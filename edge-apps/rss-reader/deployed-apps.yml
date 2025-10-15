@@ -12,25 +12,25 @@
 # apps:
 #   unique-app-key:              # Use kebab-case, e.g., "bbc-news" or "techcrunch-tech"
 #     id: "APP_ID"               # The Screenly-generated App ID (from initialize workflow logs)
-#     description: "App Name"    # Display name for the app
+#     app_name: "Short Name"     # Short app name (used for instance title and RSS title)
+#     description: "Description" # Longer app description (used in manifest)
 #     icon_url: "https://..."    # Publicly accessible icon URL
 #     rss_url: "https://..."     # RSS feed URL
-#     rss_title: "Feed Title"    # Title to display in the app
 
 apps:
   # Example: BBC News RSS Reader
   bbc-news:
-    id: "01HKT5KJPAHVGYJSFQF80BCJYQ"
-    description: "BBC News RSS Reader"
+    id: "01K7M3JVGZ3D3KWMZEZ298SDC9"
+    app_name: "BBC News"
+    description: "Latest news from BBC World Service"
     icon_url: "https://playground.srly.io/edge-apps/rss-reader/static/img/icon.svg"
     rss_url: "http://feeds.bbci.co.uk/news/rss.xml"
-    rss_title: "BBC News"
-  
+
   # Add your custom RSS apps below:
   # techcrunch-tech:
   #   id: "YOUR_APP_ID_HERE"
-  #   description: "TechCrunch News"
+  #   app_name: "TechCrunch"
+  #   description: "Latest technology news from TechCrunch"
   #   icon_url: "https://example.com/techcrunch-icon.svg"
   #   rss_url: "https://techcrunch.com/feed/"
-  #   rss_title: "TechCrunch"
 
