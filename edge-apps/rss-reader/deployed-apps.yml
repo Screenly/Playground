@@ -12,10 +12,11 @@
 # apps:
 #   unique-app-key:              # Use kebab-case, e.g., "bbc-news" or "techcrunch-tech"
 #     id: "APP_ID"               # The Screenly-generated App ID (from initialize workflow logs)
-#     app_name: "Short Name"     # Short app name (used for instance title and RSS title)
+#     app_name: "Short Name"     # Short app name (used for instance title)
 #     description: "Description" # Longer app description (used in manifest)
 #     icon_url: "https://..."    # Publicly accessible icon URL
 #     rss_url: "https://..."     # RSS feed URL
+#     rss_title: "Feed Title"    # Title to display in the RSS app
 
 apps:
   # Example: BBC News RSS Reader
@@ -33,4 +34,4 @@ apps:
   #   description: "Latest technology news from TechCrunch"
   #   icon_url: "https://example.com/techcrunch-icon.svg"
   #   rss_url: "https://techcrunch.com/feed/"
-
+  #   rss_title: "TechCrunch"

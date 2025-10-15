@@ -19,12 +19,17 @@ on:
         type: string
 
       override_app_name:
-        description: "Override app name/RSS title (optional, leave empty to use deployed-apps.yml)"
+        description: "Override app name (optional, leave empty to use deployed-apps.yml)"
         required: false
         type: string
 
       override_description:
         description: "Override app description (optional, leave empty to use deployed-apps.yml)"
+        required: false
+        type: string
+
+      override_rss_title:
+        description: "Override RSS title (optional, leave empty to use deployed-apps.yml)"
         required: false
         type: string
 
@@ -136,6 +141,7 @@ jobs:
           # Load config from deployed-apps.yml
           CONFIG_APP_NAME=$(yq ".apps.$APP_KEY.app_name" "$CONFIG_FILE")
           CONFIG_DESC=$(yq ".apps.$APP_KEY.description" "$CONFIG_FILE")
+          CONFIG_RSS_TITLE=$(yq ".apps.$APP_KEY.rss_title" "$CONFIG_FILE")
           CONFIG_ICON=$(yq ".apps.$APP_KEY.icon_url" "$CONFIG_FILE")
           CONFIG_RSS_URL=$(yq ".apps.$APP_KEY.rss_url" "$CONFIG_FILE")
           
@@ -143,6 +149,7 @@ jobs:
           echo "📖 Loaded from deployed-apps.yml:"
           echo "   App Name: $CONFIG_APP_NAME"
           echo "   Description: $CONFIG_DESC"
+          echo "   RSS Title: $CONFIG_RSS_TITLE"
           echo "   Icon URL: $CONFIG_ICON"
           echo "   RSS URL: $CONFIG_RSS_URL"
           
@@ -160,6 +167,13 @@ jobs:
             FINAL_DESC="$CONFIG_DESC"
           else
             echo "🔧 Override: Description = $FINAL_DESC"
+          fi
+          
+          FINAL_RSS_TITLE="${{ inputs.override_rss_title }}"
+          if [ -z "$FINAL_RSS_TITLE" ]; then
+            FINAL_RSS_TITLE="$CONFIG_RSS_TITLE"
+          else
+            echo "🔧 Override: RSS Title = $FINAL_RSS_TITLE"
           fi
           
           FINAL_ICON="${{ inputs.override_icon_url }}"
@@ -191,8 +205,8 @@ jobs:
           yq -i '.settings.rss_url.default_value = "'"$FINAL_RSS_URL"'"' "$MANIFEST_FILE"
           echo "   RSS URL: $FINAL_RSS_URL"
           
-          yq -i '.settings.rss_title.default_value = "'"$FINAL_APP_NAME"'"' "$MANIFEST_FILE"
-          echo "   RSS Title: $FINAL_APP_NAME"
+          yq -i '.settings.rss_title.default_value = "'"$FINAL_RSS_TITLE"'"' "$MANIFEST_FILE"
+          echo "   RSS Title: $FINAL_RSS_TITLE"
 
       - name: 📋 Show updated manifest
         run: |

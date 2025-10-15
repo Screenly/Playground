@@ -8,25 +8,25 @@ You can create multiple custom RSS reader apps (e.g., TechCrunch News, ESPN Spor
 
 ## Workflows
 
-### 1. Initialize Custom RSS Reader
+### 1. Initialize Custom RSS Reader App
 
 **Use**: Create a **new** custom RSS reader app
 
-**Location**: Actions → "Initialize Custom RSS Reader"
+**Location**: Actions → "Initialize Custom RSS Reader App"
 
 **Inputs**:
 - Environment (stage/production)
-- App Description
+- **App Name** - Used for both instance title and RSS title (e.g., "BBC News")
+- **App Description** - Manifest description (e.g., "Latest news from BBC World Service")
 - Icon URL
-- RSS Feed URL  
-- RSS Title
-- Instance Title
+- RSS Feed URL
 
 **Process**:
 1. Runs the workflow
 2. Auto-generates an App ID
 3. Deploys to Edge App store
-4. **Important**: Note the generated App ID from the logs!
+4. Creates an instance with the app name
+5. **Important**: Note the generated App ID from the logs!
 
 **After initialization**:
 - Add the app details to `edge-apps/rss-reader/deployed-apps.yml`
@@ -40,10 +40,10 @@ You can create multiple custom RSS reader apps (e.g., TechCrunch News, ESPN Spor
 **Inputs**:
 - Environment (stage/production) - **Required**
 - App key - **Optional** (leave empty = update ALL apps, enter key = update one app)
-- Override description - **Optional**
+- Override app name - **Optional** (updates RSS title)
+- Override app description - **Optional**
 - Override icon URL - **Optional**
 - Override RSS URL - **Optional**
-- Override RSS title - **Optional**
 
 **Process**:
 1. **Always reads** settings from `deployed-apps.yml` for each app
@@ -57,13 +57,14 @@ You can create multiple custom RSS reader apps (e.g., TechCrunch News, ESPN Spor
 - **Enter an app key** → Updates only that specific app
 - **All settings come from `deployed-apps.yml`** (unless you override)
 - **Overrides are optional** → Change only what you need
+- **Note**: Override app name changes both the instance title and RSS title
 
 **When to use**:
 - ✅ Updated base template code (leave app key empty = all apps)
 - ✅ Fixed a bug (leave app key empty = all apps)
 - ✅ Need to redeploy one app (enter app key)
 - ✅ Need to change RSS URL for one app (enter app key + override RSS URL)
-- ✅ Update all apps + change settings for one (enter overrides)
+- ✅ Update all apps + change settings (enter overrides)
 
 **Benefits**:
 - 🎯 **Unified**: One workflow for all update scenarios
@@ -71,6 +72,7 @@ You can create multiple custom RSS reader apps (e.g., TechCrunch News, ESPN Spor
 - ⚡ **Parallel**: Multiple apps update simultaneously
 - 🛡️ **Safe**: Continues even if one app fails
 - 🔧 **Flexible overrides**: Change only what you need
+
 
 ## Configuration File
 
@@ -82,10 +84,10 @@ Tracks all deployed RSS reader apps. Format:
 apps:
   app-key-name:
     id: "SCREENLY_APP_ID"
-    description: "App Display Name"
+    app_name: "App Name"           # Used for instance title and RSS title
+    description: "App Description" # Manifest description
     icon_url: "https://example.com/icon.svg"
     rss_url: "https://example.com/feed.xml"
-    rss_title: "Feed Title"
 ```
 
 ## Workflow Example
@@ -93,14 +95,13 @@ apps:
 ### Creating a new TechCrunch RSS reader:
 
 1. **Initialize**:
-   - Go to Actions → "Initialize Custom RSS Reader"
+   - Go to Actions → "Initialize Custom RSS Reader App"
    - Enter:
      - Environment: `stage`
-     - Description: `TechCrunch Tech News`
+     - App Name: `TechCrunch`
+     - App Description: `Latest tech news from TechCrunch`
      - Icon URL: `https://example.com/techcrunch.svg`
      - RSS URL: `https://techcrunch.com/feed/`
-     - RSS Title: `TechCrunch`
-     - Instance Title: `TechCrunch News`
    - Run workflow
    - **Copy the generated App ID** from logs (e.g., `01HXX...`)
 
@@ -110,15 +111,15 @@ apps:
      ```yaml
      techcrunch-tech:
        id: "01HXX..."  # Use the ID from step 1
-       description: "TechCrunch Tech News"
+       app_name: "TechCrunch"
+       description: "Latest tech news from TechCrunch"
        icon_url: "https://example.com/techcrunch.svg"
        rss_url: "https://techcrunch.com/feed/"
-       rss_title: "TechCrunch"
      ```
    - Commit and push
 
 3. **Future updates**:
-   - Go to Actions → "Update Custom RSS Reader"
+   - Go to Actions → "Update RSS Reader Apps"
    - Enter:
      - Environment: `stage`
      - App Key: `techcrunch-tech`
@@ -127,78 +128,10 @@ apps:
 
 ### Updating just the RSS URL:
 
-- Go to Actions → "Update Custom RSS Reader"
+- Go to Actions → "Update RSS Reader Apps"
 - Enter:
+  - Environment: `stage`
   - App Key: `techcrunch-tech`
-  - RSS URL: `https://new-feed-url.com/rss`
+  - Override RSS URL: `https://new-feed-url.com/rss`
 - Leave other fields empty
 - The workflow will use config values for everything except the RSS URL
-
-## Common Scenarios
-
-### Scenario 1: Fixed a bug in the base RSS reader template
-**Solution**: Use "Update RSS Reader Apps"
-- Select environment
-- **Leave app key empty**
-- Leave overrides empty
-- Click run
-- Result: All apps get the fix! ✅
-
-### Scenario 2: Need to change RSS URL for one app only
-**Solution**: Use "Update RSS Reader Apps"
-- Select environment
-- Enter app key (e.g., `bbc-news`)
-- Enter "Override RSS URL" with new URL
-- Leave other overrides empty
-- Result: Only BBC News gets updated with new RSS URL! ✅
-
-### Scenario 3: Redeploy one app (no changes)
-**Solution**: Use "Update RSS Reader Apps"
-- Select environment
-- Enter app key
-- Leave all overrides empty
-- Result: App redeploys with config from `deployed-apps.yml`! ✅
-
-### Scenario 4: Redeploy all apps (no changes)
-**Solution**: Use "Update RSS Reader Apps"
-- Select environment
-- **Leave app key empty**
-- Leave all overrides empty
-- Result: All apps redeploy with their configs from `deployed-apps.yml`! ✅
-
-### Scenario 5: Update all apps + change one app's RSS URL
-**Solution**: Use "Update RSS Reader Apps"
-- Select environment
-- **Leave app key empty** (this updates all apps)
-- Enter "Override RSS URL" with new URL
-- Result: All apps get template update, all apps also get the new RSS URL! ✅
-- **Note**: Overrides apply to ALL apps when app key is empty
-
-### Scenario 6: Just want to update one specific app's settings
-**Solution**: Edit `deployed-apps.yml`, then run "Update RSS Reader Apps"
-- Update the app's config in `deployed-apps.yml`
-- Commit and push changes
-- Run workflow with that app's key
-- Leave overrides empty
-- Result: App updates with new config from file! ✅
-
-## Benefits
-
-✅ **Single template**: Maintain one codebase  
-✅ **Multiple deployments**: Create unlimited custom RSS readers  
-✅ **No clutter**: No separate directories needed  
-✅ **Easy updates**: Just provide the app key  
-✅ **Bulk updates**: One-click to update all apps  
-✅ **Parallel deployment**: All apps update simultaneously  
-✅ **Tracked configuration**: All apps documented in `deployed-apps.yml`  
-✅ **Flexible overrides**: Can still customize on-the-fly  
-
-## Tips
-
-- Use kebab-case for app keys (e.g., `bbc-news`, `techcrunch-tech`)
-- Always note the App ID after initialization
-- Keep `deployed-apps.yml` updated after each initialization
-- Use "Update All" workflow when you modify the base template code
-- Use "Update Custom" workflow when you need to change settings for one app
-- The matrix strategy in "Update All" runs apps in parallel for speed
-
