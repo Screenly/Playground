@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, computed, type Ref } from 'vue'
+import { onBeforeMount, onMounted, type Ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
@@ -24,13 +24,12 @@ const { brandLogoUrl } = storeToRefs(baseSettingsStore) as unknown as {
   brandLogoUrl: Ref<string>
 }
 
-// Computed properties for settings
-const welcomeHeading = computed(
-  () => settingsStore.settings.value.welcome_heading || 'Welcome',
-)
-const welcomeMessage = computed(
-  () => settingsStore.settings.value.welcome_message || 'to the team',
-)
+const { welcomeHeading, welcomeMessage } = storeToRefs(
+  settingsStore,
+) as unknown as {
+  welcomeHeading: Ref<string>
+  welcomeMessage: Ref<string>
+}
 
 onBeforeMount(async () => {
   baseSettingsStore.setupTheme()
@@ -38,15 +37,19 @@ onBeforeMount(async () => {
 })
 
 onMounted(() => {
-  const coordinates = metadataStore.coordinates
-  const latitude = coordinates[0] ?? 0
-  const longitude = coordinates[1] ?? 0
+  try {
+    const coordinates = metadataStore.coordinates
+    const latitude = coordinates[0] ?? 0
+    const longitude = coordinates[1] ?? 0
 
-  settingsStore.init()
-  settingsStore.initLocale()
-  settingsStore.initTimezone(latitude, longitude)
-
-  screenly.signalReadyForRendering()
+    settingsStore.init()
+    settingsStore.initLocale()
+    settingsStore.initTimezone(latitude, longitude)
+  } catch (error) {
+    console.error('Failed to initialize application:', error)
+  } finally {
+    screenly.signalReadyForRendering()
+  }
 })
 </script>
 
@@ -70,15 +73,15 @@ onMounted(() => {
     <div class="row-container">
       <div class="secondary-card date-card">
         <DateDisplay
-          :timezone="settingsStore.currentTimezone.value"
-          :locale="settingsStore.currentLocale.value"
+          :timezone="settingsStore.currentTimezone"
+          :locale="settingsStore.currentLocale"
         />
       </div>
       <div class="secondary-card clock-card">
         <div class="clock-div">
           <AnalogClock
-            :timezone="settingsStore.currentTimezone.value"
-            :locale="settingsStore.currentLocale.value"
+            :timezone="settingsStore.currentTimezone"
+            :locale="settingsStore.currentLocale"
           />
         </div>
       </div>
