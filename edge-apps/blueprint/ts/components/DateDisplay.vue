@@ -3,10 +3,12 @@ import { ref, onMounted, onUnmounted, watch } from 'vue'
 
 interface Props {
   timezone?: string
+  locale?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   timezone: 'UTC',
+  locale: 'en',
 })
 
 const dayOfMonth = ref('00')
@@ -20,27 +22,40 @@ const updateDate = () => {
   }
 
   const now = new Date()
-  let timezoneDate: Date
+  const formattedLocale = props.locale.replace('_', '-')
 
   try {
-    // It doesn't matter what locale we use here, because we're only using the date.
-    timezoneDate = new Date(
-      now.toLocaleString('en-US', { timeZone: props.timezone }),
-    )
+    // Format day of week using the locale
+    dayOfWeek.value = now
+      .toLocaleString(formattedLocale, {
+        timeZone: props.timezone,
+        weekday: 'short',
+      })
+      .toUpperCase()
 
-    // Validate the date is not invalid
-    if (isNaN(timezoneDate.getTime())) {
-      throw new Error('Invalid date result')
-    }
+    // Format day of month
+    dayOfMonth.value = now.toLocaleString(formattedLocale, {
+      timeZone: props.timezone,
+      day: 'numeric',
+    })
   } catch (error) {
-    console.warn(`Invalid timezone: ${props.timezone}, using UTC`, error)
-    // Fallback to UTC
-    timezoneDate = new Date(now.getTime())
-  }
+    console.warn(
+      `Invalid timezone or locale: ${props.timezone}, ${formattedLocale}, using fallback`,
+      error,
+    )
+    // Fallback to English and UTC
+    dayOfWeek.value = now
+      .toLocaleString('en', {
+        timeZone: 'UTC',
+        weekday: 'short',
+      })
+      .toUpperCase()
 
-  dayOfMonth.value = timezoneDate.getDate().toString()
-  const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
-  dayOfWeek.value = days[timezoneDate.getDay()] as string
+    dayOfMonth.value = now.toLocaleString('en', {
+      timeZone: 'UTC',
+      day: 'numeric',
+    })
+  }
 }
 
 onMounted(() => {
@@ -55,7 +70,7 @@ onUnmounted(() => {
 })
 
 watch(
-  () => props.timezone,
+  () => [props.timezone, props.locale],
   () => {
     updateDate()
   },
