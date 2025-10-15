@@ -35,7 +35,9 @@ const settingsStoreSetup = () => {
         return
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
-        console.warn(`Invalid timezone: ${overrideTimezone.value}. Using fallback.`)
+        console.warn(
+          `Invalid timezone: ${overrideTimezone.value}. Using fallback.`,
+        )
       }
     }
 

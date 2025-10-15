@@ -24,7 +24,9 @@ const { brandLogoUrl } = storeToRefs(baseSettingsStore) as unknown as {
   brandLogoUrl: Ref<string>
 }
 
-const { welcomeHeading, welcomeMessage } = storeToRefs(settingsStore) as unknown as {
+const { welcomeHeading, welcomeMessage } = storeToRefs(
+  settingsStore,
+) as unknown as {
   welcomeHeading: Ref<string>
   welcomeMessage: Ref<string>
 }
