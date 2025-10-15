@@ -1,4 +1,5 @@
 import { ref } from 'vue'
+import tzlookup from '@photostructure/tz-lookup'
 
 export interface WelcomeSettings {
   welcome_heading?: string
@@ -20,7 +21,6 @@ export const useSettingsStore = () => {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const initTimezone = (latitude: number, longitude: number) => {
     const overrideTimezone = settings.value.override_timezone
 
@@ -35,14 +35,7 @@ export const useSettingsStore = () => {
       }
     }
 
-    try {
-      const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
-      currentTimezone.value = timeZone || 'UTC'
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      console.warn('Could not determine timezone, using UTC')
-      currentTimezone.value = 'UTC'
-    }
+    currentTimezone.value = tzlookup(latitude, longitude)
   }
 
   const initLocale = () => {
