@@ -38,15 +38,19 @@ onBeforeMount(async () => {
 })
 
 onMounted(() => {
-  const coordinates = metadataStore.coordinates
-  const latitude = coordinates[0] ?? 0
-  const longitude = coordinates[1] ?? 0
+  try {
+    const coordinates = metadataStore.coordinates
+    const latitude = coordinates[0] ?? 0
+    const longitude = coordinates[1] ?? 0
 
-  settingsStore.init()
-  settingsStore.initLocale()
-  settingsStore.initTimezone(latitude, longitude)
-
-  screenly.signalReadyForRendering()
+    settingsStore.init()
+    settingsStore.initLocale()
+    settingsStore.initTimezone(latitude, longitude)
+  } catch (error) {
+    console.error('Failed to initialize application:', error)
+  } finally {
+    screenly.signalReadyForRendering()
+  }
 })
 </script>
 
