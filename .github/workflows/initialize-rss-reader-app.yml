@@ -66,24 +66,24 @@ jobs:
       - name: 🔧 Update manifest file with custom values
         run: |
           MANIFEST_FILE="${{ env.APP_PATH }}/${{ env.MANIFEST_FILE_NAME }}"
-          
+
           echo "📝 Updating $MANIFEST_FILE with custom configuration..."
-          
+
           # Remove the existing ID line (will be auto-generated during create)
           sed -i "/^id: /d" "$MANIFEST_FILE"
-          
+
           # Update description
           sed -i "s/^description: .*/description: ${{ inputs.app_description }}/" "$MANIFEST_FILE"
-          
+
           # Update icon URL
           sed -i "s|^icon: .*|icon: ${{ inputs.icon_url }}|" "$MANIFEST_FILE"
-          
+
           # Update RSS URL default value
           sed -i "/^  rss_url:/,/^    default_value:/ s|^    default_value: .*|    default_value: ${{ inputs.rss_url }}|" "$MANIFEST_FILE"
-          
+
           # Update RSS Title default value
           sed -i "/^  rss_title:/,/^    default_value:/ s|^    default_value: .*|    default_value: ${{ inputs.rss_title }}|" "$MANIFEST_FILE"
-          
+
           echo ""
           echo "✅ Updated manifest with:"
           echo "   Description: ${{ inputs.app_description }}"
@@ -128,4 +128,3 @@ jobs:
       - name: 📋 Log instance.yml
         run: |
           cat ${{ env.APP_PATH }}/instance.yml
-
