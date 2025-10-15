@@ -22,7 +22,6 @@ test('basic app structure test', async ({ page }) => {
         screenly_color_accent: '#000000',
         screenly_color_light: '#000000',
         screenly_color_dark: '#000000',
-        theme: 'light',
       },
       cors_proxy_url: 'https://example.com',
     }

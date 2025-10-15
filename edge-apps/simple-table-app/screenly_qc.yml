@@ -17,34 +17,20 @@ settings:
     help_text: |
       Enter your CSV data here. The first row will be treated as headers.
       Use commas to separate columns and new lines to separate rows.
-  override_locale:
+  locale:
     type: string
     default_value: ''
-    title: Override Locale
+    title: Locale
     optional: true
     help_text: |
-      Override the locale for time formatting. Leave empty to use the browser's default locale.
-  override_timezone:
+      Locale for time formatting. Leave empty to use the browser's default locale.
+  timezone:
     type: string
     default_value: ''
-    title: Override Timezone
+    title: Timezone
     optional: true
     help_text: |
-      Override the timezone for time display. Leave empty to use the player's location-based timezone.
-  theme:
-    type: string
-    default_value: light
-    title: Theme
-    optional: false
-    help_text: |
-      Select the visual theme for the application ('light' or 'dark').
-  theme_color:
-    type: string
-    default_value: ''
-    title: Theme Color
-    optional: true
-    help_text: |
-      Base color for the theme. If empty, uses appropriate branding color for the selected theme.
+      Timezone for time display. Leave empty to use the player's location-based timezone.
   title:
     type: string
     default_value: ''

@@ -1,14 +1,11 @@
 # Simple Table App
 
-A minimalist edge app for Screenly that displays CSV data as a beautifully formatted table with sophisticated single-color theming.
+A minimalist edge app for Screenly that displays CSV data as a beautifully formatted table.
 
 ## Features
 
 - **CSV Data Display**: Renders CSV content with automatic header detection
-- **Single-Color Theming**: Generates entire color scheme from one base color using HSV manipulation
-- **Light/Dark Theme Support**: Automatically adjusts colors for optimal readability
 - **Responsive Design**: Clean, minimal table layout that works on all screen sizes
-- **Visual Hierarchy**: Subtle saturation and lightness variations create clear content hierarchy
 
 ## Settings
 
@@ -19,26 +16,6 @@ A minimalist edge app for Screenly that displays CSV data as a beautifully forma
 ### Optional Settings
 
 - **Table Title** (`title`): Optional title displayed above the table
-- **Theme Color** (`theme_color`): Base color for the entire theme. If empty, uses Screenly's default colors
-- **Theme** (`theme`): Choose 'light' or 'dark' theme (default: light)
-
-## Color System
-
-The app uses a sophisticated HSV-based color system that generates all colors from a single base color:
-
-### Backgrounds (Light → Dark hierarchy)
-
-- **Title Background**: Most saturated (up to 20%), darkest
-- **Header Background**: Medium saturated (up to 15%), medium darkness
-- **Default Background**: Least saturated (up to 10%), lightest
-
-### Text Colors
-
-All text uses consistent lightness with varying saturation levels:
-
-- **Title Text**: Maximum 20% saturation
-- **Header Text**: Maximum 15% saturation
-- **Body Text**: Maximum 10% saturation
 
 ## Technical Details
 
