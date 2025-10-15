@@ -51,7 +51,10 @@ onMounted(() => {
       </div>
 
       <div class="secondary-card">
-        <DateDisplay :timezone="settingsStore.currentTimezone" />
+        <DateDisplay
+          :timezone="settingsStore.currentTimezone"
+          :locale="settingsStore.currentLocale"
+        />
       </div>
       <div class="secondary-card">
         <div class="clock-wrapper">
