@@ -99,8 +99,8 @@ jobs:
           fi
 
           # Output matrix as compact JSON
-          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
-          echo "app_count=$APP_COUNT" >> $GITHUB_OUTPUT
+          echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
+          echo "app_count=$APP_COUNT" >> "$GITHUB_OUTPUT"
 
           echo ""
           echo "✅ Found $APP_COUNT app(s) to update:"
