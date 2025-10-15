@@ -22,7 +22,7 @@ const updateDate = () => {
   }
 
   const now = new Date()
-  const formattedLocale = props.locale.replace('_', '-')
+  const formattedLocale = typeof props.locale === 'string' ? props.locale.replace('_', '-') : 'en'
 
   try {
     // Format day of week using the locale
@@ -32,12 +32,14 @@ const updateDate = () => {
         weekday: 'short',
       })
       .toUpperCase()
+      .slice(0, 3)
 
     // Format day of month
-    dayOfMonth.value = now.toLocaleString(formattedLocale, {
+    const dayStr = now.toLocaleString(formattedLocale, {
       timeZone: props.timezone,
       day: 'numeric',
     })
+    dayOfMonth.value = dayStr.padStart(2, '0')
   } catch (error) {
     console.warn(
       `Invalid timezone or locale: ${props.timezone}, ${formattedLocale}, using fallback`,
@@ -50,11 +52,13 @@ const updateDate = () => {
         weekday: 'short',
       })
       .toUpperCase()
+      .slice(0, 3)
 
-    dayOfMonth.value = now.toLocaleString('en', {
+    const fallbackDayStr = now.toLocaleString('en', {
       timeZone: 'UTC',
       day: 'numeric',
     })
+    dayOfMonth.value = fallbackDayStr.padStart(2, '0')
   }
 }
 
