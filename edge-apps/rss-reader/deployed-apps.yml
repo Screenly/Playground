@@ -1,37 +1,20 @@
-# Deployed Custom RSS Reader Apps Configuration
-#
-# This file tracks all deployed custom RSS reader apps and their configurations.
-# The Update RSS Reader workflow uses this file to load app settings.
-#
-# How to use:
-# 1. After initializing a new RSS app, add its details here
-# 2. When updating, just provide the app_key - all settings will be loaded from here
-# 3. You can still override individual settings when running the update workflow
+# Deployed RSS Reader Apps
 #
 # Format:
 # apps:
-#   unique-app-key:              # Use kebab-case, e.g., "bbc-news" or "techcrunch-tech"
-#     id: "APP_ID"               # The Screenly-generated App ID (from initialize workflow logs)
-#     app_name: "Short Name"     # Short app name (used for instance title)
-#     description: "Description" # Longer app description (used in manifest)
-#     icon_url: "https://..."    # Publicly accessible icon URL
-#     rss_url: "https://..."     # RSS feed URL
-#     rss_title: "Feed Title"    # Title to display in the RSS app
+#   app-key:
+#     id: "APP_ID"
+#     app_name: "Instance Title"
+#     description: "Manifest Description"
+#     rss_title: "UI Title"
+#     icon_url: "https://..."
+#     rss_url: "https://..."
 
 apps:
-  # Example: BBC News RSS Reader
   bbc-news:
     id: "01K7M3JVGZ3D3KWMZEZ298SDC9"
     app_name: "BBC News"
     description: "Latest news from BBC World Service"
+    rss_title: "BBC News"
     icon_url: "https://playground.srly.io/edge-apps/rss-reader/static/img/icon.svg"
     rss_url: "http://feeds.bbci.co.uk/news/rss.xml"
-
-  # Add your custom RSS apps below:
-  # techcrunch-tech:
-  #   id: "YOUR_APP_ID_HERE"
-  #   app_name: "TechCrunch"
-  #   description: "Latest technology news from TechCrunch"
-  #   icon_url: "https://example.com/techcrunch-icon.svg"
-  #   rss_url: "https://techcrunch.com/feed/"
-  #   rss_title: "TechCrunch"
