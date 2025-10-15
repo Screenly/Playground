@@ -1,0 +1,107 @@
+---
+name: Update Custom RSS Reader
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to update (stage or production)"
+        required: true
+        default: "stage"
+        type: choice
+        options:
+          - stage
+          - production
+
+      app_id:
+        description: "App ID (from the initialized app)"
+        required: true
+        type: string
+
+      app_description:
+        description: "App Description/Name (leave empty to keep current)"
+        required: false
+        type: string
+
+      icon_url:
+        description: "Icon URL (leave empty to keep current)"
+        required: false
+        type: string
+
+      rss_url:
+        description: "RSS Feed URL (leave empty to keep current)"
+        required: false
+        type: string
+
+      rss_title:
+        description: "RSS Title (leave empty to keep current)"
+        required: false
+        type: string
+
+run-name: Update RSS Reader - ${{ inputs.app_description }} in ${{ inputs.environment }}
+
+jobs:
+  deploy:
+    name: Updating ${{ inputs.app_description }} in ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    environment: ${{ inputs.environment }}
+    env:
+      API_BASE_URL: ${{ inputs.environment == 'stage' && 'https://api.screenlyappstage.com' || 'https://api.screenlyapp.com' }}
+      APP_NAME: rss-reader
+      APP_PATH: edge-apps/rss-reader
+      SCREENLY_API_TOKEN: ${{ secrets.SCREENLY_API_TOKEN }}
+      MANIFEST_FILE_NAME: ${{ inputs.environment == 'stage' && 'screenly_qc.yml' || 'screenly.yml' }}
+
+    steps:
+      - name: ⬇️ Checkout master branch
+        uses: actions/checkout@v5
+        with:
+          ref: master
+
+      - name: 🔧 Update manifest file with App ID
+        run: |
+          MANIFEST_FILE="${{ env.APP_PATH }}/${{ env.MANIFEST_FILE_NAME }}"
+          
+          echo "📝 Updating $MANIFEST_FILE..."
+          
+          # Update app ID (always required)
+          sed -i "s/^id: .*/id: ${{ inputs.app_id }}/" "$MANIFEST_FILE"
+          
+          echo "✅ Set App ID to: ${{ inputs.app_id }}"
+          
+          # Update description only if provided
+          if [ -n "${{ inputs.app_description }}" ]; then
+            sed -i "s/^description: .*/description: ${{ inputs.app_description }}/" "$MANIFEST_FILE"
+            echo "✅ Updated Description: ${{ inputs.app_description }}"
+          fi
+          
+          # Update icon URL only if provided
+          if [ -n "${{ inputs.icon_url }}" ]; then
+            sed -i "s|^icon: .*|icon: ${{ inputs.icon_url }}|" "$MANIFEST_FILE"
+            echo "✅ Updated Icon URL: ${{ inputs.icon_url }}"
+          fi
+          
+          # Update RSS URL only if provided
+          if [ -n "${{ inputs.rss_url }}" ]; then
+            sed -i "/^  rss_url:/,/^    default_value:/ s|^    default_value: .*|    default_value: ${{ inputs.rss_url }}|" "$MANIFEST_FILE"
+            echo "✅ Updated RSS URL: ${{ inputs.rss_url }}"
+          fi
+          
+          # Update RSS Title only if provided
+          if [ -n "${{ inputs.rss_title }}" ]; then
+            sed -i "/^  rss_title:/,/^    default_value:/ s|^    default_value: .*|    default_value: ${{ inputs.rss_title }}|" "$MANIFEST_FILE"
+            echo "✅ Updated RSS Title: ${{ inputs.rss_title }}"
+          fi
+
+      - name: 📋 Show updated manifest
+        run: |
+          echo "📄 Contents of updated manifest:"
+          cat ${{ env.APP_PATH }}/${{ env.MANIFEST_FILE_NAME }}
+
+      - name: 🚀 Deploy Edge App
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
+          cli_commands: edge-app deploy --path="${{ env.APP_PATH }}" --delete-missing-settings=false
+

@@ -1,0 +1,131 @@
+---
+name: Initialize Custom RSS Reader
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to initialize in (stage or production)"
+        required: true
+        default: "stage"
+        type: choice
+        options:
+          - stage
+          - production
+
+      app_description:
+        description: "App Description/Name"
+        required: true
+        type: string
+        default: "Screenly RSS Reader App"
+
+      icon_url:
+        description: "Icon URL (publicly accessible icon image)"
+        required: true
+        type: string
+        default: "https://playground.srly.io/edge-apps/rss-reader/static/img/icon.svg"
+
+      rss_url:
+        description: "RSS Feed URL"
+        required: true
+        type: string
+        default: "http://feeds.bbci.co.uk/news/rss.xml"
+
+      rss_title:
+        description: "RSS Title"
+        required: true
+        type: string
+        default: "RSS Feed"
+
+      instance_title:
+        description: "Instance title (for creating instance)"
+        required: true
+        type: string
+
+run-name: Initialize RSS Reader - ${{ inputs.app_description }} in ${{ inputs.environment }}
+
+jobs:
+  deploy:
+    name: Initializing ${{ inputs.app_description }} in ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    environment: ${{ inputs.environment }}
+    env:
+      API_BASE_URL: ${{ inputs.environment == 'stage' && 'https://api.screenlyappstage.com' || 'https://api.screenlyapp.com' }}
+      APP_NAME: rss-reader
+      APP_PATH: edge-apps/rss-reader
+      SCREENLY_API_TOKEN: ${{ secrets.SCREENLY_API_TOKEN }}
+      MANIFEST_FILE_NAME: ${{ inputs.environment == 'stage' && 'screenly_qc.yml' || 'screenly.yml' }}
+
+    steps:
+      - name: ⬇️ Checkout Repository
+        uses: actions/checkout@v5
+        with:
+          ref: master
+
+      - name: 🔧 Update manifest file with custom values
+        run: |
+          MANIFEST_FILE="${{ env.APP_PATH }}/${{ env.MANIFEST_FILE_NAME }}"
+          
+          echo "📝 Updating $MANIFEST_FILE with custom configuration..."
+          
+          # Remove the existing ID line (will be auto-generated during create)
+          sed -i "/^id: /d" "$MANIFEST_FILE"
+          
+          # Update description
+          sed -i "s/^description: .*/description: ${{ inputs.app_description }}/" "$MANIFEST_FILE"
+          
+          # Update icon URL
+          sed -i "s|^icon: .*|icon: ${{ inputs.icon_url }}|" "$MANIFEST_FILE"
+          
+          # Update RSS URL default value
+          sed -i "/^  rss_url:/,/^    default_value:/ s|^    default_value: .*|    default_value: ${{ inputs.rss_url }}|" "$MANIFEST_FILE"
+          
+          # Update RSS Title default value
+          sed -i "/^  rss_title:/,/^    default_value:/ s|^    default_value: .*|    default_value: ${{ inputs.rss_title }}|" "$MANIFEST_FILE"
+          
+          echo ""
+          echo "✅ Updated manifest with:"
+          echo "   Description: ${{ inputs.app_description }}"
+          echo "   Icon URL: ${{ inputs.icon_url }}"
+          echo "   RSS URL: ${{ inputs.rss_url }}"
+          echo "   RSS Title: ${{ inputs.rss_title }}"
+
+      - name: 📋 Show updated manifest
+        run: |
+          echo "📄 Contents of updated manifest:"
+          cat ${{ env.APP_PATH }}/${{ env.MANIFEST_FILE_NAME }}
+
+      - name: 🛠 Create Edge App
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
+          cli_commands: edge-app create --name="${{ env.APP_NAME }}" --in-place --path="${{ env.APP_PATH }}"
+
+      - name: 🚀 Deploy Edge App
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
+          cli_commands: edge-app deploy --path="${{ env.APP_PATH }}"
+
+      - name: 📋 Log manifest after creation
+        run: |
+          echo "📄 Manifest after app creation (with auto-generated ID):"
+          cat ${{ env.APP_PATH }}/${{ env.MANIFEST_FILE_NAME }}
+
+      - name: 📄 Create Instance
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
+          cli_commands: edge-app instance create --path="${{ env.APP_PATH }}" --name="${{ inputs.instance_title }}"
+
+      - name: 🔄 Update Instance
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
+          cli_commands: edge-app instance update --path="${{ env.APP_PATH }}"
+
+      - name: 📋 Log instance.yml
+        run: |
+          cat ${{ env.APP_PATH }}/instance.yml
+
