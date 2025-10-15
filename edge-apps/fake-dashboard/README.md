@@ -4,7 +4,7 @@
 
 A Simple digital signage dashboard that displays simulated website analytics, including live visitor count, traffic sources, and device usage.
 
-# Key Highlights
+## Key Highlights
 
 - Real-time simulated visitor count
 - Device and traffic source breakdowns
