@@ -59,6 +59,9 @@ jobs:
         with:
           ref: master
 
+      - name: 🛠 Install yq
+        uses: mikefarah/yq@master
+
       - name: 🔧 Update manifest file with App ID
         run: |
           MANIFEST_FILE="${{ env.APP_PATH }}/${{ env.MANIFEST_FILE_NAME }}"
@@ -66,31 +69,31 @@ jobs:
           echo "📝 Updating $MANIFEST_FILE..."
 
           # Update app ID (always required)
-          sed -i "s/^id: .*/id: ${{ inputs.app_id }}/" "$MANIFEST_FILE"
+          yq -i '.id = "${{ inputs.app_id }}"' "$MANIFEST_FILE"
 
           echo "✅ Set App ID to: ${{ inputs.app_id }}"
 
           # Update description only if provided
           if [ -n "${{ inputs.app_description }}" ]; then
-            sed -i "s/^description: .*/description: ${{ inputs.app_description }}/" "$MANIFEST_FILE"
+            yq -i '.description = "${{ inputs.app_description }}"' "$MANIFEST_FILE"
             echo "✅ Updated Description: ${{ inputs.app_description }}"
           fi
 
           # Update icon URL only if provided
           if [ -n "${{ inputs.icon_url }}" ]; then
-            sed -i "s|^icon: .*|icon: ${{ inputs.icon_url }}|" "$MANIFEST_FILE"
+            yq -i '.icon = "${{ inputs.icon_url }}"' "$MANIFEST_FILE"
             echo "✅ Updated Icon URL: ${{ inputs.icon_url }}"
           fi
 
           # Update RSS URL only if provided
           if [ -n "${{ inputs.rss_url }}" ]; then
-            sed -i "/^  rss_url:/,/^    default_value:/ s|^    default_value: .*|    default_value: ${{ inputs.rss_url }}|" "$MANIFEST_FILE"
+            yq -i '.settings.rss_url.default_value = "${{ inputs.rss_url }}"' "$MANIFEST_FILE"
             echo "✅ Updated RSS URL: ${{ inputs.rss_url }}"
           fi
 
           # Update RSS Title only if provided
           if [ -n "${{ inputs.rss_title }}" ]; then
-            sed -i "/^  rss_title:/,/^    default_value:/ s|^    default_value: .*|    default_value: ${{ inputs.rss_title }}|" "$MANIFEST_FILE"
+            yq -i '.settings.rss_title.default_value = "${{ inputs.rss_title }}"' "$MANIFEST_FILE"
             echo "✅ Updated RSS Title: ${{ inputs.rss_title }}"
           fi
 
