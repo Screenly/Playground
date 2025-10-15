@@ -49,14 +49,8 @@ const settingsStoreSetup = () => {
         : navigator.language) || 'en'
 
     if (overrideLocale.value) {
-      try {
-        new Intl.DateTimeFormat(overrideLocale.value)
-        currentLocale.value = overrideLocale.value
-        return
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (error) {
-        console.warn(`Invalid locale: ${overrideLocale.value}. Using fallback.`)
-      }
+      currentLocale.value = overrideLocale.value
+      return
     }
 
     currentLocale.value = defaultLocale
