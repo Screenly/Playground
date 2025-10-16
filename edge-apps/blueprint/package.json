@@ -1,7 +1,7 @@
 {
   "type": "module",
   "dependencies": {
-    "vite": "^7.1.9",
+    "vite": "^7.1.10",
     "vue": "^3.5.22",
     "@playwright/test": "^1.56.0",
     "yaml": "^2.8.1"

@@ -2,6 +2,8 @@
 
 A digital signage dashboard that displays employee information from Bamboo HR, including birthdays, work anniversaries, and current leave status. Perfect for office displays and team spaces.
 
+![BambooHR App Preview](./static/images/preview.png)
+
 ## Features
 
 - Real-time employee information display

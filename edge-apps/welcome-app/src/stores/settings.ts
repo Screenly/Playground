@@ -1,4 +1,6 @@
-import { ref } from 'vue'
+import { type Ref, ref } from 'vue'
+import { defineStore } from 'pinia'
+import tzlookup from '@photostructure/tz-lookup'
 
 export interface WelcomeSettings {
   welcome_heading?: string
@@ -9,69 +11,66 @@ export interface WelcomeSettings {
   sentry_dsn?: string
 }
 
-export const useSettingsStore = () => {
-  const currentTimezone = ref('UTC')
-  const currentLocale = ref('en')
-  const settings = ref<WelcomeSettings>({})
+const settingsStoreSetup = () => {
+  const settings = screenly.settings
+  const overrideLocale: Ref<string> = ref('')
+  const overrideTimezone: Ref<string> = ref('')
+  const currentTimezone: Ref<string> = ref('UTC')
+  const currentLocale: Ref<string> = ref('en')
+  const welcomeHeading: Ref<string> = ref('Welcome')
+  const welcomeMessage: Ref<string> = ref('to the team')
 
   const init = () => {
-    if (typeof screenly !== 'undefined' && screenly.settings) {
-      settings.value = screenly.settings as WelcomeSettings
-    }
+    overrideLocale.value = (settings.override_locale as string) ?? ''
+    overrideTimezone.value = (settings.override_timezone as string) ?? ''
+    welcomeHeading.value = (settings.welcome_heading as string) ?? 'Welcome'
+    welcomeMessage.value = (settings.welcome_message as string) ?? 'to the team'
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const initTimezone = (latitude: number, longitude: number) => {
-    const overrideTimezone = settings.value.override_timezone
-
-    if (overrideTimezone) {
+    if (overrideTimezone.value) {
       try {
-        Intl.DateTimeFormat(undefined, { timeZone: overrideTimezone })
-        currentTimezone.value = overrideTimezone
+        Intl.DateTimeFormat(undefined, { timeZone: overrideTimezone.value })
+        currentTimezone.value = overrideTimezone.value
         return
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
-        console.warn(`Invalid timezone: ${overrideTimezone}. Using fallback.`)
+        console.warn(
+          `Invalid timezone: ${overrideTimezone.value}. Using fallback.`,
+        )
       }
     }
 
-    try {
-      const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
-      currentTimezone.value = timeZone || 'UTC'
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      console.warn('Could not determine timezone, using UTC')
-      currentTimezone.value = 'UTC'
-    }
+    currentTimezone.value = tzlookup(latitude, longitude)
   }
 
   const initLocale = () => {
-    const overrideLocale = settings.value.override_locale
+    const defaultLocale =
+      (navigator?.languages?.length
+        ? navigator.languages[0]
+        : navigator.language) || 'en'
 
-    if (overrideLocale) {
-      try {
-        new Intl.DateTimeFormat(overrideLocale)
-        currentLocale.value = overrideLocale
-        return
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (error) {
-        console.warn(`Invalid locale: ${overrideLocale}. Using fallback.`)
-      }
+    if (overrideLocale.value) {
+      currentLocale.value = overrideLocale.value
+      return
     }
 
-    const defaultLocale = navigator?.languages?.length
-      ? navigator.languages[0]
-      : navigator.language || 'en'
-
-    currentLocale.value = defaultLocale || 'en'
+    currentLocale.value = defaultLocale
   }
 
   return {
+    overrideLocale,
+    overrideTimezone,
     currentTimezone,
     currentLocale,
-    settings,
+    welcomeHeading,
+    welcomeMessage,
     init,
     initTimezone,
     initLocale,
   }
 }
+
+export const useSettingsStore = defineStore('settings', settingsStoreSetup)
+
+export type SettingsStore = ReturnType<typeof settingsStoreSetup>
