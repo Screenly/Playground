@@ -9,6 +9,8 @@ import dayJsTimezone from 'dayjs/plugin/timezone'
 dayjs.extend(utc)
 dayjs.extend(dayJsTimezone)
 
+const ACCESS_TOKEN_URL = 'http://localhost:5000/tokens/access_token/'
+
 const getDateRangeForViewMode = (viewMode: ViewMode) => {
   const settingsStore = useSettingsStore()
   const timezone = settingsStore.overrideTimezone || 'UTC'
@@ -41,6 +43,88 @@ const getDateRangeForViewMode = (viewMode: ViewMode) => {
   }
 
   return { startDate, endDate }
+}
+
+const getAccessToken = async (): Promise<string> => {
+  console.log('Fetching access token from:', ACCESS_TOKEN_URL)
+  const response = await fetch(ACCESS_TOKEN_URL)
+
+  console.log('Access token response status:', response.status)
+
+  if (!response.ok) {
+    throw new Error('Failed to get access token')
+  }
+
+  const accessToken = await response.text()
+  console.log('Access token:', accessToken)
+  return accessToken
+}
+
+export const fetchCalendarEventsFromAPI = async (): Promise<
+  CalendarEvent[]
+> => {
+  try {
+    const { calendar_mode: viewMode } = screenly.settings
+    const { startDate, endDate } = getDateRangeForViewMode(viewMode as ViewMode)
+
+    console.log('Fetching access token...')
+    // Get access token
+    const accessToken = await getAccessToken()
+    console.log('Access token retrieved:', accessToken ? 'Success' : 'Failed')
+
+    // Fetch events from Google Calendar API
+    const calendarId = 'primary'
+    const timeMin = startDate.toISOString()
+    const timeMax = endDate.toISOString()
+    const apiUrl = `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events?timeMin=${encodeURIComponent(timeMin)}&timeMax=${encodeURIComponent(timeMax)}&singleEvents=true&orderBy=startTime`
+
+    console.log('Fetching calendar events from Google Calendar API...')
+    console.log('API URL:', apiUrl)
+    console.log('Time range:', { timeMin, timeMax })
+
+    const response = await fetch(apiUrl, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+
+    console.log('Google Calendar API response status:', response.status)
+
+    if (!response.ok) {
+      throw new Error(
+        'Failed to fetch calendar events from Google Calendar API',
+      )
+    }
+
+    const data = await response.json()
+    console.log(
+      'Calendar events data received:',
+      data.items ? `${data.items.length} events` : 'No events',
+    )
+
+    const events: CalendarEvent[] = []
+
+    if (data.items && Array.isArray(data.items)) {
+      for (const item of data.items) {
+        const isAllDay = !!item.start.date
+        const startTime = item.start.dateTime || item.start.date
+        const endTime = item.end.dateTime || item.end.date
+
+        events.push({
+          title: item.summary || '(No title)',
+          startTime: new Date(startTime).toISOString(),
+          endTime: new Date(endTime).toISOString(),
+          isAllDay,
+        })
+      }
+    }
+
+    console.log('Returning', events.length, 'calendar events')
+    return events
+  } catch (error) {
+    console.error('Error fetching calendar events from API:', error)
+    return []
+  }
 }
 
 export const fetchCalendarEventsFromICal = async (): Promise<

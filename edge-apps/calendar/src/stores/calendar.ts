@@ -10,7 +10,7 @@ import {
   getLocale,
   getTimeZone,
 } from '@/utils'
-import { fetchCalendarEventsFromICal } from '@/events'
+import { fetchCalendarEventsFromAPI } from '@/events'
 import type { CalendarEvent } from '@/constants'
 import { useSettingsStore } from '@/stores/settings'
 
@@ -58,7 +58,7 @@ export const useCalendarStore = defineStore('calendar', () => {
   }
 
   const fetchEvents = async () => {
-    const fetchedEvents = await fetchCalendarEventsFromICal()
+    const fetchedEvents = await fetchCalendarEventsFromAPI()
     events.value = fetchedEvents
   }
 
