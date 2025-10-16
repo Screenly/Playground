@@ -12,7 +12,7 @@
 
 apps:
   bbc-news:
-    id: '01K7M3JVGZ3D3KWMZEZ298SDC9'
+    id: '01K7PQJ9QA5V5KMJD8GXHS2PY0'
     app_name: 'BBC News'
     description: 'Latest news from BBC World Service'
     rss_title: 'BBC News'
