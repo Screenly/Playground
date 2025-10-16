@@ -92,7 +92,7 @@ jobs:
             echo "🚀 All apps mode"
             
             # Extract all app keys and environment-specific IDs, filtering out apps without IDs for this environment
-            MATRIX=$(yq -o=json -I=0 '.apps | to_entries | map(select(.value.ids.'"$ENVIRONMENT"' != null) | {"key": .key, "id": .value.ids.'"$ENVIRONMENT"'})' "$CONFIG_FILE")
+            MATRIX=$(yq -o=json -I=0 '.apps | to_entries | map(select(.value.ids and (.value.ids | has("'"$ENVIRONMENT"'"))) | {"key": .key, "id": .value.ids.'"$ENVIRONMENT"'})' "$CONFIG_FILE")
             APP_COUNT=$(echo "$MATRIX" | yq 'length')
             
             if [ "$APP_COUNT" -eq 0 ]; then
