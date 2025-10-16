@@ -75,11 +75,12 @@ jobs:
             # Single app update
             echo "🎯 Single app mode: $APP_KEY_INPUT"
             
-            # Check if app exists
-            if ! yq ".apps.$APP_KEY_INPUT" "$CONFIG_FILE" | grep -q "ids:"; then
-              echo "❌ Error: App key '$APP_KEY_INPUT' not found"
-              echo "Available apps:"
-              yq '.apps | keys' "$CONFIG_FILE"
+            # Check if app exists and has ID for the requested environment
+            if ! yq ".apps.$APP_KEY_INPUT" "$CONFIG_FILE" | grep -q "ids:" || \
+               [ "$(yq -r ".apps.$APP_KEY_INPUT.ids | has(\"$ENVIRONMENT\")" "$CONFIG_FILE")" != "true" ]; then
+              echo "❌ Error: App key '$APP_KEY_INPUT' missing 'ids.$ENVIRONMENT'"
+              echo "Available environments for '$APP_KEY_INPUT':"
+              yq -r ".apps.$APP_KEY_INPUT.ids | keys | .[]" "$CONFIG_FILE" 2>/dev/null || echo "  (app not found or has no IDs configured)"
               exit 1
             fi
             
@@ -90,9 +91,14 @@ jobs:
             # All apps update
             echo "🚀 All apps mode"
             
-            # Extract all app keys and environment-specific IDs into a JSON array
-            MATRIX=$(yq -o=json -I=0 '.apps | to_entries | map({"key": .key, "id": .value.ids.'"$ENVIRONMENT"'})' "$CONFIG_FILE")
+            # Extract all app keys and environment-specific IDs, filtering out apps without IDs for this environment
+            MATRIX=$(yq -o=json -I=0 '.apps | to_entries | map(select(.value.ids.'"$ENVIRONMENT"' != null) | {"key": .key, "id": .value.ids.'"$ENVIRONMENT"'})' "$CONFIG_FILE")
             APP_COUNT=$(echo "$MATRIX" | yq 'length')
+            
+            if [ "$APP_COUNT" -eq 0 ]; then
+              echo "⚠️  No apps found with IDs configured for environment: $ENVIRONMENT"
+              exit 1
+            fi
           fi
 
           # Output matrix as compact JSON
