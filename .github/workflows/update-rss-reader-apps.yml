@@ -59,12 +59,8 @@ jobs:
         with:
           ref: master
 
-      - name: 🛠 Install yq
-        run: |
-          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.48.1/yq_linux_amd64
-          echo "99df6047f5b577a9d25f969f7c3823ada3488de2e2115b30a0abb10d9324fd9f  /usr/local/bin/yq" | sha256sum -c -
-          sudo chmod +x /usr/local/bin/yq
-          yq --version
+      - name: 🛠 Setup yq
+        uses: ./.github/actions/setup-yq
 
       - name: 📋 Generate App Matrix
         id: set-matrix
@@ -130,12 +126,8 @@ jobs:
         with:
           ref: master
 
-      - name: 🛠 Install yq
-        run: |
-          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.48.1/yq_linux_amd64
-          echo "99df6047f5b577a9d25f969f7c3823ada3488de2e2115b30a0abb10d9324fd9f  /usr/local/bin/yq" | sha256sum -c -
-          sudo chmod +x /usr/local/bin/yq
-          yq --version
+      - name: 🛠 Setup yq
+        uses: ./.github/actions/setup-yq
 
       - name: 🔧 Update manifest from config
         run: |
