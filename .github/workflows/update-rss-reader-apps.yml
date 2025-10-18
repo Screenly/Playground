@@ -67,31 +67,44 @@ jobs:
         run: |
           CONFIG_FILE="edge-apps/rss-reader/deployed-apps.yml"
           APP_KEY_INPUT="${{ inputs.app_key }}"
+          ENVIRONMENT="${{ inputs.environment }}"
 
-          echo "📋 Reading deployed apps from $CONFIG_FILE"
+          echo "📋 Reading deployed apps from $CONFIG_FILE for environment: $ENVIRONMENT"
 
           if [ -n "$APP_KEY_INPUT" ]; then
             # Single app update
             echo "🎯 Single app mode: $APP_KEY_INPUT"
             
-            # Check if app exists
-            if ! yq ".apps.$APP_KEY_INPUT" "$CONFIG_FILE" | grep -q "id:"; then
-              echo "❌ Error: App key '$APP_KEY_INPUT' not found in $CONFIG_FILE"
-              echo "Available apps:"
-              yq '.apps | keys' "$CONFIG_FILE"
+            # Check if app exists and has ID for the requested environment
+            if ! yq ".apps.$APP_KEY_INPUT" "$CONFIG_FILE" | grep -q "ids:" || \
+               [ "$(yq -r ".apps.$APP_KEY_INPUT.ids | has(\"$ENVIRONMENT\")" "$CONFIG_FILE")" != "true" ]; then
+              echo "❌ Error: App key '$APP_KEY_INPUT' missing 'ids.$ENVIRONMENT'"
+              echo "Available environments for '$APP_KEY_INPUT':"
+              yq -r ".apps.$APP_KEY_INPUT.ids | keys | .[]" "$CONFIG_FILE" 2>/dev/null || echo "  (app not found or has no IDs configured)"
               exit 1
             fi
             
-            # Create single-item matrix (compact JSON on single line)
-            MATRIX=$(yq -o=json -I=0 '.apps | to_entries | map(select(.key == "'"$APP_KEY_INPUT"'") | {"key": .key, "id": .value.id})' "$CONFIG_FILE")
+            # Create single-item matrix with environment-specific ID
+            MATRIX=$(yq -o=json -I=0 '.apps | to_entries | map(select(.key == "'"$APP_KEY_INPUT"'") | {"key": .key, "id": .value.ids.'"$ENVIRONMENT"'})' "$CONFIG_FILE")
             APP_COUNT=1
           else
             # All apps update
             echo "🚀 All apps mode"
             
-            # Extract all app keys and IDs into a JSON array (compact JSON on single line)
-            MATRIX=$(yq -o=json -I=0 '.apps | to_entries | map({"key": .key, "id": .value.id})' "$CONFIG_FILE")
+            # Extract all app keys and environment-specific IDs, filtering out apps without IDs for this environment
+            MATRIX=$(yq -o=json -I=0 '.apps | to_entries | map(select(.value.ids and (.value.ids | has("'"$ENVIRONMENT"'"))) | {"key": .key, "id": .value.ids.'"$ENVIRONMENT"'})' "$CONFIG_FILE")
             APP_COUNT=$(echo "$MATRIX" | yq 'length')
+            
+            if [ "$APP_COUNT" -eq 0 ]; then
+              echo "⚠️  No apps found with IDs configured for environment: $ENVIRONMENT"
+              exit 1
+            fi
+          fi
+
+          # Validate matrix is not empty before outputting
+          if [ "$APP_COUNT" -eq 0 ]; then
+            echo "❌ No apps found for environment: $ENVIRONMENT"
+            exit 1
           fi
 
           # Output matrix as compact JSON
@@ -99,7 +112,7 @@ jobs:
           echo "app_count=$APP_COUNT" >> "$GITHUB_OUTPUT"
 
           echo ""
-          echo "✅ Found $APP_COUNT app(s) to update:"
+          echo "✅ Found $APP_COUNT app(s) to update in $ENVIRONMENT:"
           echo "$MATRIX" | yq -P
 
   deploy:
@@ -135,10 +148,11 @@ jobs:
           CONFIG_FILE="${{ env.APP_PATH }}/deployed-apps.yml"
           APP_ID="${{ matrix.app.id }}"
           APP_KEY="${{ matrix.app.key }}"
+          ENVIRONMENT="${{ inputs.environment }}"
 
-          echo "📝 Updating manifest for: $APP_KEY (ID: $APP_ID)"
+          echo "📝 Updating manifest for: $APP_KEY in $ENVIRONMENT (ID: $APP_ID)"
 
-          # Load config from deployed-apps.yml
+          # Load config from deployed-apps.yml (common fields for all environments)
           CONFIG_APP_NAME=$(yq ".apps.$APP_KEY.app_name" "$CONFIG_FILE")
           CONFIG_DESC=$(yq ".apps.$APP_KEY.description" "$CONFIG_FILE")
           CONFIG_RSS_TITLE=$(yq ".apps.$APP_KEY.rss_title" "$CONFIG_FILE")
