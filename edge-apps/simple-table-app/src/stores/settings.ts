@@ -12,8 +12,8 @@ const settingsStoreSetup = () => {
   const currentTimezone: Ref<string> = ref('')
 
   const init = () => {
-    overrideLocale.value = (settings.locale as string) ?? ''
-    overrideTimezone.value = (settings.timezone as string) ?? ''
+    overrideLocale.value = (settings.override_locale as string) ?? ''
+    overrideTimezone.value = (settings.override_timezone as string) ?? ''
 
     initLocale()
 

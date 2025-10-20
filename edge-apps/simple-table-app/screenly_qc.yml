@@ -14,25 +14,22 @@ settings:
       Jane,30
     title: CSV Content
     optional: false
-    help_text: |
-      {
-        "schema_version": 1,
-        "properties": {
-          "type": "textarea",
-          "help_text": "Enter your CSV data here. The first row will be treated as headers. Use commas to separate columns and new lines to separate rows."
-        }
-      }
-  locale:
+    help_text:
+      properties:
+        help_text: Enter your CSV data here. The first row will be treated as headers. Use commas to separate columns and new lines to separate rows.
+        type: textarea
+      schema_version: 1
+  override_locale:
     type: string
     default_value: ''
-    title: Locale
+    title: Override Locale
     optional: true
     help_text: |
       Locale for time formatting. Leave empty to use the browser's default locale.
-  timezone:
+  override_timezone:
     type: string
     default_value: ''
-    title: Timezone
+    title: Override Timezone
     optional: true
     help_text: |
       Timezone for time display. Leave empty to use the player's location-based timezone.
