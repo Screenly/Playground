@@ -14,14 +14,11 @@ settings:
       Jane,30
     title: CSV Content
     optional: false
-    help_text: |
-      {
-        "schema_version": 1,
-        "properties": {
-          "type": "textarea",
-          "help_text": "Enter your CSV data here. The first row will be treated as headers. Use commas to separate columns and new lines to separate rows."
-        }
-      }
+    help_text:
+      properties:
+        help_text: Enter your CSV data here. The first row will be treated as headers. Use commas to separate columns and new lines to separate rows.
+        type: textarea
+      schema_version: 1
   locale:
     type: string
     default_value: ''
