@@ -1,0 +1,24 @@
+# Deployed RSS Reader Apps
+#
+# Format:
+# apps:
+#   app-key:
+#     app_name: "Instance Title"
+#     description: "Manifest Description"
+#     rss_title: "UI Title"
+#     icon_url: "https://..."
+#     rss_url: "https://..."
+#     ids:
+#       stage: "STAGE_APP_ID"
+#       production: "PROD_APP_ID"
+
+apps:
+  bbc-news:
+    app_name: 'BBC News'
+    description: 'Latest news from BBC World Service'
+    rss_title: 'BBC News'
+    icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-logo/bbc-news.svg'
+    rss_url: 'http://feeds.bbci.co.uk/news/rss.xml'
+    ids:
+      stage: '01K7M3JVGZ3D3KWMZEZ298SDC9'
+      production: '01K7M3JVGZ3D3KWMZEZ298SDC9' # Replace with actual production App ID
