@@ -12,36 +12,27 @@ settings:
     default_value: 'false'
     title: Display Errors
     optional: true
-    help_text: |
-      {
-        "schema_version": 1,
-        "properties": {
-          "type": "boolean",
-          "help_text": "For debugging purposes to display errors on the screen.",
-          "advanced": true
-        }
-      }
+    help_text:
+      properties:
+        advanced: true
+        help_text: For debugging purposes to display errors on the screen.
+        type: boolean
+      schema_version: 1
   embed_token:
     type: secret
     title: Embed Token
     optional: true
-    help_text: |
-      {
-        "schema_version": 1,
-        "properties": {
-          "type": "oauth:power_bi:embed_token",
-          "help_text": "For testing only. In the wild, the embed token should be fetched dynamically via the API."
-        }
-      }
+    help_text:
+      properties:
+        help_text: For testing only. In the wild, the embed token should be fetched dynamically via the API.
+        type: oauth:power_bi:embed_token
+      schema_version: 1
   embed_url:
     type: string
     title: Embed URL
     optional: false
-    help_text: |
-      {
-        "schema_version": 1,
-        "properties": {
-          "type": "oauth:power_bi:embed_url",
-          "help_text": "The URL of the Power BI dashboard or report to display."
-        }
-      }
+    help_text:
+      properties:
+        help_text: The URL of the Power BI dashboard or report to display.
+        type: oauth:power_bi:embed_url
+      schema_version: 1
