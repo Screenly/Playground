@@ -2,14 +2,13 @@ import ical from 'ical.js'
 import { VIEW_MODE } from '@/constants'
 import type { CalendarEvent, ViewMode } from '@/constants'
 import { useSettingsStore } from '@/stores/settings'
+import { getAccessToken } from '@/utils'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import dayJsTimezone from 'dayjs/plugin/timezone'
 
 dayjs.extend(utc)
 dayjs.extend(dayJsTimezone)
-
-const ACCESS_TOKEN_URL = 'http://localhost:5000/tokens/access_token/'
 
 const getDateRangeForViewMode = (viewMode: ViewMode) => {
   const settingsStore = useSettingsStore()
@@ -43,21 +42,6 @@ const getDateRangeForViewMode = (viewMode: ViewMode) => {
   }
 
   return { startDate, endDate }
-}
-
-const getAccessToken = async (): Promise<string> => {
-  console.log('Fetching access token from:', ACCESS_TOKEN_URL)
-  const response = await fetch(ACCESS_TOKEN_URL)
-
-  console.log('Access token response status:', response.status)
-
-  if (!response.ok) {
-    throw new Error('Failed to get access token')
-  }
-
-  const accessToken = await response.text()
-  console.log('Access token:', accessToken)
-  return accessToken
 }
 
 export const fetchCalendarEventsFromAPI = async (): Promise<

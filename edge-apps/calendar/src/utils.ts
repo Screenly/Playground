@@ -123,3 +123,20 @@ export const initializeSentrySettings = (): void => {
     console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
   }
 }
+
+const ACCESS_TOKEN_URL = 'http://localhost:5000/tokens/access_token/'
+
+export const getAccessToken = async (): Promise<string> => {
+  console.log('Fetching access token from:', ACCESS_TOKEN_URL)
+  const response = await fetch(ACCESS_TOKEN_URL)
+
+  console.log('Access token response status:', response.status)
+
+  if (!response.ok) {
+    throw new Error('Failed to get access token')
+  }
+
+  const accessToken = await response.text()
+  console.log('Access token:', accessToken)
+  return accessToken
+}
