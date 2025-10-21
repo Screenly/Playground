@@ -124,19 +124,19 @@ export const initializeSentrySettings = (): void => {
   }
 }
 
-const ACCESS_TOKEN_URL = 'http://localhost:5000/tokens/access_token/'
-
 export const getAccessToken = async (): Promise<string> => {
-  console.log('Fetching access token from:', ACCESS_TOKEN_URL)
-  const response = await fetch(ACCESS_TOKEN_URL)
+  const response = await fetch(
+    screenly.settings.screenly_oauth_tokens_url + 'access_token/',
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${screenly.settings.screenly_app_auth_token}`,
+      },
+    },
+  )
 
-  console.log('Access token response status:', response.status)
-
-  if (!response.ok) {
-    throw new Error('Failed to get access token')
-  }
-
-  const accessToken = await response.text()
-  console.log('Access token:', accessToken)
-  return accessToken
+  // TODO: Make the endpoint return JSON instead.
+  const token = await response.text()
+  return token
 }
