@@ -36,10 +36,10 @@ settings:
       properties:
         help_text: Choose the calendar source type ('api' for Google API or 'ical' for iCal feed).
         options:
-        - label: iCal URL
-          value: ical
-        - label: Google Calendar API
-          value: api
+          - label: iCal URL
+            value: ical
+          - label: Google Calendar API
+            value: api
         type: select
       schema_version: 1
   enable_analytics:
