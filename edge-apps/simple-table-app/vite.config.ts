@@ -13,9 +13,6 @@ const manifestFileName = process.env.MANIFEST_FILE_NAME || 'screenly.yml'
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => ({
   base: '',
-  build: {
-    sourcemap: mode === 'development',
-  },
   plugins: [
     vue(),
     vueDevTools(),
@@ -44,7 +41,7 @@ export default defineConfig(({ mode }) => ({
       'blueprint/stores': fileURLToPath(new URL('../blueprint/ts/stores', import.meta.url)),
       'blueprint/scss': fileURLToPath(new URL('../blueprint/scss', import.meta.url)),
       'blueprint/components': fileURLToPath(new URL('../blueprint/ts/components', import.meta.url)),
-      'blueprint/assets': fileURLToPath(new URL('../blueprint/assets', import.meta.url)),
+      'blueprint/assets': fileURLToPath(new URL('../blueprint/assets', import.meta.url))
     },
   },
 }))
