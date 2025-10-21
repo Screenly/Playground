@@ -19,6 +19,7 @@ const mockScreenly = {
   settings: {
     bypass_cors: false,
     calendar_mode: 'daily',
+    calendar_source_type: 'ical',
     enable_analytics: 'true',
     ical_url: 'https://example.com',
     override_locale: '',

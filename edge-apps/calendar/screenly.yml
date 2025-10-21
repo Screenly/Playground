@@ -27,6 +27,13 @@ settings:
     optional: true
     help_text: |
       Select the calendar view mode ('monthly', 'weekly', or 'daily').
+  calendar_source_type:
+    type: string
+    default_value: ical
+    title: Calendar Source Type
+    optional: true
+    help_text: |
+      Choose the calendar source type ('api' for Google API or 'ical' for iCal feed).
   enable_analytics:
     type: string
     default_value: 'true'
@@ -37,9 +44,9 @@ settings:
   ical_url:
     type: secret
     title: iCal URL
-    optional: false
+    optional: true
     help_text: |
-      Enter the public iCal feed URL for your calendar.
+      Enter the public iCal feed URL for your calendar. Only used when `calendar_source_type` is set to 'ical'.
   override_locale:
     type: string
     default_value: en
