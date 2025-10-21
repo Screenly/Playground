@@ -44,6 +44,31 @@ const getDateRangeForViewMode = (viewMode: ViewMode) => {
   return { startDate, endDate }
 }
 
+const retryWithBackoff = async <T>(
+  fn: () => Promise<T>,
+  maxRetries: number = 3,
+  initialDelay: number = 1000,
+): Promise<T> => {
+  let lastError: Error | undefined
+
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      return await fn()
+    } catch (error) {
+      lastError = error as Error
+      if (attempt < maxRetries - 1) {
+        const delay = initialDelay * Math.pow(2, attempt)
+        console.log(
+          `Retry attempt ${attempt + 1} failed, retrying in ${delay}ms...`,
+        )
+        await new Promise((resolve) => setTimeout(resolve, delay))
+      }
+    }
+  }
+
+  throw lastError
+}
+
 export const fetchCalendarEventsFromAPI = async (): Promise<
   CalendarEvent[]
 > => {
@@ -52,8 +77,8 @@ export const fetchCalendarEventsFromAPI = async (): Promise<
     const { startDate, endDate } = getDateRangeForViewMode(viewMode as ViewMode)
 
     console.log('Fetching access token...')
-    // Get access token
-    const accessToken = await getAccessToken()
+    // Get access token with retry logic
+    const accessToken = await retryWithBackoff(() => getAccessToken(), 3, 1000)
     console.log('Access token retrieved:', accessToken ? 'Success' : 'Failed')
 
     // Fetch events from Google Calendar API
