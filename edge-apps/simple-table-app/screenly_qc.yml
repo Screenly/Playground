@@ -1,5 +1,6 @@
 ---
 syntax: manifest_v1
+id: 01K83XNMPZHBH5B0FHG15C6JZ9
 description: Simple Table App - Display CSV data as a formatted table
 icon: https://playground.srly.io/edge-apps/simple-table-app/static/images/icon.svg
 author: Screenly, Inc.
