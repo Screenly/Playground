@@ -2,7 +2,7 @@ import ical from 'ical.js'
 import { VIEW_MODE } from '@/constants'
 import type { CalendarEvent, ViewMode } from '@/constants'
 import { useSettingsStore } from '@/stores/settings'
-import { getAccessToken } from '@/utils'
+import { getAccessToken, retryWithBackoff } from '@/utils'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import dayJsTimezone from 'dayjs/plugin/timezone'
@@ -42,31 +42,6 @@ const getDateRangeForViewMode = (viewMode: ViewMode) => {
   }
 
   return { startDate, endDate }
-}
-
-const retryWithBackoff = async <T>(
-  fn: () => Promise<T>,
-  maxRetries: number = 3,
-  initialDelay: number = 1000,
-): Promise<T> => {
-  let lastError: Error | undefined
-
-  for (let attempt = 0; attempt < maxRetries; attempt++) {
-    try {
-      return await fn()
-    } catch (error) {
-      lastError = error as Error
-      if (attempt < maxRetries - 1) {
-        const delay = initialDelay * Math.pow(2, attempt)
-        console.log(
-          `Retry attempt ${attempt + 1} failed, retrying in ${delay}ms...`,
-        )
-        await new Promise((resolve) => setTimeout(resolve, delay))
-      }
-    }
-  }
-
-  throw lastError
 }
 
 export const fetchCalendarEventsFromAPI = async (): Promise<

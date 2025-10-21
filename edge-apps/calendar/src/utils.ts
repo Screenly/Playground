@@ -124,6 +124,31 @@ export const initializeSentrySettings = (): void => {
   }
 }
 
+export const retryWithBackoff = async <T>(
+  fn: () => Promise<T>,
+  maxRetries: number = 3,
+  initialDelay: number = 1000,
+): Promise<T> => {
+  let lastError: Error | undefined
+
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      return await fn()
+    } catch (error) {
+      lastError = error as Error
+      if (attempt < maxRetries - 1) {
+        const delay = initialDelay * Math.pow(2, attempt)
+        console.log(
+          `Retry attempt ${attempt + 1} failed, retrying in ${delay}ms...`,
+        )
+        await new Promise((resolve) => setTimeout(resolve, delay))
+      }
+    }
+  }
+
+  throw lastError
+}
+
 export const getAccessToken = async (): Promise<string> => {
   const response = await fetch(
     screenly.settings.screenly_oauth_tokens_url + 'access_token/',
