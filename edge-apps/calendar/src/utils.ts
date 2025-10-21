@@ -136,7 +136,6 @@ export const getAccessToken = async (): Promise<string> => {
     },
   )
 
-  // TODO: Make the endpoint return JSON instead.
-  const token = await response.text()
+  const { token } = await response.json()
   return token
 }
