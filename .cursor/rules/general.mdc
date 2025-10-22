@@ -35,4 +35,5 @@ alwaysApply: true
   
   When committing staged changes in Git:
   - Use Conventional Commits for writing commit messages. Check https://www.conventionalcommits.org/ for details.
+  - Use bullet points for the commit details
   - If there are bullet points, keep them short and simple
