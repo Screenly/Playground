@@ -119,8 +119,6 @@ export const initializeSentrySettings = (): void => {
     Sentry.init({
       dsn: sentryDsn as string,
     })
-  } else {
-    console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
   }
 }
 
@@ -138,9 +136,6 @@ export const retryWithBackoff = async <T>(
       lastError = error as Error
       if (attempt < maxRetries - 1) {
         const delay = initialDelay * Math.pow(2, attempt)
-        console.log(
-          `Retry attempt ${attempt + 1} failed, retrying in ${delay}ms...`,
-        )
         await new Promise((resolve) => setTimeout(resolve, delay))
       }
     }

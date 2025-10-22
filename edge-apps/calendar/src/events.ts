@@ -51,10 +51,8 @@ export const fetchCalendarEventsFromAPI = async (): Promise<
     const { calendar_mode: viewMode } = screenly.settings
     const { startDate, endDate } = getDateRangeForViewMode(viewMode as ViewMode)
 
-    console.log('Fetching access token...')
     // Get access token with retry logic
     const accessToken = await retryWithBackoff(() => getAccessToken(), 3, 1000)
-    console.log('Access token retrieved:', accessToken ? 'Success' : 'Failed')
 
     // Fetch events from Google Calendar API
     const calendarId = 'primary'
@@ -62,17 +60,11 @@ export const fetchCalendarEventsFromAPI = async (): Promise<
     const timeMax = endDate.toISOString()
     const apiUrl = `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events?timeMin=${encodeURIComponent(timeMin)}&timeMax=${encodeURIComponent(timeMax)}&singleEvents=true&orderBy=startTime`
 
-    console.log('Fetching calendar events from Google Calendar API...')
-    console.log('API URL:', apiUrl)
-    console.log('Time range:', { timeMin, timeMax })
-
     const response = await fetch(apiUrl, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     })
-
-    console.log('Google Calendar API response status:', response.status)
 
     if (!response.ok) {
       throw new Error(
@@ -81,10 +73,6 @@ export const fetchCalendarEventsFromAPI = async (): Promise<
     }
 
     const data = await response.json()
-    console.log(
-      'Calendar events data received:',
-      data.items ? `${data.items.length} events` : 'No events',
-    )
 
     const events: CalendarEvent[] = []
 
@@ -103,10 +91,8 @@ export const fetchCalendarEventsFromAPI = async (): Promise<
       }
     }
 
-    console.log('Returning', events.length, 'calendar events')
     return events
-  } catch (error) {
-    console.error('Error fetching calendar events from API:', error)
+  } catch {
     return []
   }
 }
@@ -180,8 +166,7 @@ export const fetchCalendarEventsFromICal = async (): Promise<
     events.sort((a, b) => a.startTime.localeCompare(b.startTime))
 
     return events
-  } catch (error) {
-    console.error('Error fetching calendar events:', error)
+  } catch {
     return []
   }
 }

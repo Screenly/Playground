@@ -96,8 +96,7 @@ const filterAndFormatEvents = async () => {
         props.timezone,
       )
       times[event.startTime] = formattedTime
-    } catch (error) {
-      console.error('Error formatting time:', error)
+    } catch {
       times[event.startTime] = '...'
     }
   }

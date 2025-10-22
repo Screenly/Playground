@@ -87,8 +87,8 @@ export const useCalendarStore = defineStore('calendar', () => {
     try {
       const fetchedLocale = await getLocale()
       locale.value = fetchedLocale
-    } catch (error) {
-      console.error('Error fetching locale:', error)
+    } catch {
+      // Error fetching locale
     }
   }
 
@@ -130,8 +130,8 @@ export const useCalendarStore = defineStore('calendar', () => {
       // Signal ready for rendering
       try {
         screenly.signalReadyForRendering()
-      } catch (error) {
-        console.error('Error signaling ready for rendering:', error)
+      } catch {
+        // Error signaling ready for rendering
       }
 
       isInitialized.value = true
@@ -145,8 +145,8 @@ export const useCalendarStore = defineStore('calendar', () => {
 
       // Store cleanup function in a way that can be accessed if needed
       ;(window as ExtendedWindow).__calendarCleanup = cleanup
-    } catch (error) {
-      console.error('Error initializing calendar:', error)
+    } catch {
+      // Error initializing calendar
     }
   }
 
