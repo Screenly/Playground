@@ -30,3 +30,10 @@ alwaysApply: true
 - Screenly Anywhere allows to you to deploy screens with no hardware required.
   - Screenly Anywhere can be set up on a web browser, on a smartphone, or on a smart TV.
   - See [https://www.screenly.io/end-user/screenly-anywhere/](mdc:https:/www.screenly.io/end-user/screenly-anywhere) for more details.
+
+  # Committing Changes
+  
+  When committing staged changes in Git:
+  - Use Conventional Commits for writing commit messages. Check https://www.conventionalcommits.org/ for details.
+  - Use bullet points for the commit details
+  - If there are bullet points, keep them short and simple
