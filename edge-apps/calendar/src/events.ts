@@ -72,21 +72,23 @@ export const fetchCalendarEventsFromAPI = async (
 
     const data = await response.json()
 
+    if (!data.items) {
+      return []
+    }
+
     const events: CalendarEvent[] = []
 
-    if (data.items && Array.isArray(data.items)) {
-      for (const item of data.items) {
-        const isAllDay = !!item.start.date
-        const startTime = item.start.dateTime || item.start.date
-        const endTime = item.end.dateTime || item.end.date
+    for (const item of data.items) {
+      const isAllDay = !!item.start.date
+      const startTime = item.start.dateTime || item.start.date
+      const endTime = item.end.dateTime || item.end.date
 
-        events.push({
-          title: item.summary || '(No title)',
-          startTime: new Date(startTime).toISOString(),
-          endTime: new Date(endTime).toISOString(),
-          isAllDay,
-        })
-      }
+      events.push({
+        title: item.summary || '(No title)',
+        startTime: new Date(startTime).toISOString(),
+        endTime: new Date(endTime).toISOString(),
+        isAllDay,
+      })
     }
 
     return events
