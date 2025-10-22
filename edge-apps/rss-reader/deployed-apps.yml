@@ -20,7 +20,7 @@ apps:
     icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/bbc-news.svg'
     rss_url: 'http://feeds.bbci.co.uk/news/rss.xml'
     ids:
-      stage: '01K7M3JVGZ3D3KWMZEZ298SDC9'
+      stage: '01K7PQJ9QA5V5KMJD8GXHS2PY0'
       production: ''
 
   abc-news:
