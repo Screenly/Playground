@@ -72,3 +72,13 @@ apps:
     ids:
       stage: '01K86GWD5XEZ9P882YG2STQ8AN'
       production: ''
+
+  wsj-news:
+    app_name: 'Wall Street Journal News'
+    description: 'Latest news from Wall Street Journal'
+    rss_title: 'Wall Street Journal News'
+    icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/wsj-news.svg'
+    rss_url: 'https://feeds.content.dowjones.io/public/rss/RSSWorldNews'
+    ids:
+      stage: '01K86HPE5DCBHS5T70AHAR6K75'
+      production: ''
