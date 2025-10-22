@@ -82,3 +82,13 @@ apps:
     ids:
       stage: '01K86HPE5DCBHS5T70AHAR6K75'
       production: ''
+
+  npr-news:
+    app_name: 'NPR News'
+    description: 'Latest news from NPR'
+    rss_title: 'NPR News'
+    icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/npr-news.svg'
+    rss_url: 'https://feeds.npr.org/1004/rss.xml'
+    ids:
+      stage: '01K86J7RPCMYD4JV5WPCJGKH20'
+      production: ''
