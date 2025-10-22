@@ -9,6 +9,7 @@ import {
   getFormattedDayOfWeek,
   getLocale,
   getTimeZone,
+  getAccessToken,
 } from '@/utils'
 import {
   fetchCalendarEventsFromAPI,
@@ -18,6 +19,7 @@ import type { CalendarEvent } from '@/constants'
 import { useSettingsStore } from '@/stores/settings'
 
 const EVENTS_REFRESH_INTERVAL = 10000
+const DEFAULT_TOKEN_REFRESH_SEC = 30 * 60 // Refresh token every 30 minutes
 
 // Extend Window interface to include our custom property
 interface ExtendedWindow extends Window {
@@ -32,6 +34,7 @@ export const useCalendarStore = defineStore('calendar', () => {
   const currentTime: Ref<string> = ref('')
   const locale: Ref<string> = ref('en-US')
   const isInitialized: Ref<boolean> = ref(false)
+  const accessToken: Ref<string | null> = ref(null)
 
   const timezone: Ref<string> = ref('UTC')
 
@@ -60,6 +63,43 @@ export const useCalendarStore = defineStore('calendar', () => {
     currentTime.value = time
   }
 
+  const fetchAccessToken = async () => {
+    try {
+      const token = await getAccessToken()
+      accessToken.value = token
+      return token
+    } catch {
+      accessToken.value = null
+      return null
+    }
+  }
+
+  const initTokenRefreshLoop = () => {
+    let currentErrorStep = 0
+    const initErrorDelaySec = 15
+    const maxErrorStep = 7
+
+    const run = async () => {
+      let nextTimeout = DEFAULT_TOKEN_REFRESH_SEC
+      try {
+        await fetchAccessToken()
+        currentErrorStep = 0
+      } catch {
+        nextTimeout = Math.min(
+          initErrorDelaySec * Math.pow(2, currentErrorStep),
+          nextTimeout,
+        )
+        if (currentErrorStep >= maxErrorStep) {
+          return
+        }
+        currentErrorStep += 1
+      }
+      setTimeout(run, nextTimeout * 1000)
+    }
+
+    setTimeout(run, DEFAULT_TOKEN_REFRESH_SEC * 1000)
+  }
+
   const fetchEvents = async () => {
     const settingsStore = useSettingsStore()
     const calendarSourceType = settingsStore.calendarSourceType
@@ -67,7 +107,11 @@ export const useCalendarStore = defineStore('calendar', () => {
     let fetchedEvents: CalendarEvent[] = []
 
     if (calendarSourceType === 'api') {
-      fetchedEvents = await fetchCalendarEventsFromAPI()
+      // Fetch access token if not already available
+      const token = accessToken.value || (await fetchAccessToken())
+      if (token) {
+        fetchedEvents = await fetchCalendarEventsFromAPI(token)
+      }
     } else {
       fetchedEvents = await fetchCalendarEventsFromICal()
     }
@@ -119,6 +163,12 @@ export const useCalendarStore = defineStore('calendar', () => {
         weeklyViewTime.value = new Date()
       }, 60000)
 
+      // Initialize token refresh loop for API-based calendar
+      const settingsStore = useSettingsStore()
+      if (settingsStore.calendarSourceType === 'api') {
+        initTokenRefreshLoop()
+      }
+
       // Set up events fetching with reduced frequency for better performance
       const eventsInterval = setInterval(fetchEvents, EVENTS_REFRESH_INTERVAL)
       await fetchEvents()
@@ -157,12 +207,15 @@ export const useCalendarStore = defineStore('calendar', () => {
     currentTime,
     locale,
     isInitialized,
+    accessToken,
     currentDayOfWeek,
     currentDate,
     currentMonthName,
     currentYear,
     updateDateTime,
     fetchEvents,
+    fetchAccessToken,
+    initTokenRefreshLoop,
     setupLocale,
     initialize,
     timezone,

@@ -2,7 +2,6 @@ import ical from 'ical.js'
 import { VIEW_MODE } from '@/constants'
 import type { CalendarEvent, ViewMode } from '@/constants'
 import { useSettingsStore } from '@/stores/settings'
-import { getAccessToken, retryWithBackoff } from '@/utils'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import dayJsTimezone from 'dayjs/plugin/timezone'
@@ -44,15 +43,12 @@ const getDateRangeForViewMode = (viewMode: ViewMode) => {
   return { startDate, endDate }
 }
 
-export const fetchCalendarEventsFromAPI = async (): Promise<
-  CalendarEvent[]
-> => {
+export const fetchCalendarEventsFromAPI = async (
+  accessToken: string,
+): Promise<CalendarEvent[]> => {
   try {
     const { calendar_mode: viewMode } = screenly.settings
     const { startDate, endDate } = getDateRangeForViewMode(viewMode as ViewMode)
-
-    // Get access token with retry logic
-    const accessToken = await retryWithBackoff(() => getAccessToken(), 3, 1000)
 
     // Fetch events from Google Calendar API
     const calendarId = 'primary'
