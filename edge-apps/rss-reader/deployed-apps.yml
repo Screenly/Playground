@@ -28,7 +28,7 @@ apps:
     description: 'Latest news from ABC News'
     rss_title: 'ABC News'
     icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/abc-news.svg'
-    rss_url: 'http://feeds.bbci.co.uk/news/rss.xml'
+    rss_url: 'https://abcnews.go.com/abcnews/topstories'
     ids:
       stage: ''
       production: ''
@@ -38,7 +38,7 @@ apps:
     description: 'Latest news from CNN News'
     rss_title: 'CNN News'
     icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/cnn-news.svg'
-    rss_url: 'http://feeds.bbci.co.uk/news/rss.xml'
+    rss_url: 'http://rss.cnn.com/rss/cnn_topstories.rss'
     ids:
       stage: ''
       production: ''
@@ -48,7 +48,7 @@ apps:
     description: 'Latest news from Fox News'
     rss_title: 'Fox News'
     icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/fox-news.svg'
-    rss_url: 'http://feeds.bbci.co.uk/news/rss.xml'
+    rss_url: 'https://moxie.foxnews.com/google-publisher/latest.xml'
     ids:
       stage: ''
       production: ''
@@ -58,7 +58,7 @@ apps:
     description: 'Latest news from New York Times'
     rss_title: 'New York Times News'
     icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/ny-times-news.svg'
-    rss_url: 'http://feeds.bbci.co.uk/news/rss.xml'
+    rss_url: 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml'
     ids:
       stage: ''
       production: ''
@@ -68,7 +68,7 @@ apps:
     description: 'Latest news from Al Jazeera'
     rss_title: 'Al Jazeera News'
     icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/al-jazeera-news.svg'
-    rss_url: 'http://feeds.bbci.co.uk/news/rss.xml'
+    rss_url: 'https://www.aljazeera.com/xml/rss/all.xml'
     ids:
       stage: ''
       production: ''
