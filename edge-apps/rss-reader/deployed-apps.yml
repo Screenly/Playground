@@ -30,7 +30,7 @@ apps:
     icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/abc-news.svg'
     rss_url: 'https://abcnews.go.com/abcnews/topstories'
     ids:
-      stage: ''
+      stage: '01K86G5RF1AYDNGXY38HNT3WEG'
       production: ''
 
   cnn-news:
@@ -40,7 +40,7 @@ apps:
     icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/cnn-news.svg'
     rss_url: 'http://rss.cnn.com/rss/cnn_topstories.rss'
     ids:
-      stage: ''
+      stage: '01K86GEV3KJ3W2YNW99DMSEP8W'
       production: ''
   
   fox-news:
@@ -50,7 +50,7 @@ apps:
     icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/fox-news.svg'
     rss_url: 'https://moxie.foxnews.com/google-publisher/latest.xml'
     ids:
-      stage: ''
+      stage: '01K86GJJ3Z5FMS8RJCZ6JA6WKW'
       production: ''
 
   ny-times-news:
@@ -60,7 +60,7 @@ apps:
     icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/ny-times-news.svg'
     rss_url: 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml'
     ids:
-      stage: ''
+      stage: '01K86GQ46W114SHDDZF68PPCHG'
       production: ''
 
   al-jazeera-news:
@@ -70,6 +70,6 @@ apps:
     icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/al-jazeera-news.svg'
     rss_url: 'https://www.aljazeera.com/xml/rss/all.xml'
     ids:
-      stage: ''
+      stage: '01K86GWD5XEZ9P882YG2STQ8AN'
       production: ''
   
