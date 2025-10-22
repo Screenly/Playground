@@ -110,10 +110,7 @@ export const useCalendarStore = defineStore('calendar', () => {
       // Fetch access token if not already available
       const token = accessToken.value || (await fetchAccessToken())
       if (token) {
-        fetchedEvents = await fetchCalendarEventsFromAPI(
-          token,
-          settingsStore.calendarId,
-        )
+        fetchedEvents = await fetchCalendarEventsFromAPI(token)
       }
     } else {
       fetchedEvents = await fetchCalendarEventsFromICal()
