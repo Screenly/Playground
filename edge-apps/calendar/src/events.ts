@@ -45,13 +45,13 @@ const getDateRangeForViewMode = (viewMode: ViewMode) => {
 
 export const fetchCalendarEventsFromAPI = async (
   accessToken: string,
+  calendarId: string = 'primary',
 ): Promise<CalendarEvent[]> => {
   try {
     const { calendar_mode: viewMode } = screenly.settings
     const { startDate, endDate } = getDateRangeForViewMode(viewMode as ViewMode)
 
     // Fetch events from Google Calendar API
-    const calendarId = 'primary'
     const timeMin = startDate.toISOString()
     const timeMax = endDate.toISOString()
     const apiUrl = `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events?timeMin=${encodeURIComponent(timeMin)}&timeMax=${encodeURIComponent(timeMax)}&singleEvents=true&orderBy=startTime`
