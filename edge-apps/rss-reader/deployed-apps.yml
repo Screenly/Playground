@@ -17,8 +17,59 @@ apps:
     app_name: 'BBC News'
     description: 'Latest news from BBC World Service'
     rss_title: 'BBC News'
-    icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-logo/bbc-news.svg'
+    icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/bbc-news.svg'
     rss_url: 'http://feeds.bbci.co.uk/news/rss.xml'
     ids:
       stage: '01K7M3JVGZ3D3KWMZEZ298SDC9'
-      production: '01K7M3JVGZ3D3KWMZEZ298SDC9' # Replace with actual production App ID
+      production: ''
+
+  abc-news:
+    app_name: 'ABC News'
+    description: 'Latest news from ABC News'
+    rss_title: 'ABC News'
+    icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/abc-news.svg'
+    rss_url: 'http://feeds.bbci.co.uk/news/rss.xml'
+    ids:
+      stage: ''
+      production: ''
+
+  cnn-news:
+    app_name: 'CNN News'
+    description: 'Latest news from CNN News'
+    rss_title: 'CNN News'
+    icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/cnn-news.svg'
+    rss_url: 'http://feeds.bbci.co.uk/news/rss.xml'
+    ids:
+      stage: ''
+      production: ''
+  
+  fox-news:
+    app_name: 'Fox News'
+    description: 'Latest news from Fox News'
+    rss_title: 'Fox News'
+    icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/fox-news.svg'
+    rss_url: 'http://feeds.bbci.co.uk/news/rss.xml'
+    ids:
+      stage: ''
+      production: ''
+
+  ny-times-news:
+    app_name: 'New York Times News'
+    description: 'Latest news from New York Times'
+    rss_title: 'New York Times News'
+    icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/ny-times-news.svg'
+    rss_url: 'http://feeds.bbci.co.uk/news/rss.xml'
+    ids:
+      stage: ''
+      production: ''
+
+  al-jazeera-news:
+    app_name: 'Al Jazeera News'
+    description: 'Latest news from Al Jazeera'
+    rss_title: 'Al Jazeera News'
+    icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/al-jazeera-news.svg'
+    rss_url: 'http://feeds.bbci.co.uk/news/rss.xml'
+    ids:
+      stage: ''
+      production: ''
+  
