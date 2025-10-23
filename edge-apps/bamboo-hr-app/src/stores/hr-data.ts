@@ -23,7 +23,7 @@ const hrDataStoreSetup = () => {
 
   // Auto-refresh interval
   const REFRESH_INTERVAL = 30000 // 30 seconds
-  let refreshInterval: NodeJS.Timeout | null = null
+  let refreshInterval: ReturnType<typeof setInterval> | null = null
 
   const fetchEmployeeData = async () => {
     const settingsStore = useSettingsStore()
