@@ -1,7 +1,7 @@
 import { vi } from 'vitest'
 
 // Mock `screenly` global for all tests
-global.screenly = {
+globalThis.screenly = {
   signalReadyForRendering: vi.fn(),
   metadata: {
     coordinates: [0, 0],
