@@ -10,6 +10,7 @@ const settingsStoreSetup = () => {
   const bypassCors: Ref<boolean> = ref(false)
   const calendarId: Ref<string> = ref('primary')
   const calendarMode: Ref<CalendarMode> = ref('monthly')
+  const calendarSourceType: Ref<string> = ref('ical')
   const icalUrl: Ref<string> = ref('')
 
   // Analytics settings
@@ -28,6 +29,8 @@ const settingsStoreSetup = () => {
       (JSON.parse(settings.bypass_cors as string) as boolean) ?? false
     calendarId.value = (settings.calendar_id as string) ?? 'primary'
     calendarMode.value = (settings.calendar_mode as CalendarMode) ?? 'monthly'
+    calendarSourceType.value =
+      (settings.calendar_source_type as string) ?? 'ical'
     icalUrl.value = (settings.ical_url as string) ?? ''
 
     // Analytics settings
@@ -71,6 +74,7 @@ const settingsStoreSetup = () => {
     bypassCors,
     calendarId,
     calendarMode,
+    calendarSourceType,
     icalUrl,
     enableAnalytics,
     tagManagerId,

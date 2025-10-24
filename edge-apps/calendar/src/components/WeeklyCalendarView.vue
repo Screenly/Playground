@@ -157,8 +157,7 @@ const generateTimeSlots = async () => {
 
     timeSlots.value = slots
     isReady.value = true
-  } catch (error) {
-    console.error('Error generating time slots:', error)
+  } catch {
     // Fallback to simple time slots if locale fetch fails
     const slots: TimeSlot[] = []
     const currentHour = currentHourInfo.value.current
@@ -309,8 +308,7 @@ const monthYearDisplay = computed(() => {
       throw new Error('Invalid month/year format')
     }
     return `${month.toUpperCase()} ${year}`
-  } catch (error) {
-    console.error('Error formatting month/year:', error)
+  } catch {
     // Fallback to simple format
     const date = new Date(now.value)
     const monthNames = [

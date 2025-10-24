@@ -148,8 +148,7 @@ const generateTimeSlots = async () => {
 
     timeSlots.value = slots
     isReady.value = true
-  } catch (error) {
-    console.error('Error generating time slots:', error)
+  } catch {
     // Fallback to simple time slots if locale fetch fails
     const slots: TimeSlot[] = []
     const currentHour = currentHourInfo.value.current
