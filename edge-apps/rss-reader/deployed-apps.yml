@@ -21,7 +21,7 @@ apps:
     rss_url: 'http://feeds.bbci.co.uk/news/rss.xml'
     ids:
       stage: '01K7PQJ9QA5V5KMJD8GXHS2PY0'
-      production: ''
+      production: '01K8J81XPNSGHNAK7QYK0VEG5H'
 
   abc-news:
     app_name: 'ABC News'
@@ -51,7 +51,7 @@ apps:
     rss_url: 'https://moxie.foxnews.com/google-publisher/latest.xml'
     ids:
       stage: '01K86GJJ3Z5FMS8RJCZ6JA6WKW'
-      production: ''
+      production: '01K8J8K6MN8VN235J16C4S2CR9'
 
   ny-times-news:
     app_name: 'New York Times News'
@@ -61,7 +61,7 @@ apps:
     rss_url: 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml'
     ids:
       stage: '01K86GQ46W114SHDDZF68PPCHG'
-      production: ''
+      production: '01K8J90K1TFJ05T6B8SYBZDZP1'
 
   al-jazeera-news:
     app_name: 'Al Jazeera News'
@@ -71,7 +71,7 @@ apps:
     rss_url: 'https://www.aljazeera.com/xml/rss/all.xml'
     ids:
       stage: '01K86GWD5XEZ9P882YG2STQ8AN'
-      production: ''
+      production: '01K8J94X6KSY0THWHZTCB8M1BB'
 
   wsj-news:
     app_name: 'Wall Street Journal News'
@@ -81,7 +81,7 @@ apps:
     rss_url: 'https://feeds.content.dowjones.io/public/rss/RSSWorldNews'
     ids:
       stage: '01K86HPE5DCBHS5T70AHAR6K75'
-      production: ''
+      production: '01K8JBDJ3YFCQ0GBMX07Y0YSNX'
 
   npr-news:
     app_name: 'NPR News'
@@ -91,4 +91,4 @@ apps:
     rss_url: 'https://feeds.npr.org/1004/rss.xml'
     ids:
       stage: '01K86J7RPCMYD4JV5WPCJGKH20'
-      production: ''
+      production: '01K8JBNNVFJ8WDNBYFA1EENN8F'
