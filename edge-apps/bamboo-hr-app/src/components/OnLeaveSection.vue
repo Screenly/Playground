@@ -65,7 +65,6 @@ const formatLeaveDate = (leave: EmployeeOnLeave) => {
               </div>
               <div class="employee-card-details">
                 <div>{{ formatLeaveDate(leave) }}</div>
-                <div>{{ leave.type }}</div>
               </div>
             </div>
           </div>

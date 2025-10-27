@@ -19,7 +19,6 @@ export interface Leave {
   name: string
   start: string
   end: string
-  type: string
 }
 
 export interface EmployeeOnLeave {
@@ -27,7 +26,6 @@ export interface EmployeeOnLeave {
   name: string
   start: string
   end: string
-  type: string
   avatar?: string | null
 }
 
@@ -36,15 +34,6 @@ const leavesStoreSetup = () => {
   const loading: Ref<boolean> = ref(false)
   const error: Ref<string | null> = ref(null)
   const employeesOnLeave: Ref<EmployeeOnLeave[]> = ref([])
-
-  const getLeaveType = (type: string) => {
-    switch (type) {
-      case 'timeOff':
-        return 'Vacation'
-      default:
-        return 'Vacation'
-    }
-  }
 
   const fetchLeaveData = async (employees: Employee[] = []) => {
     try {
@@ -101,7 +90,6 @@ const leavesStoreSetup = () => {
             name: item.name,
             start: item.start,
             end: item.end,
-            type: getLeaveType(item.type),
             avatar,
           }
         },
