@@ -13,6 +13,17 @@ settings:
     optional: true
     help_text: |
       Enable CORS bypass for iCal URLs that require it to resolve access restrictions.
+  display_errors:
+    type: string
+    default_value: 'false'
+    title: Display Errors
+    optional: true
+    help_text:
+      properties:
+        advanced: true
+        help_text: For debugging purposes to display errors on the screen.
+        type: boolean
+      schema_version: 1
   calendar_id:
     type: string
     default_value: primary
