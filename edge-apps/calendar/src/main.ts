@@ -14,7 +14,7 @@ const app = createApp(App)
 if (displayErrors) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   app.config.errorHandler = (err, instance, info) => {
-    panic(err)
+    panic(err instanceof Error ? err : new Error(String(err)))
   }
 }
 
