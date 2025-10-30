@@ -39,10 +39,8 @@ const leavesStoreSetup = () => {
 
   const getLeaveType = (type: string) => {
     switch (type) {
-      case 'timeOff':
-        return 'Vacation'
       default:
-        return 'Vacation'
+        return 'Time Off'
     }
   }
 
