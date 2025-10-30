@@ -37,8 +37,7 @@ const updateTime = () => {
     )
 
     timeString.value = `${start} - ${end}`
-  } catch (error) {
-    console.error('Error formatting time:', error)
+  } catch {
     // Fallback to simple format
     const start = new Date(props.startTime)
     const end = new Date(props.endTime)

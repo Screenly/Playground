@@ -43,6 +43,63 @@ const getDateRangeForViewMode = (viewMode: ViewMode) => {
   return { startDate, endDate }
 }
 
+export const fetchCalendarEventsFromAPI = async (
+  accessToken: string,
+): Promise<CalendarEvent[]> => {
+  const { calendar_mode: viewMode } = screenly.settings
+  const { startDate, endDate } = getDateRangeForViewMode(viewMode as ViewMode)
+
+  // Fetch events from Google Calendar API
+  const settingsStore = useSettingsStore()
+  const calendarId = settingsStore.calendarId
+  const encodedCalendarId = encodeURIComponent(calendarId as string)
+  const timeMin = startDate.toISOString()
+  const timeMax = endDate.toISOString()
+  const apiUrl = `https://www.googleapis.com/calendar/v3/calendars/${encodedCalendarId}/events?timeMin=${encodeURIComponent(timeMin)}&timeMax=${encodeURIComponent(timeMax)}&singleEvents=true&orderBy=startTime`
+
+  let response
+  let data
+
+  try {
+    response = await fetch(apiUrl, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(
+        'Failed to fetch calendar events from Google Calendar API',
+      )
+    }
+
+    data = await response.json()
+  } catch {
+    return []
+  }
+
+  if (!data.items) {
+    return []
+  }
+
+  const events: CalendarEvent[] = []
+
+  for (const item of data.items) {
+    const isAllDay = !!item.start.date
+    const startTime = item.start.dateTime || item.start.date
+    const endTime = item.end.dateTime || item.end.date
+
+    events.push({
+      title: item.summary || '(No title)',
+      startTime: new Date(startTime).toISOString(),
+      endTime: new Date(endTime).toISOString(),
+      isAllDay,
+    })
+  }
+
+  return events
+}
+
 export const fetchCalendarEventsFromICal = async (): Promise<
   CalendarEvent[]
 > => {
@@ -112,8 +169,7 @@ export const fetchCalendarEventsFromICal = async (): Promise<
     events.sort((a, b) => a.startTime.localeCompare(b.startTime))
 
     return events
-  } catch (error) {
-    console.error('Error fetching calendar events:', error)
+  } catch {
     return []
   }
 }
