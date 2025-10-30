@@ -54,6 +54,7 @@
     "jiti": "^2.6.1",
     "jsdom": "^27.0.1",
     "npm-run-all2": "^8.0.4",
+    "panic-overlay": "^1.0.51",
     "prettier": "3.6.2",
     "rimraf": "^6.0.1",
     "sass-embedded": "^1.93.2",
