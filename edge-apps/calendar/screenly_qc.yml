@@ -34,12 +34,14 @@ settings:
     optional: true
     help_text:
       properties:
-        help_text: Choose the calendar source type ('google' for Google API or 'ical' for iCal feed).
+        help_text: Choose the calendar source type ('google' for Google API, 'outlook' for Outlook API, or 'ical' for iCal feed).
         options:
           - label: iCal URL
             value: ical
           - label: Google Calendar API
             value: google
+          - label: Outlook Calendar API
+            value: outlook
         type: select
       schema_version: 1
   enable_analytics:

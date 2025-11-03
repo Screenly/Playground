@@ -100,6 +100,70 @@ export const fetchCalendarEventsFromGoogleAPI = async (
   return events
 }
 
+export const fetchCalendarEventsFromMicrosoftAPI = async (
+  accessToken: string,
+): Promise<CalendarEvent[]> => {
+  const { calendar_mode: viewMode } = screenly.settings
+  const { startDate, endDate } = getDateRangeForViewMode(viewMode as ViewMode)
+
+  // Fetch events from Microsoft Graph API
+  const startDateTime = startDate.toISOString()
+  const endDateTime = endDate.toISOString()
+  // NOTE: start and end automatically include dateTime and timeZone properties
+  const apiUrl = `https://graph.microsoft.com/v1.0/me/calendarview?$select=subject,start,end,isAllDay&startDateTime=${encodeURIComponent(startDateTime)}&endDateTime=${encodeURIComponent(endDateTime)}&$orderby=start/dateTime`
+
+  let response
+  let data
+
+  try {
+    response = await fetch(apiUrl, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(
+        'Failed to fetch calendar events from Microsoft Graph API',
+      )
+    }
+
+    data = await response.json()
+  } catch {
+    return []
+  }
+
+  if (!data.value) {
+    return []
+  }
+
+  const events: CalendarEvent[] = []
+
+  for (const item of data.value) {
+    const isAllDay = !!item.isAllDay
+
+    // Microsoft Graph API returns dateTime with timezone info
+    // We need to parse them properly considering the timezone
+    const startDateTime = item.start.dateTime
+    const startTimeZone = item.start.timeZone
+    const endDateTime = item.end.dateTime
+    const endTimeZone = item.end.timeZone
+
+    // Parse the datetime with its timezone and convert to UTC ISO string
+    const startTime = dayjs.tz(startDateTime, startTimeZone).toISOString()
+    const endTime = dayjs.tz(endDateTime, endTimeZone).toISOString()
+
+    events.push({
+      title: item.subject || '(No title)',
+      startTime,
+      endTime,
+      isAllDay,
+    })
+  }
+
+  return events
+}
+
 export const fetchCalendarEventsFromICal = async (): Promise<
   CalendarEvent[]
 > => {
