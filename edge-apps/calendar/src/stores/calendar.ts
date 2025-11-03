@@ -12,7 +12,7 @@ import {
   getAccessToken,
 } from '@/utils'
 import {
-  fetchCalendarEventsFromAPI,
+  fetchCalendarEventsFromGoogleAPI,
   fetchCalendarEventsFromICal,
 } from '@/events'
 import type { CalendarEvent } from '@/constants'
@@ -106,11 +106,11 @@ export const useCalendarStore = defineStore('calendar', () => {
 
     let fetchedEvents: CalendarEvent[] = []
 
-    if (calendarSourceType === 'api') {
+    if (calendarSourceType === 'google') {
       // Fetch access token if not already available
       const token = accessToken.value || (await fetchAccessToken())
       if (token) {
-        fetchedEvents = await fetchCalendarEventsFromAPI(token)
+        fetchedEvents = await fetchCalendarEventsFromGoogleAPI(token)
       }
     } else {
       fetchedEvents = await fetchCalendarEventsFromICal()
@@ -165,7 +165,7 @@ export const useCalendarStore = defineStore('calendar', () => {
 
       // Initialize token refresh loop for API-based calendar
       const settingsStore = useSettingsStore()
-      if (settingsStore.calendarSourceType === 'api') {
+      if (settingsStore.calendarSourceType === 'google') {
         initTokenRefreshLoop()
       }
 
