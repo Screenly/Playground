@@ -113,7 +113,7 @@ export const fetchCalendarEventsFromICal = async (): Promise<
 
     return events
   } catch (error) {
-    console.error('Error fetching calendar events:', error)
-    return []
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    throw new Error(`Error fetching calendar events: ${errorMessage}`)
   }
 }
