@@ -37,7 +37,7 @@
     "@tsconfig/node22": "^22.0.2",
     "@types/jsdom": "^27.0.0",
     "@types/node": "^24.10.0",
-    "@types/papaparse": "^5.3.16",
+    "@types/papaparse": "^5.5.0",
     "@vitejs/plugin-vue": "^6.0.0",
     "@vitest/eslint-plugin": "^1.4.0",
     "@vue/eslint-config-prettier": "^10.2.0",
@@ -57,7 +57,7 @@
     "vite": "^7.1.12",
     "vite-plugin-static-copy": "^3.1.4",
     "vite-plugin-vue-devtools": "^8.0.3",
-    "vitest": "^4.0.6",
+    "vitest": "^4.0.7",
     "vue-tsc": "^3.1.3"
   }
 }
