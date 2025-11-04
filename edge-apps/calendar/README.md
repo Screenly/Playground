@@ -27,12 +27,13 @@ screenly edge-app instance create --name=EDGE_APP_INSTANCE_NAME
 
 ## Calendar Source Types
 
-This app supports two calendar source types:
+This app supports three calendar source types:
 
 1. **Google Calendar API** (`google`) - Uses Google Calendar API with OAuth authentication
-2. **iCal URL** (`ical`) - Uses a public iCal feed URL (default)
+2. **Outlook Calendar API** (`outlook`) - Uses Microsoft Graph API with OAuth authentication
+3. **iCal URL** (`ical`) - Uses a public iCal feed URL (default)
 
-Set the `calendar_source_type` setting to either `google` or `ical` depending on your preference.
+Set the `calendar_source_type` setting to `google`, `outlook`, or `ical` depending on your preference.
 
 ## Deployment
 
@@ -55,6 +56,12 @@ screenly edge-app settings set ical_url=<YOUR_ICAL_URL>
 ```bash
 screenly edge-app setting set calendar_source_type=google
 screenly edge-app setting set calendar_id=primary
+```
+
+### Using Outlook Calendar API
+
+```bash
+screenly edge-app setting set calendar_source_type=outlook
 ```
 
 ## Development
@@ -94,6 +101,15 @@ Update `mock-data.yml` and set the calendar source type to `google`:
 settings:
   calendar_source_type: google
   calendar_id: primary
+```
+
+### Development with Outlook Calendar API
+
+Update `mock-data.yml` and set the calendar source type to `outlook`:
+
+```yaml
+settings:
+  calendar_source_type: outlook
 ```
 
 ## Linting and Formatting
