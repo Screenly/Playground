@@ -64,9 +64,11 @@ export const useCalendarStore = defineStore('calendar', () => {
     currentTime.value = time
   }
 
-  const fetchAccessToken = async () => {
+  const fetchAccessToken = async (
+    provider: 'google' | 'microsoft' = 'google',
+  ) => {
     try {
-      const token = await getAccessToken()
+      const token = await getAccessToken(provider)
       accessToken.value = token
       return token
     } catch {
@@ -75,7 +77,9 @@ export const useCalendarStore = defineStore('calendar', () => {
     }
   }
 
-  const initTokenRefreshLoop = () => {
+  const initTokenRefreshLoop = (
+    provider: 'google' | 'microsoft' = 'google',
+  ) => {
     let currentErrorStep = 0
     const initErrorDelaySec = 15
     const maxErrorStep = 7
@@ -83,7 +87,7 @@ export const useCalendarStore = defineStore('calendar', () => {
     const run = async () => {
       let nextTimeout = DEFAULT_TOKEN_REFRESH_SEC
       try {
-        await fetchAccessToken()
+        await fetchAccessToken(provider)
         currentErrorStep = 0
       } catch {
         nextTimeout = Math.min(
@@ -109,13 +113,13 @@ export const useCalendarStore = defineStore('calendar', () => {
 
     if (calendarSourceType === 'google') {
       // Fetch access token if not already available
-      const token = accessToken.value || (await fetchAccessToken())
+      const token = accessToken.value || (await fetchAccessToken('google'))
       if (token) {
         fetchedEvents = await fetchCalendarEventsFromGoogleAPI(token)
       }
     } else if (calendarSourceType === 'outlook') {
       // Fetch access token if not already available
-      const token = accessToken.value || (await fetchAccessToken())
+      const token = accessToken.value || (await fetchAccessToken('microsoft'))
       if (token) {
         fetchedEvents = await fetchCalendarEventsFromMicrosoftAPI(token)
       }
@@ -172,11 +176,10 @@ export const useCalendarStore = defineStore('calendar', () => {
 
       // Initialize token refresh loop for API-based calendar
       const settingsStore = useSettingsStore()
-      if (
-        settingsStore.calendarSourceType === 'google' ||
-        settingsStore.calendarSourceType === 'outlook'
-      ) {
-        initTokenRefreshLoop()
+      if (settingsStore.calendarSourceType === 'google') {
+        initTokenRefreshLoop('google')
+      } else if (settingsStore.calendarSourceType === 'outlook') {
+        initTokenRefreshLoop('microsoft')
       }
 
       // Set up events fetching with reduced frequency for better performance

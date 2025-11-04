@@ -122,9 +122,13 @@ export const initializeSentrySettings = (): void => {
   }
 }
 
-export const getAccessToken = async (): Promise<string> => {
+export const getAccessToken = async (
+  provider: 'google' | 'microsoft' = 'google',
+): Promise<string> => {
+  const endpoint =
+    provider === 'google' ? 'google_access_token' : 'microsoft_access_token'
   const response = await fetch(
-    screenly.settings.screenly_oauth_tokens_url + 'access_token/',
+    screenly.settings.screenly_oauth_tokens_url + endpoint,
     {
       method: 'GET',
       headers: {
