@@ -1,0 +1,35 @@
+---
+syntax: manifest_v1
+id:
+entrypoint:
+  type: file
+settings:
+  prometheus_endpoint:
+    type: string
+    title: Prometheus Endpoint
+    optional: false
+    help_text: "URL to the Prometheus metrics endpoint (e.g., http://192.168.3.80/metrics)"
+  temperature_metric_id:
+    type: string
+    default_value: airing_cabinet_temperature
+    title: Temperature Metric ID
+    optional: true
+    help_text: "Metric ID for temperature (default: airing_cabinet_temperature)"
+  humidity_metric_id:
+    type: string
+    default_value: airing_cabinet_humidity
+    title: Humidity Metric ID
+    optional: true
+    help_text: "Metric ID for humidity (default: airing_cabinet_humidity)"
+  voc_metric_id:
+    type: string
+    default_value: airing_cabinet_total_volatile_organic_compound
+    title: VOC Metric ID
+    optional: true
+    help_text: "Metric ID for VOC (default: airing_cabinet_total_volatile_organic_compound)"
+  eco2_metric_id:
+    type: string
+    default_value: airing_cabinet_eco2_value
+    title: eCO2 Metric ID
+    optional: true
+    help_text: "Metric ID for eCO2 (default: airing_cabinet_eco2_value)"
