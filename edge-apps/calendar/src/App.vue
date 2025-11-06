@@ -45,9 +45,13 @@ onBeforeMount(async () => {
 })
 
 onMounted(async () => {
-  await calendarStore.initialize()
-
-  screenly.signalReadyForRendering()
+  try {
+    await calendarStore.initialize()
+  } catch (error) {
+    console.error(error)
+  } finally {
+    screenly.signalReadyForRendering()
+  }
 })
 </script>
 

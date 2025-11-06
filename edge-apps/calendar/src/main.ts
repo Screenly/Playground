@@ -11,6 +11,8 @@ const displayErrors = screenly.settings.display_errors === 'true' || false
 
 const app = createApp(App)
 
+panic.configure({ handleErrors: displayErrors })
+
 if (displayErrors) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   app.config.errorHandler = (err, instance, info) => {
