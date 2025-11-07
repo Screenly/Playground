@@ -233,7 +233,8 @@ export const fetchCalendarEventsFromICal = async (): Promise<
     events.sort((a, b) => a.startTime.localeCompare(b.startTime))
 
     return events
-  } catch {
-    return []
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    throw new Error(`Error fetching calendar events: ${errorMessage}`)
   }
 }

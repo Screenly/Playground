@@ -43,6 +43,16 @@ settings:
           - label: Outlook Calendar API
             value: outlook
         type: select
+  display_errors:
+    type: string
+    default_value: 'false'
+    title: Display Errors
+    optional: true
+    help_text:
+      properties:
+        advanced: true
+        help_text: For debugging purposes to display errors on the screen.
+        type: boolean
       schema_version: 1
   enable_analytics:
     type: string

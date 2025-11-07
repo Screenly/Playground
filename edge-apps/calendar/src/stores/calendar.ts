@@ -208,8 +208,10 @@ export const useCalendarStore = defineStore('calendar', () => {
 
       // Store cleanup function in a way that can be accessed if needed
       ;(window as ExtendedWindow).__calendarCleanup = cleanup
-    } catch {
-      // Error initializing calendar
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : String(error)
+      throw new Error(`Error initializing calendar: ${errorMessage}`)
     }
   }
 
