@@ -20,7 +20,6 @@ const mockScreenly = {
     bypass_cors: false,
     calendar_mode: 'daily',
     enable_analytics: 'true',
-    ical_url: 'https://example.com',
     override_locale: '',
     override_timezone: '',
     screenly_color_accent: '#000000',

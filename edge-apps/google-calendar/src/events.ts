@@ -1,4 +1,3 @@
-import ical from 'ical.js'
 import { VIEW_MODE } from '@/constants'
 import type { CalendarEvent, ViewMode } from '@/constants'
 import { useSettingsStore } from '@/stores/settings'
@@ -43,77 +42,59 @@ const getDateRangeForViewMode = (viewMode: ViewMode) => {
   return { startDate, endDate }
 }
 
-export const fetchCalendarEventsFromICal = async (): Promise<
-  CalendarEvent[]
-> => {
-  try {
-    const { ical_url: icalUrl } = screenly.settings
-    const corsProxy = screenly.cors_proxy_url
-    const bypassCors = Boolean(
-      JSON.parse(screenly.settings.bypass_cors as string),
-    )
-    const { calendar_mode: viewMode } = screenly.settings
-    const icalUrlWithProxy = bypassCors
-      ? `${corsProxy}/${icalUrl as string}`
-      : (icalUrl as string)
+export const fetchCalendarEventsFromGoogleAPI = async (
+  accessToken: string,
+): Promise<CalendarEvent[]> => {
+  const { calendar_mode: viewMode } = screenly.settings
+  const { startDate, endDate } = getDateRangeForViewMode(viewMode as ViewMode)
 
-    const response = await fetch(icalUrlWithProxy)
+  // Fetch events from Google Calendar API
+  const settingsStore = useSettingsStore()
+  const calendarId = settingsStore.calendarId
+  const encodedCalendarId = encodeURIComponent(calendarId as string)
+  const timeMin = startDate.toISOString()
+  const timeMax = endDate.toISOString()
+  const apiUrl = `https://www.googleapis.com/calendar/v3/calendars/${encodedCalendarId}/events?timeMin=${encodeURIComponent(timeMin)}&timeMax=${encodeURIComponent(timeMax)}&singleEvents=true&orderBy=startTime`
+
+  let response
+  let data
+
+  try {
+    response = await fetch(apiUrl, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
 
     if (!response.ok) {
-      throw new Error('Failed to fetch iCal feed')
+      throw new Error(
+        'Failed to fetch calendar events from Google Calendar API',
+      )
     }
 
-    const icalData = await response.text()
-    const jcalData = ical.parse(icalData)
-    const vcalendar = new ical.Component(jcalData)
-    const vevents = vcalendar.getAllSubcomponents('vevent')
-
-    const { startDate, endDate } = getDateRangeForViewMode(viewMode as ViewMode)
-
-    // Pre-calculate the timestamp for faster comparisons
-    const startTimestamp = startDate.getTime()
-    const endTimestamp = endDate.getTime()
-
-    // Process events in larger chunks for better performance
-    const chunkSize = 100
-    const events: CalendarEvent[] = []
-
-    for (let i = 0; i < vevents.length; i += chunkSize) {
-      const chunk = vevents.slice(i, i + chunkSize)
-
-      // Process chunk synchronously for better performance
-      chunk.forEach((vevent) => {
-        const event = new ical.Event(vevent)
-        const eventStart = event.startDate.toJSDate()
-        const eventTimestamp = eventStart.getTime()
-
-        // Quick timestamp comparison before proceeding
-        if (eventTimestamp >= endTimestamp || eventTimestamp < startTimestamp) {
-          return
-        }
-
-        const eventEnd = event.endDate.toJSDate()
-
-        events.push({
-          title: event.summary,
-          startTime: eventStart.toISOString(),
-          endTime: eventEnd.toISOString(),
-          isAllDay: event.startDate.isDate,
-        })
-      })
-
-      // Only yield control every few chunks to reduce overhead
-      if (i % (chunkSize * 3) === 0) {
-        await new Promise((resolve) => setTimeout(resolve, 0))
-      }
-    }
-
-    // Sort events once
-    events.sort((a, b) => a.startTime.localeCompare(b.startTime))
-
-    return events
-  } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error)
-    throw new Error(`Error fetching calendar events: ${errorMessage}`)
+    data = await response.json()
+  } catch {
+    return []
   }
+
+  if (!data.items) {
+    return []
+  }
+
+  const events: CalendarEvent[] = []
+
+  for (const item of data.items) {
+    const isAllDay = !!item.start.date
+    const startTime = item.start.dateTime || item.start.date
+    const endTime = item.end.dateTime || item.end.date
+
+    events.push({
+      title: item.summary || '(No title)',
+      startTime: new Date(startTime).toISOString(),
+      endTime: new Date(endTime).toISOString(),
+      isAllDay,
+    })
+  }
+
+  return events
 }

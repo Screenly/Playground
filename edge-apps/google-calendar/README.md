@@ -1,4 +1,4 @@
-# Screenly Calendar App
+# Google Calendar App
 
 ## Prerequisites
 

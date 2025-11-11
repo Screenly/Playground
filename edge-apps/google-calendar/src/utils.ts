@@ -119,7 +119,21 @@ export const initializeSentrySettings = (): void => {
     Sentry.init({
       dsn: sentryDsn as string,
     })
-  } else {
-    console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
   }
+}
+
+export const getAccessToken = async (): Promise<string> => {
+  const response = await fetch(
+    screenly.settings.screenly_oauth_tokens_url + 'google_access_token',
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${screenly.settings.screenly_app_auth_token}`,
+      },
+    },
+  )
+
+  const { token } = await response.json()
+  return token
 }

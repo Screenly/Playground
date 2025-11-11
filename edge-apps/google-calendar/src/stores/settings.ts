@@ -10,7 +10,6 @@ const settingsStoreSetup = () => {
   const bypassCors: Ref<boolean> = ref(false)
   const calendarId: Ref<string> = ref('primary')
   const calendarMode: Ref<CalendarMode> = ref('monthly')
-  const icalUrl: Ref<string> = ref('')
 
   // Analytics settings
   const enableAnalytics: Ref<boolean> = ref(true)
@@ -28,7 +27,6 @@ const settingsStoreSetup = () => {
       (JSON.parse(settings.bypass_cors as string) as boolean) ?? false
     calendarId.value = (settings.calendar_id as string) ?? 'primary'
     calendarMode.value = (settings.calendar_mode as CalendarMode) ?? 'monthly'
-    icalUrl.value = (settings.ical_url as string) ?? ''
 
     // Analytics settings
     enableAnalytics.value =
@@ -62,16 +60,11 @@ const settingsStoreSetup = () => {
     return theme.value === 'dark'
   }
 
-  const hasValidIcalUrl = () => {
-    return icalUrl.value
-  }
-
   return {
     // State
     bypassCors,
     calendarId,
     calendarMode,
-    icalUrl,
     enableAnalytics,
     tagManagerId,
     sentryDsn,
@@ -84,7 +77,6 @@ const settingsStoreSetup = () => {
     isDailyMode,
     isLightTheme,
     isDarkTheme,
-    hasValidIcalUrl,
     overrideTimezone,
     overrideLocale,
   }

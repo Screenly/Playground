@@ -1,6 +1,5 @@
 ---
 syntax: manifest_v1
-id: 01JY4ARF0H5TAWWEG24KJGW33X
 description: Screenly Calendar Edge App
 icon: https://playground.srly.io/edge-apps/calendar/src/img/icon.svg
 author: Screenly, Inc.
@@ -45,12 +44,6 @@ settings:
     optional: true
     help_text: Enable or disable Sentry and Google Analytics integrations.
     is_global: true
-  ical_url:
-    type: secret
-    title: iCal URL
-    optional: false
-    help_text: |
-      Enter the public iCal feed URL for your calendar.
   override_locale:
     type: string
     default_value: en
