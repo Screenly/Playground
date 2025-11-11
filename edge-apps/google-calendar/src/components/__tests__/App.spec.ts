@@ -17,7 +17,6 @@ const mockScreenly = {
   },
   signalReadyForRendering: vi.fn(),
   settings: {
-    bypass_cors: false,
     calendar_mode: 'daily',
     enable_analytics: 'true',
     override_locale: '',

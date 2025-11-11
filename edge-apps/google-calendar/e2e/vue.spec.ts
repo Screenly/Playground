@@ -18,7 +18,6 @@ test('basic app structure test', async ({ page }) => {
         tags: ['tag1', 'tag2', 'tag3'],
       },
       settings: {
-        bypass_cors: false,
         calendar_mode: 'daily',
         enable_analytics: 'true',
         override_locale: '',

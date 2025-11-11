@@ -1,17 +1,10 @@
 ---
 syntax: manifest_v1
-description: Screenly Calendar Edge App QC
+description: Google Calendar Edge App QC
 icon: https://playground.srly.io/edge-apps/calendar/src/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 settings:
-  bypass_cors:
-    type: string
-    default_value: 'true'
-    title: Bypass CORS
-    optional: true
-    help_text: |
-      Enable CORS bypass for iCal URLs that require it to resolve access restrictions.
   calendar_id:
     type: string
     default_value: primary

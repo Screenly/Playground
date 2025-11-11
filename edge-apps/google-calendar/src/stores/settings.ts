@@ -7,7 +7,6 @@ const settingsStoreSetup = () => {
   const settings = screenly.settings
 
   // Calendar settings
-  const bypassCors: Ref<boolean> = ref(false)
   const calendarId: Ref<string> = ref('primary')
   const calendarMode: Ref<CalendarMode> = ref('monthly')
 
@@ -23,8 +22,6 @@ const settingsStoreSetup = () => {
 
   const init = () => {
     // Calendar settings
-    bypassCors.value =
-      (JSON.parse(settings.bypass_cors as string) as boolean) ?? false
     calendarId.value = (settings.calendar_id as string) ?? 'primary'
     calendarMode.value = (settings.calendar_mode as CalendarMode) ?? 'monthly'
 
@@ -62,7 +59,6 @@ const settingsStoreSetup = () => {
 
   return {
     // State
-    bypassCors,
     calendarId,
     calendarMode,
     enableAnalytics,
