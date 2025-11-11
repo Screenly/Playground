@@ -1,0 +1,93 @@
+---
+syntax: manifest_v1
+id: 01JY4ARF0H5TAWWEG24KJGW33X
+description: Screenly Calendar Edge App
+icon: https://playground.srly.io/edge-apps/calendar/src/img/icon.svg
+author: Screenly, Inc.
+ready_signal: true
+settings:
+  bypass_cors:
+    type: string
+    default_value: 'true'
+    title: Bypass CORS
+    optional: true
+    help_text: |
+      Enable CORS bypass for iCal URLs that require it to resolve access restrictions.
+  calendar_id:
+    type: string
+    default_value: primary
+    title: Google Calendar ID
+    optional: true
+    help_text: |
+      Enter the Google Calendar ID to display events from (defaults to primary calendar).
+  calendar_mode:
+    type: string
+    default_value: monthly
+    title: Calendar Mode
+    optional: true
+    help_text: |
+      Select the calendar view mode ('monthly', 'weekly', or 'daily').
+  display_errors:
+    type: string
+    default_value: 'false'
+    title: Display Errors
+    optional: true
+    help_text:
+      properties:
+        advanced: true
+        help_text: For debugging purposes to display errors on the screen.
+        type: boolean
+      schema_version: 1
+  enable_analytics:
+    type: string
+    default_value: 'true'
+    title: Enable Analytics
+    optional: true
+    help_text: Enable or disable Sentry and Google Analytics integrations.
+    is_global: true
+  ical_url:
+    type: secret
+    title: iCal URL
+    optional: false
+    help_text: |
+      Enter the public iCal feed URL for your calendar.
+  override_locale:
+    type: string
+    default_value: en
+    title: Override Locale
+    optional: true
+    help_text: |
+      Enter the locale to override the default locale for the calendar.
+      If left blank, the default locale will be used.
+      Example: 'fr'
+  override_timezone:
+    type: string
+    default_value: ''
+    title: Override Timezone
+    optional: true
+    help_text: |
+      Enter the timezone to override the default timezone for the calendar.
+      If left blank, the default timezone will be used.
+      Example: 'America/New_York'
+  sentry_dsn:
+    type: secret
+    title: Sentry Client Key
+    optional: true
+    help_text: |
+      Enter your Sentry DSN to enable error tracking and monitoring.
+    is_global: true
+  tag_manager_id:
+    type: string
+    default_value: GTM-P98SPZ9Z
+    title: Google Tag Manager ID
+    optional: true
+    help_text: |
+      Enter your Google Tag Manager container ID to enable tracking and analytics.
+    is_global: true
+  theme:
+    type: string
+    default_value: light
+    title: Theme
+    optional: false
+    help_text: |
+      Select the visual theme for the application ('light' or 'dark').
