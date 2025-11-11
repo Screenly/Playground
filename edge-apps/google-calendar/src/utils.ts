@@ -124,7 +124,7 @@ export const initializeSentrySettings = (): void => {
 
 export const getAccessToken = async (): Promise<string> => {
   const response = await fetch(
-    screenly.settings.screenly_oauth_tokens_url + 'access_token',
+    screenly.settings.screenly_oauth_tokens_url + 'access_token/',
     {
       method: 'GET',
       headers: {
