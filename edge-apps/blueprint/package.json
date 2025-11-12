@@ -5,6 +5,7 @@
     "@sentry/vue": "^10.25.0",
     "@typescript-eslint/typescript-estree": "^8.46.4",
     "country-locale-map": "^1.9.9",
+    "dayjs": "^1.11.19",
     "offline-geocode-city": "^1.0.2",
     "pinia": "^3.0.4",
     "vue": "^3.5.24",
