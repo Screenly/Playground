@@ -5,6 +5,15 @@ icon: https://playground.srly.io/edge-apps/calendar/src/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 settings:
+  access_token:
+    type: secret
+    title: Access Token
+    optional: true
+    help_text:
+      properties:
+        help_text: For testing only. In production, the access token should be fetched dynamically via the API.
+        type: oauth:google_calendar:access_token
+      schema_version: 1
   calendar_id:
     type: string
     default_value: primary
