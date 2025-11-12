@@ -1,17 +1,3 @@
-import { vi } from 'vitest'
+import { setupScreenlyMock } from '@edge-apps/blueprint/ts/test/screenly-mock'
 
-// Mock `screenly` global for all tests
-globalThis.screenly = {
-  signalReadyForRendering: vi.fn(),
-  metadata: {
-    coordinates: [0, 0],
-    hostname: 'test-host',
-    location: 'test-location',
-    hardware: 'test-hardware',
-    screenly_version: 'test-version',
-    screen_name: 'test-screen',
-    tags: [],
-  },
-  settings: {},
-  cors_proxy_url: 'http://test-proxy',
-}
+setupScreenlyMock()

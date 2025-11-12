@@ -1,4 +1,5 @@
-export { baseSettingsStoreSetup } from './settings-store'
+export { baseSettingsStoreSetup } from './base-settings-store'
 export { metadataStoreSetup } from './metadata-store'
-export type { SettingsStore } from './settings-store'
+export { createBaseCalendarStore } from './base-calendar-store'
+export type { SettingsStore } from './base-settings-store'
 export type { MetadataStore } from './metadata-store'
