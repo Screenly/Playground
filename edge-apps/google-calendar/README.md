@@ -19,6 +19,23 @@ screenly edge-app create \
     --in-place
 ```
 
+## Connect Screenly to Google Account
+
+You should connect Screenly to a Google account so that the app can access the calendar events via a Google Calendar access token.
+
+To get started, go to the [Integrations](https://app.screenlyapp.com/manage/integrations) page and click the "+ Connect" button next to "Google Calendar".
+
+![Connect Google Calendar](./static/images/google-calendar-integration-01.png)
+
+You will be prompted to confirm the connection to a Google account. Click the "Connect" button.
+
+![Connect Google Calendar](./static/images/google-calendar-integration-02.png)
+
+You will be redirected to a Google OAuth consent screen. Select the Google account you want to connect to Screenly. Follow through the prompts to grant Screenly access to your Google Calendar data.
+
+Once connected, you will be redirected back to the integrations page. You should see that the Google Calendar integration is now connected.
+
+
 ## Create an Edge App Instance via CLI
 
 ```bash
@@ -45,9 +62,13 @@ Run the following command to start the development server:
 bun run dev
 ```
 
-This will start the development server via the [Screenly CLI](https://github.com/Screenly/cli) and opens the app in the browser.
+This will start the development server via the [Screenly CLI](https://github.com/Screenly/cli) and open the app in the browser.
 
-Update `mock-data.yml` and update the values of `screenly_app_auth_token` and `screenly_oauth_tokens_url` in `screenly.yml` to test with mock data.
+Update `mock-data.yml` with the following values:
+
+- `screenly_app_auth_token`: A Google OAuth access token with sufficient scopes to read calendar events
+  - Check [this documentation about using OAuth 2.0 web server applications](https://developers.google.com/identity/protocols/oauth2/web-server#httprest_2) for more information on how to get an access token.
+- `screenly_oauth_tokens_url`: `https://api.screenlyappstage.com/api/v3/edge-apps/oauth/tokens/`
 
 ## Linting and Formatting
 
