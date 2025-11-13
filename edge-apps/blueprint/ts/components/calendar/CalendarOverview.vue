@@ -26,21 +26,27 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useCalendarStore } from '@/stores/calendar'
-import type { CalendarDay } from '@/constants'
+import type { CalendarDay } from '../../constants/calendar'
 
-const calendarStore = useCalendarStore()
+interface CalendarOverviewProps {
+  currentDate: number
+  currentMonthName: string
+  currentYear: number
+  currentMonth: number
+}
 
-const currentDate = computed(() => calendarStore.currentDate)
-const currentMonthName = computed(() => calendarStore.currentMonthName)
-const currentYear = computed(() => calendarStore.currentYear)
+const props = defineProps<CalendarOverviewProps>()
+
+const currentDate = computed(() => props.currentDate)
+const currentMonthName = computed(() => props.currentMonthName)
+const currentYear = computed(() => props.currentYear)
 
 // Generate week days based on locale
 const weekDays = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
 
 // Generate calendar days with proper month handling
 const calendarDays = computed((): CalendarDay[] => {
-  const date = new Date(currentYear.value, calendarStore.now.getMonth(), 1)
+  const date = new Date(currentYear.value, props.currentMonth, 1)
   const firstDayOfMonth = date.getDay() // 0-6 (Sunday-Saturday)
   const daysInMonth = new Date(
     currentYear.value,
@@ -87,4 +93,4 @@ const calendarDays = computed((): CalendarDay[] => {
 })
 </script>
 
-<style scoped src="@/assets/calendar-overview.scss"></style>
+<style scoped src="../../assets/calendar/calendar-overview.scss"></style>

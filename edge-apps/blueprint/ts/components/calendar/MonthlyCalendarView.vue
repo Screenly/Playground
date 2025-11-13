@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
-import { useCalendarStore } from '@/stores/calendar'
-import { getFormattedTime } from '@/utils'
-import type { CalendarEvent } from '@/constants'
+import { getFormattedTime } from '../../utils/calendar'
+import type { CalendarEvent } from '../../constants/calendar'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import dayJsTimezone from 'dayjs/plugin/timezone'
@@ -12,10 +11,12 @@ dayjs.extend(dayJsTimezone)
 
 const MAX_EVENTS = 7
 
-const calendarStore = useCalendarStore()
-
 interface Props {
   timezone?: string
+  now: Date
+  events: CalendarEvent[]
+  locale: string
+  currentDayOfWeek: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -26,9 +27,9 @@ const todayEvents = ref<CalendarEvent[]>([])
 const tomorrowEvents = ref<CalendarEvent[]>([])
 const formattedEventTimes = ref<Record<string, string>>({})
 
-const currentDayOfWeek = computed(() => calendarStore.currentDayOfWeek)
-const events = computed(() => calendarStore.events)
-const locale = computed(() => calendarStore.locale)
+const currentDayOfWeek = computed(() => props.currentDayOfWeek)
+const events = computed(() => props.events)
+const locale = computed(() => props.locale)
 
 const filterAndFormatEvents = async () => {
   // Get current time in the target timezone
@@ -150,4 +151,4 @@ watch([events, locale, () => props.timezone], filterAndFormatEvents, {
   </div>
 </template>
 
-<style scoped src="@/assets/monthly-calendar-view.scss"></style>
+<style scoped src="../../assets/calendar/monthly-calendar-view.scss"></style>

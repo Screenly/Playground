@@ -7,12 +7,14 @@ import dayJsTimezone from 'dayjs/plugin/timezone'
 dayjs.extend(utc)
 dayjs.extend(dayJsTimezone)
 
-import { useCalendarStore } from '@/stores/calendar'
-import EventTimeRange from '@/components/EventTimeRange.vue'
-import type { CalendarEvent, TimeSlot } from '@/constants'
+import EventTimeRange from './EventTimeRange.vue'
+import type { CalendarEvent, TimeSlot } from '../../constants/calendar'
 
 interface Props {
   timezone?: string
+  now: Date
+  events: CalendarEvent[]
+  locale: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -21,14 +23,11 @@ const props = withDefaults(defineProps<Props>(), {
 
 const DAYS_OF_WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
-const calendarStore = useCalendarStore()
-
 const timeSlots = ref<TimeSlot[]>([])
-const locale = ref<string | null>(null)
 const isReady = ref(false)
 
-const now = computed(() => calendarStore.now)
-const events = computed(() => calendarStore.events)
+const now = computed(() => props.now)
+const events = computed(() => props.events)
 
 // Calculate current hour info - memoized for performance
 const currentHourInfo = computed(() => {
@@ -117,8 +116,7 @@ const eventMap = computed(() => {
 // Generate time slots - optimized for performance
 const generateTimeSlots = async () => {
   try {
-    const userLocale = calendarStore.locale
-    locale.value = userLocale
+    const userLocale = props.locale
 
     const slots: TimeSlot[] = []
     const currentHour = currentHourInfo.value.current
@@ -295,10 +293,10 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
 
 // Get month/year display
 const monthYearDisplay = computed(() => {
-  if (!locale.value) return ''
+  if (!props.locale) return ''
   try {
     const date = new Date(now.value)
-    const monthYear = date.toLocaleDateString(locale.value, {
+    const monthYear = date.toLocaleDateString(props.locale, {
       month: 'long',
       year: 'numeric',
     })
@@ -431,7 +429,7 @@ watch(
               <EventTimeRange
                 :start-time="event.startTime"
                 :end-time="event.endTime"
-                :locale="locale"
+                :locale="props.locale"
                 :timezone="props.timezone"
               />
             </div>
@@ -447,4 +445,4 @@ watch(
   </div>
 </template>
 
-<style scoped src="@/assets/weekly-calendar-view.scss"></style>
+<style scoped src="../../assets/calendar/weekly-calendar-view.scss"></style>

@@ -45,8 +45,9 @@ export default defineConfig(({ mode }) => ({
       'blueprint/scss': fileURLToPath(new URL('../blueprint/scss', import.meta.url)),
       'blueprint/components': fileURLToPath(new URL('../blueprint/ts/components', import.meta.url)),
       'blueprint/assets': fileURLToPath(new URL('../blueprint/assets', import.meta.url)),
+      '@edge-apps/blueprint': fileURLToPath(new URL('../blueprint', import.meta.url)),
       ...(mode === 'test' && {
-        'lz-ts': fileURLToPath(new URL('./src/mocks/lz-ts-mock.ts', import.meta.url))
+        'lz-ts': fileURLToPath(new URL('../blueprint/ts/test/lz-ts-mock.ts', import.meta.url))
       })
     },
   },
