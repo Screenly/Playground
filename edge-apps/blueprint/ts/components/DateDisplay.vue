@@ -22,7 +22,8 @@ const updateDate = () => {
   }
 
   const now = new Date()
-  const formattedLocale = typeof props.locale === 'string' ? props.locale.replace('_', '-') : 'en'
+  const formattedLocale =
+    typeof props.locale === 'string' ? props.locale.replace('_', '-') : 'en'
 
   try {
     // Format day of week using the locale

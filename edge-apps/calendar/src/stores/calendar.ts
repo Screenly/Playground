@@ -2,13 +2,13 @@ import { ref, computed, shallowRef, type Ref } from 'vue'
 import { defineStore } from 'pinia'
 import {
   getFormattedTime,
-  initializeSentrySettings,
   getFormattedMonthName,
   getYear,
   getDate,
   getFormattedDayOfWeek,
   getLocale,
   getTimeZone,
+  initializeSentrySettings,
 } from '@/utils'
 import { fetchCalendarEventsFromICal } from '@/events'
 import type { CalendarEvent } from '@/constants'
@@ -16,7 +16,6 @@ import { useSettingsStore } from '@/stores/settings'
 
 const EVENTS_REFRESH_INTERVAL = 10000
 
-// Extend Window interface to include our custom property
 interface ExtendedWindow extends Window {
   __calendarCleanup?: () => void
 }
@@ -29,7 +28,6 @@ export const useCalendarStore = defineStore('calendar', () => {
   const currentTime: Ref<string> = ref('')
   const locale: Ref<string> = ref('en-US')
   const isInitialized: Ref<boolean> = ref(false)
-
   const timezone: Ref<string> = ref('UTC')
 
   // Memoized getters for better performance
@@ -53,7 +51,7 @@ export const useCalendarStore = defineStore('calendar', () => {
   const updateDateTime = async () => {
     const newNow = new Date()
     now.value = newNow
-    const time = await getFormattedTime(newNow)
+    const time = await getFormattedTime(newNow, locale.value, timezone.value)
     currentTime.value = time
   }
 
