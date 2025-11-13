@@ -35,7 +35,6 @@ You will be redirected to a Google OAuth consent screen. Select the Google accou
 
 Once connected, you will be redirected back to the integrations page. You should see that the Google Calendar integration is now connected.
 
-
 ## Create an Edge App Instance via CLI
 
 ```bash
