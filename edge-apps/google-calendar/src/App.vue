@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, type Ref } from 'vue'
+import { onBeforeMount, onMounted, type Ref, computed } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 
 import { AnalogClock, BrandLogoCard } from 'blueprint/components'
+import {
+  CalendarOverview,
+  DailyCalendarView,
+  MonthlyCalendarView,
+  WeeklyCalendarView,
+} from 'blueprint/components'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 
 import { useCalendarStore } from '@/stores/calendar'
 import { useSettingsStore } from '@/stores/settings'
-import MonthlyCalendarView from '@/components/MonthlyCalendarView.vue'
-import CalendarOverview from '@/components/CalendarOverview.vue'
-import DailyCalendarView from '@/components/DailyCalendarView.vue'
-import WeeklyCalendarView from '@/components/WeeklyCalendarView.vue'
+import type { CalendarEvent } from '@/constants'
 
 import screenlyLogo from 'blueprint/assets/images/screenly.svg'
 
@@ -34,9 +37,27 @@ const { brandLogoUrl, primaryThemeColor } = storeToRefs(
   primaryThemeColor: Ref<string>
 }
 
-const { timezone } = storeToRefs(calendarStore) as {
+const {
+  timezone,
+  now,
+  events,
+  locale,
+  currentDate,
+  currentMonthName,
+  currentYear,
+  currentDayOfWeek,
+} = storeToRefs(calendarStore) as {
   timezone: Ref<string>
+  now: Ref<Date>
+  events: Ref<CalendarEvent[]>
+  locale: Ref<string>
+  currentDate: Ref<number>
+  currentMonthName: Ref<string>
+  currentYear: Ref<number>
+  currentDayOfWeek: Ref<string>
 }
+
+const currentMonth = computed(() => now.value.getMonth())
 
 onBeforeMount(async () => {
   baseSettingsStore.setupTheme()
@@ -58,11 +79,27 @@ onMounted(async () => {
 <template>
   <div class="main-container">
     <MonthlyCalendarView
-      :timezone="timezone"
       v-if="calendarMode === 'monthly'"
+      :timezone="timezone"
+      :now="now"
+      :events="events"
+      :locale="locale"
+      :current-day-of-week="currentDayOfWeek"
     />
-    <DailyCalendarView :timezone="timezone" v-if="calendarMode === 'daily'" />
-    <WeeklyCalendarView :timezone="timezone" v-if="calendarMode === 'weekly'" />
+    <DailyCalendarView
+      v-if="calendarMode === 'daily'"
+      :timezone="timezone"
+      :now="now"
+      :events="events"
+      :locale="locale"
+    />
+    <WeeklyCalendarView
+      v-if="calendarMode === 'weekly'"
+      :timezone="timezone"
+      :now="now"
+      :events="events"
+      :locale="locale"
+    />
 
     <div class="secondary-container">
       <div class="row-container">
@@ -71,13 +108,19 @@ onMounted(async () => {
         </div>
       </div>
       <div class="row-container">
-        <CalendarOverview v-if="calendarMode === 'monthly'" />
+        <CalendarOverview
+          v-if="calendarMode === 'monthly'"
+          :current-date="currentDate"
+          :current-month-name="currentMonthName"
+          :current-year="currentYear"
+          :current-month="currentMonth"
+        />
         <div
+          v-if="['daily', 'weekly'].includes(calendarMode)"
           class="secondary-card"
           :style="{
             backgroundColor: primaryThemeColor,
           }"
-          v-if="['daily', 'weekly'].includes(calendarMode)"
         >
           <AnalogClock class="app-clock" :timezone="timezone" />
         </div>

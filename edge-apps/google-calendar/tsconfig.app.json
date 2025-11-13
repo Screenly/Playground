@@ -10,7 +10,9 @@
       "blueprint/stores/*": ["../blueprint/ts/stores/*"],
       "blueprint/scss/*": ["../blueprint/scss/*"],
       "blueprint/components": ["../blueprint/ts/components"],
-      "blueprint/assets/*": ["../blueprint/assets/*"]
+      "blueprint/assets/*": ["../blueprint/assets/*"],
+      "@edge-apps/blueprint/ts/constants/*": ["../blueprint/ts/constants/*"],
+      "@edge-apps/blueprint/ts/utils/*": ["../blueprint/ts/utils/*"]
     }
   }
 }
