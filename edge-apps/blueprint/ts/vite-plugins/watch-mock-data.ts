@@ -11,6 +11,6 @@ export function watchMockDataPlugin(): Plugin {
     buildStart() {
       // This registers mock-data.yml as a Rollup watched file
       this.addWatchFile('mock-data.yml')
-    }
+    },
   }
 }

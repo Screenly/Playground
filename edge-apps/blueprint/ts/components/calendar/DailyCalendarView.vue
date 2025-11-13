@@ -21,7 +21,7 @@
               <EventTimeRange
                 :start-time="event.startTime"
                 :end-time="event.endTime"
-                :locale="locale"
+                :locale="props.locale"
                 :timezone="props.timezone"
               />
             </div>
@@ -39,9 +39,8 @@
 
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
-import { useCalendarStore } from '@/stores/calendar'
-import EventTimeRange from '@/components/EventTimeRange.vue'
-import type { CalendarEvent, TimeSlot } from '@/constants'
+import EventTimeRange from './EventTimeRange.vue'
+import type { CalendarEvent, TimeSlot } from '../../constants/calendar'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import dayJsTimezone from 'dayjs/plugin/timezone'
@@ -51,20 +50,20 @@ dayjs.extend(dayJsTimezone)
 
 interface Props {
   timezone?: string
+  now: Date
+  events: CalendarEvent[]
+  locale: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   timezone: 'UTC',
 })
 
-const calendarStore = useCalendarStore()
-
 const timeSlots = ref<TimeSlot[]>([])
-const locale = ref<string | null>(null)
 const isReady = ref(false)
 
-const now = computed(() => calendarStore.now)
-const events = computed(() => calendarStore.events)
+const now = computed(() => props.now)
+const events = computed(() => props.events)
 
 // Calculate current hour info - memoized for performance
 const currentHourInfo = computed(() => {
@@ -108,8 +107,7 @@ const eventMap = computed(() => {
 
 const generateTimeSlots = async () => {
   try {
-    const userLocale = calendarStore.locale
-    locale.value = userLocale
+    const userLocale = props.locale
 
     const slots: TimeSlot[] = []
     const currentHour = currentHourInfo.value.current
@@ -309,4 +307,4 @@ watch(
 )
 </script>
 
-<style scoped src="@/assets/daily-calendar-view.scss"></style>
+<style scoped src="../../assets/calendar/daily-calendar-view.scss"></style>
