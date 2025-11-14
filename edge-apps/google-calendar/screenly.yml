@@ -29,8 +29,18 @@ settings:
     default_value: monthly
     title: Calendar Mode
     optional: true
-    help_text: |
-      Select the calendar view mode ('monthly', 'weekly', or 'daily').
+    help_text:
+      properties:
+        help_text: Select the calendar view mode.
+        options:
+        - label: Monthly
+          value: monthly
+        - label: Weekly
+          value: weekly
+        - label: Daily
+          value: daily
+        type: select
+      schema_version: 1
   display_errors:
     type: string
     default_value: 'false'
@@ -87,5 +97,13 @@ settings:
     default_value: light
     title: Theme
     optional: false
-    help_text: |
-      Select the visual theme for the application ('light' or 'dark').
+    help_text:
+      properties:
+        help_text: Select the visual theme for the application.
+        options:
+        - label: Light
+          value: light
+        - label: Dark
+          value: dark
+        type: select
+      schema_version: 1
