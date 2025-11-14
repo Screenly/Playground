@@ -33,12 +33,12 @@ settings:
       properties:
         help_text: Select the calendar view mode.
         options:
-        - label: Monthly
-          value: monthly
-        - label: Weekly
-          value: weekly
-        - label: Daily
-          value: daily
+          - label: Monthly
+            value: monthly
+          - label: Weekly
+            value: weekly
+          - label: Daily
+            value: daily
         type: select
       schema_version: 1
   display_errors:
@@ -101,9 +101,9 @@ settings:
       properties:
         help_text: Select the visual theme for the application.
         options:
-        - label: Light
-          value: light
-        - label: Dark
-          value: dark
+          - label: Light
+            value: light
+          - label: Dark
+            value: dark
         type: select
       schema_version: 1
