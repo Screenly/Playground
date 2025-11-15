@@ -160,13 +160,6 @@ export const useCalendarStore = defineStore('calendar', () => {
       await setupLocale()
       await updateDateTime()
 
-      // Signal ready for rendering
-      try {
-        screenly.signalReadyForRendering()
-      } catch {
-        // Error signaling ready for rendering
-      }
-
       isInitialized.value = true
 
       // Store cleanup function for later use if needed

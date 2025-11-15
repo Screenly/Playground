@@ -56,26 +56,17 @@ export const fetchCalendarEventsFromGoogleAPI = async (
   const timeMax = endDate.toISOString()
   const apiUrl = `https://www.googleapis.com/calendar/v3/calendars/${encodedCalendarId}/events?timeMin=${encodeURIComponent(timeMin)}&timeMax=${encodeURIComponent(timeMax)}&singleEvents=true&orderBy=startTime`
 
-  let response
-  let data
+  const response = await fetch(apiUrl, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
 
-  try {
-    response = await fetch(apiUrl, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
-
-    if (!response.ok) {
-      throw new Error(
-        'Failed to fetch calendar events from Google Calendar API',
-      )
-    }
-
-    data = await response.json()
-  } catch {
-    return []
+  if (!response.ok) {
+    throw new Error('Failed to fetch calendar events from Google Calendar API')
   }
+
+  const data = await response.json()
 
   if (!data.items) {
     return []
