@@ -17,9 +17,13 @@ export async function getLocale(): Promise<string> {
       ? navigator.languages[0]
       : navigator.language) || 'en'
 
-  const data = await getNearestCity(lat, lng)
-  const countryCode = data.countryIso2.toUpperCase()
+  try {
+    const data = await getNearestCity(lat, lng)
+    const countryCode = data.countryIso2.toUpperCase()
 
-  const locale = clm.getLocaleByAlpha2(countryCode) || defaultLocale
-  return locale.replace('_', '-')
+    const locale = clm.getLocaleByAlpha2(countryCode) || defaultLocale
+    return locale.replace('_', '-')
+  } catch {
+    return defaultLocale
+  }
 }
