@@ -10,7 +10,7 @@
     "forceConsistentCasingInFileNames": true,
     "types": ["bun-types"]
   },
-  "include": ["static/js/**/*.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }
 

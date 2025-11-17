@@ -6256,7 +6256,7 @@ var require_country_locale_map = __commonJS((exports, module) => {
   module.exports = CLM();
 });
 
-// static/js/main.ts
+// src/main.ts
 var import_qrcode = __toESM(require_browser(), 1);
 // ../edge-apps-library/dist/utils/theme.js
 var DEFAULT_THEME_COLORS = {
@@ -6331,7 +6331,7 @@ function addUTMParams(url, params) {
 function addUTMParamsIf(url, enabled, params) {
   return enabled ? addUTMParams(url, params) : url;
 }
-// static/js/main.ts
+// src/main.ts
 function generateQrCode(url, options, callback) {
   import_qrcode.default.toString(url, options, (err, result) => {
     if (err)
