@@ -1,5 +1,6 @@
 ---
 syntax: manifest_v1
+id: 01KA95QN36JCHQJVYHGBN50QAJ
 description: Google Calendar Edge App QC
 icon: https://playground.srly.io/edge-apps/google-calendar/src/img/icon.svg
 author: Screenly, Inc.
