@@ -146,11 +146,11 @@ jobs:
 
       - name: Run formatting check
         working-directory: edge-apps/${{ matrix.app }}
-        run: bun run prettier --check src/ README.md index.html
+        run: bun run format --check
 
       - name: Run unit tests
         working-directory: edge-apps/${{ matrix.app }}
-        run: bun run test:unit
+        run: bun run test
 
       - name: Build application
         working-directory: edge-apps/${{ matrix.app }}
