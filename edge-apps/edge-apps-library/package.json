@@ -31,8 +31,11 @@
     "build": "bun build:types",
     "build:types": "tsc",
     "test": "bun test",
+    "test:unit": "bun test",
     "test:coverage": "bun test --coverage",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "format": "prettier --write src/ README.md",
+    "format:check": "prettier --check src/ README.md"
   },
   "keywords": [
     "screenly",
@@ -47,11 +50,12 @@
     "offline-geocode-city": "^1.0.2"
   },
   "devDependencies": {
-    "@types/bun": "latest",
+    "@types/bun": "^1.3.2",
     "@types/jsdom": "^27.0.0",
     "@types/node": "^24.10.1",
     "bun-types": "^1.3.2",
     "jsdom": "^27.2.0",
+    "prettier": "^3.6.2",
     "typescript": "~5.9.3"
   }
 }
