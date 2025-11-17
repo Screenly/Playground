@@ -1,17 +1,32 @@
 ---
 syntax: manifest_v1
-description: A sample QR code generator app
+description: A QR code generator app with customizable header
 icon: ''
 author: Screenly, Inc.
 homepage_url: ''
+ready_signal: true
 settings:
+  call_to_action:
+    type: string
+    default_value: Scan to visit
+    title: Call to Action
+    optional: true
+    help_text: |
+      Enter a short call-to-action text (e.g., "Scan to visit", "Scan here", "Point your camera").
   enable_utm:
     type: string
-    default_value: 'false'
+    default_value: 'true'
     title: Enable UTM
     optional: true
     help_text: |
       Enable UTM parameter tracking by appending UTM query strings to the URL before generating the QR code.
+  headline:
+    type: string
+    default_value: Visit our website for exclusive offers
+    title: Headline
+    optional: false
+    help_text: |
+      Enter the main headline that describes what the QR code links to. This can be a full sentence (e.g., "Visit our website for exclusive offers", "Download our app to get started", "View our full menu and daily specials").
   url:
     type: string
     default_value: https://www.screenly.io/
