@@ -150,7 +150,7 @@ jobs:
 
       - name: Run unit tests
         working-directory: edge-apps/${{ matrix.app }}
-        run: bun run test
+        run: bun run test:unit
 
       - name: Build application
         working-directory: edge-apps/${{ matrix.app }}
