@@ -1,25 +1,5 @@
 import QRCode from 'qrcode'
-
-declare global {
-  interface Window {
-    screenly: {
-      settings: {
-        url: string
-        enable_utm: string
-        headline: string
-        call_to_action: string
-        screenly_color_accent?: string
-        screenly_color_light?: string
-        screenly_color_dark?: string
-      }
-      metadata: {
-        location: string
-        hostname: string
-      }
-      signalReadyForRendering: () => void
-    }
-  }
-}
+import { setupTheme, addUTMParamsIf, getSetting, signalReady } from '@screenly/edge-apps'
 
 interface QRCodeOptions {
   type: 'svg'
@@ -33,27 +13,9 @@ interface QRCodeOptions {
 function generateQrCode(
   url: string,
   options: QRCodeOptions,
-  enableUtm: boolean,
   callback: (svgElement: SVGElement) => void
 ): void {
-  const handleUrl = (url: string): string => {
-    if (!enableUtm) return url
-    const { location, hostname } = window.screenly.metadata
-    const queryParams = {
-      utm_source: 'screenly',
-      utm_medium: 'digital-signage',
-      utm_location: encodeURIComponent(location),
-      utm_placement: encodeURIComponent(hostname),
-    }
-
-    const queryString = Object.entries(queryParams)
-      .map(([key, value]) => `${key}=${value}`)
-      .join('&')
-
-    return `${url}?${queryString}`
-  }
-
-  QRCode.toString(handleUrl(url), options, (err, result) => {
+  QRCode.toString(url, options, (err, result) => {
     if (err) throw err
 
     const parser = new DOMParser()
@@ -63,26 +25,14 @@ function generateQrCode(
   })
 }
 
-function setupBrandingColors() {
-  const settings = window.screenly.settings
-  const defaultPrimaryColor = '#972EFF'
-
-  const primaryColor =
-    !settings.screenly_color_accent ||
-    settings.screenly_color_accent.toLowerCase() === '#ffffff'
-      ? defaultPrimaryColor
-      : settings.screenly_color_accent
-
-  document.documentElement.style.setProperty('--theme-color-primary', primaryColor)
-  document.documentElement.style.setProperty('--theme-color-tertiary', '#FFFFFF')
-  document.documentElement.style.setProperty('--theme-color-background', '#C9CDD0')
-}
-
 window.onload = function () {
-  const { url, enable_utm, headline, call_to_action } = window.screenly.settings
+  const url = getSetting<string>('url') || ''
+  const enableUtm = getSetting<string>('enable_utm') === 'true'
+  const headline = getSetting<string>('headline') || ''
+  const callToAction = getSetting<string>('call_to_action') || ''
 
-  // Setup branding colors
-  setupBrandingColors()
+  // Setup branding colors using the library
+  setupTheme()
 
   // Set the headline (main message)
   const headlineElement = document.querySelector<HTMLHeadingElement>('#headline')
@@ -92,12 +42,15 @@ window.onload = function () {
 
   // Set the call to action (instruction)
   const ctaElement = document.querySelector<HTMLParagraphElement>('#cta')
-  if (ctaElement && call_to_action) {
-    ctaElement.textContent = call_to_action
+  if (ctaElement && callToAction) {
+    ctaElement.textContent = callToAction
   }
 
+  // Add UTM parameters to URL if enabled
+  const finalUrl = addUTMParamsIf(url, enableUtm)
+
   generateQrCode(
-    url,
+    finalUrl,
     {
       type: 'svg',
       color: {
@@ -106,13 +59,12 @@ window.onload = function () {
       },
       margin: 2,
     },
-    enable_utm === 'true',
     (svgElement) => {
       const container = document.querySelector('#qr-code')
       container?.appendChild(svgElement)
 
-      // Signal that the app is ready
-      window.screenly.signalReadyForRendering()
+      // Signal that the app is ready using the library
+      signalReady()
     }
   )
 }
