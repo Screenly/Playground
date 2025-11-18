@@ -19,10 +19,10 @@ if (displayErrors) {
     panic(err instanceof Error ? err : new Error(String(err)))
   }
 
-  window.addEventListener('error', screenly.signalReadyForRendering)
+  window.addEventListener('error', () => screenly.signalReadyForRendering())
   window.addEventListener(
     'unhandledrejection',
-    screenly.signalReadyForRendering,
+    () => screenly.signalReadyForRendering(),
   )
 }
 
