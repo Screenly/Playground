@@ -35,4 +35,4 @@ jobs:
 
       - name: Run formatting check
         working-directory: edge-apps/blueprint
-        run: bun run format
+        run: bun run prettier --check scripts/ scss/ ts/
