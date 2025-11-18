@@ -18,6 +18,12 @@ if (displayErrors) {
   app.config.errorHandler = (err, instance, info) => {
     panic(err instanceof Error ? err : new Error(String(err)))
   }
+
+  window.addEventListener('error', screenly.signalReadyForRendering)
+  window.addEventListener(
+    'unhandledrejection',
+    screenly.signalReadyForRendering,
+  )
 }
 
 // Initialize Sentry if DSN is provided
