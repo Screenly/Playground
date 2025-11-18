@@ -1,0 +1,15 @@
+---
+syntax: manifest_v1
+id: 01JSR8A2CW98PG8B0SR3T0MYX5
+description: A Klipfolio dashboard edge app for Screenly
+settings:
+  dashboard_url:
+    type: string
+    title: Dashboard URL
+    optional: true
+    help_text: The URL for the dashboard
+  dashboard_passcode:
+    type: secret
+    title: Dashboard Passcode
+    optional: true
+    help_text: The passcode for the dashboard
