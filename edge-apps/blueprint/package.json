@@ -1,5 +1,9 @@
 {
   "type": "module",
+  "scripts": {
+    "lint": "eslint . --fix",
+    "format": "prettier --write scripts/ scss/ ts/"
+  },
   "dependencies": {
     "@photostructure/tz-lookup": "^11.3.0",
     "@sentry/vue": "^10.25.0",
