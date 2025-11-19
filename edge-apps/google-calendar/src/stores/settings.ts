@@ -1,14 +1,14 @@
 import { type Ref, ref } from 'vue'
 import { defineStore } from 'pinia'
 
-type CalendarMode = 'daily' | 'weekly' | 'monthly'
+type CalendarMode = 'daily' | 'weekly' | 'schedule'
 
 const settingsStoreSetup = () => {
   const settings = screenly.settings
 
   // Calendar settings
   const calendarId: Ref<string> = ref('primary')
-  const calendarMode: Ref<CalendarMode> = ref('monthly')
+  const calendarMode: Ref<CalendarMode> = ref('schedule')
 
   // Analytics settings
   const enableAnalytics: Ref<boolean> = ref(true)
@@ -23,7 +23,7 @@ const settingsStoreSetup = () => {
   const init = () => {
     // Calendar settings
     calendarId.value = (settings.calendar_id as string) ?? 'primary'
-    calendarMode.value = (settings.calendar_mode as CalendarMode) ?? 'monthly'
+    calendarMode.value = (settings.calendar_mode as CalendarMode) ?? 'schedule'
 
     // Analytics settings
     enableAnalytics.value =
@@ -37,8 +37,8 @@ const settingsStoreSetup = () => {
     overrideTimezone.value = (settings.override_timezone as string) || null
   }
 
-  const isMonthlyMode = () => {
-    return calendarMode.value === 'monthly'
+  const isScheduleMode = () => {
+    return calendarMode.value === 'schedule'
   }
 
   const isWeeklyMode = () => {
@@ -68,7 +68,7 @@ const settingsStoreSetup = () => {
 
     // Methods
     init,
-    isMonthlyMode,
+    isScheduleMode,
     isWeeklyMode,
     isDailyMode,
     isLightTheme,

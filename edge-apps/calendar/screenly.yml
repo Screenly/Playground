@@ -15,15 +15,15 @@ settings:
       Enable CORS bypass for iCal URLs that require it to resolve access restrictions.
   calendar_mode:
     type: string
-    default_value: monthly
+    default_value: schedule
     title: Calendar Mode
     optional: true
     help_text:
       properties:
         help_text: Select the calendar view mode.
         options:
-          - label: Monthly
-            value: monthly
+          - label: Schedule
+            value: schedule
           - label: Weekly
             value: weekly
           - label: Daily

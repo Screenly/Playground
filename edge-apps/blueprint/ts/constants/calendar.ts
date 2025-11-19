@@ -1,7 +1,7 @@
 export const VIEW_MODE = {
   DAILY: 'daily',
   WEEKLY: 'weekly',
-  MONTHLY: 'monthly',
+  SCHEDULE: 'schedule',
 } as const
 
 export type ViewMode = (typeof VIEW_MODE)[keyof typeof VIEW_MODE]
