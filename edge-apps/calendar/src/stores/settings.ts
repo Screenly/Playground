@@ -8,13 +8,10 @@ const settingsStoreSetup = () => {
 
   // Calendar settings
   const bypassCors: Ref<boolean> = ref(false)
-  const calendarId: Ref<string> = ref('primary')
   const calendarMode: Ref<CalendarMode> = ref('monthly')
   const icalUrl: Ref<string> = ref('')
 
   // Analytics settings
-  const enableAnalytics: Ref<boolean> = ref(true)
-  const tagManagerId: Ref<string> = ref('GTM-P98SPZ9Z')
   const sentryDsn: Ref<string> = ref('')
 
   // Theme settings
@@ -26,14 +23,10 @@ const settingsStoreSetup = () => {
     // Calendar settings
     bypassCors.value =
       (JSON.parse(settings.bypass_cors as string) as boolean) ?? false
-    calendarId.value = (settings.calendar_id as string) ?? 'primary'
     calendarMode.value = (settings.calendar_mode as CalendarMode) ?? 'monthly'
     icalUrl.value = (settings.ical_url as string) ?? ''
 
     // Analytics settings
-    enableAnalytics.value =
-      (JSON.parse(settings.enable_analytics as string) as boolean) ?? true
-    tagManagerId.value = (settings.tag_manager_id as string) ?? 'GTM-P98SPZ9Z'
     sentryDsn.value = (settings.sentry_dsn as string) ?? ''
 
     // Theme settings
@@ -69,11 +62,8 @@ const settingsStoreSetup = () => {
   return {
     // State
     bypassCors,
-    calendarId,
     calendarMode,
     icalUrl,
-    enableAnalytics,
-    tagManagerId,
     sentryDsn,
     theme,
 
