@@ -6,6 +6,10 @@ export const VIEW_MODE = {
 
 export type ViewMode = (typeof VIEW_MODE)[keyof typeof VIEW_MODE]
 
+// We still need to support 'monthly' for backward compatibility.
+// We might support for actually displaying monthly view in the future.
+export type CalendarMode = 'daily' | 'weekly' | 'schedule' | 'monthly'
+
 export interface CalendarEvent {
   title: string
   startTime: string

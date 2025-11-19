@@ -68,7 +68,10 @@ export const fetchCalendarEventsFromICal = async (): Promise<
     const vcalendar = new ical.Component(jcalData)
     const vevents = vcalendar.getAllSubcomponents('vevent')
 
-    const { startDate, endDate } = getDateRangeForViewMode(viewMode as ViewMode)
+    // Map "monthly" to "schedule" view mode
+    const mappedViewMode =
+      viewMode === 'monthly' ? VIEW_MODE.SCHEDULE : (viewMode as ViewMode)
+    const { startDate, endDate } = getDateRangeForViewMode(mappedViewMode)
 
     // Pre-calculate the timestamp for faster comparisons
     const startTimestamp = startDate.getTime()

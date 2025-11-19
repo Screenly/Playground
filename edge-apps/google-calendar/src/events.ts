@@ -46,7 +46,10 @@ export const fetchCalendarEventsFromGoogleAPI = async (
   accessToken: string,
 ): Promise<CalendarEvent[]> => {
   const { calendar_mode: viewMode } = screenly.settings
-  const { startDate, endDate } = getDateRangeForViewMode(viewMode as ViewMode)
+  // Map "monthly" to "schedule" view mode
+  const mappedViewMode =
+    viewMode === 'monthly' ? VIEW_MODE.SCHEDULE : (viewMode as ViewMode)
+  const { startDate, endDate } = getDateRangeForViewMode(mappedViewMode)
 
   // Fetch events from Google Calendar API
   const settingsStore = useSettingsStore()

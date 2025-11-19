@@ -1,7 +1,6 @@
 import { type Ref, ref } from 'vue'
 import { defineStore } from 'pinia'
-
-type CalendarMode = 'daily' | 'weekly' | 'schedule'
+import type { CalendarMode } from '@edge-apps/blueprint/ts/constants/calendar'
 
 const settingsStoreSetup = () => {
   const settings = screenly.settings
@@ -23,7 +22,8 @@ const settingsStoreSetup = () => {
   const init = () => {
     // Calendar settings
     calendarId.value = (settings.calendar_id as string) ?? 'primary'
-    calendarMode.value = (settings.calendar_mode as CalendarMode) ?? 'schedule'
+    const mode = (settings.calendar_mode as CalendarMode) ?? 'schedule'
+    calendarMode.value = mode === 'monthly' ? 'schedule' : mode
 
     // Analytics settings
     enableAnalytics.value =
