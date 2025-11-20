@@ -83,7 +83,7 @@ export const fetchCalendarEventsFromGoogleAPI = async (
     const endTime = item.end.dateTime || item.end.date
 
     events.push({
-      title: item.summary || '(No title)',
+      title: item.summary || 'Busy',
       startTime: new Date(startTime).toISOString(),
       endTime: new Date(endTime).toISOString(),
       isAllDay,

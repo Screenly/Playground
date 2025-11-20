@@ -98,7 +98,7 @@ export const fetchCalendarEventsFromICal = async (): Promise<
         const eventEnd = event.endDate.toJSDate()
 
         events.push({
-          title: event.summary,
+          title: event.summary || 'Busy',
           startTime: eventStart.toISOString(),
           endTime: eventEnd.toISOString(),
           isAllDay: event.startDate.isDate,
