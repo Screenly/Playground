@@ -19,14 +19,12 @@ test('basic app structure test', async ({ page }) => {
       },
       settings: {
         calendar_mode: 'daily',
-        enable_analytics: 'true',
         override_locale: '',
         override_timezone: '',
         screenly_color_accent: '#000000',
         screenly_color_dark: '#000000',
         screenly_color_light: '#000000',
         sentry_dsn: '',
-        tag_manager_id: '',
       },
       cors_proxy_url: 'https://example.com',
     }

@@ -27,15 +27,15 @@ settings:
       schema_version: 1
   calendar_mode:
     type: string
-    default_value: monthly
+    default_value: schedule
     title: Calendar Mode
     optional: true
     help_text:
       properties:
         help_text: Select the calendar view mode.
         options:
-          - label: Monthly
-            value: monthly
+          - label: Schedule
+            value: schedule
           - label: Weekly
             value: weekly
           - label: Daily
@@ -53,13 +53,6 @@ settings:
         help_text: For debugging purposes to display errors on the screen.
         type: boolean
       schema_version: 1
-  enable_analytics:
-    type: string
-    default_value: 'true'
-    title: Enable Analytics
-    optional: true
-    help_text: Enable or disable Sentry and Google Analytics integrations.
-    is_global: true
   override_locale:
     type: string
     default_value: en
@@ -84,14 +77,6 @@ settings:
     optional: true
     help_text: |
       Enter your Sentry DSN to enable error tracking and monitoring.
-    is_global: true
-  tag_manager_id:
-    type: string
-    default_value: GTM-P98SPZ9Z
-    title: Google Tag Manager ID
-    optional: true
-    help_text: |
-      Enter your Google Tag Manager container ID to enable tracking and analytics.
     is_global: true
   theme:
     type: string

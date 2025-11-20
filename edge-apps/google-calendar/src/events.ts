@@ -28,8 +28,8 @@ const getDateRangeForViewMode = (viewMode: ViewMode) => {
     const weekStart = todayInTimezone.startOf('week')
     startDate = weekStart.toDate()
     endDate = weekStart.add(7, 'days').toDate()
-  } else if (viewMode === VIEW_MODE.MONTHLY) {
-    // For monthly view, show full month starting from the first day of the month
+  } else if (viewMode === VIEW_MODE.SCHEDULE) {
+    // For schedule view, show full month starting from the first day of the month
     const monthStart = todayInTimezone.startOf('month')
     startDate = monthStart.toDate()
     endDate = monthStart.add(1, 'month').toDate()
@@ -46,7 +46,10 @@ export const fetchCalendarEventsFromGoogleAPI = async (
   accessToken: string,
 ): Promise<CalendarEvent[]> => {
   const { calendar_mode: viewMode } = screenly.settings
-  const { startDate, endDate } = getDateRangeForViewMode(viewMode as ViewMode)
+  // Map "monthly" to "schedule" view mode
+  const mappedViewMode =
+    viewMode === 'monthly' ? VIEW_MODE.SCHEDULE : (viewMode as ViewMode)
+  const { startDate, endDate } = getDateRangeForViewMode(mappedViewMode)
 
   // Fetch events from Google Calendar API
   const settingsStore = useSettingsStore()
