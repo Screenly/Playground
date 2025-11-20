@@ -1,0 +1,40 @@
+name: Blueprint Checks
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - ".github/workflows/blueprint-checks.yml"
+      - "edge-apps/blueprint/**"
+  pull_request:
+    branches:
+      - master
+    paths:
+      - ".github/workflows/blueprint-checks.yml"
+      - "edge-apps/blueprint/**"
+
+jobs:
+  blueprint-checks:
+    name: Blueprint Linting and Formatting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.2.2
+
+      - name: Install dependencies
+        working-directory: edge-apps/blueprint
+        run: bun install
+
+      - name: Run linting
+        working-directory: edge-apps/blueprint
+        run: bun run lint
+
+      - name: Run formatting check
+        working-directory: edge-apps/blueprint
+        run: bun run format:check

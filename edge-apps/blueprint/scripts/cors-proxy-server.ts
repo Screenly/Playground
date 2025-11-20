@@ -1,6 +1,6 @@
-const http = require('http')
-const https = require('https')
-const { URL } = require('url')
+import http from 'http'
+import https from 'https'
+import { URL } from 'url'
 
 // Listen on a specific host via the HOST environment variable
 const host = process.env.HOST || '0.0.0.0'
