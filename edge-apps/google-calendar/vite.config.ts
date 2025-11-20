@@ -14,7 +14,7 @@ const manifestFileName = process.env.MANIFEST_FILE_NAME || 'screenly.yml'
 export default defineConfig(({ mode }) => ({
   base: '',
   build: {
-    sourcemap: mode === 'development',
+    sourcemap: true,
   },
   plugins: [
     vue(),
