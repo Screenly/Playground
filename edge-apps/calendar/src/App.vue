@@ -6,7 +6,7 @@ import { AnalogClock, BrandLogoCard } from 'blueprint/components'
 import {
   CalendarOverview,
   DailyCalendarView,
-  MonthlyCalendarView,
+  ScheduleCalendarView,
   WeeklyCalendarView,
 } from 'blueprint/components'
 import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
@@ -73,8 +73,8 @@ onMounted(async () => {
 
 <template>
   <div class="main-container">
-    <MonthlyCalendarView
-      v-if="calendarMode === 'monthly'"
+    <ScheduleCalendarView
+      v-if="calendarMode === 'schedule'"
       :timezone="timezone"
       :now="now"
       :events="events"
@@ -104,7 +104,7 @@ onMounted(async () => {
       </div>
       <div class="row-container">
         <CalendarOverview
-          v-if="calendarMode === 'monthly'"
+          v-if="calendarMode === 'schedule'"
           :current-date="currentDate"
           :current-month-name="currentMonthName"
           :current-year="currentYear"

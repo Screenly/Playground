@@ -111,7 +111,7 @@ watch([events, locale, () => props.timezone], filterAndFormatEvents, {
 </script>
 
 <template>
-  <div class="MonthlyCalendarView primary-card">
+  <div class="ScheduleCalendarView primary-card">
     <div class="events-heading">
       <h1>{{ currentDayOfWeek }}</h1>
     </div>
@@ -151,4 +151,4 @@ watch([events, locale, () => props.timezone], filterAndFormatEvents, {
   </div>
 </template>
 
-<style scoped src="../../assets/calendar/monthly-calendar-view.scss"></style>
+<style scoped src="../../assets/calendar/schedule-calendar-view.scss"></style>

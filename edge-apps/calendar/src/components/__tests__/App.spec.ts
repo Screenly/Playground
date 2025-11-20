@@ -19,7 +19,6 @@ const mockScreenly = {
   settings: {
     bypass_cors: false,
     calendar_mode: 'daily',
-    enable_analytics: 'true',
     ical_url: 'https://example.com',
     override_locale: '',
     override_timezone: '',
@@ -27,7 +26,6 @@ const mockScreenly = {
     screenly_color_dark: '#000000',
     screenly_color_light: '#000000',
     sentry_dsn: '',
-    tag_manager_id: '',
   },
   cors_proxy_url: 'https://example.com',
 }
