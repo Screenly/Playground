@@ -3,7 +3,7 @@
   "configVersion": 0,
   "workspaces": {
     "": {
-      "name": "google-calendar",
+      "name": "calendar",
       "dependencies": {
         "@photostructure/tz-lookup": "^11.2.1",
         "@sentry/browser": "^10.25.0",
