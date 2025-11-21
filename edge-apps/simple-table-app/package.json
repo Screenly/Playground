@@ -34,11 +34,11 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.56.1",
-    "@tsconfig/node22": "^22.0.4",
+    "@tsconfig/node22": "^22.0.5",
     "@types/jsdom": "^27.0.0",
     "@types/node": "^24.10.1",
     "@types/papaparse": "^5.5.0",
-    "@vitejs/plugin-vue": "^6.0.0",
+    "@vitejs/plugin-vue": "^6.0.2",
     "@vitest/eslint-plugin": "^1.4.3",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.5.1",
@@ -51,13 +51,13 @@
     "jsdom": "^27.2.0",
     "npm-run-all2": "^8.0.4",
     "prettier": "3.6.2",
-    "rimraf": "^6.1.0",
+    "rimraf": "^6.1.2",
     "sass-embedded": "^1.93.3",
     "typescript": "~5.9.3",
-    "vite": "^7.2.2",
+    "vite": "^7.2.4",
     "vite-plugin-static-copy": "^3.1.4",
     "vite-plugin-vue-devtools": "^8.0.5",
-    "vitest": "^4.0.10",
+    "vitest": "^4.0.12",
     "vue-tsc": "^3.1.4"
   }
 }
