@@ -1,3 +1,4 @@
 **/*.min.js
 edge-apps/powerbi-legacy/
 edge-apps/powerbi-legacy/**
+.github/workflows/
