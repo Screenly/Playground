@@ -25,11 +25,7 @@ You should connect Screenly to a Microsoft account so that the app can access th
 
 To get started, go to the [Integrations](https://app.screenlyapp.com/manage/integrations) page and click the "+ Connect" button next to "Outlook Calendar".
 
-![Connect Outlook Calendar](./static/images/outlook-calendar-integration-01.png)
-
 You will be prompted to confirm the connection to a Microsoft account. Click the "Connect" button.
-
-![Connect Outlook Calendar](./static/images/outlook-calendar-integration-02.png)
 
 You will be redirected to a Microsoft OAuth consent screen. Select the Microsoft account you want to connect to Screenly. Follow through the prompts to grant Screenly access to your Outlook Calendar data.
 
