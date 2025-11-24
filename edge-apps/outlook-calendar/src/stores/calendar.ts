@@ -149,7 +149,7 @@ export const useCalendarStore = defineStore('calendar', () => {
         weeklyViewTime.value = new Date()
       }, 60000)
 
-      // Initialize token refresh loop for Google Calendar
+      // Initialize token refresh loop for Microsoft Graph API
       initTokenRefreshLoop()
 
       // Set up events fetching with reduced frequency for better performance

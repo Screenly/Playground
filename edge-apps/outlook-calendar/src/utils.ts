@@ -14,6 +14,10 @@ export const getAccessToken = async (): Promise<string> => {
     },
   )
 
-  const { token } = await response.json()
-  return token
+  const data = await response.json()
+
+  if (!data.token) {
+    throw new Error('Invalid response: missing token')
+  }
+  return data.token
 }

@@ -1,4 +1,4 @@
-Outlook Calendar App
+# Outlook Calendar App
 
 ## Prerequisites
 
