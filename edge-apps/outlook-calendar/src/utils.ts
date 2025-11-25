@@ -4,7 +4,7 @@ export * from '@edge-apps/blueprint/ts/utils/sentry'
 
 export const getAccessToken = async (): Promise<string> => {
   const response = await fetch(
-    screenly.settings.screenly_oauth_tokens_url + 'microsoft_access_token/',
+    screenly.settings.screenly_oauth_tokens_url + 'access_token/',
     {
       method: 'GET',
       headers: {

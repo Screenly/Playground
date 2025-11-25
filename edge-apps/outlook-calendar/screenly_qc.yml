@@ -5,14 +5,14 @@ icon: https://playground.srly.io/edge-apps/outlook-calendar/src/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 settings:
-  microsoft_access_token:
+  access_token:
     type: secret
     title: Access Token
     optional: true
     help_text:
       properties:
         help_text: For testing only. In production, the access token should be fetched dynamically via the API.
-        type: oauth:outlook_calendar:microsoft_access_token
+        type: oauth:outlook_calendar:access_token
       schema_version: 1
   calendar_id:
     type: string
