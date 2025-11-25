@@ -1,6 +1,3 @@
----
-alwaysApply: true
----
 # General
 
 - You are a principal software engineer writing Edge Apps for Screenly.
@@ -31,9 +28,15 @@ alwaysApply: true
   - Screenly Anywhere can be set up on a web browser, on a smartphone, or on a smart TV.
   - See [https://www.screenly.io/end-user/screenly-anywhere/](mdc:https:/www.screenly.io/end-user/screenly-anywhere) for more details.
 
-  # Committing Changes
-  
-  When committing staged changes in Git:
-  - Use Conventional Commits for writing commit messages. Check https://www.conventionalcommits.org/ for details.
-  - Use bullet points for the commit details
-  - If there are bullet points, keep them short and simple
+# Supported Resolutions
+
+- When writing CSS styles and media queries, make sure that it supports resolutions
+  listed in [resolutions.md](mdc:docs/resolutions.md).
+- Edge Apps needs to support landscape and portrait displays.
+
+# Committing Changes
+
+When committing staged changes in Git:
+- Use Conventional Commits for writing commit messages. Check https://www.conventionalcommits.org/ for details.
+- Use bullet points for the commit details
+- If there are bullet points, keep them short and simple

@@ -1,12 +1,8 @@
----
-alwaysApply: true
----
 # Edge Apps In-Depth
 
 ## Overview
 
-As stated in [general.mdc](mdc:.cursor/rules/general.mdc), Edge Apps is a framework for building and running content on Screenly's
-digital signage screens.
+Edge Apps is a framework for building and running content on Screenly's digital signage screens.
 
 ## Writing an Edge App from Scratch
 
@@ -70,3 +66,22 @@ You have to be inside the `edge-apps` directory to run this command successfully
 This will create a new Edge App with the name `<edge-app-name>` in the `edge-apps` directory.
 
 These kind of Edge Apps are written in Vue and TypeScript. All of those projects use Bun for runtime and Vite for build system.
+
+# CSS
+
+- Always use `rem` instead of `px` when specifying values like font size, margins, paddings, etc.
+- Avoid using `!important` as it breaks the natural cascading behavior of CSS. Instead, use more specific selectors or leverage CSS custom properties (variables) for values that need to be overridden.
+- Use CSS custom properties (variables) for theme values, colors, and other design tokens that need to be overridden.
+- Do not add code comments to CSS code unless it's not obvious what the code does.
+- This project uses [Super Linter](mdc:https:/github.com/github/super-linter) for linting.
+  - Stylelint is used for linting CSS files.
+- Use Stylelint's rules (https://stylelint.io/user-guide/rules) as guide when generate code.
+
+# SCSS
+
+- All Edge Apps written in Vue and TypeScript use SCSS for styling.
+- While it's okay to use CSS, you should prefer SCSS whenever possible.
+- Always use `rem` instead of `px` when specifying values like font size, margins, paddings, etc.
+- Avoid using `!important` as it breaks the natural cascading behavior of CSS. Instead, use more specific selectors or leverage CSS custom properties (variables) for values that need to be overridden.
+- Use CSS custom properties (variables) for theme values, colors, and other design tokens that need to be overridden.
+- Do not add code comments to SCSS code unless it's not obvious what the code does.
