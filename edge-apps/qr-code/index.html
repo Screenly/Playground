@@ -1,43 +1,24 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <title>QR Code Generator</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR Code - Screenly Edge App</title>
     <script src="screenly.js?version=1"></script>
-    <link rel="stylesheet" href="static/styles/bootstrap.min.css">
-    <link rel="stylesheet" href="bootstrap/theme/playground-theme.css">
-    <link rel="stylesheet" href="static/styles/main.css">
+    <link rel="stylesheet" href="static/css/style.css" />
   </head>
   <body>
-    <div class="d-flex flex-column h-100">
-      <header>
-        <div class="header container">
-          <img
-            class="logo"
-            src="static/images/playground-logo.svg"
-            alt="Screenly logo"
-          >
-          <h1 id="rss-title" class="app-name fw-bold">QR Code</h1>
+    <div class="container">
+      <div class="qr-section">
+        <div class="text-content">
+          <h1 id="headline"></h1>
         </div>
-      </header>
-
-      <main class="container content">
-        <div
-          id="qr-code-container"
-          class="container d-flex flex-column
-            justify-content-center align-items-center h-100"
-        >
-          <h2 class="text-white">
-            Scan the QR code.
-          </h2>
+        <div class="qr-container">
+          <div id="qr-code"></div>
+          <p id="cta"></p>
         </div>
-      </main>
-
-      <footer class="container">
-        <p>&copy; 2024 Screenly, Inc.</p>
-      </footer>
+      </div>
     </div>
+    <script src="static/js/main.js"></script>
   </body>
-  <script src="static/js/node-qrcode.min.js"></script>
-  <script src="static/js/main.js"></script>
 </html>
