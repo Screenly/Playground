@@ -41,3 +41,11 @@ When committing staged changes in Git:
 - Use Conventional Commits for writing commit messages. Check [https://www.conventionalcommits.org/](https://www.conventionalcommits.org/) for details.
 - Use bullet points for the commit details
 - If there are bullet points, keep them short and simple
+
+## Creating Pull Requests
+
+- Pull request could be created via the GitHub CLI.
+- Pull requests should be created against the `master` branch.
+- Pull requests should be marked as "Draft" until they are ready for review.
+- Use Conventional Commits for writing pull request titles. Check [https://www.conventionalcommits.org/](https://www.conventionalcommits.org/) for details.
+- Make the pull request description concise.
