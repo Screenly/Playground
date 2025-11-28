@@ -74,7 +74,7 @@ These kind of Edge Apps are written in Vue and TypeScript. All of those projects
 - Do not add code comments to CSS code unless it's not obvious what the code does.
 - This project uses [Super Linter](mdc:https://github.com/github/super-linter) for linting.
   - Stylelint is used for linting CSS files.
-- Use Stylelint's rules ([https://stylelint.io/user-guide/rules](https://stylelint.io/user-guide/rules)) as guide when generate code.
+- Use Stylelint's rules ([https://stylelint.io/user-guide/rules](https://stylelint.io/user-guide/rules)) as a guide when generating code.
 
 ## SCSS
 
