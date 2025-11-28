@@ -72,7 +72,7 @@ These kind of Edge Apps are written in Vue and TypeScript. All of those projects
 - Avoid using `!important` as it breaks the natural cascading behavior of CSS. Instead, use more specific selectors or leverage CSS custom properties (variables) for values that need to be overridden.
 - Use CSS custom properties (variables) for theme values, colors, and other design tokens that need to be overridden.
 - Do not add code comments to CSS code unless it's not obvious what the code does.
-- This project uses [Super Linter](mdc:https:/github.com/github/super-linter) for linting.
+- This project uses [Super Linter](mdc:https://github.com/github/super-linter) for linting.
   - Stylelint is used for linting CSS files.
 - Use Stylelint's rules ([https://stylelint.io/user-guide/rules](https://stylelint.io/user-guide/rules)) as guide when generate code.
 
