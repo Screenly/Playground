@@ -1,60 +1,54 @@
-# QR code generation
+# QR Code Generator
 
-This example shows how to generate a QR code from a URL and display it on the screen.
+Generate QR codes from URLs with optional UTM tracking parameters.
 
-## Deploying the example
+## Features
 
-If you haven't created an Edge App yet, run the following command:
+- Generate QR codes as SVG elements
+- Optional UTM parameter tracking
+- Customizable headline and call-to-action text
+- Theme color integration via @screenly/edge-apps
 
-```bash
-screenly edge-app create \
-    --name my-qr-code \
-    --in-place
-```
+## Deployment
 
-Make sure to copy the Playground theme into the app directory by running the following:
-
-```bash
-../../scripts/copy_playground_theme.sh
-```
-
-It's essential to include the dependency above or else the app will not be displayed properly.
-
-To deploy the example, run the following command:
+Create and deploy the Edge App:
 
 ```bash
+screenly edge-app create --name my-qr-code --in-place
 screenly edge-app deploy
-```
-
-To install the app, you need to create an instance:
-
-```bash
 screenly edge-app instance create
 ```
 
-## Using the `generateQrCode` function
+## Configuration
 
-The `generateQrCode` function (inside `static/js/main.js`) takes a URL and
-returns a QR code image as an SVG string. Here's an example of how to use it:
+The app accepts the following settings via `screenly.yml`:
 
-```js
-generateQrCode(
-  'https://screenly.io',
-  options,
-  enableUtm = false,
-  callback = (svgElement) => {
-    document.body.appendChild(svgElement);
-  },
-);
-```
+- `url` - The URL to encode in the QR code
+- `enable_utm` - Add UTM tracking parameters (true/false)
+- `headline` - Main message displayed above QR code
+- `call_to_action` - Instruction text below headline
 
-If `enableUtm` is set to `true`, the function will add the following query
-parameters to the URL:
+## UTM Parameters
+
+When `enable_utm` is enabled, the following parameters are automatically added:
 
 - `utm_source=screenly`
 - `utm_medium=digital-signage`
-- `utm_location=$SCREEN_LOCATION`
-- `utm_placement=$SCREEN_HOSTNAME`
+- `utm_location` - Screen location from metadata
+- `utm_placement` - Screen hostname from metadata
 
-`utm_location` and `utm_placement` refers to the `location` and `hostname` of
-the screen, respectively, which are derived from the Screenly metadata.
+## Development
+
+```bash
+bun install      # Install dependencies
+bun run build    # Build the app
+bun test         # Run tests
+```
+
+## Testing
+
+The app includes comprehensive tests for UTM parameter generation and URL handling.
+
+```bash
+bun test
+```
