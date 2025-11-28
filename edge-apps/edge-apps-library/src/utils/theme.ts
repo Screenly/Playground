@@ -119,9 +119,7 @@ export async function fetchLogoImage(fileUrl: string): Promise<string> {
     .toUpperCase();
 
   // Convert the first few bytes to ASCII for text-based formats like SVG
-  const ascii = String.fromCharCode(
-    ...Array.from(uintArray.slice(0, 100))
-  );
+  const ascii = String.fromCharCode(...Array.from(uintArray.slice(0, 100)));
   const pngMagicNumber = "89504E47";
   const jpegMagicNumber = "FFD8FF";
 
