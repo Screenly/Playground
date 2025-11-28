@@ -136,6 +136,15 @@ jobs:
         with:
           bun-version: 1.2.2
 
+      - name: Build edge-apps-library if needed
+        run: |
+          if [[ -d "edge-apps/edge-apps-library" ]] && grep -q "edge-apps-library" "edge-apps/${{ matrix.app }}/package.json"; then
+            echo "Building edge-apps-library dependency..."
+            cd edge-apps/edge-apps-library
+            bun install
+            bun run build
+          fi
+
       - name: Install dependencies
         working-directory: edge-apps/${{ matrix.app }}
         run: bun install
@@ -156,11 +165,23 @@ jobs:
         working-directory: edge-apps/${{ matrix.app }}
         run: bun run build
 
+      - name: Check for E2E tests
+        id: check-e2e
+        working-directory: edge-apps/${{ matrix.app }}
+        run: |
+          if grep -q '"test:e2e"' package.json; then
+            echo "has-e2e=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has-e2e=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Install E2E dependencies
+        if: steps.check-e2e.outputs.has-e2e == 'true'
         working-directory: edge-apps/${{ matrix.app }}
         run: npx playwright install --with-deps
 
       - name: Run E2E tests
+        if: steps.check-e2e.outputs.has-e2e == 'true'
         uses: nick-fields/retry@v3
         with:
           timeout_minutes: 5
