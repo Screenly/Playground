@@ -11,7 +11,7 @@ This rule applies to Edge Apps that are written in plain HTML, CSS, and JavaScri
 - Create a directory inside the [edge-apps](mdc:edge-apps) directory.
 - That new directory should at least contain the following files:
   - `index.html`
-  - `screenly.yml`
+ - `screenly.yml`
 - See [this documentation about getting started with Edge Apps](mdc:https://developer.screenly.io/edge-apps/#getting-started) for details.
 - While you can put your JavaScript code inside the `index.html` file, you can also put it inside a file `static/js/main.js`.
 
