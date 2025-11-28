@@ -44,10 +44,10 @@ This file should at least contain the following.
 ```javascript
 /* global screenly */
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener('DOMContentLoaded', async () => {
   // ...
-  screenly.signalReadyForRendering();
-});
+  screenly.signalReadyForRendering()
+})
 ```
 
 `screenly.signalReadyForRendering()` tells the device that the Edge App is ready to be displayed on the screen. See this [documentation about the ready signal](mdc:https://developer.screenly.io/edge-apps/#ready-signal) for details.
