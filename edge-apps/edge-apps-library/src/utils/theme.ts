@@ -119,9 +119,8 @@ export async function fetchLogoImage(fileUrl: string): Promise<string> {
     .toUpperCase();
 
   // Convert the first few bytes to ASCII for text-based formats like SVG
-  const ascii = String.fromCharCode.apply(
-    null,
-    Array.from(uintArray.slice(0, 100)),
+  const ascii = String.fromCharCode(
+    ...Array.from(uintArray.slice(0, 100))
   );
   const pngMagicNumber = "89504E47";
   const jpegMagicNumber = "FFD8FF";
@@ -134,9 +133,18 @@ export async function fetchLogoImage(fileUrl: string): Promise<string> {
       svgReader.readAsText(blob);
       svgReader.onloadend = function () {
         try {
-          const base64 = btoa(
-            unescape(encodeURIComponent(svgReader.result as string)),
-          );
+          const svgText = svgReader.result as string;
+          const encoder = new TextEncoder();
+          const uint8Array = encoder.encode(svgText);
+          // Helper to convert Uint8Array to base64
+          function uint8ToBase64(bytes: Uint8Array): string {
+            let binary = "";
+            for (let i = 0; i < bytes.length; i++) {
+              binary += String.fromCharCode(bytes[i]);
+            }
+            return btoa(binary);
+          }
+          const base64 = uint8ToBase64(uint8Array);
           resolve("data:image/svg+xml;base64," + base64);
         } catch (error) {
           reject(error);
@@ -176,9 +184,11 @@ export async function setupBrandingLogo(): Promise<string> {
     logoUrl = darkLogo
       ? `${screenly.cors_proxy_url}/${darkLogo}`
       : `${screenly.cors_proxy_url}/${lightLogo}`;
-    fallbackUrl = darkLogo || lightLogo;
+    fallbackUrl = darkLogo || lightLogo || "";
   }
 
+  // Return early if logoUrl is empty
+  if (!logoUrl) return "";
   // Try to fetch the image using the CORS proxy URL
   try {
     return await fetchLogoImage(logoUrl);
