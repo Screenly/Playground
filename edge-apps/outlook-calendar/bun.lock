@@ -2,14 +2,13 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "calendar",
+      "name": "outlook-calendar",
       "dependencies": {
         "@photostructure/tz-lookup": "^11.2.1",
         "@sentry/browser": "^10.27.0",
         "@sentry/vue": "^10.27.0",
         "country-locale-map": "^1.9.11",
         "dayjs": "^1.11.19",
-        "ical.js": "^2.2.1",
         "offline-geocode-city": "^1.0.2",
         "pinia": "^3.0.4",
         "vue": "^3.5.25",
@@ -28,7 +27,7 @@
         "@vue/tsconfig": "^0.8.1",
         "eslint": "^9.39.1",
         "eslint-plugin-playwright": "^2.3.0",
-        "eslint-plugin-vue": "~10.6.1",
+        "eslint-plugin-vue": "~10.6.0",
         "jiti": "^2.6.1",
         "jsdom": "^27.2.0",
         "npm-run-all2": "^8.0.4",
@@ -855,8 +854,6 @@
     "http-proxy-agent": ["http-proxy-agent@7.0.2", "", { "dependencies": { "agent-base": "^7.1.0", "debug": "^4.3.4" } }, "sha512-T1gkAiYYDWYx3V5Bmyu7HcfcvL7mUrTWiM6yOfa3PIphViJ/gFPbvidQ+veqSOHci/PxBcDabeUNCzpOODJZig=="],
 
     "https-proxy-agent": ["https-proxy-agent@7.0.6", "", { "dependencies": { "agent-base": "^7.1.2", "debug": "4" } }, "sha512-vK9P5/iUfdl95AI+JVyUuIcVtd4ofvtrOr3HNtM2yxC9bnMbEdp3x01OhQNnjb8IJYi38VlTE3mBXwcfvywuSw=="],
-
-    "ical.js": ["ical.js@2.2.1", "", {}, "sha512-yK/UlPbEs316igb/tjRgbFA8ZV75rCsBJp/hWOatpyaPNlgw0dGDmU+FoicOcwX4xXkeXOkYiOmCqNPFpNPkQg=="],
 
     "iconv-lite": ["iconv-lite@0.6.3", "", { "dependencies": { "safer-buffer": ">= 2.1.2 < 3.0.0" } }, "sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw=="],
 
