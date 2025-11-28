@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach, afterEach, mock } from "bun:test";
+import { describe, test, expect, beforeEach, afterEach } from "bun:test";
 import { setupScreenlyMock, resetScreenlyMock } from "@screenly/edge-apps/test";
 import { addUTMParamsIf } from "@screenly/edge-apps";
 
