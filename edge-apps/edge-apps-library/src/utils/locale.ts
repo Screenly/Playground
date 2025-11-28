@@ -47,9 +47,9 @@ export function formatCoordinates(coordinates: [number, number]): string {
   const [latitude, longitude] = coordinates;
 
   const latString = `${Math.abs(latitude).toFixed(4)}\u00B0`;
-  const latDirection = latitude > 0 ? "N" : "S";
+  const latDirection = latitude >= 0 ? "N" : "S";
   const lngString = `${Math.abs(longitude).toFixed(4)}\u00B0`;
-  const lngDirection = longitude > 0 ? "E" : "W";
+  const lngDirection = longitude >= 0 ? "E" : "W";
 
   return `${latString} ${latDirection}, ${lngString} ${lngDirection}`;
 }
