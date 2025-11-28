@@ -9,7 +9,8 @@
     "test:unit": "bun test",
     "lint": "tsc --noEmit",
     "format": "prettier --write src/ README.md index.html",
-    "deploy": "bun run build && screenly edge-app deploy"
+    "deploy": "bun run build && screenly edge-app deploy",
+    "prepare": "cd ../edge-apps-library && bun install && bun run build"
   },
   "dependencies": {
     "qrcode": "^1.5.4"
