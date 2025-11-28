@@ -11,11 +11,11 @@ bun add @screenly/edge-apps
 ## Quick Start
 
 ```typescript
-import { setupTheme, signalReady, getMetadata } from '@screenly/edge-apps'
+import { setupTheme, signalReady, getMetadata } from "@screenly/edge-apps";
 
-setupTheme()
-const metadata = getMetadata()
-signalReady()
+setupTheme();
+const metadata = getMetadata();
+signalReady();
 ```
 
 ## Core Functions
@@ -52,15 +52,15 @@ signalReady()
 ## Testing
 
 ```typescript
-import { setupScreenlyMock, resetScreenlyMock } from '@screenly/edge-apps/test'
+import { setupScreenlyMock, resetScreenlyMock } from "@screenly/edge-apps/test";
 
 beforeEach(() => {
-  setupScreenlyMock({ screen_name: 'Test Screen' }, { theme: 'dark' })
-})
+  setupScreenlyMock({ screen_name: "Test Screen" }, { theme: "dark" });
+});
 
 afterEach(() => {
-  resetScreenlyMock()
-})
+  resetScreenlyMock();
+});
 ```
 
 ## Types
@@ -73,7 +73,7 @@ import type {
   ThemeColors,
   BrandingConfig,
   UTMParams,
-} from '@screenly/edge-apps'
+} from "@screenly/edge-apps";
 ```
 
 ## Development
