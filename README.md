@@ -30,7 +30,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 
 ### Creating a new Edge App from the template
 
- > [!WARNING]
+> [!WARNING]
 > The current Edge App template (built with Vue) will be deprecated soon and will be replaced by a simpler template that doesn't rely on any specific framework.>
 
 > [!IMPORTANT]
