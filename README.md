@@ -33,6 +33,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 > [!WARNING]
 > The current Edge App template (built with Vue) will be deprecated soon and will be replaced by a simpler template that doesn't rely on any specific framework.
 
+
 > [!IMPORTANT]
 > Make sure that you have the following installed before proceeding:
 >
