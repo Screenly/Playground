@@ -30,7 +30,8 @@ export function addUTMParams(url: string, params?: Partial<UTMParams>): string {
   const utmParams = { ...getDefaultUTMParams(), ...params };
 
   const queryString = Object.entries(utmParams)
-    .map(([key, value]) => `${key}=${value}`)
+    .filter(([, value]) => value !== undefined)
+    .map(([key, value]) => `${key}=${encodeURIComponent(value as string)}`)
     .join("&");
 
   const separator = url.includes("?") ? "&" : "?";

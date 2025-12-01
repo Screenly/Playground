@@ -112,15 +112,15 @@ export async function fetchLogoImage(fileUrl: string): Promise<string> {
   const buffer = await blob.arrayBuffer();
   const uintArray = new Uint8Array(buffer);
 
-  // Get the first 4 bytes for magic number detection
-  const hex = Array.from(uintArray.slice(0, 4))
+  // Get the first 8 bytes for magic number detection (sufficient for PNG and JPEG)
+  const hex = Array.from(uintArray.slice(0, 8))
     .map((b) => b.toString(16).padStart(2, "0"))
     .join("")
     .toUpperCase();
 
   // Convert the first few bytes to ASCII for text-based formats like SVG
   const ascii = String.fromCharCode(...Array.from(uintArray.slice(0, 100)));
-  const pngMagicNumber = "89504E47";
+  const pngMagicNumber = "89504E470D0A1A0A";
   const jpegMagicNumber = "FFD8FF";
 
   // Determine file type based on magic number or ASCII text
@@ -150,7 +150,10 @@ export async function fetchLogoImage(fileUrl: string): Promise<string> {
       };
       svgReader.onerror = () => reject(new Error("Failed to read SVG file"));
     });
-  } else if (hex === pngMagicNumber || hex === jpegMagicNumber) {
+  } else if (
+    hex.startsWith(pngMagicNumber) ||
+    hex.startsWith(jpegMagicNumber)
+  ) {
     // Return URL for PNG or JPEG
     return fileUrl;
   } else {
@@ -159,8 +162,15 @@ export async function fetchLogoImage(fileUrl: string): Promise<string> {
 }
 
 /**
- * Setup branding logo from Screenly settings
- * Returns the processed logo URL or empty string if not available
+ * Setup branding logo from Screenly settings.
+ *
+ * Attempts to fetch the logo image using a CORS proxy URL based on the current theme.
+ * Falls back to a direct URL if the proxy fetch fails, and returns an empty string if no logo is configured or all fetch attempts fail.
+ *
+ * @returns {Promise<string>} The processed logo URL:
+ *   - Returns a data URI for SVG images, or the original URL for PNG/JPEG images, if successfully fetched via the CORS proxy or fallback URL.
+ *   - Returns the fallback URL if all fetch attempts fail but a logo URL is configured.
+ *   - Returns an empty string if no logo is configured or all fetch attempts fail.
  */
 export async function setupBrandingLogo(): Promise<string> {
   const settings = screenly.settings;
@@ -190,13 +200,19 @@ export async function setupBrandingLogo(): Promise<string> {
   // Try to fetch the image using the CORS proxy URL
   try {
     return await fetchLogoImage(logoUrl);
-  } catch {
+  } catch (err) {
+    console.warn("Failed to fetch logo image from primary URL:", logoUrl, err);
     // If CORS fails, try the fallback URL
     try {
       return await fetchLogoImage(fallbackUrl);
-    } catch {
-      // Return empty string or the fallback URL
-      return fallbackUrl ?? "";
+    } catch (err2) {
+      console.warn(
+        "Failed to fetch logo image from fallback URL:",
+        fallbackUrl,
+        err2,
+      );
+      // Return empty string if all fetches fail
+      return "";
     }
   }
 }
