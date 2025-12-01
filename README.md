@@ -34,6 +34,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 > The current Edge App template (built with Vue) will be deprecated soon and will be replaced by a simpler template that doesn't rely on any specific framework.
 
 Make sure that you have the following installed before proceeding:
+
 - [Bun (1.2.2+)](https://bun.sh/docs/installation)
 - [Screenly Edge App CLI (v1.0.3+)](https://github.com/Screenly/cli?tab=readme-ov-file#installation)
 
