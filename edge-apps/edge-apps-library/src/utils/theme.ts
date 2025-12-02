@@ -207,7 +207,7 @@ export async function setupBrandingLogo(): Promise<string> {
   } catch (err) {
     console.warn("Failed to fetch logo image from primary URL:", logoUrl, err);
   }
-    // If CORS fails, try the fallback URL
+  // If CORS fails, try the fallback URL
   try {
     return await fetchLogoImage(fallbackUrl);
   } catch (err) {
@@ -217,7 +217,7 @@ export async function setupBrandingLogo(): Promise<string> {
       err,
     );
   }
-    // Return empty string if all fetches fail
+  // Return empty string if all fetches fail
   return "";
 }
 
