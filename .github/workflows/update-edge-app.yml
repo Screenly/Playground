@@ -31,6 +31,12 @@ on:
           - vanilla
           - bun
 
+      has_dist:
+        description: "Whether the app builds to a dist folder"
+        required: true
+        default: true
+        type: boolean
+
 run-name: Updating ${{ inputs.edge_app_name }} in ${{ inputs.environment }}
 
 jobs:
@@ -67,7 +73,7 @@ jobs:
 
       - name: 🔄 Modify APP_PATH based on app type
         run: |
-          if [ "${{ inputs.build_system }}" = "bun" ]; then
+          if [ "${{ inputs.build_system }}" = "bun" ] && [ "${{ inputs.has_dist }}" = "true" ]; then
             echo "APP_PATH=${{ env.APP_PATH }}/dist" >> "$GITHUB_ENV"
           fi
 
