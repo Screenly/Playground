@@ -18,8 +18,8 @@ export function getDefaultUTMParams(): UTMParams {
   return {
     utm_source: "screenly",
     utm_medium: "digital-signage",
-    utm_location: encodeURIComponent(location),
-    utm_placement: encodeURIComponent(hostname),
+    utm_location: location,
+    utm_placement: hostname,
   };
 }
 

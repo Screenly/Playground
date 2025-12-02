@@ -21,8 +21,8 @@ describe("utm utilities", () => {
       expect(params).toEqual({
         utm_source: "screenly",
         utm_medium: "digital-signage",
-        utm_location: encodeURIComponent("Test Location"),
-        utm_placement: encodeURIComponent("test-hostname"),
+        utm_location: "Test Location",
+        utm_placement: "test-hostname",
       });
     });
   });
