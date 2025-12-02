@@ -1,64 +1,38 @@
 ---
 syntax: manifest_v1
-id: 01HRCB5Z5TZZFT6J37RNVQYC38
-author: Screenly, Inc.
+id: 01K6NH5W1DAGCGDW87ED56V41R
 description: |
   Displays Power BI dashboards and reports with big focus on security.
-icon: 'https://playground.srly.io/edge-apps/powerbi/static/images/icon.svg'
+icon: https://playground.srly.io/edge-apps/powerbi/static/img/icon.svg
+author: Screenly, Inc.
 ready_signal: true
 settings:
-  azure_ad_client_id:
+  display_errors:
     type: string
-    default_value:
-    title: Azure AD Client ID
-    optional: false
-    help_text: The Oauth 2.0 Client ID for Azure AD.
-  azure_ad_client_secret:
-    type: secret
-    title: Azure AD Client Secret
-    optional: false
-    help_text: The Oauth 2.0 Client Secret for Azure AD.
-  azure_ad_resource:
-    type: string
-    default_value: https://login.microsoftonline.com
-    title: Oauth 2.0 Resource
-    optional: false
-    help_text: The Oauth 2.0 Resource for Azure AD.
-  azure_ad_scope:
-    type: string
-    default_value: https://analysis.windows.net/powerbi/api
-    title: Oauth 2.0 Scope
-    optional: false
-    help_text: The Oauth 2.0 Scope for Azure AD.
-  azure_ad_tenant_id:
-    type: string
-    default_value:
-    title: Microsoft Tenant ID
-    optional: false
-    help_text: The Microsoft Tenant ID.
-  power_bi_group_id:
-    type: string
-    default_value:
-    title: Power Group ID
-    optional: false
-    help_text: The Group ID, also known as Workspace ID.
-  power_bi_resource_id:
-    type: string
-    default_value:
-    title: Power BI Dashboard or Report ID
-    optional: false
-    help_text: The Dashboard or Report ID.
-  power_bi_resource_type:
-    type: string
-    default_value:
-    title: Power BI resource type, meaning report or dashboard
-    optional: false
-    help_text: The resource type, meaning report or dashboard.
-  power_bi_page_name:
-    type: string
-    default_value:
-    title: Power BI report page name
+    default_value: 'false'
+    title: Display Errors
     optional: true
-    help_text: |
-      Display a specific page (i.e. tab name) within a given Power BI report to display. Note that this is NOT the name shown in the report.
-      You can the value of this in the URL when you are viewing the page, and this starts with `ReportSection50033...a22c`.
+    help_text:
+      properties:
+        advanced: true
+        help_text: For debugging purposes to display errors on the screen.
+        type: boolean
+      schema_version: 1
+  embed_token:
+    type: secret
+    title: Embed Token
+    optional: true
+    help_text:
+      properties:
+        help_text: For testing only. In the wild, the embed token should be fetched dynamically via the API.
+        type: oauth:power_bi:embed_token
+      schema_version: 1
+  embed_url:
+    type: string
+    title: Embed URL
+    optional: false
+    help_text:
+      properties:
+        help_text: The URL of the Power BI dashboard or report to display.
+        type: oauth:power_bi:embed_url
+      schema_version: 1

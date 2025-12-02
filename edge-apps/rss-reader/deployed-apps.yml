@@ -1,0 +1,94 @@
+# Deployed RSS Reader Apps
+#
+# Format:
+# apps:
+#   app-key:
+#     app_name: "Instance Title"
+#     description: "Manifest Description"
+#     rss_title: "UI Title"
+#     icon_url: "https://..."
+#     rss_url: "https://..."
+#     ids:
+#       stage: "STAGE_APP_ID"
+#       production: "PROD_APP_ID"
+
+apps:
+  bbc-news:
+    app_name: 'BBC News'
+    description: 'Latest news from BBC World Service'
+    rss_title: 'BBC News'
+    icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/bbc-news.svg'
+    rss_url: 'http://feeds.bbci.co.uk/news/rss.xml'
+    ids:
+      stage: '01K7PQJ9QA5V5KMJD8GXHS2PY0'
+      production: '01K8J81XPNSGHNAK7QYK0VEG5H'
+
+  abc-news:
+    app_name: 'ABC News'
+    description: 'Latest news from ABC News'
+    rss_title: 'ABC News'
+    icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/abc-news.svg'
+    rss_url: 'https://abcnews.go.com/abcnews/topstories'
+    ids:
+      stage: '01K86G5RF1AYDNGXY38HNT3WEG'
+      production: ''
+
+  cnn-news:
+    app_name: 'CNN News'
+    description: 'Latest news from CNN News'
+    rss_title: 'CNN News'
+    icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/cnn-news.svg'
+    rss_url: 'http://rss.cnn.com/rss/cnn_topstories.rss'
+    ids:
+      stage: '01K86GEV3KJ3W2YNW99DMSEP8W'
+      production: ''
+
+  fox-news:
+    app_name: 'Fox News'
+    description: 'Latest news from Fox News'
+    rss_title: 'Fox News'
+    icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/fox-news.svg'
+    rss_url: 'https://moxie.foxnews.com/google-publisher/latest.xml'
+    ids:
+      stage: '01K86GJJ3Z5FMS8RJCZ6JA6WKW'
+      production: '01K8J8K6MN8VN235J16C4S2CR9'
+
+  ny-times-news:
+    app_name: 'New York Times News'
+    description: 'Latest news from New York Times'
+    rss_title: 'New York Times News'
+    icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/ny-times-news.svg'
+    rss_url: 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml'
+    ids:
+      stage: '01K86GQ46W114SHDDZF68PPCHG'
+      production: '01K8J90K1TFJ05T6B8SYBZDZP1'
+
+  al-jazeera-news:
+    app_name: 'Al Jazeera News'
+    description: 'Latest news from Al Jazeera'
+    rss_title: 'Al Jazeera News'
+    icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/al-jazeera-news.svg'
+    rss_url: 'https://www.aljazeera.com/xml/rss/all.xml'
+    ids:
+      stage: '01K86GWD5XEZ9P882YG2STQ8AN'
+      production: '01K8J94X6KSY0THWHZTCB8M1BB'
+
+  wsj-news:
+    app_name: 'Wall Street Journal News'
+    description: 'Latest news from Wall Street Journal'
+    rss_title: 'Wall Street Journal News'
+    icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/wsj-news.svg'
+    rss_url: 'https://feeds.content.dowjones.io/public/rss/RSSWorldNews'
+    ids:
+      stage: '01K86HPE5DCBHS5T70AHAR6K75'
+      production: '01K8JBDJ3YFCQ0GBMX07Y0YSNX'
+
+  npr-news:
+    app_name: 'NPR News'
+    description: 'Latest news from NPR'
+    rss_title: 'NPR News'
+    icon_url: 'https://playground.srly.io/edge-apps/helpers/rss-reader/app-icons/npr-news.svg'
+    rss_url: 'https://feeds.npr.org/1004/rss.xml'
+    ids:
+      stage: '01K86J7RPCMYD4JV5WPCJGKH20'
+      production: '01K8JBNNVFJ8WDNBYFA1EENN8F'

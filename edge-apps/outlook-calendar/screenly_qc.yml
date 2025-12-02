@@ -1,0 +1,95 @@
+---
+syntax: manifest_v1
+id: 01KAZFE9GYTBFSV4HFNZZ61TYQ
+description: Outlook Calendar Edge App QC
+icon: https://playground.srly.io/edge-apps/outlook-calendar/src/img/icon.svg
+author: Screenly, Inc.
+ready_signal: true
+settings:
+  access_token:
+    type: secret
+    title: Access Token
+    optional: true
+    help_text:
+      properties:
+        help_text: For testing only. In production, the access token should be fetched dynamically via the API.
+        type: oauth:outlook_calendar:access_token
+      schema_version: 1
+  calendar_id:
+    type: string
+    default_value: primary
+    title: Outlook Calendar ID
+    optional: true
+    help_text:
+      properties:
+        help_text: Enter the Outlook Calendar ID to display events from (defaults to primary calendar).
+        type: oauth:outlook_calendar:calendar_id
+      schema_version: 1
+  calendar_mode:
+    type: string
+    default_value: schedule
+    title: Calendar Mode
+    optional: true
+    help_text:
+      properties:
+        help_text: Select the calendar view mode.
+        options:
+          - label: Schedule
+            value: schedule
+          - label: Weekly
+            value: weekly
+          - label: Daily
+            value: daily
+        type: select
+      schema_version: 1
+  display_errors:
+    type: string
+    default_value: 'false'
+    title: Display Errors
+    optional: true
+    help_text:
+      properties:
+        advanced: true
+        help_text: For debugging purposes to display errors on the screen.
+        type: boolean
+      schema_version: 1
+  override_locale:
+    type: string
+    default_value: en
+    title: Override Locale
+    optional: true
+    help_text: |
+      Enter the locale to override the default locale for the calendar.
+      If left blank, the default locale will be used.
+      Example: 'fr'
+  override_timezone:
+    type: string
+    default_value: ''
+    title: Override Timezone
+    optional: true
+    help_text: |
+      Enter the timezone to override the default timezone for the calendar.
+      If left blank, the default timezone will be used.
+      Example: 'America/New_York'
+  sentry_dsn:
+    type: secret
+    title: Sentry Client Key
+    optional: true
+    help_text: |
+      Enter your Sentry DSN to enable error tracking and monitoring.
+    is_global: true
+  theme:
+    type: string
+    default_value: light
+    title: Theme
+    optional: false
+    help_text:
+      properties:
+        help_text: Select the visual theme for the application.
+        options:
+          - label: Light
+            value: light
+          - label: Dark
+            value: dark
+        type: select
+      schema_version: 1

@@ -4,33 +4,32 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="static/css/common.css" rel="stylesheet">
 	<link href="static/css/styles.css" rel="stylesheet">
 </head>
 
 <body>
 
-	<script src="screenly.js?version=1"></script>
-
 	<div class="main-container">
-		<div class="primary-card">
+		<div class="primary-card countdown-card">
 			<span class="primary-card-message message">Countdown</span>
 			<span class="primary-card-number day">0</span>
 			<span class="primary-card-text">DAYS</span>
 		</div>
 		<div class="secondary-container">
 			<div class="row-container">
-				<div class="secondary-card">
-					<object id="svgObject1"  class="clock-icon" data="./static/img/clock-icon.svg" type="image/svg+xml"></object>
+				<div class="secondary-card timer-card">
+					<object id="clock-icon-1"  class="clock-icon" data="./static/img/clock-icon.svg" type="image/svg+xml"></object>
 					<span class="secondary-card-number hour">0</span>
 					<span class="secondary-card-label">HOURS</span>
 				</div>
-				<div class="secondary-card">
-					<object id="svgObject1"  class="clock-icon" data="./static/img/clock-icon.svg" type="image/svg+xml"></object>
+				<div class="secondary-card timer-card">
+					<object id="clock-icon-2"  class="clock-icon" data="./static/img/clock-icon.svg" type="image/svg+xml"></object>
 					<span class="secondary-card-number minute">0</span>
 					<span class="secondary-card-label">MINUTES</span>
 				</div>
-					<div class="secondary-card">
-					<object id="svgObject1" class="clock-icon" data="./static/img/clock-icon.svg" type="image/svg+xml"></object>
+					<div class="secondary-card timer-card">
+					<object id="clock-icon-3" class="clock-icon" data="./static/img/clock-icon.svg" type="image/svg+xml"></object>
 					<span class="secondary-card-number second">0</span>
 					<span class="secondary-card-label">SECONDS</span>
 				</div>
@@ -50,6 +49,27 @@
 		</div>
 	</div>
 
+	<!-- Countdown Finished Overlay -->
+	<div id="countdown-overlay" class="countdown-overlay hidden">
+		<div class="overlay-card">
+			<div class="overlay-content">
+				<h2 class="overlay-title">The time has ended</h2>
+				<div class="overlay-final-time">00:00:00</div>
+				<div class="overlay-time-details">
+					<div class="overlay-start-info">
+						<div class="start-label">Timer start point</div>
+						<div class="start-time" id="overlay-start-time"></div>
+					</div>
+					<div class="overlay-current-info">
+						<div class="current-label">Current time</div>
+						<div class="current-time" id="overlay-current-time"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="screenly.js?version=1"></script>
 	<script src="static/js/country-locale-map.1.18.5.min.js"></script>
 	<script src="static/js/moment-with-locales.min.js"></script>
 	<script src="static/js/moment-timezone-with-data.min.js"></script>
@@ -58,5 +78,4 @@
 	<script src="https://browser.sentry-cdn.com/8.30.0/bundle.tracing.min.js" integrity="sha384-whi3vRW+DIBqY2lQQ6oghGXbbA0sL5NJxUL6CMC+LRJ0b4A64Qn7/6YhpeR0+3Nq" crossorigin="anonymous"></script>
 	<script src="static/js/main.js"></script>
 </body>
-
 </html>

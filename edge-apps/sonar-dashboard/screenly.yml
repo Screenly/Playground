@@ -1,0 +1,58 @@
+---
+syntax: manifest_v1
+id:
+description: Sonar Dashboard Edge App
+icon: https://playground.srly.io/edge-apps/sonar-dashboard/static/img/icon.png
+author: Screenly, Inc.
+ready_signal: true
+settings:
+  api_host:
+    type: string
+    default_value: ''
+    title: IP Address of Sonar Server
+    optional: false
+    help_text: Enter the IP address of your Sonar server.
+  api_port:
+    type: string
+    default_value: '8000'
+    title: Port of Sonar Server
+    optional: false
+    help_text: Enter the port number of your Sonar server, default is `8000`.
+  enable_analytics:
+    type: string
+    default_value: 'true'
+    title: Enable Analytics
+    optional: true
+    help_text: Enable or disable Sentry and Google Analytics integrations.
+    is_global: true
+  override_locale:
+    type: string
+    default_value: en
+    title: Override Locale
+    optional: true
+    help_text: |
+      Override the default locale with a supported language code (e.g., en, fr, de). Defaults to English if not specified.
+      You can find the available locales here: https://momentjs.com/
+  override_timezone:
+    type: string
+    default_value: ''
+    title: Override Timezone
+    optional: true
+    help_text: |
+      Override the default timezone with a supported timezone identifier (e.g., Europe/London, America/New_York). Defaults to the system timezone if left blank.
+      You can find the available timezones here: https://momentjs.com/timezone/
+  tag_manager_id:
+    type: string
+    default_value: GTM-P98SPZ9Z
+    title: Google Tag Manager ID
+    optional: true
+    help_text: |
+      Enter your Google Tag Manager container ID to enable tracking and analytics.
+    is_global: true
+  sentry_dsn:
+    type: secret
+    title: Sentry DSN
+    optional: true
+    is_global: true
+    help_text: |
+      Enter your Sentry DSN to enable error tracking and monitoring.

@@ -9,10 +9,12 @@ settings:
     default_value: "http://localhost:8000"
     title: API URL
     optional: true
-    help_text: The URL of the queue management API server
+    help_text: |
+      Enter the URL of the queue management API server.
   poll_interval:
     type: string
     default_value: "5000"
     title: Poll Interval
     optional: true
-    help_text: How often to check for updates (in milliseconds)
+    help_text: |
+      Set the polling interval in milliseconds for checking updates from the server.

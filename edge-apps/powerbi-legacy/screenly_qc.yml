@@ -1,0 +1,72 @@
+---
+syntax: manifest_v1
+id: 01JZHRS5PY4TFRK002BP2KE0RX
+author: Screenly, Inc.
+description: |
+  Displays Power BI dashboards and reports with big focus on security.
+icon: 'https://playground.srly.io/edge-apps/powerbi-legacy/static/images/icon.svg'
+ready_signal: true
+settings:
+  azure_ad_client_id:
+    type: string
+    default_value:
+    title: Azure AD Client ID
+    optional: false
+    help_text: |
+      Enter your OAuth 2.0 Client ID for Azure AD authentication.
+  azure_ad_client_secret:
+    type: secret
+    title: Azure AD Client Secret
+    optional: false
+    help_text: |
+      Enter your OAuth 2.0 Client Secret for Azure AD authentication (keep this secure).
+  azure_ad_resource:
+    type: string
+    default_value: https://login.microsoftonline.com
+    title: Oauth 2.0 Resource
+    optional: false
+    help_text: |
+      Enter the OAuth 2.0 Resource URL for Azure AD authentication.
+  azure_ad_scope:
+    type: string
+    default_value: https://analysis.windows.net/powerbi/api
+    title: Oauth 2.0 Scope
+    optional: false
+    help_text: |
+      Enter the OAuth 2.0 Scope for Azure AD authentication.
+  azure_ad_tenant_id:
+    type: string
+    default_value:
+    title: Microsoft Tenant ID
+    optional: false
+    help_text: |
+      Enter your Microsoft Tenant ID for authentication.
+  power_bi_group_id:
+    type: string
+    default_value:
+    title: Power Group ID
+    optional: false
+    help_text: |
+      Enter the Power BI Group ID (also known as Workspace ID).
+  power_bi_resource_id:
+    type: string
+    default_value:
+    title: Power BI Dashboard or Report ID
+    optional: false
+    help_text: |
+      Enter the Power BI Dashboard or Report ID you want to display.
+  power_bi_resource_type:
+    type: string
+    default_value:
+    title: Power BI resource type, meaning report or dashboard
+    optional: false
+    help_text: |
+      Specify the resource type (either "report" or "dashboard").
+  power_bi_page_name:
+    type: string
+    default_value:
+    title: Power BI report page name
+    optional: true
+    help_text: |
+      Display a specific page (i.e. tab name) within a given Power BI report to display. Note that this is NOT the name shown in the report.
+      You can the value of this in the URL when you are viewing the page, and this starts with `ReportSection50033...a22c`.

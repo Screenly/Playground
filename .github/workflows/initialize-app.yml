@@ -1,0 +1,111 @@
+---
+
+name: Initialize Edge App
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment for initialization'
+        required: true
+        default: 'stage'
+        type: choice
+        options:
+          - stage
+          - production
+
+      edge_app_name:
+        description: 'Folder name of the edge app (under edge-apps/) to initialize'
+        required: true
+
+      edge_app_title:
+        description: 'Display title of the edge app (used in instance.yml)'
+        required: true
+
+      build_system:
+        description: 'Build system for the Edge App'
+        required: true
+        default: 'vanilla'
+        type: choice
+        options:
+          - vanilla
+          - bun
+
+      has_dist:
+        description: 'Whether the app builds to a dist folder'
+        required: true
+        default: true
+        type: boolean
+
+run-name: Initializing ${{ inputs.edge_app_name }} in ${{ inputs.environment }}
+
+
+jobs:
+  deploy:
+    name: Initializing ${{ inputs.edge_app_name }} in ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    environment: ${{ inputs.environment }}
+    env:
+      API_BASE_URL: ${{ inputs.environment == 'stage' && 'https://api.screenlyappstage.com' || 'https://api.screenlyapp.com' }}
+      APP_NAME: ${{ inputs.edge_app_name }}
+      APP_PATH: edge-apps/${{ inputs.edge_app_name }}
+      SCREENLY_API_TOKEN: ${{ secrets.SCREENLY_API_TOKEN }}
+      MANIFEST_FILE_NAME: ${{ inputs.environment == 'stage' && 'screenly_qc.yml' || 'screenly.yml' }}
+
+    steps:
+      - name: ⬇️ Checkout Repository
+        uses: actions/checkout@v6
+        with:
+          ref: master
+
+      - name: 🛠 Install Bun (React/Vue only)
+        if: ${{ inputs.build_system == 'bun' }}
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.2.2
+
+      - name: 🛠 Setup and Build Bun App
+        if: ${{ inputs.build_system == 'bun' }}
+        working-directory: ${{ env.APP_PATH }}
+        run: |
+          bun install
+          bun run build
+
+      - name: 🔄 Modify APP_PATH based on app type
+        run: |
+          if [ "${{ inputs.build_system }}" = "bun" ] && [ "${{ inputs.has_dist }}" = "true" ]; then
+            echo "APP_PATH=${{ env.APP_PATH }}/dist" >> "$GITHUB_ENV"
+          fi
+
+      - name: 🛠 Create Edge App
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
+          cli_commands: edge-app create --name="${{ env.APP_NAME }}" --in-place --path="${{ env.APP_PATH }}"
+
+      - name: 🚀 Deploy Edge App
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
+          cli_commands: edge-app deploy --path="${{ env.APP_PATH }}"
+
+      - name: 📋 Log screenly.yml
+        run: |
+          cat ${{ env.APP_PATH }}/${{ env.MANIFEST_FILE_NAME }}
+
+      - name: 📄 Create Instance
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
+          cli_commands: edge-app instance create --path="${{ env.APP_PATH }}" --name="${{ inputs.edge_app_title }}"
+
+      - name: 🔄 Update Instance
+        uses: screenly/cli@master
+        with:
+          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
+          cli_commands: edge-app instance update --path="${{ env.APP_PATH }}"
+
+      - name: 📋 Log instance.yml
+        run: |
+          cat ${{ env.APP_PATH }}/instance.yml

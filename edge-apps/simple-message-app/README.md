@@ -7,14 +7,30 @@ A simple message app allows users to display text on a screen, making it a basic
 ## tl;dr
 
 ```bash
-$ cd edge-apps/countdown-timer
+$ cd edge-apps/simple-message-app
 $ screenly edge-app create \
     --name simple-message-app \
     --in-place
-$ screenly edge-app deploy
-# To install an app, you need to create an instance.
 $ screenly edge-app instance create
+$ bun install
+$ bun run deploy
 ```
+
+## Development
+
+Install the dependencies for the first run:
+
+```bash
+bun install
+```
+
+Run the development environment with a single command:
+
+```bash
+bun run dev
+```
+
+This will build in watch mode and start the development server via [Screenly CLI](https://github.com/Screenly/cli).
 
 ## Tweaking the settings
 

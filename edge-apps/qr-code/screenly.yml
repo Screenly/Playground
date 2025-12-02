@@ -1,21 +1,38 @@
 ---
 syntax: manifest_v1
-description: A sample QR code generator app
-icon: ''
+description: A QR code generator app with customizable header
+icon: https://playground.srly.io/edge-apps/qr-code/static/img/icon.svg
 author: Screenly, Inc.
-homepage_url: ''
+ready_signal: true
 settings:
-  enable_utm:
+  call_to_action:
     type: string
-    default_value: 'false'
-    title: Enable UTM
+    default_value: Scan to visit
+    title: Call to Action
     optional: true
     help_text: |
-      Enabling it append UTM parameters as query strings to the URL before
-      converting it to a QR code.
+      Enter a short call-to-action text (e.g., "Scan to visit", "Scan here", "Point your camera").
+  enable_utm:
+    type: string
+    default_value: 'true'
+    title: Enable UTM
+    optional: true
+    help_text:
+      properties:
+        advanced: true
+        help_text: Enable UTM parameter tracking by appending UTM query strings to the URL before generating the QR code.
+        type: boolean
+      schema_version: 1
+  headline:
+    type: string
+    default_value: Visit our website for exclusive offers
+    title: Headline
+    optional: false
+    help_text: |
+      Enter the main headline that describes what the QR code links to. This can be a full sentence (e.g., "Visit our website for exclusive offers", "Download our app to get started", "View our full menu and daily specials").
   url:
     type: string
     default_value: https://www.screenly.io/
     title: URL
     optional: false
-    help_text: Specify a URL to be converted into a QR code
+    help_text: Enter the URL that will be encoded into the QR code.

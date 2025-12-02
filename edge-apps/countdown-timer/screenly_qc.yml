@@ -1,6 +1,6 @@
 ---
 syntax: manifest_v1
-id: 01HS8ZQP09W71PAMEZ65GH6SVV
+id: 01JZPXD7VX68JXPXWCZX18N8Q7
 description: Screenly Countdown Edge App
 icon: https://playground.srly.io/edge-apps/countdown-timer/static/img/icon.svg
 author: Screenly, Inc.
@@ -11,42 +11,64 @@ settings:
     default_value: New Year Countdown
     title: Countdown Headline
     optional: false
-    help_text: Countdown header text value.
+    help_text: |
+      Enter the headline text that will be displayed above the countdown timer.
+  countdown_end_text:
+    type: string
+    default_value: Countdown Finished!
+    title: Countdown End Text
+    optional: false
+    help_text: |
+      Enter the message that will be displayed when the countdown reaches zero.
   enable_analytics:
     type: string
     default_value: 'true'
     title: Enable Analytics
     optional: true
-    help_text: Whether to disable Sentry and Google Analytics integrations
+    help_text: Enable or disable Sentry and Google Analytics integrations.
     is_global: true
   override_locale:
     type: string
     default_value: en
     title: Override Locale
     optional: true
-    help_text: Specify a supported locale value (e.g., en_US).
+    help_text: |
+      Override the default locale with a supported language code (e.g., en, fr, de). Defaults to English if not specified.
+      You can find the available locales here: https://momentjs.com/
   override_timezone:
     type: string
     default_value: ''
     title: Override Timezone
     optional: true
-    help_text: Specify a supported timezone value (e.g., Europe/London).
+    help_text: |
+      Override the default timezone with a supported timezone identifier (e.g., Europe/London, America/New_York). Defaults to the system timezone if left blank.
+      You can find the available timezones here: https://momentjs.com/timezone/
   sentry_dsn:
     type: secret
     title: Sentry Client Key
     optional: true
-    help_text: Sentry Client Key from Sentry SDK for error capturing.
+    help_text: |
+      Enter your Sentry DSN to enable error tracking and monitoring.
     is_global: true
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z
     title: Tag Manager ID
     optional: true
-    help_text: Specify a Google Tag Manager ID
+    help_text: |
+      Enter your Google Tag Manager container ID to enable tracking and analytics.
     is_global: true
   target_timestamp:
     type: string
-    default_value: 2025-01-01T00:00:00
+    default_value: 2028-01-01T00:00:00
     title: Countdown Target
     optional: false
-    help_text: Target timestamp in ISO format (YYYY-MM-DDTHH:MM:SS)
+    help_text: |
+      The date and time the countdown will end (in ISO format: YYYY-MM-DDTHH:MM:SS).
+  starting_timestamp:
+    type: string
+    default_value: 2025-01-01T00:00:00
+    title: Starting Timestamp
+    optional: false
+    help_text: |
+      The date and time the countdown begins (in ISO format: YYYY-MM-DDTHH:MM:SS).

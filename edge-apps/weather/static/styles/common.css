@@ -4,11 +4,11 @@
 
 /* Global Fonts */
 @font-face {
-  font-family: Aeonik;
-  src: url('../fonts/Aeonik-Regular.woff2') format('woff2'),
-    url('../fonts/Aeonik-Regular.woff') format('woff');
-  font-weight: normal;
+  font-family: Inter;
+  src: url('../fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
 /* Typography */
@@ -24,7 +24,7 @@ html {
 }
 
 body {
-  font-family: Aeonik, sans-serif;
+  font-family: Inter, sans-serif;
   height: 100vh;
   background-color: var(--theme-color-background);
 }

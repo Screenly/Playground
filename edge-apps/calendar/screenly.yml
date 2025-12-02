@@ -1,0 +1,81 @@
+---
+syntax: manifest_v1
+id: 01JY4ARF0H5TAWWEG24KJGW33X
+description: Screenly Calendar Edge App
+icon: https://playground.srly.io/edge-apps/calendar/src/img/icon.svg
+author: Screenly, Inc.
+ready_signal: true
+settings:
+  bypass_cors:
+    type: string
+    default_value: 'true'
+    title: Bypass CORS
+    optional: true
+    help_text: |
+      Enable CORS bypass for iCal URLs that require it to resolve access restrictions.
+  calendar_mode:
+    type: string
+    default_value: schedule
+    title: Calendar Mode
+    optional: true
+    help_text:
+      properties:
+        help_text: Select the calendar view mode.
+        options:
+          - label: Schedule
+            value: schedule
+          - label: Weekly
+            value: weekly
+          - label: Daily
+            value: daily
+        type: select
+      schema_version: 1
+  display_errors:
+    type: string
+    default_value: 'false'
+    title: Display Errors
+    optional: true
+    help_text:
+      properties:
+        advanced: true
+        help_text: For debugging purposes to display errors on the screen.
+        type: boolean
+      schema_version: 1
+  ical_url:
+    type: secret
+    title: iCal URL
+    optional: false
+    help_text: |
+      Enter the public iCal feed URL for your calendar.
+  override_locale:
+    type: string
+    default_value: en
+    title: Override Locale
+    optional: true
+    help_text: |
+      Enter the locale to override the default locale for the calendar.
+      If left blank, the default locale will be used.
+      Example: 'fr'
+  override_timezone:
+    type: string
+    default_value: ''
+    title: Override Timezone
+    optional: true
+    help_text: |
+      Enter the timezone to override the default timezone for the calendar.
+      If left blank, the default timezone will be used.
+      Example: 'America/New_York'
+  sentry_dsn:
+    type: secret
+    title: Sentry Client Key
+    optional: true
+    help_text: |
+      Enter your Sentry DSN to enable error tracking and monitoring.
+    is_global: true
+  theme:
+    type: string
+    default_value: light
+    title: Theme
+    optional: false
+    help_text: |
+      Select the visual theme for the application ('light' or 'dark').
