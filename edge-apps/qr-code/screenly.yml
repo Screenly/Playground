@@ -17,8 +17,12 @@ settings:
     default_value: 'true'
     title: Enable UTM
     optional: true
-    help_text: |
-      Enable UTM parameter tracking by appending UTM query strings to the URL before generating the QR code.
+    help_text:
+      properties:
+        advanced: true
+        help_text: Enable UTM parameter tracking by appending UTM query strings to the URL before generating the QR code.
+        type: boolean
+      schema_version: 1
   headline:
     type: string
     default_value: Visit our website for exclusive offers
