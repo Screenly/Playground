@@ -31,6 +31,12 @@ on:
           - vanilla
           - bun
 
+      has_dist:
+        description: 'Whether the app builds to a dist folder'
+        required: true
+        default: true
+        type: boolean
+
 run-name: Initializing ${{ inputs.edge_app_name }} in ${{ inputs.environment }}
 
 
@@ -59,7 +65,7 @@ jobs:
         with:
           bun-version: 1.2.2
 
-      - name: 🛠 Setup and Build React/Vue App
+      - name: 🛠 Setup and Build Bun App
         if: ${{ inputs.build_system == 'bun' }}
         working-directory: ${{ env.APP_PATH }}
         run: |
@@ -68,7 +74,7 @@ jobs:
 
       - name: 🔄 Modify APP_PATH based on app type
         run: |
-          if [ "${{ inputs.build_system }}" = "bun" ]; then
+          if [ "${{ inputs.build_system }}" = "bun" ] && [ "${{ inputs.has_dist }}" = "true" ]; then
             echo "APP_PATH=${{ env.APP_PATH }}/dist" >> "$GITHUB_ENV"
           fi
 
