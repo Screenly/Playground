@@ -34,7 +34,9 @@ export function getSecondaryColor(
     return !lightColor || lightColor.toLowerCase() === "#ffffff"
       ? defaultSecondary
       : lightColor;
-  } else if (theme === "dark") {
+  }
+
+  if (theme === "dark") {
     return !darkColor || darkColor.toLowerCase() === "#ffffff"
       ? defaultSecondary
       : darkColor;
@@ -97,6 +99,17 @@ export function setupTheme(): ThemeColors {
 }
 
 /**
+ * Convert Uint8Array to base64 string
+ */
+function uint8ToBase64(bytes: Uint8Array): string {
+  let binary = "";
+  for (let i = 0; i < bytes.length; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
+}
+
+/**
  * Fetch and process a logo image from a URL
  * Handles SVG, PNG, and JPEG formats
  */
@@ -134,14 +147,6 @@ export async function fetchLogoImage(fileUrl: string): Promise<string> {
           const svgText = svgReader.result as string;
           const encoder = new TextEncoder();
           const uint8Array = encoder.encode(svgText);
-          // Helper to convert Uint8Array to base64
-          function uint8ToBase64(bytes: Uint8Array): string {
-            let binary = "";
-            for (let i = 0; i < bytes.length; i++) {
-              binary += String.fromCharCode(bytes[i]);
-            }
-            return btoa(binary);
-          }
           const base64 = uint8ToBase64(uint8Array);
           resolve("data:image/svg+xml;base64," + base64);
         } catch (error) {
@@ -150,15 +155,14 @@ export async function fetchLogoImage(fileUrl: string): Promise<string> {
       };
       svgReader.onerror = () => reject(new Error("Failed to read SVG file"));
     });
-  } else if (
-    hex.startsWith(pngMagicNumber) ||
-    hex.startsWith(jpegMagicNumber)
-  ) {
+  }
+
+  if (hex.startsWith(pngMagicNumber) || hex.startsWith(jpegMagicNumber)) {
     // Return URL for PNG or JPEG
     return fileUrl;
-  } else {
-    throw new Error("Unknown image type");
   }
+
+  throw new Error("Unknown image type");
 }
 
 /**
