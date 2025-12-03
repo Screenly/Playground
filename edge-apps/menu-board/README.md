@@ -30,6 +30,7 @@ A dynamic and responsive menu board for digital signage displays. This Edge App 
 ### Menu Items
 
 Each menu item has four components:
+
 - `item_X_name`: Name of the menu item
 - `item_X_description`: Description of the menu item
 - `item_X_price`: Price of the menu item
