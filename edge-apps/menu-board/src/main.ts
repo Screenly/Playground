@@ -54,13 +54,14 @@ function getMenuItems(settings: MenuSettings): MenuItem[] {
   const menuItems: MenuItem[] = [];
 
   for (let i = 1; i <= 25; i++) {
-    const name = settings[`item_${i}_name`];
+    const itemNum = String(i).padStart(2, "0");
+    const name = settings[`item_${itemNum}_name`];
     if (name?.trim()) {
       menuItems.push({
         name: name.trim(),
-        description: settings[`item_${i}_description`]?.trim() || "",
-        price: settings[`item_${i}_price`]?.trim() || "",
-        labels: settings[`item_${i}_labels`]?.trim() || "",
+        description: settings[`item_${itemNum}_description`]?.trim() || "",
+        price: settings[`item_${itemNum}_price`]?.trim() || "",
+        labels: settings[`item_${itemNum}_labels`]?.trim() || "",
       });
     }
   }
