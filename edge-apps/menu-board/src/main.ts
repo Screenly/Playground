@@ -1,4 +1,4 @@
-import { getSetting, signalReady } from "@screenly/edge-apps";
+import { getHardware, signalReady } from "@screenly/edge-apps";
 
 interface MenuSettings {
   menu_title: string;
@@ -115,13 +115,20 @@ function renderPage(
     dot.classList.toggle("active", i === page);
   });
 
-  // Fade out, update content, fade in
-  menuGrid.classList.add("fade-out");
-  setTimeout(() => {
+  // Disable transitions if hardware is undefined (running in an Anywhere screen)
+  const hardware = getHardware();
+  if (!hardware) {
     menuGrid.innerHTML = "";
     menuGrid.appendChild(fragment);
-    menuGrid.classList.remove("fade-out");
-  }, 500);
+  } else {
+    // Fade out, update content, fade in
+    menuGrid.classList.add("fade-out");
+    setTimeout(() => {
+      menuGrid.innerHTML = "";
+      menuGrid.appendChild(fragment);
+      menuGrid.classList.remove("fade-out");
+    }, 500);
+  }
 }
 
 /**
