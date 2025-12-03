@@ -55,7 +55,7 @@
     "jsdom": "^27.2.0",
     "npm-run-all2": "^8.0.4",
     "panic-overlay": "^1.0.51",
-    "prettier": "3.7.3",
+    "prettier": "3.7.4",
     "rimraf": "^6.1.2",
     "sass-embedded": "^1.93.3",
     "typescript": "~5.9.3",
