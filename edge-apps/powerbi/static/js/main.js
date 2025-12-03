@@ -15,10 +15,10 @@
 
   function getEmbedTypeFromUrl(url) {
     switch (true) {
-      case url.indexOf('/dashboard') !== -1:
-        return 'dashboard';
+      case url.indexOf("/dashboard") !== -1:
+        return "dashboard";
       default:
-        return 'report';
+        return "report";
     }
   }
 
@@ -27,13 +27,16 @@
       return screenly.settings.embed_token;
     }
 
-    var response = await fetch(screenly.settings.screenly_oauth_tokens_url + 'embed_token/', {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${screenly.settings.screenly_app_auth_token}`,
+    var response = await fetch(
+      screenly.settings.screenly_oauth_tokens_url + "embed_token/",
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${screenly.settings.screenly_app_auth_token}`,
+        },
       },
-    });
+    );
 
     const { token } = await response.json();
     return token;
@@ -52,7 +55,10 @@
         await report.setAccessToken(newToken);
         currentErrorStep = 0;
       } catch {
-        nextTimeout = Math.min(initErrorDelaySec * Math.pow(2, currentErrorStep), nextTimeout);
+        nextTimeout = Math.min(
+          initErrorDelaySec * Math.pow(2, currentErrorStep),
+          nextTimeout,
+        );
         if (currentErrorStep >= maxErrorStep) {
           return;
         }
@@ -65,26 +71,29 @@
   }
 
   async function initializePowerBI() {
-    const models = window['powerbi-client'].models;
+    const models = window["powerbi-client"].models;
     const embedUrl = screenly.settings.embed_url;
     const resourceType = getEmbedTypeFromUrl(embedUrl);
 
-    const report = window.powerbi.embed(document.getElementById('embed-container'), {
-      embedUrl: embedUrl,
-      accessToken: await getEmbedToken(),
-      type: resourceType,
-      tokenType: models.TokenType.Embed,
-      permissions: models.Permissions.All,
-      settings: {
-        filterPaneEnabled: false,
-        navContentPaneEnabled: false,
+    const report = window.powerbi.embed(
+      document.getElementById("embed-container"),
+      {
+        embedUrl: embedUrl,
+        accessToken: await getEmbedToken(),
+        type: resourceType,
+        tokenType: models.TokenType.Embed,
+        permissions: models.Permissions.All,
+        settings: {
+          filterPaneEnabled: false,
+          navContentPaneEnabled: false,
+        },
       },
-    });
+    );
 
-    if (resourceType === 'report') {
-      report.on('rendered', screenly.signalReadyForRendering);
-    } else if (resourceType === 'dashboard') {
-      report.on('loaded', () => {
+    if (resourceType === "report") {
+      report.on("rendered", screenly.signalReadyForRendering);
+    } else if (resourceType === "dashboard") {
+      report.on("loaded", () => {
         setTimeout(screenly.signalReadyForRendering, 1000);
       });
     }
@@ -95,11 +104,14 @@
   }
 
   panic.configure({
-    handleErrors: screenly.settings.display_errors == 'true' || false,
+    handleErrors: screenly.settings.display_errors == "true" || false,
   });
-  if (screenly.settings.display_errors == 'true') {
-    window.addEventListener('error', screenly.signalReadyForRendering);
-    window.addEventListener('unhandledrejection', screenly.signalReadyForRendering);
+  if (screenly.settings.display_errors == "true") {
+    window.addEventListener("error", screenly.signalReadyForRendering);
+    window.addEventListener(
+      "unhandledrejection",
+      screenly.signalReadyForRendering,
+    );
   }
 
   initializePowerBI();
