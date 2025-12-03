@@ -1,7 +1,17 @@
 /* global screenly, panic */
 
 (function () {
-  const DEFAULT_TOKEN_REFRESH_SEC = 30 * 60; // refresh token every 30 minutes
+  const MIN_TOKEN_REFRESH_MIN = 1; // minimum 1 minute
+  const DEFAULT_TOKEN_REFRESH_MIN = 30; // default 30 minutes
+
+  function getTokenRefreshInterval() {
+    // User provides interval in minutes, convert to seconds
+    var intervalMinutes = parseInt(screenly.settings.refresh_interval, 10);
+    if (isNaN(intervalMinutes) || intervalMinutes < MIN_TOKEN_REFRESH_MIN) {
+      return DEFAULT_TOKEN_REFRESH_MIN * 60; // convert to seconds
+    }
+    return intervalMinutes * 60; // convert minutes to seconds
+  }
 
   function getEmbedTypeFromUrl(url) {
     switch (true) {
@@ -33,9 +43,10 @@
     var currentErrorStep = 0;
     var initErrorDelaySec = 15;
     var maxErrorStep = 7;
+    var tokenRefreshInterval = getTokenRefreshInterval();
 
     async function run() {
-      var nextTimeout = DEFAULT_TOKEN_REFRESH_SEC;
+      var nextTimeout = tokenRefreshInterval;
       try {
         var newToken = await getEmbedToken();
         await report.setAccessToken(newToken);
@@ -50,7 +61,7 @@
       setTimeout(run, nextTimeout * 1000);
     }
 
-    setTimeout(run, DEFAULT_TOKEN_REFRESH_SEC * 1000);
+    setTimeout(run, tokenRefreshInterval * 1000);
   }
 
   async function initializePowerBI() {
