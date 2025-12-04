@@ -36,17 +36,14 @@ settings:
         help_text: The URL of the Power BI dashboard or report to display.
         type: oauth:power_bi:embed_url
       schema_version: 1
-  refresh_interval:
+app_refresh_interval:
     type: string
-    default_value: '30'
-    title: Refresh Interval
+    title: App Refresh Interval (minutes)
     optional: true
+    default_value: '30'
     help_text:
       properties:
         advanced: true
-        help_text: |
-          Set the interval (in minutes) for periodically refreshing the Power BI dashboard or report.
-          The default value is 30 minutes, the minimum allowed is 1 minute.
-          Note: The embed token will be refreshed each time the dashboard or report is refreshed.
+        help_text: How often to refresh the Power BI report/dashboard (in minutes). Default is 30 minutes. Minimum is 1 minute.
         type: number
       schema_version: 1
