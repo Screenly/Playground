@@ -27,8 +27,8 @@
   },
   "dependencies": {
     "@photostructure/tz-lookup": "^11.2.1",
-    "@sentry/browser": "^10.28.0",
-    "@sentry/vue": "^10.28.0",
+    "@sentry/browser": "^10.29.0",
+    "@sentry/vue": "^10.29.0",
     "country-locale-map": "^1.9.11",
     "dayjs": "^1.11.19",
     "offline-geocode-city": "^1.0.2",
