@@ -1,13 +1,4 @@
-import { getHardware, signalReady } from "@screenly/edge-apps";
-
-interface MenuSettings {
-  menu_title: string;
-  accent_color: string;
-  background_image: string;
-  logo_url: string;
-  slide_duration: string;
-  [key: string]: string;
-}
+import { getHardware, getSetting, signalReady } from "@screenly/edge-apps";
 
 interface MenuItem {
   name: string;
@@ -15,14 +6,6 @@ interface MenuItem {
   price: string;
   labels: string;
 }
-
-const DEFAULT_SETTINGS: MenuSettings = {
-  menu_title: "Today's Menu",
-  accent_color: "rgba(255, 255, 255, 0.95)",
-  background_image: "assets/pizza.png",
-  logo_url: "assets/screenly_food.svg",
-  slide_duration: "10",
-};
 
 /**
  * Escapes HTML characters to prevent XSS attacks
@@ -50,18 +33,19 @@ function calculateItemsPerPage(): number {
 /**
  * Retrieves all menu items from settings
  */
-function getMenuItems(settings: MenuSettings): MenuItem[] {
+function getMenuItems(): MenuItem[] {
   const menuItems: MenuItem[] = [];
 
   for (let i = 1; i <= 25; i++) {
     const itemNum = String(i).padStart(2, "0");
-    const name = settings[`item_${itemNum}_name`];
+    const name = getSetting<string>(`item_${itemNum}_name`);
     if (name?.trim()) {
       menuItems.push({
         name: name.trim(),
-        description: settings[`item_${itemNum}_description`]?.trim() || "",
-        price: settings[`item_${itemNum}_price`]?.trim() || "",
-        labels: settings[`item_${itemNum}_labels`]?.trim() || "",
+        description:
+          getSetting<string>(`item_${itemNum}_description`)?.trim() || "",
+        price: getSetting<string>(`item_${itemNum}_price`)?.trim() || "",
+        labels: getSetting<string>(`item_${itemNum}_labels`)?.trim() || "",
       });
     }
   }
@@ -173,29 +157,23 @@ function setupAutoAdvance(
 /**
  * Initializes the menu board application
  */
-function initializeMenuBoard(isDev = false): void {
+function initializeMenuBoard(): void {
   try {
-    const settings = isDev
-      ? DEFAULT_SETTINGS
-      : {
-          ...DEFAULT_SETTINGS,
-          ...(screenly.settings as MenuSettings),
-        };
-
-    // Validate required settings
-    if (!settings.menu_title) {
-      throw new Error("Menu title is required");
-    }
+    const menuTitle = getSetting<string>("menu_title") || "Today's Menu";
+    const accentColor =
+      getSetting<string>("accent_color") || "rgba(255, 255, 255, 0.95)";
+    const backgroundImage =
+      getSetting<string>("background_image") || "assets/pizza.png";
+    const logoUrl =
+      getSetting<string>("logo_url") || "assets/screenly_food.svg";
+    const slideDuration = getSetting<number>("slide_duration") || 10;
 
     // Set custom accent color if provided
-    if (settings.accent_color) {
-      document.documentElement.style.setProperty(
-        "--accent-color",
-        settings.accent_color,
-      );
+    if (accentColor) {
+      document.documentElement.style.setProperty("--accent-color", accentColor);
       document.documentElement.style.setProperty(
         "--purple-tint",
-        settings.accent_color + "20",
+        accentColor + "20",
       );
     }
 
@@ -206,7 +184,7 @@ function initializeMenuBoard(isDev = false): void {
         console.error("Failed to load background image");
         bgImage.style.display = "none";
       };
-      bgImage.src = settings.background_image;
+      bgImage.src = backgroundImage;
       bgImage.style.display = "block";
     }
 
@@ -221,8 +199,8 @@ function initializeMenuBoard(isDev = false): void {
           header.style.marginTop = "var(--spacing-md)";
         }
       };
-      if (settings.logo_url) {
-        logoElement.src = settings.logo_url;
+      if (logoUrl) {
+        logoElement.src = logoUrl;
         logoElement.style.display = "block";
       }
     }
@@ -230,11 +208,11 @@ function initializeMenuBoard(isDev = false): void {
     // Set menu title
     const titleElement = document.getElementById("title");
     if (titleElement) {
-      titleElement.textContent = settings.menu_title;
+      titleElement.textContent = menuTitle;
     }
 
     // Get all menu items
-    const menuItems = getMenuItems(settings);
+    const menuItems = getMenuItems();
 
     // Calculate items per page based on viewport
     const itemsPerPage = calculateItemsPerPage();
@@ -247,15 +225,10 @@ function initializeMenuBoard(isDev = false): void {
     renderPage(0, menuItems, itemsPerPage);
 
     // Setup auto-advance
-    const slideDuration =
-      parseInt(settings.slide_duration) ||
-      parseInt(DEFAULT_SETTINGS.slide_duration);
     setupAutoAdvance(totalPages, menuItems, itemsPerPage, slideDuration);
 
     // Signal that the app is ready
-    if (!isDev) {
-      signalReady();
-    }
+    signalReady();
   } catch (error) {
     console.error("Failed to initialize menu board:", error);
     const errorState = document.getElementById("errorState");
@@ -271,18 +244,5 @@ function initializeMenuBoard(isDev = false): void {
 
 // Initialize when the page loads
 window.addEventListener("load", () => {
-  try {
-    if (typeof screenly !== "undefined") {
-      initializeMenuBoard(false);
-    } else {
-      console.warn("Screenly not found, running in dev mode...");
-      initializeMenuBoard(true);
-    }
-  } catch (error) {
-    console.error("Critical initialization error:", error);
-    const errorState = document.getElementById("errorState");
-    if (errorState) {
-      errorState.style.display = "block";
-    }
-  }
+  initializeMenuBoard();
 });
