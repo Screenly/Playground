@@ -2,5 +2,7 @@
 edge-apps/edge-apps-library/README.md
 edge-apps/powerbi-legacy/
 edge-apps/powerbi-legacy/**
+edge-apps/powerbi
+edge-apps/powerbi/**
 edge-apps/qr-code/
 .github/workflows/
