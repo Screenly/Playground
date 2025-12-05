@@ -41,7 +41,11 @@ settings:
     default_value: '13.99'
     title: Item 1 - Price
     optional: true
-    help_text: Price of menu item 1 (e.g. 10.00)
+    help_text:
+      properties:
+        help_text: Price of menu item 1
+        type: number
+      schema_version: 1
   item_02_description:
     type: string
     default_value: Double pepperoni, mozzarella, parmesan, homemade tomato sauce, oregano
@@ -65,7 +69,11 @@ settings:
     default_value: '15.99'
     title: Item 2 - Price
     optional: true
-    help_text: Price of menu item 2 (e.g. 12.00)
+    help_text:
+      properties:
+        help_text: Price of menu item 2
+        type: number
+      schema_version: 1
   item_03_description:
     type: string
     default_value: Mozzarella, gorgonzola, parmesan, fontina, fresh basil, garlic olive oil
@@ -89,7 +97,11 @@ settings:
     default_value: '16.99'
     title: Item 3 - Price
     optional: true
-    help_text: Price of menu item 3
+    help_text:
+      properties:
+        help_text: Price of menu item 3
+        type: number
+      schema_version: 1
   item_04_description:
     type: string
     default_value: Roasted bell peppers, kalamata olives, red onions, cherry tomatoes, feta, spinach
@@ -113,7 +125,11 @@ settings:
     default_value: '14.99'
     title: Item 4 - Price
     optional: true
-    help_text: Price of menu item 4
+    help_text:
+      properties:
+        help_text: Price of menu item 4
+        type: number
+      schema_version: 1
   item_05_description:
     type: string
     default_value: ''
@@ -136,7 +152,11 @@ settings:
     default_value: ''
     title: Item 5 - Price
     optional: true
-    help_text: Price of menu item 5
+    help_text:
+      properties:
+        help_text: Price of menu item 5
+        type: number
+      schema_version: 1
   item_06_description:
     type: string
     default_value: ''
@@ -159,7 +179,11 @@ settings:
     default_value: ''
     title: Item 6 - Price
     optional: true
-    help_text: Price of menu item 6
+    help_text:
+      properties:
+        help_text: Price of menu item 6
+        type: number
+      schema_version: 1
   item_07_description:
     type: string
     default_value: ''
@@ -182,7 +206,11 @@ settings:
     default_value: ''
     title: Item 7 - Price
     optional: true
-    help_text: Price of menu item 7
+    help_text:
+      properties:
+        help_text: Price of menu item 7
+        type: number
+      schema_version: 1
   item_08_description:
     type: string
     default_value: ''
@@ -205,7 +233,11 @@ settings:
     default_value: ''
     title: Item 8 - Price
     optional: true
-    help_text: Price of menu item 8
+    help_text:
+      properties:
+        help_text: Price of menu item 8
+        type: number
+      schema_version: 1
   item_09_description:
     type: string
     default_value: ''
@@ -228,7 +260,11 @@ settings:
     default_value: ''
     title: Item 9 - Price
     optional: true
-    help_text: Price of menu item 9
+    help_text:
+      properties:
+        help_text: Price of menu item 9
+        type: number
+      schema_version: 1
   item_10_description:
     type: string
     default_value: ''
@@ -251,7 +287,11 @@ settings:
     default_value: ''
     title: Item 10 - Price
     optional: true
-    help_text: Price of menu item 10
+    help_text:
+      properties:
+        help_text: Price of menu item 10
+        type: number
+      schema_version: 1
   item_11_description:
     type: string
     default_value: ''
@@ -274,7 +314,11 @@ settings:
     default_value: ''
     title: Item 11 - Price
     optional: true
-    help_text: Price of menu item 11
+    help_text:
+      properties:
+        help_text: Price of menu item 11
+        type: number
+      schema_version: 1
   item_12_description:
     type: string
     default_value: ''
@@ -297,7 +341,11 @@ settings:
     default_value: ''
     title: Item 12 - Price
     optional: true
-    help_text: Price of menu item 12
+    help_text:
+      properties:
+        help_text: Price of menu item 12
+        type: number
+      schema_version: 1
   item_13_description:
     type: string
     default_value: ''
@@ -320,7 +368,11 @@ settings:
     default_value: ''
     title: Item 13 - Price
     optional: true
-    help_text: Price of menu item 13
+    help_text:
+      properties:
+        help_text: Price of menu item 13
+        type: number
+      schema_version: 1
   item_14_description:
     type: string
     default_value: ''
@@ -343,7 +395,11 @@ settings:
     default_value: ''
     title: Item 14 - Price
     optional: true
-    help_text: Price of menu item 14
+    help_text:
+      properties:
+        help_text: Price of menu item 14
+        type: number
+      schema_version: 1
   item_15_description:
     type: string
     default_value: ''
@@ -366,7 +422,11 @@ settings:
     default_value: ''
     title: Item 15 - Price
     optional: true
-    help_text: Price of menu item 15
+    help_text:
+      properties:
+        help_text: Price of menu item 15
+        type: number
+      schema_version: 1
   item_16_description:
     type: string
     default_value: ''
@@ -389,7 +449,11 @@ settings:
     default_value: ''
     title: Item 16 - Price
     optional: true
-    help_text: Price of menu item 16
+    help_text:
+      properties:
+        help_text: Price of menu item 16
+        type: number
+      schema_version: 1
   item_17_description:
     type: string
     default_value: ''
@@ -412,7 +476,11 @@ settings:
     default_value: ''
     title: Item 17 - Price
     optional: true
-    help_text: Price of menu item 17
+    help_text:
+      properties:
+        help_text: Price of menu item 17
+        type: number
+      schema_version: 1
   item_18_description:
     type: string
     default_value: ''
@@ -435,7 +503,11 @@ settings:
     default_value: ''
     title: Item 18 - Price
     optional: true
-    help_text: Price of menu item 18
+    help_text:
+      properties:
+        help_text: Price of menu item 18
+        type: number
+      schema_version: 1
   item_19_description:
     type: string
     default_value: ''
@@ -458,7 +530,11 @@ settings:
     default_value: ''
     title: Item 19 - Price
     optional: true
-    help_text: Price of menu item 19
+    help_text:
+      properties:
+        help_text: Price of menu item 19
+        type: number
+      schema_version: 1
   item_20_description:
     type: string
     default_value: ''
@@ -481,7 +557,11 @@ settings:
     default_value: ''
     title: Item 20 - Price
     optional: true
-    help_text: Price of menu item 20
+    help_text:
+      properties:
+        help_text: Price of menu item 20
+        type: number
+      schema_version: 1
   item_21_description:
     type: string
     default_value: ''
@@ -504,7 +584,11 @@ settings:
     default_value: ''
     title: Item 21 - Price
     optional: true
-    help_text: Price of menu item 21
+    help_text:
+      properties:
+        help_text: Price of menu item 21
+        type: number
+      schema_version: 1
   item_22_description:
     type: string
     default_value: ''
@@ -527,7 +611,11 @@ settings:
     default_value: ''
     title: Item 22 - Price
     optional: true
-    help_text: Price of menu item 22
+    help_text:
+      properties:
+        help_text: Price of menu item 22
+        type: number
+      schema_version: 1
   item_23_description:
     type: string
     default_value: ''
@@ -550,7 +638,11 @@ settings:
     default_value: ''
     title: Item 23 - Price
     optional: true
-    help_text: Price of menu item 23
+    help_text:
+      properties:
+        help_text: Price of menu item 23
+        type: number
+      schema_version: 1
   item_24_description:
     type: string
     default_value: ''
@@ -573,7 +665,11 @@ settings:
     default_value: ''
     title: Item 24 - Price
     optional: true
-    help_text: Price of menu item 24
+    help_text:
+      properties:
+        help_text: Price of menu item 24
+        type: number
+      schema_version: 1
   item_25_description:
     type: string
     default_value: ''
@@ -596,7 +692,11 @@ settings:
     default_value: ''
     title: Item 25 - Price
     optional: true
-    help_text: Price of menu item 25
+    help_text:
+      properties:
+        help_text: Price of menu item 25
+        type: number
+      schema_version: 1
   logo_url:
     type: string
     default_value: assets/screenly_food.svg
