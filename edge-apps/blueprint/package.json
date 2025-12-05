@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@photostructure/tz-lookup": "^11.3.0",
-    "@sentry/vue": "^10.28.0",
+    "@sentry/vue": "^10.29.0",
     "@typescript-eslint/typescript-estree": "^8.48.1",
     "country-locale-map": "^1.9.11",
     "dayjs": "^1.11.19",
@@ -33,7 +33,7 @@
     "jiti": "^2.6.1",
     "jsdom": "^27.2.0",
     "npm-run-all2": "^8.0.4",
-    "prettier": "3.7.3",
+    "prettier": "3.7.4",
     "rimraf": "^6.1.2",
     "sass-embedded": "^1.93.3",
     "typescript": "~5.9.3",
