@@ -143,6 +143,11 @@ settings:
     title: Item 6 - Description
     optional: true
     help_text: Description of menu item 6
+  item_06_labels:
+    type: string
+    title: Item 6 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
   item_06_name:
     type: string
     default_value: ''
@@ -161,6 +166,11 @@ settings:
     title: Item 7 - Description
     optional: true
     help_text: Description of menu item 7
+  item_07_labels:
+    type: string
+    title: Item 7 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
   item_07_name:
     type: string
     default_value: ''
@@ -179,6 +189,11 @@ settings:
     title: Item 8 - Description
     optional: true
     help_text: Description of menu item 8
+  item_08_labels:
+    type: string
+    title: Item 8 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
   item_08_name:
     type: string
     default_value: ''
@@ -197,6 +212,11 @@ settings:
     title: Item 9 - Description
     optional: true
     help_text: Description of menu item 9
+  item_09_labels:
+    type: string
+    title: Item 9 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
   item_09_name:
     type: string
     default_value: ''
@@ -215,6 +235,11 @@ settings:
     title: Item 10 - Description
     optional: true
     help_text: Description of menu item 10
+  item_10_labels:
+    type: string
+    title: Item 10 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
   item_10_name:
     type: string
     default_value: ''
@@ -233,6 +258,11 @@ settings:
     title: Item 11 - Description
     optional: true
     help_text: Description of menu item 11
+  item_11_labels:
+    type: string
+    title: Item 11 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
   item_11_name:
     type: string
     default_value: ''
@@ -251,6 +281,11 @@ settings:
     title: Item 12 - Description
     optional: true
     help_text: Description of menu item 12
+  item_12_labels:
+    type: string
+    title: Item 12 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
   item_12_name:
     type: string
     default_value: ''
@@ -269,6 +304,11 @@ settings:
     title: Item 13 - Description
     optional: true
     help_text: Description of menu item 13
+  item_13_labels:
+    type: string
+    title: Item 13 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
   item_13_name:
     type: string
     default_value: ''
@@ -287,6 +327,11 @@ settings:
     title: Item 14 - Description
     optional: true
     help_text: Description of menu item 14
+  item_14_labels:
+    type: string
+    title: Item 14 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
   item_14_name:
     type: string
     default_value: ''
@@ -305,6 +350,11 @@ settings:
     title: Item 15 - Description
     optional: true
     help_text: Description of menu item 15
+  item_15_labels:
+    type: string
+    title: Item 15 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
   item_15_name:
     type: string
     default_value: ''
@@ -323,6 +373,11 @@ settings:
     title: Item 16 - Description
     optional: true
     help_text: Description of menu item 16
+  item_16_labels:
+    type: string
+    title: Item 16 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
   item_16_name:
     type: string
     default_value: ''
@@ -341,6 +396,11 @@ settings:
     title: Item 17 - Description
     optional: true
     help_text: Description of menu item 17
+  item_17_labels:
+    type: string
+    title: Item 17 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
   item_17_name:
     type: string
     default_value: ''
@@ -359,6 +419,11 @@ settings:
     title: Item 18 - Description
     optional: true
     help_text: Description of menu item 18
+  item_18_labels:
+    type: string
+    title: Item 18 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
   item_18_name:
     type: string
     default_value: ''
@@ -377,6 +442,11 @@ settings:
     title: Item 19 - Description
     optional: true
     help_text: Description of menu item 19
+  item_19_labels:
+    type: string
+    title: Item 19 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
   item_19_name:
     type: string
     default_value: ''
@@ -395,6 +465,11 @@ settings:
     title: Item 20 - Description
     optional: true
     help_text: Description of menu item 20
+  item_20_labels:
+    type: string
+    title: Item 20 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
   item_20_name:
     type: string
     default_value: ''
@@ -413,6 +488,11 @@ settings:
     title: Item 21 - Description
     optional: true
     help_text: Description of menu item 21
+  item_21_labels:
+    type: string
+    title: Item 21 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
   item_21_name:
     type: string
     default_value: ''
@@ -431,6 +511,11 @@ settings:
     title: Item 22 - Description
     optional: true
     help_text: Description of menu item 22
+  item_22_labels:
+    type: string
+    title: Item 22 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
   item_22_name:
     type: string
     default_value: ''
@@ -449,6 +534,11 @@ settings:
     title: Item 23 - Description
     optional: true
     help_text: Description of menu item 23
+  item_23_labels:
+    type: string
+    title: Item 23 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
   item_23_name:
     type: string
     default_value: ''
@@ -467,6 +557,11 @@ settings:
     title: Item 24 - Description
     optional: true
     help_text: Description of menu item 24
+  item_24_labels:
+    type: string
+    title: Item 24 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
   item_24_name:
     type: string
     default_value: ''
@@ -485,6 +580,11 @@ settings:
     title: Item 25 - Description
     optional: true
     help_text: Description of menu item 25
+  item_25_labels:
+    type: string
+    title: Item 25 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
   item_25_name:
     type: string
     default_value: ''
@@ -509,9 +609,3 @@ settings:
     title: Menu Title
     optional: false
     help_text: The title shown at the top of the menu
-  slide_duration:
-    type: string
-    default_value: '10'
-    title: Slide Duration
-    optional: true
-    help_text: Number of seconds to display each page before transitioning to the next (e.g. '10')

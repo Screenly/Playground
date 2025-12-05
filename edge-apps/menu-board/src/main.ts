@@ -30,26 +30,21 @@ function renderPage(
     if (item.labels) {
       const labels = item.labels.split(",").map((label) => label.trim());
       labelsHtml = `
-          <div class="labels">
-              ${labels.map((label) => `<span class="label ${label.toLowerCase()}">${escapeHtml(label)}</span>`).join("")}
-          </div>
+        <div class="labels">
+          ${labels.map((label) => `<span class="label ${label.toLowerCase()}">${escapeHtml(label)}</span>`).join("")}
+        </div>
       `;
     }
 
     itemElement.innerHTML = `
-        <h2>${escapeHtml(item.name)}</h2>
-        <div class="content">
-            <p>${escapeHtml(item.description)}</p>
-        </div>
-        <div class="price">${escapeHtml(item.price)}</div>
-        ${labelsHtml}
+      <h2>${escapeHtml(item.name)}</h2>
+      <div class="content">
+        <p>${escapeHtml(item.description)}</p>
+      </div>
+      <div class="price">${escapeHtml(item.price)}</div>
+      ${labelsHtml}
     `;
     fragment.appendChild(itemElement);
-  });
-
-  // Update active page dot
-  document.querySelectorAll(".page-dot").forEach((dot, i) => {
-    dot.classList.toggle("active", i === page);
   });
 
   // Disable transitions if hardware is undefined (running in an Anywhere screen)
@@ -69,45 +64,6 @@ function renderPage(
 }
 
 /**
- * Creates pager dots for page navigation
- */
-function createPager(totalPages: number): void {
-  const pager = document.getElementById("pager");
-  if (!pager) return;
-
-  if (totalPages > 1) {
-    pager.style.display = "flex";
-    pager.innerHTML = Array(totalPages)
-      .fill(null)
-      .map(
-        (_, i) =>
-          `<div class="page-dot ${i === 0 ? "active" : ""}" data-page="${i}"></div>`,
-      )
-      .join("");
-  } else {
-    pager.style.display = "none";
-  }
-}
-
-/**
- * Sets up auto-advance functionality for multiple pages
- */
-function setupAutoAdvance(
-  totalPages: number,
-  menuItems: MenuItem[],
-  itemsPerPage: number,
-  slideDuration: number,
-): void {
-  if (totalPages <= 1) return;
-
-  let currentPage = 0;
-  setInterval(() => {
-    currentPage = (currentPage + 1) % totalPages;
-    renderPage(currentPage, menuItems, itemsPerPage);
-  }, slideDuration * 1000);
-}
-
-/**
  * Initializes the menu board application
  */
 function initializeMenuBoard(): void {
@@ -119,7 +75,6 @@ function initializeMenuBoard(): void {
       getSetting<string>("background_image") || "assets/pizza.png";
     const logoUrl =
       getSetting<string>("logo_url") || "assets/screenly_food.svg";
-    const slideDuration = getSetting<number>("slide_duration") || 10;
 
     // Set custom accent color if provided
     if (accentColor) {
@@ -171,14 +126,8 @@ function initializeMenuBoard(): void {
     const itemsPerPage = calculateItemsPerPage();
     const totalPages = Math.ceil(menuItems.length / itemsPerPage);
 
-    // Create pager dots
-    createPager(totalPages);
-
     // Initial render
     renderPage(0, menuItems, itemsPerPage);
-
-    // Setup auto-advance
-    setupAutoAdvance(totalPages, menuItems, itemsPerPage, slideDuration);
 
     // Signal that the app is ready
     signalReady();
