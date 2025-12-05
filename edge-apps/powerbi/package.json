@@ -9,11 +9,15 @@
     "dev": "bun run build && screenly edge-app run",
     "deploy": "bun run build && screenly edge-app deploy",
     "lint": "echo 'No linting configured for vanilla JS app'",
-    "test:unit": "echo 'No unit tests configured'"
+    "test:unit": "echo 'No unit tests configured'",
+    "prettier": "prettier"
   },
   "dependencies": {
     "powerbi-client": "^2.22.2",
     "panic-overlay": "^1.0.51"
+  },
+  "devDependencies": {
+    "prettier": "3.7.4"
   }
 }
 
