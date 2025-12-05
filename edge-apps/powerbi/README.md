@@ -18,7 +18,8 @@ screenly edge-app run # Run the edge app locally
 Create and deploy the Edge App:
 
 ```bash
+bun install                  # Install dependencies
 screenly edge-app create --name power-bi-app --in-place
-screenly edge-app deploy
+bun run deploy               # Build vendor files and deploy
 screenly edge-app instance create
 ```
