@@ -37,13 +37,13 @@ settings:
         type: oauth:power_bi:embed_url
       schema_version: 1
 app_refresh_interval:
-    type: string
-    title: App Refresh Interval (minutes)
-    optional: true
-    default_value: '30'
-    help_text:
-      properties:
-        advanced: true
-        help_text: How often to refresh the Power BI report/dashboard (in minutes). Default is 30 minutes. Minimum is 1 minute.
-        type: number
-      schema_version: 1
+  type: string
+  title: App Refresh Interval (minutes)
+  optional: true
+  default_value: '30'
+  help_text:
+    properties:
+      advanced: true
+      help_text: How often to refresh the Power BI report/dashboard (in minutes). Default is 30 minutes. Minimum is 1 minute.
+      type: number
+    schema_version: 1
