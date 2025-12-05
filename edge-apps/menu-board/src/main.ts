@@ -1,57 +1,10 @@
 import { getHardware, getSetting, signalReady } from "@screenly/edge-apps";
-
-interface MenuItem {
-  name: string;
-  description: string;
-  price: string;
-  labels: string;
-}
-
-/**
- * Escapes HTML characters to prevent XSS attacks
- */
-function escapeHtml(unsafe: string): string {
-  return unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
-
-/**
- * Calculates how many items should be displayed per page based on viewport width
- */
-function calculateItemsPerPage(): number {
-  const viewportWidth = window.innerWidth;
-  if (viewportWidth >= 1920) return 12; // 4 columns * 3 rows
-  if (viewportWidth >= 1600) return 9; // 3 columns * 3 rows
-  if (viewportWidth >= 1200) return 6; // 2 columns * 3 rows
-  return 3; // 1 column * 3 rows
-}
-
-/**
- * Retrieves all menu items from settings
- */
-function getMenuItems(): MenuItem[] {
-  const menuItems: MenuItem[] = [];
-
-  for (let i = 1; i <= 25; i++) {
-    const itemNum = String(i).padStart(2, "0");
-    const name = getSetting<string>(`item_${itemNum}_name`);
-    if (name?.trim()) {
-      menuItems.push({
-        name: name.trim(),
-        description:
-          getSetting<string>(`item_${itemNum}_description`)?.trim() || "",
-        price: getSetting<string>(`item_${itemNum}_price`)?.trim() || "",
-        labels: getSetting<string>(`item_${itemNum}_labels`)?.trim() || "",
-      });
-    }
-  }
-
-  return menuItems;
-}
+import {
+  escapeHtml,
+  calculateItemsPerPage,
+  getMenuItems,
+  MenuItem,
+} from "./utils";
 
 /**
  * Renders a specific page of menu items
@@ -212,7 +165,7 @@ function initializeMenuBoard(): void {
     }
 
     // Get all menu items
-    const menuItems = getMenuItems();
+    const menuItems = getMenuItems(getSetting);
 
     // Calculate items per page based on viewport
     const itemsPerPage = calculateItemsPerPage();
