@@ -1,10 +1,5 @@
 import { describe, it, expect } from "bun:test";
-import {
-  escapeHtml,
-  calculateItemsPerPage,
-  getMenuItems,
-  MenuItem,
-} from "./utils";
+import { escapeHtml, calculateItemsPerPage, getMenuItems } from "./utils";
 
 describe("Menu Board Tests", () => {
   describe("escapeHtml", () => {

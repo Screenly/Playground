@@ -18,6 +18,7 @@ export function calculateItemsPerPage(viewportWidth?: number): number {
   if (width >= 1920) return 12; // 4 columns * 3 rows
   if (width >= 1600) return 9; // 3 columns * 3 rows
   if (width >= 1200) return 6; // 2 columns * 3 rows
+  if (width >= 768) return 3; // 1 columns * 3 rows
   return 3; // 1 column * 3 rows
 }
 
