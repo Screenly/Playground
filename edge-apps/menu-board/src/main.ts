@@ -77,20 +77,20 @@ function renderPage(
     if (item.labels) {
       const labels = item.labels.split(",").map((label) => label.trim());
       labelsHtml = `
-                <div class="labels">
-                    ${labels.map((label) => `<span class="label ${label.toLowerCase()}">${escapeHtml(label)}</span>`).join("")}
-                </div>
-            `;
+          <div class="labels">
+              ${labels.map((label) => `<span class="label ${label.toLowerCase()}">${escapeHtml(label)}</span>`).join("")}
+          </div>
+      `;
     }
 
     itemElement.innerHTML = `
-            <h2>${escapeHtml(item.name)}</h2>
-            <div class="content">
-                <p>${escapeHtml(item.description)}</p>
-            </div>
-            <div class="price">${escapeHtml(item.price)}</div>
-            ${labelsHtml}
-        `;
+        <h2>${escapeHtml(item.name)}</h2>
+        <div class="content">
+            <p>${escapeHtml(item.description)}</p>
+        </div>
+        <div class="price">${escapeHtml(item.price)}</div>
+        ${labelsHtml}
+    `;
     fragment.appendChild(itemElement);
   });
 
