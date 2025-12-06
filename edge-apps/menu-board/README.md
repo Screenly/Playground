@@ -88,7 +88,6 @@ item_2_labels: "spicy"
   - Gluten-free: Blue
   - Custom labels: Purple tint
 - The layout is fully responsive and works on any screen size
-- Font sizes automatically adjust based on the number of items
 - The grid system ensures consistent spacing and alignment
 - Background images are automatically darkened and positioned for optimal text readability
 

@@ -77,9 +77,7 @@ function initializeMenuBoard(): void {
       getSetting<string>("logo_url") || "assets/screenly_food.svg";
 
     // Set custom accent color if provided
-    if (accentColor) {
-      document.documentElement.style.setProperty("--accent-color", accentColor);
-    }
+    document.documentElement.style.setProperty("--accent-color", accentColor);
 
     // Set background image with error handling
     const bgImage = document.getElementById("background") as HTMLImageElement;
@@ -120,7 +118,6 @@ function initializeMenuBoard(): void {
 
     // Calculate items per page based on viewport
     const itemsPerPage = calculateItemsPerPage();
-    const totalPages = Math.ceil(menuItems.length / itemsPerPage);
 
     // Initial render
     renderPage(0, menuItems, itemsPerPage);
