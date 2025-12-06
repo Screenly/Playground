@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+  <identifier>DEMO-SEVERE-WEATHER-001</identifier>
+  <sender>weather@demo.screenly.io</sender>
+  <sent>2024-01-15T10:00:00-00:00</sent>
+  <status>Actual</status>
+  <msgType>Alert</msgType>
+  <scope>Public</scope>
+  <info>
+    <language>en-US</language>
+    <category>Met</category>
+    <event>Severe Thunderstorm Warning</event>
+    <responseType>Shelter</responseType>
+    <urgency>Immediate</urgency>
+    <severity>Severe</severity>
+    <certainty>Observed</certainty>
+    <effective>2024-01-15T10:00:00-00:00</effective>
+    <onset>2024-01-15T10:15:00-00:00</onset>
+    <expires>2024-01-15T12:00:00-00:00</expires>
+    <senderName>National Weather Service</senderName>
+    <headline>Severe Thunderstorm Warning - Take Shelter Immediately</headline>
+    <description>A severe thunderstorm capable of producing damaging winds in excess of 60 mph and large hail has been detected. The storm is moving northeast at 35 mph and will affect the area within the next 15 minutes.</description>
+    <instruction>Move to an interior room on the lowest floor of a sturdy building. Avoid windows. If you are outdoors, seek shelter immediately. Do not use elevators during severe weather.</instruction>
+    <web>https://weather.gov/alerts/severe</web>
+    <contact>National Weather Service: 1-800-WEATHER</contact>
+    <parameter>
+      <valueName>MaxWindSpeed</valueName>
+      <value>65mph</value>
+    </parameter>
+    <parameter>
+      <valueName>MaxHailSize</valueName>
+      <value>1.5 inches</value>
+    </parameter>
+    <resource>
+      <resourceDesc>Radar Image</resourceDesc>
+      <mimeType>image/png</mimeType>
+      <uri>https://example.com/radar/storm-001.png</uri>
+    </resource>
+    <area>
+      <areaDesc>Downtown Metropolitan Area</areaDesc>
+      <polygon>38.47,-120.14 38.34,-119.95 38.52,-119.74 38.62,-119.89 38.47,-120.14</polygon>
+      <altitude>0</altitude>
+      <ceiling>15000</ceiling>
+    </area>
+  </info>
+</alert>

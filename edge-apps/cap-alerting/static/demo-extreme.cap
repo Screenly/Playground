@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+  <identifier>DEMO-TORNADO-EMERGENCY-001</identifier>
+  <sender>emergency@demo.screenly.io</sender>
+  <sent>2024-01-15T15:45:00-00:00</sent>
+  <status>Actual</status>
+  <msgType>Alert</msgType>
+  <scope>Public</scope>
+  <info>
+    <language>en-US</language>
+    <category>Met</category>
+    <event>Tornado Emergency</event>
+    <responseType>Shelter</responseType>
+    <urgency>Immediate</urgency>
+    <severity>Extreme</severity>
+    <certainty>Observed</certainty>
+    <effective>2024-01-15T15:45:00-00:00</effective>
+    <onset>2024-01-15T15:45:00-00:00</onset>
+    <expires>2024-01-15T16:30:00-00:00</expires>
+    <senderName>National Weather Service</senderName>
+    <headline>TORNADO EMERGENCY - TAKE COVER NOW!</headline>
+    <description>THIS IS A PARTICULARLY DANGEROUS SITUATION. A large and extremely dangerous tornado has been confirmed on the ground. This is a life-threatening situation. Flying debris will be deadly to those caught without shelter. Mobile homes will be destroyed.</description>
+    <instruction>TAKE COVER NOW! Move to a basement or an interior room on the lowest floor of a sturdy building. Avoid windows. If you are outdoors, in a mobile home, or in a vehicle, move to the closest substantial shelter and protect yourself from flying debris. Use {{closest_exit}} if evacuation is necessary.</instruction>
+    <web>https://weather.gov/tornado-emergency</web>
+    <contact>Emergency Services: 911</contact>
+    <eventCode>
+      <valueName>SAME</valueName>
+      <value>TOR</value>
+    </eventCode>
+    <parameter>
+      <valueName>TornadoRating</valueName>
+      <value>EF3 or greater expected</value>
+    </parameter>
+    <resource>
+      <resourceDesc>Live Radar</resourceDesc>
+      <mimeType>image/gif</mimeType>
+      <uri>https://example.com/radar/tornado-live.gif</uri>
+    </resource>
+    <resource>
+      <resourceDesc>Emergency Siren</resourceDesc>
+      <mimeType>audio/mp3</mimeType>
+      <uri>https://example.com/audio/tornado-siren.mp3</uri>
+    </resource>
+    <area>
+      <areaDesc>Tornado Path - Northern Suburbs</areaDesc>
+      <polygon>39.00,-121.00 39.10,-120.90 39.15,-120.85 39.20,-121.10 39.00,-121.00</polygon>
+      <geocode>
+        <valueName>FIPS6</valueName>
+        <value>006067</value>
+      </geocode>
+    </area>
+  </info>
+</alert>

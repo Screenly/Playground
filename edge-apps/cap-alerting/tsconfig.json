@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM"],
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "paths": {
+      "../edge-apps-library/src/*": ["../edge-apps-library/dist/*"]
+    }
+  },
+  "include": ["index.ts"],
+  "exclude": ["node_modules", "dist", "../edge-apps-library"]
+}

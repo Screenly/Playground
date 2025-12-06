@@ -1,0 +1,42 @@
+{
+  "name": "cap-alerting",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate-mock-data": "screenly edge-app run --generate-mock-data",
+    "build:dev": "vite build --mode=development",
+    "build:dev:watch": "vite build --mode=development --watch",
+    "predev": "bun run generate-mock-data && bun run build:dev",
+    "dev": "run-p build:dev:watch dev:edge",
+    "dev:edge": "screenly edge-app run --path=dist/",
+    "build": "vite build",
+    "type-check": "tsc --noEmit",
+    "test": "bun test",
+    "test:watch": "bun test --watch",
+    "lint": "eslint . --fix",
+    "format": "prettier --write index.ts README.md index.html",
+    "predeploy": "bun run build",
+    "deploy": "screenly edge-app deploy --path dist/",
+    "clear-mock-data": "rimraf mock-data.yml"
+  },
+  "dependencies": {
+    "@photostructure/tz-lookup": "^11.3.0",
+    "country-locale-map": "^1.9.11",
+    "fast-xml-parser": "^5.3.2",
+    "offline-geocode-city": "^1.0.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/node": "^24.10.1",
+    "eslint": "^9.39.1",
+    "jiti": "^2.6.1",
+    "npm-run-all2": "^8.0.4",
+    "prettier": "^3.7.4",
+    "rimraf": "^6.1.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.48.1",
+    "vite": "^7.2.6",
+    "vite-plugin-static-copy": "^3.1.4"
+  }
+}
