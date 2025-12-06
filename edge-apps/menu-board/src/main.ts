@@ -79,10 +79,6 @@ function initializeMenuBoard(): void {
     // Set custom accent color if provided
     if (accentColor) {
       document.documentElement.style.setProperty("--accent-color", accentColor);
-      document.documentElement.style.setProperty(
-        "--purple-tint",
-        accentColor + "20",
-      );
     }
 
     // Set background image with error handling
