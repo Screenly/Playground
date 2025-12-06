@@ -1,3 +1,13 @@
+@font-face {
+  font-family: "Playfair Display";
+  src: url("../fonts/Playfair-Display.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Source Sans 3";
+  src: url("../fonts/Source-Sans-3.ttf") format("truetype");
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -44,7 +54,7 @@ body {
   background-color: #000;
   overflow: hidden;
   position: relative;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
 }
 
 #background {
