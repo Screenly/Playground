@@ -17,6 +17,11 @@
     <description>This is a test alert for a scheduled fire drill. Please proceed to {{closest_exit}} in an orderly fashion.</description>
     <instruction>Exit the building via {{closest_exit}}. Do not use elevators. Gather at the designated assembly point.</instruction>
     <expires>2024-01-15T11:00:00-00:00</expires>
+    <resource>
+      <resourceDesc>Fire Drill Alert Tone</resourceDesc>
+      <mimeType>audio/mpeg</mimeType>
+      <uri>https://archive.org/download/fire-alarm-sound/fire-alarm-1.mp3</uri>
+    </resource>
     <area>
       <areaDesc>Main Building - All Floors</areaDesc>
     </area>

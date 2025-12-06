@@ -11,10 +11,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "paths": {
-      "../edge-apps-library/src/*": ["../edge-apps-library/dist/*"]
-    }
+    "types": ["bun-types"]
   },
-  "include": ["index.ts"],
-  "exclude": ["node_modules", "dist", "../edge-apps-library"]
+  "exclude": ["node_modules", "dist", "../edge-apps-library/src"]
 }

@@ -1,15 +1,16 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CAP Alerting</title>
-    <link rel="stylesheet" href="static/style.css" />
-  </head>
-  <body>
-    <div id="app">
-      <div id="alerts" class="alerts"></div>
-    </div>
-    <script type="module" src="index.js"></script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>CAP Alerting - Screenly Edge App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body class="m-0 p-0 overflow-hidden">
+  <div id="app" class="w-full h-screen flex items-center justify-center">
+    <div id="alerts" class="w-full h-full flex flex-col"></div>
+  </div>
+  <script src="screenly.js?version=1"></script>
+  <script src="static/js/main.js"></script>
+</body>
 </html>

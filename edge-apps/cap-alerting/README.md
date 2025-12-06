@@ -1,108 +1,35 @@
 # CAP Alerting Edge App
 
-Display Common Alerting Protocol (CAP) emergency alerts on Screenly digital signage screens.
-
-## Features
-
-- **Full CAP Support**: Parse and display CAP XML alerts with all essential fields including identifier, sender, event type, urgency, severity, certainty, headline, description, and instructions
-- **Offline Operation**: Caches alerts in localStorage and continues operating when network is unavailable
-- **Nearest Exit Integration**: Uses screen tags (e.g., `exit:North Lobby`) to provide location-aware exit directions
-- **Flexible Settings**: Configure feed URL, refresh interval, language preferences, audio alerts, and more
-- **Test Mode**: Built-in test mode with sample CAP file for demonstration and debugging
+Display Common Alerting Protocol (CAP) emergency alerts on Screenly digital signage screens. Designed to work with [Override Playlist](https://developer.screenly.io/api-reference/v4/#tag/Playlists/operation/override_playlist) to automatically interrupt regular content when alerts are active.
 
 ## Settings
 
-- **CAP Feed URL**: URL or path to a CAP XML feed
-- **Refresh Interval**: Time in minutes between feed updates (default: 5)
-- **Default Language**: Preferred language when multiple info blocks exist (default: en)
-- **Maximum Alerts**: Maximum number of alerts to display simultaneously (default: 3)
-- **Play Audio Alerts**: Enable/disable audio playback from CAP resources
-- **Offline Mode**: Use cached or bundled data instead of fetching from network
-- **Test Mode**: Load bundled test CAP file for demonstration purposes
-- **Demo Mode**: Enable demo mode with realistic CAP alerts (randomly selected)
+- **CAP Feed URL**: URL to your CAP XML feed
+- **Refresh Interval**: Minutes between feed updates (default: 5)
+- **Default Language**: Preferred language code (default: en)
+- **Maximum Alerts**: Max alerts to display (default: 3)
+- **Play Audio Alerts**: Enable audio playback from CAP `<resource>` elements with audio MIME types (default: false)
+- **Offline Mode**: Use cached data when network unavailable
+- **Test Mode**: Load bundled test CAP file
+- **Demo Mode**: Show random demo alerts
+
+## Audio Support
+
+The app automatically detects and plays audio resources from CAP alerts when the "Play Audio Alerts" setting is enabled. Audio resources are identified by MIME types starting with `audio/` (e.g., `audio/mpeg`, `audio/wav`, `audio/ogg`). The audio player will attempt to autoplay when an alert is displayed, though browser autoplay policies may require user interaction in some cases.
 
 ## Nearest Exit Tags
 
-To enable location-aware exit directions, assign tags to your Screenly screens using the format:
+Add tags to your Screenly screens (e.g., `exit:North Lobby`) to provide location-aware exit directions. The app substitutes `{{closest_exit}}` or `[[closest_exit]]` placeholders in alert instructions.
 
-- `exit:North Lobby`
-- `exit-South Stairwell`
+## Override Playlist Integration
 
-The app will automatically inject the nearest exit information into alert instructions that contain the placeholder `{{closest_exit}}` or `[[closest_exit]]`.
-
-## Demo Mode
-
-The app includes three realistic demo scenarios that are randomly selected:
-
-- **Fire Drill**: Bilingual fire drill alert with evacuation instructions
-- **Severe Weather**: Severe thunderstorm warning with radar imagery
-- **Extreme Emergency**: Tornado emergency with multiple resources
-
-Demo mode automatically activates when:
-- `demo_mode` is enabled
-- Test mode is disabled
-- No CAP feed URL is configured
-
-To test locally with demo mode:
-
-```bash
-cd edge-apps/cap-alerting
-
-# Generate mock data (creates mock-data.yml)
-bun run generate-mock-data
-
-# Edit mock-data.yml and add a tag like:
-# tags: ["exit:North Stairwell"]
-
-# Run the app
-bun run dev
-```
-
-Then access the app at the URL shown in the terminal and enable `demo_mode` in the settings. Each refresh will randomly show one of the three demo scenarios.
-
-## Testing
-
-Enable Test Mode in the app settings to load the bundled test CAP file (`static/test.cap`) instead of fetching from a live feed. This allows you to verify parsing, rendering, and nearest-exit substitution without network dependencies.
+This app is designed to use Screenly's [Override Playlist API](https://developer.screenly.io/api-reference/v4/#tag/Playlists/operation/override_playlist) to automatically interrupt regular content when alerts are active. Configure your backend to call the API when new CAP alerts are detected.
 
 ## Development
 
-All commands should be run from within the app directory:
-
 ```bash
 cd edge-apps/cap-alerting
-```
-
-Install dependencies:
-
-```bash
 bun install
-```
-
-Run tests:
-
-```bash
-bun test              # Run all tests
-bun test --watch      # Watch mode
-```
-
-Run in development mode:
-
-```bash
 bun run dev
+bun test
 ```
-
-Build for production:
-
-```bash
-bun run build
-```
-
-Deploy to Screenly:
-
-```bash
-bun run deploy
-```
-
-## License
-
-MIT
