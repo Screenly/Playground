@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "predev": "screenly edge-app run --generate-mock-data",
+    "generate-mock-data": "screenly edge-app run --generate-mock-data",
+    "predev": "bun run generate-mock-data",
     "dev": "bun run build && screenly edge-app run",
     "build": "bun build src/main.ts --outdir static/js --target browser",
     "test": "bun test",
