@@ -230,8 +230,7 @@ h1 {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
-.price::before {
-  content: "$";
+.price .currency {
   font-size: 0.8em;
   margin-right: 0.1em;
 }

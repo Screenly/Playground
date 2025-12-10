@@ -13,6 +13,7 @@ function renderPage(
   page: number,
   menuItems: MenuItem[],
   itemsPerPage: number,
+  currency: string,
 ): void {
   const start = page * itemsPerPage;
   const end = start + itemsPerPage;
@@ -41,7 +42,10 @@ function renderPage(
       <div class="content">
         <p>${escapeHtml(item.description)}</p>
       </div>
-      <div class="price">${escapeHtml(item.price)}</div>
+      <div class="price">
+        <span class="currency">${escapeHtml(currency)}</span>
+        ${escapeHtml(item.price)}
+      </div>
       ${labelsHtml}
     `;
     fragment.appendChild(itemElement);
@@ -75,6 +79,7 @@ function initializeMenuBoard(): void {
       getSetting<string>("background_image") || "assets/pizza.png";
     const logoUrl =
       getSetting<string>("logo_url") || "assets/screenly_food.svg";
+    const currency = getSetting<string>("currency") || "$";
 
     // Set custom accent color if provided
     document.documentElement.style.setProperty("--accent-color", accentColor);
@@ -120,7 +125,7 @@ function initializeMenuBoard(): void {
     const itemsPerPage = calculateItemsPerPage();
 
     // Initial render
-    renderPage(0, menuItems, itemsPerPage);
+    renderPage(0, menuItems, itemsPerPage, currency);
 
     // Signal that the app is ready
     signalReady();
