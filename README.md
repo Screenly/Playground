@@ -42,4 +42,4 @@ Details on how to use the library can be found in [this guide](/edge-apps/edge-a
 - [Dynamic Playlists](https://github.com/Screenly/playground/tree/master/dynamic-playlists/): An example of how to use Screenly's API to enable/disable a playlist based on weather conditions.
 - [Instagram App](https://github.com/Screenly/playground/tree/master/instagram/): A basic Instagram app for Screenly.
 - [JavaScript Injectors](https://github.com/Screenly/playground/tree/master/javascript-injectors/): Examples showing Screenly's JavaScript Injector.
-- [Legacy Edge Apps Library](https://github.com/Screenly/playground/tree/master/docs/legacy-edge-apps-library.md): A deprecated Vue-centric library for building Edge Apps. This has been replaced by the new [TypeScript Library](/edge-apps/edge-apps-library/README.md).
+- [Legacy Edge Apps Library](https://github.com/Screenly/playground/blob/master/docs/legacy-edge-apps-library.md): A deprecated Vue-centric library for building Edge Apps. This has been replaced by the new [TypeScript Library](/edge-apps/edge-apps-library/README.md).
