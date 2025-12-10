@@ -34,8 +34,6 @@ The Playground also offers an Edge Apps library that contains utilities for buil
 
 Details on how to use the library can be found in [this guide](/edge-apps/edge-apps-library/README.md).
 
-
-
 ## Other
 
 - [Bootstrap](https://github.com/Screenly/playground/tree/master/bootstrap/): A digital signage optimized Bootstrap theme for our Playground apps.
