@@ -1,0 +1,23 @@
+{
+  "name": "@screenly/powerbi-app",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "bun run build:vendor",
+    "build:vendor": "mkdir -p static/js/vendor && cp node_modules/powerbi-client/dist/powerbi.min.js static/js/vendor/ && cp node_modules/panic-overlay/build/panic-overlay.browser.js static/js/vendor/panic-overlay.min.js",
+    "dev": "bun run build && screenly edge-app run",
+    "deploy": "bun run build && screenly edge-app deploy",
+    "lint": "echo 'No linting configured for vanilla JS app'",
+    "test:unit": "echo 'No unit tests configured'",
+    "prettier": "sh -c 'filtered=\"\"; for arg in \"$@\"; do if [[ \"$arg\" == --* ]]; then filtered=\"$filtered $arg\"; elif [ -f \"$arg\" ] || [ -d \"$arg\" ]; then filtered=\"$filtered $arg\"; fi; done; if [ -n \"$filtered\" ]; then prettier $filtered; else exit 0; fi' _"
+  },
+  "dependencies": {
+    "powerbi-client": "^2.22.2",
+    "panic-overlay": "^1.0.51"
+  },
+  "devDependencies": {
+    "prettier": "3.7.4"
+  }
+}
+
