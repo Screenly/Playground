@@ -5,10 +5,10 @@ A dynamic and responsive menu board for digital signage displays. This Edge App 
 ## Features
 
 - Support for up to 25 menu items
-- Responsive grid layout that automatically adjusts based on item count:
-  - 1-6 items: 2 columns
-  - 7-12 items: 3 columns
-  - 13+ items: 4 columns
+- Responsive grid layout that automatically adjusts based on viewport width:
+  - 2 columns on small screens
+  - 3 columns on medium screens
+  - 4 columns on large screens
 - Modern glass-effect design with hover animations
 - Customizable background image with proper opacity and positioning
 - Configurable accent color (default: white with subtle purple tint)
