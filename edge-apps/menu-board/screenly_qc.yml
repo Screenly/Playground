@@ -18,6 +18,16 @@ settings:
     title: Background Image URL
     optional: true
     help_text: URL to a background image. For best results, use a dark/subtle image.
+  currency:
+    type: string
+    default_value: $
+    title: Currency Symbol
+    optional: true
+    help_text:
+      properties:
+        help_text: Currency symbol to display with prices (e.g., $, €, £, ¥)
+        type: string
+      schema_version: 1
   item_01_description:
     type: string
     default_value: San Marzano tomatoes, fresh mozzarella, basil, extra virgin olive oil
