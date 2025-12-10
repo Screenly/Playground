@@ -62,19 +62,19 @@ The app comes with four default pizza options:
 
 ```yaml
 menu_title: "Joe's Pizza"
-background_image: "assets/pizza.png"
-accent_color: "rgba(255, 255, 255, 0.95)"
-logo_url: "assets/screenly_food.svg"
+background_image: 'assets/pizza.png'
+accent_color: 'rgba(255, 255, 255, 0.95)'
+logo_url: 'assets/screenly_food.svg'
 
-item_1_name: "Margherita Pizza"
-item_1_description: "Fresh tomatoes, mozzarella cheese, fresh basil leaves"
-item_1_price: "13.99"
-item_1_labels: "vegetarian"
+item_1_name: 'Margherita Pizza'
+item_1_description: 'Fresh tomatoes, mozzarella cheese, fresh basil leaves'
+item_1_price: '13.99'
+item_1_labels: 'vegetarian'
 
-item_2_name: "Pepperoni Pizza"
-item_2_description: "Classic pepperoni, mozzarella cheese"
-item_2_price: "15.99"
-item_2_labels: "spicy"
+item_2_name: 'Pepperoni Pizza'
+item_2_description: 'Classic pepperoni, mozzarella cheese'
+item_2_price: '15.99'
+item_2_labels: 'spicy'
 ```
 
 ## Design Notes

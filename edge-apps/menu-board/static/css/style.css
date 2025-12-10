@@ -1,11 +1,11 @@
 @font-face {
-  font-family: "Playfair Display";
-  src: url("../fonts/Playfair-Display.ttf") format("truetype");
+  font-family: 'Playfair Display';
+  src: url('../fonts/Playfair-Display.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: "Source Sans 3";
-  src: url("../fonts/Source-Sans-3.ttf") format("truetype");
+  font-family: 'Source Sans 3';
+  src: url('../fonts/Source-Sans-3.ttf') format('truetype');
 }
 
 * {
@@ -54,7 +54,7 @@ body {
   background-color: #000;
   overflow: hidden;
   position: relative;
-  font-family: "Source Sans 3", sans-serif;
+  font-family: 'Source Sans 3', sans-serif;
 }
 
 #background {
@@ -112,7 +112,7 @@ h1 {
   color: var(--accent-color);
   text-transform: uppercase;
   letter-spacing: 0.5em;
-  font-family: "Playfair Display", serif;
+  font-family: 'Playfair Display', serif;
   font-weight: 700;
   position: relative;
   padding: 0.75rem 0;
@@ -172,9 +172,9 @@ h1 {
   padding: 1.25rem;
   display: grid;
   grid-template-areas:
-    "title title"
-    "desc price"
-    "labels labels";
+    'title title'
+    'desc price'
+    'labels labels';
   grid-template-columns: 1fr auto;
   grid-template-rows: auto 1fr auto;
   align-items: center;
@@ -199,7 +199,7 @@ h1 {
   font-size: 1.5rem;
   margin-bottom: 0.25rem;
   color: var(--accent-color);
-  font-family: "Playfair Display", serif;
+  font-family: 'Playfair Display', serif;
   font-weight: 600;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
@@ -222,7 +222,7 @@ h1 {
   grid-area: price;
   font-size: 1.5rem;
   color: var(--accent-color);
-  font-family: "Playfair Display", serif;
+  font-family: 'Playfair Display', serif;
   font-weight: 600;
   display: flex;
   align-items: center;
