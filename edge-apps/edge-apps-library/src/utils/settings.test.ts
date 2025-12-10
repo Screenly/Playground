@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach, afterEach, mock } from "bun:test";
+import { describe, test, expect, beforeEach, afterEach, mock } from 'bun:test'
 import {
   getSettings,
   getSetting,
@@ -7,108 +7,108 @@ import {
   getTheme,
   getCorsProxyUrl,
   signalReady,
-} from "./settings";
-import { setupScreenlyMock, resetScreenlyMock } from "../test/mock";
+} from './settings'
+import { setupScreenlyMock, resetScreenlyMock } from '../test/mock'
 
-describe("settings utilities", () => {
+describe('settings utilities', () => {
   beforeEach(() => {
     setupScreenlyMock(
       {},
       {
-        theme: "dark",
-        screenly_color_accent: "#FF0000",
-        custom_setting: "custom_value",
-        enable_feature: "true",
+        theme: 'dark',
+        screenly_color_accent: '#FF0000',
+        custom_setting: 'custom_value',
+        enable_feature: 'true',
       },
-    );
-  });
+    )
+  })
 
   afterEach(() => {
-    resetScreenlyMock();
-  });
+    resetScreenlyMock()
+  })
 
-  describe("getSettings", () => {
-    test("should return complete settings object", () => {
-      const settings = getSettings();
-      expect(settings).toHaveProperty("theme", "dark");
-      expect(settings).toHaveProperty("screenly_color_accent", "#FF0000");
-      expect(settings).toHaveProperty("custom_setting", "custom_value");
-    });
-  });
+  describe('getSettings', () => {
+    test('should return complete settings object', () => {
+      const settings = getSettings()
+      expect(settings).toHaveProperty('theme', 'dark')
+      expect(settings).toHaveProperty('screenly_color_accent', '#FF0000')
+      expect(settings).toHaveProperty('custom_setting', 'custom_value')
+    })
+  })
 
-  describe("getSetting", () => {
-    test("should return specific setting value", () => {
-      expect(getSetting("theme")).toBe("dark");
-      expect(getSetting("screenly_color_accent")).toBe("#FF0000");
-      expect(getSetting("custom_setting")).toBe("custom_value");
-    });
+  describe('getSetting', () => {
+    test('should return specific setting value', () => {
+      expect(getSetting('theme')).toBe('dark')
+      expect(getSetting('screenly_color_accent')).toBe('#FF0000')
+      expect(getSetting('custom_setting')).toBe('custom_value')
+    })
 
-    test("should return undefined for non-existent setting", () => {
-      expect(getSetting("nonexistent")).toBeUndefined();
-    });
+    test('should return undefined for non-existent setting', () => {
+      expect(getSetting('nonexistent')).toBeUndefined()
+    })
 
-    test("should work with type parameter", () => {
-      const theme = getSetting<string>("theme");
-      expect(theme).toBe("dark");
+    test('should work with type parameter', () => {
+      const theme = getSetting<string>('theme')
+      expect(theme).toBe('dark')
 
-      const enableFeature = getSetting<string>("enable_feature");
-      expect(enableFeature).toBe("true");
-    });
-  });
+      const enableFeature = getSetting<string>('enable_feature')
+      expect(enableFeature).toBe('true')
+    })
+  })
 
-  describe("getSettingWithDefault", () => {
-    test("should return setting value when it exists", () => {
-      expect(getSettingWithDefault("theme", "light")).toBe("dark");
-      expect(getSettingWithDefault("custom_setting", "default")).toBe(
-        "custom_value",
-      );
-    });
+  describe('getSettingWithDefault', () => {
+    test('should return setting value when it exists', () => {
+      expect(getSettingWithDefault('theme', 'light')).toBe('dark')
+      expect(getSettingWithDefault('custom_setting', 'default')).toBe(
+        'custom_value',
+      )
+    })
 
-    test("should return default value when setting does not exist", () => {
-      expect(getSettingWithDefault("nonexistent", "default")).toBe("default");
-      expect(getSettingWithDefault("missing", 42)).toBe(42);
-    });
-  });
+    test('should return default value when setting does not exist', () => {
+      expect(getSettingWithDefault('nonexistent', 'default')).toBe('default')
+      expect(getSettingWithDefault('missing', 42)).toBe(42)
+    })
+  })
 
-  describe("hasSetting", () => {
-    test("should return true for existing settings", () => {
-      expect(hasSetting("theme")).toBe(true);
-      expect(hasSetting("screenly_color_accent")).toBe(true);
-      expect(hasSetting("custom_setting")).toBe(true);
-    });
+  describe('hasSetting', () => {
+    test('should return true for existing settings', () => {
+      expect(hasSetting('theme')).toBe(true)
+      expect(hasSetting('screenly_color_accent')).toBe(true)
+      expect(hasSetting('custom_setting')).toBe(true)
+    })
 
-    test("should return false for non-existing settings", () => {
-      expect(hasSetting("nonexistent")).toBe(false);
-      expect(hasSetting("missing")).toBe(false);
-    });
-  });
+    test('should return false for non-existing settings', () => {
+      expect(hasSetting('nonexistent')).toBe(false)
+      expect(hasSetting('missing')).toBe(false)
+    })
+  })
 
-  describe("getTheme", () => {
-    test("should return theme value", () => {
-      expect(getTheme()).toBe("dark");
-    });
+  describe('getTheme', () => {
+    test('should return theme value', () => {
+      expect(getTheme()).toBe('dark')
+    })
 
-    test("should return undefined when theme is not set", () => {
-      setupScreenlyMock({}, {});
-      expect(getTheme()).toBeUndefined();
-    });
-  });
+    test('should return undefined when theme is not set', () => {
+      setupScreenlyMock({}, {})
+      expect(getTheme()).toBeUndefined()
+    })
+  })
 
-  describe("getCorsProxyUrl", () => {
-    test("should return CORS proxy URL", () => {
-      const url = getCorsProxyUrl();
-      expect(url).toBe("http://localhost:8080");
-    });
-  });
+  describe('getCorsProxyUrl', () => {
+    test('should return CORS proxy URL', () => {
+      const url = getCorsProxyUrl()
+      expect(url).toBe('http://localhost:8080')
+    })
+  })
 
-  describe("signalReady", () => {
-    test("should call signalReadyForRendering", () => {
-      const mockFn = mock(() => {});
-      screenly.signalReadyForRendering = mockFn;
+  describe('signalReady', () => {
+    test('should call signalReadyForRendering', () => {
+      const mockFn = mock(() => {})
+      screenly.signalReadyForRendering = mockFn
 
-      signalReady();
+      signalReady()
 
-      expect(mockFn).toHaveBeenCalledTimes(1);
-    });
-  });
-});
+      expect(mockFn).toHaveBeenCalledTimes(1)
+    })
+  })
+})
