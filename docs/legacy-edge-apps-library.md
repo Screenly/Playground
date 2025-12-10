@@ -16,7 +16,6 @@ The library is categorized into the following sections:
 ### Reusable components
 
 This library contains reusable Vue components that can be used to build Edge Apps.
-These components are designed to be used for Edge Apps generated from the template.
 
 The single-file components (SFCs) are located inside [`edge-apps/blueprint/ts/components`](/edge-apps/blueprint/ts/components). Check the [components documentation](/docs/reusable-components.md) to have an in-depth look at available reusable components and how to use them.
 

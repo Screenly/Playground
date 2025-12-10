@@ -3,19 +3,19 @@
  */
 export interface ScreenlyMetadata {
   /** GPS coordinates [latitude, longitude] */
-  coordinates: [number, number];
+  coordinates: [number, number]
   /** Hardware identifier */
-  hardware: string;
+  hardware: string
   /** Device hostname */
-  hostname: string;
+  hostname: string
   /** Physical location description */
-  location: string;
+  location: string
   /** Screenly software version */
-  screenly_version: string;
+  screenly_version: string
   /** Screen display name */
-  screen_name: string;
+  screen_name: string
   /** Tags associated with the screen */
-  tags: string[];
+  tags: string[]
 }
 
 /**
@@ -24,19 +24,19 @@ export interface ScreenlyMetadata {
  */
 export interface ScreenlySettings extends Record<string, unknown> {
   /** Primary accent color for branding */
-  screenly_color_accent?: string;
+  screenly_color_accent?: string
   /** Light theme color */
-  screenly_color_light?: string;
+  screenly_color_light?: string
   /** Dark theme color */
-  screenly_color_dark?: string;
+  screenly_color_dark?: string
   /** Light theme logo URL */
-  screenly_logo_light?: string;
+  screenly_logo_light?: string
   /** Dark theme logo URL */
-  screenly_logo_dark?: string;
+  screenly_logo_dark?: string
   /** Theme mode: light or dark */
-  theme?: "light" | "dark";
+  theme?: 'light' | 'dark'
   /** Sentry DSN for error tracking */
-  sentry_dsn?: string;
+  sentry_dsn?: string
 }
 
 /**
@@ -44,38 +44,38 @@ export interface ScreenlySettings extends Record<string, unknown> {
  */
 export interface ScreenlyObject {
   /** Signal that the app is ready to be displayed */
-  signalReadyForRendering: () => void;
+  signalReadyForRendering: () => void
   /** Device and screen metadata */
-  metadata: ScreenlyMetadata;
+  metadata: ScreenlyMetadata
   /** App settings and configuration */
-  settings: ScreenlySettings;
+  settings: ScreenlySettings
   /** CORS proxy URL for fetching external resources */
-  cors_proxy_url: string;
+  cors_proxy_url: string
 }
 
 /**
  * Theme colors configuration
  */
 export interface ThemeColors {
-  primary: string;
-  secondary: string;
-  tertiary: string;
-  background: string;
+  primary: string
+  secondary: string
+  tertiary: string
+  background: string
 }
 
 /**
  * Branding configuration
  */
 export interface BrandingConfig {
-  colors: ThemeColors;
-  logoUrl?: string;
+  colors: ThemeColors
+  logoUrl?: string
 }
 
 declare global {
   interface Window {
-    screenly: ScreenlyObject;
+    screenly: ScreenlyObject
   }
-  const screenly: ScreenlyObject;
+  const screenly: ScreenlyObject
 }
 
-export {};
+export {}
