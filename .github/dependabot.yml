@@ -3,39 +3,30 @@ version: 2
 # See: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference#directories-or-directory--
 
 updates:
-  - package-ecosystem: "bun"
+  - package-ecosystem: 'bun'
     directories:
-      - "edge-apps/*"
+      - 'edge-apps/*'
     schedule:
-      interval: "daily"
+      interval: 'daily'
     groups:
       bun:
         patterns:
-          - "*"
+          - '*'
 
-  - package-ecosystem: "npm"
-    directory: "/edge-apps/.bun-create/edge-app-template"
+  - package-ecosystem: 'pip'
+    directory: '/edge-apps/queue-management-system/server'
     schedule:
-      interval: "daily"
-    groups:
-      edge-app-template:
-        patterns:
-          - "*"
-
-  - package-ecosystem: "pip"
-    directory: "/edge-apps/queue-management-system/server"
-    schedule:
-      interval: "daily"
+      interval: 'daily'
     groups:
       pip:
         patterns:
-          - "*"
+          - '*'
 
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     schedule:
-      interval: "daily"
+      interval: 'daily'
     groups:
       github-actions:
         patterns:
-          - "*"
+          - '*'
