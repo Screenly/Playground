@@ -52,20 +52,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 `screenly.signalReadyForRendering()` tells the device that the Edge App is ready to be displayed on the screen. See this [documentation about the ready signal](mdc:https://developer.screenly.io/edge-apps/#ready-signal) for details.
 
-## Creating a Vue-based Edge App via the template
-
-To create a new project, run the following command:
-
-```bash
-cd edge-apps/
-bun create --no-git edge-app-template <edge-app-name>
-```
-
-You have to be inside the `edge-apps` directory to run this command successfully.
-This will create a new Edge App with the name `<edge-app-name>` in the `edge-apps` directory.
-
-These kind of Edge Apps are written in Vue and TypeScript. All of those projects use Bun for runtime and Vite for build system.
-
 ## CSS
 
 - Always use `rem` instead of `px` when specifying values like font size, margins, paddings, etc.

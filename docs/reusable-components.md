@@ -1,10 +1,11 @@
 # Reusable Components
 
+> [!WARNING]
+> The Vue-based reusable components in this guide are part of the legacy `blueprint` library. These are deprecated and will be removed once all dependent apps have migrated to the new `edge-apps-library`.
+
 Screenly's Edge App library offers a set of reusable Vue components that can be used to build Edge Apps.
 
 If you're not yet familiar with Vue, check out the [Component Basics](https://vuejs.org/guide/essentials/component-basics.html) section of Vue's documentation.
-
-This guide assumes that you created a new Edge App using the [template](/README.md#creating-a-new-edge-app-from-the-template).
 
 ## PrimaryCard
 
@@ -151,7 +152,7 @@ import { InfoCard } from "blueprint/components";
             width: '10rem',
             height: '10rem',
           }"
-          src="https://raw.githubusercontent.com/Screenly/Playground/refs/heads/master/edge-apps/.bun-create/edge-app-template/static/images/icon.svg"
+          src="https://example.com/icon.svg"
           alt="Icon"
         />
       </template>
@@ -337,4 +338,4 @@ import { DateDisplay, AnalogClock, InfoCard } from "blueprint/components";
 
 Now that you've learned how to use the reusable components, you can start using them or start writing your own components inside the `edge-apps/blueprint/ts/components` directory.
 
-Feel free to check out the [source code of Vue-based Edge Apps](/edge-apps) to see how the components are used across various use cases. You can also check out the [source code of the template](/edge-apps/.bun-create/edge-app-template) as well.
+Feel free to check out the [source code of Vue-based Edge Apps](/edge-apps) to see how the components are used across various use cases.

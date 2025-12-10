@@ -13,15 +13,6 @@ updates:
         patterns:
           - "*"
 
-  - package-ecosystem: "npm"
-    directory: "/edge-apps/.bun-create/edge-app-template"
-    schedule:
-      interval: "daily"
-    groups:
-      edge-app-template:
-        patterns:
-          - "*"
-
   - package-ecosystem: "pip"
     directory: "/edge-apps/queue-management-system/server"
     schedule:
