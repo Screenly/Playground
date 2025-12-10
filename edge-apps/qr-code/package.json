@@ -7,7 +7,7 @@
     "predev": "bun run generate-mock-data",
     "dev": "run-p build:dev edge-app-server",
     "edge-app-server": "screenly edge-app run",
-    "build": "bun run build",
+    "build": "bun run build:prod",
     "build:dev": "bun build src/main.ts --outdir static/js --target browser --watch",
     "build:prod": "bun build src/main.ts --outdir static/js --target browser",
     "test": "bun test",
