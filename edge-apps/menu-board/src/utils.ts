@@ -1,3 +1,5 @@
+const MAX_MENU_ITEMS = 25;
+
 /**
  * Escapes HTML characters to prevent XSS attacks
  */
@@ -36,7 +38,7 @@ export interface MenuItem {
 export function getMenuItems(getSetting: (key: string) => any): MenuItem[] {
   const menuItems: MenuItem[] = [];
 
-  for (let i = 1; i <= 25; i++) {
+  for (let i = 1; i <= MAX_MENU_ITEMS; i++) {
     const itemNum = String(i).padStart(2, "0");
     const name = getSetting(`item_${itemNum}_name`);
     if (name?.trim()) {
