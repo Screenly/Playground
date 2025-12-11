@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+  <identifier>DEMO-FLASH-FLOOD-001</identifier>
+  <sender>demo@screenly.io</sender>
+  <sent>2024-06-20T16:15:00-00:00</sent>
+  <status>Exercise</status>
+  <msgType>Alert</msgType>
+  <scope>Public</scope>
+  <note>THIS IS A DEMONSTRATION EXERCISE - NOT A REAL EMERGENCY</note>
+  <info>
+    <language>en-US</language>
+    <category>Met</category>
+    <event>Flash Flood Warning</event>
+    <responseType>Evacuate</responseType>
+    <responseType>Avoid</responseType>
+    <urgency>Immediate</urgency>
+    <severity>Severe</severity>
+    <certainty>Likely</certainty>
+    <effective>2024-06-20T16:15:00-00:00</effective>
+    <onset>2024-06-20T16:30:00-00:00</onset>
+    <expires>2024-06-20T21:00:00-00:00</expires>
+    <senderName>National Weather Service (DEMO)</senderName>
+    <headline>Flash Flood Warning - Move to Higher Ground</headline>
+    <description>Flash Flood Warning for urban areas and small streams. Heavy rainfall has caused rapid flooding in low-lying areas. Water levels are rising quickly and roads are becoming impassable. DO NOT attempt to drive through flooded roadways.</description>
+    <instruction>Move to higher ground immediately. Do not walk or drive through flood waters - just 6 inches of moving water can knock you down, and 1 foot of water can sweep your vehicle away. Use {{closest_exit}} to reach higher floors. If trapped, move to the highest point and call for help.</instruction>
+    <web>https://weather.gov/flood-safety</web>
+    <contact>Emergency Services: 911</contact>
+    <parameter>
+      <valueName>ExpectedRainfall</valueName>
+      <value>3-5 inches in 2 hours</value>
+    </parameter>
+    <resource>
+      <resourceDesc>Flood Warning Alert Tone</resourceDesc>
+      <mimeType>audio/mpeg</mimeType>
+      <uri>https://archive.org/download/EASAlertTones/EAS_Alert_Tones/Flood_Warning.mp3</uri>
+    </resource>
+    <area>
+      <areaDesc>Downtown and River Valley Areas</areaDesc>
+      <polygon>40.71,-74.01 40.73,-73.99 40.75,-74.00 40.74,-74.02 40.71,-74.01</polygon>
+    </area>
+  </info>
+</alert>
+

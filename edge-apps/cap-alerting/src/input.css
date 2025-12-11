@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+/* Modern Digital Signage Design - Viewport-based sizing */
+
+/* Custom animations */
+@keyframes pulse-banner {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.005);
+  }
+}
+
+.status-actual-pulse {
+  animation: pulse-banner 1.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-actual-pulse {
+    animation: none;
+  }
+}
+
+.status-stripe-pattern {
+  background-image: repeating-linear-gradient(
+    135deg,
+    transparent,
+    transparent 2rem,
+    rgba(255, 255, 255, 0.08) 2rem,
+    rgba(255, 255, 255, 0.08) 4rem
+  );
+}
+
+/* Viewport-based typography optimized for digital signage readability */
+/* Balanced for visibility and fitting content in viewport */
+
+.status-banner-text {
+  font-size: clamp(1.25rem, 3.5vmin, 6rem);
+  line-height: 1.1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.event-title-text {
+  font-size: clamp(2rem, 5vmin, 10rem);
+  line-height: 1;
+  text-shadow: 0 2px 8px rgba(220, 38, 38, 0.15);
+  letter-spacing: -0.02em;
+}
+
+.severity-badge-text {
+  font-size: clamp(1rem, 2vmin, 4rem);
+  line-height: 1.1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.headline-text {
+  font-size: clamp(1.5rem, 3.5vmin, 7rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.body-text {
+  font-size: clamp(1.125rem, 2.5vmin, 5rem);
+  line-height: 1.35;
+}
+
+.instruction-text {
+  font-size: clamp(1.25rem, 3vmin, 6rem);
+  line-height: 1.4;
+}
+
+/* Enhanced keyword highlighting for quick scanning */
+.instruction-text strong {
+  font-weight: 900;
+  color: rgb(153, 27, 27);
+}
+
+/* Modern card styling */
+.alert-card {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Modern instruction box */
+.instruction-box {
+  box-shadow: inset 4px 0 0 0 rgb(234, 179, 8), 0 4px 12px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+  background: linear-gradient(135deg, rgb(254, 249, 195) 0%, rgb(254, 243, 199) 100%);
+}
+
+/* Severity badge modern styling */
+.severity-badge {
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.25);
+  background: linear-gradient(135deg, rgb(249, 115, 22) 0%, rgb(234, 88, 12) 100%);
+}
+
+/* Status banner gradients */
+.status-banner-blue {
+  background: linear-gradient(135deg, rgb(37, 99, 235) 0%, rgb(29, 78, 216) 100%);
+}
+
+.status-banner-red {
+  background: linear-gradient(135deg, rgb(220, 38, 38) 0%, rgb(185, 28, 28) 100%);
+}
+
+.status-banner-orange {
+  background: linear-gradient(135deg, rgb(249, 115, 22) 0%, rgb(234, 88, 12) 100%);
+}
+
+.status-banner-gray {
+  background: linear-gradient(135deg, rgb(75, 85, 99) 0%, rgb(55, 65, 81) 100%);
+}
+
+/* Responsive adjustments for common signage resolutions */
+@media (min-width: 1920px) and (min-height: 1080px) {
+  .instruction-text {
+    font-size: clamp(2rem, 3.5vmin, 7rem);
+  }
+  
+  .event-title-text {
+    font-size: clamp(3rem, 6vmin, 12rem);
+  }
+}
+
+@media (min-width: 3840px) and (min-height: 2160px) {
+  .instruction-text {
+    font-size: clamp(2.5rem, 3.5vmin, 7rem);
+  }
+  
+  .event-title-text {
+    font-size: clamp(4rem, 6vmin, 12rem);
+  }
+}

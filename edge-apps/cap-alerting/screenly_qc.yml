@@ -1,0 +1,58 @@
+---
+syntax: manifest_v1
+id: cap-alerting-qc
+description: Display CAP emergency alerts on Screenly screens. Supports offline mode and uses screen tags (e.g., exit:North Lobby) to highlight the nearest exit.
+icon: https://playground.srly.io/edge-apps/cap-alerting/static/cap-icon.svg
+author: Screenly, Inc.
+ready_signal: true
+entrypoint:
+  type: file
+settings:
+  cap_feed_url:
+    type: string
+    title: CAP Feed URL
+    optional: true
+    default_value: ''
+    help_text: URL or relative path to a CAP XML feed. Leave blank to use demo mode.
+  refresh_interval:
+    type: string
+    title: Refresh Interval (minutes)
+    optional: true
+    default_value: '5'
+    help_text: Time in minutes between feed updates.
+  language:
+    type: string
+    title: Default Language
+    optional: true
+    default_value: en
+    help_text: Choose the preferred language when multiple info blocks exist (e.g., en, es, fr).
+  max_alerts:
+    type: string
+    title: Maximum Alerts
+    optional: true
+    default_value: '3'
+    help_text: Maximum number of alerts to display simultaneously.
+  audio_alert:
+    type: string
+    title: Play Audio Alerts
+    optional: true
+    default_value: 'false'
+    help_text: Play audio from CAP resources when available (true/false).
+  offline_mode:
+    type: string
+    title: Offline Mode
+    optional: true
+    default_value: 'false'
+    help_text: When enabled, avoid network fetches and use cached data (true/false).
+  test_mode:
+    type: string
+    title: Test Mode
+    optional: true
+    default_value: 'false'
+    help_text: Use bundled test CAP file for testing (true/false).
+  demo_mode:
+    type: string
+    title: Demo Mode
+    optional: true
+    default_value: 'false'
+    help_text: Enable demo mode with realistic CAP alerts (randomly selected). Only active when test_mode is disabled and no feed URL is set (true/false).
