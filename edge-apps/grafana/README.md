@@ -27,6 +27,8 @@ The app accepts the following settings via `screenly.yml`:
 
 ### Getting an Embeddable Grafana URL
 
+> [!NOTE] Grafana Cloud does not support embedding in iframes due to [security restrictions](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/?pg=blog&plcmt=body-txt#implications-of-enabling-anonymous-access-to-dashboards).
+
 1. **Enable Embedding in Grafana**
    - If you self-host Grafana (Open Source or Enterprise), enable embedding by adding the following to your `grafana.ini`:
 
@@ -51,9 +53,7 @@ The app accepts the following settings via `screenly.yml`:
    https://grafana.example.org/d/abc123/dashboard-name?orgId=1&refresh=30s
    ```
 
-> **Important:** The Grafana URL must be **publicly accessible** from the Screenly player. Using `localhost` or internal network addresses will not work. Ensure your Grafana instance is accessible via a public URL or VPN that the player can reach.
-
-> **Note:** Grafana Cloud does not support embedding in iframes due to [security restrictions](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/?pg=blog&plcmt=body-txt#implications-of-enabling-anonymous-access-to-dashboards).
+> [!IMPORTANT] The Grafana URL must be **publicly accessible** from the Screenly player. Using `localhost` or internal network addresses will not work. Ensure your Grafana instance is accessible via a public URL or VPN that the player can reach.
 
 ## Development
 
