@@ -59,7 +59,7 @@ jobs:
           }
 
           # Check if blueprint has changes and extract unique Edge App directories
-          BLUEPRINT_CHANGED=false
+          BLUEPRINT_CHANGED=true
           CHANGED_APPS=""
 
           for file in "${FILES_ARRAY[@]}"; do
