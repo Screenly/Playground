@@ -28,7 +28,6 @@ The app accepts the following settings via `screenly.yml`:
 ### Getting an Embeddable Grafana URL
 
 1. **Enable Embedding in Grafana**
-
    - If you self-host Grafana (Open Source or Enterprise), enable embedding by adding the following to your `grafana.ini`:
 
      ```ini
@@ -41,7 +40,6 @@ The app accepts the following settings via `screenly.yml`:
    - This setting is supported in both Grafana Open Source and Enterprise editions, but **not available in Grafana Cloud**.
 
 2. **Get the Dashboard URL**
-
    - Open your Grafana dashboard
    - Click the **Share** button (top right)
    - In the **Link** tab, copy the dashboard URL
