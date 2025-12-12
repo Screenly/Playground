@@ -1,0 +1,13 @@
+---
+syntax: manifest_v1
+description: A Grafana dashboard integration app
+icon: https://playground.srly.io/edge-apps/grafana/static/img/icon.svg
+author: Screenly, Inc.
+ready_signal: true
+settings:
+  grafana_url:
+    type: string
+    default_value: https://grafana.example.com/d/abc123/dashboard
+    title: Grafana Dashboard URL
+    optional: false
+    help_text: Enter the full URL to your Grafana dashboard.
