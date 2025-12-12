@@ -5,12 +5,11 @@
   const DEFAULT_TOKEN_REFRESH_MIN = 30; // default 30 minutes
 
   function getTokenRefreshInterval() {
-    // User provides interval in minutes, convert to seconds
     var intervalMinutes = parseInt(screenly.settings.app_refresh_interval, 10);
     if (isNaN(intervalMinutes) || intervalMinutes < MIN_TOKEN_REFRESH_MIN) {
-      return DEFAULT_TOKEN_REFRESH_MIN * 60; // convert to seconds
+      return DEFAULT_TOKEN_REFRESH_MIN * 60;
     }
-    return intervalMinutes * 60; // convert minutes to seconds
+    return intervalMinutes * 60;
   }
 
   function getEmbedTypeFromUrl(url) {
