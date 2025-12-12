@@ -1,6 +1,7 @@
 ---
 syntax: manifest_v1
 description: A dynamic menu board that can display up to 25 menu items
+icon: https://playground.srly.io/edge-apps/menu-board/static/img/icon.svg
 author: Screenly, Inc
 entrypoint:
   type: file
