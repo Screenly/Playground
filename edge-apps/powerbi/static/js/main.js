@@ -22,7 +22,6 @@
   }
 
   async function getEmbedToken() {
-    // Use static token from settings if provided
     if (screenly.settings.embed_token) {
       return screenly.settings.embed_token;
     }
