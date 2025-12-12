@@ -1,8 +1,8 @@
 /* global screenly, panic */
 
 (function () {
-  const MIN_TOKEN_REFRESH_MIN = 1; // minimum 1 minute
-  const DEFAULT_TOKEN_REFRESH_MIN = 30; // default 30 minutes
+  const MIN_TOKEN_REFRESH_MIN = 1;
+  const DEFAULT_TOKEN_REFRESH_MIN = 30;
 
   function getTokenRefreshInterval() {
     var intervalMinutes = parseInt(screenly.settings.app_refresh_interval, 10);
