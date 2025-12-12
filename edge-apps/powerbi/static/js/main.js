@@ -101,7 +101,6 @@
       initTokenRefreshLoop(report);
     }
 
-    initAppRefreshLoop(report);
     return report;
   }
 
