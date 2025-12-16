@@ -5,9 +5,40 @@ icon: https://playground.srly.io/edge-apps/grafana/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 settings:
-  grafana_url:
+  domain:
     type: string
-    default_value: https://grafana.example.com/d/abc123/dashboard
-    title: Grafana Dashboard URL
+    title: Grafana Domain
     optional: false
-    help_text: Enter the full URL to your Grafana dashboard.
+    help_text:
+      properties:
+        help_text: The Grafana domain (e.g., someone.grafana.net)
+        type: string
+      schema_version: 1
+  dashboard_id:
+    type: string
+    title: Dashboard ID
+    optional: false
+    help_text:
+      properties:
+        help_text: The unique ID of the Grafana dashboard
+        type: string
+      schema_version: 1
+  dashboard_slug:
+    type: string
+    title: Dashboard Slug
+    optional: false
+    help_text:
+      properties:
+        help_text: The URL-friendly name of the dashboard
+        type: string
+      schema_version: 1
+  refresh_interval:
+    type: string
+    default_value: '60'
+    title: Refresh Interval
+    optional: true
+    help_text:
+      properties:
+        help_text: The interval in seconds to refresh the dashboard image
+        type: string
+      schema_version: 1
