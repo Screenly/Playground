@@ -18,7 +18,7 @@ window.onload = async function () {
   }
 
   // Construct the dashboard render URL
-  const renderUrl = `http://${domain}/render/d/${dashboardId}/${dashboardSlug}`
+  const renderUrl = `https://${domain}/render/d/${dashboardId}/${dashboardSlug}`
   const params = new URLSearchParams({
     width: '1920',
     height: '1080',
@@ -36,8 +36,8 @@ window.onload = async function () {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
+        'Content-Type': 'image/png',
       },
-      mode: 'no-cors',
       credentials: 'omit',
     })
 
