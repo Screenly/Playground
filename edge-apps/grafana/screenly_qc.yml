@@ -5,6 +5,15 @@ icon: https://playground.srly.io/edge-apps/grafana/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 settings:
+  access_token:
+    type: secret
+    title: Access Token
+    optional: true
+    help_text:
+      properties:
+        help_text: For testing only. In production, the access token should be fetched dynamically via the API.
+        type: oauth:grafana:access_token
+      schema_version: 1
   dashboard_id:
     type: string
     title: Dashboard ID
@@ -32,13 +41,4 @@ settings:
       properties:
         help_text: The interval in seconds to refresh the dashboard image
         type: number
-      schema_version: 1
-  service_access_token:
-    type: secret
-    title: Service Account Token
-    optional: true
-    help_text:
-      properties:
-        help_text: For testing only. In production, the access token should be fetched dynamically via the API.
-        type: oauth:grafana:service_access_token
       schema_version: 1
