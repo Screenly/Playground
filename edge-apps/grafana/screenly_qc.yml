@@ -12,7 +12,7 @@ settings:
     help_text:
       properties:
         help_text: The unique ID of the Grafana dashboard
-        type: string
+        type: oauth:grafana:dashboard_id
       schema_version: 1
   domain:
     type: string
@@ -31,7 +31,7 @@ settings:
     help_text:
       properties:
         help_text: The interval in seconds to refresh the dashboard image
-        type: string
+        type: number
       schema_version: 1
   service_access_token:
     type: secret
