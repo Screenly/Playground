@@ -26,16 +26,15 @@ The app accepts the following settings via `screenly.yml`:
 
 - `domain` - The Grafana domain (e.g., `someone.grafana.net`)
 - `dashboard_id` - The unique ID of the Grafana dashboard
-- `dashboard_slug` - The URL-friendly name of the dashboard
 - `service_access_token` - The Grafana service account token for authentication
 - `refresh_interval` - The interval in seconds to refresh the dashboard image (default: 60)
 
 ### Getting Dashboard Information
 
-1. **Find Your Dashboard ID and Slug**
+1. **Find Your Dashboard ID**
    - Open your Grafana dashboard
    - The URL in the browser will look like: `https://your-domain.grafana.net/d/<dashboard_id>/<dashboard_slug>`
-   - Extract the `<dashboard_id>` and `<dashboard_slug>` values
+   - Extract the `<dashboard_id>` value (you don't need the slug)
 
 2. **Create a Service Account Token**
    - In Grafana, navigate to **Administration** &rarr; **Users and access** &rarr; **Service accounts**.
@@ -54,7 +53,6 @@ The app accepts the following settings via `screenly.yml`:
    ```yaml
    domain: someone.grafana.net
    dashboard_id: abc123
-   dashboard_slug: my-dashboard
    service_access_token: glsa_xxxxxxxxxxxx
    refresh_interval: 60
    ```
