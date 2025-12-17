@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Dynamic menu board for digital signage" />
+    <meta name="theme-color" content="#000000" />
+    <title>Dynamic Menu Board</title>
+    <script src="screenly.js?version=1"></script>
+    <link rel="stylesheet" href="static/css/style.css" />
+  </head>
+  <body>
+    <img
+      id="background"
+      alt="Restaurant ambiance background image"
+      role="presentation"
+    />
+    <div class="container">
+      <div class="header">
+        <img id="logo" class="logo" alt="Restaurant logo" />
+        <h1 id="title">Today's Menu</h1>
+      </div>
+      <div class="menu-grid" id="menuGrid"></div>
+      <div id="errorState" class="error-state">
+        <h2>Unable to load menu</h2>
+        <p>Please check your connection and try again.</p>
+      </div>
+    </div>
+
+    <script src="static/js/main.js"></script>
+  </body>
+</html>
