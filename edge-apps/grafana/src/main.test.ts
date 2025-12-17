@@ -41,10 +41,10 @@ describe('Grafana App', () => {
       globalThis.window.innerWidth = 1920
       globalThis.window.innerHeight = 1080
 
-      const url = getRenderUrl('grafana.example.com', 'abc123', 'my-dashboard')
+      const url = getRenderUrl('grafana.example.com', 'abc123')
 
       expect(url).toContain(
-        'https://cors-proxy.example.com/https://grafana.example.com/render/d/abc123/my-dashboard',
+        'https://cors-proxy.example.com/https://grafana.example.com/render/d/abc123',
       )
       expect(url).toContain('width=1920')
       expect(url).toContain('height=1080')
@@ -55,14 +55,14 @@ describe('Grafana App', () => {
       globalThis.window.innerWidth = 3840
       globalThis.window.innerHeight = 2160
 
-      const url = getRenderUrl('grafana.example.com', 'xyz789', 'dashboard')
+      const url = getRenderUrl('grafana.example.com', 'xyz789')
 
       expect(url).toContain('width=3840')
       expect(url).toContain('height=2160')
     })
 
     test('should include all required query parameters', () => {
-      const url = getRenderUrl('my-grafana.net', 'dash1', 'my-dash')
+      const url = getRenderUrl('my-grafana.net', 'dash1')
 
       const params = new URLSearchParams(url.split('?')[1])
       expect(params.has('width')).toBe(true)
@@ -71,17 +71,16 @@ describe('Grafana App', () => {
     })
 
     test('should include CORS proxy URL', () => {
-      const url = getRenderUrl('my-grafana.net', 'dash1', 'my-dash')
+      const url = getRenderUrl('my-grafana.net', 'dash1')
 
       expect(url).toContain('https://cors-proxy.example.com')
     })
 
     test('should include domain in render path', () => {
-      const url = getRenderUrl('custom.grafana.net', 'dash-id', 'dash-slug')
+      const url = getRenderUrl('custom.grafana.net', 'dash-id')
 
       expect(url).toContain('custom.grafana.net')
       expect(url).toContain('dash-id')
-      expect(url).toContain('dash-slug')
     })
   })
 

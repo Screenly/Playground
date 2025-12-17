@@ -8,18 +8,17 @@ window.onload = async function () {
   // Get settings from screenly.yml
   const domain = getSetting<string>('domain') || ''
   const dashboardId = getSetting<string>('dashboard_id') || ''
-  const dashboardSlug = getSetting<string>('dashboard_slug') || ''
   const refreshInterval = getSetting<number>('refresh_interval') || 60
   const serviceAccessToken = getSetting<string>('service_access_token') || ''
 
-  if (!domain || !dashboardId || !dashboardSlug) {
+  if (!domain || !dashboardId) {
     console.error(
-      'Grafana domain, dashboard ID, and dashboard slug are required',
+      'Grafana domain, and dashboard ID must be provided in the settings.',
     )
     return
   }
 
-  const imageUrl = getRenderUrl(domain, dashboardId, dashboardSlug)
+  const imageUrl = getRenderUrl(domain, dashboardId)
 
   const imgElement = document.querySelector('#content img') as HTMLImageElement
 

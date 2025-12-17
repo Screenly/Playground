@@ -14,15 +14,6 @@ settings:
         help_text: The unique ID of the Grafana dashboard
         type: string
       schema_version: 1
-  dashboard_slug:
-    type: string
-    title: Dashboard Slug
-    optional: false
-    help_text:
-      properties:
-        help_text: The URL-friendly name of the dashboard
-        type: string
-      schema_version: 1
   domain:
     type: string
     title: Grafana Domain
