@@ -1,6 +1,7 @@
 import {
   setupTheme,
   getSetting,
+  getSettingWithDefault,
   signalReady,
   getAccessToken,
 } from '@screenly/edge-apps'
@@ -11,9 +12,9 @@ window.onload = async function () {
   setupTheme()
 
   // Get settings from screenly.yml
-  const domain = getSetting<string>('domain') || ''
-  const dashboardId = getSetting<string>('dashboard_id') || ''
-  const refreshInterval = getSetting<number>('refresh_interval') || 60
+  const domain = getSettingWithDefault<string>('domain', '')
+  const dashboardId = getSettingWithDefault<string>('dashboard_id', '')
+  const refreshInterval = getSettingWithDefault<number>('refresh_interval', 60)
 
   if (!domain || !dashboardId) {
     console.error(
