@@ -1,11 +1,12 @@
 # Grafana Dashboard
 
-Embeds a Grafana dashboard in a Screenly Edge App.
+Displays Grafana dashboards as images on Screenly screens with automatic refresh intervals.
 
 ## Features
 
-- Display Grafana dashboards on Screenly screens
-- Support for public or authenticated dashboard URLs
+- Render Grafana dashboards as images via the rendering API
+- Automatic refresh at configurable intervals
+- Dynamic resolution based on screen size
 - Responsive design for landscape and portrait displays
 - Theme color integration via @screenly/edge-apps
 
@@ -23,48 +24,51 @@ screenly edge-app instance create
 
 The app accepts the following settings via `screenly.yml`:
 
-- `grafana_url` - The full URL to your Grafana dashboard
+- `domain` - The Grafana domain (e.g., `someone.grafana.net`)
+- `dashboard_id` - The unique ID of the Grafana dashboard
+- `dashboard_slug` - The URL-friendly name of the dashboard
+- `service_access_token` - The Grafana service account token for authentication
+- `refresh_interval` - The interval in seconds to refresh the dashboard image (default: 60)
 
-### Getting an Embeddable Grafana URL
+### Getting Dashboard Information
 
-> [!NOTE] Grafana Cloud does not support embedding in iframes due to [security restrictions](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/?pg=blog&plcmt=body-txt#implications-of-enabling-anonymous-access-to-dashboards).
-
-1. **Enable Embedding in Grafana**
-   - If you self-host Grafana (Open Source or Enterprise), enable embedding by adding the following to your `grafana.ini`:
-
-     ```ini
-     [security]
-     allow_embedding = true
-     ```
-
-   - Or set the environment variable: `GF_SECURITY_ALLOW_EMBEDDING=true`
-
-   - This setting is supported in both Grafana Open Source and Enterprise editions, but **not available in Grafana Cloud**.
-
-2. **Get the Dashboard URL**
+1. **Find Your Dashboard ID and Slug**
    - Open your Grafana dashboard
-   - Click the **Share** button (top right)
-   - In the **Link** tab, copy the dashboard URL
-   - Optionally, add query parameters like `?orgId=1&refresh=30s` to auto-refresh
+   - The URL in the browser will look like: `https://your-domain.grafana.net/d/<dashboard_id>/<dashboard_slug>`
+   - Extract the `<dashboard_id>` and `<dashboard_slug>` values
 
-3. **Example URL**
+2. **Create a Service Account Token**
+   - In Grafana, navigate to **Administration** &rarr; **Users and access** &rarr; **Service accounts**.
+   - Click **Add service account**.
+   - Enter a **Display Name** for the service account.
+   - Assign **Role**s as needed. You can leave it empty.
+   - Click **+ Add service account token**.
+     - You can change the **Display Name** of the token if desired.
+     - You can set an **Expiration** date for the token or leave it as **No expiration**.
+   - Once ready, click **Generate token**.
+   - A modal that says **Service account token created** will appear. Either click **Copy to clipboard** or **Copy to clipboard and close**.
+     - You will not be able to see the token again, so make sure to copy it now and save it somewhere secure.
 
-   ```txt
-   https://grafana.example.org/d/abc123/dashboard-name?orgId=1&refresh=30s
+3. **Example Configuration**
+
+   ```yaml
+   domain: someone.grafana.net
+   dashboard_id: abc123
+   dashboard_slug: my-dashboard
+   service_access_token: glsa_xxxxxxxxxxxx
+   refresh_interval: 60
    ```
-
-> [!IMPORTANT] The Grafana URL must be **publicly accessible** from the Screenly player. Using `localhost` or internal network addresses will not work. Ensure your Grafana instance is accessible via a public URL or VPN that the player can reach.
 
 ## Development
 
 ```bash
 bun install      # Install dependencies
 bun run build    # Build the app
-bun test         # Run tests
+bun run dev      # Start development server
 ```
 
 ## Testing
 
 ```bash
-bun test
+bun run test     # Run tests
 ```

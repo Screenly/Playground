@@ -1,4 +1,5 @@
 import { setupTheme, getSetting, signalReady } from '@screenly/edge-apps'
+import { getRenderUrl, fetchAndRenderDashboard } from './render'
 
 window.onload = async function () {
   // Setup branding colors using the library
@@ -8,7 +9,8 @@ window.onload = async function () {
   const domain = getSetting<string>('domain') || ''
   const dashboardId = getSetting<string>('dashboard_id') || ''
   const dashboardSlug = getSetting<string>('dashboard_slug') || ''
-  const refreshInterval = getSetting<string>('refresh_interval') || '60'
+  const refreshInterval = getSetting<number>('refresh_interval') || 60
+  const serviceAccessToken = getSetting<string>('service_access_token') || ''
 
   if (!domain || !dashboardId || !dashboardSlug) {
     console.error(
@@ -17,48 +19,17 @@ window.onload = async function () {
     return
   }
 
-  // Construct the dashboard render URL
-  const renderUrl = `https://${domain}/render/d/${dashboardId}/${dashboardSlug}`
-  const params = new URLSearchParams({
-    width: '1920',
-    height: '1080',
-    kiosk: 'true',
-  })
+  const imageUrl = getRenderUrl(domain, dashboardId, dashboardSlug)
 
-  const imageUrl = `${renderUrl}?${params.toString()}`
+  const imgElement = document.querySelector('#content img') as HTMLImageElement
 
-  // Hardcoded service account token (for now)
-  const token = 'glsa_fake_token_12345'
+  // Fetch dashboard immediately
+  await fetchAndRenderDashboard(imageUrl, serviceAccessToken, imgElement)
 
-  try {
-    // Make GET request to fetch the dashboard image
-    const response = await fetch(imageUrl, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'image/png',
-      },
-      credentials: 'omit',
-    })
-
-    if (!response.ok) {
-      console.error(`Failed to fetch dashboard image: ${response.statusText}`)
-      return
-    }
-
-    const blob = await response.blob()
-    const objectUrl = URL.createObjectURL(blob)
-
-    // Render Grafana dashboard as an image
-    const container = document.querySelector('#content')
-    if (container) {
-      const img = document.createElement('img')
-      img.src = objectUrl
-      container.appendChild(img)
-    }
-  } catch (error) {
-    console.error('Error fetching dashboard image:', error)
-  }
+  // Set up interval to refresh the dashboard
+  setInterval(async () => {
+    await fetchAndRenderDashboard(imageUrl, serviceAccessToken, imgElement)
+  }, refreshInterval * 1000)
 
   // Signal that the app is ready
   signalReady()
