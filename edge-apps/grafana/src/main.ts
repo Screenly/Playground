@@ -7,9 +7,22 @@ import {
 } from '@screenly/edge-apps'
 import { getRenderUrl, fetchAndRenderDashboard } from './render'
 
+function displayError(message: string): void {
+  const errorElement = document.createElement('div')
+  errorElement.className = 'error-message'
+  errorElement.textContent = message
+  const content = document.querySelector('#content')
+  if (content) {
+    content.appendChild(errorElement)
+  }
+  signalReady()
+}
+
 window.onload = async function () {
   // Setup branding colors using the library
   setupTheme()
+
+  let errorMessage = ''
 
   // Get settings from screenly.yml
   const domain = getSettingWithDefault<string>('domain', '')
@@ -17,9 +30,9 @@ window.onload = async function () {
   const refreshInterval = getSettingWithDefault<number>('refresh_interval', 60)
 
   if (!domain || !dashboardId) {
-    console.error(
-      'Grafana domain and dashboard ID must be provided in the settings.',
-    )
+    errorMessage =
+      'Grafana domain and dashboard ID must be provided in the settings.'
+    displayError(errorMessage)
     return
   }
 
@@ -28,7 +41,8 @@ window.onload = async function () {
   try {
     serviceAccessToken = await getAccessToken()
   } catch (error) {
-    console.error('Failed to retrieve access token:', error)
+    errorMessage = `Failed to retrieve access token: ${error instanceof Error ? error.message : 'Unknown error'}`
+    displayError(errorMessage)
     return
   }
 
