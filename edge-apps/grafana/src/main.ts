@@ -1,4 +1,9 @@
-import { setupTheme, getSetting, signalReady } from '@screenly/edge-apps'
+import {
+  setupTheme,
+  getSetting,
+  signalReady,
+  getAccessToken,
+} from '@screenly/edge-apps'
 import { getRenderUrl, fetchAndRenderDashboard } from './render'
 
 window.onload = async function () {
@@ -9,12 +14,20 @@ window.onload = async function () {
   const domain = getSetting<string>('domain') || ''
   const dashboardId = getSetting<string>('dashboard_id') || ''
   const refreshInterval = getSetting<number>('refresh_interval') || 60
-  const serviceAccessToken = getSetting<string>('service_access_token') || ''
 
   if (!domain || !dashboardId) {
     console.error(
       'Grafana domain, and dashboard ID must be provided in the settings.',
     )
+    return
+  }
+
+  // Get service access token from OAuth service
+  let serviceAccessToken = ''
+  try {
+    serviceAccessToken = await getAccessToken()
+  } catch (error) {
+    console.error('Failed to retrieve access token:', error)
     return
   }
 

@@ -36,9 +36,9 @@ settings:
   service_access_token:
     type: secret
     title: Service Account Token
-    optional: false
+    optional: true
     help_text:
       properties:
-        help_text: The Grafana service account token used to authenticate dashboard rendering requests
-        type: string
+        help_text: For testing only. In production, the access token should be fetched dynamically via the API.
+        type: oauth:grafana:service_access_token
       schema_version: 1

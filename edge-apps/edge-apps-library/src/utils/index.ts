@@ -1,5 +1,6 @@
 export * from './theme.js'
 export * from './locale.js'
 export * from './metadata.js'
+export * from './oauth.js'
 export * from './settings.js'
 export * from './utm.js'
