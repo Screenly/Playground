@@ -17,7 +17,7 @@ window.onload = async function () {
 
   if (!domain || !dashboardId) {
     console.error(
-      'Grafana domain, and dashboard ID must be provided in the settings.',
+      'Grafana domain and dashboard ID must be provided in the settings.',
     )
     return
   }

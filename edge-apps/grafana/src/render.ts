@@ -26,7 +26,9 @@ export async function fetchAndRenderDashboard(
     })
 
     if (!response.ok) {
-      console.error(`Failed to fetch dashboard image: ${response.statusText}`)
+      console.error(
+        `Failed to fetch dashboard image from ${imageUrl}: ${response.status} ${response.statusText}`,
+      )
       return
     }
 
