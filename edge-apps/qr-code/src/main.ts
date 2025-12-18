@@ -32,7 +32,7 @@ function generateQrCode(
 
 window.onload = function () {
   const url = getSettingWithDefault<string>('url', '')
-  const enableUtm = getSettingWithDefault<boolean>('enable_utm', true)
+  const enableUtm = getSettingWithDefault<boolean>('enable_utm', false)
   const headline = getSettingWithDefault<string>('headline', '')
   const callToAction = getSettingWithDefault<string>('call_to_action', '')
 
