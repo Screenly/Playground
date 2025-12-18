@@ -1,0 +1,16 @@
+---
+syntax: manifest_v1
+description: A simple app that displays a customizable message.
+author: Screenly, Inc.
+ready_signal: true
+settings:
+  message:
+    type: string
+    default_value: 'Hello, world!'
+    title: Message
+    optional: false
+    help_text:
+      properties:
+        help_text: Enter the message to display.
+        type: string
+      schema_version: 1

@@ -1,0 +1,44 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 14px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: var(--theme-color-background, #c9cdd0);
+}
+
+/* CSS Custom Properties */
+:root {
+  --theme-color-primary: #972eff;
+  --theme-color-tertiary: #ffffff;
+  --theme-color-background: #c9cdd0;
+}
+
+/* Main container */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 2rem;
+}
+
+/* Message */
+#message {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--theme-color-primary);
+  text-align: center;
+}
+
