@@ -75,6 +75,32 @@ describe('settings utilities', () => {
       expect(getSettingWithDefault('count', 0)).toBe(100)
     })
 
+    test('should parse special numeric values correctly', () => {
+      setupScreenlyMock(
+        {},
+        {
+          zero: '0',
+          negative: '-1',
+          decimal: '3.14',
+          scientific: '1e5',
+        },
+      )
+      expect(getSettingWithDefault('zero', 1)).toBe(0)
+      expect(getSettingWithDefault('negative', 0)).toBe(-1)
+      expect(getSettingWithDefault('decimal', 0)).toBe(3.14)
+      expect(getSettingWithDefault('scientific', 0)).toBe(100000)
+    })
+
+    test('should return default when setting is an empty string and default is a number', () => {
+      setupScreenlyMock({}, { empty_number: '' })
+      expect(getSettingWithDefault<number>('empty_number', 67)).toBe(67)
+    })
+
+    test('should return default when setting is a whitespace-only string and default is a number', () => {
+      setupScreenlyMock({}, { whitespace_number: '   ' })
+      expect(getSettingWithDefault<number>('whitespace_number', 67)).toBe(67)
+    })
+
     test('should return default when numeric string cannot be parsed', () => {
       setupScreenlyMock({}, { invalid_number: 'not_a_number' })
       expect(getSettingWithDefault('invalid_number', 42)).toBe(42)
@@ -96,6 +122,26 @@ describe('settings utilities', () => {
       setupScreenlyMock({}, { invalid_bool: 'maybe' })
       expect(getSettingWithDefault('invalid_bool', true)).toBe(true)
       expect(getSettingWithDefault('invalid_bool', false)).toBe(false)
+    })
+
+    test('should return default for numeric boolean-like strings', () => {
+      setupScreenlyMock({}, { one: '1', zero: '0' })
+      expect(getSettingWithDefault('one', true)).toBe(true)
+      expect(getSettingWithDefault('zero', false)).toBe(false)
+    })
+
+    test('should return default for yes/no boolean-like strings', () => {
+      setupScreenlyMock({}, { yes: 'yes', no: 'no' })
+      expect(getSettingWithDefault('yes', true)).toBe(true)
+      expect(getSettingWithDefault('no', false)).toBe(false)
+    })
+
+    test('should return default for on/off boolean-like strings', () => {
+      setupScreenlyMock({}, { on: 'on', off: 'off' })
+      expect(getSettingWithDefault('on', true)).toBe(true)
+      expect(getSettingWithDefault('off', false)).toBe(false)
+      expect(getSettingWithDefault('on', false)).toBe(false)
+      expect(getSettingWithDefault('off', true)).toBe(true)
     })
 
     test('should return value as-is for non-numeric and non-boolean defaults', () => {

@@ -23,7 +23,9 @@ export function getSettingWithDefault<T>(key: string, defaultValue: T): T {
 
   // If the value is a string and the default is a number, try to parse it
   if (typeof value === 'string' && typeof defaultValue === 'number') {
-    const parsed = Number(value)
+    const trimmed = value.trim()
+    if (trimmed === '') return defaultValue
+    const parsed = Number(trimmed)
     if (!isNaN(parsed)) return parsed as T
     return defaultValue
   }

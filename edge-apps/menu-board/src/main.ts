@@ -133,7 +133,7 @@ function initializeMenuBoard(): void {
 
     // Get all menu items
     const menuItems = getMenuItems((key: string) =>
-      getSettingWithDefault(key, null),
+      getSettingWithDefault<string | undefined>(key, undefined),
     )
 
     // Calculate items per page based on viewport
