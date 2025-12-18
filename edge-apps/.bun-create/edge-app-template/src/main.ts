@@ -7,7 +7,8 @@ window.onload = function () {
   setupTheme()
 
   // Set the message
-  const messageElement = document.querySelector<HTMLDivElement>('#message')
+  const messageElement =
+    document.querySelector<HTMLParagraphElement>('#message')
   if (messageElement) {
     messageElement.textContent = message
   }
