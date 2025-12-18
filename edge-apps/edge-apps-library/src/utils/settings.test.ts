@@ -68,6 +68,40 @@ describe('settings utilities', () => {
       expect(getSettingWithDefault('nonexistent', 'default')).toBe('default')
       expect(getSettingWithDefault('missing', 42)).toBe(42)
     })
+
+    test('should parse numeric strings when default is a number', () => {
+      setupScreenlyMock({}, { interval: '60', count: '100' })
+      expect(getSettingWithDefault('interval', 30)).toBe(60)
+      expect(getSettingWithDefault('count', 0)).toBe(100)
+    })
+
+    test('should return default when numeric string cannot be parsed', () => {
+      setupScreenlyMock({}, { invalid_number: 'not_a_number' })
+      expect(getSettingWithDefault('invalid_number', 42)).toBe(42)
+    })
+
+    test('should parse boolean strings when default is a boolean', () => {
+      setupScreenlyMock({}, { enabled: 'true', disabled: 'false' })
+      expect(getSettingWithDefault('enabled', false)).toBe(true)
+      expect(getSettingWithDefault('disabled', true)).toBe(false)
+    })
+
+    test('should parse boolean strings case-insensitively', () => {
+      setupScreenlyMock({}, { enabled_upper: 'TRUE', disabled_upper: 'FALSE' })
+      expect(getSettingWithDefault('enabled_upper', false)).toBe(true)
+      expect(getSettingWithDefault('disabled_upper', true)).toBe(false)
+    })
+
+    test('should return default when boolean string cannot be parsed', () => {
+      setupScreenlyMock({}, { invalid_bool: 'maybe' })
+      expect(getSettingWithDefault('invalid_bool', true)).toBe(true)
+      expect(getSettingWithDefault('invalid_bool', false)).toBe(false)
+    })
+
+    test('should return value as-is for non-numeric and non-boolean defaults', () => {
+      setupScreenlyMock({}, { color: '#FF0000' })
+      expect(getSettingWithDefault('color', '#000000')).toBe('#FF0000')
+    })
   })
 
   describe('hasSetting', () => {
