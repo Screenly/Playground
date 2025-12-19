@@ -155,7 +155,14 @@ jobs:
 
       - name: Run formatting check
         working-directory: edge-apps/${{ matrix.app }}
-        run: bun run prettier --check src/ README.md index.html
+        run: |
+          if grep -q "@screenly/edge-apps" package.json; then
+            echo "Using edge-apps-scripts for formatting check..."
+            bun run format --check
+          else
+            echo "Using prettier directly for formatting check..."
+            bun run prettier --check src/ README.md index.html
+          fi
 
       - name: Run unit tests
         working-directory: edge-apps/${{ matrix.app }}
