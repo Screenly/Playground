@@ -1,3 +1,4 @@
+import './css/style.css'
 import { setupTheme, getSetting, signalReady } from '@screenly/edge-apps'
 
 window.onload = function () {
