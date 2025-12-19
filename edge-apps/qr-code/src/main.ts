@@ -2,7 +2,7 @@ import QRCode from 'qrcode'
 import {
   setupTheme,
   addUTMParamsIf,
-  getSetting,
+  getSettingWithDefault,
   signalReady,
 } from '@screenly/edge-apps'
 
@@ -31,10 +31,10 @@ function generateQrCode(
 }
 
 window.onload = function () {
-  const url = getSetting<string>('url') || ''
-  const enableUtm = getSetting<string>('enable_utm') === 'true'
-  const headline = getSetting<string>('headline') || ''
-  const callToAction = getSetting<string>('call_to_action') || ''
+  const url = getSettingWithDefault<string>('url', '')
+  const enableUtm = getSettingWithDefault<boolean>('enable_utm', false)
+  const headline = getSettingWithDefault<string>('headline', '')
+  const callToAction = getSettingWithDefault<string>('call_to_action', '')
 
   // Setup branding colors using the library
   setupTheme()

@@ -19,7 +19,26 @@ export function getSetting<T = unknown>(key: string): T | undefined {
  */
 export function getSettingWithDefault<T>(key: string, defaultValue: T): T {
   const value = screenly.settings[key]
-  return value !== undefined ? (value as T) : defaultValue
+  if (value === undefined) return defaultValue
+
+  // If the value is a string and the default is a number, try to parse it
+  if (typeof value === 'string' && typeof defaultValue === 'number') {
+    const trimmed = value.trim()
+    if (trimmed === '') return defaultValue
+    const parsed = Number(trimmed)
+    if (!isNaN(parsed)) return parsed as T
+    return defaultValue
+  }
+
+  // If the value is a string and the default is a boolean, try to parse it
+  if (typeof value === 'string' && typeof defaultValue === 'boolean') {
+    const lowerValue = value.toLowerCase()
+    if (lowerValue === 'true') return true as T
+    if (lowerValue === 'false') return false as T
+    return defaultValue
+  }
+
+  return value as T
 }
 
 /**
