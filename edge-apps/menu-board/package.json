@@ -13,7 +13,7 @@
     "test": "bun test",
     "test:unit": "bun test",
     "lint": "tsc --noEmit",
-    "format": "prettier --write src/ README.md index.html static/css/",
+    "format": "bun run node_modules/@screenly/edge-apps/bin/index.js format",
     "deploy": "bun run build && screenly edge-app deploy",
     "prepare": "cd ../edge-apps-library && bun install && bun run build"
   },
