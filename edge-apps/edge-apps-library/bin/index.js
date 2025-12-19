@@ -13,7 +13,7 @@ if (command === 'format') {
 
   try {
     execSync(`bun ${formatScript} ${args.join(' ')}`, { stdio: 'inherit' })
-  } catch (error) {
+  } catch {
     process.exit(1)
   }
 } else if (command === '--help' || command === '-h' || !command) {

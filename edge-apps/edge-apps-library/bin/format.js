@@ -22,6 +22,6 @@ const command = `bun x prettier --config ${configPath} ${finalOptions.join(' ')}
 
 try {
   execSync(command, { stdio: 'inherit' })
-} catch (error) {
+} catch {
   process.exit(1)
 }
