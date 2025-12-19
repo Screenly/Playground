@@ -1,4 +1,8 @@
-import { getHardware, getSetting, signalReady } from '@screenly/edge-apps'
+import {
+  getHardware,
+  getSettingWithDefault,
+  signalReady,
+} from '@screenly/edge-apps'
 import {
   escapeHtml,
   calculateItemsPerPage,
@@ -72,13 +76,23 @@ function renderPage(
  */
 function initializeMenuBoard(): void {
   try {
-    const menuTitle = getSetting<string>('menu_title') || "Today's Menu"
-    const accentColor =
-      getSetting<string>('accent_color') || 'rgba(255, 255, 255, 0.95)'
-    const backgroundImage =
-      getSetting<string>('background_image') || 'assets/pizza.png'
-    const logoUrl = getSetting<string>('logo_url') || 'assets/screenly_food.svg'
-    const currency = getSetting<string>('currency') || '$'
+    const menuTitle = getSettingWithDefault<string>(
+      'menu_title',
+      "Today's Menu",
+    )
+    const accentColor = getSettingWithDefault<string>(
+      'accent_color',
+      'rgba(255, 255, 255, 0.95)',
+    )
+    const backgroundImage = getSettingWithDefault<string>(
+      'background_image',
+      'assets/pizza.png',
+    )
+    const logoUrl = getSettingWithDefault<string>(
+      'logo_url',
+      'assets/screenly_food.svg',
+    )
+    const currency = getSettingWithDefault<string>('currency', '$')
 
     // Set custom accent color if provided
     document.documentElement.style.setProperty('--accent-color', accentColor)
@@ -118,7 +132,9 @@ function initializeMenuBoard(): void {
     }
 
     // Get all menu items
-    const menuItems = getMenuItems(getSetting)
+    const menuItems = getMenuItems((key: string) =>
+      getSettingWithDefault<string | undefined>(key, undefined),
+    )
 
     // Calculate items per page based on viewport
     const itemsPerPage = calculateItemsPerPage()
