@@ -43,7 +43,7 @@
     "@types/jsdom": "^27.0.0",
     "@types/node": "^25.0.3",
     "@vitejs/plugin-vue": "^6.0.3",
-    "@vitest/eslint-plugin": "^1.5.4",
+    "@vitest/eslint-plugin": "^1.6.1",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.5.1",
     "@vue/test-utils": "^2.4.6",
@@ -57,12 +57,12 @@
     "panic-overlay": "^1.0.51",
     "prettier": "3.7.4",
     "rimraf": "^6.1.2",
-    "sass-embedded": "^1.97.0",
+    "sass-embedded": "^1.97.1",
     "typescript": "~5.9.3",
     "vite": "^7.3.0",
     "vite-plugin-static-copy": "^3.1.4",
     "vite-plugin-vue-devtools": "^8.0.5",
     "vitest": "^4.0.16",
-    "vue-tsc": "^3.1.7"
+    "vue-tsc": "^3.2.1"
   }
 }

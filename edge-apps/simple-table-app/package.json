@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@photostructure/tz-lookup": "^11.3.0",
-    "@typescript-eslint/typescript-estree": "^8.50.0",
+    "@typescript-eslint/typescript-estree": "^8.50.1",
     "papaparse": "^5.5.3",
     "pinia": "^3.0.4",
     "vue": "^3.5.26",
@@ -39,7 +39,7 @@
     "@types/node": "^25.0.3",
     "@types/papaparse": "^5.5.2",
     "@vitejs/plugin-vue": "^6.0.3",
-    "@vitest/eslint-plugin": "^1.5.4",
+    "@vitest/eslint-plugin": "^1.6.1",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.5.1",
     "@vue/test-utils": "^2.4.6",
@@ -52,12 +52,12 @@
     "npm-run-all2": "^8.0.4",
     "prettier": "3.7.4",
     "rimraf": "^6.1.2",
-    "sass-embedded": "^1.97.0",
+    "sass-embedded": "^1.97.1",
     "typescript": "~5.9.3",
     "vite": "^7.3.0",
     "vite-plugin-static-copy": "^3.1.4",
     "vite-plugin-vue-devtools": "^8.0.5",
     "vitest": "^4.0.16",
-    "vue-tsc": "^3.1.8"
+    "vue-tsc": "^3.2.1"
   }
 }
