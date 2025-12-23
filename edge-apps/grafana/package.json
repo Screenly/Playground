@@ -13,11 +13,14 @@
     "test": "bun test",
     "test:unit": "bun run test",
     "lint": "tsc --noEmit",
-    "format": "prettier --config ../edge-apps-library/.prettierrc.json --write src/ README.md index.html static/css",
+    "format:common": "prettier src/ README.md index.html static/css",
+    "format": "bun run format:common --write",
+    "format:check": "bun run format:common --check",
     "deploy": "bun run build && screenly edge-app deploy",
     "prepare": "cd ../edge-apps-library && bun install && bun run build",
     "cors-proxy-server": "bun ../edge-apps-library/scripts/cors-proxy-server.ts"
   },
+  "prettier": "../edge-apps-library/.prettierrc.json",
   "dependencies": {},
   "devDependencies": {
     "@screenly/edge-apps": "workspace:../edge-apps-library",
