@@ -1,6 +1,6 @@
-import panic from 'panic-overlay'
 import {
   setupTheme,
+  setupErrorHandling,
   getSettingWithDefault,
   signalReady,
   getToken,
@@ -8,15 +8,8 @@ import {
 import { getRenderUrl, fetchAndRenderDashboard } from './render'
 
 window.onload = async function () {
-  // Configure panic overlay
-  const displayErrors = getSettingWithDefault<boolean>('display_errors', false)
-  panic.configure({
-    handleErrors: displayErrors,
-  })
-  if (displayErrors) {
-    window.addEventListener('error', signalReady)
-    window.addEventListener('unhandledrejection', signalReady)
-  }
+  // Setup error handling with panic-overlay
+  setupErrorHandling()
 
   // Setup branding colors using the library
   setupTheme()

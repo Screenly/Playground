@@ -1,3 +1,4 @@
+export * from './error-handling.js'
 export * from './theme.js'
 export * from './locale.js'
 export * from './metadata.js'
