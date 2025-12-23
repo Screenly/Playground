@@ -11,8 +11,7 @@
     "lint": "echo 'No linting configured for vanilla JS app'",
     "test:unit": "echo 'No unit tests configured'",
     "format": "sh -c 'filtered=\"\"; for arg in \"$@\"; do if [[ \"$arg\" == --* ]]; then filtered=\"$filtered $arg\"; elif [ -f \"$arg\" ] || [ -d \"$arg\" ]; then filtered=\"$filtered $arg\"; fi; done; if [ -n \"$filtered\" ]; then prettier --write $filtered; else exit 0; fi' _",
-    "format:check": "sh -c 'filtered=\"\"; for arg in \"$@\"; do if [[ \"$arg\" == --* ]]; then filtered=\"$filtered $arg\"; elif [ -f \"$arg\" ] || [ -d \"$arg\" ]; then filtered=\"$filtered $arg\"; fi; done; if [ -n \"$filtered\" ]; then prettier --check $filtered; else exit 0; fi' _",
-    "prettier": "sh -c 'filtered=\"\"; for arg in \"$@\"; do if [[ \"$arg\" == --* ]]; then filtered=\"$filtered $arg\"; elif [ -f \"$arg\" ] || [ -d \"$arg\" ]; then filtered=\"$filtered $arg\"; fi; done; if [ -n \"$filtered\" ]; then prettier $filtered; else exit 0; fi' _"
+    "format:check": "sh -c 'filtered=\"\"; for arg in \"$@\"; do if [[ \"$arg\" == --* ]]; then filtered=\"$filtered $arg\"; elif [ -f \"$arg\" ] || [ -d \"$arg\" ]; then filtered=\"$filtered $arg\"; fi; done; if [ -n \"$filtered\" ]; then prettier --check $filtered; else exit 0; fi' _"
   },
   "prettier": "../edge-apps-library/.prettierrc.json",
   "dependencies": {
