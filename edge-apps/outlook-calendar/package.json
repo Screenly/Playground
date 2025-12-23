@@ -19,6 +19,7 @@
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
     "format": "prettier --write src/ README.md index.html",
+    "format:check": "prettier --check src/ README.md index.html",
     "predeploy": "bun run build",
     "deploy": "screenly edge-app deploy --delete-missing-settings=true --path=dist/",
     "clear-mock-data": "rimraf mock-data.yml",

@@ -34,7 +34,8 @@
     "test:unit": "bun test",
     "test:coverage": "bun test --coverage",
     "lint": "tsc --noEmit",
-    "format": "prettier --write src/ README.md index.html"
+    "format": "prettier --write src/ README.md index.html",
+    "format:check": "prettier --check src/ README.md index.html"
   },
   "keywords": [
     "screenly",
