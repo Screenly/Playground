@@ -20,6 +20,7 @@
   "dependencies": {
     "qrcode": "^1.5.4"
   },
+  "prettier": "../edge-apps-library/.prettierrc.json",
   "devDependencies": {
     "@screenly/edge-apps": "workspace:../edge-apps-library",
     "@types/bun": "^1.3.5",
