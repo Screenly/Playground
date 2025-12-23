@@ -1,16 +1,25 @@
+import panic from 'panic-overlay'
 import {
   setupTheme,
   getSettingWithDefault,
   signalReady,
-  getAccessToken,
+  getToken,
 } from '@screenly/edge-apps'
 import { getRenderUrl, fetchAndRenderDashboard } from './render'
 
 window.onload = async function () {
+  // Configure panic overlay
+  const displayErrors = getSettingWithDefault<boolean>('display_errors', false)
+  panic.configure({
+    handleErrors: displayErrors,
+  })
+  if (displayErrors) {
+    window.addEventListener('error', signalReady)
+    window.addEventListener('unhandledrejection', signalReady)
+  }
+
   // Setup branding colors using the library
   setupTheme()
-
-  let errorMessage = ''
 
   // Get settings from screenly.yml
   const domain = getSettingWithDefault<string>('domain', '')
@@ -18,19 +27,13 @@ window.onload = async function () {
   const refreshInterval = getSettingWithDefault<number>('refresh_interval', 60)
 
   if (!domain || !dashboardId) {
-    errorMessage =
-      'Grafana domain and dashboard ID must be provided in the settings.'
-    return
+    throw new Error(
+      'Grafana domain and dashboard ID must be provided in the settings.',
+    )
   }
 
   // Get service access token from OAuth service
-  let serviceAccessToken = ''
-  try {
-    serviceAccessToken = await getAccessToken()
-  } catch (error) {
-    errorMessage = `Failed to retrieve access token: ${error instanceof Error ? error.message : 'Unknown error'}`
-    return
-  }
+  const serviceAccessToken = await getToken()
 
   const imageUrl = getRenderUrl(domain, dashboardId)
 

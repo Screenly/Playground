@@ -1,9 +1,9 @@
 /**
- * Retrieves an OAuth access token from the Screenly OAuth service
+ * Retrieves an OAuth token from the Screenly OAuth service
  * @param tokenType The token endpoint type (default: 'access_token')
- * @returns The access token for the configured OAuth provider
+ * @returns The token for the configured OAuth provider
  */
-export const getAccessToken = async (
+export const getToken = async (
   tokenType: string = 'access_token',
 ): Promise<string> => {
   const response = await fetch(

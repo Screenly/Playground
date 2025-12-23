@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "generate-mock-data": "screenly edge-app run --generate-mock-data",
-    "build:dev": "bun build src/main.ts --outdir static/js --target browser --watch",
+    "build:dev": "bun build src/main.ts --outdir static/js --target browser --watch --sourcemap",
     "predev": "bun run generate-mock-data",
     "dev": "run-p build:dev dev:edge cors-proxy-server",
     "dev:edge": "screenly edge-app run",
@@ -26,6 +26,7 @@
     "bun-types": "^1.3.4",
     "jsdom": "^27.3.0",
     "npm-run-all2": "^8.0.4",
+    "panic-overlay": "^1.0.51",
     "prettier": "^3.7.4",
     "typescript": "^5.9.3"
   }

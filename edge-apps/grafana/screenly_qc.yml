@@ -23,6 +23,17 @@ settings:
         help_text: The unique ID of the Grafana dashboard
         type: oauth:grafana:dashboard_id
       schema_version: 1
+  display_errors:
+    type: string
+    default_value: 'false'
+    title: Display Errors
+    optional: true
+    help_text:
+      properties:
+        advanced: true
+        help_text: For debugging purposes to display errors on the screen.
+        type: boolean
+      schema_version: 1
   domain:
     type: string
     title: Grafana Domain
