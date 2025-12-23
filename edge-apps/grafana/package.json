@@ -13,7 +13,7 @@
     "test": "bun test",
     "test:unit": "bun run test",
     "lint": "tsc --noEmit",
-    "format": "prettier --write src/ README.md index.html static/css",
+    "format": "prettier --config ../edge-apps-library/.prettierrc.json --write src/ README.md index.html static/css",
     "deploy": "bun run build && screenly edge-app deploy",
     "prepare": "cd ../edge-apps-library && bun install && bun run build",
     "cors-proxy-server": "bun ../edge-apps-library/scripts/cors-proxy-server.ts"
