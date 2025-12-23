@@ -25,6 +25,7 @@
     "clear-mock-data": "rimraf mock-data.yml",
     "prepare": "cd ../blueprint && bun install"
   },
+  "prettier": "../edge-apps-library/.prettierrc.json",
   "dependencies": {
     "@typescript-eslint/typescript-estree": "^8.50.0",
     "pinia": "^3.0.4",

@@ -5,6 +5,7 @@
     "format": "prettier --write scripts/ scss/ ts/",
     "format:check": "prettier --check scripts/ scss/ ts/"
   },
+  "prettier": "./.prettierrc.json",
   "dependencies": {
     "@photostructure/tz-lookup": "^11.3.0",
     "@sentry/vue": "^10.32.1",
