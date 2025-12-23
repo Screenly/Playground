@@ -10,8 +10,9 @@
     "deploy": "bun run build && screenly edge-app deploy",
     "lint": "echo 'No linting configured for vanilla JS app'",
     "test:unit": "echo 'No unit tests configured'",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:common": "prettier . \"!static/js/vendor\"",
+    "format": "bun run format:common --write",
+    "format:check": "bun run format:common --check"
   },
   "prettier": "../edge-apps-library/.prettierrc.json",
   "dependencies": {
