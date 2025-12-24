@@ -12,30 +12,30 @@ describe('locale utilities', () => {
   })
 
   describe('getTimeZone', () => {
-    test('should return timezone for coordinates', () => {
+    test('should return timezone for coordinates', async () => {
       setupScreenlyMock({
         coordinates: [37.3861, -122.0839], // Mountain View, CA
       })
 
-      const timezone = getTimeZone()
+      const timezone = await getTimeZone()
       expect(timezone).toBe('America/Los_Angeles')
     })
 
-    test('should return timezone for London coordinates', () => {
+    test('should return timezone for London coordinates', async () => {
       setupScreenlyMock({
         coordinates: [51.5074, -0.1278], // London, UK
       })
 
-      const timezone = getTimeZone()
+      const timezone = await getTimeZone()
       expect(timezone).toBe('Europe/London')
     })
 
-    test('should return timezone for Tokyo coordinates', () => {
+    test('should return timezone for Tokyo coordinates', async () => {
       setupScreenlyMock({
         coordinates: [35.6762, 139.6503], // Tokyo, Japan
       })
 
-      const timezone = getTimeZone()
+      const timezone = await getTimeZone()
       expect(timezone).toBe('Asia/Tokyo')
     })
   })
