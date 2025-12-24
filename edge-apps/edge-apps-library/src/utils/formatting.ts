@@ -1,10 +1,41 @@
-// TODO: Add a utility function for formatting dates.
-// Examples
-// - "December 25, 2023" in en-US
-// - "25 December 2023" in en-GB
-// - "2023年12月25日" in ja-JP
-// - "25.12.2023" in de-DE
+/**
+ * Format a date in a locale-aware way.
+ *
+ * Examples:
+ * - "December 25, 2023" in en-US
+ * - "25 December 2023" in en-GB
+ * - "2023年12月25日" in ja-JP
+ * - "25.12.2023" in de-DE
+ *
+ * By default, formats as a full date (year, month, day). Callers can
+ * override or extend the formatting via the `options` parameter.
+ */
+export function formatLocalizedDate(
+  date: Date,
+  locale: string,
+  options?: Intl.DateTimeFormatOptions,
+): string {
+  const baseOptions: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }
 
+  try {
+    const formatter = new Intl.DateTimeFormat(locale, {
+      ...baseOptions,
+      ...options,
+    })
+    return formatter.format(date)
+  } catch {
+    // Fallback to a safe default for unrecognized locales
+    const fallbackFormatter = new Intl.DateTimeFormat('en-US', {
+      ...baseOptions,
+      ...options,
+    })
+    return fallbackFormatter.format(date)
+  }
+}
 /**
  * Get localized day names (Sunday-Saturday)
  * Returns both full and short forms
