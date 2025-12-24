@@ -17,6 +17,24 @@ function isValidTimezone(timezone: string): boolean {
 }
 
 /**
+ * Validate locale using native Intl API
+ * Ensures the resolved locale's language code matches the requested locale
+ */
+function isValidLocale(locale: string): boolean {
+  try {
+    const formatter = new Intl.DateTimeFormat(locale)
+    const resolved = formatter.resolvedOptions().locale
+    // Check if the resolved locale's language code matches the requested one
+    // e.g., 'zh-CN' → language 'zh', 'en-US' → language 'en'
+    const requestedLanguage = locale.toLowerCase().split('-')[0]
+    const resolvedLanguage = resolved.toLowerCase().split('-')[0]
+    return requestedLanguage === resolvedLanguage
+  } catch {
+    return false
+  }
+}
+
+/**
  * Resolve timezone configuration with fallback chain
  * Fallback order: override setting (validated) → GPS-based detection → 'UTC'
  */
@@ -47,13 +65,20 @@ export async function getTimeZone(): Promise<string> {
 
 /**
  * Resolve locale configuration with fallback chain
- * Fallback order: override setting → GPS-based detection → browser locale → 'en'
+ * Fallback order: override setting (validated) → GPS-based detection → browser locale → 'en'
  */
 export async function getLocale(): Promise<string> {
-  // Priority 1: Use override setting if provided
+  // Priority 1: Use override setting if provided and valid
   const overrideLocale = getSettingWithDefault<string>('override_locale', '')
   if (overrideLocale) {
-    return overrideLocale.replace('_', '-')
+    const normalizedLocale = overrideLocale.replace('_', '-')
+    // Validate the override locale
+    if (isValidLocale(normalizedLocale)) {
+      return normalizedLocale
+    }
+    console.warn(
+      `Invalid locale override: "${overrideLocale}", falling back to GPS detection`,
+    )
   }
 
   const [lat, lng] = getMetadata().coordinates

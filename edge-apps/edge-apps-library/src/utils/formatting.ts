@@ -16,14 +16,13 @@ export function getLocalizedDayNames(locale: string): {
   const full: string[] = []
   const short: string[] = []
 
-  // Get current week and iterate through each day
+  // Use a fixed reference date (January 1st) of the current year
   const now = new Date()
-  const startOfWeek = new Date(now)
-  startOfWeek.setDate(now.getDate() - now.getDay())
+  const referenceDate = new Date(Date.UTC(now.getFullYear(), 0, 1))
 
   for (let i = 0; i < 7; i++) {
-    const date = new Date(startOfWeek)
-    date.setDate(startOfWeek.getDate() + i)
+    const date = new Date(referenceDate)
+    date.setUTCDate(referenceDate.getUTCDate() + i)
 
     full.push(date.toLocaleDateString(locale, { weekday: 'long' }))
     short.push(date.toLocaleDateString(locale, { weekday: 'short' }))
@@ -63,14 +62,10 @@ export function getLocalizedMonthNames(locale: string): {
 export function detectHourFormat(locale: string): 'hour12' | 'hour24' {
   try {
     const formatter = new Intl.DateTimeFormat(locale, {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: true,
+      hour: 'numeric',
     })
-    const parts = formatter.formatToParts(new Date())
-    // If dayPeriod (AM/PM) exists, it's 12-hour format
-    const hasDayPeriod = parts.some((part) => part.type === 'dayPeriod')
-    return hasDayPeriod ? 'hour12' : 'hour24'
+
+    return formatter.resolvedOptions().hour12 ? 'hour12' : 'hour24'
   } catch {
     // Fallback to 24-hour for unrecognized locales
     return 'hour24'
