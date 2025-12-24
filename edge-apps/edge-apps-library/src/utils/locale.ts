@@ -165,13 +165,19 @@ export function getLocalizedDayNames(locale: string): {
   const full: string[] = []
   const short: string[] = []
 
-  // Use a fixed reference date (January 1st) of the current year
+  // Find the first Sunday of the current year
   const now = new Date()
-  const referenceDate = new Date(Date.UTC(now.getFullYear(), 0, 1))
+  const year = now.getFullYear()
+  const firstDay = new Date(Date.UTC(year, 0, 1))
+  const dayOfWeek = firstDay.getUTCDay() // 0 = Sunday, 1 = Monday, etc.
+
+  // Calculate offset to get to the first Sunday
+  const offset = dayOfWeek === 0 ? 0 : 7 - dayOfWeek
+  const firstSunday = new Date(Date.UTC(year, 0, 1 + offset))
 
   for (let i = 0; i < 7; i++) {
-    const date = new Date(referenceDate)
-    date.setUTCDate(referenceDate.getUTCDate() + i)
+    const date = new Date(firstSunday)
+    date.setUTCDate(firstSunday.getUTCDate() + i)
 
     full.push(date.toLocaleDateString(locale, { weekday: 'long' }))
     short.push(date.toLocaleDateString(locale, { weekday: 'short' }))
@@ -251,6 +257,28 @@ function extractTimePartsFromFormatter(
 }
 
 /**
+ * Get locale extension for numeral system based on language
+ * This enables locale-specific number representations (e.g., Thai numerals, Chinese numerals)
+ */
+function getLocaleWithNumeralSystem(locale: string): string {
+  const language = locale.toLowerCase().split('-')[0]
+
+  // Map of languages to their numeral system extensions
+  const numeralSystemMap: Record<string, string> = {
+    th: 'thai', // Thai numerals: ๐๑๒๓๔๕๖๗๘๙
+    zh: 'hanidec', // Chinese numerals: 〇一二三四五六七八九
+  }
+
+  const numeralSystem = numeralSystemMap[language]
+  if (numeralSystem) {
+    // Add numeral system extension using Unicode extension
+    return `${locale}-u-nu-${numeralSystem}`
+  }
+
+  return locale
+}
+
+/**
  * Format time with locale and timezone awareness
  * Returns structured time parts for flexible composition
  */
@@ -272,8 +300,11 @@ export function formatTime(
     // Determine hour format if not explicitly provided
     const hour12 = options?.hour12 ?? detectHourFormat(locale) === 'hour12'
 
+    // Get locale with numeral system extension if applicable
+    const localeWithNumerals = getLocaleWithNumeralSystem(locale)
+
     // Format with Intl API for proper localization
-    const formatter = new Intl.DateTimeFormat(locale, {
+    const formatter = new Intl.DateTimeFormat(localeWithNumerals, {
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
