@@ -113,7 +113,7 @@ describe('getLocalizedDayNames', () => {
     }
   })
 
-  test('should return day names for shorthand day names for different locales', () => {
+  test('should return full and shorthand day names for different locales', () => {
     const localeExpectations: Array<{
       locale: string
       full: string[]

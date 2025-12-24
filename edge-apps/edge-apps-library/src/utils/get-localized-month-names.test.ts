@@ -153,7 +153,7 @@ describe('getLocalizedMonthNames', () => {
     }
   })
 
-  test('should return month names for shorthand month names for different locales', () => {
+  test('should return full and short month names for different locales', () => {
     const localeExpectations: Array<{
       locale: string
       full: string[]
