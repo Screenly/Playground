@@ -38,6 +38,43 @@ describe('locale utilities', () => {
       const timezone = await getTimeZone()
       expect(timezone).toBe('Asia/Tokyo')
     })
+
+    test('should use valid override_timezone setting', async () => {
+      setupScreenlyMock(
+        {
+          coordinates: [37.3861, -122.0839],
+        },
+        {
+          override_timezone: 'Europe/Paris',
+        },
+      )
+
+      const timezone = await getTimeZone()
+      expect(timezone).toBe('Europe/Paris')
+    })
+
+    test('should fallback to GPS detection for invalid override_timezone', async () => {
+      setupScreenlyMock(
+        {
+          coordinates: [51.5074, -0.1278],
+        },
+        {
+          override_timezone: 'Invalid/Timezone',
+        },
+      )
+
+      const timezone = await getTimeZone()
+      expect(timezone).toBe('Europe/London')
+    })
+
+    test('should fallback to UTC when coordinates are missing', async () => {
+      setupScreenlyMock({
+        coordinates: undefined,
+      })
+
+      const timezone = await getTimeZone()
+      expect(timezone).toBe('UTC')
+    })
   })
 
   describe('formatCoordinates', () => {
