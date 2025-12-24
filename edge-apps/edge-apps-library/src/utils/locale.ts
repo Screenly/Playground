@@ -21,6 +21,18 @@ function isValidTimezone(timezone: string): boolean {
  * Ensures the resolved locale's language code matches the requested locale
  */
 function isValidLocale(locale: string): boolean {
+  // Basic format validation: should be at least 2 characters
+  // and not end with a hyphen
+  if (!locale || locale.length < 2 || locale.endsWith('-')) {
+    return false
+  }
+
+  // Language code should be 2-3 characters, followed by optional region/script
+  const localeRegex = /^[a-z]{2,3}(-[a-z]{2,})*$/i
+  if (!localeRegex.test(locale)) {
+    return false
+  }
+
   try {
     const formatter = new Intl.DateTimeFormat(locale)
     const resolved = formatter.resolvedOptions().locale
@@ -28,7 +40,24 @@ function isValidLocale(locale: string): boolean {
     // e.g., 'zh-CN' → language 'zh', 'en-US' → language 'en'
     const requestedLanguage = locale.toLowerCase().split('-')[0]
     const resolvedLanguage = resolved.toLowerCase().split('-')[0]
-    return requestedLanguage === resolvedLanguage
+
+    if (requestedLanguage !== resolvedLanguage) {
+      return false
+    }
+
+    // If request includes a region/script, verify it's preserved in resolution
+    // This catches cases like 'en-INVALID' resolving to 'en'
+    const requestedParts = locale.toLowerCase().split('-')
+    if (requestedParts.length > 1) {
+      const resolvedParts = resolved.toLowerCase().split('-')
+      // If we requested more than just language, the resolved should have similar depth
+      // (or not drop the requested parts entirely)
+      if (resolvedParts.length < requestedParts.length) {
+        return false
+      }
+    }
+
+    return true
   } catch {
     return false
   }

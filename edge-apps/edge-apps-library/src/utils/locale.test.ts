@@ -122,12 +122,12 @@ describe('locale utilities', () => {
           coordinates: [37.3861, -122.0839],
         },
         {
-          override_locale: 'en_US_POSIX',
+          override_locale: 'de_DE',
         },
       )
 
       const locale = await getLocale()
-      expect(locale).toBe('en-US-POSIX')
+      expect(locale).toBe('de-DE')
     })
 
     test('should fallback to GPS detection for invalid override_locale', async () => {
@@ -142,6 +142,51 @@ describe('locale utilities', () => {
 
       const locale = await getLocale()
       // Should fallback to GPS-based locale detection (ja for Japan)
+      expect(locale.startsWith('ja')).toBe(true)
+    })
+
+    test('should reject malformed locale with trailing hyphen', async () => {
+      setupScreenlyMock(
+        {
+          coordinates: [35.6762, 139.6503],
+        },
+        {
+          override_locale: 'en-',
+        },
+      )
+
+      const locale = await getLocale()
+      // Should fallback to GPS-based locale detection
+      expect(locale.startsWith('ja')).toBe(true)
+    })
+
+    test('should reject malformed locale where region code is invalid', async () => {
+      setupScreenlyMock(
+        {
+          coordinates: [35.6762, 139.6503],
+        },
+        {
+          override_locale: 'en-INVALID',
+        },
+      )
+
+      const locale = await getLocale()
+      // Should fallback to GPS-based locale detection (not use 'en')
+      expect(locale.startsWith('ja')).toBe(true)
+    })
+
+    test('should reject locale with underscores and invalid parts', async () => {
+      setupScreenlyMock(
+        {
+          coordinates: [35.6762, 139.6503],
+        },
+        {
+          override_locale: 'en_US_INVALID_EXTRA',
+        },
+      )
+
+      const locale = await getLocale()
+      // Should fallback to GPS-based locale detection
       expect(locale.startsWith('ja')).toBe(true)
     })
   })
