@@ -30,9 +30,9 @@
   "scripts": {
     "build": "bun build:types",
     "build:types": "tsc",
-    "test": "bun test",
-    "test:unit": "bun test",
-    "test:coverage": "bun test --coverage",
+    "test": "bun test --parallel",
+    "test:unit": "bun test --parallel",
+    "test:coverage": "bun test --coverage --parallel",
     "lint": "tsc --noEmit",
     "format": "prettier --write src/ README.md index.html"
   },
