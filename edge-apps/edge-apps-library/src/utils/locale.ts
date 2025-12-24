@@ -1,23 +1,62 @@
 import tzlookup from '@photostructure/tz-lookup'
 import clm from 'country-locale-map'
 import { getNearestCity } from 'offline-geocode-city'
+import { getSettingWithDefault } from './settings.js'
+import { getMetadata } from './metadata.js'
 
 /**
- * Get the timezone for the screen's location
- * Uses the GPS coordinates from Screenly metadata
+ * Validate timezone using native Intl API
  */
-export function getTimeZone(): string {
-  const [latitude, longitude] = screenly.metadata.coordinates
-  return tzlookup(latitude, longitude)
+function isValidTimezone(timezone: string): boolean {
+  try {
+    new Intl.DateTimeFormat('en-US', { timeZone: timezone })
+    return true
+  } catch {
+    return false
+  }
 }
 
 /**
- * Get the locale for the screen's location
- * Uses the GPS coordinates to determine the country and returns the appropriate locale
- * Falls back to browser locale if geocoding fails
+ * Resolve timezone configuration with fallback chain
+ * Fallback order: override setting (validated) → GPS-based detection → 'UTC'
+ */
+export async function getTimeZone(): Promise<string> {
+  // Priority 1: Use override setting if provided and valid
+  const overrideTimezone = getSettingWithDefault<string>(
+    'override_timezone',
+    '',
+  )
+  if (overrideTimezone) {
+    // Validate using native Intl API
+    if (isValidTimezone(overrideTimezone)) {
+      return overrideTimezone
+    }
+    console.warn(
+      `Invalid timezone override: "${overrideTimezone}", falling back to GPS detection`,
+    )
+  }
+
+  try {
+    const [latitude, longitude] = getMetadata().coordinates
+    return tzlookup(latitude, longitude)
+  } catch (error) {
+    console.warn('Failed to get timezone from coordinates, using UTC:', error)
+    return 'UTC'
+  }
+}
+
+/**
+ * Resolve locale configuration with fallback chain
+ * Fallback order: override setting → GPS-based detection → browser locale → 'en'
  */
 export async function getLocale(): Promise<string> {
-  const [lat, lng] = screenly.metadata.coordinates
+  // Priority 1: Use override setting if provided
+  const overrideLocale = getSettingWithDefault<string>('override_locale', '')
+  if (overrideLocale) {
+    return overrideLocale.replace('_', '-')
+  }
+
+  const [lat, lng] = getMetadata().coordinates
 
   const defaultLocale =
     (navigator?.languages?.length
