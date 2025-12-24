@@ -288,6 +288,7 @@ function extractTimePartsFromFormatter(
 /**
  * Get locale extension for numeral system based on language
  * This enables locale-specific number representations (e.g., Thai numerals, Chinese numerals)
+ * Uses Intl.Locale API to robustly handle existing extensions
  */
 function getLocaleWithNumeralSystem(locale: string): string {
   const language = locale.toLowerCase().split('-')[0]
@@ -299,12 +300,22 @@ function getLocaleWithNumeralSystem(locale: string): string {
   }
 
   const numeralSystem = numeralSystemMap[language]
-  if (numeralSystem) {
-    // Add numeral system extension using Unicode extension
-    return `${locale}-u-nu-${numeralSystem}`
+  if (!numeralSystem) {
+    return locale
   }
 
-  return locale
+  try {
+    // Use Intl.Locale API to robustly handle existing extensions
+    // This properly merges extensions instead of creating duplicates
+    const localeObj = new Intl.Locale(locale, {
+      numberingSystem: numeralSystem,
+    })
+    return localeObj.toString()
+  } catch (error) {
+    // Fallback to original locale if Intl.Locale fails
+    console.warn(`Failed to apply numeral system to locale "${locale}":`, error)
+    return locale
+  }
 }
 
 /**

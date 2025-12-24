@@ -133,4 +133,18 @@ describe('formatTime', () => {
       console.warn = originalWarn
     }
   })
+
+  test('should handle locales with existing extensions', () => {
+    // Test with a locale that has existing extensions
+    // zh-CN-u-ca-chinese has calendar extension
+    const result = formatTime(testDate, 'zh-CN-u-ca-chinese', 'UTC')
+    expect(result).toHaveProperty('hour')
+    expect(result).toHaveProperty('minute')
+    expect(result).toHaveProperty('second')
+    expect(result).toHaveProperty('formatted')
+    // Should use Chinese numerals despite existing extension
+    expect(result.hour).toBe('一四')
+    expect(result.minute).toBe('三〇')
+    expect(result.second).toBe('四五')
+  })
 })
