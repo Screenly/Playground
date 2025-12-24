@@ -71,7 +71,7 @@ export async function getLocale(): Promise<string> {
   // Priority 1: Use override setting if provided and valid
   const overrideLocale = getSettingWithDefault<string>('override_locale', '')
   if (overrideLocale) {
-    const normalizedLocale = overrideLocale.replace('_', '-')
+    const normalizedLocale = overrideLocale.replaceAll('_', '-')
     // Validate the override locale
     if (isValidLocale(normalizedLocale)) {
       return normalizedLocale

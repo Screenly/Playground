@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, afterEach } from 'bun:test'
-import { getTimeZone, formatCoordinates } from './locale'
+import { getTimeZone, formatCoordinates, getLocale } from './locale'
 import { setupScreenlyMock, resetScreenlyMock } from '../test/mock'
 
 describe('locale utilities', () => {
@@ -98,6 +98,51 @@ describe('locale utilities', () => {
       // Zero latitude is technically neither N nor S, but the function returns S
       // Zero longitude is technically neither E nor W, but the function returns W
       expect(formatted).toBe('0.0000° S, 0.0000° W')
+    })
+  })
+
+  describe('getLocale', () => {
+    test('should normalize single underscore in override_locale', async () => {
+      setupScreenlyMock(
+        {
+          coordinates: [37.3861, -122.0839],
+        },
+        {
+          override_locale: 'en_US',
+        },
+      )
+
+      const locale = await getLocale()
+      expect(locale).toBe('en-US')
+    })
+
+    test('should normalize multiple underscores in override_locale', async () => {
+      setupScreenlyMock(
+        {
+          coordinates: [37.3861, -122.0839],
+        },
+        {
+          override_locale: 'en_US_POSIX',
+        },
+      )
+
+      const locale = await getLocale()
+      expect(locale).toBe('en-US-POSIX')
+    })
+
+    test('should fallback to GPS detection for invalid override_locale', async () => {
+      setupScreenlyMock(
+        {
+          coordinates: [35.6762, 139.6503], // Tokyo, Japan
+        },
+        {
+          override_locale: 'invalid_locale_xyz',
+        },
+      )
+
+      const locale = await getLocale()
+      // Should fallback to GPS-based locale detection (ja for Japan)
+      expect(locale.startsWith('ja')).toBe(true)
     })
   })
 })
