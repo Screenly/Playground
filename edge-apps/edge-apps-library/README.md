@@ -38,11 +38,16 @@ signalReady()
 - `getMetadata()` - Get all screen metadata
 - `getScreenName()`, `getHostname()`, `getLocation()`, `getHardware()`, `getScreenlyVersion()`, `getTags()`, `hasTag(tag)`, `getFormattedCoordinates()`
 
-### Location
+### Location & Localization
 
 - `getTimeZone()` - Get timezone from GPS coordinates
 - `getLocale()` - Get locale from location
 - `formatCoordinates(coords)` - Format coordinates as string
+- `formatLocalizedDate(date, locale)` - Format date for locale
+- `formatTime(date, locale, timezone)` - Format time for locale
+- `getLocalizedDayNames(locale)` - Get day names for locale
+- `getLocalizedMonthNames(locale)` - Get month names for locale
+- `detectHourFormat(locale)` - Detect 12h/24h format for locale
 
 ### UTM Tracking
 
