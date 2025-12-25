@@ -10,8 +10,11 @@
     "deploy": "bun run build && screenly edge-app deploy",
     "lint": "echo 'No linting configured for vanilla JS app'",
     "test:unit": "echo 'No unit tests configured'",
-    "prettier": "sh -c 'filtered=\"\"; for arg in \"$@\"; do if [[ \"$arg\" == --* ]]; then filtered=\"$filtered $arg\"; elif [ -f \"$arg\" ] || [ -d \"$arg\" ]; then filtered=\"$filtered $arg\"; fi; done; if [ -n \"$filtered\" ]; then prettier $filtered; else exit 0; fi' _"
+    "format:common": "prettier . \"!static/js/vendor\"",
+    "format": "bun run format:common --write",
+    "format:check": "bun run format:common --check"
   },
+  "prettier": "../edge-apps-library/.prettierrc.json",
   "dependencies": {
     "powerbi-client": "^2.22.2",
     "panic-overlay": "^1.0.51"
@@ -20,4 +23,3 @@
     "prettier": "3.7.4"
   }
 }
-
