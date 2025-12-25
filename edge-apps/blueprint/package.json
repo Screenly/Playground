@@ -5,6 +5,7 @@
     "format": "prettier --write scripts/ scss/ ts/",
     "format:check": "prettier --check scripts/ scss/ ts/"
   },
+  "prettier": "./.prettierrc.json",
   "dependencies": {
     "@photostructure/tz-lookup": "^11.3.0",
     "@sentry/vue": "^10.32.1",
@@ -22,7 +23,7 @@
     "@types/jsdom": "^27.0.0",
     "@types/node": "^25.0.3",
     "@vitejs/plugin-vue": "^6.0.3",
-    "@vitest/eslint-plugin": "^1.6.3",
+    "@vitest/eslint-plugin": "^1.6.4",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.5.1",
     "@vue/test-utils": "^2.4.6",

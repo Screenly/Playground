@@ -155,13 +155,7 @@ jobs:
 
       - name: Run formatting check
         working-directory: edge-apps/${{ matrix.app }}
-        run: |
-          if grep -q "edge-apps-library" package.json; then
-            echo "Using shared prettier config from edge-apps-library..."
-            bun run prettier --config ../edge-apps-library/.prettierrc.json --check src/ README.md index.html
-          else
-            bun run prettier --check src/ README.md index.html
-          fi
+        run: bun run format:check
 
       - name: Run unit tests
         working-directory: edge-apps/${{ matrix.app }}
