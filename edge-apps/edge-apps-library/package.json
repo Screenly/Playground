@@ -34,8 +34,10 @@
     "test:unit": "bun test --parallel",
     "test:coverage": "bun test --coverage --parallel",
     "lint": "tsc --noEmit",
-    "format": "prettier --write src/ README.md index.html"
+    "format": "prettier --write src/ README.md index.html",
+    "format:check": "prettier --check src/ README.md index.html"
   },
+  "prettier": "./.prettierrc.json",
   "keywords": [
     "screenly",
     "edge-apps",
