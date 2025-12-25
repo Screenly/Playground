@@ -13,7 +13,9 @@
     "test": "bun test",
     "test:unit": "bun test",
     "lint": "tsc --noEmit",
-    "format": "prettier --write src/ README.md index.html",
+    "format-common": "prettier src/ README.md index.html",
+    "format": "bun run format-common --write",
+    "format:check": "bun run format-common --check",
     "deploy": "bun run build && screenly edge-app deploy",
     "prepare": "cd ../edge-apps-library && bun install && bun run build"
   },
