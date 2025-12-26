@@ -5,3 +5,6 @@ dist/
 mock-data.yml
 instance.yml
 bun.lockb
+static/js/*.js
+static/js/*.js.map
+static/style.css
