@@ -5,9 +5,13 @@ import {
   getTags,
   getSettings,
   getCorsProxyUrl,
+  isAnywhereScreen,
 } from '@screenly/edge-apps'
 
 import { XMLParser } from 'fast-xml-parser'
+
+const DEMO_BASE_URL =
+  'https://raw.githubusercontent.com/Screenly/Playground/refs/heads/master/edge-apps/cap-alerting'
 
 interface CAPResource {
   resourceDesc?: string
@@ -498,7 +502,7 @@ export async function startApp(): Promise<void> {
         xml = null
       }
     } else if (demoMode && !feedUrl) {
-      const demoFiles = [
+      const localDemoFiles = [
         'static/demo-1-tornado.cap',
         'static/demo-2-fire.cap',
         'static/demo-3-flood.cap',
@@ -506,6 +510,10 @@ export async function startApp(): Promise<void> {
         'static/demo-5-hazmat.cap',
         'static/demo-6-shooter.cap',
       ]
+      const remoteDemoFiles = localDemoFiles.map(
+        (file) => `${DEMO_BASE_URL}/${file}`,
+      )
+      const demoFiles = isAnywhereScreen() ? remoteDemoFiles : localDemoFiles
       const randomFile = demoFiles[Math.floor(Math.random() * demoFiles.length)]
       try {
         const resp = await fetch(randomFile)
