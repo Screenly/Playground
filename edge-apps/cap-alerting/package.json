@@ -12,7 +12,9 @@
     "test:watch": "bun test --watch",
     "type-check": "tsc --noEmit",
     "lint": "bash -c 'OUTPUT=$(tsc --noEmit --skipLibCheck index.ts index.test.ts src/fetcher.ts src/fetcher.test.ts src/main.ts 2>&1 | grep -v edge-apps-library); if [ -n \"$OUTPUT\" ]; then echo \"$OUTPUT\"; exit 1; fi'",
-    "format": "prettier --write src/ README.md index.html",
+    "format:common": "prettier src/ README.md index.html",
+    "format": "bun run format:common --write",
+    "format:check": "bun run format:common --check",
     "deploy": "bun run build && screenly edge-app deploy"
   },
   "dependencies": {
