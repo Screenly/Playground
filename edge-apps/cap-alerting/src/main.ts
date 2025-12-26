@@ -8,70 +8,11 @@ import {
   isAnywhereScreen,
 } from '@screenly/edge-apps'
 
+import { CAPResource, CAPArea, CAPInfo, CAPAlert } from './types/cap.js'
 import { XMLParser } from 'fast-xml-parser'
 
 const DEMO_BASE_URL =
   'https://raw.githubusercontent.com/Screenly/Playground/refs/heads/master/edge-apps/cap-alerting'
-
-interface CAPResource {
-  resourceDesc?: string
-  mimeType: string
-  size?: number
-  uri?: string
-  derefUri?: string
-  digest?: string
-  url: string
-}
-
-interface CAPArea {
-  areaDesc: string
-  polygon?: string | string[]
-  circle?: string | string[]
-  geocode?: any
-  altitude?: number
-  ceiling?: number
-}
-
-interface CAPInfo {
-  language: string
-  category?: string | string[]
-  event?: string
-  responseType?: string | string[]
-  urgency?: string
-  severity?: string
-  certainty?: string
-  audience?: string
-  effective?: string
-  onset?: string
-  expires?: string
-  senderName?: string
-  headline?: string
-  description?: string
-  instruction?: string
-  web?: string
-  contact?: string
-  parameter?: any
-  eventCode?: any
-  resources: CAPResource[]
-  areas: CAPArea[]
-}
-
-interface CAPAlert {
-  identifier: string
-  sender: string
-  sent: string
-  status?: string
-  msgType?: string
-  source?: string
-  scope?: string
-  restriction?: string
-  addresses?: string
-  code?: string | string[]
-  note?: string
-  references?: string
-  incidents?: string
-  infos: CAPInfo[]
-}
 
 export function parseCap(xml: string): CAPAlert[] {
   const parser = new XMLParser({
