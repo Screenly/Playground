@@ -70,9 +70,16 @@ interface CAPAlert {
 }
 
 export function parseCap(xml: string): CAPAlert[] {
-  const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: '@_' })
+  const parser = new XMLParser({
+    ignoreAttributes: false,
+    attributeNamePrefix: '@_',
+  })
   const json: any = parser.parse(xml)
-  const alertsJson = json.alert ? (Array.isArray(json.alert) ? json.alert : [json.alert]) : []
+  const alertsJson = json.alert
+    ? Array.isArray(json.alert)
+      ? json.alert
+      : [json.alert]
+    : []
 
   const alerts: CAPAlert[] = []
 
@@ -85,7 +92,11 @@ export function parseCap(xml: string): CAPAlert[] {
           ? info.resource
           : [info.resource]
         : []
-      const areasJson = info.area ? (Array.isArray(info.area) ? info.area : [info.area]) : []
+      const areasJson = info.area
+        ? Array.isArray(info.area)
+          ? info.area
+          : [info.area]
+        : []
 
       return {
         language: info.language || '',
@@ -163,7 +174,10 @@ export function getNearestExit(tags: string[]): string | undefined {
   return undefined
 }
 
-async function fetchCapData(feedUrl: string, offlineMode: boolean): Promise<string | null> {
+async function fetchCapData(
+  feedUrl: string,
+  offlineMode: boolean,
+): Promise<string | null> {
   if (offlineMode) {
     return localStorage.getItem('cap_last')
   }
@@ -212,7 +226,10 @@ function highlightKeywords(text: string): string {
   let result = text
   keywords.forEach((keyword) => {
     const regex = new RegExp(`\\b(${keyword})\\b`, 'gi')
-    result = result.replace(regex, '<strong class="text-red-800 font-black">$1</strong>')
+    result = result.replace(
+      regex,
+      '<strong class="text-red-800 font-black">$1</strong>',
+    )
   })
 
   return result
@@ -238,7 +255,7 @@ function renderAlerts(
   nearestExit: string | undefined,
   lang: string,
   maxAlerts: number,
-  playAudio: boolean
+  playAudio: boolean,
 ): void {
   const container = document.getElementById('alerts')
   if (!container) return
@@ -251,7 +268,8 @@ function renderAlerts(
     if (!info) return
 
     const card = document.createElement('div')
-    card.className = 'alert-card w-full h-full bg-white flex flex-col overflow-y-auto'
+    card.className =
+      'alert-card w-full h-full bg-white flex flex-col overflow-y-auto'
 
     if (alert.status) {
       const statusBanner = document.createElement('div')
@@ -283,24 +301,28 @@ function renderAlerts(
     }
 
     const headerRow = document.createElement('div')
-    headerRow.className = 'flex items-center justify-between gap-[2vw] mx-[5vw] mt-[2vh] mb-[1.5vh]'
+    headerRow.className =
+      'flex items-center justify-between gap-[2vw] mx-[5vw] mt-[2vh] mb-[1.5vh]'
 
     const header = document.createElement('h2')
-    header.className = 'text-red-600 font-black uppercase leading-none event-title-text'
+    header.className =
+      'text-red-600 font-black uppercase leading-none event-title-text'
     header.textContent = info.event || alert.identifier
     headerRow.appendChild(header)
 
     const meta = document.createElement('div')
     meta.className =
       'severity-badge inline-block text-white rounded-xl font-black uppercase tracking-wider flex-shrink-0 severity-badge-text px-[4vw] py-[2vh]'
-    meta.textContent = `${info.urgency || ''} ${info.severity || ''} ${info.certainty || ''}`.trim()
+    meta.textContent =
+      `${info.urgency || ''} ${info.severity || ''} ${info.certainty || ''}`.trim()
     headerRow.appendChild(meta)
 
     card.appendChild(headerRow)
 
     if (info.headline) {
       const headline = document.createElement('h3')
-      headline.className = 'font-extrabold leading-tight flex-shrink-0 headline-text text-gray-900 '
+      headline.className =
+        'font-extrabold leading-tight flex-shrink-0 headline-text text-gray-900 '
       headline.className += 'mx-[5vw] mb-[1.5vh]'
       headline.textContent = info.headline
       card.appendChild(headline)
@@ -317,8 +339,13 @@ function renderAlerts(
     if (info.instruction) {
       let instr = info.instruction
       if (nearestExit) {
-        if (instr.includes('{{closest_exit}}') || instr.includes('[[closest_exit]]')) {
-          instr = instr.replace(/\{\{closest_exit\}\}/g, nearestExit).replace(/\[\[closest_exit\]\]/g, nearestExit)
+        if (
+          instr.includes('{{closest_exit}}') ||
+          instr.includes('[[closest_exit]]')
+        ) {
+          instr = instr
+            .replace(/\{\{closest_exit\}\}/g, nearestExit)
+            .replace(/\[\[closest_exit\]\]/g, nearestExit)
         } else {
           instr += `\n\nNearest exit: ${nearestExit}`
         }
@@ -349,7 +376,8 @@ function renderAlerts(
         instructionBox.appendChild(ul)
       } else {
         const instP = document.createElement('p')
-        instP.className = 'instruction-text font-extrabold leading-snug whitespace-pre-line text-gray-900'
+        instP.className =
+          'instruction-text font-extrabold leading-snug whitespace-pre-line text-gray-900'
         instP.innerHTML = highlightKeywords(instr)
         instructionBox.appendChild(instP)
       }
@@ -362,13 +390,25 @@ function renderAlerts(
         const imgWrapper = document.createElement('div')
         imgWrapper.className = 'mx-[5vw] my-[2vh]'
         const img = document.createElement('img')
-        img.className = 'max-w-full max-h-[20vh] rounded-2xl object-contain shadow-lg'
+        img.className =
+          'max-w-full max-h-[20vh] rounded-2xl object-contain shadow-lg'
         img.src = proxyUrl(res.url)
         imgWrapper.appendChild(img)
         card.appendChild(imgWrapper)
-      } else if (res.mimeType && res.mimeType.startsWith('audio') && playAudio) {
+      } else if (
+        res.mimeType &&
+        res.mimeType.startsWith('audio') &&
+        playAudio
+      ) {
         const proxiedUrl = proxyUrl(res.url)
-        console.log('Creating audio player for:', res.url, '-> proxied:', proxiedUrl, 'MIME type:', res.mimeType)
+        console.log(
+          'Creating audio player for:',
+          res.url,
+          '-> proxied:',
+          proxiedUrl,
+          'MIME type:',
+          res.mimeType,
+        )
         const audio = document.createElement('audio')
         audio.className = 'w-[90vw] flex-shrink-0 mx-[5vw] my-[2vh] rounded-xl'
         audio.style.height = 'clamp(3rem, 5vh, 10rem)'
@@ -378,17 +418,21 @@ function renderAlerts(
         audio.preload = 'auto'
         audio.crossOrigin = 'anonymous'
         card.appendChild(audio)
-        
+
         audio.addEventListener('loadeddata', () => {
           console.log('Audio loaded successfully:', proxiedUrl)
         })
-        
+
         audio.addEventListener('error', (e) => {
           console.error('Audio load error:', proxiedUrl, e)
         })
-        
+
         audio.play().catch((err) => {
-          console.warn('Autoplay blocked or failed:', err.message, '- Click play button to start audio')
+          console.warn(
+            'Autoplay blocked or failed:',
+            err.message,
+            '- Click play button to start audio',
+          )
         })
       }
     })
@@ -408,7 +452,9 @@ export async function startApp(): Promise<void> {
     localStorage.setItem('screenly_settings', JSON.stringify(settings))
   } catch (_) {
     const cached = localStorage.getItem('screenly_settings')
-    settings = cached ? (JSON.parse(cached) as Partial<ReturnType<typeof getSettings>>) : {}
+    settings = cached
+      ? (JSON.parse(cached) as Partial<ReturnType<typeof getSettings>>)
+      : {}
   }
 
   try {
@@ -416,7 +462,9 @@ export async function startApp(): Promise<void> {
     localStorage.setItem('screenly_metadata', JSON.stringify(metadata))
   } catch (_) {
     const cachedMeta = localStorage.getItem('screenly_metadata')
-    metadata = cachedMeta ? (JSON.parse(cachedMeta) as Partial<ReturnType<typeof getMetadata>>) : {}
+    metadata = cachedMeta
+      ? (JSON.parse(cachedMeta) as Partial<ReturnType<typeof getMetadata>>)
+      : {}
   }
 
   const feedUrl: string = (settings.cap_feed_url as string) || ''

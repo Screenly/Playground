@@ -202,7 +202,7 @@ export class CAPFetcher {
     for (let attempt = 0; attempt < this.config.maxRetries; attempt++) {
       try {
         const data = await this.fetchData()
-        
+
         if (data) {
           // Successfully fetched - save to cache
           const saved = this.saveToCacheWithValidation(data)
@@ -228,7 +228,7 @@ export class CAPFetcher {
 
     // All retries exhausted
     console.error(`Failed to fetch after ${this.config.maxRetries} attempts`)
-    
+
     // Return cached data as fallback
     const cached = this.getCachedData()
     if (cached) {
@@ -245,9 +245,9 @@ export class CAPFetcher {
   private calculateBackoffDelay(attempt: number): number {
     const exponentialDelay = Math.min(
       this.config.initialRetryDelay * Math.pow(2, attempt),
-      this.config.maxRetryDelay
+      this.config.maxRetryDelay,
     )
-    
+
     // Add jitter (±25% randomness) to prevent thundering herd
     const jitter = exponentialDelay * 0.25 * (Math.random() * 2 - 1)
     return Math.floor(exponentialDelay + jitter)
@@ -283,7 +283,7 @@ export class CAPFetcher {
         signal: controller.signal,
         cache: 'no-cache',
         headers: {
-          'Accept': 'application/xml, text/xml, */*',
+          Accept: 'application/xml, text/xml, */*',
         },
       })
 
@@ -302,14 +302,14 @@ export class CAPFetcher {
       return text
     } catch (err) {
       clearTimeout(timeoutId)
-      
+
       if (err instanceof Error) {
         if (err.name === 'AbortError') {
           throw new Error('Fetch timeout after 15 seconds')
         }
         throw err
       }
-      
+
       throw new Error('Unknown fetch error')
     }
   }
@@ -338,11 +338,12 @@ export class CAPFetcher {
   /**
    * Force a refresh (useful for debugging)
    */
-  public async forceRefresh(onUpdate: (data: string | null) => void): Promise<void> {
+  public async forceRefresh(
+    onUpdate: (data: string | null) => void,
+  ): Promise<void> {
     const data = await this.fetchWithRetry()
     if (data) {
       onUpdate(data)
     }
   }
 }
-

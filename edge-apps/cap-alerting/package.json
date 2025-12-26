@@ -21,6 +21,7 @@
     "fast-xml-parser": "^5.3.2",
     "offline-geocode-city": "^1.0.2"
   },
+  "prettier": "../edge-apps-library/.prettierrc.json",
   "devDependencies": {
     "@eslint/js": "^9.39.1",
     "@screenly/edge-apps": "workspace:../edge-apps-library",

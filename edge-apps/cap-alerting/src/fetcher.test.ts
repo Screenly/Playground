@@ -33,7 +33,7 @@ const waitFor = async (condition: () => boolean, timeout = 5000) => {
     if (Date.now() - start > timeout) {
       throw new Error('Timeout waiting for condition')
     }
-    await new Promise(resolve => setTimeout(resolve, 50))
+    await new Promise((resolve) => setTimeout(resolve, 50))
   }
 }
 
@@ -42,11 +42,16 @@ describe('CAPFetcher', () => {
     // Setup mocks
     global.localStorage = localStorageMock as any
     global.fetch = mockFetch as any
-    global.window = { setInterval, clearInterval, setTimeout, clearTimeout } as any
-    
+    global.window = {
+      setInterval,
+      clearInterval,
+      setTimeout,
+      clearTimeout,
+    } as any
+
     // Clear localStorage before each test
     localStorageMock.clear()
-    
+
     // Reset fetch mock
     mockFetch.mockReset()
   })
@@ -74,7 +79,8 @@ describe('CAPFetcher', () => {
 
   describe('Caching', () => {
     it('should save valid data to cache', async () => {
-      const mockData = '<?xml version="1.0"?><alert><identifier>TEST</identifier></alert>'
+      const mockData =
+        '<?xml version="1.0"?><alert><identifier>TEST</identifier></alert>'
       mockFetch.mockResolvedValueOnce({
         ok: true,
         text: async () => mockData,
@@ -96,7 +102,9 @@ describe('CAPFetcher', () => {
       expect(cached).toBe(mockData)
 
       // Check that metadata was saved
-      const meta = JSON.parse(localStorageMock.getItem('cap_feed_cache_meta') || '{}')
+      const meta = JSON.parse(
+        localStorageMock.getItem('cap_feed_cache_meta') || '{}',
+      )
       expect(meta.isValid).toBe(true)
       expect(meta.timestamp).toBeDefined()
 
@@ -150,11 +158,12 @@ describe('CAPFetcher', () => {
     })
 
     it('should use atomic write for cache', async () => {
-      const mockData = '<?xml version="1.0"?><alert><identifier>TEST</identifier></alert>'
-      
+      const mockData =
+        '<?xml version="1.0"?><alert><identifier>TEST</identifier></alert>'
+
       // Set up existing cache
       localStorageMock.setItem('cap_feed_cache', 'old data')
-      
+
       mockFetch.mockResolvedValueOnce({
         ok: true,
         text: async () => mockData,
@@ -182,15 +191,19 @@ describe('CAPFetcher', () => {
     })
 
     it('should load from cache if initial fetch fails', async () => {
-      const cachedData = '<?xml version="1.0"?><alert><identifier>CACHED</identifier></alert>'
-      
+      const cachedData =
+        '<?xml version="1.0"?><alert><identifier>CACHED</identifier></alert>'
+
       // Set up cache
       localStorageMock.setItem('cap_feed_cache', cachedData)
-      localStorageMock.setItem('cap_feed_cache_meta', JSON.stringify({
-        data: '',
-        timestamp: Date.now(),
-        isValid: true,
-      }))
+      localStorageMock.setItem(
+        'cap_feed_cache_meta',
+        JSON.stringify({
+          data: '',
+          timestamp: Date.now(),
+          isValid: true,
+        }),
+      )
 
       mockFetch.mockRejectedValue(new Error('Network error'))
 
@@ -215,8 +228,9 @@ describe('CAPFetcher', () => {
 
   describe('Retry Logic', () => {
     it('should retry on fetch failure', async () => {
-      const mockData = '<?xml version="1.0"?><alert><identifier>TEST</identifier></alert>'
-      
+      const mockData =
+        '<?xml version="1.0"?><alert><identifier>TEST</identifier></alert>'
+
       // Fail first two attempts, succeed on third
       mockFetch
         .mockRejectedValueOnce(new Error('Network error'))
@@ -245,15 +259,19 @@ describe('CAPFetcher', () => {
     })
 
     it('should fall back to cache after all retries exhausted', async () => {
-      const cachedData = '<?xml version="1.0"?><alert><identifier>CACHED</identifier></alert>'
-      
+      const cachedData =
+        '<?xml version="1.0"?><alert><identifier>CACHED</identifier></alert>'
+
       // Set up cache
       localStorageMock.setItem('cap_feed_cache', cachedData)
-      localStorageMock.setItem('cap_feed_cache_meta', JSON.stringify({
-        data: '',
-        timestamp: Date.now(),
-        isValid: true,
-      }))
+      localStorageMock.setItem(
+        'cap_feed_cache_meta',
+        JSON.stringify({
+          data: '',
+          timestamp: Date.now(),
+          isValid: true,
+        }),
+      )
 
       mockFetch.mockRejectedValue(new Error('Network error'))
 
@@ -286,13 +304,13 @@ describe('CAPFetcher', () => {
 
       const updateCallback = mock()
       const startTime = Date.now()
-      
+
       fetcher.start(updateCallback)
 
       await waitFor(() => mockFetch.mock.calls.length >= 3, 3000)
 
       const elapsed = Date.now() - startTime
-      
+
       // Should take at least 100ms (1st retry) + 200ms (2nd retry) = 300ms
       // With jitter, it could be slightly less, so check for at least 200ms
       expect(elapsed).toBeGreaterThan(200)
@@ -342,7 +360,9 @@ describe('CAPFetcher', () => {
 
       await waitFor(() => mockFetch.mock.calls.length > 0)
 
-      expect(mockFetch.mock.calls[0][0]).toBe('https://proxy.com/https://example.com/feed.xml')
+      expect(mockFetch.mock.calls[0][0]).toBe(
+        'https://proxy.com/https://example.com/feed.xml',
+      )
 
       fetcher.stop()
     })
@@ -374,7 +394,8 @@ describe('CAPFetcher', () => {
 
   describe('Stats', () => {
     it('should track statistics', async () => {
-      const mockData = '<?xml version="1.0"?><alert><identifier>TEST</identifier></alert>'
+      const mockData =
+        '<?xml version="1.0"?><alert><identifier>TEST</identifier></alert>'
       mockFetch.mockResolvedValueOnce({
         ok: true,
         text: async () => mockData,
@@ -386,7 +407,7 @@ describe('CAPFetcher', () => {
       })
 
       const updateCallback = mock()
-      
+
       let initialStats = fetcher.getStats()
       expect(initialStats.isRunning).toBe(false)
       expect(initialStats.lastSuccessfulFetch).toBe(0)
@@ -428,7 +449,8 @@ describe('CAPFetcher', () => {
 
   describe('Start and Stop', () => {
     it('should not start if already running', async () => {
-      const mockData = '<?xml version="1.0"?><alert><identifier>TEST</identifier></alert>'
+      const mockData =
+        '<?xml version="1.0"?><alert><identifier>TEST</identifier></alert>'
       mockFetch.mockResolvedValue({
         ok: true,
         text: async () => mockData,
@@ -440,7 +462,7 @@ describe('CAPFetcher', () => {
       })
 
       const updateCallback = mock()
-      
+
       fetcher.start(updateCallback)
       await waitFor(() => fetcher.getStats().isRunning)
 
@@ -448,7 +470,7 @@ describe('CAPFetcher', () => {
       const consoleWarn = mock()
       const originalWarn = console.warn
       console.warn = consoleWarn
-      
+
       fetcher.start(updateCallback)
       expect(consoleWarn.mock.calls.length).toBeGreaterThan(0)
 
@@ -457,7 +479,8 @@ describe('CAPFetcher', () => {
     })
 
     it('should stop properly', async () => {
-      const mockData = '<?xml version="1.0"?><alert><identifier>TEST</identifier></alert>'
+      const mockData =
+        '<?xml version="1.0"?><alert><identifier>TEST</identifier></alert>'
       mockFetch.mockResolvedValue({
         ok: true,
         text: async () => mockData,
@@ -481,7 +504,8 @@ describe('CAPFetcher', () => {
 
   describe('Force Refresh', () => {
     it('should force an immediate refresh', async () => {
-      const mockData = '<?xml version="1.0"?><alert><identifier>TEST</identifier></alert>'
+      const mockData =
+        '<?xml version="1.0"?><alert><identifier>TEST</identifier></alert>'
       mockFetch.mockResolvedValue({
         ok: true,
         text: async () => mockData,
@@ -493,7 +517,7 @@ describe('CAPFetcher', () => {
       })
 
       const updateCallback = mock()
-      
+
       await fetcher.forceRefresh(updateCallback)
 
       expect(mockFetch.mock.calls.length).toBe(1)
@@ -526,7 +550,8 @@ describe('CAPFetcher', () => {
         throw new Error('QuotaExceededError')
       })
 
-      const mockData = '<?xml version="1.0"?><alert><identifier>TEST</identifier></alert>'
+      const mockData =
+        '<?xml version="1.0"?><alert><identifier>TEST</identifier></alert>'
       mockFetch.mockResolvedValueOnce({
         ok: true,
         text: async () => mockData,
@@ -553,10 +578,14 @@ describe('CAPFetcher', () => {
 
     it('should handle corrupted cache metadata', async () => {
       // Set up corrupted metadata
-      localStorageMock.setItem('cap_feed_cache', '<?xml version="1.0"?><alert></alert>')
+      localStorageMock.setItem(
+        'cap_feed_cache',
+        '<?xml version="1.0"?><alert></alert>',
+      )
       localStorageMock.setItem('cap_feed_cache_meta', 'invalid json')
 
-      const mockData = '<?xml version="1.0"?><alert><identifier>NEW</identifier></alert>'
+      const mockData =
+        '<?xml version="1.0"?><alert><identifier>NEW</identifier></alert>'
       mockFetch.mockResolvedValueOnce({
         ok: true,
         text: async () => mockData,
@@ -580,14 +609,21 @@ describe('CAPFetcher', () => {
 
     it('should return null when cache has invalid flag', async () => {
       // Set up cache with invalid flag
-      localStorageMock.setItem('cap_feed_cache', '<?xml version="1.0"?><alert></alert>')
-      localStorageMock.setItem('cap_feed_cache_meta', JSON.stringify({
-        data: '',
-        timestamp: Date.now(),
-        isValid: false,
-      }))
+      localStorageMock.setItem(
+        'cap_feed_cache',
+        '<?xml version="1.0"?><alert></alert>',
+      )
+      localStorageMock.setItem(
+        'cap_feed_cache_meta',
+        JSON.stringify({
+          data: '',
+          timestamp: Date.now(),
+          isValid: false,
+        }),
+      )
 
-      const mockData = '<?xml version="1.0"?><alert><identifier>NEW</identifier></alert>'
+      const mockData =
+        '<?xml version="1.0"?><alert><identifier>NEW</identifier></alert>'
       mockFetch.mockResolvedValueOnce({
         ok: true,
         text: async () => mockData,
