@@ -1,6 +1,5 @@
 ---
 syntax: manifest_v1
-id: 01KBT555AYQE42KBXJ4NPH87S0
 description: Display CAP emergency alerts on Screenly screens. Supports offline mode and uses screen tags (e.g., exit:North Lobby) to highlight the nearest exit.
 icon: https://playground.srly.io/edge-apps/cap-alerting/static/cap-icon.svg
 author: Screenly, Inc.
