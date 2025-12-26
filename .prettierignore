@@ -1,6 +1,9 @@
 **/*.min.js
-edge-apps/edge-apps-library/README.md
+edge-apps/edge-apps-library/
 edge-apps/powerbi-legacy/
 edge-apps/powerbi-legacy/**
+edge-apps/powerbi
+edge-apps/powerbi/**
 edge-apps/qr-code/
+edge-apps/menu-board/
 .github/workflows/

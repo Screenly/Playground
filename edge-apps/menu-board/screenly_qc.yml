@@ -1,0 +1,723 @@
+---
+syntax: manifest_v1
+id: 01KCPFJBBA54VT3SJB8DT21B1J
+description: A dynamic menu board that can display up to 25 menu items
+icon: https://playground.srly.io/edge-apps/menu-board/static/img/icon.svg
+author: Screenly, Inc
+entrypoint:
+  type: file
+ready_signal: true
+settings:
+  accent_color:
+    type: string
+    default_value: rgba(255, 255, 255, 0.95)
+    title: Accent Color
+    optional: true
+    help_text: Color used for titles and prices (default is white with a subtle purple tint)
+  background_image:
+    type: string
+    default_value: assets/pizza.png
+    title: Background Image URL
+    optional: true
+    help_text: URL to a background image. For best results, use a dark/subtle image.
+  currency:
+    type: string
+    default_value: $
+    title: Currency Symbol
+    optional: true
+    help_text:
+      properties:
+        help_text: Currency symbol to display with prices (e.g., $, €, £, ¥)
+        type: string
+      schema_version: 1
+  item_01_description:
+    type: string
+    default_value: San Marzano tomatoes, fresh mozzarella, basil, extra virgin olive oil
+    title: Item 1 - Description
+    optional: true
+    help_text: Description of menu item 1
+  item_01_labels:
+    type: string
+    default_value: vegetarian
+    title: Item 1 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_01_name:
+    type: string
+    default_value: Classic Margherita
+    title: Item 1 - Name
+    optional: true
+    help_text: Name of menu item 1
+  item_01_price:
+    type: string
+    default_value: '13.99'
+    title: Item 1 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 1
+        type: number
+      schema_version: 1
+  item_02_description:
+    type: string
+    default_value: Double pepperoni, mozzarella, parmesan, homemade tomato sauce, oregano
+    title: Item 2 - Description
+    optional: true
+    help_text: Description of menu item 2
+  item_02_labels:
+    type: string
+    default_value: spicy
+    title: Item 2 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_02_name:
+    type: string
+    default_value: Pepperoni Supreme
+    title: Item 2 - Name
+    optional: true
+    help_text: Name of menu item 2
+  item_02_price:
+    type: string
+    default_value: '15.99'
+    title: Item 2 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 2
+        type: number
+      schema_version: 1
+  item_03_description:
+    type: string
+    default_value: Mozzarella, gorgonzola, parmesan, fontina, fresh basil, garlic olive oil
+    title: Item 3 - Description
+    optional: true
+    help_text: Description of menu item 3
+  item_03_labels:
+    type: string
+    default_value: vegetarian
+    title: Item 3 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_03_name:
+    type: string
+    default_value: Four Cheese
+    title: Item 3 - Name
+    optional: true
+    help_text: Name of menu item 3
+  item_03_price:
+    type: string
+    default_value: '16.99'
+    title: Item 3 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 3
+        type: number
+      schema_version: 1
+  item_04_description:
+    type: string
+    default_value: Roasted bell peppers, kalamata olives, red onions, cherry tomatoes, feta, spinach
+    title: Item 4 - Description
+    optional: true
+    help_text: Description of menu item 4
+  item_04_labels:
+    type: string
+    default_value: vegetarian,gluten-free
+    title: Item 4 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_04_name:
+    type: string
+    default_value: Mediterranean Veggie
+    title: Item 4 - Name
+    optional: true
+    help_text: Name of menu item 4
+  item_04_price:
+    type: string
+    default_value: '14.99'
+    title: Item 4 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 4
+        type: number
+      schema_version: 1
+  item_05_description:
+    type: string
+    default_value: ''
+    title: Item 5 - Description
+    optional: true
+    help_text: Description of menu item 5
+  item_05_labels:
+    type: string
+    title: Item 5 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_05_name:
+    type: string
+    default_value: ''
+    title: Item 5 - Name
+    optional: true
+    help_text: Name of menu item 5
+  item_05_price:
+    type: string
+    default_value: ''
+    title: Item 5 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 5
+        type: number
+      schema_version: 1
+  item_06_description:
+    type: string
+    default_value: ''
+    title: Item 6 - Description
+    optional: true
+    help_text: Description of menu item 6
+  item_06_labels:
+    type: string
+    title: Item 6 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_06_name:
+    type: string
+    default_value: ''
+    title: Item 6 - Name
+    optional: true
+    help_text: Name of menu item 6
+  item_06_price:
+    type: string
+    default_value: ''
+    title: Item 6 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 6
+        type: number
+      schema_version: 1
+  item_07_description:
+    type: string
+    default_value: ''
+    title: Item 7 - Description
+    optional: true
+    help_text: Description of menu item 7
+  item_07_labels:
+    type: string
+    title: Item 7 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_07_name:
+    type: string
+    default_value: ''
+    title: Item 7 - Name
+    optional: true
+    help_text: Name of menu item 7
+  item_07_price:
+    type: string
+    default_value: ''
+    title: Item 7 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 7
+        type: number
+      schema_version: 1
+  item_08_description:
+    type: string
+    default_value: ''
+    title: Item 8 - Description
+    optional: true
+    help_text: Description of menu item 8
+  item_08_labels:
+    type: string
+    title: Item 8 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_08_name:
+    type: string
+    default_value: ''
+    title: Item 8 - Name
+    optional: true
+    help_text: Name of menu item 8
+  item_08_price:
+    type: string
+    default_value: ''
+    title: Item 8 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 8
+        type: number
+      schema_version: 1
+  item_09_description:
+    type: string
+    default_value: ''
+    title: Item 9 - Description
+    optional: true
+    help_text: Description of menu item 9
+  item_09_labels:
+    type: string
+    title: Item 9 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_09_name:
+    type: string
+    default_value: ''
+    title: Item 9 - Name
+    optional: true
+    help_text: Name of menu item 9
+  item_09_price:
+    type: string
+    default_value: ''
+    title: Item 9 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 9
+        type: number
+      schema_version: 1
+  item_10_description:
+    type: string
+    default_value: ''
+    title: Item 10 - Description
+    optional: true
+    help_text: Description of menu item 10
+  item_10_labels:
+    type: string
+    title: Item 10 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_10_name:
+    type: string
+    default_value: ''
+    title: Item 10 - Name
+    optional: true
+    help_text: Name of menu item 10
+  item_10_price:
+    type: string
+    default_value: ''
+    title: Item 10 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 10
+        type: number
+      schema_version: 1
+  item_11_description:
+    type: string
+    default_value: ''
+    title: Item 11 - Description
+    optional: true
+    help_text: Description of menu item 11
+  item_11_labels:
+    type: string
+    title: Item 11 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_11_name:
+    type: string
+    default_value: ''
+    title: Item 11 - Name
+    optional: true
+    help_text: Name of menu item 11
+  item_11_price:
+    type: string
+    default_value: ''
+    title: Item 11 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 11
+        type: number
+      schema_version: 1
+  item_12_description:
+    type: string
+    default_value: ''
+    title: Item 12 - Description
+    optional: true
+    help_text: Description of menu item 12
+  item_12_labels:
+    type: string
+    title: Item 12 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_12_name:
+    type: string
+    default_value: ''
+    title: Item 12 - Name
+    optional: true
+    help_text: Name of menu item 12
+  item_12_price:
+    type: string
+    default_value: ''
+    title: Item 12 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 12
+        type: number
+      schema_version: 1
+  item_13_description:
+    type: string
+    default_value: ''
+    title: Item 13 - Description
+    optional: true
+    help_text: Description of menu item 13
+  item_13_labels:
+    type: string
+    title: Item 13 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_13_name:
+    type: string
+    default_value: ''
+    title: Item 13 - Name
+    optional: true
+    help_text: Name of menu item 13
+  item_13_price:
+    type: string
+    default_value: ''
+    title: Item 13 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 13
+        type: number
+      schema_version: 1
+  item_14_description:
+    type: string
+    default_value: ''
+    title: Item 14 - Description
+    optional: true
+    help_text: Description of menu item 14
+  item_14_labels:
+    type: string
+    title: Item 14 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_14_name:
+    type: string
+    default_value: ''
+    title: Item 14 - Name
+    optional: true
+    help_text: Name of menu item 14
+  item_14_price:
+    type: string
+    default_value: ''
+    title: Item 14 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 14
+        type: number
+      schema_version: 1
+  item_15_description:
+    type: string
+    default_value: ''
+    title: Item 15 - Description
+    optional: true
+    help_text: Description of menu item 15
+  item_15_labels:
+    type: string
+    title: Item 15 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_15_name:
+    type: string
+    default_value: ''
+    title: Item 15 - Name
+    optional: true
+    help_text: Name of menu item 15
+  item_15_price:
+    type: string
+    default_value: ''
+    title: Item 15 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 15
+        type: number
+      schema_version: 1
+  item_16_description:
+    type: string
+    default_value: ''
+    title: Item 16 - Description
+    optional: true
+    help_text: Description of menu item 16
+  item_16_labels:
+    type: string
+    title: Item 16 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_16_name:
+    type: string
+    default_value: ''
+    title: Item 16 - Name
+    optional: true
+    help_text: Name of menu item 16
+  item_16_price:
+    type: string
+    default_value: ''
+    title: Item 16 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 16
+        type: number
+      schema_version: 1
+  item_17_description:
+    type: string
+    default_value: ''
+    title: Item 17 - Description
+    optional: true
+    help_text: Description of menu item 17
+  item_17_labels:
+    type: string
+    title: Item 17 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_17_name:
+    type: string
+    default_value: ''
+    title: Item 17 - Name
+    optional: true
+    help_text: Name of menu item 17
+  item_17_price:
+    type: string
+    default_value: ''
+    title: Item 17 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 17
+        type: number
+      schema_version: 1
+  item_18_description:
+    type: string
+    default_value: ''
+    title: Item 18 - Description
+    optional: true
+    help_text: Description of menu item 18
+  item_18_labels:
+    type: string
+    title: Item 18 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_18_name:
+    type: string
+    default_value: ''
+    title: Item 18 - Name
+    optional: true
+    help_text: Name of menu item 18
+  item_18_price:
+    type: string
+    default_value: ''
+    title: Item 18 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 18
+        type: number
+      schema_version: 1
+  item_19_description:
+    type: string
+    default_value: ''
+    title: Item 19 - Description
+    optional: true
+    help_text: Description of menu item 19
+  item_19_labels:
+    type: string
+    title: Item 19 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_19_name:
+    type: string
+    default_value: ''
+    title: Item 19 - Name
+    optional: true
+    help_text: Name of menu item 19
+  item_19_price:
+    type: string
+    default_value: ''
+    title: Item 19 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 19
+        type: number
+      schema_version: 1
+  item_20_description:
+    type: string
+    default_value: ''
+    title: Item 20 - Description
+    optional: true
+    help_text: Description of menu item 20
+  item_20_labels:
+    type: string
+    title: Item 20 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_20_name:
+    type: string
+    default_value: ''
+    title: Item 20 - Name
+    optional: true
+    help_text: Name of menu item 20
+  item_20_price:
+    type: string
+    default_value: ''
+    title: Item 20 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 20
+        type: number
+      schema_version: 1
+  item_21_description:
+    type: string
+    default_value: ''
+    title: Item 21 - Description
+    optional: true
+    help_text: Description of menu item 21
+  item_21_labels:
+    type: string
+    title: Item 21 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_21_name:
+    type: string
+    default_value: ''
+    title: Item 21 - Name
+    optional: true
+    help_text: Name of menu item 21
+  item_21_price:
+    type: string
+    default_value: ''
+    title: Item 21 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 21
+        type: number
+      schema_version: 1
+  item_22_description:
+    type: string
+    default_value: ''
+    title: Item 22 - Description
+    optional: true
+    help_text: Description of menu item 22
+  item_22_labels:
+    type: string
+    title: Item 22 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_22_name:
+    type: string
+    default_value: ''
+    title: Item 22 - Name
+    optional: true
+    help_text: Name of menu item 22
+  item_22_price:
+    type: string
+    default_value: ''
+    title: Item 22 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 22
+        type: number
+      schema_version: 1
+  item_23_description:
+    type: string
+    default_value: ''
+    title: Item 23 - Description
+    optional: true
+    help_text: Description of menu item 23
+  item_23_labels:
+    type: string
+    title: Item 23 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_23_name:
+    type: string
+    default_value: ''
+    title: Item 23 - Name
+    optional: true
+    help_text: Name of menu item 23
+  item_23_price:
+    type: string
+    default_value: ''
+    title: Item 23 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 23
+        type: number
+      schema_version: 1
+  item_24_description:
+    type: string
+    default_value: ''
+    title: Item 24 - Description
+    optional: true
+    help_text: Description of menu item 24
+  item_24_labels:
+    type: string
+    title: Item 24 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_24_name:
+    type: string
+    default_value: ''
+    title: Item 24 - Name
+    optional: true
+    help_text: Name of menu item 24
+  item_24_price:
+    type: string
+    default_value: ''
+    title: Item 24 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 24
+        type: number
+      schema_version: 1
+  item_25_description:
+    type: string
+    default_value: ''
+    title: Item 25 - Description
+    optional: true
+    help_text: Description of menu item 25
+  item_25_labels:
+    type: string
+    title: Item 25 - Labels
+    optional: true
+    help_text: Comma-separated list of labels (e.g. vegetarian, spicy, gluten-free)
+  item_25_name:
+    type: string
+    default_value: ''
+    title: Item 25 - Name
+    optional: true
+    help_text: Name of menu item 25
+  item_25_price:
+    type: string
+    default_value: ''
+    title: Item 25 - Price
+    optional: true
+    help_text:
+      properties:
+        help_text: Price of menu item 25
+        type: number
+      schema_version: 1
+  logo_url:
+    type: string
+    default_value: assets/screenly_food.svg
+    title: Restaurant Logo URL
+    optional: true
+    help_text: URL to your restaurant's logo image
+  menu_title:
+    type: string
+    default_value: Today's Menu
+    title: Menu Title
+    optional: false
+    help_text: The title shown at the top of the menu
