@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+  <identifier>DEMO-EARTHQUAKE-001</identifier>
+  <sender>demo@screenly.io</sender>
+  <sent>2024-03-10T08:42:00-00:00</sent>
+  <status>Exercise</status>
+  <msgType>Alert</msgType>
+  <scope>Public</scope>
+  <note>THIS IS A DEMONSTRATION EXERCISE - NOT A REAL EMERGENCY</note>
+  <info>
+    <language>en-US</language>
+    <category>Geo</category>
+    <event>Earthquake Alert</event>
+    <responseType>Monitor</responseType>
+    <responseType>Assess</responseType>
+    <urgency>Past</urgency>
+    <severity>Moderate</severity>
+    <certainty>Observed</certainty>
+    <effective>2024-03-10T08:42:00-00:00</effective>
+    <onset>2024-03-10T08:41:30-00:00</onset>
+    <expires>2024-03-10T12:00:00-00:00</expires>
+    <senderName>US Geological Survey (DEMO)</senderName>
+    <headline>Magnitude 5.4 Earthquake Detected</headline>
+    <description>A magnitude 5.4 earthquake occurred at 8:41 AM local time. The epicenter was located 15 miles northeast of downtown. Moderate shaking was felt across the metropolitan area. Aftershocks are possible in the coming hours.</description>
+    <instruction>Check yourself and others for injuries. Inspect your surroundings for hazards such as damaged buildings, gas leaks, or downed power lines. Be prepared for aftershocks. Use {{closest_exit}} if structural damage is visible. Do not use elevators. Monitor emergency channels for updates.</instruction>
+    <web>https://earthquake.usgs.gov</web>
+    <contact>Emergency Services: 911</contact>
+    <parameter>
+      <valueName>Magnitude</valueName>
+      <value>5.4</value>
+    </parameter>
+    <parameter>
+      <valueName>Depth</valueName>
+      <value>8.2 km</value>
+    </parameter>
+    <resource>
+      <resourceDesc>Earthquake Alert Notification</resourceDesc>
+      <mimeType>audio/mpeg</mimeType>
+      <uri>https://archive.org/download/earthquake-alert-sound/earthquake-warning.mp3</uri>
+    </resource>
+    <area>
+      <areaDesc>Metropolitan Area and Surrounding Regions</areaDesc>
+      <circle>34.05,-118.25 50</circle>
+    </area>
+  </info>
+</alert>
+

@@ -63,3 +63,13 @@ export function getTags(): string[] {
 export function hasTag(tag: string): boolean {
   return screenly.metadata.tags.includes(tag)
 }
+
+/**
+ * Check if the device is an Anywhere screen
+ */
+export function isAnywhereScreen(): boolean {
+  return (
+    screenly.metadata.hardware === '' ||
+    screenly.metadata.hardware === undefined
+  )
+}

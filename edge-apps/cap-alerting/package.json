@@ -1,0 +1,51 @@
+{
+  "name": "cap-alerting",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate-mock-data": "screenly edge-app run --generate-mock-data",
+    "predev": "bun run generate-mock-data",
+    "dev": "run-p build:css:dev build:js:dev edge-app-server",
+    "edge-app-server": "screenly edge-app run",
+    "build": "run-p build:css:prod build:js:prod",
+    "build:css:common": "bunx @tailwindcss/cli -i ./src/input.css -o ./static/style.css",
+    "build:css:prod": "bun run build:css:common -- --minify",
+    "build:css:dev": "bun run build:css:common -- --watch",
+    "build:js:common": "bun build src/main.ts --outdir static/js --target browser --format iife",
+    "build:js:prod": "bun run build:js:common",
+    "build:js:dev": "bun run build:js:common -- --watch",
+    "test": "bun test",
+    "test:unit": "bun test",
+    "test:watch": "bun test --watch",
+    "type-check": "tsc --noEmit",
+    "lint": "bash -c 'OUTPUT=$(tsc --noEmit --skipLibCheck src/**/*.ts 2>&1 | grep -v edge-apps-library); if [ -n \"$OUTPUT\" ]; then echo \"$OUTPUT\"; exit 1; fi'",
+    "format:common": "prettier src/ README.md index.html",
+    "format": "bun run format:common --write",
+    "format:check": "bun run format:common --check",
+    "deploy": "bun run build && screenly edge-app deploy"
+  },
+  "dependencies": {
+    "@photostructure/tz-lookup": "^11.3.0",
+    "country-locale-map": "^1.9.11",
+    "fast-xml-parser": "^5.3.2",
+    "offline-geocode-city": "^1.0.2"
+  },
+  "prettier": "../edge-apps-library/.prettierrc.json",
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@screenly/edge-apps": "workspace:../edge-apps-library",
+    "@tailwindcss/cli": "^4.0.0",
+    "@types/bun": "^1.3.3",
+    "@types/node": "^24.10.1",
+    "autoprefixer": "^10.4.22",
+    "bun-types": "^1.3.3",
+    "eslint": "^9.39.1",
+    "jiti": "^2.6.1",
+    "npm-run-all2": "^8.0.4",
+    "prettier": "^3.7.4",
+    "tailwindcss": "^4.1.17",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.48.1"
+  }
+}
