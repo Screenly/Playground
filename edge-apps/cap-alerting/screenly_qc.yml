@@ -40,12 +40,12 @@ settings:
       properties:
         help_text: Select the operation mode for the app.
         options:
-          - label: Production
-            value: production
-          - label: Demo
-            value: demo
-          - label: Test
-            value: test
+        - label: Production
+          value: production
+        - label: Demo
+          value: demo
+        - label: Test
+          value: test
         type: select
       schema_version: 1
   offline_mode:

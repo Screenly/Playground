@@ -19,7 +19,7 @@
     "test:unit": "bun test",
     "test:watch": "bun test --watch",
     "type-check": "tsc --noEmit",
-    "lint": "bash -c 'OUTPUT=$(tsc --noEmit --skipLibCheck index.test.ts src/main.ts src/fetcher.ts src/fetcher.test.ts 2>&1 | grep -v edge-apps-library); if [ -n \"$OUTPUT\" ]; then echo \"$OUTPUT\"; exit 1; fi'",
+    "lint": "bash -c 'OUTPUT=$(tsc --noEmit --skipLibCheck src/main.ts src/parser.ts src/parser.test.ts src/fetcher.ts src/fetcher.test.ts 2>&1 | grep -v edge-apps-library); if [ -n \"$OUTPUT\" ]; then echo \"$OUTPUT\"; exit 1; fi'",
     "format:common": "prettier src/ README.md index.html",
     "format": "bun run format:common --write",
     "format:check": "bun run format:common --check",

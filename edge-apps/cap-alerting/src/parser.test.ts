@@ -16,7 +16,8 @@ mock.module('@screenly/edge-apps', () => ({
   getTags: () => mockGetTags(),
 }))
 
-import { parseCap, getNearestExit } from './src/main'
+import { getNearestExit } from './main'
+import { parseCap } from './parser'
 import { XMLParser } from 'fast-xml-parser'
 
 describe('CAP v1.2 Parser', () => {
@@ -82,7 +83,9 @@ describe('CAP v1.2 Parser', () => {
       const alerts = parseCap(xml)
       expect(alerts[0].source).toBe('Weather Service')
       expect(alerts[0].note).toBe('This is a test note')
-      expect(alerts[0].references).toBe('KSTO@NWS.NOAA.GOV,KSTO1055887200,2003-06-17T14:00:00-07:00')
+      expect(alerts[0].references).toBe(
+        'KSTO@NWS.NOAA.GOV,KSTO1055887200,2003-06-17T14:00:00-07:00',
+      )
       expect(alerts[0].incidents).toBe('incident1,incident2')
     })
 
@@ -232,8 +235,12 @@ describe('CAP v1.2 Parser', () => {
       expect(info.expires).toBe('2024-01-15T22:00:00-00:00')
       expect(info.senderName).toBe('National Weather Service')
       expect(info.headline).toBe('Wildfire Warning Issued')
-      expect(info.description).toBe('A rapidly spreading wildfire has been detected.')
-      expect(info.instruction).toBe('Evacuate immediately to designated shelters.')
+      expect(info.description).toBe(
+        'A rapidly spreading wildfire has been detected.',
+      )
+      expect(info.instruction).toBe(
+        'Evacuate immediately to designated shelters.',
+      )
       expect(info.web).toBe('http://www.example.com/wildfire')
       expect(info.contact).toBe('1-800-EMERGENCY')
     })
@@ -401,7 +408,13 @@ describe('CAP v1.2 Parser', () => {
   })
 
   describe('Certainty Values', () => {
-    const certainties = ['Observed', 'Likely', 'Possible', 'Unlikely', 'Unknown']
+    const certainties = [
+      'Observed',
+      'Likely',
+      'Possible',
+      'Unlikely',
+      'Unknown',
+    ]
 
     certainties.forEach((certainty) => {
       it(`should parse certainty: ${certainty}`, () => {
@@ -554,7 +567,9 @@ describe('CAP v1.2 Parser', () => {
 
       const alerts = parseCap(xml)
       expect(alerts[0].infos[0].areas).toHaveLength(1)
-      expect(alerts[0].infos[0].areas[0].areaDesc).toBe('Downtown Metropolitan Area')
+      expect(alerts[0].infos[0].areas[0].areaDesc).toBe(
+        'Downtown Metropolitan Area',
+      )
     })
 
     it('should parse area with polygon', () => {
@@ -582,7 +597,9 @@ describe('CAP v1.2 Parser', () => {
       const alerts = parseCap(xml)
       const area = alerts[0].infos[0].areas[0]
       expect(area.areaDesc).toBe('Storm Path')
-      expect(area.polygon).toBe('38.47,-120.14 38.34,-119.95 38.52,-119.74 38.62,-119.89 38.47,-120.14')
+      expect(area.polygon).toBe(
+        '38.47,-120.14 38.34,-119.95 38.52,-119.74 38.62,-119.89 38.47,-120.14',
+      )
     })
 
     it('should parse area with multiple polygons', () => {
@@ -610,7 +627,9 @@ describe('CAP v1.2 Parser', () => {
 
       const alerts = parseCap(xml)
       const area = alerts[0].infos[0].areas[0]
-      const polygons = Array.isArray(area.polygon) ? area.polygon : [area.polygon]
+      const polygons = Array.isArray(area.polygon)
+        ? area.polygon
+        : [area.polygon]
       expect(polygons).toHaveLength(2)
     })
 
@@ -856,7 +875,10 @@ describe('CAP v1.2 Parser', () => {
   </alert>
 </feed>`
 
-      const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: '@_' })
+      const parser = new XMLParser({
+        ignoreAttributes: false,
+        attributeNamePrefix: '@_',
+      })
       const json: any = parser.parse(xml)
       const alerts = json.feed?.alert
         ? Array.isArray(json.feed.alert)
@@ -1855,4 +1877,3 @@ describe('CAP v1.2 Parser', () => {
     })
   })
 })
-
