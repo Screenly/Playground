@@ -5,6 +5,7 @@ import {
   getTags,
   getSettings,
   getCorsProxyUrl,
+  getSettingWithDefault,
 } from '@screenly/edge-apps'
 
 import { CAPAlert, CAPMode } from './types/cap'
@@ -290,13 +291,13 @@ export async function startApp(): Promise<void> {
       : {}
   }
 
-  const feedUrl: string = (settings.cap_feed_url as string) || ''
-  const interval = parseInt((settings.refresh_interval as string) || '5', 10)
-  const lang = (settings.language as string) || 'en'
-  const maxAlerts = parseInt((settings.max_alerts as string) || '3', 10)
-  const playAudio = ((settings.audio_alert as string) || 'false') === 'true'
-  const offlineMode = ((settings.offline_mode as string) || 'false') === 'true'
-  const mode = (settings.mode as CAPMode) || 'production'
+  const feedUrl = getSettingWithDefault<string>('cap_feed_url', '')
+  const interval = getSettingWithDefault<number>('refresh_interval', 5)
+  const lang = getSettingWithDefault<string>('language', 'en')
+  const maxAlerts = getSettingWithDefault<number>('max_alerts', 3)
+  const playAudio = getSettingWithDefault<boolean>('audio_alert', false)
+  const offlineMode = getSettingWithDefault<boolean>('offline_mode', false)
+  const mode = getSettingWithDefault<CAPMode>('mode', 'production')
   const testMode = mode === 'test'
   const demoMode = mode === 'demo'
 
