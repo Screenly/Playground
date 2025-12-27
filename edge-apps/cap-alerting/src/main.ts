@@ -5,14 +5,11 @@ import {
   getTags,
   getSettings,
   getCorsProxyUrl,
-  isAnywhereScreen,
 } from '@screenly/edge-apps'
 
 import { CAPInfo, CAPAlert, CAPMode } from './types/cap.js'
+import { CAPFetcher } from './fetcher.js'
 import { XMLParser } from 'fast-xml-parser'
-
-const DEMO_BASE_URL =
-  'https://raw.githubusercontent.com/Screenly/Playground/refs/heads/master/edge-apps/cap-alerting'
 
 export function parseCap(xml: string): CAPAlert[] {
   const parser = new XMLParser({
@@ -117,33 +114,6 @@ export function getNearestExit(tags: string[]): string | undefined {
     }
   }
   return undefined
-}
-
-async function fetchCapData(
-  feedUrl: string,
-  offlineMode: boolean,
-): Promise<string | null> {
-  if (offlineMode) {
-    return localStorage.getItem('cap_last')
-  }
-
-  try {
-    const cors = getCorsProxyUrl()
-    let url = feedUrl
-    if (feedUrl && feedUrl.match(/^https?:/)) {
-      url = `${cors}/${feedUrl}`
-    }
-
-    const response = await fetch(url)
-    if (!response.ok) throw new Error(`HTTP ${response.status}`)
-
-    const text = await response.text()
-    localStorage.setItem('cap_last', text)
-    return text
-  } catch (err) {
-    console.warn('CAP fetch failed', err)
-    return localStorage.getItem('cap_last')
-  }
 }
 
 function highlightKeywords(text: string): string {
@@ -433,40 +403,15 @@ export async function startApp(): Promise<void> {
   const tags: string[] = getTags()
   const nearestExit = getNearestExit(tags)
 
+  const fetcher = new CAPFetcher({
+    testMode,
+    demoMode,
+    feedUrl,
+    offlineMode,
+  })
+
   async function update() {
-    let xml: string | null
-
-    if (testMode) {
-      try {
-        const resp = await fetch('static/test.cap')
-        xml = resp.ok ? await resp.text() : null
-      } catch (_) {
-        xml = null
-      }
-    } else if (demoMode && !feedUrl) {
-      const localDemoFiles = [
-        'static/demo-1-tornado.cap',
-        'static/demo-2-fire.cap',
-        'static/demo-3-flood.cap',
-        'static/demo-4-earthquake.cap',
-        'static/demo-5-hazmat.cap',
-        'static/demo-6-shooter.cap',
-      ]
-      const remoteDemoFiles = localDemoFiles.map(
-        (file) => `${DEMO_BASE_URL}/${file}`,
-      )
-      const demoFiles = isAnywhereScreen() ? remoteDemoFiles : localDemoFiles
-      const randomFile = demoFiles[Math.floor(Math.random() * demoFiles.length)]
-      try {
-        const resp = await fetch(randomFile)
-        xml = resp.ok ? await resp.text() : null
-      } catch (_) {
-        xml = null
-      }
-    } else {
-      xml = await fetchCapData(feedUrl, offlineMode)
-    }
-
+    const xml = await fetcher.fetch()
     if (xml) {
       const alerts = parseCap(xml)
       renderAlerts(alerts, nearestExit, lang, maxAlerts, playAudio)
