@@ -8,7 +8,7 @@ import {
   isAnywhereScreen,
 } from '@screenly/edge-apps'
 
-import { CAPResource, CAPArea, CAPInfo, CAPAlert } from './types/cap.js'
+import { CAPInfo, CAPAlert } from './types/cap.js'
 import { XMLParser } from 'fast-xml-parser'
 
 const DEMO_BASE_URL =
@@ -429,7 +429,7 @@ export async function startApp(): Promise<void> {
     maxAlerts,
   })
 
-  const tags: string[] = metadata.tags || []
+  const tags: string[] = getTags()
   const nearestExit = getNearestExit(tags)
 
   async function update() {
