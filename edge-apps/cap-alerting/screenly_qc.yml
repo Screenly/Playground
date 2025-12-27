@@ -19,12 +19,6 @@ settings:
     title: CAP Feed URL
     optional: true
     help_text: URL or relative path to a CAP XML feed. Leave blank to use demo mode.
-  demo_mode:
-    type: string
-    default_value: 'false'
-    title: Demo Mode
-    optional: true
-    help_text: Enable demo mode with realistic CAP alerts (randomly selected). Only active when test_mode is disabled and no feed URL is set (true/false).
   language:
     type: string
     default_value: en
@@ -37,6 +31,23 @@ settings:
     title: Maximum Alerts
     optional: true
     help_text: Maximum number of alerts to display simultaneously.
+  mode:
+    type: string
+    default_value: production
+    title: Mode
+    optional: true
+    help_text:
+      properties:
+        help_text: Select the operation mode for the app.
+        options:
+          - label: Production
+            value: production
+          - label: Demo
+            value: demo
+          - label: Test
+            value: test
+        type: select
+      schema_version: 1
   offline_mode:
     type: string
     default_value: 'false'
@@ -49,9 +60,3 @@ settings:
     title: Refresh Interval (minutes)
     optional: true
     help_text: Time in minutes between feed updates.
-  test_mode:
-    type: string
-    default_value: 'false'
-    title: Test Mode
-    optional: true
-    help_text: Use bundled test CAP file for testing (true/false).

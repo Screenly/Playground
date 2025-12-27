@@ -169,7 +169,7 @@ function migrateLegacyCache(): void {
   try {
     const oldCache = localStorage.getItem('cap_last')
     const newCache = localStorage.getItem('cap_feed_cache')
-    
+
     if (oldCache && !newCache) {
       console.log('Migrating legacy cache to new format')
       localStorage.setItem('cap_feed_cache', oldCache)
@@ -304,7 +304,7 @@ function renderAlerts(
 
     // Use actual CAP status and msgType fields per CAP v1.2 spec
     const statusBannerInfo = getStatusBannerInfo(alert.status, alert.msgType)
-    
+
     // Only show context banner for Exercise/Test/System/Update/Cancel
     if (statusBannerInfo) {
       const statusBanner = document.createElement('div')
@@ -436,8 +436,9 @@ export async function startApp(): Promise<void> {
   const maxAlerts = parseInt((settings.max_alerts as string) || '3', 10)
   const playAudio = ((settings.audio_alert as string) || 'false') === 'true'
   const offlineMode = ((settings.offline_mode as string) || 'false') === 'true'
-  const testMode = ((settings.test_mode as string) || 'false') === 'true'
-  const demoMode = ((settings.demo_mode as string) || 'false') === 'true'
+  const mode = (settings.mode as string) || 'production'
+  const testMode = mode === 'test'
+  const demoMode = mode === 'demo'
 
   const tags: string[] = metadata.tags || []
   const nearestExit = getNearestExit(tags)
@@ -511,7 +512,7 @@ export async function startApp(): Promise<void> {
     // Start the fetcher - it will handle initial load and periodic updates
     fetcher.start((xml) => {
       handleUpdate(xml)
-      
+
       // Signal ready after first update
       if (!offlineMode) {
         signalReady()

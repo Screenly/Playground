@@ -8,7 +8,7 @@ import {
   isAnywhereScreen,
 } from '@screenly/edge-apps'
 
-import { CAPInfo, CAPAlert } from './types/cap.js'
+import { CAPInfo, CAPAlert, CAPMode } from './types/cap.js'
 import { XMLParser } from 'fast-xml-parser'
 
 const DEMO_BASE_URL =
@@ -418,8 +418,9 @@ export async function startApp(): Promise<void> {
   const maxAlerts = parseInt((settings.max_alerts as string) || '3', 10)
   const playAudio = ((settings.audio_alert as string) || 'false') === 'true'
   const offlineMode = ((settings.offline_mode as string) || 'false') === 'true'
-  const testMode = ((settings.test_mode as string) || 'false') === 'true'
-  const demoMode = ((settings.demo_mode as string) || 'false') === 'true'
+  const mode = (settings.mode as CAPMode) || 'production'
+  const testMode = mode === 'test'
+  const demoMode = mode === 'demo'
 
   console.log('CAP Settings:', {
     playAudio,

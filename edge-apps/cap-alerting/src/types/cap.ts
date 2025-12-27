@@ -57,3 +57,5 @@ export interface CAPAlert {
   incidents?: string
   infos: CAPInfo[]
 }
+
+export type CAPMode = 'test' | 'demo' | 'production'
