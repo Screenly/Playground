@@ -7,8 +7,8 @@ import {
   getCorsProxyUrl,
 } from '@screenly/edge-apps'
 
-import { CAPInfo, CAPAlert, CAPMode } from './types/cap.js'
-import { CAPFetcher } from './fetcher.js'
+import { CAPInfo, CAPAlert, CAPMode } from './types/cap'
+import { CAPFetcher } from './fetcher'
 import { XMLParser } from 'fast-xml-parser'
 
 export function parseCap(xml: string): CAPAlert[] {
