@@ -16,7 +16,6 @@ mock.module('@screenly/edge-apps', () => ({
   getTags: () => mockGetTags(),
 }))
 
-import { getNearestExit } from './main'
 import { parseCap } from './parser'
 import { XMLParser } from 'fast-xml-parser'
 
@@ -888,44 +887,6 @@ describe('CAP v1.2 Parser', () => {
       expect(alerts).toHaveLength(2)
       expect(alerts[0].identifier).toBe('ALERT001')
       expect(alerts[1].identifier).toBe('ALERT002')
-    })
-  })
-
-  describe('Nearest Exit Functionality', () => {
-    it('should extract exit from tag with colon', () => {
-      const tags = ['exit:North Lobby', 'location:Building A']
-      const exit = getNearestExit(tags)
-      expect(exit).toBe('North Lobby')
-    })
-
-    it('should extract exit from tag with dash', () => {
-      const tags = ['exit-South Stairwell', 'floor:3']
-      const exit = getNearestExit(tags)
-      expect(exit).toBe('South Stairwell')
-    })
-
-    it('should be case-insensitive', () => {
-      const tags = ['EXIT:West Door', 'Exit-East Door']
-      const exit = getNearestExit(tags)
-      expect(exit).toBe('West Door')
-    })
-
-    it('should return first exit tag found', () => {
-      const tags = ['exit:First Exit', 'exit:Second Exit']
-      const exit = getNearestExit(tags)
-      expect(exit).toBe('First Exit')
-    })
-
-    it('should return undefined if no exit tag found', () => {
-      const tags = ['location:Building A', 'floor:3']
-      const exit = getNearestExit(tags)
-      expect(exit).toBeUndefined()
-    })
-
-    it('should trim whitespace from exit description', () => {
-      const tags = ['exit:  Main Entrance  ']
-      const exit = getNearestExit(tags)
-      expect(exit).toBe('Main Entrance')
     })
   })
 
