@@ -7,7 +7,7 @@ const mockSetupTheme = mock()
 const mockSignalReady = mock()
 const mockGetTags = mock()
 
-mock.module('../edge-apps-library/src/index', () => ({
+mock.module('@screenly/edge-apps', () => ({
   getSettings: () => mockGetSettings(),
   getMetadata: () => mockGetMetadata(),
   getCorsProxyUrl: () => mockGetCorsProxyUrl(),
