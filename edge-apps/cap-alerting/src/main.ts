@@ -4,75 +4,14 @@ import {
   getMetadata,
   getTags,
   getSettings,
-  getCorsProxyUrl,
   getSettingWithDefault,
 } from '@screenly/edge-apps'
 
 import { CAPAlert, CAPMode } from './types/cap'
 import { parseCap } from './parser'
 import { CAPFetcher } from './fetcher'
-
-export function getNearestExit(tags: string[]): string | undefined {
-  for (const tag of tags) {
-    const lower = tag.toLowerCase()
-    if (lower.startsWith('exit:')) {
-      return tag.slice(5).trim()
-    }
-    if (lower.startsWith('exit-')) {
-      return tag.slice(5).trim()
-    }
-  }
-  return undefined
-}
-
-function highlightKeywords(text: string): string {
-  const keywords = [
-    'DO NOT',
-    "DON'T",
-    'IMMEDIATELY',
-    'IMMEDIATE',
-    'NOW',
-    'MOVE TO',
-    'EVACUATE',
-    'CALL',
-    'WARNING',
-    'DANGER',
-    'SHELTER',
-    'TAKE COVER',
-    'AVOID',
-    'STAY',
-    'SEEK',
-    'TURN AROUND',
-    'GET TO',
-    'LEAVE',
-  ]
-
-  let result = text
-  keywords.forEach((keyword) => {
-    const regex = new RegExp(`\\b(${keyword})\\b`, 'gi')
-    result = result.replace(
-      regex,
-      '<strong class="text-red-800 font-black">$1</strong>',
-    )
-  })
-
-  return result
-}
-
-function splitIntoSentences(text: string): string[] {
-  return text
-    .split(/(?<=[.!?])\s+/)
-    .map((s) => s.trim())
-    .filter((s) => s.length > 0)
-}
-
-function proxyUrl(url: string): string {
-  if (url && url.match(/^https?:/)) {
-    const cors = getCorsProxyUrl()
-    return `${cors}/${url}`
-  }
-  return url
-}
+import { getNearestExit, splitIntoSentences, proxyUrl } from './utils'
+import { highlightKeywords } from './render'
 
 function renderAlerts(
   alerts: CAPAlert[],
@@ -295,19 +234,11 @@ export async function startApp(): Promise<void> {
   const interval = getSettingWithDefault<number>('refresh_interval', 5)
   const lang = getSettingWithDefault<string>('language', 'en')
   const maxAlerts = getSettingWithDefault<number>('max_alerts', 3)
-  const playAudio = getSettingWithDefault<boolean>('audio_alert', false)
+  const playAudio = !getSettingWithDefault<boolean>('mute_sound', false)
   const offlineMode = getSettingWithDefault<boolean>('offline_mode', false)
   const mode = getSettingWithDefault<CAPMode>('mode', 'production')
   const testMode = mode === 'test'
   const demoMode = mode === 'demo'
-
-  console.log('CAP Settings:', {
-    playAudio,
-    audio_alert: settings.audio_alert,
-    demoMode,
-    testMode,
-    maxAlerts,
-  })
 
   const tags: string[] = getTags()
   const nearestExit = getNearestExit(tags)

@@ -7,12 +7,6 @@ entrypoint:
   type: file
 ready_signal: true
 settings:
-  audio_alert:
-    type: string
-    default_value: 'false'
-    title: Play Audio Alerts
-    optional: true
-    help_text: Play audio from CAP resources when available (true/false).
   cap_feed_url:
     type: string
     default_value: ''
@@ -47,6 +41,16 @@ settings:
         - label: Test
           value: test
         type: select
+      schema_version: 1
+  mute_sound:
+    type: string
+    default_value: 'false'
+    title: Mute Sound
+    optional: true
+    help_text:
+      properties:
+        help_text: Mute audio alerts from CAP resources. Not available for Screenly Anywhere.
+        type: boolean
       schema_version: 1
   offline_mode:
     type: string
