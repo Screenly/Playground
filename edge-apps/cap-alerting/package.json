@@ -6,7 +6,8 @@
   "scripts": {
     "generate-mock-data": "screenly edge-app run --generate-mock-data",
     "predev": "bun run generate-mock-data",
-    "dev": "run-p build:css:dev build:js:dev edge-app-server",
+    "dev": "run-p build:css:dev build:js:dev edge-app-server cors-proxy-server",
+    "cors-proxy-server": "bun ../blueprint/scripts/cors-proxy-server.ts",
     "edge-app-server": "screenly edge-app run",
     "build": "run-p build:css:prod build:js:prod",
     "build:css:common": "bunx @tailwindcss/cli -i ./src/input.css -o ./static/style.css",
