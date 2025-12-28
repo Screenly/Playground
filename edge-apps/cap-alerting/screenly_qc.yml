@@ -29,7 +29,7 @@ settings:
       schema_version: 1
   max_alerts:
     type: string
-    default_value: '3'
+    default_value: Infinity
     title: Maximum Alerts
     optional: true
     help_text:

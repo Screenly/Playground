@@ -24,7 +24,7 @@ function renderAlerts(
   if (!container) return
 
   container.innerHTML = ''
-  const slice = alerts.slice(0, maxAlerts)
+  const slice = maxAlerts === Infinity ? alerts : alerts.slice(0, maxAlerts)
 
   slice.forEach((alert) => {
     const info = alert.infos.find((i) => i.language === lang) ?? alert.infos[0]
@@ -233,7 +233,7 @@ export async function startApp(): Promise<void> {
   const feedUrl = getSettingWithDefault<string>('cap_feed_url', '')
   const interval = getSettingWithDefault<number>('refresh_interval', 5)
   const lang = getSettingWithDefault<string>('language', 'en')
-  const maxAlerts = getSettingWithDefault<number>('max_alerts', 3)
+  const maxAlerts = getSettingWithDefault<number>('max_alerts', Infinity)
   const playAudio = !getSettingWithDefault<boolean>('mute_sound', false)
   const offlineMode = getSettingWithDefault<boolean>('offline_mode', false)
   const mode = getSettingWithDefault<CAPMode>('mode', 'production')
