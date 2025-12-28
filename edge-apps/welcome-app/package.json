@@ -19,11 +19,13 @@
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
+    "format:check": "prettier --check src/",
     "predeploy": "bun run build",
     "deploy": "screenly edge-app deploy --path dist/",
     "clear-mock-data": "rimraf mock-data.yml",
     "prepare": "cd ../blueprint && bun install"
   },
+  "prettier": "../edge-apps-library/.prettierrc.json",
   "dependencies": {
     "@photostructure/tz-lookup": "^11.3.0",
     "pinia": "^3.0.4",
@@ -36,7 +38,7 @@
     "@types/jsdom": "^27.0.0",
     "@types/node": "^25.0.3",
     "@vitejs/plugin-vue": "^6.0.3",
-    "@vitest/eslint-plugin": "^1.5.4",
+    "@vitest/eslint-plugin": "^1.6.4",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.5.1",
     "@vue/test-utils": "^2.4.6",
@@ -45,16 +47,16 @@
     "eslint-plugin-playwright": "^2.4.0",
     "eslint-plugin-vue": "~10.6.2",
     "jiti": "^2.6.1",
-    "jsdom": "^27.3.0",
+    "jsdom": "^27.4.0",
     "npm-run-all2": "^8.0.4",
     "prettier": "3.7.4",
     "rimraf": "^6.1.2",
-    "sass-embedded": "^1.97.0",
+    "sass-embedded": "^1.97.1",
     "typescript": "~5.9.3",
     "vite": "^7.3.0",
     "vite-plugin-static-copy": "^3.1.4",
     "vite-plugin-vue-devtools": "^8.0.5",
     "vitest": "^4.0.16",
-    "vue-tsc": "^3.1.7"
+    "vue-tsc": "^3.2.1"
   }
 }
