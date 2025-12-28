@@ -12,19 +12,31 @@ settings:
     default_value: ''
     title: CAP Feed URL
     optional: true
-    help_text: URL or relative path to a CAP XML feed. Leave blank to use demo mode.
+    help_text:
+      properties:
+        help_text: URL or relative path to a CAP XML feed. Leave blank to use demo mode.
+        type: string
+      schema_version: 1
   language:
     type: string
     default_value: en
     title: Default Language
     optional: true
-    help_text: Choose the preferred language when multiple info blocks exist (e.g., en, es, fr).
+    help_text:
+      properties:
+        help_text: Choose the preferred language when multiple info blocks exist (e.g., en, es, fr).
+        type: string
+      schema_version: 1
   max_alerts:
     type: string
     default_value: '3'
     title: Maximum Alerts
     optional: true
-    help_text: Maximum number of alerts to display simultaneously.
+    help_text:
+      properties:
+        help_text: Maximum number of alerts to display simultaneously.
+        type: number
+      schema_version: 1
   mode:
     type: string
     default_value: production
@@ -57,10 +69,18 @@ settings:
     default_value: 'false'
     title: Offline Mode
     optional: true
-    help_text: When enabled, avoid network fetches and use cached data (true/false).
+    help_text:
+      properties:
+        help_text: When enabled, avoid network fetches and use cached data.
+        type: boolean
+      schema_version: 1
   refresh_interval:
     type: string
     default_value: '5'
     title: Refresh Interval (minutes)
     optional: true
-    help_text: Time in minutes between feed updates.
+    help_text:
+      properties:
+        help_text: Time in minutes between feed updates.
+        type: number
+      schema_version: 1
