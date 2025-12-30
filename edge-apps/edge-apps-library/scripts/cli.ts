@@ -11,16 +11,15 @@ const commands = {
     description: 'Run ESLint with shared configuration',
     handler: lintCommand,
   },
-  format: {
-    description: 'Format code with Prettier',
-    handler: formatCommand,
-  },
 }
 
 async function lintCommand(args: string[]) {
   try {
     // Get the caller's directory (the app that invoked this script)
     const callerDir = process.cwd()
+    
+    // Get path to eslint binary in the library's node_modules
+    const eslintBin = path.resolve(path.dirname(__dirname), 'node_modules', '.bin', 'eslint')
 
     // Build eslint command
     const eslintArgs = [
@@ -30,17 +29,13 @@ async function lintCommand(args: string[]) {
       ...args,
     ]
 
-    execSync(`eslint ${eslintArgs.map((arg) => `"${arg}"`).join(' ')}`, {
+    execSync(`"${eslintBin}" ${eslintArgs.map((arg) => `"${arg}"`).join(' ')}`, {
       stdio: 'inherit',
       cwd: callerDir,
     })
-  } catch (error) {
+  } catch {
     process.exit(1)
   }
-}
-
-async function formatCommand(args: string[]) {
-  console.log('Format command coming soon!')
 }
 
 export async function run() {
