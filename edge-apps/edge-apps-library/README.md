@@ -77,6 +77,36 @@ signalReady()
 - `addUTMParams(url, params?)` - Add UTM parameters to URL
 - `addUTMParamsIf(url, enabled, params?)` - Conditionally add UTM parameters
 
+## Edge Apps Scripts CLI
+
+This package provides the `edge-apps-scripts` CLI tool for running shared development commands across all Edge Apps. It includes centralized ESLint configuration to avoid duplication.
+
+### Linting
+
+To lint your Edge App:
+
+```bash
+bun run lint
+```
+
+To lint and automatically fix issues:
+
+```bash
+bun run lint -- --fix
+```
+
+Your Edge App's `package.json` should include:
+
+```json
+{
+  "scripts": {
+    "lint": "edge-apps-scripts lint"
+  }
+}
+```
+
+The CLI uses the shared ESLint configuration from `@screenly/edge-apps`, so you don't need to maintain your own `eslint.config.ts`.
+
 ## Testing
 
 ```typescript
