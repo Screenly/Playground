@@ -5,6 +5,11 @@
 
 import { execSync } from 'child_process'
 import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+const libraryRoot = path.dirname(__dirname)
 
 const commands = {
   lint: {
@@ -19,12 +24,12 @@ async function lintCommand(args: string[]) {
     const callerDir = process.cwd()
     
     // Get path to eslint binary in the library's node_modules
-    const eslintBin = path.resolve(path.dirname(__dirname), 'node_modules', '.bin', 'eslint')
+    const eslintBin = path.resolve(libraryRoot, 'node_modules', '.bin', 'eslint')
 
     // Build eslint command
     const eslintArgs = [
       '--config',
-      path.resolve(path.dirname(__dirname), 'eslint.config.ts'),
+      path.resolve(libraryRoot, 'eslint.config.ts'),
       '.',
       ...args,
     ]
