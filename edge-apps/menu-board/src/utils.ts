@@ -35,7 +35,7 @@ export interface MenuItem {
  * Retrieves all menu items from settings
  * Note: This function depends on getSetting from @screenly/edge-apps
  */
-export function getMenuItems(getSetting: (key: string) => any): MenuItem[] {
+export function getMenuItems(getSetting: (key: string) => string | undefined): MenuItem[] {
   const menuItems: MenuItem[] = []
 
   for (let i = 1; i <= MAX_MENU_ITEMS; i++) {

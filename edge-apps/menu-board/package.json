@@ -12,7 +12,7 @@
     "build:prod": "bun build src/main.ts --outdir static/js --target browser",
     "test": "bun test",
     "test:unit": "bun test",
-    "lint": "tsc --noEmit",
+    "lint": "eslint . --fix",
     "format": "prettier --write src/ README.md index.html static/css/",
     "format:check": "prettier --check src/ README.md index.html static/css/",
     "deploy": "bun run build && screenly edge-app deploy",
