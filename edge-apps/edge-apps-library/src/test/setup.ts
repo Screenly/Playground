@@ -8,9 +8,6 @@ const dom = new JSDOM(
   },
 )
 
-// @ts-ignore - setting global document
 global.document = dom.window.document
-// @ts-ignore - setting global window
-global.window = dom.window as any
-// @ts-ignore - setting global navigator
+global.window = dom.window as unknown as Window & typeof globalThis
 global.navigator = dom.window.navigator
