@@ -39,7 +39,7 @@ export function getLocation(): string {
 /**
  * Get the hardware identifier
  */
-export function getHardware(): string {
+export function getHardware(): string | undefined {
   return screenly.metadata.hardware
 }
 
@@ -68,8 +68,5 @@ export function hasTag(tag: string): boolean {
  * Check if the device is an Anywhere screen
  */
 export function isAnywhereScreen(): boolean {
-  return (
-    screenly.metadata.hardware === '' ||
-    screenly.metadata.hardware === undefined
-  )
+  return getHardware() === '' || getHardware() === undefined
 }

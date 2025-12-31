@@ -5,7 +5,7 @@ export interface ScreenlyMetadata {
   /** GPS coordinates [latitude, longitude] */
   coordinates: [number, number]
   /** Hardware identifier */
-  hardware: string
+  hardware: string | undefined
   /** Device hostname */
   hostname: string
   /** Physical location description */
