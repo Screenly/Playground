@@ -68,5 +68,6 @@ export function hasTag(tag: string): boolean {
  * Check if the device is an Anywhere screen
  */
 export function isAnywhereScreen(): boolean {
-  return getHardware() === '' || getHardware() === undefined
+  const hardware = getHardware()
+  return hardware === '' || hardware === undefined
 }
