@@ -32,7 +32,7 @@ When adding settings to your manifest file, follow these guidelines:
   - `textarea`: For multi-line text input
   - `url`: For URL input
 
-Example of structured help_text:
+Example of structured `help_text`:
 
 ```yaml
 settings:
