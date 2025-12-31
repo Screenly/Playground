@@ -107,23 +107,17 @@ describe('metadata utilities', () => {
       expect(isAnywhereScreen()).toBe(false)
     })
 
-    test.each([
-      ['empty string', ''],
-      ['undefined', undefined],
-    ])(
-      'should return true when hardware is %s',
-      (_: string, hardware: string | undefined) => {
-        setupScreenlyMock({
-          coordinates: [37.3861, -122.0839],
-          hostname: 'test-host',
-          location: 'Test Location',
-          hardware: hardware as string | undefined,
-          screenly_version: '1.2.3',
-          screen_name: 'Main Screen',
-          tags: [],
-        })
-        expect(isAnywhereScreen()).toBe(true)
-      },
-    )
+    test('should return true when hardware is undefined', () => {
+      setupScreenlyMock({
+        coordinates: [37.3861, -122.0839],
+        hostname: 'test-host',
+        location: 'Test Location',
+        hardware: undefined,
+        screenly_version: '1.2.3',
+        screen_name: 'Main Screen',
+        tags: [],
+      })
+      expect(isAnywhereScreen()).toBe(true)
+    })
   })
 })

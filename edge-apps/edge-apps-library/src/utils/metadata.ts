@@ -69,5 +69,5 @@ export function hasTag(tag: string): boolean {
  */
 export function isAnywhereScreen(): boolean {
   const hardware = getHardware()
-  return hardware === '' || hardware === undefined
+  return hardware === undefined
 }
