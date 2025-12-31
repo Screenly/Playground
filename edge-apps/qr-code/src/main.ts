@@ -16,7 +16,7 @@ interface QRCodeOptions {
 }
 
 function generateQrCode(
-  url: any,
+  url: string,
   options: QRCodeOptions,
   callback: (svgElement: SVGElement) => void,
 ): void {
