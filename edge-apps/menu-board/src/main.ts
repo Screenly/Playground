@@ -3,6 +3,7 @@ import {
   getSettingWithDefault,
   signalReady,
 } from '@screenly/edge-apps'
+import { Hardware } from '@screenly/edge-apps'
 import {
   escapeHtml,
   calculateItemsPerPage,
@@ -55,9 +56,9 @@ function renderPage(
     fragment.appendChild(itemElement)
   })
 
-  // Disable transitions if hardware is undefined (running in an Anywhere screen)
+  // Disable transitions if hardware is Anywhere screen
   const hardware = getHardware()
-  if (!hardware) {
+  if (hardware === Hardware.Anywhere) {
     menuGrid.innerHTML = ''
     menuGrid.appendChild(fragment)
   } else {
