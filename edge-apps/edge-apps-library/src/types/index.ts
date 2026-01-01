@@ -1,4 +1,13 @@
 /**
+ * Hardware types for Screenly devices
+ */
+export enum Hardware {
+  Anywhere = 'Anywhere',
+  RaspberryPi = 'RaspberryPi',
+  ScreenlyPlayerMax = 'ScreenlyPlayerMax',
+}
+
+/**
  * Screenly metadata provided by the Edge Apps runtime
  */
 export interface ScreenlyMetadata {

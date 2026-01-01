@@ -1,4 +1,5 @@
 import type { ScreenlyMetadata } from '../types/index.js'
+import { Hardware } from '../types/index.js'
 import { formatCoordinates } from './locale.js'
 
 /**
@@ -37,10 +38,24 @@ export function getLocation(): string {
 }
 
 /**
- * Get the hardware identifier
+ * Get the hardware type
  */
-export function getHardware(): string | undefined {
-  return screenly.metadata.hardware
+export function getHardware(): Hardware {
+  const hardware = screenly.metadata.hardware
+
+  if (hardware === undefined) {
+    return Hardware.Anywhere
+  }
+
+  if (hardware === 'Raspberry Pi') {
+    return Hardware.RaspberryPi
+  }
+
+  if (hardware === 'Screenly Player Max') {
+    return Hardware.ScreenlyPlayerMax
+  }
+
+  throw new Error(`Unknown hardware type: ${hardware}`)
 }
 
 /**
@@ -62,12 +77,4 @@ export function getTags(): string[] {
  */
 export function hasTag(tag: string): boolean {
   return screenly.metadata.tags.includes(tag)
-}
-
-/**
- * Check if the device is an Anywhere screen
- */
-export function isAnywhereScreen(): boolean {
-  const hardware = getHardware()
-  return hardware === undefined
 }
