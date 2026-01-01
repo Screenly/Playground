@@ -16,7 +16,7 @@ settings:
     help_text: Color used for titles and prices (default is white with a subtle purple tint)
   background_image:
     type: string
-    default_value: assets/pizza.png
+    default_value: ''
     title: Background Image URL
     optional: true
     help_text: URL to a background image. For best results, use a dark/subtle image.
