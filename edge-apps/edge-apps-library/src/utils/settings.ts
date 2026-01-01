@@ -21,7 +21,7 @@ export function getSettingWithDefault<T>(key: string, defaultValue: T): T {
   const value = screenly.settings[key]
   if (value === undefined) return defaultValue
 
-  if (typeof value === `string` && value === '') {
+  if (typeof value === 'string' && value === '') {
     return defaultValue
   }
 
