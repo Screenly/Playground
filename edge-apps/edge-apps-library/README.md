@@ -59,7 +59,8 @@ signalReady()
 ### Metadata
 
 - `getMetadata()` - Get all screen metadata
-- `getScreenName()`, `getHostname()`, `getLocation()`, `getHardware()`, `getScreenlyVersion()`, `getTags()`, `hasTag(tag)`, `getFormattedCoordinates()`
+- `getScreenName()`, `getHostname()`, `getLocation()`, `getScreenlyVersion()`, `getTags()`, `hasTag(tag)`, `getFormattedCoordinates()`
+- `getHardware()` - Get hardware type as `Hardware` enum (`Anywhere`, `RaspberryPi`, or `ScreenlyPlayerMax`)
 
 ### Location & Localization
 
@@ -125,6 +126,7 @@ afterEach(() => {
 
 ```typescript
 import type {
+  Hardware,
   ScreenlyMetadata,
   ScreenlySettings,
   ScreenlyObject,
