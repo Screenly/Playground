@@ -11,6 +11,7 @@ import {
   hasTag,
   isAnywhereScreen,
 } from './metadata'
+import { Hardware } from '../types/index.js'
 import { setupScreenlyMock, resetScreenlyMock } from '../test/mock'
 
 describe('metadata utilities', () => {
@@ -19,7 +20,7 @@ describe('metadata utilities', () => {
       coordinates: [37.3861, -122.0839],
       hostname: 'test-host',
       location: 'Test Location',
-      hardware: 'Raspberry Pi 4',
+      hardware: 'Raspberry Pi',
       screenly_version: '1.2.3',
       screen_name: 'Main Screen',
       tags: ['lobby', 'reception', 'main'],
@@ -37,7 +38,7 @@ describe('metadata utilities', () => {
         coordinates: [37.3861, -122.0839],
         hostname: 'test-host',
         location: 'Test Location',
-        hardware: 'Raspberry Pi 4',
+        hardware: 'Raspberry Pi',
         screenly_version: '1.2.3',
         screen_name: 'Main Screen',
         tags: ['lobby', 'reception', 'main'],
@@ -71,8 +72,49 @@ describe('metadata utilities', () => {
   })
 
   describe('getHardware', () => {
-    test('should return hardware', () => {
-      expect(getHardware()).toBe('Raspberry Pi 4')
+    test('should return RaspberryPi enum value', () => {
+      expect(getHardware()).toBe(Hardware.RaspberryPi)
+    })
+
+    test('should return Anywhere enum value when hardware is undefined', () => {
+      setupScreenlyMock({
+        coordinates: [37.3861, -122.0839],
+        hostname: 'test-host',
+        location: 'Test Location',
+        hardware: undefined,
+        screenly_version: '1.2.3',
+        screen_name: 'Main Screen',
+        tags: [],
+      })
+      expect(getHardware()).toBe(Hardware.Anywhere)
+    })
+
+    test('should return ScreenlyPlayerMax enum value for Screenly Player Max hardware', () => {
+      setupScreenlyMock({
+        coordinates: [37.3861, -122.0839],
+        hostname: 'test-host',
+        location: 'Test Location',
+        hardware: 'Screenly Player Max',
+        screenly_version: '1.2.3',
+        screen_name: 'Main Screen',
+        tags: [],
+      })
+      expect(getHardware()).toBe(Hardware.ScreenlyPlayerMax)
+    })
+
+    test('should throw error for unknown hardware type', () => {
+      setupScreenlyMock({
+        coordinates: [37.3861, -122.0839],
+        hostname: 'test-host',
+        location: 'Test Location',
+        hardware: 'Unknown Hardware',
+        screenly_version: '1.2.3',
+        screen_name: 'Main Screen',
+        tags: [],
+      })
+      expect(() => getHardware()).toThrow(
+        'Unknown hardware type: Unknown Hardware',
+      )
     })
   })
 
