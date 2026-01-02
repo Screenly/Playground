@@ -8,21 +8,9 @@ import {
   escapeHtml,
   calculateItemsPerPage,
   getMenuItems,
+  getDefaultBackgroundImage,
   MenuItem,
 } from './utils'
-
-/**
- * Get the default background image URL
- * Returns a full GitHub URL for Anywhere screens (no relative path support),
- * or a relative path for other hardware
- */
-function getDefaultBackgroundImage(): string {
-  const hardware = getHardware()
-  if (hardware === Hardware.Anywhere) {
-    return 'https://raw.githubusercontent.com/Screenly/Playground/refs/heads/master/edge-apps/menu-board/assets/pizza.png'
-  }
-  return 'assets/pizza.png'
-}
 
 /**
  * Renders a specific page of menu items
