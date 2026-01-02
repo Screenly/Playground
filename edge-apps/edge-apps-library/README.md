@@ -8,6 +8,29 @@ A TypeScript library for interfacing with the Screenly Edge Apps API.
 bun add @screenly/edge-apps
 ```
 
+### Local Development Setup
+
+When developing Edge Apps locally using the library from this repository, you should link the package:
+
+```bash
+cd edge-apps/edge-apps-library
+bun link
+```
+
+Then in your Edge App directory:
+
+```bash
+cd /path/to/your-edge-app
+bun install
+```
+
+To unlink the package when you're done with local development:
+
+```bash
+cd edge-apps/edge-apps-library
+bun unlink
+```
+
 ## Quick Start
 
 ```typescript
@@ -36,7 +59,8 @@ signalReady()
 ### Metadata
 
 - `getMetadata()` - Get all screen metadata
-- `getScreenName()`, `getHostname()`, `getLocation()`, `getHardware()`, `getScreenlyVersion()`, `getTags()`, `hasTag(tag)`, `getFormattedCoordinates()`
+- `getScreenName()`, `getHostname()`, `getLocation()`, `getScreenlyVersion()`, `getTags()`, `hasTag(tag)`, `getFormattedCoordinates()`
+- `getHardware()` - Get hardware type as `Hardware` enum (`Anywhere`, `RaspberryPi`, or `ScreenlyPlayerMax`)
 
 ### Location & Localization
 
@@ -53,6 +77,36 @@ signalReady()
 
 - `addUTMParams(url, params?)` - Add UTM parameters to URL
 - `addUTMParamsIf(url, enabled, params?)` - Conditionally add UTM parameters
+
+## Edge Apps Scripts CLI
+
+This package provides the `edge-apps-scripts` CLI tool for running shared development commands across all Edge Apps. It includes centralized ESLint configuration to avoid duplication.
+
+### Linting
+
+To lint your Edge App:
+
+```bash
+bun run lint
+```
+
+To lint and automatically fix issues:
+
+```bash
+bun run lint -- --fix
+```
+
+Your Edge App's `package.json` should include:
+
+```json
+{
+  "scripts": {
+    "lint": "edge-apps-scripts lint"
+  }
+}
+```
+
+The CLI uses the shared ESLint configuration from `@screenly/edge-apps`, so you don't need to maintain your own `eslint.config.ts`.
 
 ## Testing
 
@@ -72,6 +126,7 @@ afterEach(() => {
 
 ```typescript
 import type {
+  Hardware,
   ScreenlyMetadata,
   ScreenlySettings,
   ScreenlyObject,

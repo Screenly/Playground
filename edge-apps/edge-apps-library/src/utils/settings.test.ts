@@ -91,6 +91,13 @@ describe('settings utilities', () => {
       expect(getSettingWithDefault('scientific', 0)).toBe(100000)
     })
 
+    test('should return default when setting is an empty string (string default)', () => {
+      setupScreenlyMock({}, { empty_string: '' })
+      expect(getSettingWithDefault('empty_string', 'default_value')).toBe(
+        'default_value',
+      )
+    })
+
     test('should return default when setting is an empty string and default is a number', () => {
       setupScreenlyMock({}, { empty_number: '' })
       expect(getSettingWithDefault<number>('empty_number', 67)).toBe(67)
