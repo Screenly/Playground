@@ -24,7 +24,8 @@
     "format:common": "prettier src/ README.md index.html",
     "format": "bun run format:common --write",
     "format:check": "bun run format:common --check",
-    "deploy": "bun run build && screenly edge-app deploy"
+    "deploy": "bun run build && screenly edge-app deploy",
+    "prepare": "cd ../edge-apps-library && bun install && bun run build"
   },
   "dependencies": {
     "@photostructure/tz-lookup": "^11.3.0",
