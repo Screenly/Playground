@@ -7,6 +7,8 @@ import {
   resetScreenlyMock,
 } from './mock'
 
+const global = globalThis as Record<string, unknown>
+
 describe('mock utilities', () => {
   afterEach(() => {
     resetScreenlyMock()
@@ -75,32 +77,33 @@ describe('mock utilities', () => {
     test('should setup global screenly object', () => {
       setupScreenlyMock()
 
-      expect((globalThis as any).screenly).toBeDefined()
-      expect((globalThis as any).screenly).toHaveProperty('metadata')
-      expect((globalThis as any).screenly).toHaveProperty('settings')
+      expect(global.screenly).toBeDefined()
+      expect(global.screenly).toHaveProperty('metadata')
+      expect(global.screenly).toHaveProperty('settings')
     })
 
     test('should setup with custom values', () => {
       setupScreenlyMock({ hostname: 'custom-host' }, { theme: 'dark' })
 
-      expect((globalThis as any).screenly.metadata.hostname).toBe('custom-host')
-      expect((globalThis as any).screenly.settings.theme).toBe('dark')
+      const screenly = global.screenly as Record<string, unknown>
+      expect(screenly.metadata).toHaveProperty('hostname', 'custom-host')
+      expect(screenly.settings).toHaveProperty('theme', 'dark')
     })
 
     test('should return the mock object', () => {
       const mock = setupScreenlyMock()
 
-      expect(mock).toBe((globalThis as any).screenly)
+      expect(mock).toBe(global.screenly)
     })
   })
 
   describe('resetScreenlyMock', () => {
     test('should remove global screenly object', () => {
       setupScreenlyMock()
-      expect((globalThis as any).screenly).toBeDefined()
+      expect(global.screenly).toBeDefined()
 
       resetScreenlyMock()
-      expect((globalThis as any).screenly).toBeUndefined()
+      expect(global.screenly).toBeUndefined()
     })
   })
 })

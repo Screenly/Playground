@@ -6,6 +6,9 @@
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "bin": {
+    "edge-apps-scripts": "./bin/edge-apps-scripts.ts"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -25,7 +28,10 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "bin",
+    "scripts",
+    "eslint.config.ts"
   ],
   "scripts": {
     "build": "bun build:types",
@@ -33,7 +39,7 @@
     "test": "bun test --parallel",
     "test:unit": "bun test --parallel",
     "test:coverage": "bun test --coverage --parallel",
-    "lint": "tsc --noEmit",
+    "lint": "eslint . --fix",
     "format": "prettier --write src/ README.md index.html",
     "format:check": "prettier --check src/ README.md index.html"
   },
@@ -52,12 +58,16 @@
     "panic-overlay": "^1.0.51"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.2",
     "@types/bun": "^1.3.5",
     "@types/jsdom": "^27.0.0",
     "@types/node": "^25.0.3",
     "bun-types": "^1.3.5",
+    "eslint": "^9.39.2",
+    "jiti": "^2.6.1",
     "jsdom": "^27.4.0",
     "prettier": "^3.7.4",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.51.0"
   }
 }

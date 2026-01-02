@@ -3,10 +3,12 @@ import {
   getSettingWithDefault,
   signalReady,
 } from '@screenly/edge-apps'
+import { Hardware } from '@screenly/edge-apps'
 import {
   escapeHtml,
   calculateItemsPerPage,
   getMenuItems,
+  getDefaultBackgroundImage,
   MenuItem,
 } from './utils'
 
@@ -55,9 +57,9 @@ function renderPage(
     fragment.appendChild(itemElement)
   })
 
-  // Disable transitions if hardware is undefined (running in an Anywhere screen)
+  // Disable transitions if hardware is Anywhere screen
   const hardware = getHardware()
-  if (!hardware) {
+  if (hardware === Hardware.Anywhere) {
     menuGrid.innerHTML = ''
     menuGrid.appendChild(fragment)
   } else {
@@ -86,7 +88,7 @@ function initializeMenuBoard(): void {
     )
     const backgroundImage = getSettingWithDefault<string>(
       'background_image',
-      'assets/pizza.png',
+      getDefaultBackgroundImage(),
     )
     const logoUrl = getSettingWithDefault<string>(
       'logo_url',

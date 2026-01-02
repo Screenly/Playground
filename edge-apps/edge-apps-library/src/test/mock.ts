@@ -4,6 +4,8 @@ import type {
   ScreenlySettings,
 } from '../types/index.js'
 
+const global = globalThis as Record<string, unknown>
+
 /**
  * Default mock metadata for testing
  */
@@ -52,7 +54,7 @@ export function setupScreenlyMock(
   settings: Partial<ScreenlySettings> = {},
 ): ScreenlyObject {
   const mock = createMockScreenly(metadata, settings)
-  ;(globalThis as any).screenly = mock
+  global.screenly = mock
   return mock
 }
 
@@ -60,5 +62,5 @@ export function setupScreenlyMock(
  * Reset the global screenly mock
  */
 export function resetScreenlyMock(): void {
-  delete (globalThis as any).screenly
+  delete global.screenly
 }
