@@ -4,6 +4,51 @@
 
 Edge Apps is a framework for building and running content on Screenly's digital signage screens.
 
+## Manifest Files
+
+Edge Apps use manifest files to define metadata and configuration for your app. The default manifest file is `screenly.yml`, which is automatically created when you generate a new Edge App.
+
+The manifest file contains important information about your Edge App, including:
+
+- **Basic metadata**: An ID, description, icon, and author name
+- **Entry point**: How the app should be loaded (from a local file or remote URL)
+- **Settings**: Configurable key-value pairs that users can customize when installing or managing instances of your app (e.g., API keys, greeting messages, or other options)
+- **Secrets**: Secure storage for sensitive data like authentication tokens
+- **Ready signal**: Configuration for controlling when the app renders on the player
+
+For comprehensive documentation on manifest files, including all available fields and configuration options, see the [Screenly manifest file documentation](https://developer.screenly.io/edge-apps/#manifest-file).
+
+### Settings in Manifest Files
+
+When adding settings to your manifest file, follow these guidelines:
+
+- **Alphabetical sorting**: Settings must be sorted alphabetically by their key names. This improves maintainability and makes it easier to find settings.
+- **Help text format**: While `help_text` can be written as a simple string, it's recommended to use a structured format with `schema_version` and `properties` when appropriate. This format instructs the UI how to render the input field in the web interface without changing the underlying storage type.
+- **Input field types**: The structured `help_text` format supports the following input types:
+  - `datetime`: For date and time selection
+  - `number`: For numeric input
+  - `select`: For dropdown selection
+  - `boolean`: For switch/toggle input
+  - `textarea`: For multi-line text input
+  - `url`: For URL input
+
+Example of structured `help_text`:
+
+```yaml
+settings:
+  number_field:
+    type: string
+    title: Attendee Count
+    optional: false
+    help_text:
+      schema_version: 1
+      properties:
+        help_text: The expected count of attendees
+        type: number
+```
+
+This approach provides a better user experience in the web interface by rendering the appropriate input control while keeping the value stored as a string.
+
 ## Writing an Edge App from Scratch
 
 This rule applies to Edge Apps that are written in plain HTML, CSS, and JavaScript.

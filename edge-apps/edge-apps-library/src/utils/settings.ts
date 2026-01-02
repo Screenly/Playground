@@ -21,6 +21,10 @@ export function getSettingWithDefault<T>(key: string, defaultValue: T): T {
   const value = screenly.settings[key]
   if (value === undefined) return defaultValue
 
+  if (typeof value === 'string' && value === '') {
+    return defaultValue
+  }
+
   // If the value is a string and the default is a number, try to parse it
   if (typeof value === 'string' && typeof defaultValue === 'number') {
     const trimmed = value.trim()

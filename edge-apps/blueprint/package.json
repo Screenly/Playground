@@ -9,7 +9,7 @@
   "dependencies": {
     "@photostructure/tz-lookup": "^11.3.0",
     "@sentry/vue": "^10.32.1",
-    "@typescript-eslint/typescript-estree": "^8.50.1",
+    "@typescript-eslint/typescript-estree": "^8.51.0",
     "country-locale-map": "^1.9.11",
     "dayjs": "^1.11.19",
     "offline-geocode-city": "^1.0.2",

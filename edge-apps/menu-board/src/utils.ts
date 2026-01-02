@@ -1,3 +1,5 @@
+import { getHardware, Hardware } from '@screenly/edge-apps'
+
 const MAX_MENU_ITEMS = 25
 
 /**
@@ -32,10 +34,24 @@ export interface MenuItem {
 }
 
 /**
+ * Get the default background image URL
+ * Returns a full GitHub URL for Anywhere screens (no relative path support),
+ * or a relative path for other hardware
+ */
+export function getDefaultBackgroundImage(): string {
+  if (getHardware() === Hardware.Anywhere) {
+    return 'https://raw.githubusercontent.com/Screenly/Playground/refs/heads/master/edge-apps/menu-board/assets/pizza.png'
+  }
+  return 'assets/pizza.png'
+}
+
+/**
  * Retrieves all menu items from settings
  * Note: This function depends on getSetting from @screenly/edge-apps
  */
-export function getMenuItems(getSetting: (key: string) => any): MenuItem[] {
+export function getMenuItems(
+  getSetting: (key: string) => string | undefined,
+): MenuItem[] {
   const menuItems: MenuItem[] = []
 
   for (let i = 1; i <= MAX_MENU_ITEMS; i++) {
