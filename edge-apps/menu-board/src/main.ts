@@ -8,6 +8,7 @@ import {
   escapeHtml,
   calculateItemsPerPage,
   getMenuItems,
+  getDefaultBackgroundImage,
   MenuItem,
 } from './utils'
 
@@ -87,7 +88,7 @@ function initializeMenuBoard(): void {
     )
     const backgroundImage = getSettingWithDefault<string>(
       'background_image',
-      'assets/pizza.png',
+      getDefaultBackgroundImage(),
     )
     const logoUrl = getSettingWithDefault<string>(
       'logo_url',
