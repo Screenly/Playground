@@ -213,7 +213,7 @@ export async function startApp(): Promise<void> {
   try {
     settings = getSettings()
     localStorage.setItem('screenly_settings', JSON.stringify(settings))
-  } catch (_) {
+  } catch {
     const cached = localStorage.getItem('screenly_settings')
     settings = cached
       ? (JSON.parse(cached) as Partial<ReturnType<typeof getSettings>>)
@@ -223,7 +223,7 @@ export async function startApp(): Promise<void> {
   try {
     metadata = getMetadata()
     localStorage.setItem('screenly_metadata', JSON.stringify(metadata))
-  } catch (_) {
+  } catch {
     const cachedMeta = localStorage.getItem('screenly_metadata')
     metadata = cachedMeta
       ? (JSON.parse(cachedMeta) as Partial<ReturnType<typeof getMetadata>>)

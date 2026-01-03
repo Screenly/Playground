@@ -39,8 +39,8 @@ const mockFetch = mock()
 describe('CAPFetcher', () => {
   beforeEach(() => {
     // Setup mocks
-    global.localStorage = localStorageMock as any
-    global.fetch = mockFetch as any
+    global.localStorage = localStorageMock as unknown
+    global.fetch = mockFetch as unknown
 
     // Clear localStorage
     localStorageMock.clear()

@@ -12,7 +12,7 @@ export interface CAPArea {
   areaDesc: string
   polygon?: string | string[]
   circle?: string | string[]
-  geocode?: any
+  geocode?: unknown
   altitude?: number
   ceiling?: number
 }
@@ -35,8 +35,8 @@ export interface CAPInfo {
   instruction?: string
   web?: string
   contact?: string
-  parameter?: any
-  eventCode?: any
+  parameter?: unknown
+  eventCode?: unknown
   resources: CAPResource[]
   areas: CAPArea[]
 }

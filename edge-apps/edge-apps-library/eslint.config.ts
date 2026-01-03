@@ -5,5 +5,11 @@ import tseslint from 'typescript-eslint'
 export default defineConfig(
   eslint.configs.recommended,
   tseslint.configs.recommended,
-  globalIgnores(['dist/', 'node_modules/', 'static/js/', 'build/']),
+  globalIgnores([
+    'dist/',
+    'node_modules/',
+    'static/js/',
+    'build/',
+    'tailwind.config.js',
+  ]),
 )

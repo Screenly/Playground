@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, mock } from 'bun:test'
+import { describe, it, expect, mock } from 'bun:test'
 
 const mockGetSettings = mock()
 const mockGetMetadata = mock()
@@ -878,7 +878,7 @@ describe('CAP v1.2 Parser', () => {
         ignoreAttributes: false,
         attributeNamePrefix: '@_',
       })
-      const json: any = parser.parse(xml)
+      const json = parser.parse(xml)
       const alerts = json.feed?.alert
         ? Array.isArray(json.feed.alert)
           ? json.feed.alert

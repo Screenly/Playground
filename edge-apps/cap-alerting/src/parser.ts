@@ -6,7 +6,7 @@ export function parseCap(xml: string): CAPAlert[] {
     ignoreAttributes: false,
     attributeNamePrefix: '@_',
   })
-  const json: any = parser.parse(xml)
+  const json = parser.parse(xml)
   const alertsJson = json.alert
     ? Array.isArray(json.alert)
       ? json.alert
@@ -15,10 +15,10 @@ export function parseCap(xml: string): CAPAlert[] {
 
   const alerts: CAPAlert[] = []
 
-  alertsJson.forEach((a: any) => {
+  alertsJson.forEach((a: CAPAlert) => {
     const infosJson = a.info ? (Array.isArray(a.info) ? a.info : [a.info]) : []
 
-    const infos: CAPInfo[] = infosJson.map((info: any) => {
+    const infos: CAPInfo[] = infosJson.map((info: CAPInfo) => {
       const resourcesJson = info.resource
         ? Array.isArray(info.resource)
           ? info.resource
@@ -50,7 +50,7 @@ export function parseCap(xml: string): CAPAlert[] {
         contact: info.contact,
         parameter: info.parameter,
         eventCode: info.eventCode,
-        resources: resourcesJson.map((res: any) => {
+        resources: resourcesJson.map((res: Record<string, unknown>) => {
           return {
             resourceDesc: res.resourceDesc,
             mimeType: res.mimeType || res['mimeType'],
@@ -61,7 +61,7 @@ export function parseCap(xml: string): CAPAlert[] {
             url: res.uri || res.resourceDesc || '',
           }
         }),
-        areas: areasJson.map((area: any) => ({
+        areas: areasJson.map((area: Record<string, unknown>) => ({
           areaDesc: area.areaDesc || '',
           polygon: area.polygon,
           circle: area.circle,
