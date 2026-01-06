@@ -7,6 +7,7 @@ import {
 } from './utils'
 import { setupScreenlyMock, resetScreenlyMock } from '@screenly/edge-apps/test'
 
+// eslint-disable-next-line max-lines-per-function
 describe('Menu Board Tests', () => {
   describe('escapeHtml', () => {
     it('should escape HTML special characters', () => {
