@@ -1,6 +1,7 @@
 import { describe, test, expect } from 'bun:test'
 import { formatTime } from './locale'
 
+// eslint-disable-next-line max-lines-per-function
 describe('formatTime', () => {
   const testDate = new Date('2023-12-25T14:30:45Z')
 
