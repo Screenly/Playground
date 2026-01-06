@@ -59,7 +59,7 @@
     "panic-overlay": "^1.0.51",
     "prettier": "3.7.4",
     "rimraf": "^6.1.2",
-    "sass-embedded": "^1.97.1",
+    "sass-embedded": "^1.97.2",
     "typescript": "~5.9.3",
     "vite": "^7.3.0",
     "vite-plugin-static-copy": "^3.1.4",
