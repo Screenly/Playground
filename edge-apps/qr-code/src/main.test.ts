@@ -2,6 +2,7 @@ import { describe, test, expect, beforeEach, afterEach } from 'bun:test'
 import { setupScreenlyMock, resetScreenlyMock } from '@screenly/edge-apps/test'
 import { addUTMParamsIf } from '@screenly/edge-apps'
 
+// eslint-disable-next-line max-lines-per-function
 describe('QR Code App UTM Parameters', () => {
   beforeEach(() => {
     setupScreenlyMock(
