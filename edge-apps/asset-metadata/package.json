@@ -27,7 +27,7 @@
   },
   "prettier": "../edge-apps-library/.prettierrc.json",
   "dependencies": {
-    "@typescript-eslint/typescript-estree": "^8.51.0",
+    "@typescript-eslint/typescript-estree": "^8.52.0",
     "pinia": "^3.0.4",
     "vue": "^3.5.26",
     "yaml": "^2.8.2"
@@ -57,6 +57,6 @@
     "vite-plugin-static-copy": "^3.1.4",
     "vite-plugin-vue-devtools": "^8.0.5",
     "vitest": "^4.0.16",
-    "vue-tsc": "^3.2.1"
+    "vue-tsc": "^3.2.2"
   }
 }
