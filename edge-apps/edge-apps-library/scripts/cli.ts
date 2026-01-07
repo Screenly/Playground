@@ -16,6 +16,14 @@ const commands = {
     description: 'Run ESLint with shared configuration',
     handler: lintCommand,
   },
+  build: {
+    description: 'Build application for production',
+    handler: buildCommand,
+  },
+  'build:dev': {
+    description: 'Build application in development mode with watch',
+    handler: buildDevCommand,
+  },
 }
 
 async function lintCommand(args: string[]) {
@@ -35,6 +43,55 @@ async function lintCommand(args: string[]) {
     ]
 
     execSync(`"${eslintBin}" ${eslintArgs.map((arg) => `"${arg}"`).join(' ')}`, {
+      stdio: 'inherit',
+      cwd: callerDir,
+    })
+  } catch {
+    process.exit(1)
+  }
+}
+
+async function buildCommand(args: string[]) {
+  try {
+    const callerDir = process.cwd()
+    
+    // Build for production (no watch)
+    const bunArgs = [
+      'build',
+      'src/main.ts',
+      '--outdir',
+      'static/js',
+      '--target',
+      'browser',
+      ...args,
+    ]
+
+    execSync(`bun ${bunArgs.map((arg) => `"${arg}"`).join(' ')}`, {
+      stdio: 'inherit',
+      cwd: callerDir,
+    })
+  } catch {
+    process.exit(1)
+  }
+}
+
+async function buildDevCommand(args: string[]) {
+  try {
+    const callerDir = process.cwd()
+    
+    // Build for development with watch mode
+    const bunArgs = [
+      'build',
+      'src/main.ts',
+      '--outdir',
+      'static/js',
+      '--target',
+      'browser',
+      '--watch',
+      ...args,
+    ]
+
+    execSync(`bun ${bunArgs.map((arg) => `"${arg}"`).join(' ')}`, {
       stdio: 'inherit',
       cwd: callerDir,
     })
