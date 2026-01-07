@@ -3,7 +3,7 @@
  * CLI command dispatcher for edge-apps-scripts
  */
 
-import { execSync } from 'child_process'
+import { execSync, spawn } from 'child_process'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -91,9 +91,16 @@ async function buildDevCommand(args: string[]) {
       ...args,
     ]
 
-    execSync(`bun ${bunArgs.map((arg) => `"${arg}"`).join(' ')}`, {
+    // Use spawn instead of execSync to allow watch mode to run without blocking
+    const child = spawn('bun', bunArgs, {
       stdio: 'inherit',
       cwd: callerDir,
+    })
+
+    // Wait for the process to complete
+    child.on('error', (err) => {
+      console.error('Failed to start build process:', err)
+      process.exit(1)
     })
   } catch {
     process.exit(1)
