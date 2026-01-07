@@ -54,7 +54,7 @@ describe('Menu Board Tests', () => {
 
   describe('getMenuItems', () => {
     it('should return empty array when no items are configured', () => {
-      const mockGetSetting = () => null
+      const mockGetSetting = () => undefined
       const result = getMenuItems(mockGetSetting)
       expect(result).toEqual([])
     })
@@ -71,7 +71,7 @@ describe('Menu Board Tests', () => {
           item_02_price: '8.99',
           item_02_labels: 'Gluten-free',
         }
-        return items[key] || null
+        return items[key]
       }
 
       const result = getMenuItems(mockGetSetting)
@@ -90,7 +90,7 @@ describe('Menu Board Tests', () => {
           item_01_price: '  15.99  ',
           item_01_labels: '  Gluten-free, Vegetarian  ',
         }
-        return items[key] || null
+        return items[key]
       }
 
       const result = getMenuItems(mockGetSetting)
@@ -108,7 +108,7 @@ describe('Menu Board Tests', () => {
           item_02_description: 'Should be skipped',
           item_03_name: 'Salad',
         }
-        return items[key] || null
+        return items[key]
       }
 
       const result = getMenuItems(mockGetSetting)
