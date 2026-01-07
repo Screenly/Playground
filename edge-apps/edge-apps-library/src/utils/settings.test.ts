@@ -10,6 +10,7 @@ import {
 } from './settings'
 import { setupScreenlyMock, resetScreenlyMock } from '../test/mock'
 
+// eslint-disable-next-line max-lines-per-function
 describe('settings utilities', () => {
   beforeEach(() => {
     setupScreenlyMock(
@@ -56,6 +57,7 @@ describe('settings utilities', () => {
     })
   })
 
+  // eslint-disable-next-line max-lines-per-function
   describe('getSettingWithDefault', () => {
     test('should return setting value when it exists', () => {
       expect(getSettingWithDefault('theme', 'light')).toBe('dark')
