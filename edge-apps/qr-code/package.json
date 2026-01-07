@@ -17,7 +17,7 @@
     "format": "prettier --write src/ README.md index.html",
     "format:check": "prettier --check src/ README.md index.html",
     "deploy": "bun run build && screenly edge-app deploy",
-    "type-check": "tsc --noEmit",
+    "type-check": "edge-apps-scripts type-check",
     "prepare": "cd ../edge-apps-library && bun install && bun run build"
   },
   "dependencies": {

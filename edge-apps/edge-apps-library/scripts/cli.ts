@@ -24,6 +24,10 @@ const commands = {
     description: 'Build application in development mode with watch',
     handler: buildDevCommand,
   },
+  'type-check': {
+    description: 'Run TypeScript type checking',
+    handler: typeCheckCommand,
+  },
 }
 
 async function lintCommand(args: string[]) {
@@ -101,6 +105,30 @@ async function buildDevCommand(args: string[]) {
     child.on('error', (err) => {
       console.error('Failed to start build process:', err)
       process.exit(1)
+    })
+  } catch {
+    process.exit(1)
+  }
+}
+
+async function typeCheckCommand(args: string[]) {
+  try {
+    const callerDir = process.cwd()
+    
+    // Get path to tsc binary in the library's node_modules
+    const tscBin = path.resolve(libraryRoot, 'node_modules', '.bin', 'tsc')
+
+    // Build tsc command
+    const tscArgs = [
+      '--noEmit',
+      '--project',
+      path.resolve(libraryRoot, 'tsconfig.json'),
+      ...args,
+    ]
+
+    execSync(`"${tscBin}" ${tscArgs.map((arg) => `"${arg}"`).join(' ')}`, {
+      stdio: 'inherit',
+      cwd: callerDir,
     })
   } catch {
     process.exit(1)
