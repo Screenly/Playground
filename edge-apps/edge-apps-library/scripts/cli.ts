@@ -3,7 +3,7 @@
  * CLI command dispatcher for edge-apps-scripts
  */
 
-import { execSync } from 'child_process'
+import { execSync, spawn } from 'child_process'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -16,15 +16,32 @@ const commands = {
     description: 'Run ESLint with shared configuration',
     handler: lintCommand,
   },
+  build: {
+    description: 'Build application for production',
+    handler: buildCommand,
+  },
+  'build:dev': {
+    description: 'Build application in development mode with watch',
+    handler: buildDevCommand,
+  },
+  'type-check': {
+    description: 'Run TypeScript type checking',
+    handler: typeCheckCommand,
+  },
 }
 
 async function lintCommand(args: string[]) {
   try {
     // Get the caller's directory (the app that invoked this script)
     const callerDir = process.cwd()
-    
+
     // Get path to eslint binary in the library's node_modules
-    const eslintBin = path.resolve(libraryRoot, 'node_modules', '.bin', 'eslint')
+    const eslintBin = path.resolve(
+      libraryRoot,
+      'node_modules',
+      '.bin',
+      'eslint',
+    )
 
     // Build eslint command
     const eslintArgs = [
@@ -34,7 +51,78 @@ async function lintCommand(args: string[]) {
       ...args,
     ]
 
-    execSync(`"${eslintBin}" ${eslintArgs.map((arg) => `"${arg}"`).join(' ')}`, {
+    execSync(
+      `"${eslintBin}" ${eslintArgs.map((arg) => `"${arg}"`).join(' ')}`,
+      {
+        stdio: 'inherit',
+        cwd: callerDir,
+      },
+    )
+  } catch {
+    process.exit(1)
+  }
+}
+
+async function buildCommand(args: string[]) {
+  try {
+    const callerDir = process.cwd()
+
+    // Build for production using Vite
+    const viteBin = path.resolve(libraryRoot, 'node_modules', '.bin', 'vite')
+    const configPath = path.resolve(libraryRoot, 'vite.config.ts')
+    const viteArgs = ['build', '--config', configPath, ...args]
+
+    execSync(`"${viteBin}" ${viteArgs.map((arg) => `"${arg}"`).join(' ')}`, {
+      stdio: 'inherit',
+      cwd: callerDir,
+    })
+  } catch {
+    process.exit(1)
+  }
+}
+
+async function buildDevCommand(args: string[]) {
+  try {
+    const callerDir = process.cwd()
+
+    // Build for development with watch mode using Vite
+    const viteBin = path.resolve(libraryRoot, 'node_modules', '.bin', 'vite')
+    const configPath = path.resolve(libraryRoot, 'vite.config.ts')
+    const viteArgs = ['build', '--watch', '--config', configPath, ...args]
+
+    // Use spawn instead of execSync to allow watch mode to run without blocking
+    const child = spawn(`"${viteBin}"`, viteArgs, {
+      stdio: 'inherit',
+      cwd: callerDir,
+      shell: true,
+    })
+
+    // Attach an error handler; the watch process continues running in the background
+    child.on('error', (err) => {
+      console.error('Failed to start build process:', err)
+      process.exit(1)
+    })
+  } catch {
+    process.exit(1)
+  }
+}
+
+async function typeCheckCommand(args: string[]) {
+  try {
+    const callerDir = process.cwd()
+
+    // Get path to tsc binary in the library's node_modules
+    const tscBin = path.resolve(libraryRoot, 'node_modules', '.bin', 'tsc')
+
+    // Build tsc command
+    const tscArgs = [
+      '--noEmit',
+      '--project',
+      path.resolve(libraryRoot, 'tsconfig.json'),
+      ...args,
+    ]
+
+    execSync(`"${tscBin}" ${tscArgs.map((arg) => `"${arg}"`).join(' ')}`, {
       stdio: 'inherit',
       cwd: callerDir,
     })
