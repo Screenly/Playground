@@ -13,6 +13,7 @@ import {
 import { Hardware } from '../types/index.js'
 import { setupScreenlyMock, resetScreenlyMock } from '../test/mock'
 
+// eslint-disable-next-line max-lines-per-function
 describe('metadata utilities', () => {
   beforeEach(() => {
     setupScreenlyMock({

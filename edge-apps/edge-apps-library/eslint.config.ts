@@ -6,4 +6,13 @@ export default defineConfig(
   eslint.configs.recommended,
   tseslint.configs.recommended,
   globalIgnores(['dist/', 'node_modules/', 'static/js/', 'build/']),
+  {
+    rules: {
+      'max-lines-per-function': ['error', {
+        max: 70,
+        skipBlankLines: true,
+        skipComments: true,
+      }],
+    },
+  },
 )

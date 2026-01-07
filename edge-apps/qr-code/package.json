@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "prebuild": "bun run type-check",
     "generate-mock-data": "screenly edge-app run --generate-mock-data",
     "predev": "bun run generate-mock-data",
     "dev": "run-p build:dev edge-app-server",
@@ -16,6 +17,7 @@
     "format": "prettier --write src/ README.md index.html",
     "format:check": "prettier --check src/ README.md index.html",
     "deploy": "bun run build && screenly edge-app deploy",
+    "type-check": "tsc --noEmit",
     "prepare": "cd ../edge-apps-library && bun install && bun run build"
   },
   "dependencies": {
