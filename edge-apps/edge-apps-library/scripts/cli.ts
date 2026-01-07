@@ -101,7 +101,7 @@ async function buildDevCommand(args: string[]) {
       cwd: callerDir,
     })
 
-    // Wait for the process to complete
+    // Attach an error handler; the watch process continues running in the background
     child.on('error', (err) => {
       console.error('Failed to start build process:', err)
       process.exit(1)
