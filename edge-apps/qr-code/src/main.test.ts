@@ -23,6 +23,7 @@ describe('QR Code App UTM Parameters', () => {
     resetScreenlyMock()
   })
 
+  // eslint-disable-next-line max-lines-per-function
   describe('UTM parameter generation', () => {
     test('should add all required UTM parameters when enabled', () => {
       const url = 'https://example.com/landing'

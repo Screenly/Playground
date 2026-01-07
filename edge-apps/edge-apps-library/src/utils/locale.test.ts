@@ -102,6 +102,7 @@ describe('locale utilities', () => {
     })
   })
 
+  // eslint-disable-next-line max-lines-per-function
   describe('getLocale', () => {
     test('should normalize single underscore in override_locale', async () => {
       setupScreenlyMock(
