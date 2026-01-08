@@ -97,11 +97,19 @@ async function buildDevCommand(args: string[]) {
       shell: true,
     })
 
-    // Attach an error handler; the watch process continues running in the background
+    // Attach an error handler
     child.on('error', (err) => {
       console.error('Failed to start build process:', err)
       process.exit(1)
     })
+
+    // Handle parent process termination to clean up child process
+    const handleSignal = (signal: string) => {
+      child.kill(signal as NodeJS.Signals)
+      process.exit(0)
+    }
+    process.on('SIGINT', () => handleSignal('SIGINT'))
+    process.on('SIGTERM', () => handleSignal('SIGTERM'))
   } catch {
     process.exit(1)
   }
