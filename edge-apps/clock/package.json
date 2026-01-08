@@ -27,7 +27,7 @@
   },
   "prettier": "../edge-apps-library/.prettierrc.json",
   "dependencies": {
-    "@photostructure/tz-lookup": "^11.3.0",
+    "@photostructure/tz-lookup": "^11.4.0",
     "@typescript-eslint/typescript-estree": "^8.52.0",
     "lz-ts": "^1.1.2",
     "moment": "^2.30.1",

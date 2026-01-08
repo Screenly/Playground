@@ -54,7 +54,7 @@
   "author": "Screenly",
   "license": "MIT",
   "dependencies": {
-    "@photostructure/tz-lookup": "^11.3.0",
+    "@photostructure/tz-lookup": "^11.4.0",
     "country-locale-map": "^1.9.11",
     "offline-geocode-city": "^1.0.2"
   },

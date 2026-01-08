@@ -5,7 +5,7 @@
     "": {
       "name": "calendar",
       "dependencies": {
-        "@photostructure/tz-lookup": "^11.2.1",
+        "@photostructure/tz-lookup": "^11.4.0",
         "@sentry/browser": "^10.32.1",
         "@sentry/vue": "^10.32.1",
         "country-locale-map": "^1.9.11",
@@ -423,7 +423,7 @@
 
     "@parcel/workers": ["@parcel/workers@2.16.3", "", { "dependencies": { "@parcel/diagnostic": "2.16.3", "@parcel/logger": "2.16.3", "@parcel/profiler": "2.16.3", "@parcel/types-internal": "2.16.3", "@parcel/utils": "2.16.3", "nullthrows": "^1.1.1" }, "peerDependencies": { "@parcel/core": "^2.16.3" } }, "sha512-SxIXRnrlQFhw377wxWC5WIl1FL1Y9IedhUtuc7j3uac3tlbCQJJ+3rFr5/BDUknJbTktvVsPakE98fH7TIJyyw=="],
 
-    "@photostructure/tz-lookup": ["@photostructure/tz-lookup@11.3.0", "", {}, "sha512-rYGy7ETBHTnXrwbzm47e3LJPKJmzpY7zXnbZhdosNU0lTGWVqzxptSjK4qZkJ1G+Kwy4F6XStNR9ZqMsXAoASQ=="],
+    "@photostructure/tz-lookup": ["@photostructure/tz-lookup@11.4.0", "", {}, "sha512-yrFaDbQQZVJIzpCTnoghWO8Rttu22Hg7/JkfP3CM8UKniXYzD80cuv4UAsFkzP5Z6XWceWNsQTqUJHKyGNXzLg=="],
 
     "@pkgjs/parseargs": ["@pkgjs/parseargs@0.11.0", "", {}, "sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg=="],
 
