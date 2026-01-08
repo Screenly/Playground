@@ -91,10 +91,10 @@ async function buildDevCommand(args: string[]) {
     const viteArgs = ['build', '--watch', '--config', configPath, ...args]
 
     // Use spawn instead of execSync to allow watch mode to run without blocking
-    const child = spawn(`"${viteBin}"`, viteArgs, {
+    const child = spawn(viteBin, viteArgs, {
       stdio: 'inherit',
       cwd: callerDir,
-      shell: true,
+      shell: process.platform === 'win32',
     })
 
     // Attach an error handler
