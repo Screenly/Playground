@@ -102,7 +102,7 @@ describe('metadata utilities', () => {
       expect(getHardware()).toBe(Hardware.ScreenlyPlayerMax)
     })
 
-    test('should throw error for unknown hardware type', () => {
+    test('should return Unknown enum value for unknown hardware type', () => {
       setupScreenlyMock({
         coordinates: [37.3861, -122.0839],
         hostname: 'test-host',
@@ -112,9 +112,7 @@ describe('metadata utilities', () => {
         screen_name: 'Main Screen',
         tags: [],
       })
-      expect(() => getHardware()).toThrow(
-        'Unknown hardware type: Unknown Hardware',
-      )
+      expect(getHardware()).toBe(Hardware.Unknown)
     })
   })
 
