@@ -72,9 +72,20 @@ async function buildCommand(args: string[]) {
     const configPath = path.resolve(libraryRoot, 'vite.config.ts')
     const viteArgs = ['build', '--config', configPath, ...args]
 
+    // Set NODE_PATH to include library's node_modules so plugins can resolve dependencies
+    const libraryNodeModules = path.resolve(libraryRoot, 'node_modules')
+    const existingNodePath = process.env.NODE_PATH || ''
+    const nodePath = existingNodePath
+      ? `${libraryNodeModules}${path.delimiter}${existingNodePath}`
+      : libraryNodeModules
+
     execSync(`"${viteBin}" ${viteArgs.map((arg) => `"${arg}"`).join(' ')}`, {
       stdio: 'inherit',
       cwd: callerDir,
+      env: {
+        ...process.env,
+        NODE_PATH: nodePath,
+      },
     })
   } catch {
     process.exit(1)
@@ -90,11 +101,22 @@ async function buildDevCommand(args: string[]) {
     const configPath = path.resolve(libraryRoot, 'vite.config.ts')
     const viteArgs = ['build', '--watch', '--config', configPath, ...args]
 
+    // Set NODE_PATH to include library's node_modules so plugins can resolve dependencies
+    const libraryNodeModules = path.resolve(libraryRoot, 'node_modules')
+    const existingNodePath = process.env.NODE_PATH || ''
+    const nodePath = existingNodePath
+      ? `${libraryNodeModules}${path.delimiter}${existingNodePath}`
+      : libraryNodeModules
+
     // Use spawn instead of execSync to allow watch mode to run without blocking
     const child = spawn(viteBin, viteArgs, {
       stdio: 'inherit',
       cwd: callerDir,
       shell: process.platform === 'win32',
+      env: {
+        ...process.env,
+        NODE_PATH: nodePath,
+      },
     })
 
     // Attach an error handler

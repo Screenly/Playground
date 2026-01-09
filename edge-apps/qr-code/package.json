@@ -5,7 +5,7 @@
   "scripts": {
     "prebuild": "bun run type-check",
     "generate-mock-data": "screenly edge-app run --generate-mock-data",
-    "predev": "bun run generate-mock-data",
+    "predev": "bun run generate-mock-data && edge-apps-scripts build",
     "dev": "run-p build:dev edge-app-server",
     "edge-app-server": "screenly edge-app run",
     "build": "edge-apps-scripts build",

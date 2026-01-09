@@ -55,8 +55,10 @@
   "license": "MIT",
   "dependencies": {
     "@photostructure/tz-lookup": "^11.3.0",
+    "@tailwindcss/vite": "^4.1.18",
     "country-locale-map": "^1.9.11",
-    "offline-geocode-city": "^1.0.2"
+    "offline-geocode-city": "^1.0.2",
+    "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
