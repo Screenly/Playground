@@ -5,7 +5,7 @@
     "": {
       "name": "google-calendar",
       "dependencies": {
-        "@photostructure/tz-lookup": "^11.2.1",
+        "@photostructure/tz-lookup": "^11.4.0",
         "@sentry/browser": "^10.32.1",
         "@sentry/vue": "^10.32.1",
         "country-locale-map": "^1.9.11",
@@ -27,7 +27,7 @@
         "@vue/test-utils": "^2.4.6",
         "@vue/tsconfig": "^0.8.1",
         "eslint": "^9.39.2",
-        "eslint-plugin-playwright": "^2.4.0",
+        "eslint-plugin-playwright": "^2.4.1",
         "eslint-plugin-vue": "~10.6.2",
         "jiti": "^2.6.1",
         "jsdom": "^27.4.0",
@@ -422,7 +422,7 @@
 
     "@parcel/workers": ["@parcel/workers@2.16.3", "", { "dependencies": { "@parcel/diagnostic": "2.16.3", "@parcel/logger": "2.16.3", "@parcel/profiler": "2.16.3", "@parcel/types-internal": "2.16.3", "@parcel/utils": "2.16.3", "nullthrows": "^1.1.1" }, "peerDependencies": { "@parcel/core": "^2.16.3" } }, "sha512-SxIXRnrlQFhw377wxWC5WIl1FL1Y9IedhUtuc7j3uac3tlbCQJJ+3rFr5/BDUknJbTktvVsPakE98fH7TIJyyw=="],
 
-    "@photostructure/tz-lookup": ["@photostructure/tz-lookup@11.3.0", "", {}, "sha512-rYGy7ETBHTnXrwbzm47e3LJPKJmzpY7zXnbZhdosNU0lTGWVqzxptSjK4qZkJ1G+Kwy4F6XStNR9ZqMsXAoASQ=="],
+    "@photostructure/tz-lookup": ["@photostructure/tz-lookup@11.4.0", "", {}, "sha512-yrFaDbQQZVJIzpCTnoghWO8Rttu22Hg7/JkfP3CM8UKniXYzD80cuv4UAsFkzP5Z6XWceWNsQTqUJHKyGNXzLg=="],
 
     "@pkgjs/parseargs": ["@pkgjs/parseargs@0.11.0", "", {}, "sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg=="],
 
@@ -774,7 +774,7 @@
 
     "eslint-config-prettier": ["eslint-config-prettier@10.1.8", "", { "peerDependencies": { "eslint": ">=7.0.0" }, "bin": { "eslint-config-prettier": "bin/cli.js" } }, "sha512-82GZUjRS0p/jganf6q1rEO25VSoHH0hKPCTrgillPjdI/3bgBhAE1QzHrHTizjpRvy6pGAvKjDJtk2pF9NDq8w=="],
 
-    "eslint-plugin-playwright": ["eslint-plugin-playwright@2.4.0", "", { "dependencies": { "globals": "^16.4.0" }, "peerDependencies": { "eslint": ">=8.40.0" } }, "sha512-MWNXfXlLfwXAjj4Z80PvCCFCXgCYy5OCHan57Z/beGrjkJ3maG1GanuGX8Ck6T6fagplBx2ZdkifxSfByftaTQ=="],
+    "eslint-plugin-playwright": ["eslint-plugin-playwright@2.4.1", "", { "dependencies": { "globals": "^16.4.0" }, "peerDependencies": { "eslint": ">=8.40.0" } }, "sha512-rKx00OLmwrtGmA8UhOFeDu4lK1Y0i5n5VliK7DCdzc1Dh+StvCEwWajtSYqfhbHa935DoHWyS1DN95NBDGXGWg=="],
 
     "eslint-plugin-prettier": ["eslint-plugin-prettier@5.5.4", "", { "dependencies": { "prettier-linter-helpers": "^1.0.0", "synckit": "^0.11.7" }, "peerDependencies": { "@types/eslint": ">=8.0.0", "eslint": ">=8.0.0", "eslint-config-prettier": ">= 7.0.0 <10.0.0 || >=10.1.0", "prettier": ">=3.0.0" }, "optionalPeers": ["@types/eslint", "eslint-config-prettier"] }, "sha512-swNtI95SToIz05YINMA6Ox5R057IMAmWZ26GqPxusAp1TZzj+IdY9tXNWWD3vkF/wEqydCONcwjTFpxybBqZsg=="],
 
