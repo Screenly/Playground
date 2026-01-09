@@ -82,7 +82,9 @@ signalReady()
 
 This package provides the `edge-apps-scripts` CLI tool for running shared development commands across all Edge Apps. It includes centralized ESLint configuration to avoid duplication.
 
-### Linting
+### Available Commands
+
+#### Linting
 
 To lint your Edge App:
 
@@ -96,17 +98,42 @@ To lint and automatically fix issues:
 bun run lint -- --fix
 ```
 
-Your Edge App's `package.json` should include:
+#### Building
+
+```bash
+bun run build
+```
+
+#### Type Checking
+
+Run TypeScript type checking:
+
+```bash
+bun run type-check
+```
+
+### Command-Line Utilities for Edge Apps
+
+- This library provides utilities to help with common Edge App tasks.
+- The CLI uses the shared ESLint configuration from `@screenly/edge-apps`, so you don't need to maintain your own `eslint.config.ts`
+- The build commands assume your Edge App has `src/main.ts` as the entry point
+- Build output will be generated in the `dist/` directory
+
+It is recommended to add the following scripts to your Edge App's `package.json`:
 
 ```json
 {
   "scripts": {
-    "lint": "edge-apps-scripts lint"
+    "lint": "edge-apps-scripts lint",
+    "build": "edge-apps-scripts build",
+    "build:dev": "edge-apps-scripts build:dev",
+    "type-check": "edge-apps-scripts type-check"
   }
 }
 ```
 
-The CLI uses the shared ESLint configuration from `@screenly/edge-apps`, so you don't need to maintain your own `eslint.config.ts`.
+> [!NOTE]
+> Feel free to customize the scripts as needed for your Edge App. You could also define your own configs like `eslint.config.ts`, `tsconfig.json`, or `vite.config.ts` if you need more control.
 
 ## Testing
 
