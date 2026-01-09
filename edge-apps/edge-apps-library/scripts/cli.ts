@@ -128,7 +128,7 @@ async function buildDevCommand(args: string[]) {
     // Handle parent process termination to clean up child process
     const handleSignal = (signal: string) => {
       child.kill(signal as NodeJS.Signals)
-      process.exit(0)
+      child.on('exit', () => process.exit(0))
     }
     process.on('SIGINT', () => handleSignal('SIGINT'))
     process.on('SIGTERM', () => handleSignal('SIGTERM'))
