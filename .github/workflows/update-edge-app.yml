@@ -31,8 +31,8 @@ on:
           - vanilla
           - bun
 
-      has_dist:
-        description: "Whether the app builds to a dist folder"
+      deploy_from_dist:
+        description: "Whether to deploy from the dist folder or from the app's root folder"
         required: true
         default: true
         type: boolean
@@ -73,7 +73,7 @@ jobs:
 
       - name: 🔄 Modify APP_PATH based on app type
         run: |
-          if [ "${{ inputs.build_system }}" = "bun" ] && [ "${{ inputs.has_dist }}" = "true" ]; then
+          if [ "${{ inputs.build_system }}" = "bun" ] && [ "${{ inputs.deploy_from_dist }}" = "true" ]; then
             echo "APP_PATH=${{ env.APP_PATH }}/dist" >> "$GITHUB_ENV"
           fi
 
