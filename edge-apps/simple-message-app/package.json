@@ -27,7 +27,7 @@
   },
   "prettier": "../edge-apps-library/.prettierrc.json",
   "dependencies": {
-    "@photostructure/tz-lookup": "^11.3.0",
+    "@photostructure/tz-lookup": "^11.4.0",
     "pinia": "^3.0.4",
     "vue": "^3.5.26",
     "yaml": "^2.8.2"
@@ -44,7 +44,7 @@
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.8.0",
     "eslint": "^9.39.2",
-    "eslint-plugin-playwright": "^2.4.0",
+    "eslint-plugin-playwright": "^2.4.1",
     "eslint-plugin-vue": "~10.6.2",
     "jiti": "^2.6.1",
     "jsdom": "^27.4.0",
