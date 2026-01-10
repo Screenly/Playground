@@ -9,6 +9,7 @@ import {
 } from './theme'
 import { setupScreenlyMock, resetScreenlyMock } from '../test/mock'
 
+// eslint-disable-next-line max-lines-per-function
 describe('theme utilities', () => {
   beforeEach(() => {
     setupScreenlyMock()

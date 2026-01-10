@@ -1,3 +1,5 @@
+import './css/style.css'
+
 import QRCode from 'qrcode'
 import {
   setupTheme,
