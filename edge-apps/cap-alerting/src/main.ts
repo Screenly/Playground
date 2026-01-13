@@ -1,3 +1,5 @@
+import './input.css'
+
 import {
   setupTheme,
   signalReady,
