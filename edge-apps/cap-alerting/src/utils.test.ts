@@ -8,6 +8,7 @@ mock.module('@screenly/edge-apps', () => ({
 
 import { getNearestExit, splitIntoSentences, proxyUrl } from './utils'
 
+// eslint-disable-next-line max-lines-per-function
 describe('Utils', () => {
   describe('Nearest Exit Functionality', () => {
     it('should extract exit from tag with colon', () => {

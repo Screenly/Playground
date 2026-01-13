@@ -36,6 +36,7 @@ const localStorageMock = (() => {
 // Mock fetch
 const mockFetch = mock()
 
+// eslint-disable-next-line max-lines-per-function
 describe('CAPFetcher', () => {
   beforeEach(() => {
     // Setup mocks
@@ -112,6 +113,7 @@ describe('CAPFetcher', () => {
     })
   })
 
+  // eslint-disable-next-line max-lines-per-function
   describe('Demo Mode', () => {
     it('should fetch random demo file on local screen', async () => {
       const demoData =
@@ -213,6 +215,7 @@ describe('CAPFetcher', () => {
     })
   })
 
+  // eslint-disable-next-line max-lines-per-function
   describe('Live Mode', () => {
     it('should fetch live data with CORS proxy', async () => {
       const liveData =

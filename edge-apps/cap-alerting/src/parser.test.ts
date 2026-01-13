@@ -1,3 +1,5 @@
+/* eslint-disable max-lines-per-function */
+
 import { describe, it, expect, mock } from 'bun:test'
 
 const mockGetSettings = mock()
