@@ -9,7 +9,6 @@ import {
   getScreenlyVersion,
   getTags,
   hasTag,
-  isAnywhereScreen,
 } from './metadata'
 import { Hardware } from '../types/index.js'
 import { setupScreenlyMock, resetScreenlyMock } from '../test/mock'
@@ -140,25 +139,6 @@ describe('metadata utilities', () => {
     test('should return false for non-existing tag', () => {
       expect(hasTag('nonexistent')).toBe(false)
       expect(hasTag('other')).toBe(false)
-    })
-  })
-
-  describe('isAnywhereScreen', () => {
-    test('should return false when hardware is not empty', () => {
-      expect(isAnywhereScreen()).toBe(false)
-    })
-
-    test('should return true when hardware is empty string', () => {
-      setupScreenlyMock({
-        coordinates: [37.3861, -122.0839],
-        hostname: 'test-host',
-        location: 'Test Location',
-        hardware: '',
-        screenly_version: '1.2.3',
-        screen_name: 'Main Screen',
-        tags: [],
-      })
-      expect(isAnywhereScreen()).toBe(true)
     })
   })
 })

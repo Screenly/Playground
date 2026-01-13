@@ -3,11 +3,20 @@ import { CAPFetcher } from './fetcher'
 
 // Mock the @screenly/edge-apps module
 const mockGetCorsProxyUrl = mock()
-const mockIsAnywhereScreen = mock()
+const mockGetHardware = mock()
+
+// Hardware enum mock
+const Hardware = {
+  Anywhere: 'Anywhere',
+  RaspberryPi: 'RaspberryPi',
+  ScreenlyPlayerMax: 'ScreenlyPlayerMax',
+  Unknown: 'Unknown',
+}
 
 mock.module('@screenly/edge-apps', () => ({
   getCorsProxyUrl: () => mockGetCorsProxyUrl(),
-  isAnywhereScreen: () => mockIsAnywhereScreen(),
+  getHardware: () => mockGetHardware(),
+  Hardware,
   setupTheme: () => {},
   signalReady: () => {},
   getMetadata: () => ({}),
@@ -49,11 +58,10 @@ describe('CAPFetcher', () => {
     // Reset mocks
     mockFetch.mockReset()
     mockGetCorsProxyUrl.mockReset()
-    mockIsAnywhereScreen.mockReset()
+    mockGetHardware.mockReset()
 
     // Default mock implementations
     mockGetCorsProxyUrl.mockReturnValue('https://cors-proxy.example.com')
-    mockIsAnywhereScreen.mockReturnValue(false)
   })
 
   describe('Test Mode', () => {
@@ -124,7 +132,7 @@ describe('CAPFetcher', () => {
         text: async () => demoData,
       })
 
-      mockIsAnywhereScreen.mockReturnValueOnce(false)
+      mockGetHardware.mockReturnValueOnce(Hardware.RaspberryPi)
 
       const fetcher = new CAPFetcher({
         testMode: false,
@@ -150,7 +158,7 @@ describe('CAPFetcher', () => {
         text: async () => demoData,
       })
 
-      mockIsAnywhereScreen.mockReturnValueOnce(true)
+      mockGetHardware.mockReturnValueOnce(Hardware.Anywhere)
 
       const fetcher = new CAPFetcher({
         testMode: false,
@@ -175,7 +183,7 @@ describe('CAPFetcher', () => {
         status: 404,
       })
 
-      mockIsAnywhereScreen.mockReturnValueOnce(false)
+      mockGetHardware.mockReturnValueOnce(Hardware.RaspberryPi)
 
       const fetcher = new CAPFetcher({
         testMode: false,

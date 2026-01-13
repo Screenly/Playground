@@ -1,4 +1,4 @@
-import { getCorsProxyUrl, isAnywhereScreen } from '@screenly/edge-apps'
+import { getCorsProxyUrl, getHardware, Hardware } from '@screenly/edge-apps'
 
 const DEMO_BASE_URL =
   'https://raw.githubusercontent.com/Screenly/Playground/refs/heads/master/edge-apps/cap-alerting'
@@ -67,7 +67,9 @@ export class CAPFetcher {
       (file) => `${DEMO_BASE_URL}/${file}`,
     )
 
-    const demoFiles = isAnywhereScreen() ? remoteDemoFiles : localDemoFiles
+    const hardware = getHardware()
+    const demoFiles =
+      hardware === Hardware.Anywhere ? remoteDemoFiles : localDemoFiles
     const randomFile = demoFiles[Math.floor(Math.random() * demoFiles.length)]
 
     try {
