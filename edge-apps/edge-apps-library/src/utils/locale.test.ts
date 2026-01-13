@@ -2,6 +2,7 @@ import { describe, test, expect, beforeEach, afterEach } from 'bun:test'
 import { getTimeZone, formatCoordinates, getLocale } from './locale'
 import { setupScreenlyMock, resetScreenlyMock } from '../test/mock'
 
+// eslint-disable-next-line max-lines-per-function
 describe('locale utilities', () => {
   beforeEach(() => {
     setupScreenlyMock()
@@ -101,6 +102,7 @@ describe('locale utilities', () => {
     })
   })
 
+  // eslint-disable-next-line max-lines-per-function
   describe('getLocale', () => {
     test('should normalize single underscore in override_locale', async () => {
       setupScreenlyMock(

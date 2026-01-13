@@ -12,4 +12,13 @@ export default defineConfig(
     'build/',
     'tailwind.config.js',
   ]),
+  {
+    rules: {
+      'max-lines-per-function': ['error', {
+        max: 70,
+        skipBlankLines: true,
+        skipComments: true,
+      }],
+    },
+  },
 )
