@@ -1,18 +1,20 @@
-import QRCode from "qrcode";
+import './css/style.css'
+
+import QRCode from 'qrcode'
 import {
   setupTheme,
   addUTMParamsIf,
-  getSetting,
+  getSettingWithDefault,
   signalReady,
-} from "@screenly/edge-apps";
+} from '@screenly/edge-apps'
 
 interface QRCodeOptions {
-  type: "svg";
+  type: 'svg'
   color?: {
-    light?: string;
-    dark?: string;
-  };
-  margin?: number;
+    light?: string
+    dark?: string
+  }
+  margin?: number
 }
 
 function generateQrCode(
@@ -21,56 +23,56 @@ function generateQrCode(
   callback: (svgElement: SVGElement) => void,
 ): void {
   QRCode.toString(url, options, (err, result) => {
-    if (err) throw err;
+    if (err) throw err
 
-    const parser = new DOMParser();
-    const svg = parser.parseFromString(result, "image/svg+xml");
+    const parser = new DOMParser()
+    const svg = parser.parseFromString(result, 'image/svg+xml')
 
-    callback(svg.documentElement as unknown as SVGElement);
-  });
+    callback(svg.documentElement as unknown as SVGElement)
+  })
 }
 
 window.onload = function () {
-  const url = getSetting<string>("url") || "";
-  const enableUtm = getSetting<string>("enable_utm") === "true";
-  const headline = getSetting<string>("headline") || "";
-  const callToAction = getSetting<string>("call_to_action") || "";
+  const url = getSettingWithDefault<string>('url', '')
+  const enableUtm = getSettingWithDefault<boolean>('enable_utm', false)
+  const headline = getSettingWithDefault<string>('headline', '')
+  const callToAction = getSettingWithDefault<string>('call_to_action', '')
 
   // Setup branding colors using the library
-  setupTheme();
+  setupTheme()
 
   // Set the headline (main message)
   const headlineElement =
-    document.querySelector<HTMLHeadingElement>("#headline");
+    document.querySelector<HTMLHeadingElement>('#headline')
   if (headlineElement && headline) {
-    headlineElement.textContent = headline;
+    headlineElement.textContent = headline
   }
 
   // Set the call to action (instruction)
-  const ctaElement = document.querySelector<HTMLParagraphElement>("#cta");
+  const ctaElement = document.querySelector<HTMLParagraphElement>('#cta')
   if (ctaElement && callToAction) {
-    ctaElement.textContent = callToAction;
+    ctaElement.textContent = callToAction
   }
 
   // Add UTM parameters to URL if enabled
-  const finalUrl = addUTMParamsIf(url, enableUtm);
+  const finalUrl = addUTMParamsIf(url, enableUtm)
 
   generateQrCode(
     finalUrl,
     {
-      type: "svg",
+      type: 'svg',
       color: {
-        dark: "#000000",
-        light: "#ffffff",
+        dark: '#000000',
+        light: '#ffffff',
       },
       margin: 2,
     },
     (svgElement) => {
-      const container = document.querySelector("#qr-code");
-      container?.appendChild(svgElement);
+      const container = document.querySelector('#qr-code')
+      container?.appendChild(svgElement)
 
       // Signal that the app is ready using the library
-      signalReady();
+      signalReady()
     },
-  );
-};
+  )
+}

@@ -1,10 +1,11 @@
 # Reusable Components
 
+> [!WARNING]
+> The Vue-based reusable components in this guide are part of the legacy `blueprint` library. These are deprecated and will be removed once all dependent apps have migrated to the new `edge-apps-library`.
+
 Screenly's Edge App library offers a set of reusable Vue components that can be used to build Edge Apps.
 
 If you're not yet familiar with Vue, check out the [Component Basics](https://vuejs.org/guide/essentials/component-basics.html) section of Vue's documentation.
-
-This guide assumes that you created a new Edge App using the [template](/README.md#creating-a-new-edge-app-from-the-template).
 
 ## PrimaryCard
 
@@ -14,7 +15,7 @@ Go ahead and open the `App.vue` file and replace the content with the following:
 
 ```vue
 <script setup lang="ts">
-import { PrimaryCard } from "blueprint/components";
+import { PrimaryCard } from 'blueprint/components'
 </script>
 
 <template>
@@ -81,7 +82,7 @@ The `InfoCard` is just like the `PrimaryCard` component but it only occupies hal
 
 ```vue
 <script setup lang="ts">
-import { InfoCard } from "blueprint/components";
+import { InfoCard } from 'blueprint/components'
 </script>
 
 <template>
@@ -101,7 +102,7 @@ You can also add another `InfoCard` component so that it sits side-by-side with 
 
 ```vue
 <script setup lang="ts">
-import { InfoCard } from "blueprint/components";
+import { InfoCard } from 'blueprint/components'
 </script>
 
 <template>
@@ -131,7 +132,7 @@ What's unique about the `InfoCard` component is that you can pass an `value` pro
 
 ```vue
 <script setup lang="ts">
-import { InfoCard } from "blueprint/components";
+import { InfoCard } from 'blueprint/components'
 </script>
 
 <template>
@@ -151,7 +152,7 @@ import { InfoCard } from "blueprint/components";
             width: '10rem',
             height: '10rem',
           }"
-          src="https://raw.githubusercontent.com/Screenly/Playground/refs/heads/master/edge-apps/.bun-create/edge-app-template/static/images/icon.svg"
+          src="https://example.com/icon.svg"
           alt="Icon"
         />
       </template>
@@ -170,7 +171,7 @@ The `AnalogClock` component is a simple clock component that can be used to disp
 
 ```vue
 <script setup lang="ts">
-import { PrimaryCard, AnalogClock } from "blueprint/components";
+import { PrimaryCard, AnalogClock } from 'blueprint/components'
 </script>
 
 <template>
@@ -192,7 +193,7 @@ For example, if you want to display the time in the `America/Los_Angeles` timezo
 
 ```vue
 <script setup lang="ts">
-import { AnalogClock } from "blueprint/components";
+import { AnalogClock } from 'blueprint/components'
 </script>
 
 <template>
@@ -218,8 +219,8 @@ Let's update the `App.vue` file with the following content:
 
 ```vue
 <script setup lang="ts">
-import { InfoCard, BrandLogoCard } from "blueprint/components";
-import logoSrc from "@/assets/images/screenly.svg";
+import { InfoCard, BrandLogoCard } from 'blueprint/components'
+import logoSrc from '@/assets/images/screenly.svg'
 </script>
 
 <template>
@@ -261,7 +262,7 @@ The `DigitalClock` component is a simple clock component that can be used to dis
 
 ```vue
 <script setup lang="ts">
-import { DigitalClock, PrimaryCard } from "blueprint/components";
+import { DigitalClock, PrimaryCard } from 'blueprint/components'
 </script>
 
 <template>
@@ -286,7 +287,7 @@ You can also pass a `timezone` and a `locale` prop to the component.
 
 ```vue
 <script setup lang="ts">
-import { DigitalClock, PrimaryCard } from "blueprint/components";
+import { DigitalClock, PrimaryCard } from 'blueprint/components'
 </script>
 
 <template>
@@ -312,7 +313,7 @@ Here's an example that shows `DateDisplay` and `AnalogClock` side-by-side.
 
 ```vue
 <script setup lang="ts">
-import { DateDisplay, AnalogClock, InfoCard } from "blueprint/components";
+import { DateDisplay, AnalogClock, InfoCard } from 'blueprint/components'
 </script>
 
 <template>
@@ -337,4 +338,4 @@ import { DateDisplay, AnalogClock, InfoCard } from "blueprint/components";
 
 Now that you've learned how to use the reusable components, you can start using them or start writing your own components inside the `edge-apps/blueprint/ts/components` directory.
 
-Feel free to check out the [source code of Vue-based Edge Apps](/edge-apps) to see how the components are used across various use cases. You can also check out the [source code of the template](/edge-apps/.bun-create/edge-app-template) as well.
+Feel free to check out the [source code of Vue-based Edge Apps](/edge-apps) to see how the components are used across various use cases.

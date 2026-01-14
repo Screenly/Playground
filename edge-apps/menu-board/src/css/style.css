@@ -1,0 +1,347 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('../fonts/Playfair-Display.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('../fonts/Source-Sans-3.ttf') format('truetype');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Colors */
+  --accent-color: rgba(255, 255, 255, 0.95);
+  --text-color: #ffffff;
+  --purple-tint: rgba(126, 44, 210, 0.2);
+  --card-border: rgba(255, 255, 255, 0.15);
+
+  /* Spacing */
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+
+  /* Typography */
+  --font-size-base: 1rem;
+  --font-size-lg: 1.8rem;
+  --font-size-xl: 4rem;
+
+  /* Effects */
+  --border-radius: 16px;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+@media print {
+  .menu-item {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  #background,
+  .logo {
+    display: none !important;
+  }
+}
+
+body {
+  min-height: 100vh;
+  color: var(--text-color);
+  background-color: #000;
+  overflow: hidden;
+  position: relative;
+  font-family: 'Source Sans 3', sans-serif;
+}
+
+#background {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+  z-index: 0;
+  opacity: 0.7;
+  filter: brightness(0.7) contrast(1.2);
+  transform: translateX(0);
+}
+
+.container {
+  min-height: 100vh;
+  padding: 2rem 3rem 8rem;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.95) 45%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  pointer-events: auto;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-top: 0.5rem;
+}
+
+.logo {
+  position: fixed;
+  bottom: 3rem;
+  left: 2rem;
+  height: 60px;
+  width: auto;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  z-index: 10;
+  display: none;
+}
+
+h1 {
+  text-align: center;
+  font-size: 3.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--accent-color);
+  text-transform: uppercase;
+  letter-spacing: 0.5em;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  position: relative;
+  padding: 0.75rem 0;
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.4),
+    0 0 30px var(--purple-tint);
+}
+
+.menu-grid {
+  pointer-events: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  padding: 0 1rem;
+  max-width: 1920px;
+  margin: 0 auto;
+  width: 100%;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.menu-grid.fade-out {
+  opacity: 0;
+}
+
+.pager {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0.5rem;
+  border-radius: 2rem;
+  backdrop-filter: blur(5px);
+}
+
+.page-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.page-dot.active {
+  background: var(--accent-color);
+  transform: scale(1.2);
+}
+
+.menu-item {
+  background: rgba(8, 8, 24, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: grid;
+  grid-template-areas:
+    'title title'
+    'desc price'
+    'labels labels';
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  min-height: 140px;
+}
+
+.menu-item:hover {
+  border-color: rgba(126, 44, 210, 0.3);
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(126, 44, 210, 0.2);
+  transform: translateY(-2px);
+}
+
+.menu-item h2 {
+  grid-area: title;
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+  color: var(--accent-color);
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.content {
+  grid-area: desc;
+  display: flex;
+  align-items: center;
+}
+
+.menu-item p {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.price {
+  grid-area: price;
+  font-size: 1.5rem;
+  color: var(--accent-color);
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.price .currency {
+  font-size: 0.8em;
+  margin-right: 0.1em;
+}
+
+.labels {
+  grid-area: labels;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+}
+
+.label {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 1rem;
+  background: var(--purple-tint);
+  color: var(--accent-color);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.label.vegetarian {
+  background: rgba(76, 175, 80, 0.2);
+  color: #4caf50;
+}
+
+.label.spicy {
+  background: rgba(244, 67, 54, 0.2);
+  color: #f44336;
+}
+
+.label.gluten-free {
+  background: rgba(33, 150, 243, 0.2);
+  color: #2196f3;
+}
+
+@media (max-width: 1600px) {
+  .menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .menu-item {
+    min-height: 130px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .container {
+    padding: 1.5rem 2rem 6rem;
+  }
+
+  .menu-item {
+    padding: 1rem;
+  }
+
+  .menu-item h2 {
+    font-size: 1.3rem;
+  }
+
+  .price {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    padding: 1rem 1.5rem 5rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+    letter-spacing: 0.3em;
+  }
+
+  .menu-item {
+    min-height: auto;
+  }
+
+  .logo {
+    height: 40px;
+    bottom: 2rem;
+    left: 1rem;
+  }
+}
+
+@supports not (backdrop-filter: blur(10px)) {
+  .menu-item {
+    background: rgba(8, 8, 24, 0.98);
+  }
+}
+
+.error-state {
+  display: none;
+  color: var(--accent-color);
+  text-align: center;
+  padding: var(--spacing-lg);
+}

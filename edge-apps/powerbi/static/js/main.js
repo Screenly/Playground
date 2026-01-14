@@ -23,7 +23,7 @@
 
   async function getEmbedToken() {
     if (screenly.settings.embed_token) {
-      return screenly.settings.embed_token;
+      return screenly.settings.embed_token
     }
 
     var response = await fetch(
@@ -37,8 +37,8 @@
       },
     );
 
-    const { token } = await response.json();
-    return token;
+    const { token } = await response.json()
+    return token
   }
 
   function initTokenRefreshLoop(report) {
@@ -50,20 +50,20 @@
     async function run() {
       var nextTimeout = tokenRefreshInterval;
       try {
-        var newToken = await getEmbedToken();
-        await report.setAccessToken(newToken);
-        currentErrorStep = 0;
+        var newToken = await getEmbedToken()
+        await report.setAccessToken(newToken)
+        currentErrorStep = 0
       } catch {
         nextTimeout = Math.min(
           initErrorDelaySec * Math.pow(2, currentErrorStep),
           nextTimeout,
         );
         if (currentErrorStep >= maxErrorStep) {
-          return;
+          return
         }
-        currentErrorStep += 1;
+        currentErrorStep += 1
       }
-      setTimeout(run, nextTimeout * 1000);
+      setTimeout(run, nextTimeout * 1000)
     }
 
     setTimeout(run, tokenRefreshInterval * 1000);
@@ -98,7 +98,7 @@
     }
 
     if (!screenly.settings.embed_token) {
-      initTokenRefreshLoop(report);
+      initTokenRefreshLoop(report)
     }
 
     return report;
@@ -115,5 +115,5 @@
     );
   }
 
-  initializePowerBI();
-})();
+  initializePowerBI()
+})()

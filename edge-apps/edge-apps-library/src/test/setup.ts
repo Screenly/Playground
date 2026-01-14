@@ -1,16 +1,13 @@
-import { JSDOM } from "jsdom";
+import { JSDOM } from 'jsdom'
 
 // Setup jsdom for DOM operations in tests
 const dom = new JSDOM(
-  "<!DOCTYPE html><html><head></head><body></body></html>",
+  '<!DOCTYPE html><html><head></head><body></body></html>',
   {
-    url: "http://localhost",
+    url: 'http://localhost',
   },
-);
+)
 
-// @ts-ignore - setting global document
-global.document = dom.window.document;
-// @ts-ignore - setting global window
-global.window = dom.window as any;
-// @ts-ignore - setting global navigator
-global.navigator = dom.window.navigator;
+global.document = dom.window.document
+global.window = dom.window as unknown as Window & typeof globalThis
+global.navigator = dom.window.navigator

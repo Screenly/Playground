@@ -6,6 +6,9 @@
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "bin": {
+    "edge-apps-scripts": "./bin/edge-apps-scripts.ts"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -25,17 +28,24 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "bin",
+    "scripts",
+    "eslint.config.ts"
   ],
   "scripts": {
+    "prebuild": "bun run type-check",
     "build": "bun build:types",
     "build:types": "tsc",
-    "test": "bun test",
-    "test:unit": "bun test",
-    "test:coverage": "bun test --coverage",
-    "lint": "tsc --noEmit",
-    "format": "prettier --write src/ README.md index.html"
+    "test": "bun test --parallel",
+    "test:unit": "bun test --parallel",
+    "test:coverage": "bun test --coverage --parallel",
+    "lint": "eslint . --fix",
+    "format": "prettier --write src/ scripts/ README.md index.html",
+    "format:check": "prettier --check src/ scripts/ README.md index.html",
+    "type-check": "tsc --noEmit"
   },
+  "prettier": "./.prettierrc.json",
   "keywords": [
     "screenly",
     "edge-apps",
@@ -44,17 +54,24 @@
   "author": "Screenly",
   "license": "MIT",
   "dependencies": {
-    "@photostructure/tz-lookup": "^11.3.0",
+    "@photostructure/tz-lookup": "^11.4.0",
+    "@tailwindcss/vite": "^4.1.18",
     "country-locale-map": "^1.9.11",
-    "offline-geocode-city": "^1.0.2"
+    "offline-geocode-city": "^1.0.2",
+    "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
-    "@types/bun": "^1.3.2",
+    "@eslint/js": "^9.39.2",
+    "@types/bun": "^1.3.6",
     "@types/jsdom": "^27.0.0",
-    "@types/node": "^24.10.1",
-    "bun-types": "^1.3.2",
-    "jsdom": "^27.2.0",
-    "prettier": "^3.6.2",
-    "typescript": "^5.9.3"
+    "@types/node": "^25.0.8",
+    "bun-types": "^1.3.6",
+    "eslint": "^9.39.2",
+    "jiti": "^2.6.1",
+    "jsdom": "^27.4.0",
+    "prettier": "^3.7.4",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.53.0",
+    "vite": "^7.3.1"
   }
 }
