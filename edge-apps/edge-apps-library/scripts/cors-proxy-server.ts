@@ -7,7 +7,9 @@ const host = process.env.HOST || '0.0.0.0'
 // Listen on a specific port via the PORT environment variable
 const port = process.env.PORT || 8080
 
-// Allow self-signed certificates (like cors-anywhere does)
+// This script is for development purposes only and should never be deployed to production.
+// Disabling TLS certificate validation is a critical security risk.
+// Only use this in local development environments.
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
 function setCorsHeaders(res: http.ServerResponse) {
