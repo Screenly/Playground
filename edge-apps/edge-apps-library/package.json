@@ -58,6 +58,7 @@
     "@tailwindcss/vite": "^4.1.18",
     "country-locale-map": "^1.9.11",
     "offline-geocode-city": "^1.0.2",
+    "panic-overlay": "^1.0.51",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
