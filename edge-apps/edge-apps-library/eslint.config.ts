@@ -13,6 +13,17 @@ export default defineConfig(
         skipBlankLines: true,
         skipComments: true,
       }],
+      'max-lines': ['error', {
+        max: 300,
+        skipBlankLines: true,
+        skipComments: true,
+      }],
+    },
+  },
+  {
+    files: ['**/*.test.ts', '**/*.spec.ts'],
+    rules: {
+      'max-lines': 'off',
     },
   },
 )
