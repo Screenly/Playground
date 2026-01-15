@@ -15,7 +15,7 @@ export async function fetchAndRenderDashboard(
   imageUrl: string,
   serviceAccessToken: string,
   imgElement: HTMLImageElement,
-): Promise<void> {
+): Promise<boolean> {
   try {
     const response = await fetch(imageUrl, {
       method: 'GET',
@@ -29,7 +29,7 @@ export async function fetchAndRenderDashboard(
       console.error(
         `Failed to fetch dashboard image from ${imageUrl}: ${response.status} ${response.statusText}`,
       )
-      return
+      return false
     }
 
     const blob = await response.blob()
@@ -37,7 +37,9 @@ export async function fetchAndRenderDashboard(
 
     // Render Grafana dashboard as an image
     imgElement.setAttribute('src', objectUrl)
+    return true
   } catch (error) {
     console.error('Error fetching dashboard image:', error)
+    return false
   }
 }

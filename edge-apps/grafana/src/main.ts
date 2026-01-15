@@ -35,7 +35,16 @@ window.onload = async function () {
   const imgElement = document.querySelector('#content img') as HTMLImageElement
 
   // Fetch dashboard immediately
-  await fetchAndRenderDashboard(imageUrl, serviceAccessToken, imgElement)
+  const success = await fetchAndRenderDashboard(
+    imageUrl,
+    serviceAccessToken,
+    imgElement,
+  )
+
+  if (!success) {
+    throw new Error('Failed to load the Grafana dashboard image.')
+    return
+  }
 
   // Set up interval to refresh the dashboard
   setInterval(async () => {
