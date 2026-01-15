@@ -5,7 +5,7 @@
     "": {
       "dependencies": {
         "@photostructure/tz-lookup": "^11.4.0",
-        "@sentry/vue": "^10.33.0",
+        "@sentry/vue": "^10.34.0",
         "@typescript-eslint/typescript-estree": "^8.53.0",
         "country-locale-map": "^1.9.11",
         "dayjs": "^1.11.19",
@@ -318,19 +318,19 @@
 
     "@rollup/rollup-win32-x64-msvc": ["@rollup/rollup-win32-x64-msvc@4.53.3", "", { "os": "win32", "cpu": "x64" }, "sha512-UhTd8u31dXadv0MopwGgNOBpUVROFKWVQgAg5N1ESyCz8AuBcMqm4AuTjrwgQKGDfoFuz02EuMRHQIw/frmYKQ=="],
 
-    "@sentry-internal/browser-utils": ["@sentry-internal/browser-utils@10.33.0", "", { "dependencies": { "@sentry/core": "10.33.0" } }, "sha512-nDJFHAfiFifBfJB0OF6DV6BIsIV5uah4lDsV4UBAgPBf+YAHclO10y1gi2U/JMh58c+s4lXi9p+PI1TFXZ0c6w=="],
+    "@sentry-internal/browser-utils": ["@sentry-internal/browser-utils@10.34.0", "", { "dependencies": { "@sentry/core": "10.34.0" } }, "sha512-0YNr60rGHyedmwkO0lbDBjNx2KAmT3kWamjaqu7Aw+jsESoPLgt+fzaTVvUBvkftBDui2PeTSzXm/nqzssctYg=="],
 
-    "@sentry-internal/feedback": ["@sentry-internal/feedback@10.33.0", "", { "dependencies": { "@sentry/core": "10.33.0" } }, "sha512-sN/VLWtEf0BeV6w6wldIpTxUQxNVc9o9tjLRQa8je1ZV2FCgXA124Iff/zsowsz82dLqtg7qp6GA5zYXVq+JMA=="],
+    "@sentry-internal/feedback": ["@sentry-internal/feedback@10.34.0", "", { "dependencies": { "@sentry/core": "10.34.0" } }, "sha512-wgGnq+iNxsFSOe9WX/FOvtoItSTjgLJJ4dQkVYtcVM6WGBVIg4wgNYfECCnRNztUTPzpZHLjC9r+4Pym451DDQ=="],
 
-    "@sentry-internal/replay": ["@sentry-internal/replay@10.33.0", "", { "dependencies": { "@sentry-internal/browser-utils": "10.33.0", "@sentry/core": "10.33.0" } }, "sha512-UOU9PYxuXnPop3HoQ3l4Q7SZUXJC3Vmfm0Adgad8U03UcrThWIHYc5CxECSrVzfDFNOT7w9o7HQgRAgWxBPMXg=="],
+    "@sentry-internal/replay": ["@sentry-internal/replay@10.34.0", "", { "dependencies": { "@sentry-internal/browser-utils": "10.34.0", "@sentry/core": "10.34.0" } }, "sha512-Vmea0GcOg57z/S1bVSj3saFcRvDqdLzdy4wd9fQMpMgy5OCbTlo7lxVUndKzbcZnanma6zF6VxwnWER1WuN9RA=="],
 
-    "@sentry-internal/replay-canvas": ["@sentry-internal/replay-canvas@10.33.0", "", { "dependencies": { "@sentry-internal/replay": "10.33.0", "@sentry/core": "10.33.0" } }, "sha512-MTmP6uoAVzw4CCPeqCgCLsRSiOfGLxgyMFjGTCW3E7t62MJ9S0H5sLsQ34sHxXUa1gFU9UNAjEvRRpZ0JvWrPw=="],
+    "@sentry-internal/replay-canvas": ["@sentry-internal/replay-canvas@10.34.0", "", { "dependencies": { "@sentry-internal/replay": "10.34.0", "@sentry/core": "10.34.0" } }, "sha512-XWH/9njtgMD+LLWjc4KKgBpb+dTCkoUEIFDxcvzG/87d+jirmzf0+r8EfpLwKG+GrqNiiGRV39zIqu0SfPl+cw=="],
 
-    "@sentry/browser": ["@sentry/browser@10.33.0", "", { "dependencies": { "@sentry-internal/browser-utils": "10.33.0", "@sentry-internal/feedback": "10.33.0", "@sentry-internal/replay": "10.33.0", "@sentry-internal/replay-canvas": "10.33.0", "@sentry/core": "10.33.0" } }, "sha512-iWiPjik9zetM84jKfk01UveW1J0+X7w8XmJ8+IrhTyNDBVUWCRJWD8FrksiN1dRSg5mFWgfMRzKMz27hAScRwg=="],
+    "@sentry/browser": ["@sentry/browser@10.34.0", "", { "dependencies": { "@sentry-internal/browser-utils": "10.34.0", "@sentry-internal/feedback": "10.34.0", "@sentry-internal/replay": "10.34.0", "@sentry-internal/replay-canvas": "10.34.0", "@sentry/core": "10.34.0" } }, "sha512-8WCsAXli5Z+eIN8dMY8KGQjrS3XgUp1np/pjdeWNrVPVR8q8XpS34qc+f+y/LFrYQC9bs2Of5aIBwRtDCIvRsg=="],
 
-    "@sentry/core": ["@sentry/core@10.33.0", "", {}, "sha512-ehH1VSUclIHZKEZVdv+klofsFIh8FFzqA6AAV23RtLepptzA8wqQzUGraEuSN25sYcNmYJ0jti5U0Ys+WZv5Dw=="],
+    "@sentry/core": ["@sentry/core@10.34.0", "", {}, "sha512-4FFpYBMf0VFdPcsr4grDYDOR87mRu6oCfb51oQjU/Pndmty7UgYo0Bst3LEC/8v0SpytBtzXq+Wx/fkwulBesg=="],
 
-    "@sentry/vue": ["@sentry/vue@10.33.0", "", { "dependencies": { "@sentry/browser": "10.33.0", "@sentry/core": "10.33.0" }, "peerDependencies": { "@tanstack/vue-router": "^1.64.0", "pinia": "2.x || 3.x", "vue": "2.x || 3.x" }, "optionalPeers": ["@tanstack/vue-router", "pinia"] }, "sha512-CUtoBl62DG8mkoYfgpkw2WdB187XA2CfPj7OJdIzt3lavhpSAPmsY4jUarK2RUJvcowr5zYbEfv50Y0tsQxuGA=="],
+    "@sentry/vue": ["@sentry/vue@10.34.0", "", { "dependencies": { "@sentry/browser": "10.34.0", "@sentry/core": "10.34.0" }, "peerDependencies": { "@tanstack/vue-router": "^1.64.0", "pinia": "2.x || 3.x", "vue": "2.x || 3.x" }, "optionalPeers": ["@tanstack/vue-router", "pinia"] }, "sha512-2c+s8pQKY/MTunwIgTsiMtq4c7cPYyhB1LFOZ/VJSQH8MLD7qzxG7ed8SOJ3NTnGn8a2TpW/vPtc3uh90zLH3Q=="],
 
     "@standard-schema/spec": ["@standard-schema/spec@1.0.0", "", {}, "sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA=="],
 
