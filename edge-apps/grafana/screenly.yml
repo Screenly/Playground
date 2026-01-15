@@ -34,15 +34,6 @@ settings:
         help_text: For debugging purposes to display errors on the screen.
         type: boolean
       schema_version: 1
-  domain:
-    type: string
-    title: Grafana Domain
-    optional: false
-    help_text:
-      properties:
-        help_text: The Grafana domain (e.g., someone.grafana.net)
-        type: string
-      schema_version: 1
   refresh_interval:
     type: string
     default_value: '60'

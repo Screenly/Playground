@@ -5,7 +5,7 @@ import {
   setupErrorHandling,
   getSettingWithDefault,
   signalReady,
-  getToken,
+  getCredentials,
 } from '@screenly/edge-apps'
 import { getRenderUrl, fetchAndRenderDashboard } from './render'
 
@@ -17,20 +17,23 @@ window.onload = async function () {
   setupTheme()
 
   // Get settings from screenly.yml
-  const domain = getSettingWithDefault<string>('domain', '')
   const dashboardId = getSettingWithDefault<string>('dashboard_id', '')
   const refreshInterval = getSettingWithDefault<number>('refresh_interval', 60)
 
-  if (!domain || !dashboardId) {
-    throw new Error(
-      'Grafana domain and dashboard ID must be provided in the settings.',
-    )
+  if (!dashboardId) {
+    throw new Error('Grafana dashboard ID must be provided in the settings.')
   }
 
-  // Get service access token from OAuth service
-  const serviceAccessToken = await getToken()
+  // Get service access token and metadata from OAuth service
+  const { token: serviceAccessToken, metadata } = await getCredentials()
 
-  const imageUrl = getRenderUrl(domain, dashboardId)
+  // Get domain from metadata
+  const grafanaDomain = metadata?.domain as string
+  if (!grafanaDomain) {
+    throw new Error('Grafana domain must be provided by the OAuth service.')
+  }
+
+  const imageUrl = getRenderUrl(grafanaDomain, dashboardId)
 
   const imgElement = document.querySelector('#content img') as HTMLImageElement
 
