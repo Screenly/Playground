@@ -1,0 +1,14 @@
+---
+syntax: manifest_v1
+description: Klipfolio edge app for displaying custom messages
+icon: https://playground.srly.io/edge-apps/klipfolio/static/img/icon.svg
+author: Screenly, Inc.
+ready_signal: true
+settings:
+  message:
+    type: string
+    default_value: Hello, Mars!
+    title: Message
+    optional: true
+    help_text: |
+      Enter a custom message to display on the screen.
