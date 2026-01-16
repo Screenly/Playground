@@ -5,6 +5,7 @@ import {
   setupTheme,
   addUTMParamsIf,
   getSettingWithDefault,
+  setupErrorHandling,
   signalReady,
 } from '@screenly/edge-apps'
 
@@ -37,6 +38,9 @@ window.onload = function () {
   const enableUtm = getSettingWithDefault<boolean>('enable_utm', false)
   const headline = getSettingWithDefault<string>('headline', '')
   const callToAction = getSettingWithDefault<string>('call_to_action', '')
+
+  // Setup error handling with panic-overlay
+  setupErrorHandling()
 
   // Setup branding colors using the library
   setupTheme()

@@ -30,6 +30,17 @@ settings:
         help_text: Currency symbol to display with prices (e.g., $, €, £, ¥)
         type: string
       schema_version: 1
+  display_errors:
+    type: string
+    default_value: 'false'
+    title: Display Errors
+    optional: true
+    help_text:
+      properties:
+        advanced: true
+        help_text: For debugging purposes to display errors on the screen.
+        type: boolean
+      schema_version: 1
   item_01_description:
     type: string
     default_value: San Marzano tomatoes, fresh mozzarella, basil, extra virgin olive oil

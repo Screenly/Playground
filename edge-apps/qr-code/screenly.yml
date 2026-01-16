@@ -13,6 +13,17 @@ settings:
     optional: true
     help_text: |
       Enter a short call-to-action text (e.g., "Scan to visit", "Scan here", "Point your camera").
+  display_errors:
+    type: string
+    default_value: 'false'
+    title: Display Errors
+    optional: true
+    help_text:
+      properties:
+        advanced: true
+        help_text: For debugging purposes to display errors on the screen.
+        type: boolean
+      schema_version: 1
   enable_utm:
     type: string
     default_value: 'true'
