@@ -1,11 +1,11 @@
 import { describe, it, expect, afterEach } from 'bun:test'
+import { setupScreenlyMock, resetScreenlyMock } from '@screenly/edge-apps/test'
 import {
   escapeHtml,
   calculateItemsPerPage,
   getMenuItems,
   getDefaultBackgroundImage,
 } from './utils'
-import { setupScreenlyMock, resetScreenlyMock } from '@screenly/edge-apps/test'
 
 // eslint-disable-next-line max-lines-per-function
 describe('Menu Board Tests', () => {
