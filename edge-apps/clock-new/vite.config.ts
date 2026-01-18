@@ -110,7 +110,7 @@ function screenlyMockPlugin(): Plugin {
             settings: {
               enable_analytics: 'true',
               tag_manager_id: '',
-              openweathermap_api_key: '001085696589b9680f971c7d40e8e1f3',
+              openweathermap_api_key: '',
             },
             cors_proxy_url: 'http://127.0.0.1:8080',
           }

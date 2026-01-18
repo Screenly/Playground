@@ -36,7 +36,7 @@ let currentWeatherId: number | null = null
 // Get city name from coordinates (using OpenWeatherMap reverse geocoding)
 async function getCityName(lat: number, lng: number): Promise<string> {
   try {
-    const apiKey = "001085696589b9680f971c7d40e8e1f3" //getSetting<string>('openweathermap_api_key')
+    const apiKey = getSetting<string>('openweathermap_api_key')
     if (!apiKey) {
       // Fallback to location from metadata if no API key
       return getMetadata().location || 'Unknown Location'
