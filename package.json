@@ -1,0 +1,9 @@
+{
+  "name": "edge-apps-playground",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "create-app": "bun run edge-apps/edge-apps-library/scripts/cli.ts create"
+  }
+}
+

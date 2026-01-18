@@ -6,16 +6,25 @@
 import { execSync } from 'child_process'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { createApp } from './create.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const libraryRoot = path.dirname(__dirname)
 
 const commands = {
+  create: {
+    description: 'Create a new Edge App from the template',
+    handler: createCommand,
+  },
   lint: {
     description: 'Run ESLint with shared configuration',
     handler: lintCommand,
   },
+}
+
+async function createCommand(_args: string[]) {
+  await createApp()
 }
 
 async function lintCommand(args: string[]) {
@@ -84,3 +93,9 @@ Options:
   --help, -h   Show this help message
 `)
 }
+
+// Run the CLI
+run().catch((error) => {
+  console.error('Error:', error.message)
+  process.exit(1)
+})

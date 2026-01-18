@@ -3,32 +3,38 @@
   "version": "1.0.0",
   "description": "A TypeScript library for interfacing with Screenly Edge Apps API",
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
   "bin": {
     "edge-apps-scripts": "./bin/edge-apps-scripts.ts"
   },
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
     },
-    "./utils": {
-      "import": "./dist/utils/index.js",
-      "types": "./dist/utils/index.d.ts"
+    "./platform": {
+      "import": "./src/platform/index.ts",
+      "types": "./src/platform/index.ts"
     },
+    "./core": {
+      "import": "./src/core/index.ts",
+      "types": "./src/core/index.ts"
+    },
+    "./styles": "./src/styles/index.css",
+    "./styles/*": "./src/styles/*",
     "./types": {
-      "import": "./dist/types/index.js",
-      "types": "./dist/types/index.d.ts"
+      "import": "./src/types/index.ts",
+      "types": "./src/types/index.ts"
     },
     "./test": {
-      "import": "./dist/test/index.js",
-      "types": "./dist/test/index.d.ts"
+      "import": "./src/test/index.ts",
+      "types": "./src/test/index.ts"
     }
   },
   "files": [
-    "dist",
+    "src",
     "bin",
     "scripts",
     "eslint.config.ts"

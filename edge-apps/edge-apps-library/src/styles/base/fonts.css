@@ -1,0 +1,31 @@
+/**
+ * Font Loading
+ * Import fonts needed for the design system
+ * Apps can override or extend with their own fonts
+ */
+
+/* Inter font family - default UI font for Edge Apps */
+/* Apps should place Inter font files in /assets/fonts/ directory */
+@font-face {
+  font-family: Inter;
+  src: url('/assets/fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url('/assets/fonts/Inter-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url('/assets/fonts/Inter-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
