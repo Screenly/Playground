@@ -15,6 +15,8 @@ export interface CalendarEvent {
   startTime: string
   endTime: string
   isAllDay: boolean
+  colorId?: string
+  backgroundColor?: string
 }
 
 export interface CalendarDay {
