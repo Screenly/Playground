@@ -10,6 +10,7 @@ import {
 } from './settings'
 import { setupScreenlyMock, resetScreenlyMock } from '../test/mock'
 
+// eslint-disable-next-line max-lines-per-function
 describe('settings utilities', () => {
   beforeEach(() => {
     setupScreenlyMock(
@@ -56,6 +57,7 @@ describe('settings utilities', () => {
     })
   })
 
+  // eslint-disable-next-line max-lines-per-function
   describe('getSettingWithDefault', () => {
     test('should return setting value when it exists', () => {
       expect(getSettingWithDefault('theme', 'light')).toBe('dark')
@@ -89,6 +91,13 @@ describe('settings utilities', () => {
       expect(getSettingWithDefault('negative', 0)).toBe(-1)
       expect(getSettingWithDefault('decimal', 0)).toBe(3.14)
       expect(getSettingWithDefault('scientific', 0)).toBe(100000)
+    })
+
+    test('should return default when setting is an empty string (string default)', () => {
+      setupScreenlyMock({}, { empty_string: '' })
+      expect(getSettingWithDefault('empty_string', 'default_value')).toBe(
+        'default_value',
+      )
     })
 
     test('should return default when setting is an empty string and default is a number', () => {

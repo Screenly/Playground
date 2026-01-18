@@ -1,6 +1,7 @@
 import { describe, test, expect } from 'bun:test'
 import { getLocalizedMonthNames } from './locale'
 
+// eslint-disable-next-line max-lines-per-function
 describe('getLocalizedMonthNames', () => {
   test('should return full and short month names for en-US locale', () => {
     const result = getLocalizedMonthNames('en-US')

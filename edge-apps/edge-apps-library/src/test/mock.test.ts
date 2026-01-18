@@ -9,6 +9,7 @@ import {
 
 const global = globalThis as Record<string, unknown>
 
+// eslint-disable-next-line max-lines-per-function
 describe('mock utilities', () => {
   afterEach(() => {
     resetScreenlyMock()

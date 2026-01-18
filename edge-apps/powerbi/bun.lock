@@ -1,11 +1,15 @@
 {
   "lockfileVersion": 1,
+  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "powerbi",
       "dependencies": {
         "panic-overlay": "^1.0.51",
         "powerbi-client": "^2.22.2",
+      },
+      "devDependencies": {
+        "prettier": "3.8.0",
       },
     },
   },
@@ -341,6 +345,8 @@
     "powerbi-models": ["powerbi-models@2.0.1", "", {}, "sha512-hYYbxCNB3VJ/vn/mbldWHXLvJYHCS4ECzUEskzlTtaaVFILMhMr2r9p3wUjGTIUmZZQ6Ve8KkVT2o1w+aGjiGw=="],
 
     "powerbi-router": ["powerbi-router@0.1.5", "", { "dependencies": { "es6-promise": "^3.2.1", "route-recognizer": "^0.1.11" } }, "sha512-DFJCKxwh/DqMZXtHSo6xZl87mbRviZGn4P7Oi2rT0L4HMI4AjnWIrwg0JCSM7ymBzYnNe5UmrsCaf2Upur5RQA=="],
+
+    "prettier": ["prettier@3.8.0", "", { "bin": { "prettier": "bin/prettier.cjs" } }, "sha512-yEPsovQfpxYfgWNhCfECjG5AQaO+K3dp6XERmOepyPDVqcJm+bjyCVO3pmU+nAPe0N5dDvekfGezt/EIiRe1TA=="],
 
     "printable-characters": ["printable-characters@1.0.42", "", {}, "sha512-dKp+C4iXWK4vVYZmYSd0KBH5F/h1HoZRsbJ82AVKRO3PEo8L4lBS/vLwhVtpwwuYcoIsVY+1JYKR268yn480uQ=="],
 

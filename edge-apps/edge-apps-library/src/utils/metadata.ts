@@ -55,7 +55,7 @@ export function getHardware(): Hardware {
     return Hardware.ScreenlyPlayerMax
   }
 
-  throw new Error(`Unknown hardware type: ${hardware}`)
+  return Hardware.Unknown
 }
 
 /**

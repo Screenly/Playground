@@ -5,6 +5,7 @@ export enum Hardware {
   Anywhere = 'Anywhere',
   RaspberryPi = 'RaspberryPi',
   ScreenlyPlayerMax = 'ScreenlyPlayerMax',
+  Unknown = 'Unknown',
 }
 
 /**

@@ -1,6 +1,13 @@
-import { describe, it, expect } from 'bun:test'
-import { escapeHtml, calculateItemsPerPage, getMenuItems } from './utils'
+import { describe, it, expect, afterEach } from 'bun:test'
+import {
+  escapeHtml,
+  calculateItemsPerPage,
+  getMenuItems,
+  getDefaultBackgroundImage,
+} from './utils'
+import { setupScreenlyMock, resetScreenlyMock } from '@screenly/edge-apps/test'
 
+// eslint-disable-next-line max-lines-per-function
 describe('Menu Board Tests', () => {
   describe('escapeHtml', () => {
     it('should escape HTML special characters', () => {
@@ -48,7 +55,7 @@ describe('Menu Board Tests', () => {
 
   describe('getMenuItems', () => {
     it('should return empty array when no items are configured', () => {
-      const mockGetSetting = () => null
+      const mockGetSetting = () => undefined
       const result = getMenuItems(mockGetSetting)
       expect(result).toEqual([])
     })
@@ -65,7 +72,7 @@ describe('Menu Board Tests', () => {
           item_02_price: '8.99',
           item_02_labels: 'Gluten-free',
         }
-        return items[key] || null
+        return items[key]
       }
 
       const result = getMenuItems(mockGetSetting)
@@ -84,7 +91,7 @@ describe('Menu Board Tests', () => {
           item_01_price: '  15.99  ',
           item_01_labels: '  Gluten-free, Vegetarian  ',
         }
-        return items[key] || null
+        return items[key]
       }
 
       const result = getMenuItems(mockGetSetting)
@@ -102,13 +109,45 @@ describe('Menu Board Tests', () => {
           item_02_description: 'Should be skipped',
           item_03_name: 'Salad',
         }
-        return items[key] || null
+        return items[key]
       }
 
       const result = getMenuItems(mockGetSetting)
       expect(result).toHaveLength(2)
       expect(result[0].name).toBe('Pizza')
       expect(result[1].name).toBe('Salad')
+    })
+  })
+
+  describe('getDefaultBackgroundImage', () => {
+    afterEach(() => {
+      resetScreenlyMock()
+    })
+
+    it('should return the HTTPS URL for Anywhere hardware', () => {
+      setupScreenlyMock({
+        hardware: undefined,
+      })
+      const result = getDefaultBackgroundImage()
+      expect(result).toBe(
+        'https://raw.githubusercontent.com/Screenly/Playground/refs/heads/master/edge-apps/menu-board/assets/pizza.png',
+      )
+    })
+
+    it('should return relative path for Raspberry Pi devices', () => {
+      setupScreenlyMock({
+        hardware: 'Raspberry Pi',
+      })
+      const result = getDefaultBackgroundImage()
+      expect(result).toBe('assets/pizza.png')
+    })
+
+    it('should return relative path for Screenly Player Max (x86) devices', () => {
+      setupScreenlyMock({
+        hardware: 'Screenly Player Max',
+      })
+      const result = getDefaultBackgroundImage()
+      expect(result).toBe('assets/pizza.png')
     })
   })
 })
