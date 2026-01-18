@@ -9,13 +9,27 @@ interface CalendarColors {
   event: Record<string, ColorDefinition>
 }
 
+const CACHE_EXPIRATION_MS = 60 * 60 * 1000 // 1 hour in milliseconds
+
 let cachedColors: CalendarColors | null = null
+let cacheTimestamp: number | null = null
+
+const isCacheValid = (): boolean => {
+  if (!cachedColors || !cacheTimestamp) {
+    return false
+  }
+
+  const now = Date.now()
+  const cacheAge = now - cacheTimestamp
+
+  return cacheAge < CACHE_EXPIRATION_MS
+}
 
 export const fetchCalendarColors = async (
   accessToken: string,
 ): Promise<CalendarColors> => {
-  if (cachedColors) {
-    return cachedColors
+  if (isCacheValid()) {
+    return cachedColors!
   }
 
   const apiUrl = 'https://www.googleapis.com/calendar/v3/colors'
@@ -32,6 +46,7 @@ export const fetchCalendarColors = async (
 
   const data = await response.json()
   cachedColors = data
+  cacheTimestamp = Date.now()
 
   return data
 }
