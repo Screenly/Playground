@@ -1,0 +1,26 @@
+---
+syntax: manifest_v1
+description: Looker Studio edge app for displaying dashboards
+icon: https://playground.srly.io/edge-apps/looker-studio/static/img/icon.svg
+author: Screenly, Inc.
+ready_signal: true
+settings:
+  embed_url:
+    type: string
+    title: Embed URL
+    optional: false
+    help_text:
+      properties:
+        help_text: "Enter the Looker Studio embed URL or paste the full iframe embed code."
+        type: string
+      schema_version: 1
+  refresh_interval:
+    type: string
+    title: Refresh Interval (seconds)
+    default_value: 60
+    optional: true
+    help_text:
+      properties:
+        help_text: "How often to refresh the dashboard in seconds. Set to 0 to disable auto-refresh."
+        type: number
+      schema_version: 1
