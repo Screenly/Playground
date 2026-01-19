@@ -1,26 +1,34 @@
 ---
 syntax: manifest_v1
-description: Looker Studio edge app for displaying dashboards
-icon: https://playground.srly.io/edge-apps/looker-studio/static/img/icon.svg
+description: Looker edge app for displaying dashboards and reports
+icon: https://playground.srly.io/edge-apps/looker/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 settings:
-  embed_url:
+  looker_host:
     type: string
-    title: Embed URL
+    title: Looker Host
     optional: false
     help_text:
       properties:
-        help_text: Enter the Looker Studio embed URL or paste the full iframe embed code.
+        help_text: Your Looker instance hostname (e.g., mycompany.looker.com)
         type: string
       schema_version: 1
-  refresh_interval:
+  dashboard_id:
     type: string
-    default_value: '60'
-    title: Refresh Interval (seconds)
+    title: Dashboard ID
+    optional: false
+    help_text:
+      properties:
+        help_text: The ID of the Looker dashboard to display
+        type: string
+      schema_version: 1
+  embed_token:
+    type: secret
+    title: Embed Token
     optional: true
     help_text:
       properties:
-        help_text: How often to refresh the dashboard in seconds. Set to 0 to disable auto-refresh.
-        type: number
+        help_text: For testing only. In production, the embed token should be fetched dynamically via the API.
+        type: string
       schema_version: 1
