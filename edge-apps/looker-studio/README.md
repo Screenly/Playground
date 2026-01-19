@@ -14,7 +14,8 @@ screenly edge-app instance create
 
 The app accepts the following settings via `screenly.yml`:
 
-- `message` - The message to display on the screen (defaults to "Hello, Mars!")
+- `embed_url` - The Looker Studio embed URL to display on the screen.
+- `refresh_interval` - How often to refresh the embed (in seconds).
 
 ## Development
 
