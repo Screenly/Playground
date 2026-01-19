@@ -23,10 +23,7 @@
     "prepare": "cd ../edge-apps-library && bun install && bun run build"
   },
   "dependencies": {
-    "@photostructure/tz-lookup": "^11.3.0",
-    "country-locale-map": "^1.9.11",
-    "fast-xml-parser": "^5.3.2",
-    "offline-geocode-city": "^1.0.2"
+    "fast-xml-parser": "^5.3.2"
   },
   "prettier": "../edge-apps-library/.prettierrc.json",
   "devDependencies": {
