@@ -3,9 +3,7 @@ import './input.css'
 import {
   setupTheme,
   signalReady,
-  getMetadata,
   getTags,
-  getSettings,
   getSettingWithDefault,
 } from '@screenly/edge-apps'
 
@@ -233,29 +231,6 @@ function renderAlerts(
 
 export async function startApp(): Promise<void> {
   setupTheme()
-
-  let settings: Partial<ReturnType<typeof getSettings>> = {}
-  let metadata: Partial<ReturnType<typeof getMetadata>> = {}
-
-  try {
-    settings = getSettings()
-    localStorage.setItem('screenly_settings', JSON.stringify(settings))
-  } catch {
-    const cached = localStorage.getItem('screenly_settings')
-    settings = cached
-      ? (JSON.parse(cached) as Partial<ReturnType<typeof getSettings>>)
-      : {}
-  }
-
-  try {
-    metadata = getMetadata()
-    localStorage.setItem('screenly_metadata', JSON.stringify(metadata))
-  } catch {
-    const cachedMeta = localStorage.getItem('screenly_metadata')
-    metadata = cachedMeta
-      ? (JSON.parse(cachedMeta) as Partial<ReturnType<typeof getMetadata>>)
-      : {}
-  }
 
   const feedUrl = getSettingWithDefault<string>('cap_feed_url', '')
   const interval = getSettingWithDefault<number>('refresh_interval', 5)
