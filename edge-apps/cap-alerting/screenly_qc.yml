@@ -54,16 +54,6 @@ settings:
           value: test
         type: select
       schema_version: 1
-  mute_sound:
-    type: string
-    default_value: 'false'
-    title: Mute Sound
-    optional: true
-    help_text:
-      properties:
-        help_text: Mute audio alerts from CAP resources. Not available for Screenly Anywhere.
-        type: boolean
-      schema_version: 1
   refresh_interval:
     type: string
     default_value: '5'

@@ -111,40 +111,10 @@ function createInstructionBox(
   return instructionBoxEl
 }
 
-function createAudioPlayer(url: string): HTMLAudioElement {
-  const proxiedUrl = proxyUrl(url)
-  console.log('Creating audio player for:', url, '-> proxied:', proxiedUrl)
-
-  const template = getTemplate('audio-resource-template')
-  const audio = (template.content.cloneNode(true) as DocumentFragment)
-    .firstElementChild as HTMLAudioElement
-
-  audio.src = proxiedUrl
-
-  audio.addEventListener('loadeddata', () => {
-    console.log('Audio loaded successfully:', proxiedUrl)
-  })
-
-  audio.addEventListener('error', (e) => {
-    console.error('Audio load error:', proxiedUrl, e)
-  })
-
-  audio.play().catch((err) => {
-    console.warn(
-      'Autoplay blocked or failed:',
-      err.message,
-      '- Click play button to start audio',
-    )
-  })
-
-  return audio
-}
-
 function renderAlertCard(
   alert: CAPAlert,
   info: CAPInfo,
   nearestExit: string | undefined,
-  playAudio: boolean,
 ): HTMLElement {
   const template = getTemplate('alert-card-template')
   const card = (template.content.cloneNode(true) as DocumentFragment)
@@ -199,8 +169,6 @@ function renderAlertCard(
       const img = imgWrapper.querySelector('img') as HTMLImageElement
       img.src = proxyUrl(res.url)
       resourcesContainer.appendChild(imgWrapper)
-    } else if (res.mimeType && res.mimeType.startsWith('audio') && playAudio) {
-      resourcesContainer.appendChild(createAudioPlayer(res.url))
     }
   })
 
@@ -212,7 +180,6 @@ function renderAlerts(
   nearestExit: string | undefined,
   lang: string,
   maxAlerts: number,
-  playAudio: boolean,
 ): void {
   const container = document.getElementById('alerts')
   if (!container) return
@@ -224,7 +191,7 @@ function renderAlerts(
     const info = alert.infos.find((i) => i.language === lang) ?? alert.infos[0]
     if (!info) return
 
-    const card = renderAlertCard(alert, info, nearestExit, playAudio)
+    const card = renderAlertCard(alert, info, nearestExit)
     container.appendChild(card)
   })
 }
@@ -236,7 +203,6 @@ export async function startApp(): Promise<void> {
   const interval = getSettingWithDefault<number>('refresh_interval', 5)
   const lang = getSettingWithDefault<string>('language', 'en')
   const maxAlerts = getSettingWithDefault<number>('max_alerts', Infinity)
-  const playAudio = !getSettingWithDefault<boolean>('mute_sound', false)
   const mode = getSettingWithDefault<CAPMode>('mode', 'production')
   const testMode = mode === 'test'
   const demoMode = mode === 'demo'
@@ -254,7 +220,7 @@ export async function startApp(): Promise<void> {
     const xml = await fetcher.fetch()
     if (xml) {
       const alerts = parseCap(xml)
-      renderAlerts(alerts, nearestExit, lang, maxAlerts, playAudio)
+      renderAlerts(alerts, nearestExit, lang, maxAlerts)
     } else {
       console.warn('No CAP data available')
     }
