@@ -46,7 +46,6 @@ window.onload = async function () {
 
   if (!success) {
     throw new Error('Failed to load the Grafana dashboard image.')
-    return
   }
 
   // Set up interval to refresh the dashboard
