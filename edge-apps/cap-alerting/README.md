@@ -4,13 +4,11 @@ Display Common Alerting Protocol (CAP) emergency alerts on Screenly digital sign
 
 ## Settings
 
-- **CAP Feed URL**: URL to your CAP XML feed
-- **Refresh Interval**: Minutes between feed updates (default: 5)
-- **Default Language**: Preferred language code (default: en)
-- **Maximum Alerts**: Max alerts to display (default: 3)
-- **Offline Mode**: Use cached data when network unavailable
-- **Test Mode**: Load bundled test CAP file
-- **Demo Mode**: Show random demo alerts
+- **CAP Feed URL**: URL to your CAP XML feed (optional; leave blank for demo mode)
+- **Default Language**: Preferred language code when multiple languages are available (default: `en`)
+- **Maximum Alerts**: Maximum number of alerts to display simultaneously (default: `Infinity`)
+- **Mode**: Operation mode - Production, Demo, or Test (default: `production`)
+- **Refresh Interval**: Minutes between feed updates (default: `5`)
 
 ## Nearest Exit Tags
 
