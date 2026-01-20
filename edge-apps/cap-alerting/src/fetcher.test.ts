@@ -78,7 +78,6 @@ describe('CAPFetcher', () => {
         testMode: true,
         demoMode: false,
         feedUrl: 'https://example.com/feed.xml',
-        offlineMode: false,
       })
 
       const result = await fetcher.fetch()
@@ -97,7 +96,6 @@ describe('CAPFetcher', () => {
         testMode: true,
         demoMode: false,
         feedUrl: 'https://example.com/feed.xml',
-        offlineMode: false,
       })
 
       const result = await fetcher.fetch()
@@ -112,7 +110,6 @@ describe('CAPFetcher', () => {
         testMode: true,
         demoMode: false,
         feedUrl: 'https://example.com/feed.xml',
-        offlineMode: false,
       })
 
       const result = await fetcher.fetch()
@@ -138,7 +135,6 @@ describe('CAPFetcher', () => {
         testMode: false,
         demoMode: true,
         feedUrl: '',
-        offlineMode: false,
       })
 
       const result = await fetcher.fetch()
@@ -164,7 +160,6 @@ describe('CAPFetcher', () => {
         testMode: false,
         demoMode: true,
         feedUrl: '',
-        offlineMode: false,
       })
 
       const result = await fetcher.fetch()
@@ -189,7 +184,6 @@ describe('CAPFetcher', () => {
         testMode: false,
         demoMode: true,
         feedUrl: '',
-        offlineMode: false,
       })
 
       const result = await fetcher.fetch()
@@ -210,7 +204,6 @@ describe('CAPFetcher', () => {
         testMode: false,
         demoMode: true,
         feedUrl: 'https://example.com/feed.xml',
-        offlineMode: false,
       })
 
       const result = await fetcher.fetch()
@@ -238,7 +231,6 @@ describe('CAPFetcher', () => {
         testMode: false,
         demoMode: false,
         feedUrl: 'https://example.com/feed.xml',
-        offlineMode: false,
       })
 
       const result = await fetcher.fetch()
@@ -262,7 +254,6 @@ describe('CAPFetcher', () => {
         testMode: false,
         demoMode: false,
         feedUrl: 'https://example.com/feed.xml',
-        offlineMode: false,
       })
 
       await fetcher.fetch()
@@ -284,7 +275,6 @@ describe('CAPFetcher', () => {
         testMode: false,
         demoMode: false,
         feedUrl: 'https://example.com/feed.xml',
-        offlineMode: false,
       })
 
       const result = await fetcher.fetch()
@@ -299,7 +289,6 @@ describe('CAPFetcher', () => {
         testMode: false,
         demoMode: false,
         feedUrl: 'https://example.com/feed.xml',
-        offlineMode: false,
       })
 
       const result = await fetcher.fetch()
@@ -323,7 +312,6 @@ describe('CAPFetcher', () => {
         testMode: false,
         demoMode: false,
         feedUrl: 'https://example.com/feed.xml',
-        offlineMode: false,
       })
 
       const result = await fetcher.fetch()
@@ -345,49 +333,12 @@ describe('CAPFetcher', () => {
         testMode: false,
         demoMode: false,
         feedUrl: 'file:///local/path/feed.xml',
-        offlineMode: false,
       })
 
       await fetcher.fetch()
 
       // Should not add CORS proxy for non-HTTP URLs
       expect(mockFetch.mock.calls[0][0]).toBe('file:///local/path/feed.xml')
-    })
-  })
-
-  describe('Offline Mode', () => {
-    it('should return cached data in offline mode', async () => {
-      const cachedData =
-        '<?xml version="1.0"?><alert><identifier>OFFLINE</identifier></alert>'
-
-      // Set up cache
-      localStorageMock.setItem('cap_last', cachedData)
-
-      const fetcher = new CAPFetcher({
-        testMode: false,
-        demoMode: false,
-        feedUrl: 'https://example.com/feed.xml',
-        offlineMode: true,
-      })
-
-      const result = await fetcher.fetch()
-
-      expect(result).toBe(cachedData)
-      // Should not attempt any fetch
-      expect(mockFetch.mock.calls.length).toBe(0)
-    })
-
-    it('should return null in offline mode with no cache', async () => {
-      const fetcher = new CAPFetcher({
-        testMode: false,
-        demoMode: false,
-        feedUrl: 'https://example.com/feed.xml',
-        offlineMode: true,
-      })
-
-      const result = await fetcher.fetch()
-
-      expect(result).toBeNull()
     })
   })
 
@@ -401,7 +352,6 @@ describe('CAPFetcher', () => {
         testMode: false,
         demoMode: false,
         feedUrl: '',
-        offlineMode: false,
       })
 
       const result = await fetcher.fetch()
@@ -422,7 +372,6 @@ describe('CAPFetcher', () => {
         testMode: true,
         demoMode: true,
         feedUrl: 'https://example.com/feed.xml',
-        offlineMode: false,
       })
 
       const result = await fetcher.fetch()

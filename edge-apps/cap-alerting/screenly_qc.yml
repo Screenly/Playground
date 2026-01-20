@@ -64,16 +64,6 @@ settings:
         help_text: Mute audio alerts from CAP resources. Not available for Screenly Anywhere.
         type: boolean
       schema_version: 1
-  offline_mode:
-    type: string
-    default_value: 'false'
-    title: Offline Mode
-    optional: true
-    help_text:
-      properties:
-        help_text: When enabled, avoid network fetches and use cached data.
-        type: boolean
-      schema_version: 1
   refresh_interval:
     type: string
     default_value: '5'

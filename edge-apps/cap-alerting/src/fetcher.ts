@@ -7,13 +7,13 @@ export interface FetcherConfig {
   testMode: boolean
   demoMode: boolean
   feedUrl: string
-  offlineMode: boolean
 }
 
 /**
  * Fetches CAP (Common Alerting Protocol) data based on the app mode.
  * Supports test mode (static test file), demo mode (rotating demo files),
- * and production mode (live feed with fallback to localStorage cache).
+ * and production mode (live feed with automatic fallback to cached data).
+ * Always works offline using cached data when network is unavailable.
  */
 export class CAPFetcher {
   private config: FetcherConfig
@@ -85,11 +85,6 @@ export class CAPFetcher {
    * Fetch live CAP data with fallback to localStorage cache
    */
   private async fetchLiveData(): Promise<string | null> {
-    // If in offline mode, return cached data
-    if (this.config.offlineMode) {
-      return localStorage.getItem('cap_last')
-    }
-
     // No feed URL configured
     if (!this.config.feedUrl) {
       console.warn('No feed URL configured')

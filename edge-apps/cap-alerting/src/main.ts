@@ -237,7 +237,6 @@ export async function startApp(): Promise<void> {
   const lang = getSettingWithDefault<string>('language', 'en')
   const maxAlerts = getSettingWithDefault<number>('max_alerts', Infinity)
   const playAudio = !getSettingWithDefault<boolean>('mute_sound', false)
-  const offlineMode = getSettingWithDefault<boolean>('offline_mode', false)
   const mode = getSettingWithDefault<CAPMode>('mode', 'production')
   const testMode = mode === 'test'
   const demoMode = mode === 'demo'
@@ -249,7 +248,6 @@ export async function startApp(): Promise<void> {
     testMode,
     demoMode,
     feedUrl,
-    offlineMode,
   })
 
   async function update() {
