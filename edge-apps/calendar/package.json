@@ -29,14 +29,14 @@
   "prettier": "../edge-apps-library/.prettierrc.json",
   "dependencies": {
     "@photostructure/tz-lookup": "^11.4.0",
-    "@sentry/browser": "^10.34.0",
-    "@sentry/vue": "^10.34.0",
+    "@sentry/browser": "^10.35.0",
+    "@sentry/vue": "^10.35.0",
     "country-locale-map": "^1.9.11",
     "dayjs": "^1.11.19",
     "ical.js": "^2.2.1",
     "offline-geocode-city": "^1.0.2",
     "pinia": "^3.0.4",
-    "vue": "^3.5.26",
+    "vue": "^3.5.27",
     "yaml": "^2.8.2"
   },
   "devDependencies": {
@@ -62,7 +62,7 @@
     "sass-embedded": "^1.97.2",
     "typescript": "~5.9.3",
     "vite": "^7.3.1",
-    "vite-plugin-static-copy": "^3.1.4",
+    "vite-plugin-static-copy": "^3.1.5",
     "vite-plugin-vue-devtools": "^8.0.5",
     "vitest": "^4.0.17",
     "vue-tsc": "^3.2.2"
