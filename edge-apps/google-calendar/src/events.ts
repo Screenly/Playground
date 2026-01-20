@@ -1,6 +1,7 @@
 import { VIEW_MODE } from '@/constants'
 import type { CalendarEvent, ViewMode } from '@/constants'
 import { useSettingsStore } from '@/stores/settings'
+import { fetchCalendarColors, getEventBackgroundColor } from '@/colors'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import dayJsTimezone from 'dayjs/plugin/timezone'
@@ -51,6 +52,14 @@ export const fetchCalendarEventsFromGoogleAPI = async (
     viewMode === 'monthly' ? VIEW_MODE.SCHEDULE : (viewMode as ViewMode)
   const { startDate, endDate } = getDateRangeForViewMode(mappedViewMode)
 
+  // Fetch colors first
+  let colors = null
+  try {
+    colors = await fetchCalendarColors(accessToken)
+  } catch (error) {
+    console.warn('Failed to fetch calendar colors, using defaults:', error)
+  }
+
   // Fetch events from Google Calendar API
   const settingsStore = useSettingsStore()
   const calendarId = settingsStore.calendarId
@@ -81,12 +90,16 @@ export const fetchCalendarEventsFromGoogleAPI = async (
     const isAllDay = !!item.start.date
     const startTime = item.start.dateTime || item.start.date
     const endTime = item.end.dateTime || item.end.date
+    const colorId = item.colorId
+    const backgroundColor = getEventBackgroundColor(colorId, colors)
 
     events.push({
       title: item.summary || 'Busy',
       startTime: new Date(startTime).toISOString(),
       endTime: new Date(endTime).toISOString(),
       isAllDay,
+      colorId,
+      backgroundColor,
     })
   }
 

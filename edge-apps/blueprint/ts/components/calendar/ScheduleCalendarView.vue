@@ -121,7 +121,13 @@ watch([events, locale, () => props.timezone], filterAndFormatEvents, {
           {{ formattedEventTimes[event.startTime] || '...' }}
         </div>
         <div class="event-title">
-          <span class="event-dot">•</span>
+          <span
+            class="event-dot"
+            :style="
+              event.backgroundColor ? { color: event.backgroundColor } : {}
+            "
+            >•</span
+          >
           {{ event.title }}
         </div>
       </div>
@@ -143,7 +149,13 @@ watch([events, locale, () => props.timezone], filterAndFormatEvents, {
           {{ formattedEventTimes[event.startTime] || '...' }}
         </div>
         <div class="event-title">
-          <span class="event-dot">•</span>
+          <span
+            class="event-dot"
+            :style="
+              event.backgroundColor ? { color: event.backgroundColor } : {}
+            "
+            >•</span
+          >
           {{ event.title }}
         </div>
       </div>
