@@ -190,7 +190,7 @@ const eventStyleCache = new Map<string, Record<string, string>>()
 
 // Get style for an event - with caching for better performance
 const getEventStyle = (event: CalendarEvent): Record<string, string> => {
-  const cacheKey = `${event.startTime}-${event.endTime}`
+  const cacheKey = `${event.startTime}-${event.endTime}-${event.backgroundColor || ''}`
 
   if (eventStyleCache.has(cacheKey)) {
     return eventStyleCache.get(cacheKey)!
@@ -231,6 +231,11 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
     top: `${topOffset}%`,
     height: `${height}%`,
     'border-radius': '6px',
+  }
+
+  // Add background color if available
+  if (event.backgroundColor) {
+    baseStyle['background-color'] = event.backgroundColor
   }
 
   // Cache the result
