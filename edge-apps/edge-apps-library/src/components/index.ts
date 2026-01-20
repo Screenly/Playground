@@ -3,7 +3,6 @@
  * Reusable UI components that can be used across multiple apps
  */
 
-export { BrandLogo } from './brand-logo/brand-logo.js'
 export { AppHeader } from './app-header/app-header.js'
 export { AutoScalerElement } from './auto-scaler/auto-scaler.js'
 export { EdgeAppDevToolsElement } from './dev-tools/dev-tools.js'

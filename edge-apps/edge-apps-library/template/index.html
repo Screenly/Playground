@@ -4,41 +4,78 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{APP_TITLE}} - Screenly Edge App</title>
+  <style>
+    /* Prevent flash of unstyled content */
+    #app:not(.ready) {
+      opacity: 0;
+      transition: opacity 0.2s ease-in;
+    }
+    #app.ready {
+      opacity: 1;
+    }
+  </style>
 </head>
-<body class="m-0 p-0 overflow-hidden bg-slate-900">
+<body class="m-0 p-0 overflow-hidden text-white app-background">
   {{AUTO_SCALER_START}}
-  <div id="app" class="w-full h-full flex items-center justify-center">
-      <div
-        class="max-w-4xl px-12 py-10 rounded-2xl bg-slate-950/80 shadow-2xl border border-slate-800"
+  <div id="app" class="w-full h-full flex flex-col gap-6 p-6">
+    <header>
+      <app-header show-date></app-header>
+    </header>
+
+    <main class="flex-1 flex items-center justify-center">
+      <section
+        class="max-w-4xl w-full px-10 py-10 rounded-2xl bg-slate-950/80 shadow-2xl border border-slate-800"
       >
-        <p class="text-sm uppercase tracking-[0.2em] text-slate-400 mb-4">
-          Screenly Edge App
+        <p class="text-xs md:text-sm uppercase tracking-[0.25em] text-slate-400 mb-4">
+          Sample Screenly Edge App
         </p>
         <h1
-          id="app-title"
-          class="text-5xl font-extrabold text-primary mb-4 drop-shadow-sm"
+          data-greeting
+          class="text-4xl md:text-5xl font-extrabold text-screenly-primary mb-4 drop-shadow-sm"
         >
-          {{APP_TITLE}}
+          Loading...
         </h1>
-        <p id="app-subtitle" class="text-xl text-slate-200 mb-6">
-          This is a minimal <span class="font-semibold">TypeScript + Tailwind CSS</span> Edge App.
+        <p class="text-base md:text-lg text-slate-200 mb-6">
+          This starter app shows how to read <span class="font-semibold">settings</span> and
+          <span class="font-semibold">metadata</span> using <code>@screenly/edge-apps</code>.
         </p>
-        <p class="text-sm text-slate-400">
-          Edit
-          <code
-            class="bg-slate-800 text-slate-100 px-2 py-1 rounded border border-slate-700"
-          >
-            src/main.ts
-          </code>
-          and save to see changes instantly.
-        </p>
-      </div>
-    </div>
-  {{AUTO_SCALER_END}}
-{{DEV_TOOLS}}
 
-    <script src="screenly.js?version=1"></script>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+        <div class="grid gap-4 md:grid-cols-2 text-sm md:text-base" data-metadata-panel>
+          <div class="space-y-1">
+            <h2 class="text-xs font-semibold tracking-[0.2em] text-slate-400">
+              SETTINGS
+            </h2>
+            <p>
+              <span class="text-slate-400">hello_name:</span>
+              <span class="font-semibold" data-setting-name>—</span>
+            </p>
+          </div>
+          <div class="space-y-1">
+            <h2 class="text-xs font-semibold tracking-[0.2em] text-slate-400">
+              METADATA
+            </h2>
+            <p>
+              <span class="text-slate-400">Screen:</span>
+              <span class="font-semibold" data-meta-screen-name>—</span>
+            </p>
+            <p>
+              <span class="text-slate-400">Location:</span>
+              <span class="font-semibold" data-meta-location>—</span>
+            </p>
+            <p>
+              <span class="text-slate-400">Coordinates:</span>
+              <span class="font-mono text-slate-200" data-meta-coordinates>—</span>
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  {{AUTO_SCALER_END}}
+  {{DEV_TOOLS}}
+
+  <script src="screenly.js?version=1"></script>
+  <script type="module" src="/src/main.ts"></script>
+</body>
 </html>
 

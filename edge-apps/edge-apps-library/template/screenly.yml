@@ -6,11 +6,9 @@ author: Screenly
 homepage_url: https://www.screenly.io
 
 settings:
-  # Add your app-specific settings here
-  # Example:
-  # api_key:
-  #   type: string
-  #   title: API Key
-  #   optional: false
-  #   help_text: Your API key for data access
+  hello_name:
+    type: string
+    title: Name to greet
+    optional: true
+    help_text: Name that will be used in the greeting message
 

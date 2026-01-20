@@ -40,6 +40,7 @@
     "eslint.config.ts"
   ],
   "scripts": {
+    "create": "bun scripts/cli.ts create",
     "prebuild": "bun run type-check",
     "build": "bun build:types",
     "build:types": "tsc",

@@ -78,16 +78,23 @@ function componentResolvePlugin(): Plugin {
   }
 }
 
-// Plugin to copy screenly.yml into the build output directory
+// Plugin to copy manifest files into the build output directory
 function copyScreenlyManifestPlugin(): Plugin {
   return {
     name: 'copy-screenly-manifest',
     closeBundle() {
-      const src = path.resolve(__dirname, 'screenly.yml')
-      const dest = path.resolve(__dirname, 'build', 'screenly.yml')
+      const manifestSrc = path.resolve(__dirname, 'screenly.yml')
+      const manifestDest = path.resolve(__dirname, 'build', 'screenly.yml')
 
-      if (fs.existsSync(src)) {
-        fs.copyFileSync(src, dest)
+      const qcSrc = path.resolve(__dirname, 'screenly_qc.yml')
+      const qcDest = path.resolve(__dirname, 'build', 'screenly_qc.yml')
+
+      if (fs.existsSync(manifestSrc)) {
+        fs.copyFileSync(manifestSrc, manifestDest)
+      }
+
+      if (fs.existsSync(qcSrc)) {
+        fs.copyFileSync(qcSrc, qcDest)
       }
     },
   }
@@ -100,8 +107,8 @@ function screenlyMockPlugin(): Plugin {
     configureServer(server: ViteDevServer) {
       server.middlewares.use((req, res, next) => {
         if (req.url === '/screenly.js?version=1' || req.url === '/screenly.js') {
-          // Try to load mock-data.yml, fallback to defaults
-          let mockData: any = {
+          // Try to load mock-data.yml, fallback to generic defaults
+          const mockData: any = {
             metadata: {
               coordinates: [37.3861, -122.0839] as [number, number],
               hostname: 'dev-hostname',
@@ -111,6 +118,7 @@ function screenlyMockPlugin(): Plugin {
               screenly_version: 'development-server',
               tags: ['Development'],
             },
+            // App-specific settings should come from mock-data.yml
             settings: {},
             cors_proxy_url: 'http://127.0.0.1:8080',
           }

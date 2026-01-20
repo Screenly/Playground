@@ -6,4 +6,10 @@ export default defineConfig(
   eslint.configs.recommended,
   tseslint.configs.recommended,
   globalIgnores(['dist/', 'node_modules/', 'build/']),
+  {
+    files: ['vite.config.ts'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
 )

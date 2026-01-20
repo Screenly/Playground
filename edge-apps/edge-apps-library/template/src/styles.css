@@ -7,24 +7,14 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* Extend Tailwind with Screenly theme colors */
-@layer utilities {
-  .text-screenly-primary {
-    color: var(--screenly-primary);
-  }
-
-  .text-screenly-secondary {
-    color: var(--screenly-secondary);
-  }
-
-  .bg-screenly-primary {
-    background-color: var(--screenly-primary);
-  }
-
-  .bg-screenly-secondary {
-    background-color: var(--screenly-secondary);
-  }
-}
-
 /* App-specific styles go here */
-/* Example: App-specific overrides or additions */
+
+/* Background image styling */
+.app-background {
+  background-image: url('../assets/images/sample-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* Fallback color in case image fails to load */
+  background-color: #0f172a;
+}

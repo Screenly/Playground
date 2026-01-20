@@ -10,3 +10,7 @@ interface ImportMeta {
   readonly env: ImportMetaEnv
 }
 
+declare const Sentry: {
+  init(options: { dsn: string }): void
+}
+

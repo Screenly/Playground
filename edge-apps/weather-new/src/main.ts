@@ -112,6 +112,7 @@ async function getReverseGeocodingData(
     cache.set(result)
     return result
   } catch (error) {
+    console.error('Reverse geocoding error:', error)
     const cached = cache.get()
     if (cached?.name && cached?.country) {
       return cached
@@ -279,6 +280,20 @@ async function refreshWeather() {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+  // Initialize Sentry if configured
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const screenlyGlobal = (window as any).screenly
+    const sentryDsn = screenlyGlobal?.settings?.sentry_dsn as string | undefined
+    if (sentryDsn) {
+      Sentry.init({ dsn: sentryDsn })
+    } else {
+      console.warn('Sentry DSN is not defined. Sentry will not be initialized.')
+    }
+  } catch {
+    // Swallow errors in analytics setup to avoid impacting the app UI
+  }
+
   await refreshWeather()
 
   setInterval(() => refreshWeather(), 15 * 60 * 1000)

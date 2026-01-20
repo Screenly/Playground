@@ -1,29 +1,60 @@
-import { signalReady } from '@screenly/edge-apps'
+import {
+  signalReady,
+  getSettingWithDefault,
+  getMetadata,
+  getFormattedCoordinates,
+} from '@screenly/edge-apps'
 // Import components to register them as custom elements
-// This registers <auto-scaler> and <edge-app-devtools> web components
+// This registers <auto-scaler>, <app-header>, and <edge-app-devtools> web components
 import '@screenly/edge-apps/components'
 import './styles.css'
 
-// Note: Auto-scaling and dev tools are now handled declaratively in index.html
-// via <auto-scaler> and <edge-app-devtools> web components
+// Note: Auto-scaling and dev tools are handled declaratively in index.html
+// via <auto-scaler>, <app-header>, and <edge-app-devtools> web components
 
-// Inject only dynamic content via DOM APIs (no innerHTML layout)
+// Inject dynamic content via DOM APIs (no innerHTML layout)
 document.addEventListener('DOMContentLoaded', () => {
-  // Example of dynamic content: you can swap title / subtitle based on settings
-  const titleEl = document.getElementById('app-title')
-  const subtitleEl = document.getElementById('app-subtitle')
+  const greetingEl = document.querySelector<HTMLElement>('[data-greeting]')
+  const settingNameEl =
+    document.querySelector<HTMLElement>('[data-setting-name]')
+  const screenNameEl = document.querySelector<HTMLElement>(
+    '[data-meta-screen-name]',
+  )
+  const locationEl =
+    document.querySelector<HTMLElement>('[data-meta-location]')
+  const coordinatesEl = document.querySelector<HTMLElement>(
+    '[data-meta-coordinates]',
+  )
 
-  // You can still access Screenly globals directly if needed:
-  // const settings = screenly.settings
-  // const metadata = screenly.metadata
+  // Read settings and metadata using @screenly/edge-apps helpers
+  const helloName = getSettingWithDefault<string>('hello_name', 'Screenly friend')
+  const metadata = getMetadata()
+  const formattedCoordinates = getFormattedCoordinates()
 
-  if (titleEl) {
-    titleEl.textContent = '{{APP_TITLE}}'
+  if (greetingEl) {
+    greetingEl.textContent = `Hello, ${helloName}`
   }
 
-  if (subtitleEl) {
-    subtitleEl.textContent =
-      'This is a minimal TypeScript + Tailwind CSS Edge App.'
+  if (settingNameEl) {
+    settingNameEl.textContent = helloName
+  }
+
+  if (screenNameEl) {
+    screenNameEl.textContent = metadata.screen_name
+  }
+
+  if (locationEl) {
+    locationEl.textContent = metadata.location
+  }
+
+  if (coordinatesEl) {
+    coordinatesEl.textContent = formattedCoordinates
+  }
+
+  // Mark app as ready to prevent FOUC
+  const appEl = document.getElementById('app')
+  if (appEl) {
+    appEl.classList.add('ready')
   }
 
   // Tell the player we're ready to be shown

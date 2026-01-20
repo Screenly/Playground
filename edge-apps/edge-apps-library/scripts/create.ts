@@ -50,14 +50,24 @@ function copyDirectory(
     if (entry.isDirectory()) {
       copyDirectory(srcPath, destPath, replacements)
     } else {
-      let content = fs.readFileSync(srcPath, 'utf8')
+      // Check if file is binary (images, fonts, etc.)
+      const binaryExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.svg', '.woff', '.woff2', '.ttf', '.eot', '.ico', '.webp']
+      const isBinary = binaryExtensions.some(ext => entry.name.toLowerCase().endsWith(ext))
+      
+      if (isBinary) {
+        // Copy binary files directly without text processing
+        fs.copyFileSync(srcPath, destPath)
+      } else {
+        // Process text files with replacements
+        let content = fs.readFileSync(srcPath, 'utf8')
 
-      // Replace placeholders
-      for (const [key, value] of Object.entries(replacements)) {
-        content = content.replaceAll(key, value)
+        // Replace placeholders
+        for (const [key, value] of Object.entries(replacements)) {
+          content = content.replaceAll(key, value)
+        }
+
+        fs.writeFileSync(destPath, content)
       }
-
-      fs.writeFileSync(destPath, content)
     }
   }
 }
@@ -86,18 +96,15 @@ export async function createApp(): Promise<void> {
       `${appTitle} Edge App`
 
     // Get auto-scaler option (default: true)
-    const autoScalerAnswer = await question(
-      rl,
-      'Enable auto-scaler? (Y/n): ',
-    )
+    const autoScalerAnswer = await question(rl, 'Enable auto-scaler? (Y/n): ')
     const enableAutoScaler = autoScalerAnswer.toLowerCase() !== 'n'
 
-    // Get dev-tools option (default: true)
+    // Get dev-tools option (default: false)
     const devToolsAnswer = await question(
       rl,
-      'Enable dev tools? (Y/n): ',
+      'Enable dev tools? (y/N): ',
     )
-    const enableDevTools = devToolsAnswer.toLowerCase() !== 'n'
+    const enableDevTools = devToolsAnswer.toLowerCase() === 'y'
 
   // Paths relative to library root
   const libraryRoot = path.resolve(__dirname, '..')

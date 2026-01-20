@@ -22,16 +22,79 @@ function cssAliasPlugin(): Plugin {
   }
 }
 
+// Plugin to resolve .js imports to .ts files in edge-apps-library
+// This is needed because TypeScript uses .js extensions in imports but actual files are .ts
+function componentResolvePlugin(): Plugin {
+  return {
+    name: 'component-resolve',
+    enforce: 'pre',
+    resolveId(id, importer) {
+      // Handle exact match for @screenly/edge-apps/components
+      if (id === '@screenly/edge-apps/components') {
+        return path.resolve(libraryRoot, 'src/components/index.ts')
+      }
+      // Handle sub-path imports like @screenly/edge-apps/components/app-header/app-header
+      if (id.startsWith('@screenly/edge-apps/components/')) {
+        const subPath = id.replace('@screenly/edge-apps/components/', '')
+        // Try with .ts extension
+        const tsPath = path.resolve(libraryRoot, 'src/components', `${subPath}.ts`)
+        if (fs.existsSync(tsPath)) {
+          return tsPath
+        }
+        // Try without extension (for imports that specify .js)
+        const jsPath = path.resolve(libraryRoot, 'src/components', `${subPath.replace(/\.js$/, '')}.ts`)
+        if (fs.existsSync(jsPath)) {
+          return jsPath
+        }
+      }
+      
+      // Handle .js imports from edge-apps-library (resolve to .ts)
+      // This is needed because TypeScript uses .js extensions in imports
+      // but the actual files are .ts
+      if (importer && id.endsWith('.js') && !id.startsWith('http')) {
+        // Skip node_modules
+        if (id.includes('node_modules') || id.startsWith('@')) {
+          return null
+        }
+        
+        // Check if importer is from edge-apps-library
+        if (importer.includes('/edge-apps-library/')) {
+          const tsPath = id.replace(/\.js$/, '.ts')
+          const importerDir = path.dirname(importer)
+          const fullPath = path.resolve(importerDir, tsPath)
+          if (fs.existsSync(fullPath)) {
+            return fullPath
+          }
+          // Also try with .tsx extension
+          const tsxPath = id.replace(/\.js$/, '.tsx')
+          const fullTsxPath = path.resolve(importerDir, tsxPath)
+          if (fs.existsSync(fullTsxPath)) {
+            return fullTsxPath
+          }
+        }
+      }
+      return null
+    },
+  }
+}
+
 // Plugin to copy screenly.yml into the build output directory
 function copyScreenlyManifestPlugin(): Plugin {
   return {
     name: 'copy-screenly-manifest',
     closeBundle() {
-      const src = path.resolve(__dirname, 'screenly.yml')
-      const dest = path.resolve(__dirname, 'build', 'screenly.yml')
+      const manifestSrc = path.resolve(__dirname, 'screenly.yml')
+      const manifestDest = path.resolve(__dirname, 'build', 'screenly.yml')
 
-      if (fs.existsSync(src)) {
-        fs.copyFileSync(src, dest)
+      const qcSrc = path.resolve(__dirname, 'screenly_qc.yml')
+      const qcDest = path.resolve(__dirname, 'build', 'screenly_qc.yml')
+
+      if (fs.existsSync(manifestSrc)) {
+        fs.copyFileSync(manifestSrc, manifestDest)
+      }
+
+      if (fs.existsSync(qcSrc)) {
+        fs.copyFileSync(qcSrc, qcDest)
       }
     },
   }
@@ -44,8 +107,8 @@ function screenlyMockPlugin(): Plugin {
     configureServer(server: ViteDevServer) {
       server.middlewares.use((req, res, next) => {
         if (req.url === '/screenly.js?version=1' || req.url === '/screenly.js') {
-          // Try to load mock-data.yml, fallback to defaults
-          let mockData: any = {
+          // Try to load mock-data.yml, fallback to generic defaults
+          const mockData: any = {
             metadata: {
               coordinates: [37.3861, -122.0839] as [number, number],
               hostname: 'dev-hostname',
@@ -55,6 +118,7 @@ function screenlyMockPlugin(): Plugin {
               screenly_version: 'development-server',
               tags: ['Development'],
             },
+            // App-specific settings should come from mock-data.yml
             settings: {},
             cors_proxy_url: 'http://127.0.0.1:8080',
           }
@@ -116,13 +180,14 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@screenly/edge-apps': path.resolve(libraryRoot, 'src/index.ts'),
+      // Order matters: more specific aliases must come first
       '@screenly/edge-apps/components': path.resolve(libraryRoot, 'src/components/index.ts'),
-      // CSS imports need to resolve to actual CSS files, not TypeScript
+      '@screenly/edge-apps': path.resolve(libraryRoot, 'src/index.ts'),
       '@screenly/edge-apps/styles': stylesPath,
     },
   },
   plugins: [
+    componentResolvePlugin(),
     cssAliasPlugin(),
     copyScreenlyManifestPlugin(),
     screenlyMockPlugin(),
