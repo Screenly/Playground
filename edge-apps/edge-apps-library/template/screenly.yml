@@ -1,0 +1,14 @@
+app_id: {{APP_ID}}
+entrypoint: index.html
+description: {{APP_DESCRIPTION}}
+icon: static/icon.svg
+author: Screenly
+homepage_url: https://www.screenly.io
+
+settings:
+  hello_name:
+    type: string
+    title: Name to greet
+    optional: true
+    help_text: Name that will be used in the greeting message
+

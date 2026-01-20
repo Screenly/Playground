@@ -1,0 +1,232 @@
+/* Import Screenly Design System */
+/* Using relative path because PostCSS doesn't resolve Vite aliases */
+@import '../../edge-apps-library/src/styles/index.css';
+
+/* Import Tailwind */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+:root {
+  --text-primary: rgba(255, 255, 255, 1);
+  --text-secondary: rgba(255, 255, 255, 0.7);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Inter, sans-serif;
+  color: var(--text-primary);
+  background-color: #c9cdd0;
+  background-image: url('/assets/images/weather-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.20);
+  backdrop-filter: blur(7px);
+}
+
+auto-scaler {
+  position: relative;
+  z-index: 2;
+}
+
+.weather-app {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  margin: 160px auto auto 300px;
+  width: 100%;
+}
+
+.current {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.city {
+  font-size: 32px;
+  font-weight: 400;
+}
+
+.temperature {
+  display: flex;
+  align-items: flex-start;
+  font-size: 120px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-radius: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.01) 100%);
+  box-shadow: 0 13px 40px 0 rgba(0, 0, 0, 0.15), 0 1.68px 0 0 rgba(255, 255, 255, 0.10) inset, 0 -1.68px 0 0 rgba(255, 255, 255, 0.03) inset;
+  padding: 4px 16px;
+  width: fit-content;
+}
+
+.status {
+  text-transform: capitalize;
+}
+
+.status-range {
+  display: flex;
+  gap: 4px;
+  font-size: 16px;
+}
+
+.forecast-card {
+  padding: 20px 24px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: linear-gradient(93deg, rgba(255, 255, 255, 0.09) 2.78%, rgba(255, 255, 255, 0.01) 99.63%);
+  backdrop-filter: blur(32px);
+  width: 100%;
+  max-width: 1280px;
+}
+
+.forecast-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.70);
+  border-bottom: 1px solid rgba(217, 217, 217, 0.20);
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 17px;
+  letter-spacing: 0.633px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  text-transform: uppercase;
+}
+
+.forecast-header-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.forecast-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.forecast-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 4rem;
+}
+
+.forecast-temp {
+  font-size: 26px;
+  font-weight: 500;
+}
+
+.forecast-icon {
+  height: 48px;
+}
+
+.forecast-time {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.forecast-time.now {
+  color: var(--text-secondary);
+}
+
+@media (orientation: portrait) {
+  .weather-app {
+    position: relative;
+  }
+
+  .content{
+    margin: 0;
+    position: absolute;
+    bottom: 40px;
+    gap: 510px;
+  }
+
+  .current {
+    margin-left: 60px;
+  }
+
+  .city {
+    font-size: 40px;
+  }
+
+  .temperature {
+    font-size: 180px;
+  }
+
+  .status-row {
+    font-size: 24px;
+  }
+
+  .status-range {
+    font-size: 24px;
+  }
+
+  .forecast-card {
+    padding: 48px 60px;
+  }
+
+  .forecast-header {
+    font-size: 32px;
+    margin-bottom: 36px;
+    padding-bottom: 36px;
+  }
+
+  .forecast-header-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .forecast-item {
+    min-width: 160px;
+  }
+
+  .forecast-icon {
+    height: 72px;
+  }
+
+  .forecast-time {
+    font-size: 32px;
+  }
+
+  .forecast-temp {
+    font-size: 40px;
+  }
+}

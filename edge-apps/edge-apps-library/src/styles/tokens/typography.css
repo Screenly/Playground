@@ -1,0 +1,9 @@
+/**
+ * Typography Tokens
+ * Font families, sizes, weights for 1920×1080 reference resolution
+ * Apps will scale via AutoScaler
+ */
+
+:root {
+  --font-body: 'Inter', system-ui, sans-serif;
+}

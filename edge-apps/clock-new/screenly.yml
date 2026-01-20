@@ -1,0 +1,16 @@
+app_id: clock-new
+entrypoint: index.html
+description: Clock Edge App
+icon: static/icon.svg
+author: Screenly
+homepage_url: https://www.screenly.io
+
+settings:
+  # Add your app-specific settings here
+  # Example:
+  # api_key:
+  #   type: string
+  #   title: API Key
+  #   optional: false
+  #   help_text: Your API key for data access
+
