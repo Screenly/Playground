@@ -1,5 +1,5 @@
 export function getRenderUrl(domain: string, dashboardId: string): string {
-  const renderUrl = `${screenly.cors_proxy_url}/https://${domain}/render/d/${dashboardId}`
+  const renderUrl = `${screenly.cors_proxy_url}/${domain}/render/d/${dashboardId}`
   const width = window.innerWidth || 1920
   const height = window.innerHeight || 1080
   const params = new URLSearchParams({
