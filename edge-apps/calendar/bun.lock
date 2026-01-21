@@ -8,7 +8,7 @@
         "@photostructure/tz-lookup": "^11.4.0",
         "@sentry/browser": "^10.35.0",
         "@sentry/vue": "^10.35.0",
-        "country-locale-map": "^1.9.11",
+        "country-locale-map": "^1.9.12",
         "dayjs": "^1.11.19",
         "ical.js": "^2.2.1",
         "offline-geocode-city": "^1.0.2",
@@ -709,7 +709,7 @@
 
     "copy-anything": ["copy-anything@4.0.5", "", { "dependencies": { "is-what": "^5.2.0" } }, "sha512-7Vv6asjS4gMOuILabD3l739tsaxFQmC+a7pLZm02zyvs8p977bL3zEgq3yDk5rn9B0PbYgIv++jmHcuUab4RhA=="],
 
-    "country-locale-map": ["country-locale-map@1.9.11", "", { "dependencies": { "fuzzball": "^2.1.2" } }, "sha512-Nrj31H/BmHFLzh2CYZkExQFUIZmqBSJ+nrdSRSjIqh4FMs6VRXOboDPIp7NqXBUoOTJi6Urf2cypPQez0rFYBQ=="],
+    "country-locale-map": ["country-locale-map@1.9.12", "", { "dependencies": { "fuzzball": "^2.1.2" } }, "sha512-MIbBbGyugAb2z/dvvP5Sn9eNA9EN8nn+lPdAOFtkalDsMt33x5KPxn8sVBezOoCbYQXMKmp/1AylqTt7UWfZqg=="],
 
     "cross-spawn": ["cross-spawn@7.0.6", "", { "dependencies": { "path-key": "^3.1.0", "shebang-command": "^2.0.0", "which": "^2.0.1" } }, "sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA=="],
 

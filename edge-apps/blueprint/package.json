@@ -10,7 +10,7 @@
     "@photostructure/tz-lookup": "^11.4.0",
     "@sentry/vue": "^10.35.0",
     "@typescript-eslint/typescript-estree": "^8.53.1",
-    "country-locale-map": "^1.9.11",
+    "country-locale-map": "^1.9.12",
     "dayjs": "^1.11.19",
     "offline-geocode-city": "^1.0.2",
     "pinia": "^3.0.4",
