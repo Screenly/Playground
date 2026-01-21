@@ -1,5 +1,6 @@
 **/*.min.js
 edge-apps/edge-apps-library/
+edge-apps/grafana/
 edge-apps/powerbi-legacy/
 edge-apps/powerbi-legacy/**
 edge-apps/powerbi
