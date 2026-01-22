@@ -18,11 +18,8 @@ if (!globalThis.window) {
   })
 }
 Object.assign(globalThis.window, {
-  screen: {
-    width: 1234,
-    height: 567,
-  },
-  devicePixelRatio: 1,
+  innerWidth: 1234,
+  innerHeight: 567,
 })
 
 describe('Grafana App', () => {
@@ -31,18 +28,18 @@ describe('Grafana App', () => {
     let originalScreenHeight: number
 
     beforeEach(() => {
-      originalScreenWidth = globalThis.window.screen.width
-      originalScreenHeight = globalThis.window.screen.height
+      originalScreenWidth = globalThis.window.innerWidth
+      originalScreenHeight = globalThis.window.innerHeight
     })
 
     afterEach(() => {
-      globalThis.window.screen.width = originalScreenWidth
-      globalThis.window.screen.height = originalScreenHeight
+      globalThis.window.innerWidth = originalScreenWidth
+      globalThis.window.innerHeight = originalScreenHeight
     })
 
     test('should construct URL with correct parameters', () => {
-      globalThis.window.screen.width = 1234
-      globalThis.window.screen.height = 567
+      globalThis.window.innerWidth = 1234
+      globalThis.window.innerHeight = 567
 
       const url = getRenderUrl('https://grafana.example.com', 'abc123')
 
@@ -55,8 +52,8 @@ describe('Grafana App', () => {
     })
 
     test('should use dynamic window dimensions', () => {
-      globalThis.window.screen.width = 3840
-      globalThis.window.screen.height = 2160
+      globalThis.window.innerWidth = 3840
+      globalThis.window.innerHeight = 2160
 
       const url = getRenderUrl('grafana.example.com', 'xyz789')
 
