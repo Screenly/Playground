@@ -32,12 +32,10 @@ The Grafana domain and service access token are automatically fetched from your 
 ### Getting Dashboard Information
 
 1. **Select Your Dashboard**
-
    - You can select your dashboard from a dropdown list that automatically populates available dashboards from your Grafana instance
    - Alternatively, you can manually enter the dashboard ID
 
 2. **Find Dashboard ID Manually**
-
    - Open your Grafana dashboard
    - The URL in the browser will look like: `https://your-domain.grafana.net/d/<dashboard_id>/<dashboard_slug>`
    - Extract the `<dashboard_id>` value (you don't need the slug)
