@@ -1,26 +1,50 @@
 import { CAPInfo, CAPAlert } from './types/cap.js'
 import { XMLParser } from 'fast-xml-parser'
 
+function getStringOrUndefined(value: unknown): string | undefined {
+  return typeof value === 'string' ? value : undefined
+}
+
+function getNumberOrUndefined(value: unknown): number | undefined {
+  return typeof value === 'number' ? value : undefined
+}
+
 function parseResource(res: Record<string, unknown>) {
+  const resourceDesc = getStringOrUndefined(res.resourceDesc)
+  const mimeType =
+    getStringOrUndefined((res as Record<string, unknown>).mimeType) ??
+    getStringOrUndefined((res as Record<string, unknown>)['mimeType'])
+  const size = getNumberOrUndefined(res.size)
+  const uri = getStringOrUndefined(res.uri)
+  const derefUri = getStringOrUndefined(res.derefUri)
+  const digest = getStringOrUndefined(res.digest)
+
   return {
-    resourceDesc: res.resourceDesc,
-    mimeType: res.mimeType || res['mimeType'],
-    size: res.size,
-    uri: res.uri,
-    derefUri: res.derefUri,
-    digest: res.digest,
-    url: res.uri || res.resourceDesc || '',
+    resourceDesc,
+    mimeType,
+    size,
+    uri,
+    derefUri,
+    digest,
+    url: uri ?? resourceDesc ?? '',
   }
 }
 
 function parseArea(area: Record<string, unknown>) {
+  const areaDesc = getStringOrUndefined(area.areaDesc) ?? ''
+  const polygon = getStringOrUndefined(area.polygon) ?? area.polygon
+  const circle = getStringOrUndefined(area.circle) ?? area.circle
+  const geocode = area.geocode
+  const altitude = getNumberOrUndefined(area.altitude) ?? area.altitude
+  const ceiling = getNumberOrUndefined(area.ceiling) ?? area.ceiling
+
   return {
-    areaDesc: area.areaDesc || '',
-    polygon: area.polygon,
-    circle: area.circle,
-    geocode: area.geocode,
-    altitude: area.altitude,
-    ceiling: area.ceiling,
+    areaDesc,
+    polygon,
+    circle,
+    geocode,
+    altitude,
+    ceiling,
   }
 }
 
