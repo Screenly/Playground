@@ -24,26 +24,26 @@ function createStatusBanner(status: string): HTMLElement {
   const banner = template.content.cloneNode(true) as DocumentFragment
   const bannerEl = banner.firstElementChild as HTMLDivElement
 
-  let baseClass = ''
+  let baseClasses: string[] = []
   let statusText = status.toUpperCase()
   if (status === 'Exercise') {
     statusText = 'EXERCISE - THIS IS A DRILL'
-    baseClass = 'status-banner-blue'
+    baseClasses = ['status-banner-blue']
   } else if (status === 'Test') {
     statusText = 'TEST - NOT A REAL EMERGENCY'
-    baseClass = 'status-banner-gray'
+    baseClasses = ['status-banner-gray']
   } else if (status === 'System') {
     statusText = 'SYSTEM TEST'
-    baseClass = 'status-banner-gray'
+    baseClasses = ['status-banner-gray']
   } else if (status === 'Draft') {
     statusText = 'DRAFT - NOT ACTIVE'
-    baseClass = 'status-banner-orange'
+    baseClasses = ['status-banner-orange']
   } else if (status === 'Actual') {
     statusText = 'ACTUAL EMERGENCY'
-    baseClass = 'status-banner-red status-actual-pulse'
+    baseClasses = ['status-banner-red', 'status-actual-pulse']
   }
 
-  bannerEl.classList.add(baseClass)
+  bannerEl.classList.add(...baseClasses)
   bannerEl.textContent = statusText
   return bannerEl
 }
