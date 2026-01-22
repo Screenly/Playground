@@ -18,42 +18,45 @@ if (!globalThis.window) {
   })
 }
 Object.assign(globalThis.window, {
-  innerWidth: 1920,
-  innerHeight: 1080,
+  screen: {
+    width: 1234,
+    height: 567,
+  },
+  devicePixelRatio: 1,
 })
 
 describe('Grafana App', () => {
   describe('getRenderUrl', () => {
-    let originalInnerWidth: number
-    let originalInnerHeight: number
+    let originalScreenWidth: number
+    let originalScreenHeight: number
 
     beforeEach(() => {
-      originalInnerWidth = globalThis.window.innerWidth
-      originalInnerHeight = globalThis.window.innerHeight
+      originalScreenWidth = globalThis.window.screen.width
+      originalScreenHeight = globalThis.window.screen.height
     })
 
     afterEach(() => {
-      globalThis.window.innerWidth = originalInnerWidth
-      globalThis.window.innerHeight = originalInnerHeight
+      globalThis.window.screen.width = originalScreenWidth
+      globalThis.window.screen.height = originalScreenHeight
     })
 
     test('should construct URL with correct parameters', () => {
-      globalThis.window.innerWidth = 1920
-      globalThis.window.innerHeight = 1080
+      globalThis.window.screen.width = 1234
+      globalThis.window.screen.height = 567
 
-      const url = getRenderUrl('grafana.example.com', 'abc123')
+      const url = getRenderUrl('https://grafana.example.com', 'abc123')
 
       expect(url).toContain(
         'https://cors-proxy.example.com/https://grafana.example.com/render/d/abc123',
       )
-      expect(url).toContain('width=1920')
-      expect(url).toContain('height=1080')
+      expect(url).toContain('width=1234')
+      expect(url).toContain('height=567')
       expect(url).toContain('kiosk=true')
     })
 
     test('should use dynamic window dimensions', () => {
-      globalThis.window.innerWidth = 3840
-      globalThis.window.innerHeight = 2160
+      globalThis.window.screen.width = 3840
+      globalThis.window.screen.height = 2160
 
       const url = getRenderUrl('grafana.example.com', 'xyz789')
 
