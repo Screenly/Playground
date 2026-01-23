@@ -17,6 +17,17 @@ settings:
         help_text: URL or relative path to a CAP XML feed. Leave blank to use demo mode.
         type: string
       schema_version: 1
+  display_errors:
+    type: string
+    default_value: 'false'
+    title: Display Errors
+    optional: true
+    help_text:
+      properties:
+        advanced: true
+        help_text: For debugging purposes to display errors on the screen.
+        type: boolean
+      schema_version: 1
   language:
     type: string
     default_value: en

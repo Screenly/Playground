@@ -5,6 +5,7 @@ import {
   signalReady,
   getTags,
   getSettingWithDefault,
+  setupErrorHandling,
 } from '@screenly/edge-apps'
 
 import { CAPAlert, CAPInfo, CAPMode } from './types/cap'
@@ -234,6 +235,7 @@ export async function startApp(): Promise<void> {
 
 if (typeof window !== 'undefined' && typeof document !== 'undefined') {
   window.onload = function () {
+    setupErrorHandling()
     startApp()
   }
 }
