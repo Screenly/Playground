@@ -70,7 +70,7 @@ async function buildCommand(args: string[]) {
     // Build for production using Vite
     const viteBin = path.resolve(libraryRoot, 'node_modules', '.bin', 'vite')
     const configPath = path.resolve(libraryRoot, 'vite.config.ts')
-    const viteArgs = ['build', '--config', configPath, ...args]
+    const viteArgs = ['build', '--sourcemap', '--config', configPath, ...args]
 
     // Set NODE_PATH to include library's node_modules so plugins can resolve dependencies
     const libraryNodeModules = path.resolve(libraryRoot, 'node_modules')
@@ -99,7 +99,14 @@ async function buildDevCommand(args: string[]) {
     // Build for development with watch mode using Vite
     const viteBin = path.resolve(libraryRoot, 'node_modules', '.bin', 'vite')
     const configPath = path.resolve(libraryRoot, 'vite.config.ts')
-    const viteArgs = ['build', '--watch', '--config', configPath, ...args]
+    const viteArgs = [
+      'build',
+      '--watch',
+      '--sourcemap',
+      '--config',
+      configPath,
+      ...args,
+    ]
 
     // Set NODE_PATH to include library's node_modules so plugins can resolve dependencies
     const libraryNodeModules = path.resolve(libraryRoot, 'node_modules')
