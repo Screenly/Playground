@@ -3,6 +3,7 @@ import './css/style.css'
 import {
   getHardware,
   getSettingWithDefault,
+  setupErrorHandling,
   signalReady,
 } from '@screenly/edge-apps'
 import { Hardware } from '@screenly/edge-apps'
@@ -163,5 +164,6 @@ function initializeMenuBoard(): void {
 
 // Initialize when the page loads
 window.addEventListener('load', () => {
+  setupErrorHandling()
   initializeMenuBoard()
 })
