@@ -1,3 +1,4 @@
+import '@screenly/edge-apps/test'
 import { describe, it, expect, beforeEach, mock } from 'bun:test'
 import { CAPFetcher } from './fetcher'
 

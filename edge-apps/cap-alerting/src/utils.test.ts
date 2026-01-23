@@ -6,6 +6,7 @@ mock.module('@screenly/edge-apps', () => ({
   isAnywhereScreen: () => false,
 }))
 
+import '@screenly/edge-apps/test'
 import { getNearestExit, splitIntoSentences, proxyUrl } from './utils'
 
 // eslint-disable-next-line max-lines-per-function
