@@ -11,10 +11,10 @@ settings:
     type: string
     default_value: ''
     title: CAP Feed URL
-    optional: true
+    optional: false
     help_text:
       properties:
-        help_text: URL or relative path to a CAP XML feed. Leave blank to use demo mode.
+        help_text: URL or relative path to a CAP XML feed.
         type: string
       schema_version: 1
   display_errors:
@@ -50,7 +50,7 @@ settings:
       schema_version: 1
   mode:
     type: string
-    default_value: test
+    default_value: production
     title: Mode
     optional: true
     help_text:
