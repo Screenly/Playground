@@ -50,7 +50,7 @@ settings:
       schema_version: 1
   mode:
     type: string
-    default_value: production
+    default_value: test
     title: Mode
     optional: true
     help_text:

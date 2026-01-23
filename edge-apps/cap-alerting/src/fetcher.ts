@@ -42,7 +42,12 @@ export class CAPFetcher {
    */
   private async fetchTestData(): Promise<string | null> {
     try {
-      const resp = await fetch('static/test.cap')
+      const hardware = getHardware()
+      const url =
+        hardware === Hardware.Anywhere
+          ? `${DEMO_BASE_URL}/static/test.cap`
+          : 'static/test.cap'
+      const resp = await fetch(url)
       return resp.ok ? await resp.text() : null
     } catch (err) {
       console.warn('Failed to load test data:', err)
