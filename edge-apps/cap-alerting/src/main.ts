@@ -223,7 +223,9 @@ export async function startApp(): Promise<void> {
       const alerts = parseCap(xml)
       renderAlerts(alerts, nearestExit, lang, maxAlerts)
     } else {
-      console.warn('No CAP data available')
+      throw new Error(
+        'No CAP data available. Make sure to provide a valid feed URL.',
+      )
     }
   }
 
