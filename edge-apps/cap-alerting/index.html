@@ -89,6 +89,39 @@
       </div>
     </template>
 
+    <!-- NWS Forecast Content Template (with preamble) -->
+    <template id="nws-forecast-template">
+      <div
+        class="nws-content font-semibold leading-snug body-text text-gray-800 mx-[5vw] mb-[2vh]"
+      >
+        <p class="nws-preamble"></p>
+        <ul class="nws-forecast-list"></ul>
+      </div>
+    </template>
+
+    <!-- NWS Forecast List Item Template -->
+    <template id="nws-forecast-item-template">
+      <li>
+        <strong class="period-label"></strong>
+        <span class="period-content"></span>
+      </li>
+    </template>
+
+    <!-- NWS WWWI Content Template -->
+    <template id="nws-wwwi-template">
+      <ul
+        class="nws-wwwi-list font-semibold leading-snug body-text text-gray-800 mx-[5vw] mb-[2vh]"
+      ></ul>
+    </template>
+
+    <!-- NWS WWWI List Item Template -->
+    <template id="nws-wwwi-item-template">
+      <li>
+        <strong class="wwwi-label"></strong>
+        <span class="wwwi-content"></span>
+      </li>
+    </template>
+
     <script src="screenly.js?version=1"></script>
     <script src="dist/js/main.js"></script>
   </body>

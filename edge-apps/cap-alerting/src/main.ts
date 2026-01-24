@@ -9,10 +9,14 @@ import {
 } from '@screenly/edge-apps'
 
 import { CAPAlert, CAPInfo, CAPMode } from './types/cap'
-import { parseCap } from './parser'
+import { parseCap, isNwsAlert, parseNwsTextProduct } from './parser'
 import { CAPFetcher } from './fetcher'
 import { getNearestExit, splitIntoSentences, proxyUrl } from './utils'
-import { highlightKeywords } from './render'
+import {
+  highlightKeywords,
+  renderNwsWwwiContent,
+  renderNwsPeriodContent,
+} from './render'
 
 function getTemplate(id: string): HTMLTemplateElement {
   const template = document.getElementById(id) as HTMLTemplateElement | null
@@ -144,7 +148,22 @@ function renderAlertCard(
     '#description',
   ) as HTMLParagraphElement
   if (info.description) {
-    descriptionEl.textContent = info.description
+    // Try to parse and render NWS formatted content
+    if (isNwsAlert(alert.sender)) {
+      const nwsResult = parseNwsTextProduct(info.description)
+      if (nwsResult) {
+        // Replace the paragraph with the rendered NWS content
+        const nwsContent =
+          nwsResult.type === 'wwwi'
+            ? renderNwsWwwiContent(nwsResult)
+            : renderNwsPeriodContent(nwsResult)
+        descriptionEl.replaceWith(nwsContent)
+      } else {
+        descriptionEl.textContent = info.description
+      }
+    } else {
+      descriptionEl.textContent = info.description
+    }
   } else {
     descriptionEl.style.display = 'none'
   }
