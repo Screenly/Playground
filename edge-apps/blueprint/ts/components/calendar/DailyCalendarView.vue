@@ -138,9 +138,10 @@ const findEventClusters = (allEvents: CalendarEvent[]): CalendarEvent[][] => {
     // BFS to find all events in this cluster
     const cluster: CalendarEvent[] = []
     const queue: CalendarEvent[] = [event]
+    let queueIndex = 0
 
-    while (queue.length > 0) {
-      const current = queue.shift()!
+    while (queueIndex < queue.length) {
+      const current = queue[queueIndex++]!
       if (visited.has(current)) continue
 
       visited.add(current)
