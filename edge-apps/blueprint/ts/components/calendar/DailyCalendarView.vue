@@ -191,7 +191,7 @@ const eventLayouts = computed(() => {
       // Find the first available column
       let assignedColumn = -1
       for (let col = 0; col < columns.length; col++) {
-        if (columns[col].isSameOrBefore(eventStart)) {
+        if (columns[col]?.isSameOrBefore(eventStart)) {
           assignedColumn = col
           break
         }
