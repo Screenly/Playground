@@ -392,8 +392,7 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
   // Calculate width and left position based on column layout
   // Google Calendar style: events in earlier columns visually overlap into later columns
   const columnWidth = 100 / layout.total
-  const eventSpan =
-    layout.columnSpan && layout.columnSpan > 0 ? layout.columnSpan : 1
+  const eventSpan = layout.span && layout.span > 0 ? layout.span : 1
   const baseWidth = columnWidth * eventSpan
   const left = layout.index * columnWidth
 
