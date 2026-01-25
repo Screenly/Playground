@@ -391,6 +391,11 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
   // Limit the height to the maximum visible height
   const height = Math.min(rawHeight, maxVisibleHeight)
 
+  // Add minimal gap between adjacent events (like Google Calendar)
+  // Reduce height by a small amount to create visual separation
+  const eventGap = 4 // 4% gap between events
+  const adjustedHeight = Math.max(height - eventGap, height * 0.9) // Ensure height doesn't go below 90% of original
+
   // Calculate width and left position based on column layout
   // Google Calendar style: events in earlier columns visually overlap into later columns
   const columnWidth = 100 / layout.total
@@ -411,7 +416,7 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
   // Create the base style object
   const baseStyle: Record<string, string> = {
     top: `${topOffset}%`,
-    height: `${height}%`,
+    height: `${adjustedHeight}%`,
     'border-radius': '6px',
     width: `${width}%`,
     left: `${left}%`,
