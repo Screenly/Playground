@@ -23,7 +23,7 @@
         .calendar-event-item {
           padding: 0.25rem * $multiplier;
           border-radius: 0.13rem * $multiplier;
-          border-width: 0 0 0 0.17rem * $multiplier;
+          border-left: 0.17rem * $multiplier solid var(--theme-color-primary);
           margin: 0.105rem * $multiplier;
           font-size: 0.42rem * $multiplier;
           min-height: 1.344rem * $multiplier;
