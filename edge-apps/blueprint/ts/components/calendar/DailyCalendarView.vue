@@ -109,11 +109,6 @@ const eventMap = computed(() => {
 
 // Calculate overlapping event groups and layout positions using column-based algorithm
 // Similar to Google Calendar's approach - uses connected clusters of events
-const eventLayoutCache = new Map<
-  string,
-  { left: string; width: string; index: number; totalInGroup: number }
->()
-
 interface EventLayout {
   event: CalendarEvent
   column: number
