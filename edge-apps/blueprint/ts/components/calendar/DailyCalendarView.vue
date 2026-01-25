@@ -350,7 +350,12 @@ const eventStyleCache = new Map<string, Record<string, string>>()
 
 // Get style for an event - with caching for better performance
 const getEventStyle = (event: CalendarEvent): Record<string, string> => {
-  const cacheKey = `${event.startTime}-${event.endTime}-${event.backgroundColor || ''}`
+  // Get layout for this event using column-based algorithm (Google Calendar style)
+  const layout = getEventLayout(event)
+
+  // Create cache key that includes layout information to prevent collisions
+  // for events with identical start/end/backgroundColor but different positions
+  const cacheKey = `${event.startTime}-${event.endTime}-${event.backgroundColor || ''}-${layout.index}-${layout.total}`
 
   if (eventStyleCache.has(cacheKey)) {
     return eventStyleCache.get(cacheKey)!
@@ -385,9 +390,6 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
 
   // Limit the height to the maximum visible height
   const height = Math.min(rawHeight, maxVisibleHeight)
-
-  // Get layout for this event using column-based algorithm (Google Calendar style)
-  const layout = getEventLayout(event)
 
   // Calculate width and left position based on column layout
   // Google Calendar style: events in earlier columns visually overlap into later columns
