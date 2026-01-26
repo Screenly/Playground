@@ -116,6 +116,53 @@ function createInstructionBox(
   return instructionBoxEl
 }
 
+function renderDescription(
+  descriptionEl: HTMLParagraphElement,
+  info: CAPInfo,
+  senderEmail: string,
+): void {
+  if (info.description) {
+    // Try to parse and render NWS formatted content
+    if (isNwsAlert(senderEmail)) {
+      const nwsResult = parseNwsTextProduct(info.description)
+      if (nwsResult) {
+        // Replace the paragraph with the rendered NWS content
+        const nwsContent =
+          nwsResult.type === 'wwwi'
+            ? renderNwsWwwiContent(nwsResult)
+            : renderNwsPeriodContent(nwsResult)
+        descriptionEl.replaceWith(nwsContent)
+      } else {
+        descriptionEl.textContent = info.description
+      }
+    } else {
+      descriptionEl.textContent = info.description
+    }
+  } else {
+    descriptionEl.style.display = 'none'
+  }
+}
+
+function renderResources(
+  resourcesContainer: HTMLDivElement,
+  info: CAPInfo,
+): void {
+  info.resources.forEach((res) => {
+    if (res.mimeType && res.mimeType.startsWith('image')) {
+      // Validate URL protocol before setting img.src
+      if (res.url && /^https?:\/\//i.test(res.url)) {
+        const imgTemplate = getTemplate('image-resource-template')
+        const imgWrapper = (
+          imgTemplate.content.cloneNode(true) as DocumentFragment
+        ).firstElementChild as HTMLDivElement
+        const img = imgWrapper.querySelector('img') as HTMLImageElement
+        img.src = proxyUrl(res.url)
+        resourcesContainer.appendChild(imgWrapper)
+      }
+    }
+  })
+}
+
 function renderAlertCard(
   alert: CAPAlert,
   info: CAPInfo,
@@ -147,26 +194,7 @@ function renderAlertCard(
   const descriptionEl = card.querySelector(
     '#description',
   ) as HTMLParagraphElement
-  if (info.description) {
-    // Try to parse and render NWS formatted content
-    if (isNwsAlert(alert.sender)) {
-      const nwsResult = parseNwsTextProduct(info.description)
-      if (nwsResult) {
-        // Replace the paragraph with the rendered NWS content
-        const nwsContent =
-          nwsResult.type === 'wwwi'
-            ? renderNwsWwwiContent(nwsResult)
-            : renderNwsPeriodContent(nwsResult)
-        descriptionEl.replaceWith(nwsContent)
-      } else {
-        descriptionEl.textContent = info.description
-      }
-    } else {
-      descriptionEl.textContent = info.description
-    }
-  } else {
-    descriptionEl.style.display = 'none'
-  }
+  renderDescription(descriptionEl, info, alert.sender)
 
   const instructionContainer = card.querySelector(
     '#instruction-container',
@@ -180,20 +208,7 @@ function renderAlertCard(
   const resourcesContainer = card.querySelector(
     '#resources-container',
   ) as HTMLDivElement
-  info.resources.forEach((res) => {
-    if (res.mimeType && res.mimeType.startsWith('image')) {
-      // Validate URL protocol before setting img.src
-      if (res.url && /^https?:\/\//i.test(res.url)) {
-        const imgTemplate = getTemplate('image-resource-template')
-        const imgWrapper = (
-          imgTemplate.content.cloneNode(true) as DocumentFragment
-        ).firstElementChild as HTMLDivElement
-        const img = imgWrapper.querySelector('img') as HTMLImageElement
-        img.src = proxyUrl(res.url)
-        resourcesContainer.appendChild(imgWrapper)
-      }
-    }
-  })
+  renderResources(resourcesContainer, info)
 
   return card
 }
