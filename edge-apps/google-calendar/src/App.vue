@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, type Ref, computed } from 'vue'
+import { onBeforeMount, onMounted, type Ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 
-import { AnalogClock, BrandLogoCard, TopBar } from 'blueprint/components'
+import { TopBar } from 'blueprint/components'
 import {
-  CalendarOverview,
   DailyCalendarView,
   ScheduleCalendarView,
   WeeklyCalendarView,
@@ -14,8 +13,6 @@ import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
 import { useCalendarStore } from '@/stores/calendar'
 import { useSettingsStore } from '@/stores/settings'
 import type { CalendarEvent } from '@/constants'
-
-import screenlyLogo from 'blueprint/assets/images/screenly.svg'
 
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
@@ -30,34 +27,19 @@ const { calendarMode } = storeToRefs(settingsStore) as unknown as {
   calendarMode: Ref<string>
 }
 
-const { brandLogoUrl, primaryThemeColor } = storeToRefs(
-  baseSettingsStore,
-) as unknown as {
+const { brandLogoUrl } = storeToRefs(baseSettingsStore) as unknown as {
   brandLogoUrl: Ref<string>
-  primaryThemeColor: Ref<string>
 }
 
-const {
-  timezone,
-  now,
-  events,
-  locale,
-  currentDate,
-  currentMonthName,
-  currentYear,
-  currentDayOfWeek,
-} = storeToRefs(calendarStore) as {
+const { timezone, now, events, locale, currentDayOfWeek } = storeToRefs(
+  calendarStore,
+) as {
   timezone: Ref<string>
   now: Ref<Date>
   events: Ref<CalendarEvent[]>
   locale: Ref<string>
-  currentDate: Ref<number>
-  currentMonthName: Ref<string>
-  currentYear: Ref<number>
   currentDayOfWeek: Ref<string>
 }
-
-const currentMonth = computed(() => now.value.getMonth())
 
 onBeforeMount(async () => {
   baseSettingsStore.setupTheme()
