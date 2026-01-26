@@ -92,26 +92,27 @@ function createInstructionBox(
 
   const sentences = splitIntoSentences(instr)
 
-  if (sentences.length > 2) {
-    const listTemplate = getTemplate('instruction-list-template')
-    const ul = (listTemplate.content.cloneNode(true) as DocumentFragment)
-      .firstElementChild as HTMLUListElement
-    sentences.forEach((sentence) => {
-      const itemTemplate = getTemplate('instruction-list-item-template')
-      const li = (itemTemplate.content.cloneNode(true) as DocumentFragment)
-        .firstElementChild as HTMLLIElement
-      const content = li.querySelector('span:last-child') as HTMLSpanElement
-      content.innerHTML = highlightKeywords(sentence)
-      ul.appendChild(li)
-    })
-    instructionBoxEl.appendChild(ul)
-  } else {
+  if (sentences.length <= 2) {
     const paragraphTemplate = getTemplate('instruction-paragraph-template')
     const p = (paragraphTemplate.content.cloneNode(true) as DocumentFragment)
       .firstElementChild as HTMLParagraphElement
     p.innerHTML = highlightKeywords(instr)
     instructionBoxEl.appendChild(p)
+    return instructionBoxEl
   }
+
+  const listTemplate = getTemplate('instruction-list-template')
+  const ul = (listTemplate.content.cloneNode(true) as DocumentFragment)
+    .firstElementChild as HTMLUListElement
+  sentences.forEach((sentence) => {
+    const itemTemplate = getTemplate('instruction-list-item-template')
+    const li = (itemTemplate.content.cloneNode(true) as DocumentFragment)
+      .firstElementChild as HTMLLIElement
+    const content = li.querySelector('span:last-child') as HTMLSpanElement
+    content.innerHTML = highlightKeywords(sentence)
+    ul.appendChild(li)
+  })
+  instructionBoxEl.appendChild(ul)
 
   return instructionBoxEl
 }
@@ -121,26 +122,29 @@ function renderDescription(
   info: CAPInfo,
   senderEmail: string,
 ): void {
-  if (info.description) {
-    // Try to parse and render NWS formatted content
-    if (isNwsAlert(senderEmail)) {
-      const nwsResult = parseNwsTextProduct(info.description)
-      if (nwsResult) {
-        // Replace the paragraph with the rendered NWS content
-        const nwsContent =
-          nwsResult.type === 'wwwi'
-            ? renderNwsWwwiContent(nwsResult)
-            : renderNwsPeriodContent(nwsResult)
-        descriptionEl.replaceWith(nwsContent)
-      } else {
-        descriptionEl.textContent = info.description
-      }
-    } else {
-      descriptionEl.textContent = info.description
-    }
-  } else {
+  if (!info.description) {
     descriptionEl.style.display = 'none'
+    return
   }
+
+  if (!isNwsAlert(senderEmail)) {
+    descriptionEl.textContent = info.description
+    return
+  }
+
+  // Try to parse and render NWS formatted content
+  const nwsResult = parseNwsTextProduct(info.description)
+  if (!nwsResult) {
+    descriptionEl.textContent = info.description
+    return
+  }
+
+  // Replace the paragraph with the rendered NWS content
+  const nwsContent =
+    nwsResult.type === 'wwwi'
+      ? renderNwsWwwiContent(nwsResult)
+      : renderNwsPeriodContent(nwsResult)
+  descriptionEl.replaceWith(nwsContent)
 }
 
 function renderResources(
@@ -148,18 +152,21 @@ function renderResources(
   info: CAPInfo,
 ): void {
   info.resources.forEach((res) => {
-    if (res.mimeType && res.mimeType.startsWith('image')) {
-      // Validate URL protocol before setting img.src
-      if (res.url && /^https?:\/\//i.test(res.url)) {
-        const imgTemplate = getTemplate('image-resource-template')
-        const imgWrapper = (
-          imgTemplate.content.cloneNode(true) as DocumentFragment
-        ).firstElementChild as HTMLDivElement
-        const img = imgWrapper.querySelector('img') as HTMLImageElement
-        img.src = proxyUrl(res.url)
-        resourcesContainer.appendChild(imgWrapper)
-      }
+    if (!res.mimeType || !res.mimeType.startsWith('image')) {
+      return
     }
+
+    // Validate URL protocol before setting img.src
+    if (!res.url || !/^https?:\/\//i.test(res.url)) {
+      return
+    }
+
+    const imgTemplate = getTemplate('image-resource-template')
+    const imgWrapper = (imgTemplate.content.cloneNode(true) as DocumentFragment)
+      .firstElementChild as HTMLDivElement
+    const img = imgWrapper.querySelector('img') as HTMLImageElement
+    img.src = proxyUrl(res.url)
+    resourcesContainer.appendChild(imgWrapper)
   })
 }
 
@@ -256,14 +263,14 @@ export async function startApp(): Promise<void> {
 
   async function update() {
     const xml = await fetcher.fetch()
-    if (xml) {
-      const alerts = parseCap(xml)
-      renderAlerts(alerts, nearestExit, lang, maxAlerts)
-    } else {
+    if (!xml) {
       throw new Error(
         'No CAP data available. Make sure to provide a valid feed URL.',
       )
     }
+
+    const alerts = parseCap(xml)
+    renderAlerts(alerts, nearestExit, lang, maxAlerts)
   }
 
   await update()
