@@ -95,32 +95,6 @@ onMounted(async () => {
       :events="events"
       :locale="locale"
     />
-
-    <div class="secondary-container">
-      <div class="row-container">
-        <div class="secondary-card">
-          <BrandLogoCard :logo-src="brandLogoUrl || screenlyLogo" />
-        </div>
-      </div>
-      <div class="row-container">
-        <CalendarOverview
-          v-if="calendarMode === 'schedule'"
-          :current-date="currentDate"
-          :current-month-name="currentMonthName"
-          :current-year="currentYear"
-          :current-month="currentMonth"
-        />
-        <div
-          v-if="['daily', 'weekly'].includes(calendarMode)"
-          class="secondary-card"
-          :style="{
-            backgroundColor: primaryThemeColor,
-          }"
-        >
-          <AnalogClock class="app-clock" :timezone="timezone" />
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
