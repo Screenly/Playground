@@ -41,14 +41,21 @@
 import { ref, watch, computed } from 'vue'
 import EventTimeRange from './EventTimeRange.vue'
 import type { CalendarEvent, TimeSlot } from '../../constants/calendar'
+import {
+  type EventLayout,
+  findEventClusters,
+  calculateClusterLayouts,
+} from '../../utils/event-layout-utils'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import dayJsTimezone from 'dayjs/plugin/timezone'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 
 dayjs.extend(utc)
 dayjs.extend(dayJsTimezone)
 dayjs.extend(isSameOrBefore)
+dayjs.extend(isSameOrAfter)
 
 interface Props {
   timezone?: string
@@ -107,136 +114,18 @@ const eventMap = computed(() => {
   return map
 })
 
-// Calculate overlapping event groups and layout positions using column-based algorithm
-// Similar to Google Calendar's approach - uses connected clusters of events
-interface EventLayout {
-  event: CalendarEvent
-  column: number
-  columnSpan: number
-  totalColumns: number
-}
-
-// Check if two events overlap in time
-const eventsOverlap = (a: CalendarEvent, b: CalendarEvent): boolean => {
-  const aStart = dayjs(a.startTime).tz(props.timezone)
-  const aEnd = dayjs(a.endTime).tz(props.timezone)
-  const bStart = dayjs(b.startTime).tz(props.timezone)
-  const bEnd = dayjs(b.endTime).tz(props.timezone)
-  return aStart.isBefore(bEnd) && bStart.isBefore(aEnd)
-}
-
-// Find connected clusters of events (events connected through transitive overlaps)
-const findEventClusters = (allEvents: CalendarEvent[]): CalendarEvent[][] => {
-  if (allEvents.length === 0) return []
-
-  const visited = new Set<CalendarEvent>()
-  const clusters: CalendarEvent[][] = []
-
-  for (const event of allEvents) {
-    if (visited.has(event)) continue
-
-    // BFS to find all events in this cluster
-    const cluster: CalendarEvent[] = []
-    const queue: CalendarEvent[] = [event]
-    let queueIndex = 0
-
-    while (queueIndex < queue.length) {
-      const current = queue[queueIndex++]!
-      if (visited.has(current)) continue
-
-      visited.add(current)
-      cluster.push(current)
-
-      // Find all events that overlap with current and add to queue
-      for (const other of allEvents) {
-        if (!visited.has(other) && eventsOverlap(current, other)) {
-          queue.push(other)
-        }
-      }
-    }
-
-    // Sort cluster by start time, then by duration (longer first)
-    cluster.sort((a, b) => {
-      const startDiff = dayjs(a.startTime)
-        .tz(props.timezone)
-        .diff(dayjs(b.startTime).tz(props.timezone))
-      if (startDiff !== 0) return startDiff
-      const aDuration = dayjs(a.endTime).diff(dayjs(a.startTime))
-      const bDuration = dayjs(b.endTime).diff(dayjs(b.startTime))
-      return bDuration - aDuration
-    })
-
-    clusters.push(cluster)
-  }
-
-  return clusters
-}
-
 // Calculate event layouts using a column-based algorithm (Google Calendar style)
 const eventLayouts = computed(() => {
   const allEvents = getAllEventsForToday.value
   if (allEvents.length === 0) return new Map<CalendarEvent, EventLayout>()
 
   const layouts = new Map<CalendarEvent, EventLayout>()
-  const clusters = findEventClusters(allEvents)
+  const clusters = findEventClusters(allEvents, props.timezone)
 
   for (const cluster of clusters) {
-    // Track which columns are occupied at each point in time
-    const columns: dayjs.Dayjs[] = []
-    const eventColumnAssignments = new Map<CalendarEvent, number>()
-
-    // Assign each event in the cluster to a column
-    for (const event of cluster) {
-      const eventStart = dayjs(event.startTime).tz(props.timezone)
-
-      // Find the first available column
-      let assignedColumn = -1
-      for (let col = 0; col < columns.length; col++) {
-        if (columns[col]?.isSameOrBefore(eventStart)) {
-          assignedColumn = col
-          break
-        }
-      }
-
-      // If no column is available, create a new one
-      if (assignedColumn === -1) {
-        assignedColumn = columns.length
-        columns.push(dayjs(0))
-      }
-
-      // Update the column's end time
-      columns[assignedColumn] = dayjs(event.endTime).tz(props.timezone)
-      eventColumnAssignments.set(event, assignedColumn)
-    }
-
-    const totalColumns = columns.length
-
-    // Calculate column span for each event
-    for (const event of cluster) {
-      const eventStart = dayjs(event.startTime).tz(props.timezone)
-      const eventEnd = dayjs(event.endTime).tz(props.timezone)
-      const eventColumn = eventColumnAssignments.get(event)!
-
-      // Calculate how far this event can expand to the right
-      let columnSpan = 1
-      for (let col = eventColumn + 1; col < totalColumns; col++) {
-        // Check if any event in the cluster occupies this column AND overlaps with this event
-        const columnBlocked = cluster.some((other) => {
-          if (eventColumnAssignments.get(other) !== col) return false
-          const otherStart = dayjs(other.startTime).tz(props.timezone)
-          const otherEnd = dayjs(other.endTime).tz(props.timezone)
-          return eventStart.isBefore(otherEnd) && otherStart.isBefore(eventEnd)
-        })
-        if (columnBlocked) break
-        columnSpan++
-      }
-
-      layouts.set(event, {
-        event,
-        column: eventColumn,
-        columnSpan,
-        totalColumns,
-      })
+    const clusterLayouts = calculateClusterLayouts(cluster, props.timezone)
+    for (const [event, layout] of clusterLayouts) {
+      layouts.set(event, layout)
     }
   }
 
