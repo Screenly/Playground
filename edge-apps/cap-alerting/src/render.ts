@@ -1,3 +1,4 @@
+import { escapeHtml } from '@screenly/edge-apps'
 import { NwsWwwiResult, NwsPeriodResult } from './parser'
 
 function getTemplate(id: string): HTMLTemplateElement {
@@ -84,7 +85,7 @@ export function highlightKeywords(text: string): string {
     'LEAVE',
   ]
 
-  let result = text
+  let result = escapeHtml(text)
   keywords.forEach((keyword) => {
     const regex = new RegExp(`\\b(${keyword})\\b`, 'gi')
     result = result.replace(

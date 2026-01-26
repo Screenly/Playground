@@ -182,13 +182,16 @@ function renderAlertCard(
   ) as HTMLDivElement
   info.resources.forEach((res) => {
     if (res.mimeType && res.mimeType.startsWith('image')) {
-      const imgTemplate = getTemplate('image-resource-template')
-      const imgWrapper = (
-        imgTemplate.content.cloneNode(true) as DocumentFragment
-      ).firstElementChild as HTMLDivElement
-      const img = imgWrapper.querySelector('img') as HTMLImageElement
-      img.src = proxyUrl(res.url)
-      resourcesContainer.appendChild(imgWrapper)
+      // Validate URL protocol before setting img.src
+      if (res.url && /^https?:\/\//i.test(res.url)) {
+        const imgTemplate = getTemplate('image-resource-template')
+        const imgWrapper = (
+          imgTemplate.content.cloneNode(true) as DocumentFragment
+        ).firstElementChild as HTMLDivElement
+        const img = imgWrapper.querySelector('img') as HTMLImageElement
+        img.src = proxyUrl(res.url)
+        resourcesContainer.appendChild(imgWrapper)
+      }
     }
   })
 
