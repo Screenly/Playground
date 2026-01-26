@@ -11,19 +11,21 @@
           <div
             v-for="(event, eventIndex) in getEventsForTimeSlot(slot.hour)"
             :key="eventIndex"
-            class="calendar-event-item"
-            :style="getEventStyle(event)"
+            class="calendar-event-wrapper"
+            :style="getWrapperStyle(event)"
           >
-            <div class="event-title">
-              {{ event.title }}
-            </div>
-            <div>
-              <EventTimeRange
-                :start-time="event.startTime"
-                :end-time="event.endTime"
-                :locale="props.locale"
-                :timezone="props.timezone"
-              />
+            <div class="calendar-event-item" :style="getItemStyle(event)">
+              <div class="event-title">
+                {{ event.title }}
+              </div>
+              <div>
+                <EventTimeRange
+                  :start-time="event.startTime"
+                  :end-time="event.endTime"
+                  :locale="props.locale"
+                  :timezone="props.timezone"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -41,12 +43,21 @@
 import { ref, watch, computed } from 'vue'
 import EventTimeRange from './EventTimeRange.vue'
 import type { CalendarEvent, TimeSlot } from '../../constants/calendar'
+import {
+  type EventLayout,
+  findEventClusters,
+  calculateClusterLayouts,
+} from '../../utils/event-layout-utils'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import dayJsTimezone from 'dayjs/plugin/timezone'
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 
 dayjs.extend(utc)
 dayjs.extend(dayJsTimezone)
+dayjs.extend(isSameOrBefore)
+dayjs.extend(isSameOrAfter)
 
 interface Props {
   timezone?: string
@@ -104,6 +115,38 @@ const eventMap = computed(() => {
 
   return map
 })
+
+// Calculate event layouts using a column-based algorithm (Google Calendar style)
+const eventLayouts = computed(() => {
+  const allEvents = getAllEventsForToday.value
+  if (allEvents.length === 0) return new Map<CalendarEvent, EventLayout>()
+
+  const layouts = new Map<CalendarEvent, EventLayout>()
+  const clusters = findEventClusters(allEvents, props.timezone)
+
+  for (const cluster of clusters) {
+    const clusterLayouts = calculateClusterLayouts(cluster, props.timezone)
+    for (const [event, layout] of clusterLayouts) {
+      layouts.set(event, layout)
+    }
+  }
+
+  return layouts
+})
+
+const getEventLayout = (
+  event: CalendarEvent,
+): { index: number; total: number; span: number } => {
+  const layout = eventLayouts.value.get(event)
+  if (!layout) {
+    return { index: 0, total: 1, span: 1 }
+  }
+  return {
+    index: layout.column,
+    total: layout.totalColumns,
+    span: layout.columnSpan,
+  }
+}
 
 const generateTimeSlots = async () => {
   try {
@@ -180,17 +223,30 @@ const generateTimeSlots = async () => {
   }
 }
 
-// Get events for a specific time slot - optimized with pre-computed map
+// Get events that START in a specific time slot (to avoid duplicate rendering)
 const getEventsForTimeSlot = (hour: number): CalendarEvent[] => {
   return eventMap.value.get(hour) || []
 }
 
+// Get all events for today (used for overlap calculations)
+const getAllEventsForToday = computed(() => {
+  const today = dayjs(now.value).tz(props.timezone)
+  return events.value.filter((event) => {
+    return dayjs(event.startTime).tz(props.timezone).isSame(today, 'day')
+  })
+})
+
 // Memoized event style computation
 const eventStyleCache = new Map<string, Record<string, string>>()
 
-// Get style for an event - with caching for better performance
-const getEventStyle = (event: CalendarEvent): Record<string, string> => {
-  const cacheKey = `${event.startTime}-${event.endTime}-${event.backgroundColor || ''}`
+// Get wrapper style for an event (positioning only) - with caching for better performance
+const getWrapperStyle = (event: CalendarEvent): Record<string, string> => {
+  // Get layout for this event using column-based algorithm (Google Calendar style)
+  const layout = getEventLayout(event)
+
+  // Create cache key that includes layout information to prevent collisions
+  // for events with identical start/end/backgroundColor but different positions
+  const cacheKey = `wrapper-${event.startTime}-${event.endTime}-${layout.index}-${layout.total}`
 
   if (eventStyleCache.has(cacheKey)) {
     return eventStyleCache.get(cacheKey)!
@@ -226,20 +282,39 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
   // Limit the height to the maximum visible height
   const height = Math.min(rawHeight, maxVisibleHeight)
 
-  // Create the base style object
-  const baseStyle: Record<string, string> = {
-    top: `${topOffset}%`,
-    height: `${height}%`,
-    'border-radius': '6px',
-  }
+  // Add minimal gap between adjacent events (like Google Calendar)
+  // Reduce height by a small amount to create visual separation
+  const eventGap = 4 // 4% gap between events
+  const adjustedHeight = Math.max(height - eventGap, height * 0.9) // Ensure height doesn't go below 90% of original
 
-  // Add background color if available
-  if (event.backgroundColor) {
-    baseStyle['background-color'] = event.backgroundColor
+  // Calculate width and left position based on column layout
+  // Google Calendar style: events in earlier columns visually overlap into later columns
+  const columnWidth = 100 / layout.total
+  const eventSpan = layout.span && layout.span > 0 ? layout.span : 1
+  const baseWidth = columnWidth * eventSpan
+  const left = layout.index * columnWidth
+
+  // Events overlap into the next column's space (except the last column)
+  // overlapRatio controls how much of the next column's space to overlap into
+  const overlapRatio = 0.7
+  const isLastColumn = layout.index + eventSpan >= layout.total
+  const overlapBonus = isLastColumn ? 0 : columnWidth * overlapRatio
+  const width = baseWidth + overlapBonus
+
+  // Z-index: higher column numbers appear on top (base z-index of 2 from SCSS)
+  const zIndex = 2 + layout.index
+
+  // Create the wrapper style object (positioning only)
+  const wrapperStyle: Record<string, string> = {
+    top: `${topOffset}%`,
+    height: `${adjustedHeight}%`,
+    width: `${width}%`,
+    left: `${left}%`,
+    'z-index': `${zIndex}`,
   }
 
   // Cache the result
-  eventStyleCache.set(cacheKey, baseStyle)
+  eventStyleCache.set(cacheKey, wrapperStyle)
 
   // Limit cache size to prevent memory leaks
   if (eventStyleCache.size > 100) {
@@ -249,7 +324,15 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
     }
   }
 
-  return baseStyle
+  return wrapperStyle
+}
+
+// Get item style for an event (background-color only)
+const getItemStyle = (event: CalendarEvent): Record<string, string> => {
+  if (event.backgroundColor) {
+    return { 'background-color': event.backgroundColor }
+  }
+  return {}
 }
 
 // Clear style cache when events change

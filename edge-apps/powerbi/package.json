@@ -20,6 +20,6 @@
     "panic-overlay": "^1.0.51"
   },
   "devDependencies": {
-    "prettier": "3.8.0"
+    "prettier": "3.8.1"
   }
 }
