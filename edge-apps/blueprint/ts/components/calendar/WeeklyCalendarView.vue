@@ -183,7 +183,7 @@ const eventMap = computed(() => {
 // Calculate event layouts using a column-based algorithm (Google Calendar style)
 // This is per day, so we group events by day and compute layouts for each day
 const eventLayouts = computed(() => {
-  const layoutMap = new Map<string, EventLayout>()
+  const layoutMap = new Map<CalendarEvent, EventLayout>()
   const eventsByDay = new Map<number, CalendarEvent[]>()
 
   // Group events by day
@@ -266,8 +266,7 @@ const eventLayouts = computed(() => {
           columnSpan++
         }
 
-        const key = `${event.startTime}-${event.endTime}`
-        layoutMap.set(key, {
+        layoutMap.set(event, {
           event,
           column: eventColumn,
           columnSpan,
@@ -283,8 +282,7 @@ const eventLayouts = computed(() => {
 const getEventLayout = (
   event: CalendarEvent,
 ): { index: number; total: number; span: number } => {
-  const key = `${event.startTime}-${event.endTime}`
-  const layout = eventLayouts.value.get(key)
+  const layout = eventLayouts.value.get(event)
   if (!layout) {
     return { index: 0, total: 1, span: 1 }
   }
