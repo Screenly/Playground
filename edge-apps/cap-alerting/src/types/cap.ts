@@ -8,11 +8,16 @@ export interface CAPResource {
   url: string
 }
 
+export interface CAPNameValue {
+  valueName?: string
+  value?: string | number
+}
+
 export interface CAPArea {
   areaDesc: string
   polygon?: string | string[]
   circle?: string | string[]
-  geocode?: unknown
+  geocode?: CAPNameValue | CAPNameValue[]
   altitude?: number
   ceiling?: number
 }
@@ -35,10 +40,13 @@ export interface CAPInfo {
   instruction?: string
   web?: string
   contact?: string
-  parameter?: unknown
-  eventCode?: unknown
+  parameter?: CAPNameValue | CAPNameValue[]
+  eventCode?: CAPNameValue | CAPNameValue[]
   resources: CAPResource[]
   areas: CAPArea[]
+  // Raw fields from XML parser
+  resource?: Record<string, unknown> | Record<string, unknown>[]
+  area?: Record<string, unknown> | Record<string, unknown>[]
 }
 
 export interface CAPAlert {
@@ -56,6 +64,8 @@ export interface CAPAlert {
   references?: string
   incidents?: string
   infos: CAPInfo[]
+  // Raw field from XML parser
+  info?: Record<string, unknown> | Record<string, unknown>[]
 }
 
 export type CAPMode = 'test' | 'demo' | 'production'
