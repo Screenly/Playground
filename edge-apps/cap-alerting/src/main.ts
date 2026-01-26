@@ -4,6 +4,7 @@ import {
   setupTheme,
   signalReady,
   getTags,
+  getTemplate,
   getSettingWithDefault,
   setupErrorHandling,
 } from '@screenly/edge-apps'
