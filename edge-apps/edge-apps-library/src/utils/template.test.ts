@@ -1,4 +1,3 @@
-import '@screenly/edge-apps/test'
 import { describe, test, expect, beforeEach, afterEach } from 'bun:test'
 import { getTemplate } from './template'
 
