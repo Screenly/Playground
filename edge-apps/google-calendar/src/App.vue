@@ -2,7 +2,7 @@
 import { onBeforeMount, onMounted, type Ref, computed } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 
-import { AnalogClock, BrandLogoCard } from 'blueprint/components'
+import { AnalogClock, BrandLogoCard, TopBar } from 'blueprint/components'
 import {
   CalendarOverview,
   DailyCalendarView,
@@ -72,34 +72,55 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="main-container">
-    <ScheduleCalendarView
-      v-if="calendarMode === 'schedule'"
-      :timezone="timezone"
+  <div class="app-container">
+    <TopBar
+      :brand-logo-url="brandLogoUrl"
       :now="now"
-      :events="events"
       :locale="locale"
-      :current-day-of-week="currentDayOfWeek"
-    />
-    <DailyCalendarView
-      v-if="calendarMode === 'daily'"
       :timezone="timezone"
-      :now="now"
-      :events="events"
-      :locale="locale"
     />
-    <WeeklyCalendarView
-      v-if="calendarMode === 'weekly'"
-      :timezone="timezone"
-      :now="now"
-      :events="events"
-      :locale="locale"
-    />
+    <div class="main-container">
+      <ScheduleCalendarView
+        v-if="calendarMode === 'schedule'"
+        :timezone="timezone"
+        :now="now"
+        :events="events"
+        :locale="locale"
+        :current-day-of-week="currentDayOfWeek"
+      />
+      <DailyCalendarView
+        v-if="calendarMode === 'daily'"
+        :timezone="timezone"
+        :now="now"
+        :events="events"
+        :locale="locale"
+      />
+      <WeeklyCalendarView
+        v-if="calendarMode === 'weekly'"
+        :timezone="timezone"
+        :now="now"
+        :events="events"
+        :locale="locale"
+      />
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 $base-scale: 0.25;
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.main-container {
+  flex: 1;
+  overflow: hidden;
+}
 
 .app-clock {
   @media screen and (min-width: 800px) and (orientation: landscape) {
