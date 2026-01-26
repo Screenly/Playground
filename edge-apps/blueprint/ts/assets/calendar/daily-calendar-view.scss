@@ -20,11 +20,16 @@
           height: 0.05rem * $multiplier;
         }
 
+        .calendar-event-wrapper {
+          border: 0.07rem * $multiplier solid white;
+          border-radius: 0.13rem * $multiplier;
+          overflow: visible;
+        }
+
         .calendar-event-item {
           padding: 0.25rem * $multiplier;
           border-radius: 0.13rem * $multiplier;
           border-left: 0.17rem * $multiplier solid var(--theme-color-primary);
-          margin: 0.105rem * $multiplier;
           font-size: 0.42rem * $multiplier;
           min-height: 1.344rem * $multiplier;
           font-size: 0.4rem * $multiplier;
@@ -82,13 +87,15 @@
         z-index: 1;
       }
 
-      .calendar-event-item {
+      .calendar-event-wrapper {
         position: absolute;
-        background-color: #e6e7e7;
-        color: var(--theme-color-text);
         z-index: 2;
         left: 0;
-        overflow: hidden;
+      }
+
+      .calendar-event-item {
+        height: 100%;
+        color: var(--theme-color-text);
         display: flex;
         flex-direction: column;
         justify-content: flex-start;

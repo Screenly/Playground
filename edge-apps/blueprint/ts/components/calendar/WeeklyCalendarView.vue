@@ -293,14 +293,14 @@ const isToday = (dayIndex: number): boolean => {
 // Memoized event style computation
 const eventStyleCache = new Map<string, Record<string, string>>()
 
-// Get style for an event - with caching for better performance
-const getEventStyle = (event: CalendarEvent): Record<string, string> => {
+// Get wrapper style for an event (positioning only) - with caching for better performance
+const getWrapperStyle = (event: CalendarEvent): Record<string, string> => {
   // Get layout for this event using column-based algorithm (Google Calendar style)
   const layout = getEventLayout(event)
 
   // Create cache key that includes layout information to prevent collisions
   // for events with identical start/end/backgroundColor but different positions
-  const cacheKey = `${event.startTime}-${event.endTime}-${event.backgroundColor || ''}-${layout.index}-${layout.total}`
+  const cacheKey = `wrapper-${event.startTime}-${event.endTime}-${layout.index}-${layout.total}`
 
   if (eventStyleCache.has(cacheKey)) {
     return eventStyleCache.get(cacheKey)!
@@ -359,18 +359,13 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
 
   const endHour = endTime.hour()
 
-  // Create the base style object
-  const baseStyle: Record<string, string> = {
+  // Create the wrapper style object (positioning only)
+  const wrapperStyle: Record<string, string> = {
     top: `${topOffset}%`,
     height: `${adjustedHeight}%`,
     width: `${width}%`,
     left: `${left}%`,
     'z-index': `${zIndex}`,
-  }
-
-  // Add background color if available
-  if (event.backgroundColor) {
-    baseStyle['background-color'] = event.backgroundColor
   }
 
   // Check if the event extends beyond the visible time slots
@@ -380,12 +375,12 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
       timeSlots.value[0] &&
       endHour < timeSlots.value[0].hour)
   ) {
-    baseStyle['border-bottom-left-radius'] = '0'
-    baseStyle['border-bottom-right-radius'] = '0'
+    wrapperStyle['border-bottom-left-radius'] = '0'
+    wrapperStyle['border-bottom-right-radius'] = '0'
   }
 
   // Cache the result
-  eventStyleCache.set(cacheKey, baseStyle)
+  eventStyleCache.set(cacheKey, wrapperStyle)
 
   // Limit cache size to prevent memory leaks
   if (eventStyleCache.size > 100) {
@@ -395,7 +390,15 @@ const getEventStyle = (event: CalendarEvent): Record<string, string> => {
     }
   }
 
-  return baseStyle
+  return wrapperStyle
+}
+
+// Get item style for an event (background-color only)
+const getItemStyle = (event: CalendarEvent): Record<string, string> => {
+  if (event.backgroundColor) {
+    return { 'background-color': event.backgroundColor }
+  }
+  return {}
 }
 
 // Clear style cache when events change
@@ -538,16 +541,18 @@ watch(
             <div
               v-for="event in getEventsForTimeSlot(slot.hour, dayIndex)"
               :key="event.startTime"
-              class="calendar-event-item"
-              :style="getEventStyle(event)"
+              class="calendar-event-wrapper"
+              :style="getWrapperStyle(event)"
             >
-              <div class="event-title">{{ event.title }}</div>
-              <EventTimeRange
-                :start-time="event.startTime"
-                :end-time="event.endTime"
-                :locale="props.locale"
-                :timezone="props.timezone"
-              />
+              <div class="calendar-event-item" :style="getItemStyle(event)">
+                <div class="event-title">{{ event.title }}</div>
+                <EventTimeRange
+                  :start-time="event.startTime"
+                  :end-time="event.endTime"
+                  :locale="props.locale"
+                  :timezone="props.timezone"
+                />
+              </div>
             </div>
           </div>
         </div>
