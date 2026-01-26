@@ -18,12 +18,6 @@ import {
   renderNwsPeriodContent,
 } from './render'
 
-function getTemplate(id: string): HTMLTemplateElement {
-  const template = document.getElementById(id) as HTMLTemplateElement | null
-  if (!template) throw new Error(`Template ${id} not found`)
-  return template
-}
-
 function createStatusBanner(status: string): HTMLElement {
   const template = getTemplate('status-banner-template')
   const banner = template.content.cloneNode(true) as DocumentFragment

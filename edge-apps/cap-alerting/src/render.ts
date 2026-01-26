@@ -1,11 +1,5 @@
-import { escapeHtml } from '@screenly/edge-apps'
+import { escapeHtml, getTemplate } from '@screenly/edge-apps'
 import { NwsWwwiResult, NwsPeriodResult } from './parser'
-
-function getTemplate(id: string): HTMLTemplateElement {
-  const template = document.getElementById(id) as HTMLTemplateElement | null
-  if (!template) throw new Error(`Template ${id} not found`)
-  return template
-}
 
 export function renderNwsWwwiContent(result: NwsWwwiResult): HTMLElement {
   const template = getTemplate('nws-wwwi-template')
