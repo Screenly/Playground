@@ -191,7 +191,7 @@ const eventLayouts = computed(() => {
     const eventStart = dayjs(event.startTime).tz(props.timezone)
     const weekStartDate = dayjs(weekStart.value).tz(props.timezone)
     return (
-      eventStart.isAfter(weekStartDate) &&
+      !eventStart.isBefore(weekStartDate) &&
       eventStart.isBefore(weekStartDate.add(7, 'day'))
     )
   })
