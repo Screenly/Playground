@@ -1,7 +1,7 @@
 import { getCorsProxyUrl, getHardware, Hardware } from '@screenly/edge-apps'
 
 const DEMO_BASE_URL =
-  'https://raw.githubusercontent.com/Screenly/Playground/refs/heads/master/edge-apps/cap-alerting'
+  'https://raw.githubusercontent.com/Screenly/Playground/master/edge-apps/cap-alerting'
 
 export interface FetcherConfig {
   testMode: boolean
