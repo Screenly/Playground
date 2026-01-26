@@ -81,7 +81,9 @@ export function highlightKeywords(text: string): string {
 
   let result = escapeHtml(text)
   keywords.forEach((keyword) => {
-    const regex = new RegExp(`\\b(${keyword})\\b`, 'gi')
+    // Escape regex metacharacters to treat keyword as literal text
+    const escapedKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const regex = new RegExp(`\\b(${escapedKeyword})\\b`, 'gi')
     result = result.replace(
       regex,
       '<strong class="text-red-800 font-black">$1</strong>',
