@@ -10,8 +10,10 @@ dayjs.extend(dayJsTimezone)
 import EventTimeRange from './EventTimeRange.vue'
 import type { CalendarEvent, TimeSlot } from '../../constants/calendar'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 
 dayjs.extend(isSameOrBefore)
+dayjs.extend(isSameOrAfter)
 
 interface Props {
   timezone?: string
@@ -78,13 +80,43 @@ const eventsOverlap = (a: CalendarEvent, b: CalendarEvent): boolean => {
 const findEventClusters = (allEvents: CalendarEvent[]): CalendarEvent[][] => {
   if (allEvents.length === 0) return []
 
+  // Pre-sort events by start time for efficient overlap detection
+  const sortedEvents = [...allEvents].sort((a, b) => {
+    return dayjs(a.startTime)
+      .tz(props.timezone)
+      .diff(dayjs(b.startTime).tz(props.timezone))
+  })
+
+  // Build adjacency list: for each event, find which events it overlaps with
+  const adjacencyList = new Map<CalendarEvent, Set<CalendarEvent>>()
+  for (let i = 0; i < sortedEvents.length; i++) {
+    const eventI = sortedEvents[i]!
+    adjacencyList.set(eventI, new Set())
+    const eventAEnd = dayjs(eventI.endTime).tz(props.timezone)
+
+    // Only check events that start before this event ends (sorted by start time)
+    for (let j = i + 1; j < sortedEvents.length; j++) {
+      const eventJ = sortedEvents[j]!
+      const eventBStart = dayjs(eventJ.startTime).tz(props.timezone)
+      if (eventBStart.isSameOrAfter(eventAEnd)) break // No more overlaps possible
+
+      if (eventsOverlap(eventI, eventJ)) {
+        adjacencyList.get(eventI)!.add(eventJ)
+        if (!adjacencyList.has(eventJ)) {
+          adjacencyList.set(eventJ, new Set())
+        }
+        adjacencyList.get(eventJ)!.add(eventI)
+      }
+    }
+  }
+
   const visited = new Set<CalendarEvent>()
   const clusters: CalendarEvent[][] = []
 
-  for (const event of allEvents) {
+  for (const event of sortedEvents) {
     if (visited.has(event)) continue
 
-    // BFS to find all events in this cluster
+    // BFS to find all events in this cluster using pre-built adjacency list
     const cluster: CalendarEvent[] = []
     const queue: CalendarEvent[] = [event]
     let queueIndex = 0
@@ -96,10 +128,11 @@ const findEventClusters = (allEvents: CalendarEvent[]): CalendarEvent[][] => {
       visited.add(current)
       cluster.push(current)
 
-      // Find all events that overlap with current and add to queue
-      for (const other of allEvents) {
-        if (!visited.has(other) && eventsOverlap(current, other)) {
-          queue.push(other)
+      // Add neighbors from adjacency list (O(1) lookup)
+      const neighbors = adjacencyList.get(current) || new Set()
+      for (const neighbor of neighbors) {
+        if (!visited.has(neighbor)) {
+          queue.push(neighbor)
         }
       }
     }
@@ -250,6 +283,18 @@ const eventLayouts = computed(() => {
 
       const totalColumns = columns.length
 
+      // Pre-compute which columns each event blocks to avoid repeated O(n) lookups
+      const eventsByColumn = new Map<number, CalendarEvent[]>()
+      for (let col = 0; col < totalColumns; col++) {
+        eventsByColumn.set(col, [])
+      }
+      for (const e of cluster) {
+        const eColumn = eventColumnAssignments.get(e)
+        if (eColumn !== undefined) {
+          eventsByColumn.get(eColumn)!.push(e)
+        }
+      }
+
       // Calculate column span for each event
       for (const event of cluster) {
         const eventStart = dayjs(event.startTime).tz(props.timezone)
@@ -259,8 +304,9 @@ const eventLayouts = computed(() => {
         // Calculate how far this event can expand to the right
         let columnSpan = 1
         for (let col = eventColumn + 1; col < totalColumns; col++) {
-          const columnBlocked = cluster.some((other) => {
-            if (eventColumnAssignments.get(other) !== col) return false
+          // Check if any event in this column overlaps with our event
+          const eventsInCol = eventsByColumn.get(col) || []
+          const columnBlocked = eventsInCol.some((other) => {
             const otherStart = dayjs(other.startTime).tz(props.timezone)
             const otherEnd = dayjs(other.endTime).tz(props.timezone)
             return (
