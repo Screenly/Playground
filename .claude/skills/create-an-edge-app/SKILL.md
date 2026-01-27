@@ -69,7 +69,7 @@ settings:
       properties:
         advanced: true
         help_text: The help text for setting 1 goes here.
-        type: string # This can either be any of the following: datetime, number, select, boolean, or string
+        type: string # This can be one of the following: datetime, number, select, boolean, or string
       schema_version: 1
   setting_2:
     type: secret
