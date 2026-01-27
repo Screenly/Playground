@@ -176,6 +176,9 @@ describe('Edge App Settings', () => {
 </html>
 ```
 
+It is a best practice to organize HTML code into templates and Web Components as the app grows in complexity.
+Consider using content templates first. If the app requires more complex UI components, consider using Web Components.
+
 ### Creating `style.css`
 
 ```css
