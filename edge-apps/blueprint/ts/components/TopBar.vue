@@ -27,28 +27,17 @@ onUnmounted(() => {
 const formattedDateTime = computed(() => {
   const date = currentTime.value
 
-  const dayOfWeek = date.toLocaleDateString(props.locale, {
+  // Use a single formatter to respect locale-specific date/time ordering and formatting
+  const formatter = new Intl.DateTimeFormat(props.locale, {
     weekday: 'short',
-    timeZone: props.timezone,
-  })
-
-  const day = date.toLocaleDateString(props.locale, {
     day: 'numeric',
-    timeZone: props.timezone,
-  })
-
-  const month = date.toLocaleDateString(props.locale, {
     month: 'short',
-    timeZone: props.timezone,
-  })
-
-  const time = date.toLocaleTimeString(props.locale, {
     hour: 'numeric',
     minute: '2-digit',
     timeZone: props.timezone,
   })
 
-  return `${dayOfWeek} ${day} ${month} ${time}`
+  return formatter.format(date)
 })
 </script>
 
