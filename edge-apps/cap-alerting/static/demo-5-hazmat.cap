@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+  <identifier>DEMO-HAZMAT-SHELTER-001</identifier>
+  <sender>demo@screenly.io</sender>
+  <sent>2024-09-05T19:20:00-00:00</sent>
+  <status>Exercise</status>
+  <msgType>Alert</msgType>
+  <scope>Public</scope>
+  <note>THIS IS A DEMONSTRATION EXERCISE - NOT A REAL EMERGENCY</note>
+  <info>
+    <language>en-US</language>
+    <category>CBRNE</category>
+    <category>Safety</category>
+    <event>Hazardous Materials Incident</event>
+    <responseType>Shelter</responseType>
+    <responseType>Avoid</responseType>
+    <urgency>Immediate</urgency>
+    <severity>Severe</severity>
+    <certainty>Observed</certainty>
+    <effective>2024-09-05T19:20:00-00:00</effective>
+    <onset>2024-09-05T19:20:00-00:00</onset>
+    <expires>2024-09-05T23:00:00-00:00</expires>
+    <senderName>Emergency Management (DEMO)</senderName>
+    <headline>Shelter in Place - Hazardous Materials Release</headline>
+    <description>A chemical spill at an industrial facility has released hazardous vapors into the air. The affected area is downwind of the release. Residents in the evacuation zone should shelter in place immediately until the all-clear is given.</description>
+    <instruction>SHELTER IN PLACE IMMEDIATELY. Go indoors and close all windows and doors. Turn off ventilation systems, air conditioning, and fans. Seal gaps under doors with wet towels. Move to an interior room away from windows. Do NOT go outside. Do NOT attempt to evacuate unless instructed by authorities. Use {{closest_exit}} only if ordered to evacuate.</instruction>
+    <web>https://emergency.example.com/hazmat</web>
+    <contact>Emergency Information: 1-800-555-SAFE</contact>
+    <parameter>
+      <valueName>Chemical</valueName>
+      <value>Ammonia vapor</value>
+    </parameter>
+    <parameter>
+      <valueName>EvacuationRadius</valueName>
+      <value>1 mile</value>
+    </parameter>
+    <resource>
+      <resourceDesc>Hazmat Shelter-in-Place Alert</resourceDesc>
+      <mimeType>audio/mpeg</mimeType>
+      <uri>https://archive.org/download/EASAlertTones/EAS_Alert_Tones/Civil_Emergency_Message.mp3</uri>
+    </resource>
+    <area>
+      <areaDesc>Industrial Zone and Downwind Areas</areaDesc>
+      <circle>41.88,-87.63 1.5</circle>
+    </area>
+  </info>
+</alert>
+
