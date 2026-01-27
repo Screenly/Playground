@@ -5,7 +5,7 @@
   const DEFAULT_TOKEN_REFRESH_MIN = 30
 
   function getTokenRefreshInterval() {
-    var intervalMinutes = parseInt(screenly.settings.app_refresh_interval, 10)
+    var intervalMinutes = parseInt(screenly.settings.refresh_interval, 10)
     if (isNaN(intervalMinutes) || intervalMinutes < MIN_TOKEN_REFRESH_MIN) {
       return DEFAULT_TOKEN_REFRESH_MIN * 60
     }
