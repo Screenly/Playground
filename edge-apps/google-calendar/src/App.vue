@@ -14,6 +14,8 @@ import { useCalendarStore } from '@/stores/calendar'
 import { useSettingsStore } from '@/stores/settings'
 import type { CalendarEvent } from '@/constants'
 
+import screenlyLogo from 'blueprint/assets/images/screenly.svg'
+
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',
   baseSettingsStoreSetup,
@@ -27,8 +29,11 @@ const { calendarMode } = storeToRefs(settingsStore) as unknown as {
   calendarMode: Ref<string>
 }
 
-const { brandLogoUrl } = storeToRefs(baseSettingsStore) as unknown as {
+const { brandLogoUrl, primaryThemeColor } = storeToRefs(
+  baseSettingsStore,
+) as unknown as {
   brandLogoUrl: Ref<string>
+  primaryThemeColor: Ref<string>
 }
 
 const { timezone, now, events, locale, currentDayOfWeek } = storeToRefs(
@@ -56,10 +61,13 @@ onMounted(async () => {
 <template>
   <div class="app-container">
     <TopBar
-      :brand-logo-url="brandLogoUrl"
+      :brand-logo-url="brandLogoUrl || screenlyLogo"
       :now="now"
       :locale="locale"
       :timezone="timezone"
+      :style="{
+        backgroundColor: primaryThemeColor,
+      }"
     />
     <div class="main-container">
       <ScheduleCalendarView

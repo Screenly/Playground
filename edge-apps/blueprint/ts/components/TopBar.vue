@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type Ref, ref, onMounted, onUnmounted } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps<{
   brandLogoUrl: string
@@ -55,12 +55,9 @@ const formattedDateTime = computed(() => {
 <template>
   <div class="top-bar">
     <div class="top-bar-left">
-      <img
-        v-if="brandLogoUrl"
-        :src="brandLogoUrl"
-        class="top-bar-logo"
-        alt="Brand Logo"
-      />
+      <div v-if="brandLogoUrl" class="top-bar-logo-container">
+        <img :src="brandLogoUrl" class="top-bar-logo" alt="Brand Logo" />
+      </div>
       <span v-if="brandLabel" class="top-bar-label">{{ brandLabel }}</span>
     </div>
     <div class="top-bar-right">
@@ -76,76 +73,41 @@ const formattedDateTime = computed(() => {
   align-items: center;
   background-color: var(--primary-color, #003366);
   color: white;
-  padding: 0.5rem 1rem;
+  padding: clamp(0.75rem, 1.5vmin, 3rem) clamp(1rem, 2vmin, 4rem);
   width: 100%;
   box-sizing: border-box;
   flex-shrink: 0;
-
-  @media screen and (min-width: 1280px) {
-    padding: 0.6rem 1.5rem;
-  }
-
-  @media screen and (min-width: 1920px) {
-    padding: 0.75rem 2rem;
-  }
-
-  @media screen and (min-width: 3840px) {
-    padding: 1.5rem 4rem;
-  }
 }
 
 .top-bar-left {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: clamp(0.5rem, 1vmin, 2rem);
+}
 
-  @media screen and (min-width: 1280px) {
-    gap: 0.75rem;
-  }
-
-  @media screen and (min-width: 1920px) {
-    gap: 1rem;
-  }
-
-  @media screen and (min-width: 3840px) {
-    gap: 2rem;
-  }
+.top-bar-logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 50%;
+  padding: clamp(0.4rem, 0.8vmin, 1.5rem);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: clamp(2.5rem, 4vmin, 6rem);
+  height: clamp(2.5rem, 4vmin, 6rem);
+  flex-shrink: 0;
 }
 
 .top-bar-logo {
-  height: 1.5rem;
-  width: auto;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-
-  @media screen and (min-width: 1280px) {
-    height: 1.75rem;
-  }
-
-  @media screen and (min-width: 1920px) {
-    height: 2rem;
-  }
-
-  @media screen and (min-width: 3840px) {
-    height: 4rem;
-  }
 }
 
 .top-bar-label {
-  font-size: 0.875rem;
+  font-size: clamp(0.875rem, 1.5vmin, 2.5rem);
   font-weight: 600;
   letter-spacing: 0.025em;
-
-  @media screen and (min-width: 1280px) {
-    font-size: 1rem;
-  }
-
-  @media screen and (min-width: 1920px) {
-    font-size: 1.25rem;
-  }
-
-  @media screen and (min-width: 3840px) {
-    font-size: 2.5rem;
-  }
 }
 
 .top-bar-right {
@@ -154,19 +116,64 @@ const formattedDateTime = computed(() => {
 }
 
 .top-bar-datetime {
-  font-size: 0.875rem;
+  font-size: clamp(0.875rem, 1.5vmin, 2.5rem);
   font-weight: 500;
+}
 
-  @media screen and (min-width: 1280px) {
-    font-size: 1rem;
+@media (min-width: 1920px) and (min-height: 1080px) {
+  .top-bar {
+    padding: clamp(1rem, 1.8vmin, 3.5rem) clamp(1.5rem, 2.5vmin, 5rem);
   }
 
-  @media screen and (min-width: 1920px) {
-    font-size: 1.25rem;
+  .top-bar-logo-container {
+    width: clamp(3rem, 4.5vmin, 7rem);
+    height: clamp(3rem, 4.5vmin, 7rem);
   }
 
-  @media screen and (min-width: 3840px) {
-    font-size: 2.5rem;
+  .top-bar-label {
+    font-size: clamp(1rem, 1.8vmin, 3rem);
+  }
+
+  .top-bar-datetime {
+    font-size: clamp(1rem, 1.8vmin, 3rem);
+  }
+}
+
+@media (min-width: 3840px) and (min-height: 2160px) {
+  .top-bar {
+    padding: clamp(1.5rem, 2vmin, 4rem) clamp(2rem, 3vmin, 6rem);
+  }
+
+  .top-bar-logo-container {
+    width: clamp(3.5rem, 5vmin, 8rem);
+    height: clamp(3.5rem, 5vmin, 8rem);
+  }
+
+  .top-bar-label {
+    font-size: clamp(1.5rem, 2.2vmin, 4rem);
+  }
+
+  .top-bar-datetime {
+    font-size: clamp(1.5rem, 2.2vmin, 4rem);
+  }
+}
+
+@media (orientation: portrait) {
+  .top-bar {
+    padding: clamp(1rem, 2.5vmin, 4rem) clamp(1.5rem, 3vmin, 6rem);
+  }
+
+  .top-bar-logo-container {
+    width: clamp(3rem, 5.5vmin, 8rem);
+    height: clamp(3rem, 5.5vmin, 8rem);
+  }
+
+  .top-bar-label {
+    font-size: clamp(1.2rem, 2.5vmin, 4rem);
+  }
+
+  .top-bar-datetime {
+    font-size: clamp(1.2rem, 2.5vmin, 4rem);
   }
 }
 </style>
