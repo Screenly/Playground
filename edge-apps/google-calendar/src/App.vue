@@ -62,7 +62,6 @@ onMounted(async () => {
   <div class="app-container">
     <TopBar
       :brand-logo-url="brandLogoUrl || screenlyLogo"
-      :now="now"
       :locale="locale"
       :timezone="timezone"
       :style="{

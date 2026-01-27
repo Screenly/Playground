@@ -4,7 +4,6 @@ import { computed, ref, onMounted, onUnmounted } from 'vue'
 const props = defineProps<{
   brandLogoUrl: string
   brandLabel?: string
-  now: Date
   locale: string
   timezone: string
 }>()
