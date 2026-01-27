@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, type Ref, computed } from 'vue'
+import { onBeforeMount, onMounted, type Ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
 
-import { AnalogClock, BrandLogoCard } from 'blueprint/components'
+import { TopBar } from 'blueprint/components'
 import {
-  CalendarOverview,
   DailyCalendarView,
   ScheduleCalendarView,
   WeeklyCalendarView,
@@ -37,27 +36,15 @@ const { brandLogoUrl, primaryThemeColor } = storeToRefs(
   primaryThemeColor: Ref<string>
 }
 
-const {
-  timezone,
-  now,
-  events,
-  locale,
-  currentDate,
-  currentMonthName,
-  currentYear,
-  currentDayOfWeek,
-} = storeToRefs(calendarStore) as {
+const { timezone, now, events, locale, currentDayOfWeek } = storeToRefs(
+  calendarStore,
+) as {
   timezone: Ref<string>
   now: Ref<Date>
   events: Ref<CalendarEvent[]>
   locale: Ref<string>
-  currentDate: Ref<number>
-  currentMonthName: Ref<string>
-  currentYear: Ref<number>
   currentDayOfWeek: Ref<string>
 }
-
-const currentMonth = computed(() => now.value.getMonth())
 
 onBeforeMount(async () => {
   baseSettingsStore.setupTheme()
@@ -72,60 +59,57 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="main-container">
-    <ScheduleCalendarView
-      v-if="calendarMode === 'schedule'"
-      :timezone="timezone"
-      :now="now"
-      :events="events"
+  <div class="app-container">
+    <TopBar
+      :brand-logo-url="brandLogoUrl || screenlyLogo"
       :locale="locale"
-      :current-day-of-week="currentDayOfWeek"
-    />
-    <DailyCalendarView
-      v-if="calendarMode === 'daily'"
       :timezone="timezone"
-      :now="now"
-      :events="events"
-      :locale="locale"
+      :style="{
+        backgroundColor: primaryThemeColor,
+      }"
     />
-    <WeeklyCalendarView
-      v-if="calendarMode === 'weekly'"
-      :timezone="timezone"
-      :now="now"
-      :events="events"
-      :locale="locale"
-    />
-
-    <div class="secondary-container">
-      <div class="row-container">
-        <div class="secondary-card">
-          <BrandLogoCard :logo-src="brandLogoUrl || screenlyLogo" />
-        </div>
-      </div>
-      <div class="row-container">
-        <CalendarOverview
-          v-if="calendarMode === 'schedule'"
-          :current-date="currentDate"
-          :current-month-name="currentMonthName"
-          :current-year="currentYear"
-          :current-month="currentMonth"
-        />
-        <div
-          v-if="['daily', 'weekly'].includes(calendarMode)"
-          class="secondary-card"
-          :style="{
-            backgroundColor: primaryThemeColor,
-          }"
-        >
-          <AnalogClock class="app-clock" :timezone="timezone" />
-        </div>
-      </div>
+    <div class="main-container">
+      <ScheduleCalendarView
+        v-if="calendarMode === 'schedule'"
+        :timezone="timezone"
+        :now="now"
+        :events="events"
+        :locale="locale"
+        :current-day-of-week="currentDayOfWeek"
+      />
+      <DailyCalendarView
+        v-if="calendarMode === 'daily'"
+        :timezone="timezone"
+        :now="now"
+        :events="events"
+        :locale="locale"
+      />
+      <WeeklyCalendarView
+        v-if="calendarMode === 'weekly'"
+        :timezone="timezone"
+        :now="now"
+        :events="events"
+        :locale="locale"
+      />
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 $base-scale: 0.25;
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.main-container {
+  flex: 1;
+  overflow: hidden;
+}
 
 .app-clock {
   @media screen and (min-width: 800px) and (orientation: landscape) {
