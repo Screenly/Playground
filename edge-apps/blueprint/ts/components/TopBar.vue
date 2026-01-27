@@ -60,7 +60,7 @@ const formattedDateTime = computed(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--primary-color, #003366);
+  background-color: var(--theme-color-primary, #003366);
   color: white;
   padding: clamp(0.75rem, 1.5vmin, 3rem) clamp(1rem, 2vmin, 4rem);
   width: 100%;
