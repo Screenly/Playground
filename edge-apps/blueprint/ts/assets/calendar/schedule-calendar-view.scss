@@ -112,7 +112,7 @@
 }
 
 @media screen and (min-width: 800px) and (max-width: 1279px) and (orientation: landscape) {
-  @include schedule-calendar-view('landscape', 0.75);
+  @include schedule-calendar-view('landscape', 0.65);
 }
 
 @media screen and (min-width: 480px) and (max-width: 719px) and (orientation: portrait) {
