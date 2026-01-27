@@ -38,11 +38,15 @@ describe('App', () => {
 
   it('should render the calendar views', () => {
     const wrapper = mount(App)
-    // Check that one of the calendar views is rendered
-    const hasCalendarView =
-      wrapper.html().includes('ScheduleCalendarView') ||
-      wrapper.html().includes('DailyCalendarView') ||
-      wrapper.html().includes('WeeklyCalendarView')
-    expect(hasCalendarView || wrapper.text().length > 0).toBe(true)
+    // Check that one of the calendar view containers is rendered
+    const scheduleCalendarView = wrapper.find('.schedule-calendar-view')
+    const dailyCalendarView = wrapper.find('.daily-calendar-view')
+    const weeklyCalendarView = wrapper.find('.weekly-calendar-view')
+
+    expect(
+      scheduleCalendarView.exists() ||
+        dailyCalendarView.exists() ||
+        weeklyCalendarView.exists(),
+    ).toBe(true)
   })
 })
