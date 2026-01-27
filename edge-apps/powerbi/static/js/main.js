@@ -20,7 +20,7 @@
     const errorInfo = error.technicalDetails && error.technicalDetails.errorInfo
 
     if (errorInfo) {
-      errorInfo.forEach(function(item) {
+      errorInfo.forEach(function (item) {
         const row = rowTemplate.content.cloneNode(true)
         row.querySelector('.error-key').textContent = item.key
         row.querySelector('.error-value').textContent = item.value
@@ -57,9 +57,9 @@
     )
 
     if (!response.ok) {
-      let detailedMessage;
+      let detailedMessage
       try {
-        detailedMessage = (await response.json())["error"]
+        detailedMessage = (await response.json())['error']
       } catch {
         detailedMessage = `Failed to get embed token.`
       }
@@ -67,10 +67,12 @@
       showError({
         detailedMessage: detailedMessage,
         technicalDetails: {
-          errorInfo: [{
-            key: 'status',
-            value: response.status,
-          }],
+          errorInfo: [
+            {
+              key: 'status',
+              value: response.status,
+            },
+          ],
         },
       })
 
@@ -137,7 +139,7 @@
       })
     }
 
-    report.on('error', function(event) {
+    report.on('error', function (event) {
       showError(event.detail)
       screenly.signalReadyForRendering()
     })
