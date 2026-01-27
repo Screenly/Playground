@@ -38,6 +38,7 @@
     }
 
     container.appendChild(content)
+    screenly.signalReadyForRendering()
   }
 
   function getEmbedTypeFromUrl(url) {
@@ -151,7 +152,6 @@
 
     report.on('error', function (event) {
       showError(event.detail)
-      screenly.signalReadyForRendering()
     })
 
     if (!screenly.settings.embed_token) {
