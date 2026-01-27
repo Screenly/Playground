@@ -28,7 +28,7 @@
         "@vue/test-utils": "^2.4.6",
         "@vue/tsconfig": "^0.8.1",
         "eslint": "^9.39.2",
-        "eslint-plugin-playwright": "^2.5.0",
+        "eslint-plugin-playwright": "^2.5.1",
         "eslint-plugin-vue": "~10.7.0",
         "jiti": "^2.6.1",
         "jsdom": "^27.4.0",
@@ -42,7 +42,7 @@
         "vite-plugin-static-copy": "^3.1.6",
         "vite-plugin-vue-devtools": "^8.0.5",
         "vitest": "^4.0.18",
-        "vue-tsc": "^3.2.3",
+        "vue-tsc": "^3.2.4",
       },
     },
   },
@@ -609,7 +609,7 @@
 
     "@vue/eslint-config-typescript": ["@vue/eslint-config-typescript@14.6.0", "", { "dependencies": { "@typescript-eslint/utils": "^8.35.1", "fast-glob": "^3.3.3", "typescript-eslint": "^8.35.1", "vue-eslint-parser": "^10.2.0" }, "peerDependencies": { "eslint": "^9.10.0", "eslint-plugin-vue": "^9.28.0 || ^10.0.0", "typescript": ">=4.8.4" }, "optionalPeers": ["typescript"] }, "sha512-UpiRY/7go4Yps4mYCjkvlIbVWmn9YvPGQDxTAlcKLphyaD77LjIu3plH4Y9zNT0GB4f3K5tMmhhtRhPOgrQ/bQ=="],
 
-    "@vue/language-core": ["@vue/language-core@3.2.3", "", { "dependencies": { "@volar/language-core": "2.4.27", "@vue/compiler-dom": "^3.5.0", "@vue/shared": "^3.5.0", "alien-signals": "^3.0.0", "muggle-string": "^0.4.1", "path-browserify": "^1.0.1", "picomatch": "^4.0.2" } }, "sha512-VpN/GnYDzGLh44AI6i1OB/WsLXo6vwnl0EWHBelGc4TyC0yEq6azwNaed/+Tgr8anFlSdWYnMEkyHJDPe7ii7A=="],
+    "@vue/language-core": ["@vue/language-core@3.2.4", "", { "dependencies": { "@volar/language-core": "2.4.27", "@vue/compiler-dom": "^3.5.0", "@vue/shared": "^3.5.0", "alien-signals": "^3.0.0", "muggle-string": "^0.4.1", "path-browserify": "^1.0.1", "picomatch": "^4.0.2" } }, "sha512-bqBGuSG4KZM45KKTXzGtoCl9cWju5jsaBKaJJe3h5hRAAWpZUuj5G+L+eI01sPIkm4H6setKRlw7E85wLdDNew=="],
 
     "@vue/reactivity": ["@vue/reactivity@3.5.27", "", { "dependencies": { "@vue/shared": "3.5.27" } }, "sha512-vvorxn2KXfJ0nBEnj4GYshSgsyMNFnIQah/wczXlsNXt+ijhugmW+PpJ2cNPe4V6jpnBcs0MhCODKllWG+nvoQ=="],
 
@@ -773,7 +773,7 @@
 
     "eslint-config-prettier": ["eslint-config-prettier@10.1.8", "", { "peerDependencies": { "eslint": ">=7.0.0" }, "bin": { "eslint-config-prettier": "bin/cli.js" } }, "sha512-82GZUjRS0p/jganf6q1rEO25VSoHH0hKPCTrgillPjdI/3bgBhAE1QzHrHTizjpRvy6pGAvKjDJtk2pF9NDq8w=="],
 
-    "eslint-plugin-playwright": ["eslint-plugin-playwright@2.5.0", "", { "dependencies": { "globals": "^16.4.0" }, "peerDependencies": { "eslint": ">=8.40.0" } }, "sha512-1ckFw7Abdz+l23wtw5Tg4GTK3Y+MgEQQNjEr7FTJP3wwmIOj8DkbJ6G655aPc09c0Kfn/NoGA4xpMZzeSO4NWw=="],
+    "eslint-plugin-playwright": ["eslint-plugin-playwright@2.5.1", "", { "dependencies": { "globals": "^16.4.0" }, "peerDependencies": { "eslint": ">=8.40.0" } }, "sha512-q7oqVQTTfa3VXJQ8E+ln0QttPGrs/XmSO1FjOMzQYBMYF3btih4FIrhEYh34JF184GYDmq3lJ/n7CMa49OHBvA=="],
 
     "eslint-plugin-prettier": ["eslint-plugin-prettier@5.5.4", "", { "dependencies": { "prettier-linter-helpers": "^1.0.0", "synckit": "^0.11.7" }, "peerDependencies": { "@types/eslint": ">=8.0.0", "eslint": ">=8.0.0", "eslint-config-prettier": ">= 7.0.0 <10.0.0 || >=10.1.0", "prettier": ">=3.0.0" }, "optionalPeers": ["@types/eslint", "eslint-config-prettier"] }, "sha512-swNtI95SToIz05YINMA6Ox5R057IMAmWZ26GqPxusAp1TZzj+IdY9tXNWWD3vkF/wEqydCONcwjTFpxybBqZsg=="],
 
@@ -1279,7 +1279,7 @@
 
     "vue-eslint-parser": ["vue-eslint-parser@10.2.0", "", { "dependencies": { "debug": "^4.4.0", "eslint-scope": "^8.2.0", "eslint-visitor-keys": "^4.2.0", "espree": "^10.3.0", "esquery": "^1.6.0", "semver": "^7.6.3" }, "peerDependencies": { "eslint": "^8.57.0 || ^9.0.0" } }, "sha512-CydUvFOQKD928UzZhTp4pr2vWz1L+H99t7Pkln2QSPdvmURT0MoC4wUccfCnuEaihNsu9aYYyk+bep8rlfkUXw=="],
 
-    "vue-tsc": ["vue-tsc@3.2.3", "", { "dependencies": { "@volar/typescript": "2.4.27", "@vue/language-core": "3.2.3" }, "peerDependencies": { "typescript": ">=5.0.0" }, "bin": { "vue-tsc": "bin/vue-tsc.js" } }, "sha512-1RdRB7rQXGFMdpo0aXf9spVzWEPGAk7PEb/ejHQwVrcuQA/HsGiixIc3uBQeqY2YjeEEgvr2ShQewBgcN4c1Cw=="],
+    "vue-tsc": ["vue-tsc@3.2.4", "", { "dependencies": { "@volar/typescript": "2.4.27", "@vue/language-core": "3.2.4" }, "peerDependencies": { "typescript": ">=5.0.0" }, "bin": { "vue-tsc": "bin/vue-tsc.js" } }, "sha512-xj3YCvSLNDKt1iF9OcImWHhmYcihVu9p4b9s4PGR/qp6yhW+tZJaypGxHScRyOrdnHvaOeF+YkZOdKwbgGvp5g=="],
 
     "w3c-xmlserializer": ["w3c-xmlserializer@5.0.0", "", { "dependencies": { "xml-name-validator": "^5.0.0" } }, "sha512-o8qghlI8NZHU1lLPrpi2+Uq7abh4GGPpYANlalzWxyWteJOCsr/P+oPBA49TOLu5FTZO4d3F9MnWJfiMo4BkmA=="],
 

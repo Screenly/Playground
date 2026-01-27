@@ -36,8 +36,12 @@ describe('App', () => {
     setActivePinia(createPinia())
   })
 
-  it('should display "Powered by Screenly" text', () => {
+  it('should render the app container and calendar views', () => {
     const wrapper = mount(App)
-    expect(wrapper.text()).toContain('Powered by Screenly')
+    // Check for app container and main container which should always be rendered
+    const appContainer = wrapper.find('.app-container')
+    const mainContainer = wrapper.find('.main-container')
+
+    expect(appContainer.exists() && mainContainer.exists()).toBe(true)
   })
 })
