@@ -3,6 +3,34 @@
 ;(function () {
   const DEFAULT_TOKEN_REFRESH_SEC = 30 * 60 // refresh token every 30 minutes
 
+  function showError(error) {
+    const container = document.getElementById('embed-container')
+    container.innerHTML = ''
+
+    const template = document.getElementById('error-template')
+    const content = template.content.cloneNode(true)
+
+    const messageEl = content.querySelector('.error-message')
+    if (error.detailedMessage) {
+      messageEl.textContent = error.detailedMessage
+    }
+
+    const table = content.querySelector('.error-details')
+    const rowTemplate = document.getElementById('error-row-template')
+    const errorInfo = error.technicalDetails && error.technicalDetails.errorInfo
+
+    if (errorInfo) {
+      errorInfo.forEach(function(item) {
+        const row = rowTemplate.content.cloneNode(true)
+        row.querySelector('.error-key').textContent = item.key
+        row.querySelector('.error-value').textContent = item.value
+        table.appendChild(row)
+      })
+    }
+
+    container.appendChild(content)
+  }
+
   function getEmbedTypeFromUrl(url) {
     switch (true) {
       case url.indexOf('/dashboard') !== -1:
@@ -27,6 +55,27 @@
         },
       },
     )
+
+    if (!response.ok) {
+      let detailedMessage;
+      try {
+        detailedMessage = (await response.json())["error"]
+      } catch {
+        detailedMessage = `Failed to get embed token.`
+      }
+
+      showError({
+        detailedMessage: detailedMessage,
+        technicalDetails: {
+          errorInfo: [{
+            key: 'status',
+            value: response.status,
+          }],
+        },
+      })
+
+      throw new Error(detailedMessage)
+    }
 
     const { token } = await response.json()
     return token
@@ -75,6 +124,7 @@
         settings: {
           filterPaneEnabled: false,
           navContentPaneEnabled: false,
+          hideErrors: true,
         },
       },
     )
@@ -86,6 +136,11 @@
         setTimeout(screenly.signalReadyForRendering, 1000)
       })
     }
+
+    report.on('error', function(event) {
+      showError(event.detail)
+      screenly.signalReadyForRendering()
+    })
 
     if (!screenly.settings.embed_token) {
       initTokenRefreshLoop(report)
