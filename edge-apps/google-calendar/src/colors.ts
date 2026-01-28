@@ -54,7 +54,7 @@ export const fetchCalendarColors = async (
 export const getEventBackgroundColor = (
   colorId: string | undefined,
   colors: CalendarColors | null,
-  defaultColor: string = '#e6e7e7',
+  defaultColor: string = '#6ec0f0',
 ): string => {
   if (!colorId || !colors || !colors.event || !colors.event[colorId]) {
     return defaultColor
