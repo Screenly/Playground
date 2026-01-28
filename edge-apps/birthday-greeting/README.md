@@ -40,12 +40,12 @@ The `image` setting accepts Base64-encoded images in the following formats:
 
 1. **Full data URI** (recommended):
 
-   ```
+   ```text
    data:image/jpeg;base64,/9j/4AAQSkZJRg...
    ```
 
 2. **Pure Base64 string** (will be automatically formatted):
-   ```
+   ```text
    /9j/4AAQSkZJRg...
    ```
 
