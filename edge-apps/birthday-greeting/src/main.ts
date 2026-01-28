@@ -16,8 +16,9 @@ function isValidBase64Image(str: string): boolean {
     return true
   }
 
-  const pureBase64Pattern = /^[A-Za-z0-9+/]+=*$/
-  return pureBase64Pattern.test(str.replace(/\s/g, ''))
+  const pureBase64Pattern = /^[A-Za-z0-9+/=\s]*$/
+  const cleaned = str.replace(/\s/g, '')
+  return pureBase64Pattern.test(str) && cleaned.length > 0
 }
 
 function formatBase64Image(str: string): string {
