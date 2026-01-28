@@ -27,35 +27,35 @@ function startApp(): void {
   const placeholderElement =
     document.querySelector<HTMLDivElement>('#photo-placeholder')
 
-  if (photoElement && placeholderElement) {
-    if (isValidBase64Image(image)) {
-      // Attach event handlers BEFORE setting src to avoid race condition
-      photoElement.onload = () => {
-        signalReady()
-      }
+  // Early return if elements are missing
+  if (!photoElement || !placeholderElement) {
+    throw new Error('Missing photo or placeholder element')
+  }
 
-      photoElement.onerror = () => {
-        photoElement.classList.add('hidden')
-        placeholderElement.classList.remove('hidden')
-        signalReady()
-      }
+  // Early return if image is invalid - show placeholder
+  if (!isValidBase64Image(image)) {
+    throw new Error('Invalid image data')
+  }
 
-      // Set src after handlers are attached
-      photoElement.src = formatBase64Image(image)
-      photoElement.classList.remove('hidden')
-      placeholderElement.classList.add('hidden')
+  // Valid image - set up loading
+  const imageSrc = formatBase64Image(image)
+  photoElement.src = imageSrc
+  photoElement.classList.remove('hidden')
+  placeholderElement.classList.add('hidden')
 
-      // Check if image already loaded (e.g., from cache)
-      if (photoElement.complete) {
-        signalReady()
-      }
-    } else {
-      placeholderElement.classList.remove('hidden')
-      photoElement.classList.add('hidden')
-      signalReady()
-    }
-  } else {
+  // Check if image loaded synchronously (e.g., from cache or data URI)
+  if (photoElement.complete) {
     signalReady()
+    return
+  }
+
+  // Image loading asynchronously - attach handlers
+  photoElement.onload = () => {
+    signalReady()
+  }
+
+  photoElement.onerror = () => {
+    throw new Error('Failed to load image')
   }
 }
 
