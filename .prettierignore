@@ -9,3 +9,4 @@ edge-apps/powerbi/**
 edge-apps/qr-code/
 edge-apps/menu-board/
 .github/workflows/
+.claude/
