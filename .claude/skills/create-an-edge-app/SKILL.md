@@ -10,7 +10,7 @@ description: The recommended way to create an Edge App
 - Create a new directory for a new Edge App inside the `edge-apps/` directory.
   - The directory name should follow the `kebab-case` naming convention.
 - **Consult Figma designs** before starting implementation.
-  - Ensure the Figma MCP server (https://mcp.figma.com/mcp) is set up in Claude Code.
+  - Ensure the [Figma MCP server](https://mcp.figma.com/mcp) is set up in Claude Code.
   - Use the Figma MCP server to access design specifications, mockups, and UI requirements.
   - Extract design tokens such as colors, spacing, typography, and component specifications from Figma.
   - Ensure the implementation matches the approved designs in Figma before proceeding with development.
