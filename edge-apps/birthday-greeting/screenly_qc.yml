@@ -1,0 +1,39 @@
+---
+syntax: manifest_v1
+description: A birthday greeting app that displays a personalized message with the person's name, role, and optional photo.
+icon: https://playground.srly.io/edge-apps/birthday-greeting/static/img/icon.svg
+author: Screenly, Inc.
+ready_signal: true
+settings:
+  display_errors:
+    type: string
+    default_value: 'false'
+    title: Display Errors
+    optional: true
+    help_text:
+      properties:
+        advanced: true
+        help_text: For debugging purposes to display errors on the screen.
+        type: boolean
+      schema_version: 1
+  image:
+    type: string
+    default_value: ''
+    title: Image
+    optional: true
+    help_text: |
+      A base64-encoded image of the person. If not provided, a placeholder will be displayed.
+  name:
+    type: string
+    default_value: ''
+    title: Name
+    optional: false
+    help_text: |
+      The name of the person having a birthday (e.g., "Amy Smith").
+  role:
+    type: string
+    default_value: ''
+    title: Role
+    optional: false
+    help_text: |
+      The role or position of the person (e.g., "Sales Manager").

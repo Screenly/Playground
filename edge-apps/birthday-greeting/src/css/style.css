@@ -1,0 +1,129 @@
+@import 'tailwindcss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: clamp(10px, 0.729vw, 14px);
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: var(--theme-color-primary);
+}
+
+:root {
+  --theme-color-primary: #7c3aed;
+  --theme-color-secondary: #a78bfa;
+  --theme-color-tertiary: #ffffff;
+  --theme-color-background: #7c3aed;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding: clamp(3.5rem, 6.5vw, 9rem);
+  overflow: hidden;
+  background-color: var(--theme-color-primary, #7c3aed);
+}
+
+.logo {
+  width: clamp(14rem, 16vw, 24rem);
+  height: auto;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(2rem, 5vw, 8rem);
+  z-index: 10;
+}
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(1.5rem, 3vw, 4rem);
+}
+
+.greeting-title {
+  font-size: clamp(3rem, 6vw, 8rem);
+  line-height: 1.1;
+  color: var(--theme-color-tertiary, #ffffff);
+}
+
+.greeting-message {
+  font-size: clamp(2rem, 3.25vw, 3.75rem);
+  color: var(--theme-color-tertiary, #ffffff);
+  opacity: 0.9;
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: clamp(1rem, 2vw, 2rem);
+}
+
+.photo-frame {
+  width: clamp(14rem, 22vw, 30rem);
+  height: 100%;
+}
+
+.photo-container {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.photo-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(100, 100, 100, 0.3);
+}
+
+.person-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.role-badge {
+  color: var(--theme-color-tertiary, #ffffff);
+}
+
+.role-label {
+  font-size: clamp(2.25rem, 2.75vw, 2.75rem);
+  opacity: 0.9;
+}
+
+.role-title {
+  font-size: clamp(1.75rem, 2.75vw, 3.25rem);
+  margin-top: -0.75rem;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media screen and (min-width: 3840px) {
+  html {
+    font-size: clamp(14px, 0.729vw, 28px);
+  }
+}
