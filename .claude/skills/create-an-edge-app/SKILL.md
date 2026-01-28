@@ -9,6 +9,11 @@ description: The recommended way to create an Edge App
 
 - Create a new directory for a new Edge App inside the `edge-apps/` directory.
   - The directory name should follow the `kebab-case` naming convention.
+- **Consult Figma designs** before starting implementation.
+  - Ensure the Figma MCP server (https://mcp.figma.com/mcp) is set up in Claude Code.
+  - Use the Figma MCP server to access design specifications, mockups, and UI requirements.
+  - Extract design tokens such as colors, spacing, typography, and component specifications from Figma.
+  - Ensure the implementation matches the approved designs in Figma before proceeding with development.
 
 ## Directory Structure
 
@@ -19,7 +24,7 @@ The new Edge App directory structure should closely resemble that of the followi
 - Grafana (`edge-apps/grafana/`)
 - CAP Alerting (`edge-apps/cap-alerting/`)
 
-The aforementioned Edge Apps heavily rely on the Edge Apps library, which lives inside the `edge-apps/edge-apps-library/` directory.
+These Edge Apps heavily rely on the Edge Apps library, which lives inside the `edge-apps/edge-apps-library/` directory.
 
 - Most of the scripts inside the `package.json` of each of these apps execute the `edge-apps-scripts` command.
 - All of these apps depend on the `@screenly/edge-apps` library, which maps to `workspace:../edge-apps-library`.
