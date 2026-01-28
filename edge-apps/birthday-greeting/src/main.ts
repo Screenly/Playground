@@ -5,28 +5,7 @@ import {
   setupErrorHandling,
   signalReady,
 } from '@screenly/edge-apps'
-
-function isValidBase64Image(str: string): boolean {
-  if (!str || str.trim() === '') {
-    return false
-  }
-
-  const base64Pattern = /^data:image\/(png|jpeg|jpg|gif|webp|svg\+xml);base64,/
-  if (base64Pattern.test(str)) {
-    return true
-  }
-
-  const pureBase64Pattern = /^[A-Za-z0-9+/=\s]*$/
-  const cleaned = str.replace(/\s/g, '')
-  return pureBase64Pattern.test(str) && cleaned.length > 0
-}
-
-function formatBase64Image(str: string): string {
-  if (str.startsWith('data:image/')) {
-    return str
-  }
-  return `data:image/jpeg;base64,${str}`
-}
+import { isValidBase64Image, formatBase64Image } from './image'
 
 function startApp(): void {
   const name = getSettingWithDefault<string>('name', '')
