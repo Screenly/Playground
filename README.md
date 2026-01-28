@@ -12,11 +12,13 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [Asset Metadata](https://github.com/Screenly/Playground/tree/master/edge-apps/asset-metadata) - An example implementation of Screenly's metadata.
 - [BambooHR App](https://github.com/Screenly/Playground/tree/master/edge-apps/bamboo-hr-app) - Displays employee birthdays, work anniversaries and other HR events from BambooHR.
 - [Calendar App](https://github.com/Screenly/Playground/tree/master/edge-apps/calendar) - A simple calendar app that shows events from iCal data.
+- [CAP Alerting](https://github.com/Screenly/Playground/tree/master/edge-apps/cap-alerting) - Display Common Alerting Protocol (CAP) emergency alerts on Screenly digital signage screens.
 - [Clock App](https://github.com/Screenly/Playground/tree/master/edge-apps/clock) - A simple clock app.
 - [Countdown Timer](https://github.com/Screenly/Playground/tree/master/edge-apps/countdown-timer) - A simple countdown timer app.
 - [CharlieHR App](https://github.com/Screenly/Playground/tree/master/edge-apps/charlie-hr-app) - Displays employee birthdays, work anniversaries and other HR events from CharlieHR.
 - [Fake Dashboard](https://github.com/Screenly/Playground/tree/master/edge-apps/fake-dashboard) - A simple fake dashboard screen to display simulated website analytics, including live visitor count, traffic sources, and device usage.
 - [Flying Toasters App](https://github.com/Screenly/Playground/tree/master/edge-apps/flying-toasters) - A simple toaster app that flies around the screen.
+- [Grafana Dashboard](https://github.com/Screenly/Playground/tree/master/edge-apps/grafana) - Displays Grafana dashboards as images on Screenly screens with automatic refresh intervals.
 - [iFrame App](https://github.com/Screenly/Playground/tree/master/edge-apps/iframe) - A simple iFrame app.
 - [Menu Board App](https://github.com/Screenly/Playground/tree/master/edge-apps/menu-board) - A dynamic and responsive menu board for digital signage displays.
 - [Power BI](https://github.com/Screenly/Playground/tree/master/edge-apps/powerbi) - A Power BI Edge App for securely accessing dashboards and reports.
