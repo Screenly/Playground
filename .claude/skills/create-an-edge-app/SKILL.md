@@ -26,7 +26,9 @@ The aforementioned Edge Apps heavily rely on the Edge Apps library, which lives 
 - `edge-apps/[new-edge-app]/src/main.ts` is a required file.
   - Running `bun run build` inside `edge-apps/[new-edge-app]` will run `edge-apps-scripts build`, which is very opinionated.
 
-Refer to `edge-apps/qr-code/` as a complete working template to understand the full directory structure and configuration. While it still uses the `@screenly/edge-apps` library, it features a simpler implementation with a lower code footprint compared to the other aforementioned Edge Apps, making it an excellent starting point for new projects. The library abstracts much of the complexity, allowing developers to focus on core functionality with minimal boilerplate.
+Refer to `edge-apps/qr-code/` as a complete working template to understand the full directory structure and configuration.
+While it still uses the `@screenly/edge-apps` library, it features a simpler implementation with a lower code footprint compared to the other aforementioned Edge Apps, making it an excellent starting point for new projects.
+The library abstracts much of the complexity, allowing developers to focus on core functionality with minimal boilerplate.
 
 ### About the Manifest Files
 
