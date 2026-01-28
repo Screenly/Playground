@@ -49,10 +49,7 @@ function startApp(): void {
 
   if (photoElement && placeholderElement) {
     if (isValidBase64Image(image)) {
-      photoElement.src = formatBase64Image(image)
-      photoElement.classList.remove('hidden')
-      placeholderElement.classList.add('hidden')
-
+      // Attach event handlers BEFORE setting src to avoid race condition
       photoElement.onload = () => {
         signalReady()
       }
@@ -60,6 +57,16 @@ function startApp(): void {
       photoElement.onerror = () => {
         photoElement.classList.add('hidden')
         placeholderElement.classList.remove('hidden')
+        signalReady()
+      }
+
+      // Set src after handlers are attached
+      photoElement.src = formatBase64Image(image)
+      photoElement.classList.remove('hidden')
+      placeholderElement.classList.add('hidden')
+
+      // Check if image already loaded (e.g., from cache)
+      if (photoElement.complete) {
         signalReady()
       }
     } else {
