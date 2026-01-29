@@ -215,7 +215,7 @@ describe('theme utilities', () => {
       )
 
       const result = await fetchLogoImage('https://example.com/logo.svg')
-      expect(result).toStartWith('data:image/svg+xml;base64,')
+      expect(result.startsWith('data:image/svg+xml;base64,')).toBe(true)
       // Verify the base64 content can be decoded back to the original
       const base64Part = result.split(',')[1]
       const decoded = atob(base64Part)
