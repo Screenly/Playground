@@ -176,14 +176,6 @@ jobs:
         working-directory: edge-apps/${{ matrix.app }}
         run: bun run test:coverage
 
-      - name: Report coverage to summary
-        if: steps.check-coverage.outputs.has-coverage == 'true'
-        uses: romeovs/lcov-reporter-action@v0.3.1
-        with:
-          lcov-file: edge-apps/${{ matrix.app }}/coverage/lcov.info
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          title: Coverage Report - ${{ matrix.app }}
-
       - name: Build application
         working-directory: edge-apps/${{ matrix.app }}
         run: bun run build
