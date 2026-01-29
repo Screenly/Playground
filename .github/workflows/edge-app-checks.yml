@@ -157,54 +157,54 @@ jobs:
         working-directory: edge-apps/${{ matrix.app }}
         run: bun run format:check
 
-      - name: Run unit tests
+      - name: Clean coverage directory
         working-directory: edge-apps/${{ matrix.app }}
-        run: bun run test:unit
+        run: rm -rf coverage
+
+      - name: Run unit tests
+        id: run-tests
+        working-directory: edge-apps/${{ matrix.app }}
+        run: bun run test:unit 2>&1 | tee test-output.txt
 
       - name: Generate coverage summary
-        if: always()
+        if: success()
         working-directory: edge-apps/${{ matrix.app }}
         run: |
-          if [ -f "coverage/lcov.info" ]; then
+          if [ -f "test-output.txt" ]; then
             echo "## Code Coverage Report for ${{ matrix.app }}" >> "$GITHUB_STEP_SUMMARY"
             echo "" >> "$GITHUB_STEP_SUMMARY"
             echo "| File | % Funcs | % Lines |" >> "$GITHUB_STEP_SUMMARY"
             echo "|------|---------|---------|" >> "$GITHUB_STEP_SUMMARY"
 
-            # Parse lcov.info and generate per-file summary
-            awk 'BEGIN {
-              total_lines = 0
-              covered_lines = 0
-              total_funcs = 0
-              covered_funcs = 0
+            # Parse bun test output for coverage table
+            awk '
+            BEGIN { in_table = 0 }
+            /^-+\|/ {
+              in_table = 1
+              next
             }
-            /^SF:/ {
-              if (length(current_file) > 0) {
-                file_line_pct = (file_lf > 0) ? (file_lh / file_lf * 100) : 0
-                file_func_pct = (file_fnf > 0) ? (file_fnh / file_fnf * 100) : 0
-                printf "| %s | %.2f%% | %.2f%% |\n", current_file, file_func_pct, file_line_pct
-              }
-              current_file = substr($0, 4)
-              file_lf = 0; file_lh = 0; file_fnf = 0; file_fnh = 0
+            in_table && /^All files/ {
+              split($0, parts, "|")
+              gsub(/^[[:space:]]+|[[:space:]]+$/, "", parts[2])
+              gsub(/^[[:space:]]+|[[:space:]]+$/, "", parts[3])
+              printf "| **All files** | **%s%%** | **%s%%** |\n", parts[2], parts[3]
+              next
             }
-            /^LF:/ { file_lf = $2; total_lines += $2 }
-            /^LH:/ { file_lh = $2; covered_lines += $2 }
-            /^FNF:/ { file_fnf = $2; total_funcs += $2 }
-            /^FNH:/ { file_fnh = $2; covered_funcs += $2 }
-            END {
-              if (length(current_file) > 0) {
-                file_line_pct = (file_lf > 0) ? (file_lh / file_lf * 100) : 0
-                file_func_pct = (file_fnf > 0) ? (file_fnh / file_fnf * 100) : 0
-                printf "| %s | %.2f%% | %.2f%% |\n", current_file, file_func_pct, file_line_pct
-              }
-              total_line_pct = (total_lines > 0) ? (covered_lines / total_lines * 100) : 0
-              total_func_pct = (total_funcs > 0) ? (covered_funcs / total_funcs * 100) : 0
-              printf "| **All files** | **%.2f%%** | **%.2f%%** |\n", total_func_pct, total_line_pct
-            }' FS=: coverage/lcov.info >> "$GITHUB_STEP_SUMMARY"
+            in_table && /^ src\// {
+              split($0, parts, "|")
+              gsub(/^[[:space:]]+|[[:space:]]+$/, "", parts[1])
+              gsub(/^[[:space:]]+|[[:space:]]+$/, "", parts[2])
+              gsub(/^[[:space:]]+|[[:space:]]+$/, "", parts[3])
+              printf "| %s | %s%% | %s%% |\n", parts[1], parts[2], parts[3]
+            }
+            /^-+\|.*-+$/ && in_table {
+              in_table = 0
+            }
+            ' test-output.txt >> "$GITHUB_STEP_SUMMARY"
 
             echo "" >> "$GITHUB_STEP_SUMMARY"
           else
-            echo "No coverage data found for ${{ matrix.app }}" >> "$GITHUB_STEP_SUMMARY"
+            echo "No test output found for ${{ matrix.app }}" >> "$GITHUB_STEP_SUMMARY"
           fi
 
       - name: Build application
