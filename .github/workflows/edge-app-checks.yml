@@ -161,21 +161,6 @@ jobs:
         working-directory: edge-apps/${{ matrix.app }}
         run: bun run test:unit
 
-      - name: Check for coverage script
-        id: check-coverage
-        working-directory: edge-apps/${{ matrix.app }}
-        run: |
-          if grep -q '"test:coverage"' package.json; then
-            echo "has-coverage=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "has-coverage=false" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Run coverage tests
-        if: steps.check-coverage.outputs.has-coverage == 'true'
-        working-directory: edge-apps/${{ matrix.app }}
-        run: bun run test:coverage
-
       - name: Build application
         working-directory: edge-apps/${{ matrix.app }}
         run: bun run build
