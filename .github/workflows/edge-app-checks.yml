@@ -161,6 +161,42 @@ jobs:
         working-directory: edge-apps/${{ matrix.app }}
         run: bun run test:unit
 
+      - name: Generate coverage summary
+        if: always()
+        working-directory: edge-apps/${{ matrix.app }}
+        run: |
+          if [ -f "coverage/lcov.info" ]; then
+            echo "## Code Coverage Report for ${{ matrix.app }}" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+
+            # Parse lcov.info and generate summary
+            awk '
+            BEGIN {
+              total_lines = 0
+              covered_lines = 0
+              total_funcs = 0
+              covered_funcs = 0
+            }
+            /^LF:/ { total_lines += $2 }
+            /^LH:/ { covered_lines += $2 }
+            /^FNF:/ { total_funcs += $2 }
+            /^FNH:/ { covered_funcs += $2 }
+            END {
+              line_pct = (total_lines > 0) ? (covered_lines / total_lines * 100) : 0
+              func_pct = (total_funcs > 0) ? (covered_funcs / total_funcs * 100) : 0
+
+              printf "| Metric | Coverage | Covered | Total |\n"
+              printf "|--------|----------|---------|-------|\n"
+              printf "| Lines  | %.2f%% | %d | %d |\n", line_pct, covered_lines, total_lines
+              printf "| Functions | %.2f%% | %d | %d |\n", func_pct, covered_funcs, total_funcs
+            }
+            ' FS=: coverage/lcov.info >> "$GITHUB_STEP_SUMMARY"
+
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No coverage data found for ${{ matrix.app }}" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - name: Build application
         working-directory: edge-apps/${{ matrix.app }}
         run: bun run build

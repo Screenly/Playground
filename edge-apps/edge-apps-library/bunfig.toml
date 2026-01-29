@@ -2,4 +2,5 @@
 preload = ["./src/test/setup.ts"]
 coverage = true
 coverageThreshold = 0.9
+coverageReporter = ["text", "lcov"]
 
