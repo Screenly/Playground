@@ -39,10 +39,7 @@ function getCSSProperty(name: string): string {
 function setupMockWithLogo(theme: 'light' | 'dark', logoUrl: string) {
   const logoKey =
     theme === 'light' ? 'screenly_logo_light' : 'screenly_logo_dark'
-  setupScreenlyMock(
-    { cors_proxy_url: PROXY_URL },
-    { theme, [logoKey]: logoUrl },
-  )
+  setupScreenlyMock({}, { theme, [logoKey]: logoUrl }, PROXY_URL)
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -317,7 +314,7 @@ describe('theme utilities', () => {
     }
 
     test('should setup complete branding with colors and logo', async () => {
-      setupScreenlyMock({ cors_proxy_url: PROXY_URL }, brandingSettings)
+      setupScreenlyMock({}, brandingSettings, PROXY_URL)
       global.fetch = createMockFetch(true, PNG_MAGIC_BYTES)
 
       const branding = await setupBranding()
@@ -328,7 +325,7 @@ describe('theme utilities', () => {
     })
 
     test('should setup branding without logo when fetch fails', async () => {
-      setupScreenlyMock({ cors_proxy_url: PROXY_URL }, brandingSettings)
+      setupScreenlyMock({}, brandingSettings, PROXY_URL)
       global.fetch = createMockFetch(false, undefined, 404)
 
       const branding = await setupBranding()
