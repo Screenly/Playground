@@ -168,29 +168,39 @@ jobs:
           if [ -f "coverage/lcov.info" ]; then
             echo "## Code Coverage Report for ${{ matrix.app }}" >> "$GITHUB_STEP_SUMMARY"
             echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "| File | % Funcs | % Lines |" >> "$GITHUB_STEP_SUMMARY"
+            echo "|------|---------|---------|" >> "$GITHUB_STEP_SUMMARY"
 
-            # Parse lcov.info and generate summary
-            awk '
-            BEGIN {
+            # Parse lcov.info and generate per-file summary
+            awk 'BEGIN {
               total_lines = 0
               covered_lines = 0
               total_funcs = 0
               covered_funcs = 0
             }
-            /^LF:/ { total_lines += $2 }
-            /^LH:/ { covered_lines += $2 }
-            /^FNF:/ { total_funcs += $2 }
-            /^FNH:/ { covered_funcs += $2 }
-            END {
-              line_pct = (total_lines > 0) ? (covered_lines / total_lines * 100) : 0
-              func_pct = (total_funcs > 0) ? (covered_funcs / total_funcs * 100) : 0
-
-              printf "| Metric | Coverage | Covered | Total |\n"
-              printf "|--------|----------|---------|-------|\n"
-              printf "| Lines  | %.2f%% | %d | %d |\n", line_pct, covered_lines, total_lines
-              printf "| Functions | %.2f%% | %d | %d |\n", func_pct, covered_funcs, total_funcs
+            /^SF:/ {
+              if (length(current_file) > 0) {
+                file_line_pct = (file_lf > 0) ? (file_lh / file_lf * 100) : 0
+                file_func_pct = (file_fnf > 0) ? (file_fnh / file_fnf * 100) : 0
+                printf "| %s | %.2f%% | %.2f%% |\n", current_file, file_func_pct, file_line_pct
+              }
+              current_file = substr($0, 4)
+              file_lf = 0; file_lh = 0; file_fnf = 0; file_fnh = 0
             }
-            ' FS=: coverage/lcov.info >> "$GITHUB_STEP_SUMMARY"
+            /^LF:/ { file_lf = $2; total_lines += $2 }
+            /^LH:/ { file_lh = $2; covered_lines += $2 }
+            /^FNF:/ { file_fnf = $2; total_funcs += $2 }
+            /^FNH:/ { file_fnh = $2; covered_funcs += $2 }
+            END {
+              if (length(current_file) > 0) {
+                file_line_pct = (file_lf > 0) ? (file_lh / file_lf * 100) : 0
+                file_func_pct = (file_fnf > 0) ? (file_fnh / file_fnf * 100) : 0
+                printf "| %s | %.2f%% | %.2f%% |\n", current_file, file_func_pct, file_line_pct
+              }
+              total_line_pct = (total_lines > 0) ? (covered_lines / total_lines * 100) : 0
+              total_func_pct = (total_funcs > 0) ? (covered_funcs / total_funcs * 100) : 0
+              printf "| **All files** | **%.2f%%** | **%.2f%%** |\n", total_func_pct, total_line_pct
+            }' FS=: coverage/lcov.info >> "$GITHUB_STEP_SUMMARY"
 
             echo "" >> "$GITHUB_STEP_SUMMARY"
           else
