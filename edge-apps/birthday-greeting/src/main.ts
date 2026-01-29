@@ -6,11 +6,18 @@ import {
   signalReady,
 } from '@screenly/edge-apps'
 import { isValidBase64Image, formatBase64Image } from './image'
+import { screenlyLogoSvg } from './default-logo'
 
 function startApp(): void {
   const name = getSettingWithDefault<string>('name', '')
   const role = getSettingWithDefault<string>('role', '')
   const image = getSettingWithDefault<string>('image', '')
+
+  // Insert Screenly logo
+  const logoContainer = document.querySelector<HTMLDivElement>('#screenly-logo')
+  if (logoContainer) {
+    logoContainer.innerHTML = screenlyLogoSvg
+  }
 
   const nameElement = document.querySelector<HTMLSpanElement>('#person-name')
   if (nameElement) {
