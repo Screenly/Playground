@@ -246,7 +246,7 @@ describe('theme utilities', () => {
       global.fetch = createMockFetch(false, undefined, 404)
       await expect(
         fetchLogoImage('https://example.com/not-found.png'),
-      ).rejects.toThrow('Failed to fetch image')
+      ).rejects.toThrow(/Failed to fetch image/)
     })
 
     test('should throw error for unknown image type', async () => {
