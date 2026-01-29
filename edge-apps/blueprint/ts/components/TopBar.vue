@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// TODO: Remove this temporary comment after testing.
 import { computed, ref, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps<{
