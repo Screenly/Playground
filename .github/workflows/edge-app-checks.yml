@@ -174,7 +174,7 @@ jobs:
             echo "## Code Coverage Report for ${{ matrix.app }}" >> "$GITHUB_STEP_SUMMARY"
             echo "" >> "$GITHUB_STEP_SUMMARY"
             echo "| File | % Funcs | % Lines |" >> "$GITHUB_STEP_SUMMARY"
-            echo "|------|---------|---------|" >> "$GITHUB_STEP_SUMMARY"
+            echo "|:-----|--------:|--------:|" >> "$GITHUB_STEP_SUMMARY"
 
             # Parse bun test output for coverage table
             awk '
