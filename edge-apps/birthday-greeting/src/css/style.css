@@ -7,7 +7,7 @@
 }
 
 html {
-  font-size: clamp(10px, 0.729vw, 14px);
+  font-size: clamp(0.625rem, 0.729vw, 0.875rem);
 }
 
 body {
@@ -79,8 +79,8 @@ body {
 }
 
 .photo-frame {
-  width: clamp(14rem, 22vw, 30rem);
-  height: 100%;
+  width: clamp(22rem, 30vw, 38rem);
+  aspect-ratio: 13 / 15;
 }
 
 .photo-container {
@@ -122,8 +122,20 @@ body {
   display: none !important;
 }
 
+@media screen and (min-width: 1921px) and (max-width: 2560px) {
+  html {
+    font-size: clamp(0.8125rem, 0.729vw, 1.125rem);
+  }
+}
+
+@media screen and (min-width: 2561px) and (max-width: 3839px) {
+  html {
+    font-size: clamp(0.8125rem, 0.729vw, 1.5rem);
+  }
+}
+
 @media screen and (min-width: 3840px) {
   html {
-    font-size: clamp(14px, 0.729vw, 28px);
+    font-size: clamp(0.875rem, 0.729vw, 1.75rem);
   }
 }
