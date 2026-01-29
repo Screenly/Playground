@@ -161,6 +161,29 @@ jobs:
         working-directory: edge-apps/${{ matrix.app }}
         run: bun run test:unit
 
+      - name: Check for coverage script
+        id: check-coverage
+        working-directory: edge-apps/${{ matrix.app }}
+        run: |
+          if grep -q '"test:coverage"' package.json; then
+            echo "has-coverage=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has-coverage=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run coverage tests
+        if: steps.check-coverage.outputs.has-coverage == 'true'
+        working-directory: edge-apps/${{ matrix.app }}
+        run: bun run test:coverage
+
+      - name: Report coverage to summary
+        if: steps.check-coverage.outputs.has-coverage == 'true'
+        uses: romeovs/lcov-reporter-action@v0.3.1
+        with:
+          lcov-file: edge-apps/${{ matrix.app }}/coverage/lcov.info
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          title: Coverage Report - ${{ matrix.app }}
+
       - name: Build application
         working-directory: edge-apps/${{ matrix.app }}
         run: bun run build

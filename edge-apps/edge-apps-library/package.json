@@ -39,7 +39,7 @@
     "build:types": "tsc",
     "test": "bun test --parallel",
     "test:unit": "bun test --parallel",
-    "test:coverage": "bun test --coverage --parallel",
+    "test:coverage": "bun test --parallel --coverage --coverage-reporter=lcov",
     "lint": "eslint . --fix",
     "format": "prettier --write src/ scripts/ README.md index.html",
     "format:check": "prettier --check src/ scripts/ README.md index.html",
