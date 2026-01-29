@@ -53,29 +53,20 @@ describe('theme utilities', () => {
   })
 
   describe('getPrimaryColor', () => {
-    const testCases = [
-      {
-        input: undefined,
-        expected: DEFAULT_THEME_COLORS.primary,
-        desc: 'no accent color provided',
-      },
-      {
-        input: '#ffffff',
-        expected: DEFAULT_THEME_COLORS.primary,
-        desc: 'accent color is white',
-      },
-      {
-        input: '#FFFFFF',
-        expected: DEFAULT_THEME_COLORS.primary,
-        desc: 'accent color is white (uppercase)',
-      },
-      { input: '#FF0000', expected: '#FF0000', desc: 'provided accent color' },
-    ]
+    test('should return default color when no accent color provided', () => {
+      expect(getPrimaryColor(undefined)).toBe(DEFAULT_THEME_COLORS.primary)
+    })
 
-    testCases.forEach(({ input, expected, desc }) => {
-      test(`should return ${desc === 'provided accent color' ? 'provided' : 'default'} color when ${desc}`, () => {
-        expect(getPrimaryColor(input)).toBe(expected)
-      })
+    test('should return default color when accent color is white', () => {
+      expect(getPrimaryColor('#ffffff')).toBe(DEFAULT_THEME_COLORS.primary)
+    })
+
+    test('should return default color when accent color is white (uppercase)', () => {
+      expect(getPrimaryColor('#FFFFFF')).toBe(DEFAULT_THEME_COLORS.primary)
+    })
+
+    test('should return provided accent color', () => {
+      expect(getPrimaryColor('#FF0000')).toBe('#FF0000')
     })
   })
 
