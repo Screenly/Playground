@@ -71,48 +71,30 @@ describe('theme utilities', () => {
   })
 
   describe('getSecondaryColor', () => {
-    const testCases = [
-      {
-        theme: undefined,
-        light: undefined,
-        dark: undefined,
-        expected: DEFAULT_THEME_COLORS.secondary,
-        desc: 'theme is undefined',
-      },
-      {
-        theme: 'light' as const,
-        light: '#123456',
-        dark: undefined,
-        expected: '#123456',
-        desc: 'theme is light',
-      },
-      {
-        theme: 'dark' as const,
-        light: undefined,
-        dark: '#654321',
-        expected: '#654321',
-        desc: 'theme is dark',
-      },
-      {
-        theme: 'light' as const,
-        light: '#ffffff',
-        dark: undefined,
-        expected: DEFAULT_SECONDARY,
-        desc: 'light color is white',
-      },
-      {
-        theme: 'dark' as const,
-        light: undefined,
-        dark: '#FFFFFF',
-        expected: DEFAULT_SECONDARY,
-        desc: 'dark color is white',
-      },
-    ]
+    test('should return default secondary when theme is undefined', () => {
+      expect(getSecondaryColor(undefined, undefined, undefined)).toBe(
+        DEFAULT_THEME_COLORS.secondary,
+      )
+    })
 
-    testCases.forEach(({ theme, light, dark, expected, desc }) => {
-      test(`should return ${desc.includes('white') ? 'default' : light || dark || 'default secondary'} when ${desc}`, () => {
-        expect(getSecondaryColor(theme, light, dark)).toBe(expected)
-      })
+    test('should return light color when theme is light', () => {
+      expect(getSecondaryColor('light', '#123456', undefined)).toBe('#123456')
+    })
+
+    test('should return dark color when theme is dark', () => {
+      expect(getSecondaryColor('dark', undefined, '#654321')).toBe('#654321')
+    })
+
+    test('should return default secondary when light color is white', () => {
+      expect(getSecondaryColor('light', '#ffffff', undefined)).toBe(
+        DEFAULT_SECONDARY,
+      )
+    })
+
+    test('should return default secondary when dark color is white', () => {
+      expect(getSecondaryColor('dark', undefined, '#FFFFFF')).toBe(
+        DEFAULT_SECONDARY,
+      )
     })
   })
 
