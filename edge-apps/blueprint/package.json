@@ -8,7 +8,7 @@
   "prettier": "./.prettierrc.json",
   "dependencies": {
     "@photostructure/tz-lookup": "^11.4.0",
-    "@sentry/vue": "^10.37.0",
+    "@sentry/vue": "^10.38.0",
     "@typescript-eslint/typescript-estree": "^8.54.0",
     "country-locale-map": "^1.9.12",
     "dayjs": "^1.11.19",
