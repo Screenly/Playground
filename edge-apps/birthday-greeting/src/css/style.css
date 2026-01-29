@@ -80,7 +80,6 @@ body {
 
 .photo-frame {
   width: clamp(22rem, 30vw, 38rem);
-  aspect-ratio: 13 / 15;
 }
 
 .photo-container {
@@ -122,20 +121,76 @@ body {
   display: none !important;
 }
 
-@media screen and (min-width: 1921px) and (max-width: 2560px) {
+@media screen and (min-width: 1921px) and (max-width: 2560px) and (orientation: landscape) {
   html {
     font-size: clamp(0.8125rem, 0.729vw, 1.125rem);
   }
 }
 
-@media screen and (min-width: 2561px) and (max-width: 3839px) {
+@media screen and (min-width: 2561px) and (max-width: 3839px) and (orientation: landscape) {
   html {
     font-size: clamp(0.8125rem, 0.729vw, 1.5rem);
   }
 }
 
-@media screen and (min-width: 3840px) {
+@media screen and (min-width: 3840px) and (orientation: landscape) {
   html {
     font-size: clamp(0.875rem, 0.729vw, 1.75rem);
+  }
+}
+
+@media screen and (orientation: landscape) {
+  .photo-frame {
+    aspect-ratio: 13 / 15;
+  }
+}
+
+@media screen and (orientation: portrait) {
+  .container {
+    padding: clamp(8rem, 12vh, 16rem);
+  }
+
+  .main-content {
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(2rem, 3vh, 4rem);
+  }
+
+  .left-column {
+    width: 100%;
+    height: auto;
+    gap: clamp(1rem, 2vh, 2rem);
+  }
+
+  .logo {
+    width: clamp(21rem, 24vw, 36rem);
+  }
+
+  .greeting-message {
+    font-size: clamp(2.6rem, 4.225vw, 4.875rem);
+  }
+
+  .right-column {
+    width: 100%;
+    height: auto;
+    align-items: flex-start;
+    padding-top: clamp(4rem, 6vh, 6rem);
+  }
+
+  .photo-frame {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+
+  .role-badge {
+    text-align: left;
+  }
+
+  .role-label {
+    font-size: clamp(2.4rem, 3.9vw, 4.5rem);
+  }
+
+  .role-title {
+    font-size: clamp(2.6rem, 4.225vw, 4.875rem);
   }
 }
