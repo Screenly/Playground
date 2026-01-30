@@ -191,7 +191,7 @@ jobs:
                 printf "| **All files** | **%s%%** | **%s%%** |\n", parts[2], parts[3]
                 next
               }
-              in_table && /^ src\// {
+              in_table && /^[[:space:]]*src\// {
                 split($0, parts, "|")
                 gsub(/^[[:space:]]+|[[:space:]]+$/, "", parts[1])
                 gsub(/^[[:space:]]+|[[:space:]]+$/, "", parts[2])
