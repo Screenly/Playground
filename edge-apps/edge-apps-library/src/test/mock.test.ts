@@ -9,7 +9,11 @@ import {
 
 const global = globalThis as Record<string, unknown>
 
-// Helper function to check property
+/**
+ * Helper function to check property existence and optionally verify its value.
+ * Note: Cannot test for properties explicitly set to undefined - only checks
+ * property existence when no value is provided.
+ */
 function expectProperty(obj: unknown, key: string, value?: unknown) {
   if (value !== undefined) {
     expect(obj).toHaveProperty(key, value)
