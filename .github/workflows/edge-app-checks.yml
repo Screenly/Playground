@@ -167,7 +167,7 @@ jobs:
         run: bun run test:unit 2>&1 | tee test-output.txt
 
       - name: Generate coverage summary
-        if: success()
+        if: always()
         working-directory: edge-apps/${{ matrix.app }}
         run: |
           if [ -f "test-output.txt" ]; then
