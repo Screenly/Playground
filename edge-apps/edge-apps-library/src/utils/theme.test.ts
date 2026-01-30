@@ -294,7 +294,7 @@ describe('theme utilities', () => {
 
       expect(branding.colors.primary).toBe('#FF0000')
       expect(branding.colors.secondary).toBe('#00FF00')
-      expect(branding.logoUrl).toBeDefined()
+      expect(branding.logoUrl).toContain('example.com')
     })
 
     test('should setup branding without logo when fetch fails', async () => {
