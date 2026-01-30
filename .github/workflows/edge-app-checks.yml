@@ -198,7 +198,7 @@ jobs:
                 gsub(/^[[:space:]]+|[[:space:]]+$/, "", parts[3])
                 printf "| %s | %s%% | %s%% |\n", parts[1], parts[2], parts[3]
               }
-              /^-+\|.*-+$/ && in_table {
+              /^-+\|-+/ && in_table {
                 in_table = 0
               }
               ' test-output.txt
