@@ -2,12 +2,15 @@
 
 ;(function () {
   const MIN_TOKEN_REFRESH_MIN = 1
-  const DEFAULT_TOKEN_REFRESH_MIN = 30
+  const MAX_TOKEN_REFRESH_MIN = 5
 
   function getTokenRefreshInterval() {
     var intervalMinutes = parseInt(screenly.settings.refresh_interval, 10)
     if (isNaN(intervalMinutes) || intervalMinutes < MIN_TOKEN_REFRESH_MIN) {
-      return DEFAULT_TOKEN_REFRESH_MIN * 60
+      return MAX_TOKEN_REFRESH_MIN * 60
+    }
+    if (intervalMinutes > MAX_TOKEN_REFRESH_MIN) {
+      return MAX_TOKEN_REFRESH_MIN * 60
     }
     return intervalMinutes * 60
   }
