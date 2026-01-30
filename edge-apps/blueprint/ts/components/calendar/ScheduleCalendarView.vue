@@ -119,7 +119,7 @@ watch([events, () => props.timezone], filterAndFormatEvents, {
     </div>
 
     <div v-if="tomorrowEvents.length > 0" class="schedule-day-section">
-      <h2 class="day-header">Tomorrow</h2>
+      <h2 class="day-header">TOMORROW</h2>
       <div class="events-list">
         <div
           v-for="(event, index) in tomorrowEvents"
