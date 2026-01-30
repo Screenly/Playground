@@ -301,8 +301,12 @@ describe('theme utilities', () => {
       setupScreenlyMock({}, brandingSettings, PROXY_URL)
       global.fetch = createMockFetch(false, undefined, 404)
 
-      const branding = await setupBranding()
+      // Verify setupBrandingLogo returns empty string when fetch fails
+      const logoUrl = await setupBrandingLogo()
+      expect(logoUrl).toBe('')
 
+      // Verify setupBranding converts empty string to undefined
+      const branding = await setupBranding()
       expect(branding.colors.primary).toBe('#FF0000')
       expect(branding.logoUrl).toBeUndefined()
     })
