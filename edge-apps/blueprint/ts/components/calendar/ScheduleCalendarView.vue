@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
+import { ref, watch, computed, onMounted, onUnmounted } from 'vue'
 import EventTimeRange from './EventTimeRange.vue'
 import type { CalendarEvent } from '../../constants/calendar'
 import dayjs from 'dayjs'
@@ -9,7 +9,26 @@ import dayJsTimezone from 'dayjs/plugin/timezone'
 dayjs.extend(utc)
 dayjs.extend(dayJsTimezone)
 
-const MAX_EVENTS = 7
+const MAX_EVENTS_LANDSCAPE = 10
+const MAX_EVENTS_PORTRAIT = 15
+
+const isPortrait = ref(window.innerHeight > window.innerWidth)
+
+const updateOrientation = () => {
+  isPortrait.value = window.innerHeight > window.innerWidth
+}
+
+onMounted(() => {
+  window.addEventListener('resize', updateOrientation)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateOrientation)
+})
+
+const maxEvents = computed(() =>
+  isPortrait.value ? MAX_EVENTS_PORTRAIT : MAX_EVENTS_LANDSCAPE,
+)
 
 interface Props {
   timezone?: string
@@ -65,18 +84,19 @@ const filterAndFormatEvents = () => {
   todayEventsList.sort(sortByStartTime)
   tomorrowEventsList.sort(sortByStartTime)
 
-  // Distribute events to maintain total around MAX_EVENTS
+  // Distribute events based on orientation (10 for landscape, 15 for portrait)
   let limitedTodayEvents: CalendarEvent[]
   let limitedTomorrowEvents: CalendarEvent[]
+  const limit = maxEvents.value
 
-  if (todayEventsList.length >= MAX_EVENTS) {
-    // If today has 7+ events, show only today's events
-    limitedTodayEvents = todayEventsList.slice(0, MAX_EVENTS)
+  if (todayEventsList.length >= limit) {
+    // If today has enough events to fill the limit, show only today's events
+    limitedTodayEvents = todayEventsList.slice(0, limit)
     limitedTomorrowEvents = []
   } else {
     // Show all of today's events and fill remaining slots with tomorrow's events
     limitedTodayEvents = todayEventsList
-    const remainingSlots = MAX_EVENTS - todayEventsList.length
+    const remainingSlots = limit - todayEventsList.length
     limitedTomorrowEvents = tomorrowEventsList.slice(0, remainingSlots)
   }
 
@@ -84,7 +104,7 @@ const filterAndFormatEvents = () => {
   tomorrowEvents.value = limitedTomorrowEvents
 }
 
-watch([events, () => props.timezone], filterAndFormatEvents, {
+watch([events, () => props.timezone, maxEvents], filterAndFormatEvents, {
   immediate: true,
 })
 </script>
