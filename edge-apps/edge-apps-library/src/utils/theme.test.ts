@@ -170,14 +170,17 @@ describe('theme utilities', () => {
         Promise.resolve({
           ok: true,
           blob: async () => {
-            // Use jsdom's Blob constructor for proper FileReader compatibility
+            // Use jsdom's Blob constructor for proper FileReader compatibility.
+            // Native Blob won't work with jsdom's FileReader implementation.
             const JSDOMWindow = global.window as typeof globalThis & {
               Blob: typeof Blob
             }
             const blob = new JSDOMWindow.Blob([svgContent], {
               type: 'text/plain',
             })
-            // Add arrayBuffer method since jsdom Blob doesn't have it
+            // Manually add arrayBuffer method - jsdom's Blob doesn't implement
+            // this method natively, but our code requires it for SVG processing.
+            // This polyfill converts the SVG content to an ArrayBuffer.
             blob.arrayBuffer = async () => {
               const encoder = new TextEncoder()
               return encoder.encode(svgContent).buffer
