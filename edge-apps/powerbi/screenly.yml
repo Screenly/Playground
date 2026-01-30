@@ -40,10 +40,10 @@ settings:
     type: string
     title: Refresh Interval (minutes)
     optional: true
-    default_value: '30'
+    default_value: '5'
     help_text:
       properties:
         advanced: true
-        help_text: How often to refresh the Power BI report/dashboard (in minutes). Default is 30 minutes. Minimum is 1 minute.
+        help_text: How often to refresh the Power BI report/dashboard (in minutes). Default is 5 minutes. Minimum is 1 minute.
         type: number
       schema_version: 1
