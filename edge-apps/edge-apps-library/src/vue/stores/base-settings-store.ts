@@ -6,6 +6,7 @@ import {
   getCorsProxyUrl,
 } from '../../utils/settings.js'
 
+// eslint-disable-next-line max-lines-per-function
 export const baseSettingsStoreSetup = () => {
   const settings = ref(getSettings())
   const primaryThemeColor = ref('')
@@ -70,6 +71,7 @@ export const baseSettingsStoreSetup = () => {
     backgroundThemeColor.value = backgroundColor
   }
 
+  // eslint-disable-next-line max-lines-per-function
   const setupBrandingLogo = async () => {
     const theme = getTheme() || 'light'
     const corsProxyUrl = getCorsProxyUrl()

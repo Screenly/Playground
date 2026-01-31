@@ -1,11 +1,9 @@
 import { ref, computed } from 'vue'
 import {
   getMetadata,
-  getFormattedCoordinates,
   getScreenName,
   getHostname,
   getLocation,
-  getHardware,
   getScreenlyVersion,
   getTags,
 } from '../../utils/metadata.js'
