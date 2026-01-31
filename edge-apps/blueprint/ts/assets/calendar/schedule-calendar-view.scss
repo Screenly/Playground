@@ -1,60 +1,50 @@
 .ScheduleCalendarView {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  * {
-    color: var(--theme-color-text);
-  }
-
   &.primary-card {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+    overflow-y: auto;
 
-    .events-container {
+    .schedule-day-section {
       width: 100%;
-      display: grid;
-      grid-template-columns: auto 1fr;
-      border-top-color: var(--theme-color-secondary);
-      border-top-style: solid;
 
-      .event-row {
-        display: contents;
-
-        .event-time {
-          text-align: right;
-          border-bottom-color: var(--theme-color-secondary);
-          border-bottom-style: solid;
-          font-feature-settings: 'tnum';
-
-          &:first-child {
-            border-top: none;
-          }
-        }
-
-        .event-title {
-          border-bottom-color: var(--theme-color-secondary);
-          border-bottom-style: solid;
-
-          &:first-child {
-            border-top: none;
-          }
-
-          .event-dot {
-            color: var(--theme-color-primary);
-          }
-        }
+      .day-header {
+        color: var(--theme-color-text);
+        font-weight: 500;
       }
 
-      .no-events {
-        grid-column: 1 / -1;
-        color: var(--theme-color-text);
-        opacity: 0.6;
-        text-align: center;
+      .events-list {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .schedule-event-block {
+          background-color: var(--theme-color-primary);
+          border-left-style: solid;
+          border-left-color: var(--theme-color-primary);
+          color: black;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          .event-title {
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .event-time {
+            opacity: 0.95;
+          }
+        }
+
+        .no-events {
+          color: var(--theme-color-text);
+          opacity: 0.6;
+          text-align: center;
+        }
       }
     }
   }
@@ -64,47 +54,36 @@
   .ScheduleCalendarView {
     &.primary-card {
       padding: 1.5rem * $multiplier;
+      gap: 1rem * $multiplier;
 
-      .events-heading {
-        font-size: 0.6rem * $multiplier;
-
-        @if $orientation == 'portrait' {
-          margin-top: 1rem * $multiplier;
-          margin-bottom: 0.5rem * $multiplier;
-        } @else {
-          margin-top: 1rem * $multiplier;
+      .schedule-day-section {
+        .day-header {
+          font-size: 0.7rem * $multiplier;
           margin-bottom: 0.5rem * $multiplier;
         }
-      }
 
-      .events-container {
-        border-top-width: 0.01rem * $multiplier;
+        .events-list {
+          gap: 0.3rem * $multiplier;
 
-        .event-row {
-          .event-time {
-            padding-top: 1.1rem * $multiplier;
-            padding-bottom: 1.1rem * $multiplier;
-            padding-right: 2rem * $multiplier;
-            font-size: 0.85rem * $multiplier;
-            border-bottom-width: 0.01rem * $multiplier;
-          }
+          .schedule-event-block {
+            padding: 0.5rem * $multiplier 0.6rem * $multiplier;
+            border-radius: 0.15rem * $multiplier;
+            border-left-width: 0.17rem * $multiplier;
 
-          .event-title {
-            padding-top: 1.1rem * $multiplier;
-            padding-bottom: 1.1rem * $multiplier;
-            font-size: 0.85rem * $multiplier;
-            border-bottom-width: 0.01rem * $multiplier;
+            .event-title {
+              font-size: 0.5rem * $multiplier;
+              margin-bottom: 0.1rem * $multiplier;
+            }
 
-            .event-dot {
-              font-size: 1rem * $multiplier;
-              margin-right: 0.5rem * $multiplier;
+            .event-time {
+              font-size: 0.4rem * $multiplier;
             }
           }
-        }
 
-        .no-events {
-          font-size: 0.85rem * $multiplier;
-          padding: 2rem * $multiplier;
+          .no-events {
+            font-size: 0.85rem * $multiplier;
+            padding: 2rem * $multiplier;
+          }
         }
       }
     }
