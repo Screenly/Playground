@@ -12,17 +12,27 @@ dayjs.extend(dayJsTimezone)
 const MAX_EVENTS_LANDSCAPE = 10
 const MAX_EVENTS_PORTRAIT = 15
 
-const isPortrait = ref(window.innerHeight > window.innerWidth)
+const isPortrait = ref(false)
 
 const updateOrientation = () => {
+  if (typeof window === 'undefined') {
+    return
+  }
   isPortrait.value = window.innerHeight > window.innerWidth
 }
 
 onMounted(() => {
+  if (typeof window === 'undefined') {
+    return
+  }
+  updateOrientation()
   window.addEventListener('resize', updateOrientation)
 })
 
 onUnmounted(() => {
+  if (typeof window === 'undefined') {
+    return
+  }
   window.removeEventListener('resize', updateOrientation)
 })
 
