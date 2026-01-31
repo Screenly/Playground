@@ -1,0 +1,41 @@
+// Variables for Screenly Edge Apps Vue components
+// These can be overridden using SCSS @use with configuration
+
+// Typography
+$srly-font-family-primary: Aeonik, sans-serif !default;
+$srly-font-size-base: 14px !default;
+
+// Colors
+$srly-color-primary: #972eff !default;
+$srly-color-secondary: #adafbe !default;
+$srly-color-tertiary: #fff !default;
+$srly-color-background: #c9cdd0 !default;
+
+// Spacing
+$srly-spacing-xs: 1rem !default;
+$srly-spacing-sm: 1.5rem !default;
+$srly-spacing-md: 2rem !default;
+$srly-spacing-lg: 2.5rem !default;
+$srly-spacing-xl: 3rem !default;
+$srly-spacing-xxl: 5rem !default;
+
+// Border radius
+$srly-border-radius-sm: 2rem !default;
+$srly-border-radius-md: 2.5rem !default;
+$srly-border-radius-lg: 3rem !default;
+$srly-border-radius-xl: 4rem !default;
+$srly-border-radius-xxl: 7rem !default;
+$srly-border-radius-xxxl: 8rem !default;
+
+// Breakpoints - Portrait
+$srly-breakpoint-portrait-sm: 480px !default; // 480x800
+$srly-breakpoint-portrait-md: 720px !default; // 720x1280
+$srly-breakpoint-portrait-lg: 1080px !default; // 1080x1920
+$srly-breakpoint-portrait-xl: 2160px !default; // 2160x3840
+
+// Breakpoints - Landscape
+$srly-breakpoint-landscape-sm: 800px !default; // 800x480
+$srly-breakpoint-landscape-md: 1280px !default; // 1280x720
+$srly-breakpoint-landscape-lg: 1920px !default; // 1920x1080
+$srly-breakpoint-landscape-xl: 3840px !default; // 3840x2160
+$srly-breakpoint-landscape-2xl: 4096px !default; // 4096x2160

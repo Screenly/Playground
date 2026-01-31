@@ -5,6 +5,7 @@
 
 import { execSync, spawn } from 'child_process'
 import path from 'path'
+import fs from 'fs'
 import { fileURLToPath } from 'url'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -17,17 +18,57 @@ const commands = {
     handler: lintCommand,
   },
   build: {
-    description: 'Build application for production',
+    description: 'Build application for production (auto-detects Vue)',
     handler: buildCommand,
   },
   'build:dev': {
-    description: 'Build application in development mode with watch',
+    description: 'Build application in development mode with watch (auto-detects Vue)',
     handler: buildDevCommand,
   },
   'type-check': {
     description: 'Run TypeScript type checking',
     handler: typeCheckCommand,
   },
+}
+
+/**
+ * Detect if the current project is a Vue app
+ * Checks for .vue files or vue dependency in package.json
+ */
+async function detectVueApp(dir: string): Promise<boolean> {
+  // Check for Vue files in src directory
+  const srcDir = path.join(dir, 'src')
+  if (fs.existsSync(srcDir)) {
+    try {
+      const files = fs.readdirSync(srcDir, { recursive: true })
+      for (const file of files) {
+        if (typeof file === 'string' && file.endsWith('.vue')) {
+          return true
+        }
+      }
+    } catch {
+      // Ignore errors reading directory
+    }
+  }
+
+  // Check package.json for vue dependency
+  const packageJsonPath = path.join(dir, 'package.json')
+  if (fs.existsSync(packageJsonPath)) {
+    try {
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'))
+      const deps = {
+        ...packageJson.dependencies,
+        ...packageJson.devDependencies,
+      }
+      if (deps.vue || deps['@vitejs/plugin-vue']) {
+        return true
+      }
+    } catch {
+      // Ignore errors parsing package.json
+    }
+  }
+
+  return false
 }
 
 async function lintCommand(args: string[]) {
@@ -67,9 +108,16 @@ async function buildCommand(args: string[]) {
   try {
     const callerDir = process.cwd()
 
+    // Auto-detect Vue app
+    const isVue = await detectVueApp(callerDir)
+
     // Build for production using Vite
     const viteBin = path.resolve(libraryRoot, 'node_modules', '.bin', 'vite')
-    const configPath = path.resolve(libraryRoot, 'vite.config.ts')
+    // Use Vue config if Vue is detected
+    const configPath = isVue
+      ? path.resolve(libraryRoot, 'vite.vue.config.ts')
+      : path.resolve(libraryRoot, 'vite.config.ts')
+
     const viteArgs = ['build', '--sourcemap', '--config', configPath, ...args]
 
     // Set NODE_PATH to include library's node_modules so plugins can resolve dependencies
@@ -78,6 +126,10 @@ async function buildCommand(args: string[]) {
     const nodePath = existingNodePath
       ? `${libraryNodeModules}${path.delimiter}${existingNodePath}`
       : libraryNodeModules
+
+    if (isVue) {
+      console.log('Vue app detected, using Vue configuration...')
+    }
 
     execSync(`"${viteBin}" ${viteArgs.map((arg) => `"${arg}"`).join(' ')}`, {
       stdio: 'inherit',
@@ -96,9 +148,16 @@ async function buildDevCommand(args: string[]) {
   try {
     const callerDir = process.cwd()
 
+    // Auto-detect Vue app
+    const isVue = await detectVueApp(callerDir)
+
     // Build for development with watch mode using Vite
     const viteBin = path.resolve(libraryRoot, 'node_modules', '.bin', 'vite')
-    const configPath = path.resolve(libraryRoot, 'vite.config.ts')
+    // Use Vue config if Vue is detected
+    const configPath = isVue
+      ? path.resolve(libraryRoot, 'vite.vue.config.ts')
+      : path.resolve(libraryRoot, 'vite.config.ts')
+
     const viteArgs = [
       'build',
       '--watch',
@@ -114,6 +173,10 @@ async function buildDevCommand(args: string[]) {
     const nodePath = existingNodePath
       ? `${libraryNodeModules}${path.delimiter}${existingNodePath}`
       : libraryNodeModules
+
+    if (isVue) {
+      console.log('Vue app detected, using Vue configuration...')
+    }
 
     // Use spawn instead of execSync to allow watch mode to run without blocking
     const child = spawn(viteBin, viteArgs, {

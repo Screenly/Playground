@@ -1,0 +1,58 @@
+// Mixins for Screenly Edge Apps Vue components
+@use 'variables' as *;
+
+// Layout mixins
+@mixin srly-portrait-layout {
+  flex-direction: column;
+}
+
+@mixin srly-card-base {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: $srly-spacing-md;
+}
+
+@mixin srly-container-base {
+  display: flex;
+  flex-direction: column;
+  gap: $srly-spacing-md;
+  justify-content: space-between;
+}
+
+@mixin srly-responsive-spacing($gap, $padding) {
+  gap: $gap;
+  padding: $padding;
+}
+
+@mixin srly-responsive-border-radius($radius) {
+  border-radius: $radius;
+}
+
+@mixin srly-xl-layout(
+  $spacing,
+  $container-gap,
+  $primary-radius,
+  $secondary-radius,
+  $row-gap
+) {
+  .main-container {
+    @include srly-responsive-spacing($spacing, $spacing);
+  }
+  .primary-container {
+    gap: $container-gap;
+  }
+  .primary-card {
+    @include srly-responsive-border-radius($primary-radius);
+  }
+  .secondary-container {
+    gap: $container-gap;
+  }
+  .row-container {
+    gap: $row-gap;
+  }
+  .secondary-card {
+    @include srly-responsive-border-radius($secondary-radius);
+  }
+}

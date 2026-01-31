@@ -1,12 +1,12 @@
 {
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
     "target": "ES2022",
     "module": "ES2022",
-    "lib": ["ES2022", "DOM"],
     "moduleResolution": "bundler",
     "declaration": true,
     "declarationMap": true,
-    "outDir": "./dist",
+    "outDir": "./dist-vue",
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
@@ -14,8 +14,19 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["bun-types"]
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "dist-vue", "**/*.test.ts", "src/vue/**"]
+  "include": [
+    "src/vue/**/*.ts",
+    "src/vue/**/*.vue"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "dist-vue",
+    "**/*.test.ts"
+  ]
 }
