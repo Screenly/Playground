@@ -22,7 +22,8 @@ const commands = {
     handler: buildCommand,
   },
   'build:dev': {
-    description: 'Build application in development mode with watch (auto-detects Vue)',
+    description:
+      'Build application in development mode with watch (auto-detects Vue)',
     handler: buildDevCommand,
   },
   'type-check': {

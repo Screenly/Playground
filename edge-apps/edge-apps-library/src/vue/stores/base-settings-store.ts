@@ -40,10 +40,7 @@ export const baseSettingsStoreSetup = () => {
           ? '#adafbe'
           : lightColor
     } else if (theme === 'dark') {
-      const darkColor = getSettingWithDefault<string>(
-        'screenly_color_dark',
-        '',
-      )
+      const darkColor = getSettingWithDefault<string>('screenly_color_dark', '')
       secondaryColor =
         !darkColor || darkColor.toLowerCase() === '#ffffff'
           ? '#adafbe'

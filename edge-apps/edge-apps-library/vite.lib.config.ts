@@ -12,6 +12,9 @@ export default defineConfig({
   build: {
     lib: {
       entry: {
+        'index': resolve(__dirname, 'src/index.ts'),
+        'utils/index': resolve(__dirname, 'src/utils/index.ts'),
+        'types/index': resolve(__dirname, 'src/types/index.ts'),
         'vue/index': resolve(__dirname, 'src/vue/index.ts'),
         'vue/components/index': resolve(__dirname, 'src/vue/components/index.ts'),
         'vue/stores/index': resolve(__dirname, 'src/vue/stores/index.ts'),
@@ -20,7 +23,7 @@ export default defineConfig({
       },
       formats: ['es'],
     },
-    outDir: 'dist-vue',
+    outDir: 'dist',
     rollupOptions: {
       external: [
         'vue',
@@ -31,10 +34,6 @@ export default defineConfig({
         'dayjs/plugin/timezone',
         'dayjs/plugin/isSameOrBefore',
         'dayjs/plugin/isSameOrAfter',
-        // Also externalize the main library exports
-        '@screenly/edge-apps',
-        '@screenly/edge-apps/utils',
-        '@screenly/edge-apps/types',
       ],
       output: {
         preserveModules: true,
@@ -49,7 +48,7 @@ export default defineConfig({
       },
     },
     sourcemap: true,
-    emptyOutDir: true,
+    emptyOutDir: false,
   },
   css: {
     preprocessorOptions: {

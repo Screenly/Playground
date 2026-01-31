@@ -291,7 +291,7 @@ function extractTimePartsFromFormatter(
  * Uses Intl.Locale API to robustly handle existing extensions
  */
 function getLocaleWithNumeralSystem(locale: string): string {
-  const language = locale.toLowerCase().split('-')[0]
+  const language = locale.toLowerCase().split('-')[0]!
 
   // Map of languages to their numeral system extensions
   const numeralSystemMap: Record<string, string> = {

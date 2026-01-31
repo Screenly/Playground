@@ -14,8 +14,9 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["bun-types"]
+    "types": ["bun-types"],
+    "noEmit": false
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "dist-vue", "**/*.test.ts", "src/vue/**"]
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "src/vue/**/*.vue"]
 }
