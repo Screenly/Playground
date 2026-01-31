@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
-import { getFormattedTime } from '../../utils/calendar'
+import EventTimeRange from './EventTimeRange.vue'
 import type { CalendarEvent } from '../../constants/calendar'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
@@ -25,13 +25,11 @@ const props = withDefaults(defineProps<Props>(), {
 
 const todayEvents = ref<CalendarEvent[]>([])
 const tomorrowEvents = ref<CalendarEvent[]>([])
-const formattedEventTimes = ref<Record<string, string>>({})
 
 const currentDayOfWeek = computed(() => props.currentDayOfWeek)
 const events = computed(() => props.events)
-const locale = computed(() => props.locale)
 
-const filterAndFormatEvents = async () => {
+const filterAndFormatEvents = () => {
   // Get current time in the target timezone
   const nowInTimezone = dayjs().tz(props.timezone)
   const todayInTimezone = nowInTimezone.startOf('day')
@@ -84,79 +82,62 @@ const filterAndFormatEvents = async () => {
 
   todayEvents.value = limitedTodayEvents
   tomorrowEvents.value = limitedTomorrowEvents
-
-  // Format times for all events
-  const times: Record<string, string> = {}
-  const allEvents = [...limitedTodayEvents, ...limitedTomorrowEvents]
-
-  for (const event of allEvents) {
-    try {
-      const formattedTime = await getFormattedTime(
-        dayjs(event.startTime).tz(props.timezone).toDate(),
-        locale.value,
-        props.timezone,
-      )
-      times[event.startTime] = formattedTime
-    } catch (error) {
-      console.error('Error formatting time:', error)
-      times[event.startTime] = '...'
-    }
-  }
-  formattedEventTimes.value = { ...formattedEventTimes.value, ...times }
 }
 
-watch([events, locale, () => props.timezone], filterAndFormatEvents, {
+watch([events, () => props.timezone], filterAndFormatEvents, {
   immediate: true,
 })
 </script>
 
 <template>
   <div class="ScheduleCalendarView primary-card">
-    <div class="events-heading">
-      <h1>{{ currentDayOfWeek }}</h1>
-    </div>
-    <div class="events-container">
-      <div v-for="(event, index) in todayEvents" :key="index" class="event-row">
-        <div class="event-time">
-          {{ formattedEventTimes[event.startTime] || '...' }}
+    <div class="schedule-day-section">
+      <h2 class="day-header">{{ currentDayOfWeek }}</h2>
+      <div class="events-list">
+        <div
+          v-for="(event, index) in todayEvents"
+          :key="index"
+          class="schedule-event-block"
+          :style="
+            event.backgroundColor
+              ? { backgroundColor: event.backgroundColor }
+              : {}
+          "
+        >
+          <div class="event-title">{{ event.title }}</div>
+          <EventTimeRange
+            :start-time="event.startTime"
+            :end-time="event.endTime"
+            :locale="props.locale"
+            :timezone="props.timezone"
+          />
         </div>
-        <div class="event-title">
-          <span
-            class="event-dot"
-            :style="
-              event.backgroundColor ? { color: event.backgroundColor } : {}
-            "
-            >•</span
-          >
-          {{ event.title }}
+        <div v-if="todayEvents.length === 0" class="no-events">
+          No events scheduled for today
         </div>
-      </div>
-      <div v-if="todayEvents.length === 0" class="no-events">
-        No events scheduled for today
       </div>
     </div>
 
-    <div v-if="tomorrowEvents.length > 0" class="events-heading">
-      <h1>TOMORROW</h1>
-    </div>
-    <div v-if="tomorrowEvents.length > 0" class="events-container">
-      <div
-        v-for="(event, index) in tomorrowEvents"
-        :key="index"
-        class="event-row"
-      >
-        <div class="event-time">
-          {{ formattedEventTimes[event.startTime] || '...' }}
-        </div>
-        <div class="event-title">
-          <span
-            class="event-dot"
-            :style="
-              event.backgroundColor ? { color: event.backgroundColor } : {}
-            "
-            >•</span
-          >
-          {{ event.title }}
+    <div v-if="tomorrowEvents.length > 0" class="schedule-day-section">
+      <h2 class="day-header">TOMORROW</h2>
+      <div class="events-list">
+        <div
+          v-for="(event, index) in tomorrowEvents"
+          :key="index"
+          class="schedule-event-block"
+          :style="
+            event.backgroundColor
+              ? { backgroundColor: event.backgroundColor }
+              : {}
+          "
+        >
+          <div class="event-title">{{ event.title }}</div>
+          <EventTimeRange
+            :start-time="event.startTime"
+            :end-time="event.endTime"
+            :locale="props.locale"
+            :timezone="props.timezone"
+          />
         </div>
       </div>
     </div>
