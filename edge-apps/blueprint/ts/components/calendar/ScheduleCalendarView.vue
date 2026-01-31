@@ -10,7 +10,7 @@ dayjs.extend(utc)
 dayjs.extend(dayJsTimezone)
 
 const MAX_EVENTS_LANDSCAPE = 10
-const MAX_EVENTS_PORTRAIT = 15
+const MAX_EVENTS_PORTRAIT = 17
 
 const isPortrait = ref(false)
 
