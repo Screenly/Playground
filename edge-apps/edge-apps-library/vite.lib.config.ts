@@ -25,19 +25,11 @@ export default defineConfig({
     },
     outDir: 'dist',
     rollupOptions: {
-      external: [
-        'vue',
-        'pinia',
-        '@sentry/vue',
-        'dayjs',
-        'dayjs/plugin/utc',
-        'dayjs/plugin/timezone',
-        'dayjs/plugin/isSameOrBefore',
-        'dayjs/plugin/isSameOrAfter',
-      ],
+      external: (id) => {
+        // Mark all dependencies as external to prevent bundling
+        return !id.startsWith('\0') && !id.startsWith('.') && !id.startsWith('/');
+      },
       output: {
-        preserveModules: true,
-        preserveModulesRoot: 'src',
         entryFileNames: '[name].js',
         assetFileNames: (assetInfo) => {
           if (assetInfo.names?.[0]?.endsWith('.css')) {
@@ -47,8 +39,9 @@ export default defineConfig({
         },
       },
     },
-    sourcemap: true,
+    sourcemap: false,
     emptyOutDir: false,
+    minify: false,
   },
   css: {
     preprocessorOptions: {
