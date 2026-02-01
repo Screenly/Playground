@@ -27,19 +27,22 @@
       "types": "./dist/test/index.d.ts"
     },
     "./vue": {
-      "import": "./dist/vue/index.js",
-      "types": "./dist/vue/index.d.ts"
+      "import": "./src/vue/index.ts",
+      "types": "./src/vue/index.ts"
     },
     "./vue/components": {
-      "import": "./dist/vue/components/index.js",
-      "types": "./dist/vue/components/index.d.ts"
+      "import": "./src/vue/components/index.ts",
+      "types": "./src/vue/components/index.ts"
     },
     "./vue/stores": {
-      "import": "./dist/vue/stores/index.js",
-      "types": "./dist/vue/stores/index.d.ts"
+      "import": "./src/vue/stores/index.ts",
+      "types": "./src/vue/stores/index.ts"
     },
     "./vue/styles/*": {
       "import": "./src/vue/styles/*"
+    },
+    "./vue/assets/*": {
+      "import": "./src/vue/assets/*"
     }
   },
   "files": [
@@ -47,7 +50,7 @@
     "bin",
     "scripts",
     "eslint.config.ts",
-    "src/vue/styles"
+    "src/vue"
   ],
   "scripts": {
     "prebuild": "bun run type-check",
@@ -117,8 +120,11 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.54.0",
     "vite": "^7.3.1",
+    "vite-plugin-static-copy": "^3.2.0",
+    "vite-plugin-vue-devtools": "^8.0.5",
     "vitest": "^4.0.18",
     "vue": "^3.5.27",
-    "vue-tsc": "^3.2.4"
+    "vue-tsc": "^3.2.4",
+    "yaml": "^2.8.2"
   }
 }

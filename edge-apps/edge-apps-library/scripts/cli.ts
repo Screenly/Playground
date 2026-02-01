@@ -161,6 +161,8 @@ async function buildDevCommand(args: string[]) {
 
     const viteArgs = [
       'build',
+      '--mode',
+      'development',
       '--watch',
       '--sourcemap',
       '--config',
