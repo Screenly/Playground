@@ -1,13 +1,10 @@
 import { fileURLToPath, URL } from 'node:url'
 
-import { defineConfig, type Plugin } from 'vite'
+import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 import { existsSync } from 'fs'
-
-import { screenlyTestServer } from '../blueprint/ts/vite-plugins'
-import { watchMockDataPlugin } from '../blueprint/ts/vite-plugins/watch-mock-data'
 
 const manifestFileName = process.env.MANIFEST_FILE_NAME || 'screenly.yml'
 
@@ -20,8 +17,6 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     vue(),
     vueDevTools(),
-    screenlyTestServer(mode) as unknown as Plugin,
-    ...(mode === 'development' ? [watchMockDataPlugin() as unknown as Plugin] : []),
     viteStaticCopy({
       targets: [
         {
@@ -42,10 +37,6 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      'blueprint/stores': fileURLToPath(new URL('../blueprint/ts/stores', import.meta.url)),
-      'blueprint/scss': fileURLToPath(new URL('../blueprint/scss', import.meta.url)),
-      'blueprint/components': fileURLToPath(new URL('../blueprint/ts/components', import.meta.url)),
-      'blueprint/assets': fileURLToPath(new URL('../blueprint/assets', import.meta.url))
     },
   },
 }))

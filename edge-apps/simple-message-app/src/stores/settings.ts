@@ -1,7 +1,7 @@
 import { type Ref, ref } from 'vue'
 import { defineStore } from 'pinia'
 import tzlookup from '@photostructure/tz-lookup'
-import { metadataStoreSetup } from 'blueprint/stores/metadata-store'
+import { metadataStoreSetup } from '@screenly/edge-apps/vue/stores'
 
 const settingsStoreSetup = () => {
   const settings = screenly.settings

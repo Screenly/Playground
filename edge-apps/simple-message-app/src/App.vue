@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import { onBeforeMount, onMounted, type Ref } from 'vue'
 import { defineStore, storeToRefs } from 'pinia'
-import { baseSettingsStoreSetup } from 'blueprint/stores/base-settings-store'
-import { AnalogClock, BrandLogoCard, DateDisplay } from 'blueprint/components'
+import { baseSettingsStoreSetup } from '@screenly/edge-apps/vue/stores'
+import {
+  AnalogClock,
+  BrandLogoCard,
+  DateDisplay,
+} from '@screenly/edge-apps/vue/components'
 import { useSettingsStore } from '@/stores/settings'
 import MessageHead from '@/components/MessageHead.vue'
 import MessageBody from '@/components/MessageBody.vue'
 
-import screenlyLogo from 'blueprint/assets/images/screenly.svg'
+import screenlyLogo from '@screenly/edge-apps/vue/assets/images/screenly.svg'
 
 const useBaseSettingsStore = defineStore(
   'baseSettingsStore',

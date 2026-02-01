@@ -1,6 +1,6 @@
 import process from 'node:process'
 import { defineConfig, devices, PlaywrightTestConfig } from '@playwright/test'
-import getPlaywrightConfig from '../blueprint/ts/configs/playwright'
+import getPlaywrightConfig from '../edge-apps-library/scripts/playwright.config'
 
 /**
  * Read environment variables from file.
