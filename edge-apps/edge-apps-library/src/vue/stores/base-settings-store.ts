@@ -117,9 +117,8 @@ export const baseSettingsStoreSetup = () => {
           .toUpperCase()
 
         // Convert the first few bytes to ASCII for text-based formats like SVG
-        const ascii = String.fromCharCode.apply(
-          null,
-          Array.from(uintArray.slice(0, 100)),
+        const ascii = String.fromCharCode(
+          ...Array.from(uintArray.slice(0, 100)),
         ) // Check first 100 chars for XML/SVG tags
         const pngMagicNumber = '89504E47'
         const jpegMagicNumber = 'FFD8FF'
