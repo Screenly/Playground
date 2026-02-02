@@ -13,4 +13,3 @@ interface ImportMeta {
 declare const Sentry: {
   init(options: { dsn: string }): void
 }
-

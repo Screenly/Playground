@@ -8,9 +8,10 @@
     "dev": "vite",
     "preview": "vite preview",
     "build": "vite build",
-    "test": "bun test",
+    "test": "bun test --pass-with-no-tests",
     "lint": "eslint . --fix",
-    "format": "prettier --write .",
+    "format": "prettier --write src/ README.md index.html",
+    "format:check": "prettier --check src/ README.md index.html",
     "deploy": "bun run build && cd build && screenly edge-app deploy"
   },
   "dependencies": {
