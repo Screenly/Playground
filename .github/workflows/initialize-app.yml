@@ -32,7 +32,7 @@ on:
           - bun
 
       deploy_from_dist:
-        description: "Whether to deploy from the dist folder or from the app's root folder"
+        description: "Deploy from the dist folder. If unchecked, deploy from app's root folder."
         required: true
         default: true
         type: boolean

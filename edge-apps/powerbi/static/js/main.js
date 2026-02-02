@@ -1,7 +1,48 @@
 /* global screenly, panic */
 
 ;(function () {
-  const DEFAULT_TOKEN_REFRESH_SEC = 30 * 60 // refresh token every 30 minutes
+  const MIN_TOKEN_REFRESH_MIN = 1
+  const MAX_TOKEN_REFRESH_MIN = 5
+
+  function getTokenRefreshInterval() {
+    var intervalMinutes = parseInt(screenly.settings.refresh_interval, 10)
+    if (isNaN(intervalMinutes) || intervalMinutes < MIN_TOKEN_REFRESH_MIN) {
+      return MAX_TOKEN_REFRESH_MIN * 60
+    }
+    if (intervalMinutes > MAX_TOKEN_REFRESH_MIN) {
+      return MAX_TOKEN_REFRESH_MIN * 60
+    }
+    return intervalMinutes * 60
+  }
+
+  function showError(error) {
+    const container = document.getElementById('embed-container')
+    container.innerHTML = ''
+
+    const template = document.getElementById('error-template')
+    const content = template.content.cloneNode(true)
+
+    const messageEl = content.querySelector('.error-message')
+    if (error.detailedMessage) {
+      messageEl.textContent = error.detailedMessage
+    }
+
+    const table = content.querySelector('.error-details')
+    const rowTemplate = document.getElementById('error-row-template')
+    const errorInfo = error.technicalDetails && error.technicalDetails.errorInfo
+
+    if (errorInfo) {
+      errorInfo.forEach(function (item) {
+        const row = rowTemplate.content.cloneNode(true)
+        row.querySelector('.error-key').textContent = item.key
+        row.querySelector('.error-value').textContent = item.value
+        table.appendChild(row)
+      })
+    }
+
+    container.appendChild(content)
+    screenly.signalReadyForRendering()
+  }
 
   function getEmbedTypeFromUrl(url) {
     switch (true) {
@@ -28,6 +69,29 @@
       },
     )
 
+    if (!response.ok) {
+      let detailedMessage
+      try {
+        detailedMessage = (await response.json())['error']
+      } catch {
+        detailedMessage = `Failed to get embed token.`
+      }
+
+      showError({
+        detailedMessage: detailedMessage,
+        technicalDetails: {
+          errorInfo: [
+            {
+              key: 'status',
+              value: response.status,
+            },
+          ],
+        },
+      })
+
+      throw new Error(detailedMessage)
+    }
+
     const { token } = await response.json()
     return token
   }
@@ -36,9 +100,10 @@
     var currentErrorStep = 0
     var initErrorDelaySec = 15
     var maxErrorStep = 7
+    var tokenRefreshInterval = getTokenRefreshInterval()
 
     async function run() {
-      var nextTimeout = DEFAULT_TOKEN_REFRESH_SEC
+      var nextTimeout = tokenRefreshInterval
       try {
         var newToken = await getEmbedToken()
         await report.setAccessToken(newToken)
@@ -56,7 +121,7 @@
       setTimeout(run, nextTimeout * 1000)
     }
 
-    setTimeout(run, DEFAULT_TOKEN_REFRESH_SEC * 1000)
+    setTimeout(run, tokenRefreshInterval * 1000)
   }
 
   async function initializePowerBI() {
@@ -75,6 +140,7 @@
         settings: {
           filterPaneEnabled: false,
           navContentPaneEnabled: false,
+          hideErrors: true,
         },
       },
     )
@@ -87,9 +153,15 @@
       })
     }
 
+    report.on('error', function (event) {
+      showError(event.detail)
+    })
+
     if (!screenly.settings.embed_token) {
       initTokenRefreshLoop(report)
     }
+
+    return report
   }
 
   panic.configure({

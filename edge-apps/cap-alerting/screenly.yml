@@ -1,0 +1,78 @@
+---
+syntax: manifest_v1
+id: 01KFZKEHAHSJZWC7SW0A7N6CWS
+description: Display CAP emergency alerts on Screenly screens. Supports offline mode and uses screen tags (e.g., exit:North Lobby) to highlight the nearest exit.
+icon: https://playground.srly.io/edge-apps/cap-alerting/static/cap-icon.svg
+author: Screenly, Inc.
+entrypoint:
+  type: file
+ready_signal: true
+settings:
+  cap_feed_url:
+    type: string
+    default_value: ''
+    title: CAP Feed URL
+    optional: false
+    help_text:
+      properties:
+        help_text: URL or relative path to a CAP XML feed.
+        type: string
+      schema_version: 1
+  display_errors:
+    type: string
+    default_value: 'false'
+    title: Display Errors
+    optional: true
+    help_text:
+      properties:
+        advanced: true
+        help_text: For debugging purposes to display errors on the screen.
+        type: boolean
+      schema_version: 1
+  language:
+    type: string
+    default_value: en
+    title: Default Language
+    optional: true
+    help_text:
+      properties:
+        help_text: Choose the preferred language when multiple info blocks exist (e.g., en, es, fr).
+        type: string
+      schema_version: 1
+  max_alerts:
+    type: string
+    default_value: Infinity
+    title: Maximum Alerts
+    optional: true
+    help_text:
+      properties:
+        help_text: Maximum number of alerts to display simultaneously.
+        type: number
+      schema_version: 1
+  mode:
+    type: string
+    default_value: production
+    title: Mode
+    optional: true
+    help_text:
+      properties:
+        help_text: Select the operation mode for the app.
+        options:
+        - label: Production
+          value: production
+        - label: Demo
+          value: demo
+        - label: Test
+          value: test
+        type: select
+      schema_version: 1
+  refresh_interval:
+    type: string
+    default_value: '5'
+    title: Refresh Interval (minutes)
+    optional: true
+    help_text:
+      properties:
+        help_text: Time in minutes between feed updates.
+        type: number
+      schema_version: 1

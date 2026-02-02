@@ -1,5 +1,7 @@
 **/*.min.js
+edge-apps/cap-alerting/
 edge-apps/edge-apps-library/
+edge-apps/grafana/
 edge-apps/powerbi-legacy/
 edge-apps/powerbi-legacy/**
 edge-apps/powerbi
@@ -7,3 +9,4 @@ edge-apps/powerbi/**
 edge-apps/qr-code/
 edge-apps/menu-board/
 .github/workflows/
+.claude/

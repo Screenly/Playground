@@ -45,10 +45,12 @@ test('basic app structure test', async ({ page }) => {
 
   await page.goto('/')
 
-  // Check for "Powered by Screenly" text
-  await expect(page.getByText('Powered by Screenly')).toBeVisible()
+  // Check for app container
+  await expect(page.locator('.app-container')).toBeVisible()
 
-  // Check for calendar app structure
+  // Check for main calendar container
   await expect(page.locator('.main-container')).toBeVisible()
-  await expect(page.locator('.secondary-container')).toBeVisible()
+
+  // Check for top bar with date/time
+  await expect(page.locator('.top-bar')).toBeVisible()
 })

@@ -18,396 +18,14 @@
 }
 
 .primary-card {
-  width: 75%;
+  width: 100%;
   background-color: var(--theme-color-tertiary);
   order: 1;
 }
 
-.secondary-container {
-  width: 25%;
-  order: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.info-text {
-  font-size: 1.75rem;
-  color: var(--theme-color-primary);
-}
-
-@media screen and (max-width: 1280px) {
-  .info-text {
-    font-size: 1.17rem;
-  }
-
-  .brand-logo {
-    width: 5.695rem;
-  }
-
-  .info-card {
-    gap: 2.01rem;
-  }
-}
-
-@media screen and (min-width: 3840px) and (orientation: landscape) {
-  .main-container {
-    padding: 4rem;
-    gap: 4rem;
-  }
-
-  .info-text {
-    font-size: 3.5rem;
-  }
-}
-
-@media screen and (min-width: 480px) and (orientation: portrait) {
-  .secondary-container {
-    gap: 1rem;
-  }
-
-  .secondary-card-number-container {
-    gap: 1rem;
-  }
-
-  .secondary-card-number {
-    font-size: 8rem;
-    letter-spacing: 0.5rem;
-  }
-
-  .secondary-card-time-am-pm {
-    font-size: 2.5rem;
-  }
-
-  .brand-logo {
-    width: 5rem;
-  }
-
-  .info-text {
-    font-size: 1rem;
-  }
-
-  .info-card {
-    gap: 1.5rem;
-  }
-
-  .date-text {
-    font-size: 3.5rem;
-  }
-
-  .date-number {
-    font-size: 7rem;
-  }
-}
-
-@media screen and (min-width: 720px) and (orientation: portrait) {
-  .secondary-container {
-    gap: 1rem;
-  }
-
-  .secondary-card-number-container {
-    gap: 1rem;
-  }
-
-  .secondary-card-number {
-    font-size: 11rem;
-  }
-
-  .secondary-card-time-am-pm {
-    font-size: 3rem;
-  }
-
-  .brand-logo {
-    width: 9rem;
-  }
-
-  .info-text {
-    font-size: 1.25rem;
-  }
-
-  .info-card {
-    gap: 1.5rem;
-  }
-
-  .date-text {
-    font-size: 6rem;
-  }
-
-  .date-number {
-    font-size: 10rem;
-  }
-}
-
-@media screen and (min-width: 800px) and (orientation: landscape) {
-  .secondary-container {
-    gap: 1rem;
-  }
-
-  .secondary-card-number-container {
-    gap: 1rem;
-  }
-
-  .secondary-card-number {
-    font-size: 6rem;
-    letter-spacing: 0.5rem;
-  }
-
-  .secondary-card-time-am-pm {
-    font-size: 2em;
-  }
-
-  .brand-logo {
-    width: 6.5rem;
-  }
-
-  .info-text {
-    font-size: 0.75rem;
-  }
-
-  .info-card {
-    gap: 1.5rem;
-  }
-
-  .date-text {
-    font-size: 3.4rem;
-  }
-
-  .date-number {
-    font-size: 7rem;
-  }
-}
-
-@media screen and (min-width: 1080px) and (orientation: portrait) {
-  .secondary-container {
-    gap: 3rem;
-  }
-
-  .secondary-card-number-container {
-    gap: 1rem;
-  }
-
-  .secondary-card-number {
-    font-size: 17rem;
-  }
-
-  .secondary-card-time-am-pm {
-    font-size: 4rem;
-  }
-
-  .brand-logo {
-    width: 12rem;
-  }
-
-  .info-text {
-    font-size: 2rem;
-  }
-
-  .info-card {
-    gap: 3rem;
-  }
-
-  .date-text {
-    font-size: 10rem;
-  }
-
-  .date-number {
-    font-size: 16rem;
-  }
-}
-
-@media screen and (min-width: 1280px) and (orientation: landscape) {
-  .secondary-container {
-    gap: 2rem;
-  }
-
-  .secondary-card-number-container {
-    gap: 1rem;
-  }
-
-  .secondary-card-number {
-    font-size: 10rem;
-  }
-
-  .secondary-card-time-am-pm {
-    font-size: 3rem;
-  }
-
-  .brand-logo {
-    width: 8.5rem;
-  }
-
-  .info-text {
-    font-size: 1.5rem;
-  }
-
-  .info-card {
-    gap: 3rem;
-  }
-
-  .date-text {
-    font-size: 5.5rem;
-  }
-
-  .date-number {
-    font-size: 13rem;
-  }
-}
-
-@media screen and (min-width: 1920px) and (orientation: landscape) {
-  .secondary-container {
-    gap: 2.5rem;
-  }
-
-  .secondary-card-number-container {
-    gap: 1rem;
-  }
-
-  .secondary-card-number {
-    font-size: 16rem;
-  }
-
-  .secondary-card-time-am-pm {
-    font-size: 4.5rem;
-  }
-
-  .brand-logo {
-    width: 13rem;
-  }
-
-  .info-text {
-    font-size: 1.75rem;
-  }
-
-  .info-card {
-    gap: 3rem;
-  }
-
-  .date-text {
-    font-size: 7rem;
-  }
-
-  .date-number {
-    font-size: 18rem;
-  }
-}
-
-@media screen and (min-width: 2160px) and (orientation: portrait) {
-  .secondary-container {
-    gap: 5rem;
-  }
-
-  .secondary-card-number {
-    font-size: 40rem;
-  }
-
-  .secondary-card-time-am-pm {
-    font-size: 9rem;
-  }
-
-  .brand-logo {
-    width: 22rem;
-  }
-
-  .info-text {
-    font-size: 3.75rem;
-  }
-
-  .info-card {
-    gap: 5rem;
-  }
-
-  .date-text {
-    font-size: 17rem;
-  }
-
-  .date-number {
-    font-size: 34rem;
-  }
-}
-
-@media screen and (min-width: 3840px) and (orientation: landscape) {
-  .secondary-container {
-    gap: 5rem;
-  }
-
-  .secondary-card-number {
-    font-size: 36rem;
-  }
-
-  .secondary-card-time-am-pm {
-    font-size: 10rem;
-  }
-
-  .brand-logo {
-    width: 26rem;
-  }
-
-  .info-text {
-    font-size: 3.75rem;
-  }
-
-  .info-card {
-    gap: 5rem;
-  }
-
-  .date-text {
-    font-size: 17rem;
-  }
-
-  .date-number {
-    font-size: 34rem;
-  }
-}
-
-@media screen and (min-width: 4096px) and (orientation: landscape) {
-  .secondary-container {
-    gap: 5rem;
-  }
-
-  .secondary-card-number {
-    font-size: 39rem;
-  }
-
-  .secondary-card-time-am-pm {
-    font-size: 11rem;
-  }
-
-  .brand-logo {
-    width: 30rem;
-  }
-
-  .info-card {
-    gap: 5rem;
-  }
-
-  .date-text {
-    font-size: 17rem;
-  }
-
-  .date-number {
-    font-size: 34rem;
-  }
-
-  .info-text {
-    font-size: 3.73rem;
-  }
-}
-
 @media screen and (max-width: 800px) {
   .primary-card {
-    width: 70%;
-  }
-
-  .secondary-container {
-    width: 30%;
-  }
-
-  .info-text {
-    font-size: 0.735rem;
-  }
-
-  .brand-logo {
-    width: 6.5rem;
+    width: 100%;
   }
 }
 
@@ -420,49 +38,9 @@
 
   .primary-card {
     width: 100%;
-    height: 90%;
+    height: 100%;
     order: 0;
   }
-
-  .secondary-container {
-    width: 100%;
-    height: 35%;
-    display: flex;
-    flex-direction: row;
-    gap: 3rem;
-    order: 1;
-    padding: 0;
-  }
-
-  .row-container {
-    flex: 1 1 0;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    min-width: 0;
-  }
-
-  .row-container:first-child {
-    order: 0;
-  }
-
-  .row-container:last-child {
-    order: 1;
-  }
-
-  .secondary-card {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-  }
-}
-
-.row-container:first-child {
-  order: 1;
-}
-
-.row-container:last-child {
-  order: 0;
 }
 
 @media screen and (max-width: 480px) and (orientation: portrait) {
@@ -472,28 +50,7 @@
   }
 
   .primary-card {
-    height: 90%;
-  }
-
-  .secondary-container {
-    height: 35%;
-    gap: 1.32rem; /* 3rem * 0.44 */
-  }
-
-  .info-text {
-    font-size: 0.88rem;
-  }
-
-  .brand-logo {
-    width: 6.6rem;
-  }
-
-  .date-text {
-    font-size: 2.8rem;
-  }
-
-  .date-number {
-    font-size: 7rem;
+    height: 100%;
   }
 }
 
@@ -504,34 +61,7 @@
   }
 
   .primary-card {
-    height: 90%;
-  }
-
-  .secondary-container {
-    height: 35%;
-    gap: 2.01rem;
-  }
-
-  .info-text {
-    font-size: 1.34rem;
-  }
-
-  .brand-logo {
-    width: 10rem;
-  }
-
-  .date-text {
-    font-size: 4rem;
-  }
-
-  .date-number {
-    font-size: 10rem;
-  }
-}
-
-@media screen and (min-width: 721px) and (max-width: 2159px) and (orientation: portrait) {
-  .brand-logo {
-    width: 15rem;
+    height: 100%;
   }
 }
 
@@ -542,27 +72,13 @@
   }
 
   .primary-card {
-    height: 90%;
+    height: 100%;
   }
+}
 
-  .secondary-container {
-    height: 35%;
-    gap: 6rem;
-  }
-
-  .info-text {
-    font-size: 4rem;
-  }
-
-  .brand-logo {
-    width: 30rem;
-  }
-
-  .date-text {
-    font-size: 12rem;
-  }
-
-  .date-number {
-    font-size: 30rem;
+@media screen and (min-width: 3840px) and (orientation: landscape) {
+  .main-container {
+    padding: 4rem;
+    gap: 4rem;
   }
 }

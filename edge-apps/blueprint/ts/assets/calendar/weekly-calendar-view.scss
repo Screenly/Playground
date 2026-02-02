@@ -1,13 +1,13 @@
-@mixin event-base-styles(
-  $left-right-margin,
-  $border-radius,
-  $border-width,
-  $padding,
-  $font-size
-) {
+@mixin event-wrapper-styles($border-width, $border-radius) {
   position: absolute;
-  left: $left-right-margin;
-  right: $left-right-margin;
+  z-index: 2;
+  overflow: hidden;
+  border: $border-width solid white;
+  border-radius: $border-radius;
+}
+
+@mixin event-base-styles($border-radius, $border-width, $padding, $font-size) {
+  height: 100%;
   background-color: #e6e7e7;
   border-radius: $border-radius;
   border-left: $border-width solid var(--theme-color-primary);
@@ -15,7 +15,6 @@
   font-size: $font-size;
   overflow: hidden;
   color: var(--theme-color-text);
-  z-index: 2;
 }
 
 @mixin time-indicator-base($height, $left-position) {
@@ -173,9 +172,15 @@
       height: 1px * $multiplier;
     }
 
+    .calendar-event-wrapper {
+      @include event-wrapper-styles(
+        0.07rem * $multiplier,
+        0.105rem * $multiplier
+      );
+    }
+
     .calendar-event-item {
       @include event-base-styles(
-        0.084rem * $multiplier,
         0.105rem * $multiplier,
         0.14rem * $multiplier,
         0.105rem * $multiplier,

@@ -9,6 +9,21 @@
   </head>
   <body>
     <div id="embed-container"></div>
+
+    <template id="error-template">
+      <div class="error-container">
+        <h1>Unable to load report</h1>
+        <p class="error-message"></p>
+        <table class="error-details"></table>
+      </div>
+    </template>
+
+    <template id="error-row-template">
+      <tr>
+        <td class="error-key"></td>
+        <td class="error-value"></td>
+      </tr>
+    </template>
   </body>
   <script src="static/js/vendor/panic-overlay.min.js"></script>
   <script src="static/js/vendor/powerbi.min.js"></script>
