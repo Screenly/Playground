@@ -56,12 +56,24 @@ class AppCache<T extends object> {
 }
 
 const cityEl = document.querySelector('[data-city]') as HTMLElement | null
-const currentTempEl = document.querySelector('[data-current-temp]') as HTMLElement | null
-const tempUnitEl = document.querySelector('[data-temp-unit]') as HTMLElement | null
-const statusEl = document.querySelector('[data-weather-status]') as HTMLElement | null
-const highTempEl = document.querySelector('[data-high-temp]') as HTMLElement | null
-const lowTempEl = document.querySelector('[data-low-temp]') as HTMLElement | null
-const forecastListEl = document.querySelector('[data-forecast-list]') as HTMLElement | null
+const currentTempEl = document.querySelector(
+  '[data-current-temp]',
+) as HTMLElement | null
+const tempUnitEl = document.querySelector(
+  '[data-temp-unit]',
+) as HTMLElement | null
+const statusEl = document.querySelector(
+  '[data-weather-status]',
+) as HTMLElement | null
+const highTempEl = document.querySelector(
+  '[data-high-temp]',
+) as HTMLElement | null
+const lowTempEl = document.querySelector(
+  '[data-low-temp]',
+) as HTMLElement | null
+const forecastListEl = document.querySelector(
+  '[data-forecast-list]',
+) as HTMLElement | null
 
 function setText(el: HTMLElement | null, value: string) {
   if (el) {
@@ -72,7 +84,9 @@ function setText(el: HTMLElement | null, value: string) {
 function getCoordinates(): [number, number] {
   const overrideCoordinates = getSetting<string>('override_coordinates')
   if (overrideCoordinates) {
-    const parts = overrideCoordinates.split(',').map((coord) => Number(coord.trim()))
+    const parts = overrideCoordinates
+      .split(',')
+      .map((coord) => Number(coord.trim()))
     if (parts.length === 2 && parts.every((val) => Number.isFinite(val))) {
       return [parts[0], parts[1]]
     }
@@ -157,7 +171,7 @@ async function getWeatherApiData(
     }
     cache.set(result)
     return result
-  } catch (error) {
+  } catch {
     const cached = cache.get()
     if (cached?.list?.length) {
       return cached
@@ -185,7 +199,6 @@ function findCurrentWeatherItem(list: ForecastItem[]) {
   return itemIndex
 }
 
-
 function getTempScale(countryCode: string) {
   return countriesUsingFahrenheit.includes(countryCode) ? 'F' : 'C'
 }
@@ -196,8 +209,6 @@ function convertTemp(scale: 'C' | 'F', tempCelsius: number) {
   }
   return Math.round(tempCelsius)
 }
-
-
 
 function renderForecast(
   list: ForecastItem[],
@@ -212,7 +223,11 @@ function renderForecast(
 
   forecastListEl.innerHTML = ''
   windowList.forEach((item, index) => {
-    const iconKey = getWeatherIconKey(item.weather[0]?.id ?? 800, item.dt, timeZone)
+    const iconKey = getWeatherIconKey(
+      item.weather[0]?.id ?? 800,
+      item.dt,
+      timeZone,
+    )
     const timeData = formatTime(new Date(item.dt * 1000), locale, timeZone)
     const formattedTime = timeData.dayPeriod
       ? `${timeData.hour}:${timeData.minute} ${timeData.dayPeriod}`
@@ -300,4 +315,3 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   signalReady()
 })
-
