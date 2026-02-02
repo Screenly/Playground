@@ -2,8 +2,10 @@ name: Edge App Checks
 
 on:
   push:
-    branches:
+    # TODO: Uncomment after testing.
+    branches-ignore:
       - master
+      - main
     paths:
       - "edge-apps/**"
   pull_request:
