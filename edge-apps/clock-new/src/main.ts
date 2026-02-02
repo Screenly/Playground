@@ -24,7 +24,9 @@ const timeEl = document.querySelector('[data-time]')
 const periodEl = document.querySelector('[data-period]')
 const dateEl = document.querySelector('[data-date]')
 const temperatureEl = document.querySelector('[data-temperature]')
-const weatherIconEl = document.querySelector('[data-weather-icon]') as HTMLImageElement | null
+const weatherIconEl = document.querySelector(
+  '[data-weather-icon]',
+) as HTMLImageElement | null
 
 // State
 let timezone: string = 'UTC'
@@ -60,7 +62,11 @@ async function getCityName(lat: number, lng: number): Promise<string> {
 }
 
 // Get weather data (optional - requires OpenWeatherMap API key)
-async function getWeatherData(lat: number, lng: number, tz: string): Promise<void> {
+async function getWeatherData(
+  lat: number,
+  lng: number,
+  tz: string,
+): Promise<void> {
   try {
     const apiKey = getSetting<string>('openweathermap_api_key')
     if (!apiKey) {
@@ -76,14 +82,18 @@ async function getWeatherData(lat: number, lng: number, tz: string): Promise<voi
     if ((data.cod === 200 || data.cod === '200') && data.main?.temp) {
       currentTemp = Math.round(data.main.temp)
       currentWeatherId = data.weather?.[0]?.id ?? null
-      
+
       if (temperatureEl) {
         temperatureEl.textContent = `${currentTemp}°`
       }
 
       // Update weather icon
       if (weatherIconEl && currentWeatherId) {
-        const iconKey = getWeatherIconKey(currentWeatherId, Math.floor(Date.now() / 1000), tz)
+        const iconKey = getWeatherIconKey(
+          currentWeatherId,
+          Math.floor(Date.now() / 1000),
+          tz,
+        )
         weatherIconEl.src = getWeatherIconUrl(iconKey, '/assets/images/icons')
         weatherIconEl.alt = data.weather?.[0]?.description || 'Weather icon'
       }
@@ -148,9 +158,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     setInterval(updateTime, 1000)
 
     // Refresh weather every 15 minutes
-    setInterval(() => {
-      getWeatherData(latitude, longitude, timezone)
-    }, 15 * 60 * 1000)
+    setInterval(
+      () => {
+        getWeatherData(latitude, longitude, timezone)
+      },
+      15 * 60 * 1000,
+    )
   } catch (error) {
     console.error('Failed to initialize app:', error)
   }
@@ -158,4 +171,3 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Signal that the app is ready to be shown
   signalReady()
 })
-
