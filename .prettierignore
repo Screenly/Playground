@@ -1,4 +1,5 @@
 **/*.min.js
+package.json
 edge-apps/cap-alerting/
 edge-apps/clock/
 edge-apps/edge-apps-library/
