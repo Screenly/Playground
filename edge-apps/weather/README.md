@@ -1,72 +1,71 @@
 # Screenly Weather App
 
-![Weather App Preview](static/images/weather-app-preview.png)
-
-To use this Edge App, you need a [OpenWeather](https://openweathermap.org) API key.
-
 ## Prerequisites
 
-- Install Screenly CLI - Please follow the guide [here](https://github.com/Screenly/cli)
+- [Bun (1.2.2+)](https://bun.sh/docs/installation)
+- [Screenly Edge App CLI (v1.0.3+)](https://github.com/Screenly/cli?tab=readme-ov-file#installation)
 
-## Steps
+## Getting Started
 
-Step 1. **Log in to the Screenly account via CLI**
+```bash
+bun install
+screenly edge-app create \
+    --name=EDGE_APP_NAME \
+    --in-place
+```
 
-Follow the on-screen instructions to log in to your Screenly account.
+## Create an Edge App Instance via CLI
 
-`$ screenly login`
+```bash
+screenly edge-app instance create --name=EDGE_APP_INSTANCE_NAME
+```
 
-Step 2. **Download and Open Edge App Playground**
+## Development
 
-`$ git clone https://github.com/Screenly/Playground.git`
+```bash
+# Install dependencies
+bun install
 
-Step 3. **Enter weather Edge App Directory**
+# Start dev server with hot reload
+bun run dev
+```
 
-`$ cd edge-apps/weather`
+Open http://localhost:5173 in your browser.
 
-Step 4. **Create a New weather Edge App:**
+### Dev Tools
 
-`$ screenly edge-app create --name "Weather Edge App" --in-place`
+In development mode, you'll see:
 
-Replace "Weather_EdgeApp" with your desired app name.
+- 📐 **Safe zone overlay** (dashed lines showing the 5% padding)
+- 📊 **Info panel** (viewport, resolution, scale factor)
+- ⌨️ **Press "D"** to toggle the overlay on/off
 
-Step 5. **Upload the Edge App**
+**These are automatically hidden in production builds!**
 
-`$ screenly edge-app deploy`
+## Building
 
-Wait for the upload to complete.
+```bash
+# Build for production
+bun run build
+```
 
-Step 6 **Create an Instance**
+## Deployment
 
-`$ screenly edge-app instance create`
+```bash
+# Deploy to Screenly
+bun run deploy
+```
 
-Step 7. **Specify the OpenWeather API Key** for example: 1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ
+> [!NOTE]
+> The `deploy` command takes care of building the app as well.
 
-Obtain the API key from [OpenWeather API](https://openweathermap.org)
+## Using the Library
 
-`$ screenly edge-app secret set openweathermap_api_key=API`
+This app uses `@screenly/edge-apps` for:
 
-Step 8. **Check the Screenly Dashboard**
+- **Auto-scaling** - Content scales from 1920×1080 to any screen
+- **Safe zones** - Prevents TV overscan cropping
+- **Theme integration** - Automatic Screenly branding
+- **Settings & Metadata** - Access to Screenly configuration
 
-Open the Screenly dashboard and verify that the new Edge App has been added as an asset.
-
-Step 9. **Assign Asset to Playlist and Device**
-
-- Assign the new asset to a playlist.
-- Assign the playlist to a device.
-
-Now, the Weather Edge App has been configured, and the designated webpage/dashboard will be presented on the Screenly-connected TV/Monitor.
-
-## Override the Location
-
-To override the location, you can change the coordinates in the screenly dashboard or via CLI. In default, the app will use the device's coordinates.
-
-`$ screenly edge-app setting set override_coordinates=123.456,78.910`
-
-## Override the Locale
-
-To override the locale, you can change the locale in the screenly dashboard or via CLI. In default, the app will use the device's locale or 'en' if the device's locale is not supported.
-
-`$ screenly edge-app setting set override_locale=en`
-
-You can find the list of supported locales [here](https://momentjs.com/)
+See the [library documentation](../edge-apps-library/README.md) for more details.

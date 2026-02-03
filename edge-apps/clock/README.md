@@ -1,7 +1,5 @@
 # Screenly Clock App
 
-![Clock Screen](./static/img/Clock-Preview.png)
-
 ## Prerequisites
 
 - [Bun (1.2.2+)](https://bun.sh/docs/installation)
@@ -22,81 +20,52 @@ screenly edge-app create \
 screenly edge-app instance create --name=EDGE_APP_INSTANCE_NAME
 ```
 
+## Development
+
+```bash
+# Install dependencies
+bun install
+
+# Start dev server with hot reload
+bun run dev
+```
+
+Open http://localhost:5173 in your browser.
+
+### Dev Tools
+
+In development mode, you'll see:
+
+- 📐 **Safe zone overlay** (dashed lines showing the 5% padding)
+- 📊 **Info panel** (viewport, resolution, scale factor)
+- ⌨️ **Press "D"** to toggle the overlay on/off
+
+**These are automatically hidden in production builds!**
+
+## Building
+
+```bash
+# Build for production
+bun run build
+```
+
 ## Deployment
 
 ```bash
+# Deploy to Screenly
 bun run deploy
 ```
 
 > [!NOTE]
 > The `deploy` command takes care of building the app as well.
 
-## Development
+## Using the Library
 
-Install the dependencies for the first run:
+This app uses `@screenly/edge-apps` for:
 
-```bash
-bun install
-```
+- **Auto-scaling** - Content scales from 1920×1080 to any screen
+- **Safe zones** - Prevents TV overscan cropping
+- **Theme integration** - Automatic Screenly branding
+- **Settings & Metadata** - Access to Screenly configuration
 
-Run the development environment with a single command:
-
-```bash
-bun run dev
-```
-
-This will build in watch mode and start the development server via [Screenly CLI](https://github.com/Screenly/cli).
-
-## Unit Tests
-
-To run unit tests:
-
-```bash
-bun run test:unit
-```
-
-Press `q` to quit the test runner.
-
-## E2E Tests
-
-Install dependencies for the first run:
-
-```bash
-bun run playwright install-deps
-bun run playwright install
-```
-
-To run E2E tests:
-
-```bash
-bun run test:e2e
-```
-
-### Linting and Formatting
-
-```bash
-bun run lint
-bun run format
-```
-
-## Tweaking the settings
-
-### `override_timezone`
-
-For instance, if you want to clock app to display the current date and time in London,
-run the following command:
-
-```bash
-$ screenly edge-app setting set override_timezone='Europe/Paris'
-# A relatively long console output...
-Edge app setting successfully set.
-
-$ screenly edge-app setting set override_locale='fr'
-# A relatively long console output...
-Edge app setting successfully set.
-```
-
-See [this page](https://momentjs.com/) for the list of all possible values for the time zone.
-Alternatively, you can call `moment.locales()`, which returns all the supported locale values.
-
-Setting invalid values for the timezone won't crash the app itself, it'll just fall back to the default time.
+See the [library documentation](../edge-apps-library/README.md) for more details.
