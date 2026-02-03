@@ -109,7 +109,10 @@ export class EdgeAppDevToolsElement extends HTMLElement {
     // Listen for scalechange events from <auto-scaler> elements
     // Events bubble up to document level, so we can listen there
     // This works whether auto-scaler is a parent or sibling
-    document.addEventListener('scalechange', this.boundOnScaleChange as EventListener)
+    document.addEventListener(
+      'scalechange',
+      this.boundOnScaleChange as EventListener,
+    )
 
     this.show()
     this.updateInfo()
@@ -118,17 +121,25 @@ export class EdgeAppDevToolsElement extends HTMLElement {
   disconnectedCallback() {
     window.removeEventListener('resize', this.boundOnResize)
     window.removeEventListener('keydown', this.boundOnKeyDown)
-    document.removeEventListener('scalechange', this.boundOnScaleChange as EventListener)
+    document.removeEventListener(
+      'scalechange',
+      this.boundOnScaleChange as EventListener,
+    )
   }
 
-  attributeChangedCallback(_name: string, _oldValue: string | null, _newValue: string | null) {
+  attributeChangedCallback(
+    _name: string,
+    _oldValue: string | null,
+    _newValue: string | null,
+  ) {
     if (!this.isConnected) return
     this.updateInfo()
   }
 
   private isDevelopmentMode(): boolean {
+    const meta = import.meta as { env?: { DEV?: boolean } }
     return (
-      (import.meta as any).env?.DEV ||
+      meta.env?.DEV ||
       window.location.hostname === 'localhost' ||
       window.location.hostname === '127.0.0.1' ||
       window.location.search.includes('dev=true')
@@ -137,10 +148,11 @@ export class EdgeAppDevToolsElement extends HTMLElement {
 
   private upgradeProperty(prop: string) {
     if (Object.prototype.hasOwnProperty.call(this, prop)) {
-      const value = (this as any)[prop]
-      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-      delete (this as any)[prop]
-      ;(this as any)[prop] = value
+      const element = this as unknown as Record<string, unknown>
+      const value = element[prop]
+
+      delete element[prop]
+      element[prop] = value
     }
   }
 
@@ -209,5 +221,3 @@ export class EdgeAppDevToolsElement extends HTMLElement {
 if (typeof window !== 'undefined' && !customElements.get('edge-app-devtools')) {
   customElements.define('edge-app-devtools', EdgeAppDevToolsElement)
 }
-
-

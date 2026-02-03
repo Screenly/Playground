@@ -1,5 +1,3 @@
-import type { AutoScalerOptions } from '../../types/index.js'
-
 /**
  * <auto-scaler>
  *
@@ -81,7 +79,11 @@ export class AutoScalerElement extends HTMLElement {
     this.teardown()
   }
 
-  attributeChangedCallback(name: string, _oldValue: string | null, _newValue: string | null) {
+  attributeChangedCallback(
+    name: string,
+    _oldValue: string | null,
+    _newValue: string | null,
+  ) {
     if (!this.isConnected) return
 
     // Recalculate when configuration changes
@@ -98,10 +100,11 @@ export class AutoScalerElement extends HTMLElement {
    */
   private upgradeProperty(prop: string) {
     if (Object.prototype.hasOwnProperty.call(this, prop)) {
-      const value = (this as any)[prop]
-      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-      delete (this as any)[prop]
-      ;(this as any)[prop] = value
+      const element = this as unknown as Record<string, unknown>
+      const value = element[prop]
+
+      delete element[prop]
+      element[prop] = value
     }
   }
 

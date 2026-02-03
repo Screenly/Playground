@@ -40,13 +40,11 @@ The recommended way to create a new Edge App is to use the template and scripts 
    ```
 
    The script will:
-
    - Ask for basic information (app name, ID, description, etc.).
    - Copy the contents of `template/` into a new directory.
    - Update the new app’s `screenly.yml`, `package.json`, and basic branding.
 
 3. **Open the generated app** and update:
-
    - `screenly.yml` to fine‑tune settings and metadata.
    - `src/main.ts` and `src/styles.css` for your custom logic and styles.
    - `assets/` for app-specific images and icons.
@@ -146,7 +144,11 @@ Use web components directly in your HTML:
 ```html
 <!-- index.html -->
 <body>
-  <auto-scaler reference-width="1920" reference-height="1080" orientation="auto">
+  <auto-scaler
+    reference-width="1920"
+    reference-height="1080"
+    orientation="auto"
+  >
     <div id="app">
       <app-header show-date></app-header>
       <main>
@@ -154,8 +156,11 @@ Use web components directly in your HTML:
       </main>
     </div>
   </auto-scaler>
-  <edge-app-devtools reference-width="1920" reference-height="1080"></edge-app-devtools>
-  
+  <edge-app-devtools
+    reference-width="1920"
+    reference-height="1080"
+  ></edge-app-devtools>
+
   <script src="screenly.js?version=1"></script>
   <script type="module" src="/src/main.ts"></script>
 </body>
@@ -218,6 +223,7 @@ bun run create-app
 ```
 
 This runs the shared `edge-apps-scripts` CLI and will:
+
 - Prompt you for an **app name** (for example, `my-dashboard`) and keep asking until you provide a non-empty name.
 - Scaffold a new directory under `edge-apps/` using the minimal TypeScript + Tailwind + Vite template.
 - Print the next commands to run.
@@ -243,6 +249,7 @@ Then open the dev server URL shown in the terminal.
 ### 3. Start editing your app
 
 In your new app directory:
+
 - `index.html` – HTML shell with `<auto-scaler>` and `<edge-app-devtools>` web components. Loads `screenly.js` and `src/main.ts`.
 - `src/main.ts` – TypeScript entrypoint that registers components and signals ready.
 - `src/styles.css` – Tailwind + Screenly design system styles.
@@ -306,8 +313,13 @@ Functions for working with weather data and icons:
 - `isNightForTimestamp(timestamp, timeZone)` - Determines if a timestamp is during nighttime
 
 **Example:**
+
 ```typescript
-import { getWeatherIconKey, getWeatherIconUrl, getTimeZone } from '@screenly/edge-apps'
+import {
+  getWeatherIconKey,
+  getWeatherIconUrl,
+  getTimeZone,
+} from '@screenly/edge-apps'
 
 // Get weather data from API
 const weatherId = data.weather[0].id // OpenWeatherMap condition ID
@@ -336,6 +348,7 @@ Reusable web components for building consistent Edge Apps. All components are se
 Automatically scales content from a reference resolution to any screen size.
 
 **Usage:**
+
 ```html
 <auto-scaler reference-width="1920" reference-height="1080" orientation="auto">
   <!-- Your app content sized for 1920×1080 -->
@@ -343,6 +356,7 @@ Automatically scales content from a reference resolution to any screen size.
 ```
 
 **Attributes:**
+
 - `reference-width` (required): Reference width in pixels (default: 1920)
 - `reference-height` (required): Reference height in pixels (default: 1080)
 - `orientation` (optional): "landscape", "portrait", or "auto" (default: "auto")
@@ -351,8 +365,14 @@ Automatically scales content from a reference resolution to any screen size.
 - `debounce-ms` (optional): Resize debounce delay in milliseconds (default: 100)
 
 **Example:**
+
 ```html
-<auto-scaler reference-width="1920" reference-height="1080" orientation="auto" center-content>
+<auto-scaler
+  reference-width="1920"
+  reference-height="1080"
+  orientation="auto"
+  center-content
+>
   <div id="app">
     <!-- Your content -->
   </div>
@@ -364,15 +384,21 @@ Automatically scales content from a reference resolution to any screen size.
 Development overlay showing viewport, reference resolution, and scale. Only visible in development mode.
 
 **Usage:**
+
 ```html
-<edge-app-devtools reference-width="1920" reference-height="1080"></edge-app-devtools>
+<edge-app-devtools
+  reference-width="1920"
+  reference-height="1080"
+></edge-app-devtools>
 ```
 
 **Attributes:**
+
 - `reference-width` (required): Reference width in pixels
 - `reference-height` (required): Reference height in pixels
 
 **Features:**
+
 - Press 'D' to toggle visibility
 - Shows viewport dimensions, reference resolution, scale, and orientation
 - Automatically hidden in production
@@ -382,17 +408,20 @@ Development overlay showing viewport, reference resolution, and scale. Only visi
 Displays the branding logo from Screenly settings with fallback to screen name.
 
 **Usage:**
+
 ```html
 <brand-logo></brand-logo>
 ```
 
 **Attributes:**
+
 - `show-name` (optional): Show screen name alongside logo (default: false)
 - `fallback-to-name` (optional): Show screen name if logo unavailable (default: true)
 - `max-width` (optional): Maximum width for logo (default: "120px")
 - `max-height` (optional): Maximum height for logo (default: "32px")
 
 **Examples:**
+
 ```html
 <!-- Basic usage -->
 <brand-logo></brand-logo>
@@ -409,17 +438,20 @@ Displays the branding logo from Screenly settings with fallback to screen name.
 A flexible header component with branding and time display.
 
 **Usage:**
+
 ```html
 <app-header></app-header>
 ```
 
 **Attributes:**
+
 - `show-logo` (optional): Show brand logo (default: true)
 - `show-time` (optional): Show time display (default: true)
 - `show-date` (optional): Show date display (default: false)
 - `time-format` (optional): Time format - "12h" or "24h" (default: auto-detect)
 
 **Examples:**
+
 ```html
 <!-- Basic usage -->
 <app-header></app-header>
@@ -466,10 +498,7 @@ import baseConfig from '../edge-apps-library/configs/tailwind.config.base.js'
 
 export default {
   ...baseConfig,
-  content: [
-    './index.html',
-    './src/**/*.{js,ts,jsx,tsx}',
-  ],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     ...baseConfig.theme,
     extend: {
