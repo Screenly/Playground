@@ -1,4 +1,6 @@
-## What is Edge Apps Library?
+# Edge Apps Library
+
+## Overview
 
 `@screenly/edge-apps` is a TypeScript library and tooling set for building Screenly Edge Apps. It provides:
 
@@ -102,12 +104,8 @@ Once you have an Edge App created from the template, you can import helpers, sty
 In most cases, you will:
 
 - Use the **template** to get a working Edge App.
-- Import **styles** and **components** to match Screenly’s look and feel.
+- Import **styles** and **components** to match Screenly's look and feel.
 - Use **utils** and **types** to work with Edge Apps metadata, settings, and screen information in a type‑safe way.
-
-# @screenly/edge-apps
-
-A TypeScript library for building Screenly Edge Apps with a complete design system, web components, and development tools.
 
 ## Table of Contents
 
