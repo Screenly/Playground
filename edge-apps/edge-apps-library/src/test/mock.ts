@@ -36,12 +36,13 @@ export const mockSettings: ScreenlySettings = {
 export function createMockScreenly(
   metadata: Partial<ScreenlyMetadata> = {},
   settings: Partial<ScreenlySettings> = {},
+  corsProxyUrl = 'http://localhost:8080',
 ): ScreenlyObject {
   return {
     signalReadyForRendering: () => {},
     metadata: { ...mockMetadata, ...metadata },
     settings: { ...mockSettings, ...settings },
-    cors_proxy_url: 'http://localhost:8080',
+    cors_proxy_url: corsProxyUrl,
   }
 }
 
@@ -52,8 +53,9 @@ export function createMockScreenly(
 export function setupScreenlyMock(
   metadata: Partial<ScreenlyMetadata> = {},
   settings: Partial<ScreenlySettings> = {},
+  corsProxyUrl?: string,
 ): ScreenlyObject {
-  const mock = createMockScreenly(metadata, settings)
+  const mock = createMockScreenly(metadata, settings, corsProxyUrl)
   global.screenly = mock
   return mock
 }

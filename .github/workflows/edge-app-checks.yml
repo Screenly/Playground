@@ -157,9 +157,57 @@ jobs:
         working-directory: edge-apps/${{ matrix.app }}
         run: bun run format:check
 
-      - name: Run unit tests
+      - name: Clean coverage directory
         working-directory: edge-apps/${{ matrix.app }}
-        run: bun run test:unit
+        run: rm -rf coverage
+
+      - name: Run unit tests
+        id: run-tests
+        working-directory: edge-apps/${{ matrix.app }}
+        run: bun run test:unit 2>&1 | tee test-output.txt
+
+      - name: Generate coverage summary
+        if: always()
+        working-directory: edge-apps/${{ matrix.app }}
+        run: |
+          if [ -f "test-output.txt" ]; then
+            {
+              echo "## Code Coverage Report for ${{ matrix.app }}"
+              echo ""
+              echo "| File | % Funcs | % Lines |"
+              echo "|:-----|--------:|--------:|"
+
+              # Parse bun test output for coverage table
+              awk '
+              BEGIN { in_table = 0 }
+              /^-+\|/ {
+                in_table = 1
+                next
+              }
+              in_table && /^All files/ {
+                split($0, parts, "|")
+                gsub(/^[[:space:]]+|[[:space:]]+$/, "", parts[2])
+                gsub(/^[[:space:]]+|[[:space:]]+$/, "", parts[3])
+                printf "| **All files** | **%s%%** | **%s%%** |\n", parts[2], parts[3]
+                next
+              }
+              in_table && /^[[:space:]]*src\// {
+                split($0, parts, "|")
+                gsub(/^[[:space:]]+|[[:space:]]+$/, "", parts[1])
+                gsub(/^[[:space:]]+|[[:space:]]+$/, "", parts[2])
+                gsub(/^[[:space:]]+|[[:space:]]+$/, "", parts[3])
+                printf "| %s | %s%% | %s%% |\n", parts[1], parts[2], parts[3]
+              }
+              /^-+\|-+/ && in_table {
+                in_table = 0
+              }
+              ' test-output.txt
+
+              echo ""
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No test output found for ${{ matrix.app }}" >> "$GITHUB_STEP_SUMMARY"
+          fi
 
       - name: Build application
         working-directory: edge-apps/${{ matrix.app }}

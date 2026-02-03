@@ -9,6 +9,19 @@ import {
 
 const global = globalThis as Record<string, unknown>
 
+/**
+ * Helper function to check property existence and optionally verify its value.
+ * Note: Cannot test for properties explicitly set to undefined - only checks
+ * property existence when no value is provided.
+ */
+function expectProperty(obj: unknown, key: string, value?: unknown) {
+  if (value !== undefined) {
+    expect(obj).toHaveProperty(key, value)
+  } else {
+    expect(obj).toHaveProperty(key)
+  }
+}
+
 // eslint-disable-next-line max-lines-per-function
 describe('mock utilities', () => {
   afterEach(() => {
@@ -17,22 +30,36 @@ describe('mock utilities', () => {
 
   describe('mockMetadata', () => {
     test('should have default metadata values', () => {
-      expect(mockMetadata).toHaveProperty('coordinates')
-      expect(mockMetadata).toHaveProperty('hostname', 'test-hostname')
-      expect(mockMetadata).toHaveProperty('location', 'Test Location')
-      expect(mockMetadata).toHaveProperty('hardware', 'test-hardware')
-      expect(mockMetadata).toHaveProperty('screenly_version', '1.0.0-test')
-      expect(mockMetadata).toHaveProperty('screen_name', 'Test Screen')
-      expect(mockMetadata).toHaveProperty('tags')
+      const expectedProperties = [
+        { key: 'coordinates' },
+        { key: 'hostname', value: 'test-hostname' },
+        { key: 'location', value: 'Test Location' },
+        { key: 'hardware', value: 'test-hardware' },
+        { key: 'screenly_version', value: '1.0.0-test' },
+        { key: 'screen_name', value: 'Test Screen' },
+        { key: 'tags' },
+      ]
+
+      expectedProperties.forEach(({ key, value }) => {
+        expectProperty(mockMetadata, key, value)
+      })
+
       expect(Array.isArray(mockMetadata.tags)).toBe(true)
     })
   })
 
   describe('mockSettings', () => {
     test('should have default settings values', () => {
-      expect(mockSettings).toHaveProperty('screenly_color_accent', '#972EFF')
-      expect(mockSettings).toHaveProperty('screenly_color_light', '#ADAFBE')
-      expect(mockSettings).toHaveProperty('screenly_color_dark', '#454BD2')
+      const expectedProperties = [
+        { key: 'screenly_color_accent', value: '#972EFF' },
+        { key: 'screenly_color_light', value: '#ADAFBE' },
+        { key: 'screenly_color_dark', value: '#454BD2' },
+      ]
+
+      expectedProperties.forEach(({ key, value }) => {
+        expectProperty(mockSettings, key, value)
+      })
+
       expect(mockSettings).not.toHaveProperty('theme')
     })
   })
@@ -41,36 +68,44 @@ describe('mock utilities', () => {
     test('should create mock with default values', () => {
       const mock = createMockScreenly()
 
-      expect(mock).toHaveProperty('signalReadyForRendering')
-      expect(mock).toHaveProperty('metadata')
-      expect(mock).toHaveProperty('settings')
-      expect(mock).toHaveProperty('cors_proxy_url', 'http://localhost:8080')
+      const expectedProperties = [
+        'signalReadyForRendering',
+        'metadata',
+        'settings',
+      ]
+      expectedProperties.forEach((key) => expectProperty(mock, key))
+
+      expectProperty(mock, 'cors_proxy_url', 'http://localhost:8080')
       expect(typeof mock.signalReadyForRendering).toBe('function')
     })
 
+    test('should have a callable signalReadyForRendering function', () => {
+      const mock = createMockScreenly()
+      expect(() => mock.signalReadyForRendering()).not.toThrow()
+    })
+
     test('should merge custom metadata', () => {
-      const mock = createMockScreenly({
+      const customMetadata = {
         hostname: 'custom-hostname',
         location: 'Custom Location',
-      })
+      }
+      const mock = createMockScreenly(customMetadata)
 
       expect(mock.metadata.hostname).toBe('custom-hostname')
       expect(mock.metadata.location).toBe('Custom Location')
-      expect(mock.metadata.hardware).toBe('test-hardware') // default value preserved
+      expect(mock.metadata.hardware).toBe('test-hardware')
     })
 
     test('should merge custom settings', () => {
-      const mock = createMockScreenly(
-        {},
-        {
-          theme: 'dark',
-          custom_setting: 'custom_value',
-        },
-      )
+      const customSettings = {
+        theme: 'dark',
+        custom_setting: 'custom_value',
+      }
+      const mock = createMockScreenly({}, customSettings)
 
       expect(mock.settings.theme).toBe('dark')
       expect(mock.settings.custom_setting).toBe('custom_value')
-      expect(mock.settings.screenly_color_accent).toBe('#972EFF') // default value preserved
+      expect(mock.settings.screenly_color_accent).toBe('#972EFF')
     })
   })
 
@@ -79,21 +114,20 @@ describe('mock utilities', () => {
       setupScreenlyMock()
 
       expect(global.screenly).toBeDefined()
-      expect(global.screenly).toHaveProperty('metadata')
-      expect(global.screenly).toHaveProperty('settings')
+      expectProperty(global.screenly, 'metadata')
+      expectProperty(global.screenly, 'settings')
     })
 
     test('should setup with custom values', () => {
       setupScreenlyMock({ hostname: 'custom-host' }, { theme: 'dark' })
 
       const screenly = global.screenly as Record<string, unknown>
-      expect(screenly.metadata).toHaveProperty('hostname', 'custom-host')
-      expect(screenly.settings).toHaveProperty('theme', 'dark')
+      expectProperty(screenly.metadata, 'hostname', 'custom-host')
+      expectProperty(screenly.settings, 'theme', 'dark')
     })
 
     test('should return the mock object', () => {
       const mock = setupScreenlyMock()
-
       expect(mock).toBe(global.screenly)
     })
   })

@@ -12,3 +12,4 @@ global.document = dom.window.document
 global.window = dom.window as unknown as Window & typeof globalThis
 global.navigator = dom.window.navigator
 global.Node = dom.window.Node
+global.FileReader = dom.window.FileReader
