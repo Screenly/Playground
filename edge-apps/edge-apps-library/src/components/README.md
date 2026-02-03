@@ -6,7 +6,7 @@ Reusable web components for building consistent Edge Apps.
 
 Each component is organized in its own directory with a single TypeScript file containing all logic, templates, and styles:
 
-```
+```text
 components/
   brand-logo/
     brand-logo.ts      # Complete component (TypeScript + HTML template + CSS)

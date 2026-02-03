@@ -12,7 +12,7 @@ bun install
 bun run dev
 ```
 
-Open http://localhost:5173 in your browser.
+Open <http://localhost:5173> in your browser.
 
 ### Dev Tools
 
@@ -39,7 +39,7 @@ bun run deploy
 
 ## Project Structure
 
-```
+```text
 {{APP_NAME}}/
 ├── src/
 │   ├── main.ts         # Main entry point
