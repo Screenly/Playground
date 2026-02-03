@@ -47,7 +47,7 @@ function componentResolvePlugin(): Plugin {
           return jsPath
         }
       }
-      
+
       // Handle .js imports from edge-apps-library (resolve to .ts)
       // This is needed because TypeScript uses .js extensions in imports
       // but the actual files are .ts
@@ -56,7 +56,7 @@ function componentResolvePlugin(): Plugin {
         if (id.includes('node_modules') || id.startsWith('@')) {
           return null
         }
-        
+
         // Check if importer is from edge-apps-library
         if (importer.includes('/edge-apps-library/')) {
           const tsPath = id.replace(/\.js$/, '.ts')
@@ -128,7 +128,7 @@ function screenlyMockPlugin(): Plugin {
             try {
               const mockDataFile = fs.readFileSync(mockDataPath, 'utf8')
               const parsed = YAML.parse(mockDataFile)
-              
+
               // Merge mock data with defaults
               if (parsed.metadata) {
                 mockData.metadata = {
@@ -174,6 +174,7 @@ window.screenly = {
 }
 
 export default defineConfig({
+  base: '',
   server: {
     port: 5173,
     open: true,
