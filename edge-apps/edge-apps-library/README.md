@@ -115,10 +115,6 @@ In most cases, you will:
 - [Core Functions](#core-functions)
 - [Web Components](#web-components)
 - [Design System](#design-system)
-- [Edge Apps Scripts CLI](#edge-apps-scripts-cli)
-- [Development](#development)
-- [Types](#types)
-- [Testing](#testing)
 
 ## Installation
 
