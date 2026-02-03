@@ -78,7 +78,7 @@ async function buildCommand(args: string[]) {
 
     // Build for production using Vite
     const viteBin = path.resolve(libraryRoot, 'node_modules', '.bin', 'vite')
-    const configPath = path.resolve(libraryRoot, 'vite.config.ts')
+    const configPath = path.resolve(libraryRoot, 'configs/vite.config.with-plugins.ts')
     const viteArgs = ['build', '--sourcemap', '--config', configPath, ...args]
 
     // Set NODE_PATH to include library's node_modules so plugins can resolve dependencies
@@ -107,7 +107,7 @@ async function buildDevCommand(args: string[]) {
 
     // Build for development with watch mode using Vite
     const viteBin = path.resolve(libraryRoot, 'node_modules', '.bin', 'vite')
-    const configPath = path.resolve(libraryRoot, 'vite.config.ts')
+    const configPath = path.resolve(libraryRoot, 'configs/vite.config.with-plugins.ts')
     const viteArgs = [
       'build',
       '--watch',
@@ -156,22 +156,58 @@ async function buildDevCommand(args: string[]) {
 async function typeCheckCommand(args: string[]) {
   try {
     const callerDir = process.cwd()
+    const fs = await import('fs')
 
     // Get path to tsc binary in the library's node_modules
     const tscBin = path.resolve(libraryRoot, 'node_modules', '.bin', 'tsc')
 
-    // Build tsc command
-    const tscArgs = [
-      '--noEmit',
-      '--project',
-      path.resolve(libraryRoot, 'tsconfig.json'),
-      ...args,
-    ]
+    // Check if the app has TypeScript source files to check
+    const srcDir = path.resolve(callerDir, 'src')
+    const hasSrc = fs.existsSync(srcDir)
 
-    execSync(`"${tscBin}" ${tscArgs.map((arg) => `"${arg}"`).join(' ')}`, {
-      stdio: 'inherit',
-      cwd: callerDir,
-    })
+    if (!hasSrc) {
+      console.log('No src directory found, skipping type check')
+      return
+    }
+
+    // Create a temporary tsconfig in the app directory that extends the library's config
+    const tempTsConfig = path.resolve(callerDir, '.tsconfig.temp.json')
+    const baseTsConfig = path.resolve(libraryRoot, 'configs/tsconfig.vite-app.json')
+
+    // Create temp config that extends base and adjusts paths for this app
+    const tempConfig = {
+      extends: path.relative(callerDir, baseTsConfig),
+      compilerOptions: {
+        baseUrl: '.',
+        paths: {
+          '@screenly/edge-apps': [path.relative(callerDir, path.resolve(libraryRoot, 'src/index.ts'))],
+          '@screenly/edge-apps/*': [path.relative(callerDir, path.resolve(libraryRoot, 'src')) + '/*'],
+        },
+      },
+      include: ['src'],
+    }
+
+    fs.writeFileSync(tempTsConfig, JSON.stringify(tempConfig, null, 2))
+
+    try {
+      // Build tsc command
+      const tscArgs = [
+        '--noEmit',
+        '--project',
+        tempTsConfig,
+        ...args,
+      ]
+
+      execSync(`"${tscBin}" ${tscArgs.map((arg) => `"${arg}"`).join(' ')}`, {
+        stdio: 'inherit',
+        cwd: callerDir,
+      })
+    } finally {
+      // Clean up temp config
+      if (fs.existsSync(tempTsConfig)) {
+        fs.unlinkSync(tempTsConfig)
+      }
+    }
   } catch {
     process.exit(1)
   }
