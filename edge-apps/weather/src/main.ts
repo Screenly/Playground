@@ -7,10 +7,10 @@ import {
   formatTime,
   isPortrait,
   getWeatherIconKey,
-  getWeatherIconUrl,
 } from '@screenly/edge-apps'
 import '@screenly/edge-apps/components'
 import './styles.css'
+import { iconMap } from './icons'
 
 type ForecastItem = {
   dt: number
@@ -30,8 +30,6 @@ type LocationCache = {
   state?: string | null
   timestamp: string
 }
-
-const iconBase = '/assets/images/icons'
 
 const countriesUsingFahrenheit = ['US', 'BS', 'KY', 'LR', 'PW', 'FM', 'MH']
 
@@ -239,7 +237,7 @@ function renderForecast(
     itemEl.className = 'forecast-item'
     itemEl.innerHTML = `
       <div class="forecast-temp">${tempValue}°</div>
-      <img alt="Weather Icon" class="forecast-icon" src="${getWeatherIconUrl(iconKey, iconBase)}" />
+      <img alt="Weather Icon" class="forecast-icon" src="${iconMap[iconKey] || iconMap.clear}" />
       <div class="forecast-time">${timeValue}</div>
     `
     itemEl.dataset.id = String(index)
