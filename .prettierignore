@@ -1,5 +1,7 @@
 **/*.min.js
+package.json
 edge-apps/cap-alerting/
+edge-apps/clock/
 edge-apps/edge-apps-library/
 edge-apps/grafana/
 edge-apps/powerbi-legacy/
@@ -8,5 +10,6 @@ edge-apps/powerbi
 edge-apps/powerbi/**
 edge-apps/qr-code/
 edge-apps/menu-board/
+edge-apps/weather/
 .github/workflows/
 .claude/

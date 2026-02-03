@@ -14,6 +14,13 @@ export default defineConfig(
   ]),
   {
     rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+        },
+      ],
       'max-lines-per-function': ['error', {
         max: 70,
         skipBlankLines: true,

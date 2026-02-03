@@ -1,6 +1,5 @@
 import tzlookup from '@photostructure/tz-lookup'
 import clm from 'country-locale-map'
-import { getNearestCity } from 'offline-geocode-city'
 import { getSettingWithDefault } from './settings.js'
 import { getMetadata } from './metadata.js'
 
@@ -118,6 +117,10 @@ export async function getLocale(): Promise<string> {
       : navigator.language) || 'en'
 
   try {
+    // Lazy-load offline-geocode-city so apps that never call getLocale
+    // don't need to bundle it (and won't hit its lz-string dependency).
+    const { getNearestCity } = await import('offline-geocode-city')
+
     const data = await getNearestCity(lat, lng)
     const countryCode = data.countryIso2.toUpperCase()
 

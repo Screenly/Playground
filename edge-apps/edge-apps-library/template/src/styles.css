@@ -1,0 +1,20 @@
+/* Import Screenly Design System */
+/* Using relative path because PostCSS doesn't resolve Vite aliases */
+@import '{{LIBRARY_STYLES_PATH}}';
+
+/* Import Tailwind */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* App-specific styles go here */
+
+/* Background image styling */
+.app-background {
+  background-image: url('../assets/images/sample-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* Fallback color in case image fails to load */
+  background-color: #0f172a;
+}
