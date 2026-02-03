@@ -48,8 +48,8 @@
     "test:unit": "bun test --parallel",
     "test:coverage": "bun test --coverage --parallel",
     "lint": "eslint . --fix",
-    "format": "prettier --write src/ scripts/ README.md index.html",
-    "format:check": "prettier --check src/ scripts/ README.md index.html",
+    "format": "prettier --write src/ scripts/ README.md",
+    "format:check": "prettier --check src/ scripts/ README.md",
     "type-check": "tsc --noEmit"
   },
   "prettier": "./.prettierrc.json",
