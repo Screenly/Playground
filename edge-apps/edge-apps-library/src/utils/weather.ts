@@ -24,7 +24,11 @@ export function isNightForTimestamp(dt: number, timeZone: string): boolean {
  * @param timeZone - IANA timezone string (e.g., 'America/New_York')
  * @returns Icon key string (e.g., 'clear', 'clear-night', 'rain', etc.)
  */
-export function getWeatherIconKey(id: number, dt: number, timeZone: string): string {
+export function getWeatherIconKey(
+  id: number,
+  dt: number,
+  timeZone: string,
+): string {
   let icon: string = 'clear'
   const isNight = isNightForTimestamp(dt, timeZone)
 
@@ -94,4 +98,3 @@ export function getWeatherIconUrl(
 
   return iconMap[iconKey] || iconMap.clear
 }
-

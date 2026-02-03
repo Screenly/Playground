@@ -67,7 +67,7 @@ export function initEdgeApp(
   // Move container content into scaler element
   // Store original children
   const children = Array.from(container.childNodes)
-  
+
   // Clear container and append scaler
   container.innerHTML = ''
   container.appendChild(scalerEl)
@@ -81,12 +81,16 @@ export function initEdgeApp(
   let devToolsEl: EdgeAppDevToolsElement | undefined
 
   if (options.enableDevTools) {
-    devToolsEl = document.createElement('edge-app-devtools') as EdgeAppDevToolsElement
+    devToolsEl = document.createElement(
+      'edge-app-devtools',
+    ) as EdgeAppDevToolsElement
     devToolsEl.setAttribute('reference-width', String(options.referenceWidth))
     devToolsEl.setAttribute('reference-height', String(options.referenceHeight))
 
     // Listen for scalechange events from scaler
-    scalerEl.addEventListener('scalechange', ((event: CustomEvent<{ scale: number }>) => {
+    scalerEl.addEventListener('scalechange', ((
+      event: CustomEvent<{ scale: number }>,
+    ) => {
       if (devToolsEl && event.detail?.scale) {
         devToolsEl.updateScale(event.detail.scale)
       }

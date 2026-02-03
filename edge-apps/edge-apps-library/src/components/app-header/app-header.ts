@@ -1,4 +1,9 @@
-import { formatTime, formatLocalizedDate, getTimeZone, getLocale } from '../../utils/index.js'
+import {
+  formatTime,
+  formatLocalizedDate,
+  getTimeZone,
+  getLocale,
+} from '../../utils/index.js'
 
 const htmlTemplate = `
 <div class="header-left">
@@ -109,7 +114,7 @@ export class AppHeader extends HTMLElement {
     this.upgradeProperty('timeFormat')
 
     this.loadAttributes()
-    
+
     // Initialize timezone and locale
     try {
       this.timezone = await getTimeZone()
@@ -117,10 +122,10 @@ export class AppHeader extends HTMLElement {
     } catch (error) {
       console.warn('Failed to get timezone/locale:', error)
     }
-    
+
     this.render()
     this.updateTime()
-    
+
     // Update time every second
     if (this.showTime || this.showDate) {
       this.updateInterval = window.setInterval(() => {
@@ -142,10 +147,11 @@ export class AppHeader extends HTMLElement {
 
   private upgradeProperty(prop: string) {
     if (Object.prototype.hasOwnProperty.call(this, prop)) {
-      const value = (this as any)[prop]
-      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-      delete (this as any)[prop]
-      ;(this as any)[prop] = value
+      const element = this as unknown as Record<string, unknown>
+      const value = element[prop]
+
+      delete element[prop]
+      element[prop] = value
     }
   }
 
@@ -170,12 +176,18 @@ export class AppHeader extends HTMLElement {
     if (!this._showTime && !this._showDate) return
 
     const now = new Date()
-    const timeEl = this.shadowRoot!.querySelector('.header-time') as HTMLElement | null
-    const dateEl = this.shadowRoot!.querySelector('.header-date') as HTMLElement | null
+    const timeEl = this.shadowRoot!.querySelector(
+      '.header-time',
+    ) as HTMLElement | null
+    const dateEl = this.shadowRoot!.querySelector(
+      '.header-date',
+    ) as HTMLElement | null
 
     if (this._showTime && timeEl) {
       const timeData = formatTime(now, this.locale, this.timezone, {
-        hour12: this._timeFormat === '12h' || (this._timeFormat !== '24h' && undefined),
+        hour12:
+          this._timeFormat === '12h' ||
+          (this._timeFormat !== '24h' && undefined),
       })
       // Format time as "HH:MM" or "HH:MM AM/PM"
       const formattedTime = timeData.dayPeriod
@@ -201,15 +213,17 @@ export class AppHeader extends HTMLElement {
   }
 
   private render() {
-    const style = this.shadowRoot!.querySelector('style') as HTMLStyleElement | null
-    
+    const style = this.shadowRoot!.querySelector(
+      'style',
+    ) as HTMLStyleElement | null
+
     if (!style) {
       // First render
       this.shadowRoot!.innerHTML = `
         <style>${cssTemplate}</style>
         ${htmlTemplate}
       `
-      
+
       // Re-initialize time after render
       if (this._showTime || this._showDate) {
         setTimeout(() => this.updateTime(), 0)

@@ -9,4 +9,3 @@ export { EdgeAppDevToolsElement } from './dev-tools/dev-tools.js'
 
 // Side-effect: Register all components when this module is imported
 import './register.js'
-

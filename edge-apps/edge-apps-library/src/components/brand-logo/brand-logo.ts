@@ -81,17 +81,17 @@ export class BrandLogo extends HTMLElement {
 
   private upgradeProperty(prop: string) {
     if (Object.prototype.hasOwnProperty.call(this, prop)) {
-      const value = (this as any)[prop]
-      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-      delete (this as any)[prop]
-      ;(this as any)[prop] = value
+      const element = this as unknown as Record<string, unknown>
+      const value = element[prop]
+
+      delete element[prop]
+      element[prop] = value
     }
   }
 
   private loadAttributes() {
     this._showName = this.hasAttribute('show-name')
-    this._fallbackToName =
-      this.getAttribute('fallback-to-name') !== 'false'
+    this._fallbackToName = this.getAttribute('fallback-to-name') !== 'false'
     this._maxWidth = this.getAttribute('max-width') || '120px'
     this._maxHeight = this.getAttribute('max-height') || '32px'
     this.updateCssProperties()
@@ -122,7 +122,9 @@ export class BrandLogo extends HTMLElement {
 
   private updateLogo() {
     const img = this.shadowRoot!.querySelector('img') as HTMLImageElement | null
-    const nameEl = this.shadowRoot!.querySelector('.brand-name') as HTMLElement | null
+    const nameEl = this.shadowRoot!.querySelector(
+      '.brand-name',
+    ) as HTMLElement | null
 
     if (img) {
       img.src = this.logoUrl
@@ -136,7 +138,9 @@ export class BrandLogo extends HTMLElement {
 
   private updateFallback() {
     const img = this.shadowRoot!.querySelector('img') as HTMLImageElement | null
-    const nameEl = this.shadowRoot!.querySelector('.brand-name') as HTMLElement | null
+    const nameEl = this.shadowRoot!.querySelector(
+      '.brand-name',
+    ) as HTMLElement | null
 
     if (img) {
       img.style.display = 'none'
@@ -152,8 +156,10 @@ export class BrandLogo extends HTMLElement {
   }
 
   private render() {
-    const style = this.shadowRoot!.querySelector('style') as HTMLStyleElement | null
-    
+    const style = this.shadowRoot!.querySelector(
+      'style',
+    ) as HTMLStyleElement | null
+
     if (!style) {
       // First render
       this.shadowRoot!.innerHTML = `

@@ -108,7 +108,11 @@ function screenlyMockPlugin(): Plugin {
       server.middlewares.use((req, res, next) => {
         if (req.url === '/screenly.js?version=1' || req.url === '/screenly.js') {
           // Try to load mock-data.yml, fallback to generic defaults
-          const mockData: any = {
+          const mockData: {
+            metadata: Record<string, unknown>
+            settings: Record<string, unknown>
+            cors_proxy_url: string
+          } = {
             metadata: {
               coordinates: [37.3861, -122.0839] as [number, number],
               hostname: 'dev-hostname',

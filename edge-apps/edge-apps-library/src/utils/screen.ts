@@ -32,4 +32,3 @@ export function isLandscape(): boolean {
 export function getOrientation(): 'portrait' | 'landscape' {
   return isPortrait() ? 'portrait' : 'landscape'
 }
-

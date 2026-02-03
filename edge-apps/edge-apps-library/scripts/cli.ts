@@ -35,7 +35,7 @@ const commands = {
   },
 }
 
-async function createCommand(_args: string[]) {
+async function createCommand() {
   await createApp()
 }
 

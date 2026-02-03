@@ -7,4 +7,3 @@ import './brand-logo/brand-logo.js'
 import './app-header/app-header.js'
 import './auto-scaler/auto-scaler.js'
 import './dev-tools/dev-tools.js'
-
