@@ -8,6 +8,7 @@ export default defineConfig({
       input: 'src/main.ts',
       output: {
         dir: 'dist',
+        format: 'iife',
         entryFileNames: 'js/[name].js',
         assetFileNames: (assetInfo) => {
           if (assetInfo.names?.[0]?.endsWith('.css')) {
