@@ -84,10 +84,10 @@ function copyScreenlyManifestPlugin(): Plugin {
     name: 'copy-screenly-manifest',
     closeBundle() {
       const manifestSrc = path.resolve(__dirname, 'screenly.yml')
-      const manifestDest = path.resolve(__dirname, 'build', 'screenly.yml')
+      const manifestDest = path.resolve(__dirname, 'dist', 'screenly.yml')
 
       const qcSrc = path.resolve(__dirname, 'screenly_qc.yml')
-      const qcDest = path.resolve(__dirname, 'build', 'screenly_qc.yml')
+      const qcDest = path.resolve(__dirname, 'dist', 'screenly_qc.yml')
 
       if (fs.existsSync(manifestSrc)) {
         fs.copyFileSync(manifestSrc, manifestDest)
@@ -194,7 +194,7 @@ export default defineConfig({
     screenlyMockPlugin(),
   ],
   build: {
-    outDir: 'build',
+    outDir: 'dist',
     emptyOutDir: false,
     rollupOptions: {
       output: {

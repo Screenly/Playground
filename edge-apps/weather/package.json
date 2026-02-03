@@ -12,7 +12,8 @@
     "lint": "eslint . --fix",
     "format": "prettier --write src/ README.md index.html",
     "format:check": "prettier --check src/ README.md index.html",
-    "deploy": "bun run build && cd build && screenly edge-app deploy",
+    "predeploy": "bun run build",
+    "deploy": "screenly edge-app deploy --path=dist/",
     "prepare": "cd ../edge-apps-library && bun install && bun run build"
   },
   "dependencies": {
