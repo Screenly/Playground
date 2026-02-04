@@ -9,6 +9,7 @@ export default defineConfig({
       output: {
         dir: 'dist',
         entryFileNames: 'js/[name].js',
+        format: 'iife',
         assetFileNames: (assetInfo) => {
           if (assetInfo.names?.[0]?.endsWith('.css')) {
             return 'css/style.css'

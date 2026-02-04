@@ -1,0 +1,10 @@
+/**
+ * Screenly Edge Apps Design System
+ * Global styles for digital signage applications
+ */
+
+/* Design Tokens */
+@import './tokens/index.css';
+
+/* Base Styles */
+@import './base/index.css';
