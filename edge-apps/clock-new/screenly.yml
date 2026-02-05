@@ -1,7 +1,7 @@
 ---
 syntax: manifest_v1
-description: Screenly Clock New Edge App
-icon: https://playground.srly.io/edge-apps/clock-new/static/img/icon.svg
+description: Screenly Clock Edge App
+icon: https://playground.srly.io/edge-apps/clock/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 settings:
