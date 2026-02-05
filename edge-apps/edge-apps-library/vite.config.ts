@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   base: '',
   build: {
+    cssCodeSplit: false,
     rollupOptions: {
       input: 'src/main.ts',
       output: {
