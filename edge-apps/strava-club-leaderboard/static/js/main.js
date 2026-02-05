@@ -137,14 +137,6 @@
   // Initialize application
   async function init () {
     try {
-      // Debug: Check if all modules are loaded
-      console.log('App initialization. Module status:', {
-        StravaCache: typeof StravaCache !== 'undefined',
-        StravaAPI: typeof StravaAPI !== 'undefined',
-        StravaUI: typeof StravaUI !== 'undefined',
-        StravaUtils: typeof StravaUtils !== 'undefined'
-      })
-
       // Initialize UI with default elements
       StravaUI.initializeUI()
 
@@ -157,12 +149,10 @@
       // Manage cache size periodically
       StravaCache.manageCacheSize()
 
-      // Check cache health and log status
+      // Check cache health
       const cacheHealth = StravaCache.checkCacheHealth()
-      if (cacheHealth.healthy) {
-        console.log('Cache is healthy:', cacheHealth.stats)
-      } else {
-        console.warn('Cache health issues:', cacheHealth.issues)
+      if (!cacheHealth.healthy) {
+        StravaCache.manageCacheSize()
       }
     } catch (error) {
       console.error('Failed to initialize app:', error)

@@ -6,12 +6,6 @@
 window.StravaAPI = (function () {
   'use strict'
 
-  // Debug: Check if StravaCache is properly loaded
-  console.log('StravaAPI loading. StravaCache status:', {
-    exists: typeof StravaCache !== 'undefined',
-    functions: typeof StravaCache === 'object' ? Object.keys(StravaCache) : 'N/A'
-  })
-
   // Configuration
   const CONFIG = {
     STRAVA_API_BASE: 'https://www.strava.com/api/v3',
@@ -71,7 +65,6 @@ window.StravaAPI = (function () {
       delete logInfo.days
     }
 
-    console.log('⏰ Token will expire in:', logInfo)
     return expiryInfo
   }
 
@@ -106,8 +99,6 @@ window.StravaAPI = (function () {
       throw new Error('Missing refresh token or client credentials. Please reconfigure your Strava authentication.')
     }
 
-    console.log('Refreshing Strava access token...')
-
     tokenRefreshPromise = (async () => {
       try {
         const response = await fetch(`${CONFIG.STRAVA_OAUTH_BASE}/token`, {
@@ -141,22 +132,10 @@ window.StravaAPI = (function () {
         const now = new Date()
         const secondsUntilExpiry = tokenData.expires_at - Math.floor(Date.now() / 1000)
 
-        console.log('🎉 Access token refreshed successfully!')
-        console.log('⏰ Token Details:', {
-          expiresAt: expiryDate.toISOString(),
-          expiresAtLocal: expiryDate.toLocaleString(),
-          currentTime: now.toISOString(),
-          secondsUntilExpiry,
-          minutesUntilExpiry: Math.round(secondsUntilExpiry / 60),
-          hoursUntilExpiry: Math.round(secondsUntilExpiry / 3600)
-        })
-
         // Clear cache on token refresh to avoid stale data
         if (StravaCache.clearCacheOnAuthChange) {
           StravaCache.clearCacheOnAuthChange()
-          console.log('🧹 Cache cleared due to token refresh (clearCacheOnAuthChange)')
         } else if (StravaCache.clearCache) {
-          console.log('🧹 Using fallback cache clear method')
           StravaCache.clearCache()
         }
 
@@ -184,17 +163,8 @@ window.StravaAPI = (function () {
       })
 
       if (response.ok) {
-        console.log('✅ Current access token is valid')
-        // If expires_at is not set, we can't determine exact expiry from this call
-        // but we know the token works for now
-        if (!tokenExpiresAt) {
-          console.log('⚠️ Token expiry time not set - will handle expiry reactively when 401 occurs')
-        } else {
-          logTokenExpiry({ includeSummary: false })
-        }
         return true
       } else if (response.status === 401) {
-        console.log('❌ Current access token is expired, will attempt refresh')
         return false
       } else {
         console.warn('Unexpected response from token probe:', response.status)
@@ -210,26 +180,12 @@ window.StravaAPI = (function () {
   async function ensureValidToken () {
     const now = Math.floor(Date.now() / 1000)
 
-    console.log('🔐 Token validation check:', {
-      hasExpiryTime: !!tokenExpiresAt,
-      expiresAt: tokenExpiresAt ? new Date(tokenExpiresAt * 1000).toISOString() : 'Unknown',
-      currentTime: new Date(now * 1000).toISOString(),
-      secondsUntilExpiry: tokenExpiresAt ? tokenExpiresAt - now : 'Unknown',
-      needsRefresh: tokenExpiresAt ? needsTokenRefresh() : false,
-      isExpired: tokenExpiresAt ? isTokenExpired() : false
-    })
-
-    // Always show expiry details if we have them
-    logTokenExpiry({ includeISO: true, includeSummary: true }) // Include ISO format for detailed validation
-
     // If we don't have expiry info, probe the current token first
     if (!tokenExpiresAt) {
-      console.log('⏰ No token expiry time available, probing current token...')
       const isValid = await probeCurrentToken()
       if (!isValid) {
         // Current token is invalid, try to refresh
         try {
-          console.log('🔄 Token invalid, attempting refresh...')
           await refreshAccessToken()
         } catch (error) {
           console.error('❌ Token refresh failed during probe:', error)
@@ -242,14 +198,11 @@ window.StravaAPI = (function () {
     // Check if token needs refresh or is expired (only if we have expiry info)
     if (needsTokenRefresh() || isTokenExpired()) {
       try {
-        console.log('🔄 Token needs refresh, attempting refresh...')
         await refreshAccessToken()
       } catch (error) {
         console.error('❌ Token refresh failed:', error)
         throw new Error('Authentication failed. Please check your Strava credentials and try again.')
       }
-    } else {
-      console.log('✅ Token is valid and fresh')
     }
   }
 
@@ -262,19 +215,6 @@ window.StravaAPI = (function () {
   async function makeStravaRequest (url, options = {}, rateLimitRetry = 0) {
     // Ensure we have a valid token before making the request
     await ensureValidToken()
-
-    // Show current token status before making request
-    console.log(`🚀 Making API request to: ${url}`)
-    if (tokenExpiresAt) {
-      const expiryInfo = getTokenExpiryInfo()
-      console.log('⏰ Current token expires in:', {
-        minutes: expiryInfo.minutes,
-        hours: expiryInfo.hours,
-        expiryTime: expiryInfo.expiryTime
-      })
-    } else {
-      console.log('⏰ No token expiry time available')
-    }
 
     const headers = {
       Authorization: `Bearer ${screenly.settings.access_token}`,
@@ -298,7 +238,6 @@ window.StravaAPI = (function () {
         console.warn(`⚠️ Rate limit exceeded (429). Retry attempt ${rateLimitRetry + 1}/${CONFIG.RATE_LIMIT_MAX_RETRIES}`)
 
         if (rateLimitRetry < CONFIG.RATE_LIMIT_MAX_RETRIES) {
-          console.log(`⏳ Waiting ${waitTime / 1000} seconds before retry...`)
           await sleep(waitTime)
           return makeStravaRequest(url, options, rateLimitRetry + 1)
         } else {
@@ -308,13 +247,6 @@ window.StravaAPI = (function () {
 
       // Handle 401 Unauthorized - token might be expired
       if (response.status === 401) {
-        console.log('❌ Received 401 Unauthorized, attempting token refresh...')
-        console.log('🔐 Current token state:', {
-          hasExpiryTime: !!tokenExpiresAt,
-          expiresAt: tokenExpiresAt ? new Date(tokenExpiresAt * 1000).toLocaleString() : 'Unknown',
-          url
-        })
-
         try {
           await refreshAccessToken()
 
@@ -334,7 +266,6 @@ window.StravaAPI = (function () {
             throw new Error(`Strava API error: ${retryResponse.status} - ${errorData.message || retryResponse.statusText}`)
           }
 
-          console.log('✅ API request succeeded after token refresh')
           return await retryResponse.json()
         } catch (refreshError) {
           console.error('Token refresh failed after 401:', refreshError)
@@ -366,11 +297,8 @@ window.StravaAPI = (function () {
       // Proceed without caching
     }
 
-    console.log('🔍 Fetching club details:', { clubId, cacheKey })
-
     const cachedData = cacheKey ? StravaCache.getCachedData(cacheKey) : null
     if (cachedData) {
-      console.log('✅ Club details loaded from cache using key:', cacheKey)
       return cachedData
     }
 
@@ -380,10 +308,7 @@ window.StravaAPI = (function () {
 
       // Cache club details for 1 hour since they rarely change
       if (clubData && cacheKey) {
-        const cached = StravaCache.setCachedDataWithDuration(cacheKey, clubData, 60 * 60 * 1000) // 1 hour
-        if (cached) {
-          console.log('💾 Club details cached for 1 hour using key:', cacheKey)
-        }
+        StravaCache.setCachedDataWithDuration(cacheKey, clubData, 60 * 60 * 1000) // 1 hour
       }
 
       return clubData
@@ -415,12 +340,9 @@ window.StravaAPI = (function () {
       // Proceed without caching
     }
 
-    console.log(`🔍 Fetching club activities page ${page}:`, { clubId, page, cacheKey })
-
     // Check cache first
     const cachedData = cacheKey ? StravaCache.getCachedData(cacheKey) : null
     if (cachedData) {
-      console.log(`✅ Club activities page ${page} loaded from cache using key:`, cacheKey)
       return cachedData
     }
 
@@ -449,10 +371,7 @@ window.StravaAPI = (function () {
 
       // Cache the processed activities (30 minutes default)
       if (cacheKey) {
-        const cached = StravaCache.setCachedData(cacheKey, processedActivities)
-        if (cached) {
-          console.log(`💾 Club activities page ${page} cached for 30 minutes using key:`, cacheKey)
-        }
+        StravaCache.setCachedData(cacheKey, processedActivities)
       }
 
       return processedActivities
@@ -568,18 +487,14 @@ window.StravaAPI = (function () {
 
   // Get token info for debugging
   function getTokenInfo () {
-    console.log('🔍 Getting token info...')
-
     if (!tokenExpiresAt) {
-      const tokenInfo = {
+      return {
         status: 'Token expiry time not set - will be auto-detected on first API call',
         hasRefreshToken: !!screenly.settings.refresh_token,
         hasClientSecret: !!screenly.settings.client_secret,
         hasAccessToken: !!screenly.settings.access_token,
         internalExpiryState: 'Not initialized'
       }
-      console.log('⚠️ Token info (no expiry):', tokenInfo)
-      return tokenInfo
     }
 
     const now = Math.floor(Date.now() / 1000)
@@ -601,21 +516,16 @@ window.StravaAPI = (function () {
       internalExpiryState: 'Active'
     }
 
-    console.log('⏰ Token info:', tokenInfo)
     return tokenInfo
   }
 
   // Show current token expiry status (for debugging)
   function showTokenExpiry () {
-    console.log('🔍 Manual token expiry check...')
     if (!tokenExpiresAt) {
-      console.log('⚠️ No token expiry time available')
       return null
     }
 
-    const expiryInfo = getTokenExpiryInfo(true) // Include extended info
-    console.log('⏰ Token will expire in:', expiryInfo)
-    return expiryInfo
+    return getTokenExpiryInfo(true) // Include extended info
   }
 
   // Public API

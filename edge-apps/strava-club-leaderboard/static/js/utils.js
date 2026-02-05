@@ -206,14 +206,17 @@ window.StravaUtils = (function () {
   function testLocale () {
     const locale = getUserLocale()
     const useImperial = usesImperialUnits(locale)
-    console.log('Current locale:', locale)
-    console.log('Uses imperial units:', useImperial)
-    console.log('Test distances:')
-    console.log('100m:', formatDistance(100))
-    console.log('1000m:', formatDistance(1000))
-    console.log('5000m:', formatDistance(5000))
-    console.log('10000m:', formatDistance(10000))
-    console.log('42195m:', formatDistance(42195)) // Marathon distance
+    return {
+      locale,
+      useImperial,
+      distances: {
+        '100m': formatDistance(100),
+        '1000m': formatDistance(1000),
+        '5000m': formatDistance(5000),
+        '10000m': formatDistance(10000),
+        '42195m': formatDistance(42195)
+      }
+    }
   }
 
   // Public API

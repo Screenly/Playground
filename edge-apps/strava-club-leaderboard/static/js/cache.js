@@ -8,8 +8,6 @@
 window.StravaCache = (function () {
   'use strict'
 
-  console.log('StravaCache module loading...')
-
   // Configuration
   const CACHE_DURATION = 30 * 60 * 1000 // 30 minutes - Balance between freshness and rate limits
   const CACHE_NAMESPACE = 'strava_club_' // Namespace for cache keys
@@ -65,7 +63,6 @@ window.StravaCache = (function () {
         // Try again after clearing
         try {
           localStorage.setItem(key, JSON.stringify(cacheEntry))
-          console.log('💾 Cache write successful after cleanup')
           return true
         } catch (retryError) {
           console.warn('❌ Failed to cache data after cleanup:', retryError)
@@ -135,13 +132,10 @@ window.StravaCache = (function () {
         console.warn('Failed to remove cache key:', key, error)
       }
     })
-
-    console.log(`🧹 Cleared ${keysToRemove.length} cache entries`)
   }
 
   // Clear cache on authentication change (token refresh/change)
   function clearCacheOnAuthChange () {
-    console.log('Clearing cache due to authentication change')
     clearCache()
   }
 
@@ -164,8 +158,6 @@ window.StravaCache = (function () {
     keysToRemove.forEach(key => {
       localStorage.removeItem(key)
     })
-
-    console.log(`Cleared ${keysToRemove.length} cache entries for club ${clubId}`)
   }
 
   // Get cache size and statistics
@@ -243,10 +235,6 @@ window.StravaCache = (function () {
       })
     }
 
-    if (removedCount > 0) {
-      console.log(`🧹 Removed ${removedCount} cache entries (${corruptedEntries.length} corrupted)`)
-    }
-
     return removedCount
   }
 
@@ -319,18 +307,6 @@ window.StravaCache = (function () {
     const removedCount = manageCacheSize()
     const statsAfter = getCacheStats()
 
-    console.log('🧹 Cache cleanup report:', {
-      before: {
-        entries: statsBefore.totalKeys,
-        sizeMB: statsBefore.totalSizeMB
-      },
-      after: {
-        entries: statsAfter.totalKeys,
-        sizeMB: statsAfter.totalSizeMB
-      },
-      removed: removedCount
-    })
-
     return { statsBefore, statsAfter, removedCount }
   }
 
@@ -348,16 +324,6 @@ window.StravaCache = (function () {
     getCacheKey,
     handleQuotaExceededError,
     cleanupCache
-  }
-
-  console.log('StravaCache module loaded with functions:', Object.keys(cacheAPI))
-
-  // Test the getCacheKey function immediately
-  try {
-    const testKey = getCacheKey('test', 'key')
-    console.log('getCacheKey test successful:', testKey)
-  } catch (error) {
-    console.error('getCacheKey test failed:', error)
   }
 
   return cacheAPI
