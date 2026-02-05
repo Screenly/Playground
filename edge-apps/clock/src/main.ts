@@ -76,6 +76,15 @@ function showTemperatureSection() {
   }
 }
 
+// Validate OpenWeatherMap API response
+// Note: `cod` can be number (200) or string ("200") depending on the endpoint
+function isValidWeatherResponse(data: {
+  cod?: number | string
+  main?: { temp?: number }
+}): boolean {
+  return (data.cod === 200 || data.cod === '200') && Boolean(data.main?.temp)
+}
+
 // Get weather data (optional - requires OpenWeatherMap API key)
 async function getWeatherData(
   lat: number,
@@ -94,11 +103,7 @@ async function getWeatherData(
     )
     const data = await response.json()
 
-    // cod can be number (200) or string ("200") depending on endpoint
-    const isValidResponse =
-      (data.cod === 200 || data.cod === '200') && data.main?.temp
-
-    if (!isValidResponse) {
+    if (!isValidWeatherResponse(data)) {
       hideTemperatureSection()
       return
     }
