@@ -6,7 +6,7 @@
 
   // Configuration
   const CONFIG = {
-    REFRESH_INTERVAL: 15 * 60 * 1000, // 15 minutes - Conservative for API rate limits (600 req/15min)
+    REFRESH_INTERVAL: 30 * 60 * 1000, // 30 minutes - Conservative for API rate limits (100 req/15min, 1000/day)
     RETRY_ATTEMPTS: 3,
     RETRY_DELAY: 1000
   }
@@ -72,6 +72,8 @@
       // Note: Don't clear cache here anymore - let it expire naturally or clear on token refresh
       // This reduces API calls and respects rate limits better
 
+      // Note: Strava Club Activities API does not return date fields,
+      // so time-based filtering is not possible. Showing all recent activities.
       const activities = await StravaAPI.fetchAllClubActivities(clubId)
 
       // Update club logo

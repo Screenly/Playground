@@ -1,4 +1,4 @@
-/* global */
+/* global screenly */
 
 // Utility functions for Strava Club Leaderboard App
 window.StravaUtils = (function () {
@@ -16,8 +16,21 @@ window.StravaUtils = (function () {
     })
   }
 
-  // Check if locale uses imperial units (primarily US)
+  // Check if imperial units should be used
+  // Priority: 1. Screenly setting, 2. Locale-based detection
   function usesImperialUnits (locale) {
+    // Check if unit_type setting is configured
+    if (typeof screenly !== 'undefined' && screenly.settings && screenly.settings.unit_type) {
+      const unitType = screenly.settings.unit_type.toLowerCase()
+      if (unitType === 'imperial') {
+        return true
+      }
+      if (unitType === 'metric') {
+        return false
+      }
+    }
+
+    // Fall back to locale-based detection
     // More comprehensive check for US-based locales
     return locale === 'en-US' ||
            locale.startsWith('en-US') ||
@@ -94,6 +107,10 @@ window.StravaUtils = (function () {
       year: 'numeric'
     })
   }
+
+  // Note: Time-based filtering functions were removed because
+  // the Strava Club Activities API does not return date fields.
+  // See: https://communityhub.strava.com/developers-api-7/api-club-activities-not-showing-activity-date-1777
 
   // Localized text
   function getLocalizedText (key, locale) {

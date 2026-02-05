@@ -11,7 +11,7 @@ window.StravaCache = (function () {
   console.log('StravaCache module loading...')
 
   // Configuration
-  const CACHE_DURATION = 10 * 60 * 1000 // 10 minutes - Conservative caching for frequent updates
+  const CACHE_DURATION = 30 * 60 * 1000 // 30 minutes - Balance between freshness and rate limits
   const CACHE_NAMESPACE = 'strava_club_' // Namespace for cache keys
 
   // Get cached data with expiration check

@@ -19,7 +19,9 @@ window.StravaAPI = (function () {
     MAX_ACTIVITIES_PER_REQUEST: 200,
     RETRY_ATTEMPTS: 3,
     RETRY_DELAY: 1000,
-    TOKEN_REFRESH_BUFFER: 300 // Refresh token 5 minutes before expiry
+    TOKEN_REFRESH_BUFFER: 300, // Refresh token 5 minutes before expiry
+    RATE_LIMIT_RETRY_DELAY: 60000, // Wait 60 seconds on rate limit (429)
+    RATE_LIMIT_MAX_RETRIES: 2 // Max retries for rate limit errors
   }
 
   // Token management state
@@ -251,8 +253,13 @@ window.StravaAPI = (function () {
     }
   }
 
-  // Make authenticated request to Strava API with automatic token refresh
-  async function makeStravaRequest (url, options = {}) {
+  // Helper function to wait/sleep
+  function sleep (ms) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+  }
+
+  // Make authenticated request to Strava API with automatic token refresh and rate limit handling
+  async function makeStravaRequest (url, options = {}, rateLimitRetry = 0) {
     // Ensure we have a valid token before making the request
     await ensureValidToken()
 
@@ -280,6 +287,24 @@ window.StravaAPI = (function () {
         ...options,
         headers
       })
+
+      // Handle 429 Rate Limit Exceeded
+      if (response.status === 429) {
+        const retryAfter = response.headers.get('Retry-After')
+        const waitTime = retryAfter
+          ? parseInt(retryAfter, 10) * 1000
+          : CONFIG.RATE_LIMIT_RETRY_DELAY
+
+        console.warn(`⚠️ Rate limit exceeded (429). Retry attempt ${rateLimitRetry + 1}/${CONFIG.RATE_LIMIT_MAX_RETRIES}`)
+
+        if (rateLimitRetry < CONFIG.RATE_LIMIT_MAX_RETRIES) {
+          console.log(`⏳ Waiting ${waitTime / 1000} seconds before retry...`)
+          await sleep(waitTime)
+          return makeStravaRequest(url, options, rateLimitRetry + 1)
+        } else {
+          throw new Error('Rate Limit Exceeded. Strava API limits reached. Please wait a few minutes and try again.')
+        }
+      }
 
       // Handle 401 Unauthorized - token might be expired
       if (response.status === 401) {
@@ -422,11 +447,11 @@ window.StravaAPI = (function () {
       // Return all activities without time filtering
       const processedActivities = activities
 
-      // Cache the processed activities (10 minutes default)
+      // Cache the processed activities (30 minutes default)
       if (cacheKey) {
         const cached = StravaCache.setCachedData(cacheKey, processedActivities)
         if (cached) {
-          console.log(`💾 Club activities page ${page} cached for 10 minutes using key:`, cacheKey)
+          console.log(`💾 Club activities page ${page} cached for 30 minutes using key:`, cacheKey)
         }
       }
 
@@ -459,6 +484,7 @@ window.StravaAPI = (function () {
           }
         }
       } catch (error) {
+        console.error(`❌ Error fetching activities page ${page}:`, error.message)
         hasMore = false
       }
     }
@@ -471,6 +497,12 @@ window.StravaAPI = (function () {
     const athleteStats = {}
 
     activities.forEach(activity => {
+      // Validate activity structure
+      if (!activity || !activity.athlete) {
+        console.warn('⚠️ Skipping invalid activity:', activity)
+        return
+      }
+
       // Handle missing athlete ID by using name as fallback
       const athleteId = activity.athlete.id || `${activity.athlete.firstname}_${activity.athlete.lastname}`
       const athleteName = `${activity.athlete.firstname} ${activity.athlete.lastname}`
@@ -485,7 +517,8 @@ window.StravaAPI = (function () {
           totalTime: 0,
           totalElevation: 0,
           activityCount: 0,
-          activities: []
+          activities: [],
+          latestActivityTime: null // Track when athlete last recorded an activity
         }
       }
 
@@ -495,11 +528,39 @@ window.StravaAPI = (function () {
       stats.totalElevation += activity.total_elevation_gain || 0
       stats.activityCount++
       stats.activities.push(activity)
+
+      // Track the latest activity time for tiebreaker (Strava logic: who achieved distance first)
+      const activityTime = activity.start_date_local || activity.start_date
+      if (activityTime) {
+        const activityTimestamp = new Date(activityTime).getTime()
+        if (!stats.latestActivityTime || activityTimestamp > stats.latestActivityTime) {
+          stats.latestActivityTime = activityTimestamp
+        }
+      }
     })
 
-    // Convert to array and sort by total distance
+    // Convert to array and sort using Strava's ranking logic:
+    // 1. Primary: Total distance (descending) - highest distance wins
+    // 2. Tiebreaker: Latest activity time (ascending) - who achieved their distance first wins
+    // 3. Final tiebreaker: Alphabetical by name
     const leaderboard = Object.values(athleteStats)
-      .sort((a, b) => b.totalDistance - a.totalDistance)
+      .sort((a, b) => {
+        // Primary sort: total distance (descending)
+        if (b.totalDistance !== a.totalDistance) {
+          return b.totalDistance - a.totalDistance
+        }
+
+        // Tiebreaker 1: Who achieved their distance first (earlier latest activity wins)
+        // Athletes who finished their activities earlier rank higher when distance is tied
+        if (a.latestActivityTime && b.latestActivityTime) {
+          if (a.latestActivityTime !== b.latestActivityTime) {
+            return a.latestActivityTime - b.latestActivityTime
+          }
+        }
+
+        // Tiebreaker 2: Alphabetical by name
+        return a.name.localeCompare(b.name)
+      })
 
     // Return all athletes - filtering will be handled by the main application logic
     return leaderboard
