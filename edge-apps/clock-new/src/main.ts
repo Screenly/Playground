@@ -9,11 +9,11 @@ import {
   signalReady,
   getSetting,
   getWeatherIconKey,
-  getWeatherIconUrl,
 } from '@screenly/edge-apps'
 // Import components to register them as custom elements
 // This registers <brand-logo>, <app-header>, <auto-scaler>, and <edge-app-devtools>
 import '@screenly/edge-apps/components'
+import { WEATHER_ICONS } from './weather-icons'
 
 // Note: Auto-scaling and dev tools are now handled declaratively in index.html
 // via <auto-scaler> and <edge-app-devtools> web components
@@ -27,6 +27,7 @@ const temperatureEl = document.querySelector('[data-temperature]')
 const weatherIconEl = document.querySelector(
   '[data-weather-icon]',
 ) as HTMLImageElement | null
+const temperatureWrapperEl = document.querySelector('.temperature-wrapper')
 
 // State
 let timezone: string = 'UTC'
@@ -61,6 +62,20 @@ async function getCityName(lat: number, lng: number): Promise<string> {
   return getMetadata().location || 'Unknown Location'
 }
 
+// Hide temperature section helper
+function hideTemperatureSection() {
+  if (temperatureWrapperEl) {
+    ;(temperatureWrapperEl as HTMLElement).style.display = 'none'
+  }
+}
+
+// Show temperature section helper
+function showTemperatureSection() {
+  if (temperatureWrapperEl) {
+    ;(temperatureWrapperEl as HTMLElement).style.display = ''
+  }
+}
+
 // Get weather data (optional - requires OpenWeatherMap API key)
 async function getWeatherData(
   lat: number,
@@ -70,6 +85,7 @@ async function getWeatherData(
   try {
     const apiKey = getSetting<string>('openweathermap_api_key')
     if (!apiKey) {
+      hideTemperatureSection()
       return
     }
 
@@ -79,27 +95,41 @@ async function getWeatherData(
     const data = await response.json()
 
     // cod can be number (200) or string ("200") depending on endpoint
-    if ((data.cod === 200 || data.cod === '200') && data.main?.temp) {
-      currentTemp = Math.round(data.main.temp)
-      currentWeatherId = data.weather?.[0]?.id ?? null
+    const isValidResponse =
+      (data.cod === 200 || data.cod === '200') && data.main?.temp
 
-      if (temperatureEl) {
-        temperatureEl.textContent = `${currentTemp}°`
-      }
-
-      // Update weather icon
-      if (weatherIconEl && currentWeatherId) {
-        const iconKey = getWeatherIconKey(
-          currentWeatherId,
-          Math.floor(Date.now() / 1000),
-          tz,
-        )
-        weatherIconEl.src = getWeatherIconUrl(iconKey, '/static/images/icons')
-        weatherIconEl.alt = data.weather?.[0]?.description || 'Weather icon'
-      }
+    if (!isValidResponse) {
+      hideTemperatureSection()
+      return
     }
+
+    currentTemp = Math.round(data.main.temp)
+    currentWeatherId = data.weather?.[0]?.id ?? null
+
+    showTemperatureSection()
+
+    if (!temperatureEl) {
+      return
+    }
+
+    temperatureEl.textContent = `${currentTemp}°`
+
+    // Update weather icon
+    if (!weatherIconEl || !currentWeatherId) {
+      return
+    }
+
+    const iconKey = getWeatherIconKey(
+      currentWeatherId,
+      Math.floor(Date.now() / 1000),
+      tz,
+    )
+    const iconSrc = WEATHER_ICONS[iconKey] || WEATHER_ICONS['clear']
+    weatherIconEl.src = iconSrc
+    weatherIconEl.alt = data.weather?.[0]?.description || 'Weather icon'
   } catch (error) {
     console.warn('Failed to get weather data:', error)
+    hideTemperatureSection()
   }
 }
 

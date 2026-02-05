@@ -1,12 +1,11 @@
-# Clock New
+# Screenly Clock App
 
-A basic Edge App template for Screenly.
+## Getting Started
 
-## Features
-
-- Theme color integration via @screenly/edge-apps
-- Error handling with panic-overlay
-- Ready signal support
+```bash
+cd ../edge-apps-library
+bun link
+```
 
 ## Deployment
 
@@ -23,6 +22,7 @@ screenly edge-app instance create
 The app accepts the following settings via `screenly.yml`:
 
 - `enable_analytics` - Enable or disable Sentry and Google Analytics integrations (true/false)
+- `openweathermap_api_key` - OpenWeatherMap API key to access weather data (optional)
 - `override_locale` - Override the default locale with a supported language code
 - `override_timezone` - Override the default timezone with a supported timezone identifier
 - `tag_manager_id` - Google Tag Manager container ID to enable tracking and analytics
