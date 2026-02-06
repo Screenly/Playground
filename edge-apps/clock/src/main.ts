@@ -48,6 +48,16 @@ async function getCityName(lat: number, lng: number): Promise<string> {
     const response = await fetch(
       `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lng}&limit=1&appid=${apiKey}`,
     )
+
+    if (!response.ok) {
+      console.warn(
+        'Failed to get city name: OpenWeatherMap API responded with',
+        response.status,
+        response.statusText,
+      )
+      return getMetadata().location || 'Unknown Location'
+    }
+
     const data = await response.json()
 
     if (Array.isArray(data) && data.length > 0) {
@@ -101,6 +111,17 @@ async function getWeatherData(
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=${apiKey}`,
     )
+
+    if (!response.ok) {
+      console.warn(
+        'Failed to get weather data: OpenWeatherMap API responded with',
+        response.status,
+        response.statusText,
+      )
+      hideTemperatureSection()
+      return
+    }
+
     const data = await response.json()
 
     if (!isValidWeatherResponse(data)) {
