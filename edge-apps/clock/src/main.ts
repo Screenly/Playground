@@ -18,16 +18,14 @@ import { WEATHER_ICONS } from './weather-icons'
 // Note: Auto-scaling and dev tools are now handled declaratively in index.html
 // via <auto-scaler> and <edge-app-devtools> web components
 
-// Get DOM elements
-const locationEl = document.querySelector('[data-location]')
-const timeEl = document.querySelector('[data-time]')
-const periodEl = document.querySelector('[data-period]')
-const dateEl = document.querySelector('[data-date]')
-const temperatureEl = document.querySelector('[data-temperature]')
-const weatherIconEl = document.querySelector(
-  '[data-weather-icon]',
-) as HTMLImageElement | null
-const temperatureWrapperEl = document.querySelector('.temperature-wrapper')
+// DOM elements (will be initialized in DOMContentLoaded)
+let locationEl: Element | null
+let timeEl: Element | null
+let periodEl: Element | null
+let dateEl: Element | null
+let temperatureEl: Element | null
+let weatherIconEl: HTMLImageElement | null
+let temperatureWrapperEl: Element | null
 
 // State
 let timezone: string = 'UTC'
@@ -190,6 +188,17 @@ function updateTime() {
 // Initialize app
 document.addEventListener('DOMContentLoaded', async () => {
   try {
+    // Query DOM elements now that DOM is ready
+    locationEl = document.querySelector('[data-location]')
+    timeEl = document.querySelector('[data-time]')
+    periodEl = document.querySelector('[data-period]')
+    dateEl = document.querySelector('[data-date]')
+    temperatureEl = document.querySelector('[data-temperature]')
+    weatherIconEl = document.querySelector(
+      '[data-weather-icon]',
+    ) as HTMLImageElement | null
+    temperatureWrapperEl = document.querySelector('.temperature-wrapper')
+
     // Get metadata (includes coordinates)
     const metadata = getMetadata()
     const [latitude, longitude] = metadata.coordinates
