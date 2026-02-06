@@ -68,14 +68,13 @@ export function initEdgeApp(
   // Store original children
   const children = Array.from(container.childNodes)
 
-  // Clear container and append scaler
-  container.innerHTML = ''
-  container.appendChild(scalerEl)
-
-  // Move children into scaler
+  // Move children into scaler first
   children.forEach((child) => {
     scalerEl.appendChild(child)
   })
+
+  // Replace container children with scaler
+  container.replaceChildren(scalerEl)
 
   // Create dev tools if enabled
   let devToolsEl: EdgeAppDevToolsElement | undefined
