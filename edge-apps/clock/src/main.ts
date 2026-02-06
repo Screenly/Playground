@@ -4,23 +4,17 @@ import {
   getMetadata,
   getTimeZone,
   getLocale,
-  formatTime,
-  formatLocalizedDate,
   signalReady,
-  getSetting,
-  getSettingWithDefault,
-  getWeatherIconKey,
 } from '@screenly/edge-apps'
 // Import components to register them as custom elements
 // This registers <brand-logo>, <app-header>, <auto-scaler>, and <edge-app-devtools>
 import '@screenly/edge-apps/components'
-import { WEATHER_ICONS } from './weather-icons'
+import { getCityName } from './location'
+import { getWeatherData } from './weather'
+import { getTimeData } from './time'
 
 // Note: Auto-scaling and dev tools are now handled declaratively in index.html
 // via <auto-scaler> and <edge-app-devtools> web components
-
-// Types
-type MeasurementUnit = 'metric' | 'imperial'
 
 // DOM elements (will be initialized in DOMContentLoaded)
 let locationEl: Element | null
@@ -35,49 +29,6 @@ let temperatureWrapperEl: Element | null
 let timezone: string = 'UTC'
 let locale: string = 'en'
 let locationName: string = 'Unknown Location'
-let currentTemp: number | null = null
-let currentWeatherId: number | null = null
-
-// Get measurement unit setting
-function getMeasurementUnit(): MeasurementUnit {
-  return getSettingWithDefault<MeasurementUnit>('unit', 'metric')
-}
-
-// Get city name from coordinates (using OpenWeatherMap reverse geocoding)
-async function getCityName(lat: number, lng: number): Promise<string> {
-  try {
-    const apiKey = getSetting<string>('openweathermap_api_key')
-    if (!apiKey) {
-      // Fallback to location from metadata if no API key
-      return getMetadata().location || 'Unknown Location'
-    }
-
-    const response = await fetch(
-      `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lng}&limit=1&appid=${apiKey}`,
-    )
-
-    if (!response.ok) {
-      console.warn(
-        'Failed to get city name: OpenWeatherMap API responded with',
-        response.status,
-        response.statusText,
-      )
-      return getMetadata().location || 'Unknown Location'
-    }
-
-    const data = await response.json()
-
-    if (Array.isArray(data) && data.length > 0) {
-      const { name, country } = data[0]
-      return `${name}, ${country}`
-    }
-  } catch (error) {
-    console.warn('Failed to get city name:', error)
-  }
-
-  // Fallback to location from metadata
-  return getMetadata().location || 'Unknown Location'
-}
 
 // Hide temperature section helper
 function hideTemperatureSection() {
@@ -93,107 +44,46 @@ function showTemperatureSection() {
   }
 }
 
-// Validate OpenWeatherMap API response
-// Note: `cod` can be number (200) or string ("200") depending on the endpoint
-function isValidWeatherResponse(data: {
-  cod?: number | string
-  main?: { temp?: number }
-}): boolean {
-  return (data.cod === 200 || data.cod === '200') && Boolean(data.main?.temp)
-}
-
-// Get weather data (optional - requires OpenWeatherMap API key)
-async function getWeatherData(
-  lat: number,
-  lng: number,
+// Update weather display
+async function updateWeatherDisplay(
+  latitude: number,
+  longitude: number,
   tz: string,
-): Promise<void> {
-  try {
-    const apiKey = getSetting<string>('openweathermap_api_key')
-    if (!apiKey) {
-      hideTemperatureSection()
-      return
-    }
+) {
+  const weatherData = await getWeatherData(latitude, longitude, tz)
 
-    const unit = getMeasurementUnit()
-
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=${unit}&appid=${apiKey}`,
-    )
-
-    if (!response.ok) {
-      console.warn(
-        'Failed to get weather data: OpenWeatherMap API responded with',
-        response.status,
-        response.statusText,
-      )
-      hideTemperatureSection()
-      return
-    }
-
-    const data = await response.json()
-
-    if (!isValidWeatherResponse(data)) {
-      hideTemperatureSection()
-      return
-    }
-
-    currentTemp = Math.round(data.main.temp)
-    currentWeatherId = data.weather?.[0]?.id ?? null
-
-    showTemperatureSection()
-
-    if (!temperatureEl) {
-      return
-    }
-
-    const tempSymbol = unit === 'imperial' ? '°F' : '°C'
-    temperatureEl.textContent = `${currentTemp}${tempSymbol}`
-
-    // Update weather icon
-    if (!weatherIconEl || !currentWeatherId) {
-      return
-    }
-
-    const iconKey = getWeatherIconKey(
-      currentWeatherId,
-      Math.floor(Date.now() / 1000),
-      tz,
-    )
-    const iconSrc = WEATHER_ICONS[iconKey] || WEATHER_ICONS['clear']
-    weatherIconEl.src = iconSrc
-    weatherIconEl.alt = data.weather?.[0]?.description || 'Weather icon'
-  } catch (error) {
-    console.warn('Failed to get weather data:', error)
+  if (!weatherData) {
     hideTemperatureSection()
+    return
+  }
+
+  showTemperatureSection()
+
+  if (temperatureEl) {
+    temperatureEl.textContent = weatherData.displayText
+  }
+
+  if (weatherIconEl) {
+    weatherIconEl.src = weatherData.iconSrc
+    weatherIconEl.alt = weatherData.iconAlt
   }
 }
 
 // Update time display
 function updateTime() {
   const now = new Date()
-  const timeData = formatTime(now, locale, timezone)
+  const data = getTimeData(now, locale, timezone)
 
   if (timeEl) {
-    // Format as "HH:MM" or "H:MM" depending on locale
-    const timeStr = timeData.formatted.split(' ')[0] // Remove AM/PM if present
-    const [hour, minute] = timeStr.split(':')
-    timeEl.textContent = `${hour}:${minute}`
+    timeEl.textContent = `${data.hour}:${data.minute}`
   }
 
-  if (periodEl && timeData.dayPeriod) {
-    periodEl.textContent = timeData.dayPeriod
-  } else if (periodEl) {
-    periodEl.textContent = ''
+  if (periodEl) {
+    periodEl.textContent = data.period
   }
 
-  // Update date
   if (dateEl) {
-    dateEl.textContent = formatLocalizedDate(now, locale, {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'long',
-    })
+    dateEl.textContent = data.date
   }
 }
 
@@ -226,7 +116,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Get weather data (optional)
-    await getWeatherData(latitude, longitude, timezone)
+    await updateWeatherDisplay(latitude, longitude, timezone)
 
     // Update time immediately
     updateTime()
@@ -237,7 +127,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Refresh weather every 15 minutes
     setInterval(
       () => {
-        getWeatherData(latitude, longitude, timezone)
+        updateWeatherDisplay(latitude, longitude, timezone)
       },
       15 * 60 * 1000,
     )
