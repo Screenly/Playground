@@ -7,7 +7,7 @@ import {
 
 const htmlTemplate = `
 <div class="header-left">
-  <brand-logo></brand-logo>
+  <brand-logo show-name></brand-logo>
 </div>
 <div class="header-right">
   <span class="header-date"></span>
@@ -60,7 +60,7 @@ const cssTemplate = `
 }
 
 brand-logo {
-  display: var(--show-logo, block);
+  display: var(--show-logo, inline-flex);
 }
 
 @media (orientation: portrait) {

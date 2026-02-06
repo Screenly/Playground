@@ -1,6 +1,5 @@
 /* Import Screenly Design System */
-/* Using relative path because PostCSS doesn't resolve Vite aliases */
-@import '../../../edge-apps-library/src/styles/index.css';
+@import '@screenly/edge-apps/styles';
 
 /* App-specific styles */
 
@@ -31,7 +30,7 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: 1;
+  z-index: var(--z-index-backdrop);
   pointer-events: none;
   background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(7px);
@@ -43,7 +42,7 @@ body::before {
 
 auto-scaler {
   position: relative;
-  z-index: 2;
+  z-index: var(--z-index-content);
 }
 
 #app {

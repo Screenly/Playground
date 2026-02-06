@@ -1,0 +1,12 @@
+/**
+ * Z-Index Tokens
+ * Layering system for consistent stacking context
+ */
+
+:root {
+  --z-index-backdrop: 1;
+  --z-index-content: 2;
+  --z-index-header: 10;
+  --z-index-modal: 100;
+  --z-index-tooltip: 200;
+}

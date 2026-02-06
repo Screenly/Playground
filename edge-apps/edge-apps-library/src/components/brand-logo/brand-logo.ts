@@ -21,6 +21,12 @@ img {
   width: auto;
   max-width: var(--brand-logo-max-width, 120px);
   object-fit: contain;
+  vertical-align: middle;
+  padding-right: 0.75rem;
+}
+
+img[src=""],
+img:not([src]) {
   display: none;
 }
 
@@ -28,7 +34,18 @@ img {
   font-weight: 500;
   font-size: 1.25rem;
   letter-spacing: 0.025em;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.brand-name:empty {
   display: none;
+}
+
+@media (orientation: portrait) {
+  .brand-name {
+    font-size: 1.5rem;
+  }
 }
 `
 
@@ -128,11 +145,15 @@ export class BrandLogo extends HTMLElement {
 
     if (img) {
       img.src = this.logoUrl
-      img.style.display = 'block'
+      img.style.removeProperty('display')
     }
 
-    if (nameEl) {
-      nameEl.style.display = this._showName ? 'block' : 'none'
+    if (nameEl && this._showName) {
+      const screenName = getScreenName()
+      if (screenName) {
+        nameEl.textContent = screenName
+        nameEl.style.removeProperty('display')
+      }
     }
   }
 
@@ -143,14 +164,13 @@ export class BrandLogo extends HTMLElement {
     ) as HTMLElement | null
 
     if (img) {
-      img.style.display = 'none'
+      img.removeAttribute('src')
     }
 
     if (nameEl) {
       const screenName = getScreenName()
       if (screenName) {
         nameEl.textContent = screenName
-        nameEl.style.display = 'block'
       }
     }
   }
