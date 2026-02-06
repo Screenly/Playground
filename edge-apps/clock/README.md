@@ -3,8 +3,7 @@
 ## Getting Started
 
 ```bash
-cd ../edge-apps-library
-bun link
+bun install
 ```
 
 ## Deployment
