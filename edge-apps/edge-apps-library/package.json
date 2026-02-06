@@ -41,7 +41,9 @@
     "dist",
     "bin",
     "scripts",
-    "eslint.config.ts"
+    "eslint.config.ts",
+    "src/styles",
+    "src/assets"
   ],
   "scripts": {
     "prebuild": "bun run type-check",
