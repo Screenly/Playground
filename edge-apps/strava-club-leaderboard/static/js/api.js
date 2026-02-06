@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars, no-undef, no-useless-catch */
+/* eslint-disable no-unused-vars, no-useless-catch */
 
 /* global screenly, StravaCache */
 
