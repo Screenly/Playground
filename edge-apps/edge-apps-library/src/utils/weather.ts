@@ -4,7 +4,7 @@
  */
 
 /**
- * Check if a given timestamp is during nighttime (6 PM - 5 AM) in the specified timezone
+ * Check if a given timestamp is during nighttime (8 PM - 5 AM) in the specified timezone
  */
 export function isNightForTimestamp(dt: number, timeZone: string): boolean {
   const hour = Number(
