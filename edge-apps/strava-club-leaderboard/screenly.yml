@@ -44,7 +44,8 @@ settings:
     help_text:
       properties:
         type: select
-        help_text: Choose the unit system for displaying distance and elevation. Options: "metric" (km, m) or "imperial" (mi, ft).
+        help_text: |
+          Choose the unit system for displaying distance and elevation. Options: "metric" (km, m) or "imperial" (mi, ft).
         options:
           - label: Metric
             value: metric
