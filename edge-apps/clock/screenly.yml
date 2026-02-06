@@ -56,3 +56,18 @@ settings:
     optional: false
     help_text: |
       Select the visual theme for the app ('light' or 'dark').
+  unit:
+    type: string
+    default_value: metric
+    title: Measurement Unit
+    optional: true
+    help_text:
+      properties:
+        help_text: Select the measurement unit for temperature display.
+        options:
+        - label: Metric (°C)
+          value: metric
+        - label: Imperial (°F)
+          value: imperial
+        type: select
+      schema_version: 1

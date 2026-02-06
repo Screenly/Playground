@@ -8,6 +8,7 @@ import {
   formatLocalizedDate,
   signalReady,
   getSetting,
+  getSettingWithDefault,
   getWeatherIconKey,
 } from '@screenly/edge-apps'
 // Import components to register them as custom elements
@@ -17,6 +18,9 @@ import { WEATHER_ICONS } from './weather-icons'
 
 // Note: Auto-scaling and dev tools are now handled declaratively in index.html
 // via <auto-scaler> and <edge-app-devtools> web components
+
+// Types
+type MeasurementUnit = 'metric' | 'imperial'
 
 // DOM elements (will be initialized in DOMContentLoaded)
 let locationEl: Element | null
@@ -33,6 +37,11 @@ let locale: string = 'en'
 let locationName: string = 'Unknown Location'
 let currentTemp: number | null = null
 let currentWeatherId: number | null = null
+
+// Get measurement unit setting
+function getMeasurementUnit(): MeasurementUnit {
+  return getSettingWithDefault<MeasurementUnit>('unit', 'metric')
+}
 
 // Get city name from coordinates (using OpenWeatherMap reverse geocoding)
 async function getCityName(lat: number, lng: number): Promise<string> {
@@ -106,8 +115,10 @@ async function getWeatherData(
       return
     }
 
+    const unit = getMeasurementUnit()
+
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=${apiKey}`,
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=${unit}&appid=${apiKey}`,
     )
 
     if (!response.ok) {
@@ -136,7 +147,8 @@ async function getWeatherData(
       return
     }
 
-    temperatureEl.textContent = `${currentTemp}°`
+    const tempSymbol = unit === 'imperial' ? '°F' : '°C'
+    temperatureEl.textContent = `${currentTemp}${tempSymbol}`
 
     // Update weather icon
     if (!weatherIconEl || !currentWeatherId) {
