@@ -204,6 +204,7 @@ export class AppHeader extends HTMLElement {
         weekday: 'short',
         day: 'numeric',
         month: 'short',
+        year: undefined,
       })
       dateEl.textContent = dateStr
       dateEl.style.display = 'block'
