@@ -5,22 +5,26 @@ window.StravaUtils = (function () {
   'use strict'
 
   // Locale detection
-  function getUserLocale () {
+  function getUserLocale() {
     return navigator.language || navigator.languages?.[0] || 'en-US'
   }
 
-  function getNumberFormatter (locale) {
+  function getNumberFormatter(locale) {
     return new Intl.NumberFormat(locale, {
       minimumFractionDigits: 0,
-      maximumFractionDigits: 2
+      maximumFractionDigits: 2,
     })
   }
 
   // Check if imperial units should be used
   // Priority: 1. Screenly setting, 2. Locale-based detection
-  function usesImperialUnits (locale) {
+  function usesImperialUnits(locale) {
     // Check if unit_type setting is configured
-    if (typeof screenly !== 'undefined' && screenly.settings && screenly.settings.unit_type) {
+    if (
+      typeof screenly !== 'undefined' &&
+      screenly.settings &&
+      screenly.settings.unit_type
+    ) {
       const unitType = screenly.settings.unit_type.toLowerCase()
       if (unitType === 'imperial') {
         return true
@@ -32,16 +36,18 @@ window.StravaUtils = (function () {
 
     // Fall back to locale-based detection
     // More comprehensive check for US-based locales
-    return locale === 'en-US' ||
-           locale.startsWith('en-US') ||
-           locale === 'en-LR' ||
-           locale === 'en-MM' ||
-           locale.startsWith('en-LR') ||
-           locale.startsWith('en-MM')
+    return (
+      locale === 'en-US' ||
+      locale.startsWith('en-US') ||
+      locale === 'en-LR' ||
+      locale === 'en-MM' ||
+      locale.startsWith('en-LR') ||
+      locale.startsWith('en-MM')
+    )
   }
 
   // Distance formatting
-  function formatDistance (meters) {
+  function formatDistance(meters) {
     const locale = getUserLocale()
     const formatter = getNumberFormatter(locale)
     const useImperial = usesImperialUnits(locale)
@@ -68,7 +74,7 @@ window.StravaUtils = (function () {
   }
 
   // Time formatting
-  function formatTime (seconds) {
+  function formatTime(seconds) {
     const hours = Math.floor(seconds / 3600)
     const minutes = Math.floor((seconds % 3600) / 60)
 
@@ -81,7 +87,7 @@ window.StravaUtils = (function () {
   }
 
   // Elevation formatting
-  function formatElevation (meters) {
+  function formatElevation(meters) {
     const locale = getUserLocale()
     const formatter = getNumberFormatter(locale)
     const useImperial = usesImperialUnits(locale)
@@ -97,14 +103,14 @@ window.StravaUtils = (function () {
   }
 
   // Date formatting
-  function formatDate (dateString) {
+  function formatDate(dateString) {
     const date = new Date(dateString)
     const locale = getUserLocale()
 
     return date.toLocaleDateString(locale, {
       month: 'short',
       day: 'numeric',
-      year: 'numeric'
+      year: 'numeric',
     })
   }
 
@@ -113,7 +119,7 @@ window.StravaUtils = (function () {
   // See: https://communityhub.strava.com/developers-api-7/api-club-activities-not-showing-activity-date-1777
 
   // Localized text
-  function getLocalizedText (key, locale) {
+  function getLocalizedText(key, locale) {
     const texts = {
       en: {
         updated: 'Updated',
@@ -121,7 +127,7 @@ window.StravaUtils = (function () {
         activities: 'activities',
         distance: 'Distance',
         time: 'Time',
-        average: 'Average'
+        average: 'Average',
       },
       es: {
         updated: 'Actualizado',
@@ -129,7 +135,7 @@ window.StravaUtils = (function () {
         activities: 'actividades',
         distance: 'Distancia',
         time: 'Tiempo',
-        average: 'Promedio'
+        average: 'Promedio',
       },
       fr: {
         updated: 'Mis à jour',
@@ -137,7 +143,7 @@ window.StravaUtils = (function () {
         activities: 'activités',
         distance: 'Distance',
         time: 'Temps',
-        average: 'Moyenne'
+        average: 'Moyenne',
       },
       de: {
         updated: 'Aktualisiert',
@@ -145,7 +151,7 @@ window.StravaUtils = (function () {
         activities: 'Aktivitäten',
         distance: 'Entfernung',
         time: 'Zeit',
-        average: 'Durchschnitt'
+        average: 'Durchschnitt',
       },
       it: {
         updated: 'Aggiornato',
@@ -153,7 +159,7 @@ window.StravaUtils = (function () {
         activities: 'attività',
         distance: 'Distanza',
         time: 'Tempo',
-        average: 'Media'
+        average: 'Media',
       },
       pt: {
         updated: 'Atualizado',
@@ -161,7 +167,7 @@ window.StravaUtils = (function () {
         activities: 'atividades',
         distance: 'Distância',
         time: 'Tempo',
-        average: 'Média'
+        average: 'Média',
       },
       nl: {
         updated: 'Bijgewerkt',
@@ -169,8 +175,8 @@ window.StravaUtils = (function () {
         activities: 'activiteiten',
         distance: 'Afstand',
         time: 'Tijd',
-        average: 'Gemiddeld'
-      }
+        average: 'Gemiddeld',
+      },
     }
 
     const languageCode = locale.split('-')[0]
@@ -179,7 +185,7 @@ window.StravaUtils = (function () {
   }
 
   // Activity and rank icons
-  function getActivityIcon (type) {
+  function getActivityIcon(type) {
     const icons = {
       Run: '🏃‍♂️',
       Ride: '🚴‍♂️',
@@ -188,22 +194,22 @@ window.StravaUtils = (function () {
       Walk: '🚶‍♂️',
       Workout: '💪',
       Yoga: '🧘‍♂️',
-      Default: '🏃‍♂️'
+      Default: '🏃‍♂️',
     }
     return icons[type] || icons.Default
   }
 
-  function getRankIcon (rank) {
+  function getRankIcon(rank) {
     const icons = {
       1: '🥇',
       2: '🥈',
-      3: '🥉'
+      3: '🥉',
     }
     return icons[rank] || ''
   }
 
   // Debug function for testing locale and units
-  function testLocale () {
+  function testLocale() {
     const locale = getUserLocale()
     const useImperial = usesImperialUnits(locale)
     return {
@@ -214,8 +220,8 @@ window.StravaUtils = (function () {
         '1000m': formatDistance(1000),
         '5000m': formatDistance(5000),
         '10000m': formatDistance(10000),
-        '42195m': formatDistance(42195)
-      }
+        '42195m': formatDistance(42195),
+      },
     }
   }
 
@@ -231,6 +237,6 @@ window.StravaUtils = (function () {
     getLocalizedText,
     getActivityIcon,
     getRankIcon,
-    testLocale
+    testLocale,
   }
 })()
