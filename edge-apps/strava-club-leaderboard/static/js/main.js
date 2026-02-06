@@ -1,14 +1,14 @@
 /* global screenly, StravaUtils, StravaCache, StravaAPI, StravaUI */
 
 // Strava Club Leaderboard App - Main Application Logic
-(function () {
+;(function () {
   'use strict'
 
   // Configuration
   const CONFIG = {
     REFRESH_INTERVAL: 30 * 60 * 1000, // 30 minutes - Conservative for API rate limits (100 req/15min, 1000/day)
     RETRY_ATTEMPTS: 3,
-    RETRY_DELAY: 1000
+    RETRY_DELAY: 1000,
   }
 
   // State management
@@ -18,18 +18,18 @@
     activities: [],
     leaderboard: [],
     lastUpdate: null,
-    refreshTimer: null
+    refreshTimer: null,
     // Note: Time filtering is never available due to Strava Club Activities API limitations
   }
 
   // Helper function to get athlete count based on screen orientation
-  function getAthleteCountForOrientation () {
+  function getAthleteCountForOrientation() {
     const isLandscape = window.innerWidth > window.innerHeight
     return isLandscape ? 6 : 14 // 6 for landscape, 14 for portrait
   }
 
   // Re-render leaderboard with appropriate athlete count for current orientation
-  function updateLeaderboardForOrientation () {
+  function updateLeaderboardForOrientation() {
     if (appState.leaderboard && appState.leaderboard.length > 0) {
       const athleteCount = getAthleteCountForOrientation()
       StravaUI.renderLeaderboard(appState.leaderboard.slice(0, athleteCount))
@@ -43,7 +43,7 @@
   }
 
   // Main application logic
-  async function loadLeaderboard () {
+  async function loadLeaderboard() {
     if (appState.isLoading) return
 
     appState.isLoading = true
@@ -58,12 +58,16 @@
       // Use real Strava API
       const clubId = screenly.settings.club_id
       if (!clubId) {
-        throw new Error('Club ID is required. Please configure your Strava club ID.')
+        throw new Error(
+          'Club ID is required. Please configure your Strava club ID.',
+        )
       }
 
       const accessToken = screenly.settings.access_token
       if (!accessToken) {
-        throw new Error('Access token is required. Please configure your Strava access token.')
+        throw new Error(
+          'Access token is required. Please configure your Strava access token.',
+        )
       }
 
       // Fetch club details and update logo
@@ -90,7 +94,9 @@
 
       // Update UI
       StravaUI.updateStats(activities, leaderboard)
-      StravaUI.renderLeaderboard(leaderboard.slice(0, getAthleteCountForOrientation())) // Responsive athlete count
+      StravaUI.renderLeaderboard(
+        leaderboard.slice(0, getAthleteCountForOrientation()),
+      ) // Responsive athlete count
       StravaUI.updateLastUpdated()
       StravaUI.updateStatsLabels()
       StravaUI.updateLeaderboardTitle()
@@ -116,7 +122,7 @@
   }
 
   // Start automatic refresh timer
-  function startRefreshTimer () {
+  function startRefreshTimer() {
     if (appState.refreshTimer) {
       clearInterval(appState.refreshTimer)
     }
@@ -127,7 +133,7 @@
   }
 
   // Stop refresh timer
-  function stopRefreshTimer () {
+  function stopRefreshTimer() {
     if (appState.refreshTimer) {
       clearInterval(appState.refreshTimer)
       appState.refreshTimer = null
@@ -135,7 +141,7 @@
   }
 
   // Initialize application
-  async function init () {
+  async function init() {
     try {
       // Initialize UI with default elements
       StravaUI.initializeUI()
@@ -161,7 +167,7 @@
   }
 
   // Cleanup function
-  function cleanup () {
+  function cleanup() {
     stopRefreshTimer()
 
     // Remove event listeners
@@ -219,6 +225,7 @@
     // Orientation-responsive athlete count functionality
     getAthleteCountForOrientation,
     updateLeaderboardForOrientation,
-    getCurrentOrientation: () => window.innerWidth > window.innerHeight ? 'landscape' : 'portrait'
+    getCurrentOrientation: () =>
+      window.innerWidth > window.innerHeight ? 'landscape' : 'portrait',
   }
 })()
