@@ -36,3 +36,19 @@ settings:
     optional: false
     help_text: |
       Enter your Strava Refresh Token from https://www.strava.com/settings/api (keep this secure).
+  unit_type:
+    type: string
+    title: Unit System
+    default_value: metric
+    optional: true
+    help_text:
+      properties:
+        type: select
+        help_text: |
+          Choose the unit system for displaying distance and elevation. Options: "metric" (km, m) or "imperial" (mi, ft).
+        options:
+          - label: Metric
+            value: metric
+          - label: Imperial
+            value: imperial
+      schema_version: 1

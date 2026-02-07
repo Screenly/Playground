@@ -14,6 +14,7 @@ A beautiful, real-time leaderboard for Strava clubs that displays member ranking
 - **Caching**: Efficient data caching to reduce API calls
 - **Error handling**: Graceful error states with helpful messages
 - **Responsive**: Adapts to different screen sizes and resolutions
+- **Unit Type Configuration**: Users can choose whether to display units in Imperial or Metric.
 
 ## Prerequisites
 
