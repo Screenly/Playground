@@ -1,102 +1,43 @@
 # Screenly Clock App
 
-![Clock Screen](./static/img/Clock-Preview.png)
-
-## Prerequisites
-
-- [Bun (1.2.2+)](https://bun.sh/docs/installation)
-- [Screenly Edge App CLI (v1.0.3+)](https://github.com/Screenly/cli?tab=readme-ov-file#installation)
-
 ## Getting Started
 
 ```bash
 bun install
-screenly edge-app create \
-    --name=EDGE_APP_NAME \
-    --in-place
-```
-
-## Create an Edge App Instance via CLI
-
-```bash
-screenly edge-app instance create --name=EDGE_APP_INSTANCE_NAME
 ```
 
 ## Deployment
 
+Create and deploy the Edge App:
+
 ```bash
-bun run deploy
+screenly edge-app create --name my-clock-new --in-place
+screenly edge-app deploy
+screenly edge-app instance create
 ```
 
-> [!NOTE]
-> The `deploy` command takes care of building the app as well.
+## Configuration
+
+The app accepts the following settings via `screenly.yml`:
+
+- `enable_analytics` - Enable or disable Sentry and Google Analytics integrations (optional, global)
+- `openweathermap_api_key` - OpenWeatherMap API key to access weather data and location information (optional, global). Get your API key from <https://openweathermap.org/api>
+- `override_locale` - Override the default locale with a supported language code (optional)
+- `override_timezone` - Override the default timezone with a supported timezone identifier (optional)
+- `tag_manager_id` - Google Tag Manager container ID to enable tracking and analytics (optional, global)
+- `theme` - Visual theme for the app: 'light' or 'dark' (required, default: 'dark')
+- `unit` - Measurement unit for temperature display: 'metric' (°C) or 'imperial' (°F) (optional, default: 'metric')
 
 ## Development
 
-Install the dependencies for the first run:
-
 ```bash
-bun install
+bun install      # Install dependencies
+bun run build    # Build the app
+bun test         # Run tests
 ```
 
-Run the development environment with a single command:
+## Testing
 
 ```bash
-bun run dev
+bun test
 ```
-
-This will build in watch mode and start the development server via [Screenly CLI](https://github.com/Screenly/cli).
-
-## Unit Tests
-
-To run unit tests:
-
-```bash
-bun run test:unit
-```
-
-Press `q` to quit the test runner.
-
-## E2E Tests
-
-Install dependencies for the first run:
-
-```bash
-bun run playwright install-deps
-bun run playwright install
-```
-
-To run E2E tests:
-
-```bash
-bun run test:e2e
-```
-
-### Linting and Formatting
-
-```bash
-bun run lint
-bun run format
-```
-
-## Tweaking the settings
-
-### `override_timezone`
-
-For instance, if you want to clock app to display the current date and time in London,
-run the following command:
-
-```bash
-$ screenly edge-app setting set override_timezone='Europe/Paris'
-# A relatively long console output...
-Edge app setting successfully set.
-
-$ screenly edge-app setting set override_locale='fr'
-# A relatively long console output...
-Edge app setting successfully set.
-```
-
-See [this page](https://momentjs.com/) for the list of all possible values for the time zone.
-Alternatively, you can call `moment.locales()`, which returns all the supported locale values.
-
-Setting invalid values for the timezone won't crash the app itself, it'll just fall back to the default time.

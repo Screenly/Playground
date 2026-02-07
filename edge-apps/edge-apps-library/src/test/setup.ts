@@ -12,3 +12,5 @@ global.document = dom.window.document
 global.window = dom.window as unknown as Window & typeof globalThis
 global.navigator = dom.window.navigator
 global.Node = dom.window.Node
+global.HTMLElement = dom.window.HTMLElement
+global.customElements = dom.window.customElements

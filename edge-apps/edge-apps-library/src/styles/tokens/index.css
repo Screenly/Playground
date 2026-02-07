@@ -1,0 +1,10 @@
+/**
+ * Design Tokens
+ * CSS custom properties for consistent theming
+ */
+
+@import './colors.css';
+@import './typography.css';
+@import './spacing.css';
+@import './shadows.css';
+@import './z-index.css';

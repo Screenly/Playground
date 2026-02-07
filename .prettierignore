@@ -1,5 +1,6 @@
 **/*.min.js
 edge-apps/cap-alerting/
+edge-apps/clock/
 edge-apps/edge-apps-library/
 edge-apps/grafana/
 edge-apps/powerbi-legacy/
