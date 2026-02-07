@@ -73,3 +73,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FILTER_REGEX_EXCLUDE: '.*edge-apps/powerbi-legacy/.*'
           PRETTIER_COMMAND_OPTIONS: '--config .github/linters/.prettierrc.json --check'
+          ENABLE_GITHUB_ACTIONS_GROUP_TITLE: false
+          ENABLE_GITHUB_PULL_REQUEST_SUMMARY_COMMENT: false
+          ENABLE_GITHUB_ACTIONS_STEP_SUMMARY: false
