@@ -1,0 +1,37 @@
+/**
+ * Minimal Reset
+ * Only what's needed for digital signage
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent scrollbars on digital signage */
+}
+
+body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Prevent text selection on digital signage */
+body * {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+/* Allow selection for specific elements if needed */
+.selectable {
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+}

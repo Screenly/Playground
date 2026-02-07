@@ -3,11 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edge App</title>
+    <title>Clock - Screenly Edge App</title>
+    <script src="screenly.js?version=1"></script>
+    <link rel="stylesheet" href="dist/css/style.css" />
   </head>
   <body>
-    <div id="app"></div>
-    <script src="screenly.js?version=1"></script>
-    <script type="module" src="/src/main.ts"></script>
+    <auto-scaler
+      reference-width="1920"
+      reference-height="1080"
+      orientation="auto"
+    >
+      <div id="app">
+        <app-header class="header" show-date></app-header>
+        <main class="content">
+          <section class="current">
+            <div class="city" data-location>--</div>
+            <div class="time-wrapper">
+              <span class="time" data-time>--:--</span>
+              <span class="clock-period" data-period>--</span>
+            </div>
+            <div class="status-row">
+              <span class="date" data-date>--</span>
+              <div class="temperature-wrapper">
+                <img
+                  src="static/images/icons/clear.svg"
+                  alt="weather icon"
+                  class="temperature-icon"
+                  data-weather-icon
+                />
+                <span class="temperature" data-temperature>--°</span>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </auto-scaler>
+    <script src="dist/js/main.js"></script>
   </body>
 </html>
