@@ -13,6 +13,18 @@ settings:
     optional: true
     help_text: Enable or disable Sentry and Google Analytics integrations.
     is_global: true
+  openweathermap_api_key:
+    type: secret
+    title: OpenWeatherMap API Key
+    optional: true
+    help_text:
+      properties:
+        help_text: |
+          Enter your OpenWeatherMap API key to access weather data. If not provided, weather information will not be displayed.
+          You can get your API key from https://openweathermap.org/api.
+        type: string
+      schema_version: 1
+    is_global: true
   override_locale:
     type: string
     default_value: en
@@ -44,3 +56,18 @@ settings:
     optional: false
     help_text: |
       Select the visual theme for the app ('light' or 'dark').
+  unit:
+    type: string
+    default_value: metric
+    title: Measurement Unit
+    optional: true
+    help_text:
+      properties:
+        help_text: Select the measurement unit for temperature display.
+        options:
+        - label: Metric (°C)
+          value: metric
+        - label: Imperial (°F)
+          value: imperial
+        type: select
+      schema_version: 1
