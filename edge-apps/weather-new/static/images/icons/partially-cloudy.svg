@@ -1,0 +1,12 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M40 70V76" stroke="#FFA500" stroke-width="4" stroke-linecap="round"/>
+<path d="M27.2725 64.7285L23.0298 68.9712" stroke="#FFA500" stroke-width="4" stroke-linecap="round"/>
+<path d="M22 52H16" stroke="#FFA500" stroke-width="4" stroke-linecap="round"/>
+<path d="M27.2725 39.2715L23.0298 35.0288" stroke="#FFA500" stroke-width="4" stroke-linecap="round"/>
+<path d="M40 34V28" stroke="#FFA500" stroke-width="4" stroke-linecap="round"/>
+<path d="M52.7275 39.2715L56.9702 35.0288" stroke="#FFA500" stroke-width="4" stroke-linecap="round"/>
+<path d="M58 52H64" stroke="#FFA500" stroke-width="4" stroke-linecap="round"/>
+<path d="M52.7275 64.7285L56.9702 68.9712" stroke="#FFA500" stroke-width="4" stroke-linecap="round"/>
+<path d="M40 62C45.5228 62 50 57.5228 50 52C50 46.4772 45.5228 42 40 42C34.4772 42 30 46.4772 30 52C30 57.5228 34.4772 62 40 62Z" fill="#FFA500" stroke="#FFA500" stroke-width="4"/>
+<path d="M95.4002 68.8C95.4002 59.6 88.0002 52.4 79.0002 52.4C77.0002 52.4 75.2002 52.8 73.4002 53.4C72.8002 46.6 67.2002 41 60.2002 41C52.8002 41 46.8002 47 46.8002 54.4C46.8002 56 47.2002 57.6 47.6002 59C47.0002 58.8 46.2002 58.8 45.6002 58.8C38.2002 58.8 32.2002 64.8 32.2002 72.2C32.2002 79.4 38.0002 85.4 45.2002 85.6H79.6002C88.4002 84.6 95.4002 77.6 95.4002 68.8Z" fill="white" stroke="white" stroke-width="2.4" stroke-linejoin="round"/>
+</svg>
