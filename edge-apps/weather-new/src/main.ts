@@ -5,6 +5,7 @@ import {
   getTimeZone,
   getLocale,
   signalReady,
+  getSetting,
 } from '@screenly/edge-apps'
 import '@screenly/edge-apps/components'
 import { getCityName } from './location'
@@ -23,6 +24,21 @@ let forecastCardEl: Element | null
 // State
 let timezone: string = 'UTC'
 let locale: string = 'en'
+
+function getCoordinates(): [number, number] {
+  const overrideCoordinates = getSetting<string>('override_coordinates')
+
+  if (overrideCoordinates) {
+    const coords = overrideCoordinates
+      .split(',')
+      .map((c) => parseFloat(c.trim()))
+    if (coords.length === 2 && !isNaN(coords[0]) && !isNaN(coords[1])) {
+      return [coords[0], coords[1]]
+    }
+  }
+
+  return getMetadata().coordinates
+}
 
 function hideForecastCard() {
   if (forecastCardEl) {
@@ -92,8 +108,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     forecastItemsEl = document.querySelector('[data-forecast-items]')
     forecastCardEl = document.querySelector('[data-forecast-card]')
 
-    const metadata = getMetadata()
-    const [latitude, longitude] = metadata.coordinates
+    const [latitude, longitude] = getCoordinates()
 
     timezone = await getTimeZone()
     locale = await getLocale()
