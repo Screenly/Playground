@@ -11,6 +11,7 @@ import {
 import '@screenly/edge-apps/components'
 import { getCurrentWeather, getHourlyForecast } from './weather'
 import type { ForecastItem } from './weather'
+import sunIcon from '../static/images/sun.svg'
 
 // DOM elements
 let locationEl: Element | null
@@ -20,6 +21,7 @@ let tempHighEl: Element | null
 let tempLowEl: Element | null
 let forecastItemsEl: Element | null
 let forecastCardEl: Element | null
+let forecastHeaderIconEl: HTMLImageElement | null
 
 // State
 let timezone: string = 'UTC'
@@ -132,6 +134,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     tempLowEl = document.querySelector('[data-temp-low]')
     forecastItemsEl = document.querySelector('[data-forecast-items]')
     forecastCardEl = document.querySelector('[data-forecast-card]')
+    forecastHeaderIconEl = document.querySelector('[data-forecast-header-icon]')
+
+    // Set forecast header icon
+    if (forecastHeaderIconEl) {
+      forecastHeaderIconEl.src = sunIcon
+    }
 
     const [latitude, longitude] = getCoordinates()
 
