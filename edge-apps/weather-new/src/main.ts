@@ -49,17 +49,35 @@ function hideForecastCard() {
 function renderForecastItems(items: ForecastItem[]) {
   if (!forecastItemsEl) return
 
-  forecastItemsEl.innerHTML = items
-    .map(
-      (item) => `
-      <div class="forecast-item">
-        <span class="forecast-item-temp">${item.displayTemp}</span>
-        <img class="forecast-item-icon" src="${item.iconSrc}" alt="${item.iconAlt}" />
-        <span class="forecast-item-time">${item.timeLabel}</span>
-      </div>
-    `,
-    )
-    .join('')
+  const template = document.getElementById(
+    'forecast-item-template',
+  ) as HTMLTemplateElement
+  if (!template) return
+
+  // Clear existing items
+  forecastItemsEl.innerHTML = ''
+
+  for (const item of items) {
+    const clone = template.content.cloneNode(true) as DocumentFragment
+    const itemEl = clone.querySelector('.forecast-item')
+    if (!itemEl) continue
+
+    const tempEl = itemEl.querySelector('.forecast-item-temp')
+    if (tempEl) tempEl.textContent = item.displayTemp
+
+    const iconEl = itemEl.querySelector(
+      '.forecast-item-icon',
+    ) as HTMLImageElement
+    if (iconEl) {
+      iconEl.setAttribute('src', item.iconSrc)
+      iconEl.setAttribute('alt', item.iconAlt)
+    }
+
+    const timeEl = itemEl.querySelector('.forecast-item-time')
+    if (timeEl) timeEl.textContent = item.timeLabel
+
+    forecastItemsEl.appendChild(clone)
+  }
 }
 
 async function updateWeatherDisplay(
