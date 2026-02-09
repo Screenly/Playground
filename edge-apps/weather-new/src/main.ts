@@ -6,9 +6,9 @@ import {
   getLocale,
   signalReady,
   getSetting,
+  getCityName,
 } from '@screenly/edge-apps'
 import '@screenly/edge-apps/components'
-import { getCityName } from './location'
 import { getCurrentWeather, getHourlyForecast } from './weather'
 import type { ForecastItem } from './weather'
 
