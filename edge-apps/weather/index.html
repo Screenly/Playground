@@ -1,89 +1,58 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather - Screenly Edge App</title>
+    <script src="screenly.js?version=1"></script>
+    <link rel="stylesheet" href="dist/css/style.css" />
+  </head>
+  <body>
+    <auto-scaler
+      reference-width="1920"
+      reference-height="1080"
+      orientation="auto"
+    >
+      <div id="app">
+        <app-header class="header" show-date></app-header>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather App</title>
-  <link rel="stylesheet" href="./static/styles/common.css">
-  <link rel="stylesheet" href="./static/styles/styles.css">
-</head>
-
-<body x-data="weather">
-
-  <div class="main-container main-container-grid">
-    <div class="primary-card main-weather-card">
-      <div class="location-card">
-        <object id="location-pin-icon" class="location-icon" data="static/images/location-pin-icon.svg"
-          type="image/svg+xml"></object>
-        <span class="location-text" x-text="city"></span>
-      </div>
-      <div class="temperature-card">
-        <div class="temperature-text">
-          <span class="temperature-text-number" x-text="currentTemp"></span>
-        </div>
-        <div class="temperature-unit">
-          <span class="temperature-unit-text" x-text="currentFormattedTempScale"></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="time-date-card">
-      <div class="secondary-card time-card">
-        <div class="time-card">
-          <div class="time-text-container">
-            <span class="time-text-hour" x-text="timeHour"></span>
-            <span class="time-text-separator">:</span>
-            <span class="time-text-minutes" x-text="timeMinutes"></span>
-          </div>
-          <div class="time-ampm-container">
-            <span class="time-ampm" x-text="timeAmPm" x-show="showAmPm"></span>
-          </div>
-        </div>
-      </div>
-      <div class="secondary-card date-card">
-        <span class="date-text" x-text="dateText"></span>
-        <span class="date-number" x-text="dateNumber"></span>
-      </div>
-    </div>
-
-
-    <div class="secondary-card weather-card">
-      <div class="weather-card-content">
-        <template x-for="item in forecastedItems" :key="item.id">
-          <div class="weather-card-content-item">
-            <div class="weather-card-content-item-temperature-text">
-              <span class="weather-card-temperature-text" x-text="item.temp"></span>
-              <span class="weather-card-temperature-degree-sign">&deg;</span>
+        <main class="content">
+          <section class="current-weather">
+            <div class="city" data-location>--</div>
+            <div class="temperature-display" data-temperature>--°</div>
+            <div class="status-pill">
+              <span class="weather-description" data-weather-description></span>
+              <div class="hi-lo">
+                <span class="hi">↑ <span data-temp-high>--°</span></span>
+                <span class="lo">↓ <span data-temp-low>--°</span></span>
+              </div>
             </div>
-            <div class="weather-card-content-item-temperature-icon">
-              <img alt="Weather Icon" class="weather-card-weather-icon" :src="item.icon">
+          </section>
+
+          <section class="forecast-card" data-forecast-card>
+            <div class="forecast-header">
+              <img
+                src="static/images/icons/clear.svg"
+                class="forecast-header-icon"
+                alt=""
+              />
+              <span>Forecast by Hour</span>
             </div>
-            <div class="weather-card-content-item-temperature-time">
-              <span class="weather-card-content-item-temperature-time" x-text="item.time"></span>
-            </div>
-          </div>
-        </template>
+            <div class="forecast-divider"></div>
+            <div class="forecast-items" data-forecast-items></div>
+          </section>
+        </main>
       </div>
-    </div>
+    </auto-scaler>
 
+    <template id="forecast-item-template">
+      <div class="forecast-item">
+        <span class="forecast-item-temp"></span>
+        <img class="forecast-item-icon" alt="" />
+        <span class="forecast-item-time"></span>
+      </div>
+    </template>
 
-    <div class="secondary-card info-card">
-      <img id="brand-logo" :src="brandLogo" class="brand-logo" alt="Brand Logo" />
-      <span class="info-text">Powered by Screenly</span>
-    </div>
-
-  </div>
-
-  <script src="static/js/alpinejs-3.13.0.min.js" defer></script>
-  <script src="screenly.js?version=1"></script>
-  <script src="static/js/country-locale-map.1.18.5.min.js"></script>
-  <script src="static/js/moment-with-locales.min.js"></script>
-  <script src="static/js/moment-timezone-with-data.min.js"></script>
-  <script src="static/js/offline-geocode-city-1.0.2.min.js"></script>
-  <script src="static/js/tz.min.js"></script>
-  <script src="static/js/icons.js"></script>
-  <script src="static/js/main.js"></script>
-</body>
-
+    <script src="dist/js/main.js"></script>
+  </body>
 </html>
