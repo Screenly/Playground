@@ -1,31 +1,44 @@
-# Weather Edge App
+# Screenly Weather App
 
-A Screenly Edge App that displays the current weather and hourly forecast.
+## Getting Started
 
-## Settings
+```bash
+bun install
+```
 
-- **openweathermap_api_key** (required): OpenWeatherMap API key for weather data.
-- **override_locale** (optional): Language code override (e.g., `en`, `fr`, `de`). Defaults to `en`.
-- **override_coordinates** (optional): Comma-separated coordinates (e.g., `37.8267,-122.4233`).
-- **enable_analytics** (optional): Enable or disable analytics integrations.
-- **tag_manager_id** (optional): Google Tag Manager container ID.
-- **sentry_dsn** (optional): Sentry DSN for error tracking.
+## Deployment
+
+Create and deploy the Edge App:
+
+```bash
+screenly edge-app create --name my-weather-app --in-place
+screenly edge-app deploy
+screenly edge-app instance create
+```
+
+## Configuration
+
+The app accepts the following settings via `screenly.yml`:
+
+- `enable_analytics` - Enable or disable Sentry and Google Analytics integrations (optional, global)
+- `openweathermap_api_key` - OpenWeatherMap API key to access weather data and location information (required, global). Get your API key from <https://openweathermap.org/api>
+- `override_coordinates` - Comma-separated coordinates (e.g., `37.8267,-122.4233`) to override device location (optional)
+- `override_locale` - Override the default locale with a supported language code (optional, default: 'en')
+- `override_timezone` - Override the default timezone with a supported timezone identifier (optional)
+- `sentry_dsn` - Sentry DSN for error tracking and monitoring (optional, global)
+- `tag_manager_id` - Google Tag Manager container ID to enable tracking and analytics (optional, global)
+- `unit` - Measurement unit for temperature display: 'metric' (°C) or 'imperial' (°F) (optional, default: 'metric')
 
 ## Development
 
 ```bash
-bun install
-bun run dev
+bun install      # Install dependencies
+bun run build    # Build the app
+bun test         # Run tests
 ```
 
-## Build
+## Testing
 
 ```bash
-bun run build
-```
-
-## Deploy
-
-```bash
-bun run deploy
+bun test
 ```
