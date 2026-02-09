@@ -3,6 +3,12 @@
  * Functions for weather icon mapping and related utilities
  */
 
+import {
+  getSetting,
+  getMeasurementUnit,
+  type MeasurementUnit,
+} from './settings.js'
+
 // Import weather icons
 import clearIcon from '../assets/images/icons/clear.svg'
 import clearNightIcon from '../assets/images/icons/clear-night.svg'
@@ -162,4 +168,99 @@ export function getWeatherIcon(
 ): string {
   const iconKey = getWeatherIconKey(weatherId, dt, timeZone)
   return WEATHER_ICONS[iconKey] || WEATHER_ICONS['clear']
+}
+
+// --- Shared weather data utilities ---
+
+/**
+ * Validate OpenWeatherMap API response
+ * Note: `cod` can be number (200) or string ("200") depending on the endpoint
+ */
+export function isValidWeatherResponse(data: {
+  cod?: number | string
+  main?: { temp?: number }
+}): boolean {
+  const temp = data.main?.temp
+  return (
+    (data.cod === 200 || data.cod === '200') &&
+    typeof temp === 'number' &&
+    Number.isFinite(temp)
+  )
+}
+
+export interface CurrentWeatherRawData {
+  temperature: number
+  tempHigh: number
+  tempLow: number
+  weatherId: number
+  description: string
+  iconSrc: string
+  iconAlt: string
+  unit: MeasurementUnit
+}
+
+/**
+ * Fetch current weather data from OpenWeatherMap API
+ * Returns raw weather data that each app can map to its own interface
+ */
+export async function fetchCurrentWeatherData(
+  lat: number,
+  lng: number,
+  tz: string,
+): Promise<CurrentWeatherRawData | null> {
+  try {
+    const apiKey = getSetting<string>('openweathermap_api_key')
+    if (!apiKey) {
+      return null
+    }
+
+    const unit = getMeasurementUnit()
+
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=${unit}&appid=${apiKey}`,
+    )
+
+    if (!response.ok) {
+      console.warn(
+        'Failed to get weather data: OpenWeatherMap API responded with',
+        response.status,
+        response.statusText,
+      )
+      return null
+    }
+
+    const data = await response.json()
+
+    if (!isValidWeatherResponse(data)) {
+      return null
+    }
+
+    const temperature = Math.round(data.main.temp)
+    const tempHigh = Math.round(data.main.temp_max)
+    const tempLow = Math.round(data.main.temp_min)
+    const weatherId = data.weather?.[0]?.id ?? null
+
+    if (!weatherId) {
+      return null
+    }
+
+    const dt = Math.floor(Date.now() / 1000)
+    const description = data.weather?.[0]?.description || ''
+    const iconSrc = getWeatherIcon(weatherId, dt, tz)
+    const iconAlt = description || 'Weather icon'
+
+    return {
+      temperature,
+      tempHigh,
+      tempLow,
+      weatherId,
+      description,
+      iconSrc,
+      iconAlt,
+      unit,
+    }
+  } catch (error) {
+    console.warn('Failed to get weather data:', error)
+    return null
+  }
 }

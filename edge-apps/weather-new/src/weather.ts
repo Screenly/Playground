@@ -1,5 +1,9 @@
-import { getSetting, getWeatherIcon } from '@screenly/edge-apps'
-import { getMeasurementUnit } from './settings'
+import {
+  getSetting,
+  getWeatherIcon,
+  getMeasurementUnit,
+  fetchCurrentWeatherData,
+} from '@screenly/edge-apps'
 
 export interface CurrentWeatherData {
   temperature: number
@@ -20,77 +24,26 @@ export interface ForecastItem {
   displayTemp: string
 }
 
-// Validate OpenWeatherMap API response
-// Note: `cod` can be number (200) or string ("200") depending on the endpoint
-function isValidWeatherResponse(data: {
-  cod?: number | string
-  main?: { temp?: number }
-}): boolean {
-  return (data.cod === 200 || data.cod === '200') && Boolean(data.main?.temp)
-}
-
 // Get current weather data
 export async function getCurrentWeather(
   lat: number,
   lng: number,
   tz: string,
 ): Promise<CurrentWeatherData | null> {
-  try {
-    const apiKey = getSetting<string>('openweathermap_api_key')
-    if (!apiKey) {
-      return null
-    }
+  const raw = await fetchCurrentWeatherData(lat, lng, tz)
+  if (!raw) return null
 
-    const unit = getMeasurementUnit()
+  const tempSymbol = raw.unit === 'imperial' ? '°F' : '°C'
 
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=${unit}&appid=${apiKey}`,
-    )
-
-    if (!response.ok) {
-      console.warn(
-        'Failed to get weather data: OpenWeatherMap API responded with',
-        response.status,
-        response.statusText,
-      )
-      return null
-    }
-
-    const data = await response.json()
-
-    if (!isValidWeatherResponse(data)) {
-      return null
-    }
-
-    const temperature = Math.round(data.main.temp)
-    const tempHigh = Math.round(data.main.temp_max)
-    const tempLow = Math.round(data.main.temp_min)
-    const weatherId = data.weather?.[0]?.id ?? null
-
-    if (!weatherId) {
-      return null
-    }
-
-    const dt = Math.floor(Date.now() / 1000)
-    const description = data.weather?.[0]?.description || ''
-    const iconSrc = getWeatherIcon(weatherId, dt, tz)
-    const iconAlt = description || 'Weather icon'
-
-    const tempSymbol = unit === 'imperial' ? '°F' : '°C'
-
-    return {
-      temperature,
-      weatherId,
-      description: capitalizeFirstLetter(description),
-      iconSrc,
-      iconAlt,
-      tempHigh,
-      tempLow,
-      displayTemp: `${temperature}${tempSymbol}`,
-    }
-  } catch (error) {
-    console.warn('Failed to get weather data:', error)
-    return null
+  return {
+    temperature: raw.temperature,
+    weatherId: raw.weatherId,
+    description: capitalizeFirstLetter(raw.description),
+    iconSrc: raw.iconSrc,
+    iconAlt: raw.iconAlt,
+    tempHigh: raw.tempHigh,
+    tempLow: raw.tempLow,
+    displayTemp: `${raw.temperature}${tempSymbol}`,
   }
 }
 
