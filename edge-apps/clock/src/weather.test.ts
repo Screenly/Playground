@@ -4,7 +4,7 @@ import { getWeatherData, isValidWeatherResponse } from './weather'
 
 let mockGetSetting: <T>(key: string) => T | undefined
 let mockGetMeasurementUnit: () => 'metric' | 'imperial'
-let mockGetWeatherIconKey: (
+let mockGetWeatherIcon: (
   weatherId: number,
   timestamp: number,
   timezone: string,
@@ -15,15 +15,8 @@ const { mock } = await import('bun:test')
 
 mock.module('@screenly/edge-apps', () => ({
   getSetting: (key: string) => mockGetSetting(key),
-  getWeatherIconKey: (weatherId: number, timestamp: number, timezone: string) =>
-    mockGetWeatherIconKey(weatherId, timestamp, timezone),
-}))
-
-mock.module('./weather-icons', () => ({
-  WEATHER_ICONS: {
-    clear: '/static/images/icons/clear.svg',
-    cloudy: '/static/images/icons/cloudy.svg',
-  },
+  getWeatherIcon: (weatherId: number, timestamp: number, timezone: string) =>
+    mockGetWeatherIcon(weatherId, timestamp, timezone),
 }))
 
 mock.module('./settings', () => ({
@@ -87,7 +80,7 @@ describe('getWeatherData - unit conversion', () => {
   test('should return weather data with metric units', async () => {
     setupApiKeyMock()
     mockGetMeasurementUnit = () => 'metric'
-    mockGetWeatherIconKey = () => 'clear'
+    mockGetWeatherIcon = () => '/static/images/icons/clear.svg'
     mockWeatherResponse(18.85)
 
     const result = await getWeatherData(
@@ -103,7 +96,7 @@ describe('getWeatherData - unit conversion', () => {
   test('should return weather data with imperial units', async () => {
     setupApiKeyMock()
     mockGetMeasurementUnit = () => 'imperial'
-    mockGetWeatherIconKey = () => 'clear'
+    mockGetWeatherIcon = () => '/static/images/icons/clear.svg'
     mockWeatherResponse(65.71)
 
     const result = await getWeatherData(

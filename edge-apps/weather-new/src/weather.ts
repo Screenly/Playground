@@ -1,5 +1,4 @@
-import { getSetting, getWeatherIconKey } from '@screenly/edge-apps'
-import { WEATHER_ICONS } from './weather-icons'
+import { getSetting, getWeatherIcon } from '@screenly/edge-apps'
 import { getMeasurementUnit } from './settings'
 
 export interface CurrentWeatherData {
@@ -28,11 +27,6 @@ function isValidWeatherResponse(data: {
   main?: { temp?: number }
 }): boolean {
   return (data.cod === 200 || data.cod === '200') && Boolean(data.main?.temp)
-}
-
-function getIconSrc(weatherId: number, dt: number, tz: string): string {
-  const iconKey = getWeatherIconKey(weatherId, dt, tz)
-  return WEATHER_ICONS[iconKey] || WEATHER_ICONS['clear']
 }
 
 // Get current weather data
@@ -79,7 +73,7 @@ export async function getCurrentWeather(
 
     const dt = Math.floor(Date.now() / 1000)
     const description = data.weather?.[0]?.description || ''
-    const iconSrc = getIconSrc(weatherId, dt, tz)
+    const iconSrc = getWeatherIcon(weatherId, dt, tz)
     const iconAlt = description || 'Weather icon'
 
     const tempSymbol = unit === 'imperial' ? '°F' : '°C'
@@ -146,7 +140,7 @@ export async function getHourlyForecast(
         const temperature = Math.round(item.main.temp)
         const weatherId = item.weather?.[0]?.id ?? 800
         const description = item.weather?.[0]?.description || 'Weather'
-        const iconSrc = getIconSrc(weatherId, item.dt, tz)
+        const iconSrc = getWeatherIcon(weatherId, item.dt, tz)
 
         const timeLabel =
           index === 0

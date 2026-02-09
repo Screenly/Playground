@@ -3,6 +3,55 @@
  * Functions for weather icon mapping and related utilities
  */
 
+// Import weather icons
+import clearIcon from '../assets/images/icons/clear.svg'
+import clearNightIcon from '../assets/images/icons/clear-night.svg'
+import cloudyIcon from '../assets/images/icons/cloudy.svg'
+import drizzleIcon from '../assets/images/icons/drizzle.svg'
+import fewdropsIcon from '../assets/images/icons/fewdrops.svg'
+import fogIcon from '../assets/images/icons/fog.svg'
+import hazeIcon from '../assets/images/icons/haze.svg'
+import mostlyCloudyIcon from '../assets/images/icons/mostly-cloudy.svg'
+import mostlyCloudyNightIcon from '../assets/images/icons/mostly-cloudy-night.svg'
+import partiallyCloudyIcon from '../assets/images/icons/partially-cloudy.svg'
+import partiallyCloudyNightIcon from '../assets/images/icons/partially-cloudy-night.svg'
+import partlySunnyIcon from '../assets/images/icons/partlysunny.svg'
+import rainyIcon from '../assets/images/icons/rainy.svg'
+import rainNightIcon from '../assets/images/icons/rain-night.svg'
+import sleetIcon from '../assets/images/icons/sleet.svg'
+import sleetNightIcon from '../assets/images/icons/sleet-night.svg'
+import snowIcon from '../assets/images/icons/snow.svg'
+import thunderstormIcon from '../assets/images/icons/thunderstorm.svg'
+import thunderstormNightIcon from '../assets/images/icons/thunderstorm-night.svg'
+import windyIcon from '../assets/images/icons/windy.svg'
+import chancesleetIcon from '../assets/images/icons/chancesleet.svg'
+
+// Weather icon mapping
+export const WEATHER_ICONS: Record<string, string> = {
+  clear: clearIcon,
+  'clear-night': clearNightIcon,
+  cloudy: cloudyIcon,
+  drizzle: drizzleIcon,
+  fewdrops: fewdropsIcon,
+  fog: fogIcon,
+  haze: hazeIcon,
+  'mostly-cloudy': mostlyCloudyIcon,
+  'mostly-cloudy-night': mostlyCloudyNightIcon,
+  'partially-cloudy': partiallyCloudyIcon,
+  'partially-cloudy-night': partiallyCloudyNightIcon,
+  partlysunny: partlySunnyIcon,
+  rain: rainyIcon,
+  rainy: rainyIcon,
+  'rain-night': rainNightIcon,
+  sleet: sleetIcon,
+  'sleet-night': sleetNightIcon,
+  snow: snowIcon,
+  thunderstorm: thunderstormIcon,
+  'thunderstorm-night': thunderstormNightIcon,
+  windy: windyIcon,
+  chancesleet: chancesleetIcon,
+}
+
 /**
  * Check if a given timestamp is during nighttime (8 PM - 5 AM) in the specified timezone
  */
@@ -97,4 +146,20 @@ export function getWeatherIconUrl(
   }
 
   return iconMap[iconKey] || iconMap.clear
+}
+
+/**
+ * Get weather icon source (imported SVG) based on weather condition ID and time
+ * @param weatherId - OpenWeatherMap weather condition ID (e.g., 800 for clear sky)
+ * @param dt - Unix timestamp in seconds
+ * @param timeZone - IANA timezone string (e.g., 'America/New_York')
+ * @returns Icon source string (Vite-imported SVG path)
+ */
+export function getWeatherIcon(
+  weatherId: number,
+  dt: number,
+  timeZone: string,
+): string {
+  const iconKey = getWeatherIconKey(weatherId, dt, timeZone)
+  return WEATHER_ICONS[iconKey] || WEATHER_ICONS['clear']
 }

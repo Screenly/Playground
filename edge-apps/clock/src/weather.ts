@@ -1,5 +1,4 @@
-import { getSetting, getWeatherIconKey } from '@screenly/edge-apps'
-import { WEATHER_ICONS } from './weather-icons'
+import { getSetting, getWeatherIcon } from '@screenly/edge-apps'
 import { getMeasurementUnit } from './settings'
 
 // Validate OpenWeatherMap API response
@@ -59,12 +58,7 @@ export async function getWeatherData(
       return null
     }
 
-    const iconKey = getWeatherIconKey(
-      weatherId,
-      Math.floor(Date.now() / 1000),
-      tz,
-    )
-    const iconSrc = WEATHER_ICONS[iconKey] || WEATHER_ICONS['clear']
+    const iconSrc = getWeatherIcon(weatherId, Math.floor(Date.now() / 1000), tz)
     const iconAlt = data.weather?.[0]?.description || 'Weather icon'
 
     const tempSymbol = unit === 'imperial' ? '°F' : '°C'
