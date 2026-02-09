@@ -236,8 +236,16 @@ export async function fetchCurrentWeatherData(
     }
 
     const temperature = Math.round(data.main.temp)
-    const tempHigh = Math.round(data.main.temp_max)
-    const tempLow = Math.round(data.main.temp_min)
+    const tempHigh =
+      typeof data.main.temp_max === 'number' &&
+      Number.isFinite(data.main.temp_max)
+        ? Math.round(data.main.temp_max)
+        : temperature
+    const tempLow =
+      typeof data.main.temp_min === 'number' &&
+      Number.isFinite(data.main.temp_min)
+        ? Math.round(data.main.temp_min)
+        : temperature
     const weatherId = data.weather?.[0]?.id ?? null
 
     if (!weatherId) {
