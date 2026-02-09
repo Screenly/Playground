@@ -40,6 +40,12 @@ function getCoordinates(): [number, number] {
   return getMetadata().coordinates
 }
 
+function showForecastCard() {
+  if (forecastCardEl) {
+    ;(forecastCardEl as HTMLElement).style.display = ''
+  }
+}
+
 function hideForecastCard() {
   if (forecastCardEl) {
     ;(forecastCardEl as HTMLElement).style.display = 'none'
@@ -110,6 +116,7 @@ async function updateWeatherDisplay(
   const forecast = await getHourlyForecast(latitude, longitude, tz, locale)
 
   if (forecast.length > 0) {
+    showForecastCard()
     renderForecastItems(forecast)
   } else {
     hideForecastCard()
