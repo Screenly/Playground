@@ -3,6 +3,7 @@ import {
   getWeatherIcon,
   getMeasurementUnit,
   fetchCurrentWeatherData,
+  formatTime,
 } from '@screenly/edge-apps'
 
 export interface CurrentWeatherData {
@@ -21,6 +22,7 @@ export interface ForecastItem {
   iconSrc: string
   iconAlt: string
   timeLabel: string
+  timePeriod?: string
   displayTemp: string
 }
 
@@ -95,21 +97,24 @@ export async function getHourlyForecast(
         const description = item.weather?.[0]?.description || 'Weather'
         const iconSrc = getWeatherIcon(weatherId, item.dt, tz)
 
-        const timeLabel =
-          index === 0
-            ? 'NOW'
-            : new Intl.DateTimeFormat(locale, {
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: false,
-                timeZone: tz,
-              }).format(new Date(item.dt * 1000))
+        let timeLabel: string
+        let timePeriod: string | undefined
+
+        if (index === 0) {
+          timeLabel = 'NOW'
+          timePeriod = undefined
+        } else {
+          const time = formatTime(new Date(item.dt * 1000), locale, tz)
+          timeLabel = `${time.hour}:${time.minute}`
+          timePeriod = time.dayPeriod
+        }
 
         return {
           temperature,
           iconSrc,
           iconAlt: description,
           timeLabel,
+          timePeriod,
           displayTemp: `${temperature}°`,
         }
       },

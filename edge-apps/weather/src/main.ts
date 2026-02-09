@@ -81,8 +81,13 @@ function renderForecastItems(items: ForecastItem[]) {
       iconEl.setAttribute('alt', item.iconAlt)
     }
 
-    const timeEl = itemEl.querySelector('.forecast-item-time')
-    if (timeEl) timeEl.textContent = item.timeLabel
+    const timeValueEl = itemEl.querySelector('.forecast-item-time-value')
+    if (timeValueEl) timeValueEl.textContent = item.timeLabel
+
+    const timePeriodEl = itemEl.querySelector('.forecast-item-time-period')
+    if (timePeriodEl && item.timePeriod) {
+      timePeriodEl.textContent = ` ${item.timePeriod}`
+    }
 
     forecastItemsEl.appendChild(clone)
   }
