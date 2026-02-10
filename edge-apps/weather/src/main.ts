@@ -101,6 +101,7 @@ async function updateWeatherDisplay(
   const weather = await getCurrentWeather(latitude, longitude, tz)
 
   if (!weather) {
+    hideForecastCard()
     return
   }
 
