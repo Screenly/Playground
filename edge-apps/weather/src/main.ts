@@ -11,6 +11,7 @@ import {
 import '@screenly/edge-apps/components'
 import { getCurrentWeather, getHourlyForecast } from './weather'
 import type { ForecastItem } from './weather'
+import { updateBackground } from './background'
 import sunIcon from '../static/images/sun.svg'
 
 // DOM elements
@@ -104,6 +105,8 @@ async function updateWeatherDisplay(
     hideForecastCard()
     return
   }
+
+  updateBackground(weather.weatherId)
 
   if (temperatureEl) {
     temperatureEl.textContent = weather.displayTemp
