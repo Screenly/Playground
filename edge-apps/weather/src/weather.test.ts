@@ -34,10 +34,17 @@ mock.module('@screenly/edge-apps', () => ({
   getMeasurementUnit: () => mockGetMeasurementUnit(),
   getWeatherIcon: (weatherId: number, timestamp: number, timezone: string) =>
     mockGetWeatherIcon(weatherId, timestamp, timezone),
-  formatTime: (_timestamp: number, _timezone: string) => ({
+  formatTime: (
+    _date: Date,
+    _locale: string,
+    _timezone: string,
+    _options?: { hour12?: boolean },
+  ) => ({
     hour: '12',
     minute: '00',
+    second: '00',
     dayPeriod: 'AM',
+    formatted: '12:00:00 AM',
   }),
 }))
 
