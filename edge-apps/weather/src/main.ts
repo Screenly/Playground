@@ -120,7 +120,13 @@ async function updateWeatherDisplay(
     tempLowEl.textContent = `${weather.tempLow}°`
   }
 
-  const forecast = await getHourlyForecast(latitude, longitude, tz, locale)
+  const forecast = await getHourlyForecast(
+    latitude,
+    longitude,
+    tz,
+    locale,
+    weather,
+  )
 
   if (forecast.length > 0) {
     showForecastCard()

@@ -143,6 +143,17 @@ describe('getCurrentWeather', () => {
 })
 
 describe('getHourlyForecast', () => {
+  const mockCurrentWeather = {
+    temperature: 58,
+    tempHigh: 61,
+    tempLow: 55,
+    weatherId: 800,
+    description: 'Clear sky',
+    iconSrc: '/static/images/icons/clear.svg',
+    iconAlt: 'clear sky',
+    displayTemp: '58°F',
+  }
+
   test('should return empty array when no API key', async () => {
     mockGetSetting = () => undefined
 
@@ -151,12 +162,13 @@ describe('getHourlyForecast', () => {
       -122.0812,
       'America/Los_Angeles',
       'en',
+      mockCurrentWeather,
     )
 
     expect(result).toEqual([])
   })
 
-  test('should return forecast items with correct data', async () => {
+  test('should prepend current weather as NOW and return forecast items', async () => {
     setupForecastMocks()
     mockFetchResponse(FORECAST_RESPONSE)
 
@@ -165,18 +177,25 @@ describe('getHourlyForecast', () => {
       -122.0812,
       'America/Los_Angeles',
       'en',
+      mockCurrentWeather,
     )
 
-    expect(result).toHaveLength(3)
-    expect(result[0].temperature).toBe(60)
-    expect(result[0].displayTemp).toBe('60°')
-    expect(result[0].timeLabel).toBe('NOW')
-    expect(result[0].iconAlt).toBe('scattered clouds')
+    // Should have 1 (NOW) + 3 (forecast) = 4 items
+    expect(result).toHaveLength(4)
 
+    // First item should be current weather as NOW
+    expect(result[0].temperature).toBe(58)
+    expect(result[0].displayTemp).toBe('58°')
+    expect(result[0].timeLabel).toBe('NOW')
+    expect(result[0].timePeriod).toBeUndefined()
+    expect(result[0].iconAlt).toBe('clear sky')
+
+    // Subsequent items should be forecast data with time labels
     expect(result[1].temperature).toBe(60)
     expect(result[1].timeLabel).not.toBe('NOW')
 
-    expect(result[2].temperature).toBe(57)
+    expect(result[2].temperature).toBe(60)
+    expect(result[3].temperature).toBe(57)
   })
 
   test('should return empty array when API responds with error', async () => {
@@ -193,6 +212,7 @@ describe('getHourlyForecast', () => {
       -122.0812,
       'America/Los_Angeles',
       'en',
+      mockCurrentWeather,
     )
 
     expect(result).toEqual([])

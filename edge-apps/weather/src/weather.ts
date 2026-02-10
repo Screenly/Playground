@@ -49,12 +49,13 @@ export async function getCurrentWeather(
   }
 }
 
-// Get hourly forecast (next 8 entries from 3-hour forecast)
+// Get hourly forecast (current conditions + next 7 entries from 3-hour forecast)
 export async function getHourlyForecast(
   lat: number,
   lng: number,
   tz: string,
   locale: string,
+  currentWeather: CurrentWeatherData | null,
 ): Promise<ForecastItem[]> {
   try {
     const apiKey = getSetting<string>('openweathermap_api_key')
@@ -65,7 +66,7 @@ export async function getHourlyForecast(
     const unit = getMeasurementUnit()
 
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&units=${unit}&cnt=8&appid=${apiKey}`,
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&units=${unit}&cnt=7&appid=${apiKey}`,
     )
 
     if (!response.ok) {
@@ -83,31 +84,20 @@ export async function getHourlyForecast(
       return []
     }
 
-    return data.list.map(
-      (
-        item: {
-          dt: number
-          main: { temp: number }
-          weather: { id: number; description: string }[]
-        },
-        index: number,
-      ) => {
+    const forecastItems: ForecastItem[] = data.list.map(
+      (item: {
+        dt: number
+        main: { temp: number }
+        weather: { id: number; description: string }[]
+      }) => {
         const temperature = Math.round(item.main.temp)
         const weatherId = item.weather?.[0]?.id ?? 800
         const description = item.weather?.[0]?.description || 'Weather'
         const iconSrc = getWeatherIcon(weatherId, item.dt, tz)
 
-        let timeLabel: string
-        let timePeriod: string | undefined
-
-        if (index === 0) {
-          timeLabel = 'NOW'
-          timePeriod = undefined
-        } else {
-          const time = formatTime(new Date(item.dt * 1000), locale, tz)
-          timeLabel = `${time.hour}:${time.minute}`
-          timePeriod = time.dayPeriod
-        }
+        const time = formatTime(new Date(item.dt * 1000), locale, tz)
+        const timeLabel = `${time.hour}:${time.minute}`
+        const timePeriod = time.dayPeriod
 
         return {
           temperature,
@@ -119,6 +109,21 @@ export async function getHourlyForecast(
         }
       },
     )
+
+    // Prepend current weather as "NOW" if available
+    if (currentWeather) {
+      const nowItem: ForecastItem = {
+        temperature: currentWeather.temperature,
+        iconSrc: currentWeather.iconSrc,
+        iconAlt: currentWeather.iconAlt,
+        timeLabel: 'NOW',
+        timePeriod: undefined,
+        displayTemp: `${currentWeather.temperature}°`,
+      }
+      return [nowItem, ...forecastItems]
+    }
+
+    return forecastItems
   } catch (error) {
     console.warn('Failed to get forecast data:', error)
     return []
