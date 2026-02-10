@@ -305,7 +305,9 @@ export async function getCityName(lat: number, lng: number): Promise<string> {
 
     if (Array.isArray(data) && data.length > 0) {
       const { name, country } = data[0]
-      return `${name}, ${country}`
+      if (name && country) {
+        return `${name}, ${country}`
+      }
     }
   } catch (error) {
     console.warn('Failed to get city name:', error)
