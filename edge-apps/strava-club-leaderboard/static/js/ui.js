@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars, no-useless-catch */
 
-/* global StravaUtils */
+/* global screenly, StravaUtils */
 
 // UI functions for Strava Club Leaderboard App
 window.StravaUI = (function () {
@@ -49,17 +49,19 @@ window.StravaUI = (function () {
       const clubLogoUrl = clubData.profile_medium || clubData.profile
 
       if (clubLogoUrl) {
-        // Add error handler to fall back to default logo if club logo fails to load
         logoImage.onerror = function () {
           logoImage.src = 'static/images/strava.svg'
           logoImage.alt = 'Strava'
-          logoImage.onerror = null // Remove error handler
+          logoImage.onerror = null
         }
 
-        logoImage.src = clubLogoUrl
+        // Use CORS proxy on player, direct URL locally
+        logoImage.src =
+          typeof screenly !== 'undefined' && screenly.cors_proxy_url
+            ? screenly.cors_proxy_url + clubLogoUrl
+            : clubLogoUrl
         logoImage.alt = clubData.name || 'Club Logo'
 
-        // Update title to include club name
         if (logoText && clubData.name) {
           logoText.textContent = `${clubData.name} Leaderboard`
         }
