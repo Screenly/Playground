@@ -49,17 +49,25 @@ window.StravaUI = (function () {
       const clubLogoUrl = clubData.profile_medium || clubData.profile
 
       if (clubLogoUrl) {
+        const corsUrl =
+          typeof screenly !== 'undefined' && screenly.cors_proxy_url
+            ? screenly.cors_proxy_url + '/' + clubLogoUrl
+            : null
+
         logoImage.onerror = function () {
-          logoImage.src = 'static/images/strava.svg'
-          logoImage.alt = 'Strava'
-          logoImage.onerror = null
+          if (corsUrl && logoImage.src !== corsUrl) {
+            // Direct URL failed, try CORS proxy
+            logoImage.src = corsUrl
+          } else {
+            // CORS proxy also failed, use default
+            logoImage.src = 'static/images/strava.svg'
+            logoImage.alt = 'Strava'
+            logoImage.onerror = null
+          }
         }
 
-        // Use CORS proxy on player, direct URL locally
-        logoImage.src =
-          typeof screenly !== 'undefined' && screenly.cors_proxy_url
-            ? screenly.cors_proxy_url + clubLogoUrl
-            : clubLogoUrl
+        // Try direct URL first
+        logoImage.src = clubLogoUrl
         logoImage.alt = clubData.name || 'Club Logo'
 
         if (logoText && clubData.name) {
