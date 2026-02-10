@@ -1,10 +1,14 @@
 /* eslint-disable max-lines-per-function */
-import { describe, test, expect } from 'bun:test'
+import { describe, test, expect, beforeEach } from 'bun:test'
 import {
   isNightForTimestamp,
   getWeatherIconKey,
   getWeatherIconUrl,
+  getCityName,
 } from './weather'
+import { setupScreenlyMock } from '../test/mock'
+
+const { mock } = await import('bun:test')
 
 describe('weather', () => {
   describe('isNightForTimestamp', () => {
@@ -104,6 +108,56 @@ describe('weather', () => {
         '/assets/images/icons/clear.svg',
       )
       expect(getWeatherIconUrl('invalid', '/custom')).toBe('/custom/clear.svg')
+    })
+  })
+
+  describe('getCityName', () => {
+    beforeEach(() => {
+      setupScreenlyMock()
+    })
+
+    test('should return city name from API when API key is available', async () => {
+      setupScreenlyMock(
+        { location: 'Test Location' },
+        { openweathermap_api_key: 'test-api-key' },
+      )
+
+      global.fetch = mock(async () => {
+        return new Response(
+          JSON.stringify([{ name: 'Mountain View', country: 'US' }]),
+          {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          },
+        )
+      })
+
+      const result = await getCityName(37.39, -122.0812)
+      expect(result).toBe('Mountain View, US')
+    })
+
+    test('should return metadata location when no API key', async () => {
+      setupScreenlyMock({ location: 'San Francisco' }, {})
+
+      const result = await getCityName(37.39, -122.0812)
+      expect(result).toBe('San Francisco')
+    })
+
+    test('should return metadata location on API error', async () => {
+      setupScreenlyMock(
+        { location: 'Fallback City' },
+        { openweathermap_api_key: 'test-api-key' },
+      )
+
+      global.fetch = mock(async () => {
+        return new Response('Not Found', {
+          status: 404,
+          statusText: 'Not Found',
+        })
+      })
+
+      const result = await getCityName(37.39, -122.0812)
+      expect(result).toBe('Fallback City')
     })
   })
 })

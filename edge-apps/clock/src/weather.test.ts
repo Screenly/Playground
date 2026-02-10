@@ -1,77 +1,32 @@
 import '@screenly/edge-apps/test'
 import { describe, test, expect } from 'bun:test'
-import { getWeatherData, isValidWeatherResponse } from './weather'
+import { getWeatherData } from './weather'
 
-let mockGetSetting: <T>(key: string) => T | undefined
-let mockGetMeasurementUnit: () => 'metric' | 'imperial'
-let mockGetWeatherIconKey: (
-  weatherId: number,
-  timestamp: number,
-  timezone: string,
-) => string
+let mockFetchCurrentWeatherData: (
+  lat: number,
+  lng: number,
+  tz: string,
+) => Promise<{
+  temperature: number
+  tempHigh: number
+  tempLow: number
+  weatherId: number
+  description: string
+  iconSrc: string
+  iconAlt: string
+  unit: 'metric' | 'imperial'
+} | null>
 
-// Mock the modules once at the top level
 const { mock } = await import('bun:test')
 
 mock.module('@screenly/edge-apps', () => ({
-  getSetting: (key: string) => mockGetSetting(key),
-  getWeatherIconKey: (weatherId: number, timestamp: number, timezone: string) =>
-    mockGetWeatherIconKey(weatherId, timestamp, timezone),
+  fetchCurrentWeatherData: (lat: number, lng: number, tz: string) =>
+    mockFetchCurrentWeatherData(lat, lng, tz),
 }))
 
-mock.module('./weather-icons', () => ({
-  WEATHER_ICONS: {
-    clear: '/static/images/icons/clear.svg',
-    cloudy: '/static/images/icons/cloudy.svg',
-  },
-}))
-
-mock.module('./settings', () => ({
-  getMeasurementUnit: () => mockGetMeasurementUnit(),
-}))
-
-// Helper to set up mocks for API key tests
-function setupApiKeyMock() {
-  mockGetSetting = <T>(key: string): T | undefined => {
-    if (key === 'openweathermap_api_key') return 'test-api-key' as T
-    return undefined
-  }
-}
-
-// Helper to mock successful weather API response
-function mockWeatherResponse(temp: number) {
-  global.fetch = mock(async () => {
-    return new Response(
-      JSON.stringify({
-        cod: 200,
-        main: { temp },
-        weather: [{ id: 800, description: 'clear sky' }],
-      }),
-      {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      },
-    )
-  })
-}
-
-describe('isValidWeatherResponse', () => {
-  test('should validate response with cod 200 and temperature', () => {
-    expect(isValidWeatherResponse({ cod: 200, main: { temp: 20 } })).toBe(true)
-    expect(isValidWeatherResponse({ cod: '200', main: { temp: 20 } })).toBe(
-      true,
-    )
-  })
-
-  test('should return false for invalid response', () => {
-    expect(isValidWeatherResponse({ cod: 404, main: { temp: 20 } })).toBe(false)
-    expect(isValidWeatherResponse({ cod: 200, main: {} })).toBe(false)
-  })
-})
-
-describe('getWeatherData - API key validation', () => {
-  test('should return null when no API key is provided', async () => {
-    mockGetSetting = () => undefined
+describe('getWeatherData', () => {
+  test('should return null when fetchCurrentWeatherData returns null', async () => {
+    mockFetchCurrentWeatherData = async () => null
 
     const result = await getWeatherData(
       37.3861,
@@ -81,14 +36,18 @@ describe('getWeatherData - API key validation', () => {
 
     expect(result).toBeNull()
   })
-})
 
-describe('getWeatherData - unit conversion', () => {
   test('should return weather data with metric units', async () => {
-    setupApiKeyMock()
-    mockGetMeasurementUnit = () => 'metric'
-    mockGetWeatherIconKey = () => 'clear'
-    mockWeatherResponse(18.85)
+    mockFetchCurrentWeatherData = async () => ({
+      temperature: 19,
+      tempHigh: 22,
+      tempLow: 15,
+      weatherId: 800,
+      description: 'clear sky',
+      iconSrc: '/static/images/icons/clear.svg',
+      iconAlt: 'clear sky',
+      unit: 'metric',
+    })
 
     const result = await getWeatherData(
       37.3861,
@@ -101,10 +60,16 @@ describe('getWeatherData - unit conversion', () => {
   })
 
   test('should return weather data with imperial units', async () => {
-    setupApiKeyMock()
-    mockGetMeasurementUnit = () => 'imperial'
-    mockGetWeatherIconKey = () => 'clear'
-    mockWeatherResponse(65.71)
+    mockFetchCurrentWeatherData = async () => ({
+      temperature: 66,
+      tempHigh: 70,
+      tempLow: 60,
+      weatherId: 800,
+      description: 'clear sky',
+      iconSrc: '/static/images/icons/clear.svg',
+      iconAlt: 'clear sky',
+      unit: 'imperial',
+    })
 
     const result = await getWeatherData(
       37.3861,
@@ -115,49 +80,23 @@ describe('getWeatherData - unit conversion', () => {
     expect(result?.temperature).toBe(66)
     expect(result?.displayText).toBe('66°F')
   })
-})
 
-describe('getWeatherData - error handling', () => {
-  test('should return null when API fails', async () => {
-    setupApiKeyMock()
-    mockGetMeasurementUnit = () => 'metric'
-
-    global.fetch = mock(async () => {
-      return new Response('Not Found', {
-        status: 404,
-        statusText: 'Not Found',
-      })
+  test('should handle temperature of 0 correctly', async () => {
+    mockFetchCurrentWeatherData = async () => ({
+      temperature: 0,
+      tempHigh: 3,
+      tempLow: -2,
+      weatherId: 800,
+      description: 'clear sky',
+      iconSrc: '/static/images/icons/clear.svg',
+      iconAlt: 'clear sky',
+      unit: 'metric',
     })
 
-    const result = await getWeatherData(
-      37.3861,
-      -122.0839,
-      'America/Los_Angeles',
-    )
+    const result = await getWeatherData(59.3293, 18.0686, 'Europe/Stockholm')
 
-    expect(result).toBeNull()
-  })
-
-  test('should return null when response is invalid', async () => {
-    setupApiKeyMock()
-    mockGetMeasurementUnit = () => 'metric'
-
-    global.fetch = mock(async () => {
-      return new Response(
-        JSON.stringify({ cod: 404, message: 'city not found' }),
-        {
-          status: 200,
-          headers: { 'Content-Type': 'application/json' },
-        },
-      )
-    })
-
-    const result = await getWeatherData(
-      37.3861,
-      -122.0839,
-      'America/Los_Angeles',
-    )
-
-    expect(result).toBeNull()
+    expect(result).not.toBeNull()
+    expect(result?.temperature).toBe(0)
+    expect(result?.displayText).toBe('0°C')
   })
 })

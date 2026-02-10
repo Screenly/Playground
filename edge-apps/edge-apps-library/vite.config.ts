@@ -5,6 +5,8 @@ export default defineConfig({
   base: '',
   build: {
     cssCodeSplit: false,
+    assetsInlineLimit: 7000000,
+    minify: true,
     rollupOptions: {
       input: 'src/main.ts',
       output: {
@@ -15,6 +17,7 @@ export default defineConfig({
           if (assetInfo.names?.[0]?.endsWith('.css')) {
             return 'css/style.css'
           }
+
           return 'assets/[name]-[hash][extname]'
         },
       },

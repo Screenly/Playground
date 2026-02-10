@@ -5,11 +5,11 @@ import {
   getTimeZone,
   getLocale,
   signalReady,
+  getCityName,
 } from '@screenly/edge-apps'
 // Import components to register them as custom elements
 // This registers <brand-logo>, <app-header>, <auto-scaler>, and <edge-app-devtools>
 import '@screenly/edge-apps/components'
-import { getCityName } from './location'
 import { getWeatherData } from './weather'
 import { getTimeData } from './time'
 

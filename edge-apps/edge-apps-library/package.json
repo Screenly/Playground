@@ -47,8 +47,9 @@
   ],
   "scripts": {
     "prebuild": "bun run type-check",
-    "build": "bun build:types",
+    "build": "bun build:types && bun run copy:assets",
     "build:types": "tsc",
+    "copy:assets": "bun run scripts/copy-assets.ts",
     "test": "bun test --parallel",
     "test:unit": "bun test --parallel",
     "test:coverage": "bun test --coverage --parallel",

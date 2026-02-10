@@ -3,6 +3,62 @@
  * Functions for weather icon mapping and related utilities
  */
 
+import {
+  getSetting,
+  getMeasurementUnit,
+  type MeasurementUnit,
+} from './settings.js'
+import { getMetadata } from './metadata.js'
+
+// Import weather icons
+import clearIcon from '../assets/images/icons/clear.svg'
+import clearNightIcon from '../assets/images/icons/clear-night.svg'
+import cloudyIcon from '../assets/images/icons/cloudy.svg'
+import drizzleIcon from '../assets/images/icons/drizzle.svg'
+import fewdropsIcon from '../assets/images/icons/fewdrops.svg'
+import fogIcon from '../assets/images/icons/fog.svg'
+import hazeIcon from '../assets/images/icons/haze.svg'
+import mostlyCloudyIcon from '../assets/images/icons/mostly-cloudy.svg'
+import mostlyCloudyNightIcon from '../assets/images/icons/mostly-cloudy-night.svg'
+import partiallyCloudyIcon from '../assets/images/icons/partially-cloudy.svg'
+import partiallyCloudyNightIcon from '../assets/images/icons/partially-cloudy-night.svg'
+import partlySunnyIcon from '../assets/images/icons/partlysunny.svg'
+import rainyIcon from '../assets/images/icons/rainy.svg'
+import rainNightIcon from '../assets/images/icons/rain-night.svg'
+import sleetIcon from '../assets/images/icons/sleet.svg'
+import sleetNightIcon from '../assets/images/icons/sleet-night.svg'
+import snowIcon from '../assets/images/icons/snow.svg'
+import thunderstormIcon from '../assets/images/icons/thunderstorm.svg'
+import thunderstormNightIcon from '../assets/images/icons/thunderstorm-night.svg'
+import windyIcon from '../assets/images/icons/windy.svg'
+import chancesleetIcon from '../assets/images/icons/chancesleet.svg'
+
+// Weather icon mapping
+export const WEATHER_ICONS: Record<string, string> = {
+  clear: clearIcon,
+  'clear-night': clearNightIcon,
+  cloudy: cloudyIcon,
+  drizzle: drizzleIcon,
+  fewdrops: fewdropsIcon,
+  fog: fogIcon,
+  haze: hazeIcon,
+  'mostly-cloudy': mostlyCloudyIcon,
+  'mostly-cloudy-night': mostlyCloudyNightIcon,
+  'partially-cloudy': partiallyCloudyIcon,
+  'partially-cloudy-night': partiallyCloudyNightIcon,
+  partlysunny: partlySunnyIcon,
+  rain: rainyIcon,
+  rainy: rainyIcon,
+  'rain-night': rainNightIcon,
+  sleet: sleetIcon,
+  'sleet-night': sleetNightIcon,
+  snow: snowIcon,
+  thunderstorm: thunderstormIcon,
+  'thunderstorm-night': thunderstormNightIcon,
+  windy: windyIcon,
+  chancesleet: chancesleetIcon,
+}
+
 /**
  * Check if a given timestamp is during nighttime (8 PM - 5 AM) in the specified timezone
  */
@@ -97,4 +153,166 @@ export function getWeatherIconUrl(
   }
 
   return iconMap[iconKey] || iconMap.clear
+}
+
+/**
+ * Get weather icon source (imported SVG) based on weather condition ID and time
+ * @param weatherId - OpenWeatherMap weather condition ID (e.g., 800 for clear sky)
+ * @param dt - Unix timestamp in seconds
+ * @param timeZone - IANA timezone string (e.g., 'America/New_York')
+ * @returns Icon source string (Vite-imported SVG path)
+ */
+export function getWeatherIcon(
+  weatherId: number,
+  dt: number,
+  timeZone: string,
+): string {
+  const iconKey = getWeatherIconKey(weatherId, dt, timeZone)
+  return WEATHER_ICONS[iconKey] || WEATHER_ICONS['clear']
+}
+
+// --- Shared weather data utilities ---
+
+/**
+ * Validate OpenWeatherMap API response
+ * Note: `cod` can be number (200) or string ("200") depending on the endpoint
+ */
+export function isValidWeatherResponse(data: {
+  cod?: number | string
+  main?: { temp?: number }
+}): boolean {
+  const temp = data.main?.temp
+  return (
+    (data.cod === 200 || data.cod === '200') &&
+    typeof temp === 'number' &&
+    Number.isFinite(temp)
+  )
+}
+
+export interface CurrentWeatherRawData {
+  temperature: number
+  tempHigh: number
+  tempLow: number
+  weatherId: number
+  description: string
+  iconSrc: string
+  iconAlt: string
+  unit: MeasurementUnit
+}
+
+/**
+ * Fetch current weather data from OpenWeatherMap API
+ * Returns raw weather data that each app can map to its own interface
+ */
+export async function fetchCurrentWeatherData(
+  lat: number,
+  lng: number,
+  tz: string,
+): Promise<CurrentWeatherRawData | null> {
+  try {
+    const apiKey = getSetting<string>('openweathermap_api_key')
+    if (!apiKey) {
+      return null
+    }
+
+    const unit = getMeasurementUnit()
+
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=${unit}&appid=${apiKey}`,
+    )
+
+    if (!response.ok) {
+      console.warn(
+        'Failed to get weather data: OpenWeatherMap API responded with',
+        response.status,
+        response.statusText,
+      )
+      return null
+    }
+
+    const data = await response.json()
+
+    if (!isValidWeatherResponse(data)) {
+      return null
+    }
+
+    const temperature = Math.round(data.main.temp)
+    const tempHigh =
+      typeof data.main.temp_max === 'number' &&
+      Number.isFinite(data.main.temp_max)
+        ? Math.round(data.main.temp_max)
+        : temperature
+    const tempLow =
+      typeof data.main.temp_min === 'number' &&
+      Number.isFinite(data.main.temp_min)
+        ? Math.round(data.main.temp_min)
+        : temperature
+    const weatherId = data.weather?.[0]?.id ?? null
+
+    if (!weatherId) {
+      return null
+    }
+
+    const dt = Math.floor(Date.now() / 1000)
+    const description = data.weather?.[0]?.description || ''
+    const iconSrc = getWeatherIcon(weatherId, dt, tz)
+    const iconAlt = description || 'Weather icon'
+
+    return {
+      temperature,
+      tempHigh,
+      tempLow,
+      weatherId,
+      description,
+      iconSrc,
+      iconAlt,
+      unit,
+    }
+  } catch (error) {
+    console.warn('Failed to get weather data:', error)
+    return null
+  }
+}
+
+/**
+ * Get city name from coordinates using OpenWeatherMap reverse geocoding
+ * @param lat - Latitude
+ * @param lng - Longitude
+ * @returns City name in format "City, Country" or fallback location
+ */
+export async function getCityName(lat: number, lng: number): Promise<string> {
+  try {
+    const apiKey = getSetting<string>('openweathermap_api_key')
+    if (!apiKey) {
+      // Fallback to location from metadata if no API key
+      return getMetadata().location || 'Unknown Location'
+    }
+
+    const response = await fetch(
+      `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lng}&limit=1&appid=${apiKey}`,
+    )
+
+    if (!response.ok) {
+      console.warn(
+        'Failed to get city name: OpenWeatherMap API responded with',
+        response.status,
+        response.statusText,
+      )
+      return getMetadata().location || 'Unknown Location'
+    }
+
+    const data = await response.json()
+
+    if (Array.isArray(data) && data.length > 0) {
+      const { name, country } = data[0]
+      if (name && country) {
+        return `${name}, ${country}`
+      }
+    }
+  } catch (error) {
+    console.warn('Failed to get city name:', error)
+  }
+
+  // Fallback to location from metadata
+  return getMetadata().location || 'Unknown Location'
 }
