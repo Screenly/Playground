@@ -34,6 +34,11 @@ mock.module('@screenly/edge-apps', () => ({
   getMeasurementUnit: () => mockGetMeasurementUnit(),
   getWeatherIcon: (weatherId: number, timestamp: number, timezone: string) =>
     mockGetWeatherIcon(weatherId, timestamp, timezone),
+  formatTime: (_timestamp: number, _timezone: string) => ({
+    hour: '12',
+    minute: '00',
+    dayPeriod: 'AM',
+  }),
 }))
 
 // Sample forecast API response based on real OpenWeatherMap data
