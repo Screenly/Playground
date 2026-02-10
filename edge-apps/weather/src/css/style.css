@@ -111,7 +111,7 @@ auto-scaler {
   transform: translateX(-50%);
   top: 598px;
   width: 1280px;
-  height: 252px;
+  height: 269px;
   border-radius: 1rem;
   border: 1.054px solid rgba(255, 255, 255, 0.1);
   background: linear-gradient(
@@ -177,8 +177,8 @@ auto-scaler {
 }
 
 .forecast-item-icon {
-  width: 3.25rem;
-  height: 3rem;
+  width: 4.5rem;
+  height: 4.5rem;
   object-fit: contain;
 }
 
@@ -225,8 +225,8 @@ auto-scaler {
   }
 
   .forecast-item-icon {
-    width: 4rem;
-    height: 3.5rem;
+    width: 5rem;
+    height: 5rem;
   }
 
   .forecast-item-time {
