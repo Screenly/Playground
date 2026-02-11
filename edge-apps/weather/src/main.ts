@@ -6,9 +6,8 @@ import {
   getLocale,
   signalReady,
   getSetting,
-  getSettingWithDefault,
   getCityInfo,
-  getMeasurementUnitByCountry,
+  resolveMeasurementUnit,
   type MeasurementUnit,
 } from '@screenly/edge-apps'
 import '@screenly/edge-apps/components'
@@ -173,18 +172,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Get measurement unit from settings, or auto-detect based on location
-    const unitSetting = getSettingWithDefault<string>('unit', 'auto')
-
-    if (unitSetting === 'auto') {
-      // Auto-detect based on country when setting is explicitly 'auto'
-      measurementUnit = getMeasurementUnitByCountry(countryCode)
-    } else if (unitSetting === 'metric' || unitSetting === 'imperial') {
-      // Only accept known valid units; this narrows the generic string safely
-      measurementUnit = unitSetting
-    } else {
-      // Fallback for invalid/corrupted settings: auto-detect based on country
-      measurementUnit = getMeasurementUnitByCountry(countryCode)
-    }
+    measurementUnit = resolveMeasurementUnit(countryCode)
 
     await updateWeatherDisplay(latitude, longitude, timezone, measurementUnit)
 

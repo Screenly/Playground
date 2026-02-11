@@ -1,4 +1,5 @@
 import type { ScreenlySettings } from '../types/index.js'
+import { getMeasurementUnitByCountry } from './locale.js'
 
 /**
  * Get all Screenly settings
@@ -76,3 +77,25 @@ export function signalReady(): void {
 
 // Types
 export type MeasurementUnit = 'metric' | 'imperial'
+
+/**
+ * Resolve measurement unit from settings with auto-detection fallback
+ * @param countryCode - Two-character ISO country code for auto-detection
+ * @returns Resolved measurement unit ('metric' or 'imperial')
+ */
+export function resolveMeasurementUnit(
+  countryCode: string,
+): MeasurementUnit {
+  const unitSetting = getSettingWithDefault<string>('unit', 'auto')
+
+  if (unitSetting === 'auto') {
+    // Auto-detect based on country when setting is explicitly 'auto'
+    return getMeasurementUnitByCountry(countryCode)
+  } else if (unitSetting === 'metric' || unitSetting === 'imperial') {
+    // Only accept known valid units
+    return unitSetting
+  } else {
+    // Fallback for invalid/corrupted settings: auto-detect based on country
+    return getMeasurementUnitByCountry(countryCode)
+  }
+}
