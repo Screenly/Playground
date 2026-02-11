@@ -1,6 +1,5 @@
 import '@screenly/edge-apps/test'
 import { describe, test, expect } from 'bun:test'
-import { getMeasurementUnitByCountry } from '@screenly/edge-apps'
 import { getCurrentWeather, getHourlyForecast } from './weather'
 
 let mockFetchCurrentWeatherData: (
@@ -28,6 +27,12 @@ let mockGetWeatherIcon: (
 
 const { mock } = await import('bun:test')
 
+// Import the real implementation to delegate to it in the mock
+const {
+  getMeasurementUnitByCountry: realGetMeasurementUnitByCountry,
+  getMeasurementUnitByCountry,
+} = await import('@screenly/edge-apps')
+
 mock.module('@screenly/edge-apps', () => ({
   fetchCurrentWeatherData: (
     lat: number,
@@ -50,6 +55,8 @@ mock.module('@screenly/edge-apps', () => ({
     dayPeriod: 'AM',
     formatted: '12:00:00 AM',
   }),
+  getMeasurementUnitByCountry: (countryCode: string) =>
+    realGetMeasurementUnitByCountry(countryCode),
 }))
 
 // Sample forecast API response based on real OpenWeatherMap data
