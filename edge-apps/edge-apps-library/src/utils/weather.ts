@@ -3,11 +3,7 @@
  * Functions for weather icon mapping and related utilities
  */
 
-import {
-  getSetting,
-  getMeasurementUnit,
-  type MeasurementUnit,
-} from './settings.js'
+import { getSetting, type MeasurementUnit } from './settings.js'
 import { getMetadata } from './metadata.js'
 
 // Import weather icons
