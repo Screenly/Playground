@@ -1,0 +1,6 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+static/js/*.js
+static/js/*.js.map
