@@ -6,6 +6,7 @@ let mockFetchCurrentWeatherData: (
   lat: number,
   lng: number,
   tz: string,
+  unit: 'metric' | 'imperial',
 ) => Promise<{
   temperature: number
   tempHigh: number
@@ -18,7 +19,6 @@ let mockFetchCurrentWeatherData: (
 } | null>
 
 let mockGetSetting: <T>(key: string) => T | undefined
-let mockGetMeasurementUnit: () => 'metric' | 'imperial'
 let mockGetWeatherIcon: (
   weatherId: number,
   timestamp: number,
@@ -27,11 +27,20 @@ let mockGetWeatherIcon: (
 
 const { mock } = await import('bun:test')
 
+// Import the real implementation to delegate to it in the mock
+const {
+  getMeasurementUnitByCountry: realGetMeasurementUnitByCountry,
+  getMeasurementUnitByCountry,
+} = await import('@screenly/edge-apps')
+
 mock.module('@screenly/edge-apps', () => ({
-  fetchCurrentWeatherData: (lat: number, lng: number, tz: string) =>
-    mockFetchCurrentWeatherData(lat, lng, tz),
+  fetchCurrentWeatherData: (
+    lat: number,
+    lng: number,
+    tz: string,
+    unit: 'metric' | 'imperial',
+  ) => mockFetchCurrentWeatherData(lat, lng, tz, unit),
   getSetting: <T>(key: string) => mockGetSetting<T>(key),
-  getMeasurementUnit: () => mockGetMeasurementUnit(),
   getWeatherIcon: (weatherId: number, timestamp: number, timezone: string) =>
     mockGetWeatherIcon(weatherId, timestamp, timezone),
   formatTime: (
@@ -46,6 +55,8 @@ mock.module('@screenly/edge-apps', () => ({
     dayPeriod: 'AM',
     formatted: '12:00:00 AM',
   }),
+  getMeasurementUnitByCountry: (countryCode: string) =>
+    realGetMeasurementUnitByCountry(countryCode),
 }))
 
 // Sample forecast API response based on real OpenWeatherMap data
@@ -78,7 +89,6 @@ function setupForecastMocks() {
     if (key === 'openweathermap_api_key') return 'test-api-key' as T
     return undefined
   }
-  mockGetMeasurementUnit = () => 'imperial'
   mockGetWeatherIcon = () => '/static/images/icons/mostly-cloudy.svg'
 }
 
@@ -92,6 +102,31 @@ function mockFetchResponse(data: object, status = 200) {
   })
 }
 
+describe('getMeasurementUnitByCountry', () => {
+  test('should return imperial for US', () => {
+    expect(getMeasurementUnitByCountry('US')).toBe('imperial')
+  })
+
+  test('should return imperial for all Fahrenheit countries', () => {
+    const fahrenheitCountries = ['US', 'BS', 'KY', 'LR', 'PW', 'FM', 'MH']
+    fahrenheitCountries.forEach((country) => {
+      expect(getMeasurementUnitByCountry(country)).toBe('imperial')
+    })
+  })
+
+  test('should return metric for non-Fahrenheit countries', () => {
+    expect(getMeasurementUnitByCountry('GB')).toBe('metric')
+    expect(getMeasurementUnitByCountry('FR')).toBe('metric')
+    expect(getMeasurementUnitByCountry('JP')).toBe('metric')
+    expect(getMeasurementUnitByCountry('DE')).toBe('metric')
+    expect(getMeasurementUnitByCountry('CA')).toBe('metric')
+  })
+
+  test('should return metric for empty string', () => {
+    expect(getMeasurementUnitByCountry('')).toBe('metric')
+  })
+})
+
 describe('getCurrentWeather', () => {
   test('should return null when fetchCurrentWeatherData returns null', async () => {
     mockFetchCurrentWeatherData = async () => null
@@ -100,6 +135,7 @@ describe('getCurrentWeather', () => {
       37.39,
       -122.0812,
       'America/Los_Angeles',
+      'imperial',
     )
 
     expect(result).toBeNull()
@@ -121,6 +157,7 @@ describe('getCurrentWeather', () => {
       37.39,
       -122.0812,
       'America/Los_Angeles',
+      'imperial',
     )
 
     expect(result).not.toBeNull()
@@ -147,6 +184,7 @@ describe('getCurrentWeather', () => {
       37.39,
       -122.0812,
       'America/Los_Angeles',
+      'metric',
     )
 
     expect(result?.description).toBe('Scattered clouds')
@@ -174,6 +212,7 @@ describe('getHourlyForecast', () => {
       -122.0812,
       'America/Los_Angeles',
       'en',
+      'imperial',
       mockCurrentWeather,
     )
 
@@ -189,6 +228,7 @@ describe('getHourlyForecast', () => {
       -122.0812,
       'America/Los_Angeles',
       'en',
+      'imperial',
       mockCurrentWeather,
     )
 
@@ -224,6 +264,7 @@ describe('getHourlyForecast', () => {
       -122.0812,
       'America/Los_Angeles',
       'en',
+      'imperial',
       mockCurrentWeather,
     )
 

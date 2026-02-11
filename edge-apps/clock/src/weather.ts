@@ -1,4 +1,8 @@
-import { fetchCurrentWeatherData } from '@screenly/edge-apps'
+import {
+  fetchCurrentWeatherData,
+  getSettingWithDefault,
+  type MeasurementUnit,
+} from '@screenly/edge-apps'
 
 export interface WeatherData {
   temperature: number
@@ -14,7 +18,8 @@ export async function getWeatherData(
   lng: number,
   tz: string,
 ): Promise<WeatherData | null> {
-  const raw = await fetchCurrentWeatherData(lat, lng, tz)
+  const unit = getSettingWithDefault<MeasurementUnit>('unit', 'metric')
+  const raw = await fetchCurrentWeatherData(lat, lng, tz, unit)
   if (!raw) return null
 
   const tempSymbol = raw.unit === 'imperial' ? '°F' : '°C'

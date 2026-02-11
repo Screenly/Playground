@@ -6,7 +6,10 @@ import {
   getLocale,
   signalReady,
   getSetting,
-  getCityName,
+  getSettingWithDefault,
+  getCityInfo,
+  getMeasurementUnitByCountry,
+  type MeasurementUnit,
 } from '@screenly/edge-apps'
 import '@screenly/edge-apps/components'
 import { getCurrentWeather, getHourlyForecast } from './weather'
@@ -27,6 +30,7 @@ let forecastHeaderIconEl: HTMLImageElement | null
 // State
 let timezone: string = 'UTC'
 let locale: string = 'en'
+let measurementUnit: MeasurementUnit = 'metric'
 
 function getCoordinates(): [number, number] {
   const overrideCoordinates = getSetting<string>('override_coordinates')
@@ -98,8 +102,9 @@ async function updateWeatherDisplay(
   latitude: number,
   longitude: number,
   tz: string,
+  unit: MeasurementUnit,
 ) {
-  const weather = await getCurrentWeather(latitude, longitude, tz)
+  const weather = await getCurrentWeather(latitude, longitude, tz, unit)
 
   if (!weather) {
     hideForecastCard()
@@ -129,6 +134,7 @@ async function updateWeatherDisplay(
     longitude,
     tz,
     locale,
+    unit,
     weather,
   )
 
@@ -161,17 +167,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     timezone = await getTimeZone()
     locale = await getLocale()
 
-    const locationName = await getCityName(latitude, longitude)
+    const { cityName, countryCode } = await getCityInfo(latitude, longitude)
     if (locationEl) {
-      locationEl.textContent = locationName
+      locationEl.textContent = cityName
     }
 
-    await updateWeatherDisplay(latitude, longitude, timezone)
+    // Get measurement unit from settings, or auto-detect based on location
+    const unitSetting = getSettingWithDefault<string>('unit', 'auto')
+
+    if (unitSetting === 'auto') {
+      // Auto-detect based on country when setting is explicitly 'auto'
+      measurementUnit = getMeasurementUnitByCountry(countryCode)
+    } else if (unitSetting === 'metric' || unitSetting === 'imperial') {
+      // Only accept known valid units; this narrows the generic string safely
+      measurementUnit = unitSetting
+    } else {
+      // Fallback for invalid/corrupted settings: auto-detect based on country
+      measurementUnit = getMeasurementUnitByCountry(countryCode)
+    }
+
+    await updateWeatherDisplay(latitude, longitude, timezone, measurementUnit)
 
     // Refresh weather every 15 minutes
     setInterval(
       () => {
-        updateWeatherDisplay(latitude, longitude, timezone)
+        updateWeatherDisplay(latitude, longitude, timezone, measurementUnit)
       },
       15 * 60 * 1000,
     )

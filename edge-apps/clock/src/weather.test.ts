@@ -6,6 +6,7 @@ let mockFetchCurrentWeatherData: (
   lat: number,
   lng: number,
   tz: string,
+  unit: 'metric' | 'imperial',
 ) => Promise<{
   temperature: number
   tempHigh: number
@@ -17,15 +18,24 @@ let mockFetchCurrentWeatherData: (
   unit: 'metric' | 'imperial'
 } | null>
 
+let mockGetSettingWithDefault: <T>(key: string, defaultValue: T) => T
+
 const { mock } = await import('bun:test')
 
 mock.module('@screenly/edge-apps', () => ({
-  fetchCurrentWeatherData: (lat: number, lng: number, tz: string) =>
-    mockFetchCurrentWeatherData(lat, lng, tz),
+  fetchCurrentWeatherData: (
+    lat: number,
+    lng: number,
+    tz: string,
+    unit: 'metric' | 'imperial',
+  ) => mockFetchCurrentWeatherData(lat, lng, tz, unit),
+  getSettingWithDefault: <T>(key: string, defaultValue: T) =>
+    mockGetSettingWithDefault(key, defaultValue),
 }))
 
 describe('getWeatherData', () => {
   test('should return null when fetchCurrentWeatherData returns null', async () => {
+    mockGetSettingWithDefault = (key, defaultValue) => defaultValue
     mockFetchCurrentWeatherData = async () => null
 
     const result = await getWeatherData(
@@ -38,6 +48,7 @@ describe('getWeatherData', () => {
   })
 
   test('should return weather data with metric units', async () => {
+    mockGetSettingWithDefault = (key, defaultValue) => defaultValue
     mockFetchCurrentWeatherData = async () => ({
       temperature: 19,
       tempHigh: 22,
@@ -60,6 +71,8 @@ describe('getWeatherData', () => {
   })
 
   test('should return weather data with imperial units', async () => {
+    mockGetSettingWithDefault = <T>(_key: string, _defaultValue: T): T =>
+      'imperial' as T
     mockFetchCurrentWeatherData = async () => ({
       temperature: 66,
       tempHigh: 70,
@@ -82,6 +95,7 @@ describe('getWeatherData', () => {
   })
 
   test('should handle temperature of 0 correctly', async () => {
+    mockGetSettingWithDefault = (key, defaultValue) => defaultValue
     mockFetchCurrentWeatherData = async () => ({
       temperature: 0,
       tempHigh: 3,

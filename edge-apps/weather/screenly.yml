@@ -60,13 +60,16 @@ settings:
     is_global: true
   unit:
     type: string
-    default_value: metric
+    default_value: auto
     title: Measurement Unit
     optional: true
     help_text:
       properties:
+        advanced: true
         help_text: Select the measurement unit for temperature display.
         options:
+        - label: Auto (based on location)
+          value: auto
         - label: Metric (°C)
           value: metric
         - label: Imperial (°F)

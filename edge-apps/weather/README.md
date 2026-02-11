@@ -24,10 +24,15 @@ The app accepts the following settings via `screenly.yml`:
 - `openweathermap_api_key` - OpenWeatherMap API key to access weather data and location information (required, global). Get your API key from <https://openweathermap.org/api>
 - `override_coordinates` - Comma-separated coordinates (e.g., `37.8267,-122.4233`) to override device location (optional)
 - `override_locale` - Override the default locale with a supported language code (optional, default: 'en')
-- `override_timezone` - Override the default timezone with a supported timezone identifier (optional)
+- `override_timezone` - Override the default timezone with a supported timezone identifier (e.g., `Europe/London`, `America/New_York`). Defaults to the system timezone if left blank (optional)
 - `sentry_dsn` - Sentry DSN for error tracking and monitoring (optional, global)
 - `tag_manager_id` - Google Tag Manager container ID to enable tracking and analytics (optional, global)
-- `unit` - Measurement unit for temperature display: 'metric' (°C) or 'imperial' (°F) (optional, default: 'metric')
+- `unit` - Measurement unit for temperature display (optional, advanced, default: 'auto')
+  - `auto` - Automatically determined based on the device's location
+  - `metric` - Celsius (°C)
+  - `imperial` - Fahrenheit (°F)
+
+**Note:** When `unit` is set to `auto` (default), temperature units are automatically determined based on the device's location. The following countries use Fahrenheit: United States (US), Bahamas (BS), Cayman Islands (KY), Liberia (LR), Palau (PW), Federated States of Micronesia (FM), and Marshall Islands (MH). All other countries use Celsius.
 
 ## Development
 
