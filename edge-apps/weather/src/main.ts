@@ -174,10 +174,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Get measurement unit from settings, or auto-detect based on location
     const unitSetting = getSettingWithDefault<string>('unit', 'auto')
+
     if (unitSetting === 'auto') {
+      // Auto-detect based on country when setting is explicitly 'auto'
       measurementUnit = getMeasurementUnitByCountry(countryCode)
+    } else if (unitSetting === 'metric' || unitSetting === 'imperial') {
+      // Only accept known valid units; this narrows the generic string safely
+      measurementUnit = unitSetting
     } else {
-      measurementUnit = unitSetting as MeasurementUnit
+      // Fallback for invalid/corrupted settings: auto-detect based on country
+      measurementUnit = getMeasurementUnitByCountry(countryCode)
     }
 
     await updateWeatherDisplay(latitude, longitude, timezone, measurementUnit)
