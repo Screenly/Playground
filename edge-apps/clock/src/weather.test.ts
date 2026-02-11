@@ -6,6 +6,7 @@ let mockFetchCurrentWeatherData: (
   lat: number,
   lng: number,
   tz: string,
+  unit: 'metric' | 'imperial',
 ) => Promise<{
   temperature: number
   tempHigh: number
@@ -17,15 +18,23 @@ let mockFetchCurrentWeatherData: (
   unit: 'metric' | 'imperial'
 } | null>
 
+let mockGetMeasurementUnit: () => 'metric' | 'imperial'
+
 const { mock } = await import('bun:test')
 
 mock.module('@screenly/edge-apps', () => ({
-  fetchCurrentWeatherData: (lat: number, lng: number, tz: string) =>
-    mockFetchCurrentWeatherData(lat, lng, tz),
+  fetchCurrentWeatherData: (
+    lat: number,
+    lng: number,
+    tz: string,
+    unit: 'metric' | 'imperial',
+  ) => mockFetchCurrentWeatherData(lat, lng, tz, unit),
+  getMeasurementUnit: () => mockGetMeasurementUnit(),
 }))
 
 describe('getWeatherData', () => {
   test('should return null when fetchCurrentWeatherData returns null', async () => {
+    mockGetMeasurementUnit = () => 'metric'
     mockFetchCurrentWeatherData = async () => null
 
     const result = await getWeatherData(
@@ -38,6 +47,7 @@ describe('getWeatherData', () => {
   })
 
   test('should return weather data with metric units', async () => {
+    mockGetMeasurementUnit = () => 'metric'
     mockFetchCurrentWeatherData = async () => ({
       temperature: 19,
       tempHigh: 22,
@@ -60,6 +70,7 @@ describe('getWeatherData', () => {
   })
 
   test('should return weather data with imperial units', async () => {
+    mockGetMeasurementUnit = () => 'imperial'
     mockFetchCurrentWeatherData = async () => ({
       temperature: 66,
       tempHigh: 70,
@@ -82,6 +93,7 @@ describe('getWeatherData', () => {
   })
 
   test('should handle temperature of 0 correctly', async () => {
+    mockGetMeasurementUnit = () => 'metric'
     mockFetchCurrentWeatherData = async () => ({
       temperature: 0,
       tempHigh: 3,
