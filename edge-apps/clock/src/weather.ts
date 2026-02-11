@@ -1,6 +1,7 @@
 import {
   fetchCurrentWeatherData,
   getSettingWithDefault,
+  getMeasurementUnitByCountry,
   type MeasurementUnit,
 } from '@screenly/edge-apps'
 
@@ -17,8 +18,23 @@ export async function getWeatherData(
   lat: number,
   lng: number,
   tz: string,
+  countryCode: string,
 ): Promise<WeatherData | null> {
-  const unit = getSettingWithDefault<MeasurementUnit>('unit', 'metric')
+  // Get measurement unit from settings, or auto-detect based on location
+  const unitSetting = getSettingWithDefault<string>('unit', 'auto')
+  let unit: MeasurementUnit
+
+  if (unitSetting === 'auto') {
+    // Auto-detect based on country when setting is explicitly 'auto'
+    unit = getMeasurementUnitByCountry(countryCode)
+  } else if (unitSetting === 'metric' || unitSetting === 'imperial') {
+    // Only accept known valid units; this narrows the generic string safely
+    unit = unitSetting
+  } else {
+    // Fallback for invalid/corrupted settings: auto-detect based on country
+    unit = getMeasurementUnitByCountry(countryCode)
+  }
+
   const raw = await fetchCurrentWeatherData(lat, lng, tz, unit)
   if (!raw) return null
 

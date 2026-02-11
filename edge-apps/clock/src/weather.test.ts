@@ -22,6 +22,10 @@ let mockGetSettingWithDefault: <T>(key: string, defaultValue: T) => T
 
 const { mock } = await import('bun:test')
 
+// Import the real implementation to delegate to it in the mock
+const { getMeasurementUnitByCountry: realGetMeasurementUnitByCountry } =
+  await import('@screenly/edge-apps')
+
 mock.module('@screenly/edge-apps', () => ({
   fetchCurrentWeatherData: (
     lat: number,
@@ -31,7 +35,43 @@ mock.module('@screenly/edge-apps', () => ({
   ) => mockFetchCurrentWeatherData(lat, lng, tz, unit),
   getSettingWithDefault: <T>(key: string, defaultValue: T) =>
     mockGetSettingWithDefault(key, defaultValue),
+  getMeasurementUnitByCountry: (countryCode: string) =>
+    realGetMeasurementUnitByCountry(countryCode),
 }))
+
+// Mock weather data objects
+const metricWeatherData = {
+  temperature: 19,
+  tempHigh: 22,
+  tempLow: 15,
+  weatherId: 800,
+  description: 'clear sky',
+  iconSrc: '/static/images/icons/clear.svg',
+  iconAlt: 'clear sky',
+  unit: 'metric' as const,
+}
+
+const imperialWeatherData = {
+  temperature: 66,
+  tempHigh: 70,
+  tempLow: 60,
+  weatherId: 800,
+  description: 'clear sky',
+  iconSrc: '/static/images/icons/clear.svg',
+  iconAlt: 'clear sky',
+  unit: 'imperial' as const,
+}
+
+const zeroTempWeatherData = {
+  temperature: 0,
+  tempHigh: 3,
+  tempLow: -2,
+  weatherId: 800,
+  description: 'clear sky',
+  iconSrc: '/static/images/icons/clear.svg',
+  iconAlt: 'clear sky',
+  unit: 'metric' as const,
+}
 
 describe('getWeatherData', () => {
   test('should return null when fetchCurrentWeatherData returns null', async () => {
@@ -42,6 +82,7 @@ describe('getWeatherData', () => {
       37.3861,
       -122.0839,
       'America/Los_Angeles',
+      'GB',
     )
 
     expect(result).toBeNull()
@@ -49,21 +90,13 @@ describe('getWeatherData', () => {
 
   test('should return weather data with metric units', async () => {
     mockGetSettingWithDefault = (key, defaultValue) => defaultValue
-    mockFetchCurrentWeatherData = async () => ({
-      temperature: 19,
-      tempHigh: 22,
-      tempLow: 15,
-      weatherId: 800,
-      description: 'clear sky',
-      iconSrc: '/static/images/icons/clear.svg',
-      iconAlt: 'clear sky',
-      unit: 'metric',
-    })
+    mockFetchCurrentWeatherData = async () => metricWeatherData
 
     const result = await getWeatherData(
       37.3861,
       -122.0839,
       'America/Los_Angeles',
+      'GB',
     )
 
     expect(result?.temperature).toBe(19)
@@ -73,21 +106,13 @@ describe('getWeatherData', () => {
   test('should return weather data with imperial units', async () => {
     mockGetSettingWithDefault = <T>(_key: string, _defaultValue: T): T =>
       'imperial' as T
-    mockFetchCurrentWeatherData = async () => ({
-      temperature: 66,
-      tempHigh: 70,
-      tempLow: 60,
-      weatherId: 800,
-      description: 'clear sky',
-      iconSrc: '/static/images/icons/clear.svg',
-      iconAlt: 'clear sky',
-      unit: 'imperial',
-    })
+    mockFetchCurrentWeatherData = async () => imperialWeatherData
 
     const result = await getWeatherData(
       37.3861,
       -122.0839,
       'America/Los_Angeles',
+      'US',
     )
 
     expect(result?.temperature).toBe(66)
@@ -96,18 +121,14 @@ describe('getWeatherData', () => {
 
   test('should handle temperature of 0 correctly', async () => {
     mockGetSettingWithDefault = (key, defaultValue) => defaultValue
-    mockFetchCurrentWeatherData = async () => ({
-      temperature: 0,
-      tempHigh: 3,
-      tempLow: -2,
-      weatherId: 800,
-      description: 'clear sky',
-      iconSrc: '/static/images/icons/clear.svg',
-      iconAlt: 'clear sky',
-      unit: 'metric',
-    })
+    mockFetchCurrentWeatherData = async () => zeroTempWeatherData
 
-    const result = await getWeatherData(59.3293, 18.0686, 'Europe/Stockholm')
+    const result = await getWeatherData(
+      59.3293,
+      18.0686,
+      'Europe/Stockholm',
+      'SE',
+    )
 
     expect(result).not.toBeNull()
     expect(result?.temperature).toBe(0)
