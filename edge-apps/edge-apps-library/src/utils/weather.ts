@@ -208,7 +208,7 @@ export async function fetchCurrentWeatherData(
   lat: number,
   lng: number,
   tz: string,
-  unit: MeasurementUnit,
+  unit: MeasurementUnit = 'metric',
 ): Promise<CurrentWeatherRawData | null> {
   try {
     const apiKey = getSetting<string>('openweathermap_api_key')
