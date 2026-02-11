@@ -5,7 +5,7 @@ import {
   getTimeZone,
   getLocale,
   signalReady,
-  getCityName,
+  getCityInfo,
 } from '@screenly/edge-apps'
 // Import components to register them as custom elements
 // This registers <brand-logo>, <app-header>, <auto-scaler>, and <edge-app-devtools>
@@ -49,8 +49,9 @@ async function updateWeatherDisplay(
   latitude: number,
   longitude: number,
   tz: string,
+  countryCode: string,
 ) {
-  const weatherData = await getWeatherData(latitude, longitude, tz)
+  const weatherData = await getWeatherData(latitude, longitude, tz, countryCode)
 
   if (!weatherData) {
     hideTemperatureSection()
@@ -109,14 +110,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     timezone = await getTimeZone()
     locale = await getLocale()
 
-    // Get location name
-    locationName = await getCityName(latitude, longitude)
+    // Get location info (includes city name and country code)
+    const { cityName, countryCode } = await getCityInfo(latitude, longitude)
+    locationName = cityName
     if (locationEl) {
       locationEl.textContent = locationName
     }
 
     // Get weather data (optional)
-    await updateWeatherDisplay(latitude, longitude, timezone)
+    await updateWeatherDisplay(latitude, longitude, timezone, countryCode)
 
     // Update time immediately
     updateTime()
@@ -127,7 +129,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Refresh weather every 15 minutes
     setInterval(
       () => {
-        updateWeatherDisplay(latitude, longitude, timezone)
+        updateWeatherDisplay(latitude, longitude, timezone, countryCode)
       },
       15 * 60 * 1000,
     )
