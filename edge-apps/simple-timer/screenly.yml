@@ -1,0 +1,42 @@
+---
+syntax: manifest_v1
+description: Screenly Simple Timer Edge App
+icon: https://playground.srly.io/edge-apps/simple-timer/static/img/icon.svg
+author: Screenly, Inc.
+ready_signal: true
+settings:
+  display_errors:
+    type: string
+    default_value: 'false'
+    title: Display Errors
+    optional: true
+    help_text:
+      properties:
+        advanced: true
+        help_text: For debugging purposes to display errors on the screen.
+        type: boolean
+      schema_version: 1
+  duration:
+    type: string
+    default_value: '60'
+    title: Duration
+    optional: false
+    help_text:
+      properties:
+        help_text: Timer duration in seconds (e.g., 60 for 1 minute, 300 for 5 minutes, 3600 for 1 hour).
+        type: number
+      schema_version: 1
+  override_locale:
+    type: string
+    default_value: en
+    title: Override Locale
+    optional: true
+    help_text: |
+      Override the default locale with a supported language code (e.g., en, fr, de). Defaults to English if not specified.
+  override_timezone:
+    type: string
+    default_value: ''
+    title: Override Timezone
+    optional: true
+    help_text: |
+      Override the default timezone with a supported timezone identifier (e.g., Europe/London, America/New_York). Defaults to the system timezone if left blank.
