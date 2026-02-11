@@ -1,6 +1,10 @@
 import '@screenly/edge-apps/test'
 import { describe, test, expect } from 'bun:test'
-import { getCurrentWeather, getHourlyForecast } from './weather'
+import {
+  getCurrentWeather,
+  getHourlyForecast,
+  getMeasurementUnit,
+} from './weather'
 
 let mockFetchCurrentWeatherData: (
   lat: number,
@@ -92,6 +96,31 @@ function mockFetchResponse(data: object, status = 200) {
   })
 }
 
+describe('getMeasurementUnit', () => {
+  test('should return imperial for US', () => {
+    expect(getMeasurementUnit('US')).toBe('imperial')
+  })
+
+  test('should return imperial for all Fahrenheit countries', () => {
+    const fahrenheitCountries = ['US', 'BS', 'KY', 'LR', 'PW', 'FM', 'MH']
+    fahrenheitCountries.forEach((country) => {
+      expect(getMeasurementUnit(country)).toBe('imperial')
+    })
+  })
+
+  test('should return metric for non-Fahrenheit countries', () => {
+    expect(getMeasurementUnit('GB')).toBe('metric')
+    expect(getMeasurementUnit('FR')).toBe('metric')
+    expect(getMeasurementUnit('JP')).toBe('metric')
+    expect(getMeasurementUnit('DE')).toBe('metric')
+    expect(getMeasurementUnit('CA')).toBe('metric')
+  })
+
+  test('should return metric for empty string', () => {
+    expect(getMeasurementUnit('')).toBe('metric')
+  })
+})
+
 describe('getCurrentWeather', () => {
   test('should return null when fetchCurrentWeatherData returns null', async () => {
     mockFetchCurrentWeatherData = async () => null
@@ -100,6 +129,7 @@ describe('getCurrentWeather', () => {
       37.39,
       -122.0812,
       'America/Los_Angeles',
+      'imperial',
     )
 
     expect(result).toBeNull()
@@ -121,6 +151,7 @@ describe('getCurrentWeather', () => {
       37.39,
       -122.0812,
       'America/Los_Angeles',
+      'imperial',
     )
 
     expect(result).not.toBeNull()
@@ -147,6 +178,7 @@ describe('getCurrentWeather', () => {
       37.39,
       -122.0812,
       'America/Los_Angeles',
+      'metric',
     )
 
     expect(result?.description).toBe('Scattered clouds')
@@ -174,6 +206,7 @@ describe('getHourlyForecast', () => {
       -122.0812,
       'America/Los_Angeles',
       'en',
+      'imperial',
       mockCurrentWeather,
     )
 
@@ -189,6 +222,7 @@ describe('getHourlyForecast', () => {
       -122.0812,
       'America/Los_Angeles',
       'en',
+      'imperial',
       mockCurrentWeather,
     )
 
@@ -224,6 +258,7 @@ describe('getHourlyForecast', () => {
       -122.0812,
       'America/Los_Angeles',
       'en',
+      'imperial',
       mockCurrentWeather,
     )
 

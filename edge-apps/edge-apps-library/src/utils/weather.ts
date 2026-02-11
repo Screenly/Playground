@@ -203,19 +203,22 @@ export interface CurrentWeatherRawData {
 /**
  * Fetch current weather data from OpenWeatherMap API
  * Returns raw weather data that each app can map to its own interface
+ * @param lat - Latitude
+ * @param lng - Longitude
+ * @param tz - Timezone
+ * @param unit - Measurement unit ('metric' or 'imperial')
  */
 export async function fetchCurrentWeatherData(
   lat: number,
   lng: number,
   tz: string,
+  unit: MeasurementUnit,
 ): Promise<CurrentWeatherRawData | null> {
   try {
     const apiKey = getSetting<string>('openweathermap_api_key')
     if (!apiKey) {
       return null
     }
-
-    const unit = getMeasurementUnit()
 
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=${unit}&appid=${apiKey}`,
@@ -275,17 +278,28 @@ export async function fetchCurrentWeatherData(
 }
 
 /**
- * Get city name from coordinates using OpenWeatherMap reverse geocoding
+ * City information from reverse geocoding
+ */
+export interface CityInfo {
+  cityName: string
+  countryCode: string
+}
+
+/**
+ * Get city information including name and country code from OpenWeatherMap reverse geocoding
  * @param lat - Latitude
  * @param lng - Longitude
- * @returns City name in format "City, Country" or fallback location
+ * @returns Object containing cityName and countryCode
  */
-export async function getCityName(lat: number, lng: number): Promise<string> {
+export async function getCityInfo(lat: number, lng: number): Promise<CityInfo> {
   try {
     const apiKey = getSetting<string>('openweathermap_api_key')
     if (!apiKey) {
       // Fallback to location from metadata if no API key
-      return getMetadata().location || 'Unknown Location'
+      return {
+        cityName: getMetadata().location || 'Unknown Location',
+        countryCode: '',
+      }
     }
 
     const response = await fetch(
@@ -294,11 +308,14 @@ export async function getCityName(lat: number, lng: number): Promise<string> {
 
     if (!response.ok) {
       console.warn(
-        'Failed to get city name: OpenWeatherMap API responded with',
+        'Failed to get city info: OpenWeatherMap API responded with',
         response.status,
         response.statusText,
       )
-      return getMetadata().location || 'Unknown Location'
+      return {
+        cityName: getMetadata().location || 'Unknown Location',
+        countryCode: '',
+      }
     }
 
     const data = await response.json()
@@ -306,13 +323,30 @@ export async function getCityName(lat: number, lng: number): Promise<string> {
     if (Array.isArray(data) && data.length > 0) {
       const { name, country } = data[0]
       if (name && country) {
-        return `${name}, ${country}`
+        return {
+          cityName: `${name}, ${country}`,
+          countryCode: country,
+        }
       }
     }
   } catch (error) {
-    console.warn('Failed to get city name:', error)
+    console.warn('Failed to get city info:', error)
   }
 
   // Fallback to location from metadata
-  return getMetadata().location || 'Unknown Location'
+  return {
+    cityName: getMetadata().location || 'Unknown Location',
+    countryCode: '',
+  }
+}
+
+/**
+ * Get city name from coordinates using OpenWeatherMap reverse geocoding
+ * @param lat - Latitude
+ * @param lng - Longitude
+ * @returns City name in format "City, Country" or fallback location
+ */
+export async function getCityName(lat: number, lng: number): Promise<string> {
+  const { cityName } = await getCityInfo(lat, lng)
+  return cityName
 }

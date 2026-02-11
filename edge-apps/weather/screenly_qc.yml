@@ -36,13 +36,6 @@ settings:
     help_text: |
       Override the default locale with a supported language code (e.g., en, fr, de). Defaults to English if not specified.
       You can find the available locales here: https://momentjs.com/
-  override_timezone:
-    type: string
-    default_value: ''
-    title: Override Timezone
-    optional: true
-    help_text: |
-      Override the default timezone with a supported timezone identifier (e.g., Europe/London, America/New_York). Defaults to the system timezone if left blank.
   sentry_dsn:
     type: secret
     title: Sentry DSN
@@ -58,18 +51,3 @@ settings:
     help_text: |
       Enter your Google Tag Manager container ID to enable tracking and analytics.
     is_global: true
-  unit:
-    type: string
-    default_value: metric
-    title: Measurement Unit
-    optional: true
-    help_text:
-      properties:
-        help_text: Select the measurement unit for temperature display.
-        options:
-        - label: Metric (°C)
-          value: metric
-        - label: Imperial (°F)
-          value: imperial
-        type: select
-      schema_version: 1
