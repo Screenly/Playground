@@ -1,10 +1,7 @@
 import '@screenly/edge-apps/test'
 import { describe, test, expect } from 'bun:test'
-import {
-  getCurrentWeather,
-  getHourlyForecast,
-  getMeasurementUnit,
-} from './weather'
+import { getMeasurementUnitByCountry } from '@screenly/edge-apps'
+import { getCurrentWeather, getHourlyForecast } from './weather'
 
 let mockFetchCurrentWeatherData: (
   lat: number,
@@ -98,28 +95,28 @@ function mockFetchResponse(data: object, status = 200) {
   })
 }
 
-describe('getMeasurementUnit', () => {
+describe('getMeasurementUnitByCountry', () => {
   test('should return imperial for US', () => {
-    expect(getMeasurementUnit('US')).toBe('imperial')
+    expect(getMeasurementUnitByCountry('US')).toBe('imperial')
   })
 
   test('should return imperial for all Fahrenheit countries', () => {
     const fahrenheitCountries = ['US', 'BS', 'KY', 'LR', 'PW', 'FM', 'MH']
     fahrenheitCountries.forEach((country) => {
-      expect(getMeasurementUnit(country)).toBe('imperial')
+      expect(getMeasurementUnitByCountry(country)).toBe('imperial')
     })
   })
 
   test('should return metric for non-Fahrenheit countries', () => {
-    expect(getMeasurementUnit('GB')).toBe('metric')
-    expect(getMeasurementUnit('FR')).toBe('metric')
-    expect(getMeasurementUnit('JP')).toBe('metric')
-    expect(getMeasurementUnit('DE')).toBe('metric')
-    expect(getMeasurementUnit('CA')).toBe('metric')
+    expect(getMeasurementUnitByCountry('GB')).toBe('metric')
+    expect(getMeasurementUnitByCountry('FR')).toBe('metric')
+    expect(getMeasurementUnitByCountry('JP')).toBe('metric')
+    expect(getMeasurementUnitByCountry('DE')).toBe('metric')
+    expect(getMeasurementUnitByCountry('CA')).toBe('metric')
   })
 
   test('should return metric for empty string', () => {
-    expect(getMeasurementUnit('')).toBe('metric')
+    expect(getMeasurementUnitByCountry('')).toBe('metric')
   })
 })
 

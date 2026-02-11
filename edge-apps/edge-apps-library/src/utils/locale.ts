@@ -321,6 +321,24 @@ function getLocaleWithNumeralSystem(locale: string): string {
   }
 }
 
+// Countries that use Fahrenheit scale
+// United States, Bahamas, Cayman Islands, Liberia, Palau,
+// Federated States of Micronesia, Marshall Islands
+const FAHRENHEIT_COUNTRIES = ['US', 'BS', 'KY', 'LR', 'PW', 'FM', 'MH']
+
+/**
+ * Determine measurement unit based on country code
+ * @param countryCode - Two-character ISO country code (e.g., 'US', 'GB')
+ * @returns 'imperial' for Fahrenheit countries, 'metric' for all others
+ */
+export function getMeasurementUnitByCountry(
+  countryCode: string,
+): 'metric' | 'imperial' {
+  return FAHRENHEIT_COUNTRIES.includes(countryCode.toUpperCase())
+    ? 'imperial'
+    : 'metric'
+}
+
 /**
  * Format time with locale and timezone awareness
  * Returns structured time parts for flexible composition

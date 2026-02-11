@@ -76,10 +76,3 @@ export function signalReady(): void {
 
 // Types
 export type MeasurementUnit = 'metric' | 'imperial'
-
-/**
- * Get the measurement unit setting (metric or imperial)
- */
-export function getMeasurementUnit(): MeasurementUnit {
-  return getSettingWithDefault<MeasurementUnit>('unit', 'metric')
-}

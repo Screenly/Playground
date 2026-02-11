@@ -6,15 +6,13 @@ import {
   getLocale,
   signalReady,
   getSetting,
+  getSettingWithDefault,
   getCityInfo,
+  getMeasurementUnitByCountry,
   type MeasurementUnit,
 } from '@screenly/edge-apps'
 import '@screenly/edge-apps/components'
-import {
-  getCurrentWeather,
-  getHourlyForecast,
-  getMeasurementUnit,
-} from './weather'
+import { getCurrentWeather, getHourlyForecast } from './weather'
 import type { ForecastItem } from './weather'
 import { updateBackground } from './background'
 import sunIcon from '../static/images/sun.svg'
@@ -174,7 +172,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       locationEl.textContent = cityName
     }
 
-    measurementUnit = getMeasurementUnit(countryCode)
+    // Get measurement unit from settings, or auto-detect based on location
+    const unitSetting = getSettingWithDefault<string>('unit', 'auto')
+    if (unitSetting === 'auto') {
+      measurementUnit = getMeasurementUnitByCountry(countryCode)
+    } else {
+      measurementUnit = unitSetting as MeasurementUnit
+    }
 
     await updateWeatherDisplay(latitude, longitude, timezone, measurementUnit)
 

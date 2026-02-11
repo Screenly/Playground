@@ -26,22 +26,6 @@ export interface ForecastItem {
   displayTemp: string
 }
 
-// Countries that use Fahrenheit scale
-// United States, Bahamas, Cayman Islands, Liberia, Palau,
-// Federated States of Micronesia, Marshall Islands
-const FAHRENHEIT_COUNTRIES = ['US', 'BS', 'KY', 'LR', 'PW', 'FM', 'MH']
-
-/**
- * Determine measurement unit based on country code
- * @param countryCode - Two-character ISO country code (e.g., 'US', 'GB')
- * @returns 'imperial' for Fahrenheit countries, 'metric' for all others
- */
-export function getMeasurementUnit(countryCode: string): MeasurementUnit {
-  return FAHRENHEIT_COUNTRIES.includes(countryCode.toUpperCase())
-    ? 'imperial'
-    : 'metric'
-}
-
 // Get current weather data
 export async function getCurrentWeather(
   lat: number,
