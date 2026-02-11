@@ -83,9 +83,7 @@ export type MeasurementUnit = 'metric' | 'imperial'
  * @param countryCode - Two-character ISO country code for auto-detection
  * @returns Resolved measurement unit ('metric' or 'imperial')
  */
-export function resolveMeasurementUnit(
-  countryCode: string,
-): MeasurementUnit {
+export function resolveMeasurementUnit(countryCode: string): MeasurementUnit {
   const unitSetting = getSettingWithDefault<string>('unit', 'auto')
 
   if (unitSetting === 'auto') {
