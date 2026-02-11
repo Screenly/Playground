@@ -37,7 +37,9 @@ const FAHRENHEIT_COUNTRIES = ['US', 'BS', 'KY', 'LR', 'PW', 'FM', 'MH']
  * @returns 'imperial' for Fahrenheit countries, 'metric' for all others
  */
 export function getMeasurementUnit(countryCode: string): MeasurementUnit {
-  return FAHRENHEIT_COUNTRIES.includes(countryCode) ? 'imperial' : 'metric'
+  return FAHRENHEIT_COUNTRIES.includes(countryCode.toUpperCase())
+    ? 'imperial'
+    : 'metric'
 }
 
 // Get current weather data
