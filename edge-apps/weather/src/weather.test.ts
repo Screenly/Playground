@@ -10,6 +10,7 @@ let mockFetchCurrentWeatherData: (
   lat: number,
   lng: number,
   tz: string,
+  unit: 'metric' | 'imperial',
 ) => Promise<{
   temperature: number
   tempHigh: number
@@ -22,7 +23,6 @@ let mockFetchCurrentWeatherData: (
 } | null>
 
 let mockGetSetting: <T>(key: string) => T | undefined
-let mockGetMeasurementUnit: () => 'metric' | 'imperial'
 let mockGetWeatherIcon: (
   weatherId: number,
   timestamp: number,
@@ -32,10 +32,13 @@ let mockGetWeatherIcon: (
 const { mock } = await import('bun:test')
 
 mock.module('@screenly/edge-apps', () => ({
-  fetchCurrentWeatherData: (lat: number, lng: number, tz: string) =>
-    mockFetchCurrentWeatherData(lat, lng, tz),
+  fetchCurrentWeatherData: (
+    lat: number,
+    lng: number,
+    tz: string,
+    unit: 'metric' | 'imperial',
+  ) => mockFetchCurrentWeatherData(lat, lng, tz, unit),
   getSetting: <T>(key: string) => mockGetSetting<T>(key),
-  getMeasurementUnit: () => mockGetMeasurementUnit(),
   getWeatherIcon: (weatherId: number, timestamp: number, timezone: string) =>
     mockGetWeatherIcon(weatherId, timestamp, timezone),
   formatTime: (
@@ -82,7 +85,6 @@ function setupForecastMocks() {
     if (key === 'openweathermap_api_key') return 'test-api-key' as T
     return undefined
   }
-  mockGetMeasurementUnit = () => 'imperial'
   mockGetWeatherIcon = () => '/static/images/icons/mostly-cloudy.svg'
 }
 
