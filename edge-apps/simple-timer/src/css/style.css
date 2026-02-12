@@ -18,7 +18,7 @@
 }
 
 :root {
-  --timer-accent: #ac1fff;
+  --theme-color-primary: #ac1fff;
 }
 
 * {
@@ -88,16 +88,18 @@ auto-scaler {
   height: 41.25rem;
   border-radius: 1.5rem;
   border: 0.047rem solid rgba(255, 255, 255, 0.1);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0.02) 100%
-  );
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    linear-gradient(90deg, rgba(68, 68, 68, 0.4), rgba(68, 68, 68, 0.4)),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
   box-shadow:
     0 0.84rem 2.52rem 0 rgba(0, 0, 0, 0.15),
-    0 0.105rem 0 0 rgba(255, 255, 255, 0.1) inset,
-    0 -0.105rem 0 0 rgba(255, 255, 255, 0.03) inset;
-  backdrop-filter: blur(1.25rem);
+    0 0.047rem 0 0 rgba(255, 255, 255, 0.15) inset,
+    0 -0.047rem 0 0 rgba(255, 255, 255, 0.05) inset;
 }
 
 .progress-ring-container {
@@ -109,8 +111,8 @@ auto-scaler {
 }
 
 .progress-ring-container svg {
-  width: 85%;
-  height: 85%;
+  width: 73%;
+  height: 73%;
 }
 
 .timer-display {
@@ -132,7 +134,7 @@ auto-scaler {
 }
 
 .timer-digits .accent {
-  color: var(--timer-accent);
+  color: var(--theme-color-primary);
 }
 
 .timer-total {

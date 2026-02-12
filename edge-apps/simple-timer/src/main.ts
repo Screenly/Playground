@@ -4,20 +4,18 @@ import {
   getSettingWithDefault,
   getTimeZone,
   getLocale,
+  setupTheme,
   signalReady,
   setupErrorHandling,
   formatLocalizedDate,
 } from '@screenly/edge-apps'
 import '@screenly/edge-apps/components'
 import { createTimerState } from './timer'
-import {
-  createProgressRingSVG,
-  updateProgressRing,
-  getTickCount,
-} from './progress-ring'
+import { createProgressRingSVG, updateProgressRing } from './progress-ring'
 
 document.addEventListener('DOMContentLoaded', async () => {
   setupErrorHandling()
+  setupTheme()
 
   const dateEl = document.querySelector('[data-date]')
   const digitsEl = document.querySelector('[data-timer-digits]')
@@ -44,8 +42,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // Create progress ring
-  const tickCount = getTickCount(totalDuration)
-  const ringSvg = createProgressRingSVG(400, tickCount)
+  const ringSvg = createProgressRingSVG(400)
   if (ringContainer) {
     ringContainer.appendChild(ringSvg)
   }

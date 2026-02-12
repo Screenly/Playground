@@ -1,17 +1,17 @@
-const ELAPSED_COLOR = '#ac1fff'
 const REMAINING_COLOR = 'rgba(255, 255, 255, 0.8)'
-const SVG_NS = 'http://www.w3.org/2000/svg'
 
-export function getTickCount(totalSeconds: number): number {
-  if (totalSeconds <= 120) return totalSeconds
-  if (totalSeconds <= 600) return Math.ceil(totalSeconds / 5)
-  return 120
+function getElapsedColor(): string {
+  return (
+    getComputedStyle(document.documentElement)
+      .getPropertyValue('--theme-color-primary')
+      .trim() || '#ac1fff'
+  )
 }
+const SVG_NS = 'http://www.w3.org/2000/svg'
+const TICK_COUNT = 60
 
-export function createProgressRingSVG(
-  diameter: number,
-  tickCount: number,
-): SVGSVGElement {
+export function createProgressRingSVG(diameter: number): SVGSVGElement {
+  const tickCount = TICK_COUNT
   const svg = document.createElementNS(SVG_NS, 'svg')
   svg.setAttribute('width', `${diameter}`)
   svg.setAttribute('height', `${diameter}`)
@@ -36,8 +36,8 @@ export function createProgressRingSVG(
     line.setAttribute('x2', `${x2}`)
     line.setAttribute('y2', `${y2}`)
     line.setAttribute('stroke', REMAINING_COLOR)
-    line.setAttribute('stroke-width', '2')
-    line.setAttribute('stroke-linecap', 'round')
+    line.setAttribute('stroke-width', '6')
+    line.setAttribute('stroke-linecap', 'butt')
     line.setAttribute('data-tick', `${i}`)
     svg.appendChild(line)
   }
@@ -53,7 +53,7 @@ export function updateProgressRing(svg: SVGSVGElement, progress: number): void {
   ticks.forEach((tick, i) => {
     tick.setAttribute(
       'stroke',
-      i < elapsedTicks ? ELAPSED_COLOR : REMAINING_COLOR,
+      i < elapsedTicks ? getElapsedColor() : REMAINING_COLOR,
     )
   })
 }
