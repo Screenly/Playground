@@ -43,7 +43,7 @@ export function createTimerState(
   totalDuration: number,
   elapsedSeconds: number,
 ): TimerState {
-  const clamped = Math.min(elapsedSeconds, totalDuration)
+  const clamped = Math.max(0, Math.min(elapsedSeconds, totalDuration))
   const remaining = totalDuration - clamped
   const finished = clamped >= totalDuration
 

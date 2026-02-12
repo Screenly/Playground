@@ -111,4 +111,12 @@ describe('createTimerState', () => {
     expect(state.progress).toBe(1)
     expect(state.finished).toBe(true)
   })
+
+  test('negative elapsed is clamped to zero', () => {
+    const state = createTimerState(60, -5)
+    expect(state.elapsedSeconds).toBe(0)
+    expect(state.remainingSeconds).toBe(60)
+    expect(state.progress).toBe(0)
+    expect(state.finished).toBe(false)
+  })
 })
