@@ -1,28 +1,36 @@
-# Simple Timer - Screenly Edge App
+# Screenly Simple Timer App
 
-A configurable countdown timer with a circular progress ring for Screenly digital signage. Designed for short-duration interval timing such as presentations, breaks, and meetings.
+## Getting Started
 
-## Settings
+```bash
+bun install
+```
 
-| Setting             | Required | Default   | Description                                      |
-| ------------------- | -------- | --------- | ------------------------------------------------ |
-| `duration`          | Yes      | `60`      | Timer duration in seconds                        |
-| `override_locale`   | No       | `en`      | Override locale for date formatting              |
-| `override_timezone` | No       | _(empty)_ | Override timezone                                |
-| `display_errors`    | No       | `false`   | Show detailed error messages (for debugging use) |
+## Deployment
+
+Create and deploy the Edge App:
+
+```bash
+screenly edge-app create --name my-simple-timer --in-place
+screenly edge-app deploy
+screenly edge-app instance create
+```
+
+## Configuration
+
+The app accepts the following settings via `screenly.yml`:
+
+- `display_errors` - Display detailed error messages on screen for debugging purposes (optional, advanced, default: 'false')
+- `duration` - Timer duration in seconds (e.g., 60 for 1 minute, 300 for 5 minutes, 3600 for 1 hour) (required, default: '60')
+- `override_locale` - Override the default locale with a supported language code (e.g., en, fr, de). Defaults to English if not specified (optional)
+- `override_timezone` - Override the default timezone with a supported timezone identifier (e.g., Europe/London, America/New_York). Defaults to the system timezone if left blank (optional)
 
 ## Development
 
 ```bash
-bun install
-bun run dev
-```
-
-## Build & Deploy
-
-```bash
-bun run build
-bun run deploy
+bun install      # Install dependencies
+bun run build    # Build the app
+bun test         # Run tests
 ```
 
 ## Testing
