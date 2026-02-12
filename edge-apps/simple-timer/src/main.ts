@@ -13,6 +13,9 @@ import '@screenly/edge-apps/components'
 import { createTimerState } from './timer'
 import { createProgressRingSVG, updateProgressRing } from './progress-ring'
 
+const DATE_UPDATE_INTERVAL_MS = 60 * 1000
+const TIMER_UPDATE_INTERVAL_MS = 1000
+
 document.addEventListener('DOMContentLoaded', async () => {
   setupErrorHandling()
   setupTheme()
@@ -64,6 +67,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateDate()
   updateDisplay(createTimerState(totalDuration, elapsedSeconds))
 
+  // Keep the date display fresh in case the app runs across midnight
+  setInterval(updateDate, DATE_UPDATE_INTERVAL_MS)
+
   const intervalId = setInterval(() => {
     elapsedSeconds++
     const state = createTimerState(totalDuration, elapsedSeconds)
@@ -72,7 +78,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (state.finished) {
       clearInterval(intervalId)
     }
-  }, 1000)
+  }, TIMER_UPDATE_INTERVAL_MS)
 
   signalReady()
 })
