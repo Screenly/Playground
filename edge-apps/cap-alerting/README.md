@@ -89,7 +89,12 @@ This formatting only applies to CAP alerts from the NWS sender (`w-nws.webmaster
 
 ## Playlist Priority Integration
 
-This app is designed to work with Screenly's Playlist API to automatically interrupt regular content when emergency alerts are active. Configure your backend to call the [`PATCH /v4/playlists`](https://developer.screenly.io/api_v4/#update-a-playlist) endpoint with `priority: true` when new CAP alerts are detected, which will cause this app to take precedence over other content. Set `priority: false` when alerts expire to resume normal playlist rotation.
+This app is designed to work with Screenly's Playlist API to automatically interrupt regular content when emergency alerts are active.
+
+Configure your backend to call the [`PATCH /v4/playlists`](https://developer.screenly.io/api_v4/#update-a-playlist) endpoint:
+
+- Set `priority: true` when new CAP alerts are detected to make this app take precedence over other content
+- Set `priority: false` when alerts expire to resume normal playlist rotation
 
 ## Development
 
