@@ -20,10 +20,11 @@ screenly edge-app instance create
 
 The app accepts the following settings via `screenly.yml`:
 
-| Setting            | Description                                                                          | Type     | Default |
-| ------------------ | ------------------------------------------------------------------------------------ | -------- | ------- |
-| `dashboard_id`     | The unique ID of the Grafana dashboard (can be selected via dropdown when available) | required | -       |
-| `refresh_interval` | The interval in seconds to refresh the dashboard image                               | optional | `60`    |
+| Setting            | Description                                                                          | Type               | Default |
+| ------------------ | ------------------------------------------------------------------------------------ | ------------------ | ------- |
+| `dashboard_id`     | The unique ID of the Grafana dashboard (can be selected via dropdown when available) | required           | -       |
+| `display_errors`   | Display detailed error messages on screen for debugging purposes                     | optional, advanced | `false` |
+| `refresh_interval` | The interval in seconds to refresh the dashboard image                               | optional           | `60`    |
 
 The Grafana domain and service access token are automatically fetched from your Grafana integration setup.
 
