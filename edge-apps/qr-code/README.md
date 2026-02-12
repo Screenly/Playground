@@ -20,12 +20,13 @@ screenly edge-app instance create
 
 The app accepts the following settings via `screenly.yml`:
 
-| Setting          | Description                              | Type     | Default |
-| ---------------- | ---------------------------------------- | -------- | ------- |
-| `call_to_action` | Instruction text below headline          | optional | -       |
-| `enable_utm`     | Add UTM tracking parameters (true/false) | optional | -       |
-| `headline`       | Main message displayed above QR code     | optional | -       |
-| `url`            | The URL to encode in the QR code         | required | -       |
+| Setting          | Description                               | Type               | Default                                  |
+| ---------------- | ----------------------------------------- | ------------------ | ---------------------------------------- |
+| `call_to_action` | Instruction text below headline           | optional           | `Scan to visit`                          |
+| `display_errors` | Display detailed error messages on screen | optional, advanced | `false`                                  |
+| `enable_utm`     | Add UTM tracking parameters (true/false)  | optional, advanced | `true`                                   |
+| `headline`       | Main message displayed above QR code      | required           | `Visit our website for exclusive offers` |
+| `url`            | The URL to encode in the QR code          | required           | `https://www.screenly.io/`               |
 
 ### UTM Parameters
 
