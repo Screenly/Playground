@@ -12,7 +12,7 @@ Create and deploy the Edge App:
 
 ```bash
 screenly edge-app create --name my-simple-timer --in-place
-screenly edge-app deploy
+bun run deploy
 screenly edge-app instance create
 ```
 
@@ -29,8 +29,7 @@ The app accepts the following settings via `screenly.yml`:
 
 ```bash
 bun install      # Install dependencies
-bun run build    # Build the app
-bun test         # Run tests
+bun run dev      # Start development server
 ```
 
 ## Testing
