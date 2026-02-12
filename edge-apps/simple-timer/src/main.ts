@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const totalEl = document.querySelector('[data-timer-total]')
   const ringContainer = document.querySelector('[data-progress-ring]')
 
-  const durationStr = getSettingWithDefault<string>('duration', '60')
-  const totalDuration = Math.max(1, Math.floor(Number(durationStr) || 60))
+  const duration = getSettingWithDefault<number>('duration', 60)
+  const totalDuration = Math.max(1, Math.floor(duration))
 
   const timezone = await getTimeZone()
   const locale = await getLocale()
