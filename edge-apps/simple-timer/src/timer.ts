@@ -21,7 +21,7 @@ export function formatTotalLabel(totalSeconds: number): string {
       return hours === 1 ? 'Total 1 Hour' : `Total ${hours} Hours`
     }
     const h = Math.floor(hours)
-    const m = Math.round((totalSeconds % 3600) / 60)
+    const m = Math.floor((totalSeconds % 3600) / 60)
     if (m === 0) return h === 1 ? 'Total 1 Hour' : `Total ${h} Hours`
     return `Total ${h}h ${m}m`
   }
