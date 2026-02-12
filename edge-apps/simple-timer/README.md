@@ -20,11 +20,11 @@ screenly edge-app instance create
 
 The app accepts the following settings via `screenly.yml`:
 
-| Setting             | Description                                                                                                                                               | Type               | Default |
-| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ------- |
-| `display_errors`    | Display detailed error messages on screen for debugging purposes                                                                                          | optional, advanced | `false` |
-| `duration`          | Timer duration in seconds (e.g., 60 for 1 minute, 300 for 5 minutes, 3600 for 1 hour)                                                                     | required           | `60`    |
-| `override_locale`   | Override the default locale with a supported language code (e.g., en, fr, de). Defaults to English if not specified                                       | optional           | -       |
+| Setting             | Description                                                                                                                                                   | Type               | Default |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ------- |
+| `display_errors`    | Display detailed error messages on screen for debugging purposes                                                                                              | optional, advanced | `false` |
+| `duration`          | Timer duration in seconds (e.g., 60 for 1 minute, 300 for 5 minutes, 3600 for 1 hour)                                                                         | required           | `60`    |
+| `override_locale`   | Override the default locale with a supported language code (e.g., en, fr, de). Defaults to English if not specified                                           | optional           | -       |
 | `override_timezone` | Override the default timezone with a supported timezone identifier (e.g., `Europe/London`, `America/New_York`). Defaults to the system timezone if left blank | optional           | -       |
 
 ## Development
