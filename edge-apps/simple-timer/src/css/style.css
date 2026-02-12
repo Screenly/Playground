@@ -129,8 +129,9 @@ auto-scaler {
   font-weight: 700;
   font-size: 5.8rem;
   line-height: 1;
-  letter-spacing: -0.1rem;
+  letter-spacing: 0.15rem;
   color: white;
+  font-variant-numeric: tabular-nums;
 }
 
 .timer-digits .accent {
