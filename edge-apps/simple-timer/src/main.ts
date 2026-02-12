@@ -52,9 +52,24 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   let elapsedSeconds = 0
 
+  // Clone the timer digits template once and populate via textContent.
+  const digitsTemplate = document.querySelector<HTMLTemplateElement>(
+    '#timer-digits-template',
+  )
+  if (digitsEl && digitsTemplate) {
+    const content = digitsTemplate.content.cloneNode(true) as DocumentFragment
+    digitsEl.textContent = ''
+    digitsEl.appendChild(content)
+  }
+  const prefixEl = digitsEl?.querySelector('[data-time-prefix]')
+  const secondsEl = digitsEl?.querySelector('[data-time-seconds]')
+
   function updateDisplay(state: ReturnType<typeof createTimerState>) {
-    if (digitsEl) {
-      digitsEl.innerHTML = `${state.hours}:${state.minutes}:<span class="accent">${state.seconds}</span>`
+    if (prefixEl) {
+      prefixEl.textContent = `${state.hours}:${state.minutes}:`
+    }
+    if (secondsEl) {
+      secondsEl.textContent = state.seconds
     }
 
     if (totalEl) {
