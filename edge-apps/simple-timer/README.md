@@ -4,11 +4,12 @@ A configurable countdown timer with a circular progress ring for Screenly digita
 
 ## Settings
 
-| Setting             | Required | Default   | Description                         |
-| ------------------- | -------- | --------- | ----------------------------------- |
-| `duration`          | Yes      | `60`      | Timer duration in seconds           |
-| `override_locale`   | No       | `en`      | Override locale for date formatting |
-| `override_timezone` | No       | _(empty)_ | Override timezone                   |
+| Setting             | Required | Default   | Description                                      |
+| ------------------- | -------- | --------- | ------------------------------------------------ |
+| `duration`          | Yes      | `60`      | Timer duration in seconds                        |
+| `override_locale`   | No       | `en`      | Override locale for date formatting              |
+| `override_timezone` | No       | _(empty)_ | Override timezone                                |
+| `display_errors`    | No       | `false`   | Show detailed error messages (for debugging use) |
 
 ## Development
 
