@@ -14,3 +14,5 @@ global.navigator = dom.window.navigator
 global.Node = dom.window.Node
 global.HTMLElement = dom.window.HTMLElement
 global.customElements = dom.window.customElements
+global.getComputedStyle = dom.window.getComputedStyle
+global.SVGSVGElement = dom.window.SVGSVGElement
