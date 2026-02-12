@@ -49,9 +49,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   let elapsedSeconds = 0
 
-  function updateDisplay() {
-    const state = createTimerState(totalDuration, elapsedSeconds)
-
+  function updateDisplay(state: ReturnType<typeof createTimerState>) {
     if (digitsEl) {
       digitsEl.innerHTML = `${state.hours}:${state.minutes}:<span class="accent">${state.seconds}</span>`
     }
@@ -64,12 +62,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   updateDate()
-  updateDisplay()
+  updateDisplay(createTimerState(totalDuration, elapsedSeconds))
 
   const intervalId = setInterval(() => {
     elapsedSeconds++
     const state = createTimerState(totalDuration, elapsedSeconds)
-    updateDisplay()
+    updateDisplay(state)
 
     if (state.finished) {
       clearInterval(intervalId)
