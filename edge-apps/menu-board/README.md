@@ -20,12 +20,25 @@ screenly edge-app instance create
 
 The app accepts the following settings via `screenly.yml`:
 
-| Setting            | Description                                | Type     | Default                     |
-| ------------------ | ------------------------------------------ | -------- | --------------------------- |
-| `accent_color`     | Color for highlights and borders           | optional | `rgba(255, 255, 255, 0.95)` |
-| `background_image` | URL to a background image                  | optional | -                           |
-| `logo_url`         | URL to your restaurant's logo              | optional | `assets/screenly_food.svg`  |
-| `menu_title`       | The title displayed at the top of the menu | optional | `Today's Menu`              |
+| Setting            | Description                                | Type               | Default                     |
+| ------------------ | ------------------------------------------ | ------------------ | --------------------------- |
+| `accent_color`     | Color for highlights and borders           | optional           | `rgba(255, 255, 255, 0.95)` |
+| `background_image` | URL to a background image                  | optional           | -                           |
+| `currency`         | Currency symbol to display with prices     | optional           | `$`                         |
+| `display_errors`   | Display detailed error messages on screen  | optional, advanced | `false`                     |
+| `logo_url`         | URL to your restaurant's logo              | optional           | `assets/screenly_food.svg`  |
+| `menu_title`       | The title displayed at the top of the menu | required           | `Today's Menu`              |
+
+### Default Menu Items
+
+The app comes with four sample pizza items pre-configured for demonstration purposes:
+
+1. **Classic Margherita** ($13.99) - San Marzano tomatoes, fresh mozzarella, basil, extra virgin olive oil • _vegetarian_
+2. **Pepperoni Supreme** ($15.99) - Double pepperoni, mozzarella, parmesan, homemade tomato sauce, oregano • _spicy_
+3. **Four Cheese** ($16.99) - Mozzarella, gorgonzola, parmesan, fontina, fresh basil, garlic olive oil • _vegetarian_
+4. **Mediterranean Veggie** ($14.99) - Roasted bell peppers, kalamata olives, red onions, cherry tomatoes, feta, spinach • _vegetarian, gluten-free_
+
+You can customize or replace these items with your own menu content.
 
 ### Menu Items
 
