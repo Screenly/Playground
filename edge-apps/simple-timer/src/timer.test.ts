@@ -1,3 +1,4 @@
+import '@screenly/edge-apps/test'
 import { describe, test, expect } from 'bun:test'
 import { createTimerState, formatTotalLabel, padTwo } from './timer'
 
