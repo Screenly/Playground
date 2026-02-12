@@ -23,9 +23,9 @@ The app accepts the following settings via `screenly.yml`:
 | Setting            | Description                                                      | Type               | Default      |
 | ------------------ | ---------------------------------------------------------------- | ------------------ | ------------ |
 | `cap_feed_url`     | URL or relative path to your CAP XML feed                        | required           | -            |
-| `default_language` | Preferred language code when multiple languages are available    | optional           | `en`         |
 | `display_errors`   | Display detailed error messages on screen for debugging purposes | optional, advanced | `false`      |
-| `maximum_alerts`   | Maximum number of alerts to display simultaneously               | optional           | `Infinity`   |
+| `language`         | Preferred language code when multiple languages are available    | optional           | `en`         |
+| `max_alerts`       | Maximum number of alerts to display simultaneously               | optional           | `Infinity`   |
 | `mode`             | Operation mode: Production, Demo, or Test                        | optional           | `production` |
 | `refresh_interval` | Minutes between feed updates                                     | optional           | `5`          |
 
@@ -38,6 +38,52 @@ The app accepts the following settings via `screenly.yml`:
 ### Nearest Exit Tags
 
 Add tags to your Screenly screens (e.g., `exit:North Lobby`) to provide location-aware exit directions. The app substitutes `{{closest_exit}}` or `[[closest_exit]]` placeholders in alert instructions.
+
+## NWS Text Product Formatting
+
+The app automatically detects and formats National Weather Service (NWS) CAP alerts that use legacy text formats. This improves readability by converting abbreviated markers into clean, readable text with proper spacing and line breaks.
+
+### Supported Formats
+
+**1. Period-based Forecasts** (marine forecasts, zone forecasts)
+
+Markers: `.TODAY...`, `.TONIGHT...`, `.MON...`, `.SUN NIGHT...`, etc.
+
+Example transformation:
+
+```text
+.TODAY...E wind 20 kt. Seas 11 ft. .TONIGHT...E wind 20 kt.
+```
+
+becomes:
+
+```text
+TODAY: E wind 20 kt. Seas 11 ft.
+
+TONIGHT: E wind 20 kt.
+```
+
+**2. Impact Based Warnings (WWWI format)**
+
+Markers: `* WHAT...`, `* WHERE...`, `* WHEN...`, `* IMPACTS...`
+
+Example transformation:
+
+```text
+* WHAT...North winds 25 to 30 kt. * WHERE...Coastal waters. * WHEN...Until 3 AM.
+```
+
+becomes:
+
+```text
+WHAT: North winds 25 to 30 kt.
+
+WHERE: Coastal waters.
+
+WHEN: Until 3 AM.
+```
+
+This formatting only applies to CAP alerts from the NWS sender (`w-nws.webmaster@noaa.gov`).
 
 ## Development
 
