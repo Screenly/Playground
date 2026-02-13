@@ -72,7 +72,7 @@ describe('formatLocalizedDate', () => {
   })
 
   test('should format date in correct timezone when specified', () => {
-    // Feb 13, 9:45 AM PST = Feb 14, Sydney time
+    // Feb 13, 17:45 UTC = Feb 13 in PST but Feb 14 in Sydney
     const testDate = new Date('2026-02-13T17:45:00Z')
 
     const sydneyDate = formatLocalizedDate(testDate, 'en-AU', {
