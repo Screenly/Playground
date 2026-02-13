@@ -20,18 +20,18 @@ screenly edge-app instance create
 
 The app accepts the following settings via `screenly.yml`:
 
-| Setting              | Description                                                                   | Type               | Default                     |
-| -------------------- | ----------------------------------------------------------------------------- | ------------------ | --------------------------- |
-| `accent_color`       | Color for highlights and borders                                              | optional           | `rgba(255, 255, 255, 0.95)` |
-| `background_image`   | URL to a background image                                                     | optional           | -                           |
-| `currency`           | Currency symbol to display with prices                                        | optional           | `$`                         |
-| `display_errors`     | Display detailed error messages on screen                                     | optional, advanced | `false`                     |
-| `logo_url`           | URL to your restaurant's logo                                                 | optional           | `assets/screenly_food.svg`  |
-| `menu_title`         | The title displayed at the top of the menu                                    | required           | `Today's Menu`              |
-| `item_X_description` | Description of menu item X (where X is 1-25)                                  | optional           | -                           |
-| `item_X_labels`      | Comma-separated labels for menu item X (e.g., vegetarian, spicy, gluten-free) | optional           | -                           |
-| `item_X_name`        | Name of menu item X (where X is 1-25). Items without a name will be skipped   | optional           | -                           |
-| `item_X_price`       | Price of menu item X (where X is 1-25)                                        | optional           | -                           |
+| Setting               | Description                                                                                           | Type               | Default                     |
+| --------------------- | ----------------------------------------------------------------------------------------------------- | ------------------ | --------------------------- |
+| `accent_color`        | Color for highlights and borders                                                                      | optional           | `rgba(255, 255, 255, 0.95)` |
+| `background_image`    | URL to a background image                                                                             | optional           | -                           |
+| `currency`            | Currency symbol to display with prices                                                                | optional           | `$`                         |
+| `display_errors`      | Display detailed error messages on screen                                                             | optional, advanced | `false`                     |
+| `logo_url`            | URL to your restaurant's logo                                                                         | optional           | `assets/screenly_food.svg`  |
+| `menu_title`          | The title displayed at the top of the menu                                                            | required           | `Today's Menu`              |
+| `item_XX_description` | Description of menu item XX (where XX is `01`-`25`, zero-padded; e.g., `item_01_description`)         | optional           | -                           |
+| `item_XX_labels`      | Comma-separated labels for menu item XX (e.g., vegetarian, spicy, gluten-free; where XX is `01`-`25`) | optional           | -                           |
+| `item_XX_name`        | Name of menu item XX (where XX is `01`-`25`, zero-padded). Items without a name will be skipped       | optional           | -                           |
+| `item_XX_price`       | Price of menu item XX (where XX is `01`-`25`, zero-padded; e.g., `item_01_price`)                     | optional           | -                           |
 
 ### Default Menu Items
 
