@@ -20,14 +20,18 @@ screenly edge-app instance create
 
 The app accepts the following settings via `screenly.yml`:
 
-| Setting            | Description                                | Type               | Default                     |
-| ------------------ | ------------------------------------------ | ------------------ | --------------------------- |
-| `accent_color`     | Color for highlights and borders           | optional           | `rgba(255, 255, 255, 0.95)` |
-| `background_image` | URL to a background image                  | optional           | -                           |
-| `currency`         | Currency symbol to display with prices     | optional           | `$`                         |
-| `display_errors`   | Display detailed error messages on screen  | optional, advanced | `false`                     |
-| `logo_url`         | URL to your restaurant's logo              | optional           | `assets/screenly_food.svg`  |
-| `menu_title`       | The title displayed at the top of the menu | required           | `Today's Menu`              |
+| Setting              | Description                                                                   | Type               | Default                     |
+| -------------------- | ----------------------------------------------------------------------------- | ------------------ | --------------------------- |
+| `accent_color`       | Color for highlights and borders                                              | optional           | `rgba(255, 255, 255, 0.95)` |
+| `background_image`   | URL to a background image                                                     | optional           | -                           |
+| `currency`           | Currency symbol to display with prices                                        | optional           | `$`                         |
+| `display_errors`     | Display detailed error messages on screen                                     | optional, advanced | `false`                     |
+| `logo_url`           | URL to your restaurant's logo                                                 | optional           | `assets/screenly_food.svg`  |
+| `menu_title`         | The title displayed at the top of the menu                                    | required           | `Today's Menu`              |
+| `item_X_description` | Description of menu item X (where X is 1-25)                                  | optional           | -                           |
+| `item_X_labels`      | Comma-separated labels for menu item X (e.g., vegetarian, spicy, gluten-free) | optional           | -                           |
+| `item_X_name`        | Name of menu item X (where X is 1-25). Items without a name will be skipped   | optional           | -                           |
+| `item_X_price`       | Price of menu item X (where X is 1-25)                                        | optional           | -                           |
 
 ### Default Menu Items
 
@@ -39,17 +43,6 @@ The app comes with four sample pizza items pre-configured for demonstration purp
 4. **Mediterranean Veggie** ($14.99) - Roasted bell peppers, kalamata olives, red onions, cherry tomatoes, feta, spinach • _vegetarian, gluten-free_
 
 You can customize or replace these items with your own menu content.
-
-### Menu Items
-
-Each menu item has four components (all optional):
-
-- `item_X_name` - Name of the menu item
-- `item_X_description` - Description of the menu item
-- `item_X_price` - Price of the menu item
-- `item_X_labels` - Comma-separated list of labels (e.g., vegetarian, spicy, gluten-free)
-
-Where X is a number from 1 to 25. Items without a name will be skipped.
 
 ## Development
 
