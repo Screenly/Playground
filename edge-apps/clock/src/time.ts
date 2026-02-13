@@ -25,6 +25,7 @@ export function getTimeData(
     weekday: 'long',
     day: 'numeric',
     month: 'long',
+    timeZone: timezone,
   })
 
   return {
