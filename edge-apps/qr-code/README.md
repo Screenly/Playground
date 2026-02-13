@@ -1,13 +1,10 @@
-# QR Code Generator
+# Screenly QR Code Generator App
 
-Generate QR codes from URLs with optional UTM tracking parameters.
+## Getting Started
 
-## Features
-
-- Generate QR codes as SVG elements
-- Optional UTM parameter tracking
-- Customizable headline and call-to-action text
-- Theme color integration via @screenly/edge-apps
+```bash
+bun install
+```
 
 ## Deployment
 
@@ -15,7 +12,7 @@ Create and deploy the Edge App:
 
 ```bash
 screenly edge-app create --name my-qr-code --in-place
-screenly edge-app deploy
+bun run deploy
 screenly edge-app instance create
 ```
 
@@ -23,12 +20,15 @@ screenly edge-app instance create
 
 The app accepts the following settings via `screenly.yml`:
 
-- `url` - The URL to encode in the QR code
-- `enable_utm` - Add UTM tracking parameters (true/false)
-- `headline` - Main message displayed above QR code
-- `call_to_action` - Instruction text below headline
+| Setting          | Description                               | Type               | Default                                  |
+| ---------------- | ----------------------------------------- | ------------------ | ---------------------------------------- |
+| `call_to_action` | Instruction text below headline           | optional           | `Scan to visit`                          |
+| `display_errors` | Display detailed error messages on screen | optional, advanced | `false`                                  |
+| `enable_utm`     | Add UTM tracking parameters (true/false)  | optional, advanced | `true`                                   |
+| `headline`       | Main message displayed above QR code      | required           | `Visit our website for exclusive offers` |
+| `url`            | The URL to encode in the QR code          | required           | `https://www.screenly.io/`               |
 
-## UTM Parameters
+### UTM Parameters
 
 When `enable_utm` is enabled, the following parameters are automatically added:
 
@@ -41,13 +41,10 @@ When `enable_utm` is enabled, the following parameters are automatically added:
 
 ```bash
 bun install      # Install dependencies
-bun run build    # Build the app
-bun test         # Run tests
+bun run dev      # Start development server
 ```
 
 ## Testing
-
-The app includes comprehensive tests for UTM parameter generation and URL handling.
 
 ```bash
 bun test

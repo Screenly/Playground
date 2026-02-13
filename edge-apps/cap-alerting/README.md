@@ -1,23 +1,43 @@
-# CAP Alerting Edge App
+# Screenly CAP Alerting App
 
-Display Common Alerting Protocol (CAP) emergency alerts on Screenly digital signage screens. Designed to work with [Override Playlist](https://developer.screenly.io/api-reference/v4/#tag/Playlists/operation/override_playlist) to automatically interrupt regular content when alerts are active.
+Display Common Alerting Protocol (CAP) emergency alerts on Screenly digital signage screens. Designed to work with Screenly's [Playlist API](https://developer.screenly.io/api_v4/#update-a-playlist) (`PATCH /v4/playlists`) to automatically interrupt regular content when alerts are active by setting the playlist priority.
 
-## Settings
+## Getting Started
 
-- **CAP Feed URL**: URL or relative path to your CAP XML feed (required)
-- **Display Errors**: Show errors on screen for debugging purposes (default: `false`, advanced setting)
-- **Default Language**: Preferred language code when multiple languages are available (default: `en`)
-- **Maximum Alerts**: Maximum number of alerts to display simultaneously (default: `Infinity`)
-- **Mode**: Operation mode - Production, Demo, or Test (default: `production`)
-- **Refresh Interval**: Minutes between feed updates (default: `5`)
+```bash
+bun install
+```
 
-## Modes
+## Deployment
+
+Create and deploy the Edge App:
+
+```bash
+screenly edge-app create --name my-cap-alerting --in-place
+bun run deploy
+screenly edge-app instance create
+```
+
+## Configuration
+
+The app accepts the following settings via `screenly.yml`:
+
+| Setting            | Description                                                      | Type               | Default      |
+| ------------------ | ---------------------------------------------------------------- | ------------------ | ------------ |
+| `cap_feed_url`     | URL or relative path to your CAP XML feed                        | required           | -            |
+| `display_errors`   | Display detailed error messages on screen for debugging purposes | optional, advanced | `false`      |
+| `language`         | Preferred language code when multiple languages are available    | optional           | `en`         |
+| `max_alerts`       | Maximum number of alerts to display simultaneously               | optional           | `Infinity`   |
+| `mode`             | Operation mode: Production, Demo, or Test                        | optional           | `production` |
+| `refresh_interval` | Minutes between feed updates                                     | optional           | `5`          |
+
+### Modes
 
 - **Production**: Fetches CAP data from the configured feed URL with offline caching support
 - **Demo**: Displays random demo alerts (ignores feed URL if left empty)
 - **Test**: Displays a static test alert for development and testing
 
-## Nearest Exit Tags
+### Nearest Exit Tags
 
 Add tags to your Screenly screens (e.g., `exit:North Lobby`) to provide location-aware exit directions. The app substitutes `{{closest_exit}}` or `[[closest_exit]]` placeholders in alert instructions.
 
@@ -67,15 +87,24 @@ WHEN: Until 3 AM.
 
 This formatting only applies to CAP alerts from the NWS sender (`w-nws.webmaster@noaa.gov`).
 
-## Override Playlist Integration
+## Playlist Priority Integration
 
-This app is designed to use Screenly's [Override Playlist API](https://developer.screenly.io/api-reference/v4/#tag/Playlists/operation/override_playlist) to automatically interrupt regular content when alerts are active. Configure your backend to call the API when new CAP alerts are detected.
+This app is designed to work with Screenly's Playlist API to automatically interrupt regular content when emergency alerts are active.
+
+Configure your backend to call the [`PATCH /v4/playlists`](https://developer.screenly.io/api_v4/#update-a-playlist) endpoint:
+
+- Set `priority: true` when new CAP alerts are detected to make this app take precedence over other content
+- Set `priority: false` when alerts expire to resume normal playlist rotation
 
 ## Development
 
 ```bash
-cd edge-apps/cap-alerting
-bun install
-bun run dev
+bun install      # Install dependencies
+bun run dev      # Start development server
+```
+
+## Testing
+
+```bash
 bun test
 ```
