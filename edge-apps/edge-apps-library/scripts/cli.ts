@@ -16,6 +16,10 @@ const commands = {
     description: 'Run ESLint with shared configuration',
     handler: lintCommand,
   },
+  dev: {
+    description: 'Start Vite development server',
+    handler: devCommand,
+  },
   build: {
     description: 'Build application for production',
     handler: buildCommand,
@@ -58,6 +62,51 @@ async function lintCommand(args: string[]) {
         cwd: callerDir,
       },
     )
+  } catch {
+    process.exit(1)
+  }
+}
+
+async function devCommand(args: string[]) {
+  try {
+    const callerDir = process.cwd()
+
+    // Start Vite dev server
+    const viteBin = path.resolve(libraryRoot, 'node_modules', '.bin', 'vite')
+    const configPath = path.resolve(libraryRoot, 'vite.config.ts')
+    const viteArgs = ['--config', configPath, ...args]
+
+    // Set NODE_PATH to include library's node_modules so plugins can resolve dependencies
+    const libraryNodeModules = path.resolve(libraryRoot, 'node_modules')
+    const existingNodePath = process.env.NODE_PATH || ''
+    const nodePath = existingNodePath
+      ? `${libraryNodeModules}${path.delimiter}${existingNodePath}`
+      : libraryNodeModules
+
+    // Use spawn instead of execSync to allow dev server to run without blocking
+    const child = spawn(viteBin, viteArgs, {
+      stdio: 'inherit',
+      cwd: callerDir,
+      shell: process.platform === 'win32',
+      env: {
+        ...process.env,
+        NODE_PATH: nodePath,
+      },
+    })
+
+    // Attach an error handler
+    child.on('error', (err) => {
+      console.error('Failed to start dev server:', err)
+      process.exit(1)
+    })
+
+    // Handle parent process termination to clean up child process
+    const handleSignal = (signal: string) => {
+      child.kill(signal as NodeJS.Signals)
+      child.on('exit', () => process.exit(0))
+    }
+    process.on('SIGINT', () => handleSignal('SIGINT'))
+    process.on('SIGTERM', () => handleSignal('SIGTERM'))
   } catch {
     process.exit(1)
   }

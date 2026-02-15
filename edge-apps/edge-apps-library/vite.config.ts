@@ -1,5 +1,26 @@
-import { defineConfig } from 'vite'
+import { defineConfig, Plugin } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
+import { copyFileSync, existsSync } from 'fs'
+import { resolve } from 'path'
+import { screenlyDevServer } from './vite-plugins/dev-server'
+
+function copyScreenlyFiles(): Plugin {
+  return {
+    name: 'copy-screenly-files',
+    closeBundle() {
+      const filesToCopy = ['screenly.yml', 'screenly_qc.yml', 'instance.yml']
+
+      for (const file of filesToCopy) {
+        const srcPath = resolve(process.cwd(), file)
+        if (existsSync(srcPath)) {
+          const destPath = resolve(process.cwd(), 'dist', file)
+          copyFileSync(srcPath, destPath)
+          console.log(`Copied ${file} to dist/`)
+        }
+      }
+    },
+  }
+}
 
 export default defineConfig({
   base: '',
@@ -8,7 +29,7 @@ export default defineConfig({
     assetsInlineLimit: 7000000,
     minify: true,
     rollupOptions: {
-      input: 'src/main.ts',
+      input: 'index.html',
       output: {
         dir: 'dist',
         entryFileNames: 'js/[name].js',
@@ -23,5 +44,5 @@ export default defineConfig({
       },
     },
   },
-  plugins: [tailwindcss()],
+  plugins: [tailwindcss(), screenlyDevServer(), copyScreenlyFiles()],
 })
