@@ -118,7 +118,6 @@ export function screenlyDevServer(): Plugin {
       // Watch for changes to screenly.yml
       const manifestPath = path.resolve(rootDir, 'screenly.yml')
       fs.watch(manifestPath, () => {
-        console.log('screenly.yml changed, regenerating mock data...')
         config = generateMockData(rootDir)
       })
 
@@ -126,7 +125,6 @@ export function screenlyDevServer(): Plugin {
       const mockDataPath = path.resolve(rootDir, 'mock-data.yml')
       if (fs.existsSync(mockDataPath)) {
         fs.watch(mockDataPath, () => {
-          console.log('mock-data.yml changed, regenerating mock data...')
           config = generateMockData(rootDir)
         })
       }

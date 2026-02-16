@@ -1,8 +1,12 @@
 import { defineConfig, Plugin } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 import { copyFileSync, existsSync } from 'fs'
-import { resolve } from 'path'
+import { resolve, dirname } from 'path'
+import { fileURLToPath } from 'url'
 import { screenlyDevServer } from './vite-plugins/dev-server'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 function copyScreenlyFiles(): Plugin {
   return {
@@ -24,6 +28,15 @@ function copyScreenlyFiles(): Plugin {
 
 export default defineConfig({
   base: '',
+  server: {
+    fs: {
+      // Allow serving files from both the app directory and the library directory
+      allow: [
+        process.cwd(), // The edge app directory (e.g., edge-apps/clock)
+        resolve(__dirname), // The edge-apps-library directory
+      ],
+    },
+  },
   build: {
     cssCodeSplit: false,
     assetsInlineLimit: 7000000,
