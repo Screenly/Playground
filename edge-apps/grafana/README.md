@@ -1,14 +1,10 @@
-# Grafana Dashboard
+# Screenly Grafana App
 
-Displays Grafana dashboards as images on Screenly screens with automatic refresh intervals.
+## Getting Started
 
-## Features
-
-- Render Grafana dashboards as images via the rendering API
-- Automatic refresh at configurable intervals
-- Dynamic resolution based on screen size
-- Responsive design for landscape and portrait displays
-- Theme color integration via @screenly/edge-apps
+```bash
+bun install
+```
 
 ## Deployment
 
@@ -16,7 +12,7 @@ Create and deploy the Edge App:
 
 ```bash
 screenly edge-app create --name my-grafana --in-place
-screenly edge-app deploy
+bun run deploy
 screenly edge-app instance create
 ```
 
@@ -24,8 +20,11 @@ screenly edge-app instance create
 
 The app accepts the following settings via `screenly.yml`:
 
-- `dashboard_id` - The unique ID of the Grafana dashboard (can be selected via dropdown when available)
-- `refresh_interval` - The interval in seconds to refresh the dashboard image (default: 60)
+| Setting            | Description                                                                          | Type               | Default |
+| ------------------ | ------------------------------------------------------------------------------------ | ------------------ | ------- |
+| `dashboard_id`     | The unique ID of the Grafana dashboard (can be selected via dropdown when available) | required           | -       |
+| `display_errors`   | Display detailed error messages on screen for debugging purposes                     | optional, advanced | `false` |
+| `refresh_interval` | The interval in seconds to refresh the dashboard image                               | optional           | `60`    |
 
 The Grafana domain and service access token are automatically fetched from your Grafana integration setup.
 
@@ -40,23 +39,15 @@ The Grafana domain and service access token are automatically fetched from your 
    - The URL in the browser will look like: `https://your-domain.grafana.net/d/<dashboard_id>/<dashboard_slug>`
    - Extract the `<dashboard_id>` value (you don't need the slug)
 
-3. **Example Configuration**
-
-   ```yaml
-   dashboard_id: abc123
-   refresh_interval: 60
-   ```
-
 ## Development
 
 ```bash
 bun install      # Install dependencies
-bun run build    # Build the app
 bun run dev      # Start development server
 ```
 
 ## Testing
 
 ```bash
-bun run test     # Run tests
+bun test
 ```
