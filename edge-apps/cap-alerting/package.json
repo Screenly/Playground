@@ -6,10 +6,10 @@
   "scripts": {
     "prebuild": "bun run type-check",
     "generate-mock-data": "screenly edge-app run --generate-mock-data",
-    "predev": "bun run generate-mock-data && edge-apps-scripts build",
-    "dev": "run-p build:dev edge-app-server cors-proxy-server",
+    "predev": "bun run generate-mock-data",
+    "dev": "run-p edge-apps-dev cors-proxy-server",
+    "edge-apps-dev": "edge-apps-scripts dev",
     "cors-proxy-server": "bun ../blueprint/scripts/cors-proxy-server.ts",
-    "edge-app-server": "screenly edge-app run",
     "build": "edge-apps-scripts build",
     "build:dev": "edge-apps-scripts build:dev",
     "build:prod": "edge-apps-scripts build",
@@ -18,7 +18,7 @@
     "lint": "edge-apps-scripts lint --fix",
     "format": "prettier --write src/ README.md index.html",
     "format:check": "prettier --check src/ README.md index.html",
-    "deploy": "bun run build && screenly edge-app deploy",
+    "deploy": "bun run build && screenly edge-app deploy --path=dist/",
     "type-check": "edge-apps-scripts type-check",
     "prepare": "cd ../edge-apps-library && bun install && bun run build"
   },
