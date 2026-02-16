@@ -3,7 +3,7 @@
  * CLI command dispatcher for edge-apps-scripts
  */
 
-import { execSync, spawn } from 'child_process'
+import { execSync, spawn, type ChildProcess } from 'child_process'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -34,12 +34,67 @@ const commands = {
   },
 }
 
+/**
+ * Helper: Get NODE_PATH with library's node_modules included
+ */
+function getNodePath(): string {
+  const libraryNodeModules = path.resolve(libraryRoot, 'node_modules')
+  const existingNodePath = process.env.NODE_PATH || ''
+  return existingNodePath
+    ? `${libraryNodeModules}${path.delimiter}${existingNodePath}`
+    : libraryNodeModules
+}
+
+/**
+ * Helper: Setup signal handlers for spawned processes
+ */
+function setupSignalHandlers(child: ChildProcess): void {
+  const handleSignal = (signal: string) => {
+    child.kill(signal as NodeJS.Signals)
+    child.on('exit', () => process.exit(0))
+  }
+  process.on('SIGINT', () => handleSignal('SIGINT'))
+  process.on('SIGTERM', () => handleSignal('SIGTERM'))
+}
+
+/**
+ * Helper: Spawn a process with common options and signal handling
+ */
+function spawnWithSignalHandling(
+  command: string,
+  args: string[],
+  errorMessage: string,
+): void {
+  const child = spawn(command, args, {
+    stdio: 'inherit',
+    cwd: process.cwd(),
+    shell: process.platform === 'win32',
+    env: {
+      ...process.env,
+      NODE_PATH: getNodePath(),
+    },
+  })
+
+  child.on('error', (err) => {
+    console.error(errorMessage, err)
+    process.exit(1)
+  })
+
+  setupSignalHandlers(child)
+}
+
+/**
+ * Helper: Get Vite binary and config paths
+ */
+function getVitePaths(): { viteBin: string; configPath: string } {
+  return {
+    viteBin: path.resolve(libraryRoot, 'node_modules', '.bin', 'vite'),
+    configPath: path.resolve(libraryRoot, 'vite.config.ts'),
+  }
+}
+
 async function lintCommand(args: string[]) {
   try {
-    // Get the caller's directory (the app that invoked this script)
-    const callerDir = process.cwd()
-
-    // Get path to eslint binary in the library's node_modules
     const eslintBin = path.resolve(
       libraryRoot,
       'node_modules',
@@ -47,7 +102,6 @@ async function lintCommand(args: string[]) {
       'eslint',
     )
 
-    // Build eslint command
     const eslintArgs = [
       '--config',
       path.resolve(libraryRoot, 'eslint.config.ts'),
@@ -59,7 +113,7 @@ async function lintCommand(args: string[]) {
       `"${eslintBin}" ${eslintArgs.map((arg) => `"${arg}"`).join(' ')}`,
       {
         stdio: 'inherit',
-        cwd: callerDir,
+        cwd: process.cwd(),
       },
     )
   } catch {
@@ -69,44 +123,10 @@ async function lintCommand(args: string[]) {
 
 async function devCommand(args: string[]) {
   try {
-    const callerDir = process.cwd()
-
-    // Start Vite dev server
-    const viteBin = path.resolve(libraryRoot, 'node_modules', '.bin', 'vite')
-    const configPath = path.resolve(libraryRoot, 'vite.config.ts')
+    const { viteBin, configPath } = getVitePaths()
     const viteArgs = ['--config', configPath, ...args]
 
-    // Set NODE_PATH to include library's node_modules so plugins can resolve dependencies
-    const libraryNodeModules = path.resolve(libraryRoot, 'node_modules')
-    const existingNodePath = process.env.NODE_PATH || ''
-    const nodePath = existingNodePath
-      ? `${libraryNodeModules}${path.delimiter}${existingNodePath}`
-      : libraryNodeModules
-
-    // Use spawn instead of execSync to allow dev server to run without blocking
-    const child = spawn(viteBin, viteArgs, {
-      stdio: 'inherit',
-      cwd: callerDir,
-      shell: process.platform === 'win32',
-      env: {
-        ...process.env,
-        NODE_PATH: nodePath,
-      },
-    })
-
-    // Attach an error handler
-    child.on('error', (err) => {
-      console.error('Failed to start dev server:', err)
-      process.exit(1)
-    })
-
-    // Handle parent process termination to clean up child process
-    const handleSignal = (signal: string) => {
-      child.kill(signal as NodeJS.Signals)
-      child.on('exit', () => process.exit(0))
-    }
-    process.on('SIGINT', () => handleSignal('SIGINT'))
-    process.on('SIGTERM', () => handleSignal('SIGTERM'))
+    spawnWithSignalHandling(viteBin, viteArgs, 'Failed to start dev server:')
   } catch {
     process.exit(1)
   }
@@ -114,26 +134,15 @@ async function devCommand(args: string[]) {
 
 async function buildCommand(args: string[]) {
   try {
-    const callerDir = process.cwd()
-
-    // Build for production using Vite
-    const viteBin = path.resolve(libraryRoot, 'node_modules', '.bin', 'vite')
-    const configPath = path.resolve(libraryRoot, 'vite.config.ts')
+    const { viteBin, configPath } = getVitePaths()
     const viteArgs = ['build', '--config', configPath, ...args]
-
-    // Set NODE_PATH to include library's node_modules so plugins can resolve dependencies
-    const libraryNodeModules = path.resolve(libraryRoot, 'node_modules')
-    const existingNodePath = process.env.NODE_PATH || ''
-    const nodePath = existingNodePath
-      ? `${libraryNodeModules}${path.delimiter}${existingNodePath}`
-      : libraryNodeModules
 
     execSync(`"${viteBin}" ${viteArgs.map((arg) => `"${arg}"`).join(' ')}`, {
       stdio: 'inherit',
-      cwd: callerDir,
+      cwd: process.cwd(),
       env: {
         ...process.env,
-        NODE_PATH: nodePath,
+        NODE_PATH: getNodePath(),
       },
     })
   } catch {
@@ -143,11 +152,7 @@ async function buildCommand(args: string[]) {
 
 async function buildDevCommand(args: string[]) {
   try {
-    const callerDir = process.cwd()
-
-    // Build for development with watch mode using Vite
-    const viteBin = path.resolve(libraryRoot, 'node_modules', '.bin', 'vite')
-    const configPath = path.resolve(libraryRoot, 'vite.config.ts')
+    const { viteBin, configPath } = getVitePaths()
     const viteArgs = [
       'build',
       '--watch',
@@ -157,37 +162,7 @@ async function buildDevCommand(args: string[]) {
       ...args,
     ]
 
-    // Set NODE_PATH to include library's node_modules so plugins can resolve dependencies
-    const libraryNodeModules = path.resolve(libraryRoot, 'node_modules')
-    const existingNodePath = process.env.NODE_PATH || ''
-    const nodePath = existingNodePath
-      ? `${libraryNodeModules}${path.delimiter}${existingNodePath}`
-      : libraryNodeModules
-
-    // Use spawn instead of execSync to allow watch mode to run without blocking
-    const child = spawn(viteBin, viteArgs, {
-      stdio: 'inherit',
-      cwd: callerDir,
-      shell: process.platform === 'win32',
-      env: {
-        ...process.env,
-        NODE_PATH: nodePath,
-      },
-    })
-
-    // Attach an error handler
-    child.on('error', (err) => {
-      console.error('Failed to start build process:', err)
-      process.exit(1)
-    })
-
-    // Handle parent process termination to clean up child process
-    const handleSignal = (signal: string) => {
-      child.kill(signal as NodeJS.Signals)
-      child.on('exit', () => process.exit(0))
-    }
-    process.on('SIGINT', () => handleSignal('SIGINT'))
-    process.on('SIGTERM', () => handleSignal('SIGTERM'))
+    spawnWithSignalHandling(viteBin, viteArgs, 'Failed to start build process:')
   } catch {
     process.exit(1)
   }
@@ -195,12 +170,8 @@ async function buildDevCommand(args: string[]) {
 
 async function typeCheckCommand(args: string[]) {
   try {
-    const callerDir = process.cwd()
-
-    // Get path to tsc binary in the library's node_modules
     const tscBin = path.resolve(libraryRoot, 'node_modules', '.bin', 'tsc')
 
-    // Build tsc command
     const tscArgs = [
       '--noEmit',
       '--project',
@@ -210,7 +181,7 @@ async function typeCheckCommand(args: string[]) {
 
     execSync(`"${tscBin}" ${tscArgs.map((arg) => `"${arg}"`).join(' ')}`, {
       stdio: 'inherit',
-      cwd: callerDir,
+      cwd: process.cwd(),
     })
   } catch {
     process.exit(1)
