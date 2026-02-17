@@ -26,7 +26,7 @@ The app accepts the following settings via `screenly.yml`:
 | `background_image`    | URL to a background image                                                                             | optional           | -                           |
 | `currency`            | Currency symbol to display with prices                                                                | optional           | `$`                         |
 | `display_errors`      | Display detailed error messages on screen                                                             | optional, advanced | `false`                     |
-| `logo_url`            | URL to your restaurant's logo                                                                         | optional           | `assets/screenly_food.svg`  |
+| `logo_url`            | URL to your restaurant's logo                                                                         | optional           | -                           |
 | `menu_title`          | The title displayed at the top of the menu                                                            | required           | `Today's Menu`              |
 | `item_XX_description` | Description of menu item XX (where XX is `01`-`25`, zero-padded; e.g., `item_01_description`)         | optional           | -                           |
 | `item_XX_labels`      | Comma-separated labels for menu item XX (e.g., vegetarian, spicy, gluten-free; where XX is `01`-`25`) | optional           | -                           |

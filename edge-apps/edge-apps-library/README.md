@@ -84,6 +84,20 @@ This package provides the `edge-apps-scripts` CLI tool for running shared develo
 
 ### Available Commands
 
+#### Development Server
+
+Start the Vite development server with mock data from `screenly.yml` and `mock-data.yml`:
+
+```bash
+bun run dev
+```
+
+#### Building
+
+```bash
+bun run build
+```
+
 #### Linting
 
 To lint your Edge App:
@@ -98,12 +112,6 @@ To lint and automatically fix issues:
 bun run lint -- --fix
 ```
 
-#### Building
-
-```bash
-bun run build
-```
-
 #### Type Checking
 
 Run TypeScript type checking:
@@ -116,7 +124,7 @@ bun run type-check
 
 - This library provides utilities to help with common Edge App tasks.
 - The CLI uses the shared ESLint configuration from `@screenly/edge-apps`, so you don't need to maintain your own `eslint.config.ts`
-- The build commands assume your Edge App has `src/main.ts` as the entry point
+- The build commands assume your Edge App has `index.html` as the entry point
 - Build output will be generated in the `dist/` directory
 
 It is recommended to add the following scripts to your Edge App's `package.json`:
@@ -124,10 +132,12 @@ It is recommended to add the following scripts to your Edge App's `package.json`
 ```json
 {
   "scripts": {
-    "lint": "edge-apps-scripts lint",
+    "dev": "edge-apps-scripts dev",
     "build": "edge-apps-scripts build",
     "build:dev": "edge-apps-scripts build:dev",
-    "type-check": "edge-apps-scripts type-check"
+    "lint": "edge-apps-scripts lint",
+    "type-check": "edge-apps-scripts type-check",
+    "deploy": "bun run build && screenly edge-app deploy --path=dist/"
   }
 }
 ```
