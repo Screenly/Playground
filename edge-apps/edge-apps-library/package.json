@@ -55,7 +55,7 @@
     "test:coverage": "bun test --coverage --parallel",
     "lint": "eslint . --fix",
     "format": "prettier --write src/ scripts/ vite-plugins/ README.md index.html",
-    "format:check": "prettier --check src/ scripts/ README.md index.html",
+    "format:check": "prettier --check src/ scripts/ vite-plugins/ README.md index.html",
     "type-check": "tsc --noEmit"
   },
   "prettier": "./.prettierrc.json",
