@@ -3,8 +3,6 @@
  * CLI command dispatcher for edge-apps-scripts
  */
 
-// PLEASE REMOVE ME AFTER TESTING.
-
 import { execSync, spawn, type ChildProcess } from 'child_process'
 import path from 'path'
 import { fileURLToPath } from 'url'
