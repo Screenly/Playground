@@ -12,6 +12,7 @@ import {
   calculateItemsPerPage,
   getMenuItems,
   getDefaultBackgroundImage,
+  getDefaultLogoUrl,
   MenuItem,
 } from './utils'
 
@@ -95,7 +96,7 @@ function initializeMenuBoard(): void {
     )
     const logoUrl = getSettingWithDefault<string>(
       'logo_url',
-      'assets/screenly_food.svg',
+      getDefaultLogoUrl(),
     )
     const currency = getSettingWithDefault<string>('currency', '$')
 

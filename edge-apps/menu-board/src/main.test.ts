@@ -5,7 +5,30 @@ import {
   calculateItemsPerPage,
   getMenuItems,
   getDefaultBackgroundImage,
+  getDefaultLogoUrl,
 } from './utils'
+
+// Helper to test asset URLs for different hardware types
+function testAssetUrl(
+  fn: () => string,
+  expectedAnywhereUrl: string,
+  hardwareTypes: string[] = ['Raspberry Pi', 'Screenly Player Max'],
+) {
+  it('should return the HTTPS URL for Anywhere hardware', () => {
+    setupScreenlyMock({ hardware: undefined })
+    expect(fn()).toBe(expectedAnywhereUrl)
+  })
+
+  it.each(hardwareTypes)(
+    'should return bundled asset path for %s devices',
+    (hardware) => {
+      setupScreenlyMock({ hardware })
+      const result = fn()
+      expect(typeof result).toBe('string')
+      expect(result.length).toBeGreaterThan(0)
+    },
+  )
+}
 
 // eslint-disable-next-line max-lines-per-function
 describe('Menu Board Tests', () => {
@@ -124,30 +147,20 @@ describe('Menu Board Tests', () => {
       resetScreenlyMock()
     })
 
-    it('should return the HTTPS URL for Anywhere hardware', () => {
-      setupScreenlyMock({
-        hardware: undefined,
-      })
-      const result = getDefaultBackgroundImage()
-      expect(result).toBe(
-        'https://raw.githubusercontent.com/Screenly/Playground/refs/heads/master/edge-apps/menu-board/assets/pizza.png',
-      )
+    testAssetUrl(
+      getDefaultBackgroundImage,
+      'https://raw.githubusercontent.com/Screenly/Playground/refs/heads/master/edge-apps/menu-board/assets/pizza.png',
+    )
+  })
+
+  describe('getDefaultLogoUrl', () => {
+    afterEach(() => {
+      resetScreenlyMock()
     })
 
-    it('should return relative path for Raspberry Pi devices', () => {
-      setupScreenlyMock({
-        hardware: 'Raspberry Pi',
-      })
-      const result = getDefaultBackgroundImage()
-      expect(result).toBe('assets/pizza.png')
-    })
-
-    it('should return relative path for Screenly Player Max (x86) devices', () => {
-      setupScreenlyMock({
-        hardware: 'Screenly Player Max',
-      })
-      const result = getDefaultBackgroundImage()
-      expect(result).toBe('assets/pizza.png')
-    })
+    testAssetUrl(
+      getDefaultLogoUrl,
+      'https://raw.githubusercontent.com/Screenly/Playground/refs/heads/master/edge-apps/menu-board/assets/screenly_food.svg',
+    )
   })
 })

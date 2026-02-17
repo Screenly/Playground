@@ -1,4 +1,6 @@
 import { getHardware, Hardware } from '@screenly/edge-apps'
+import pizzaImage from '../assets/pizza.png'
+import screenlyFoodLogo from '../assets/screenly_food.svg'
 
 const MAX_MENU_ITEMS = 25
 
@@ -42,7 +44,19 @@ export function getDefaultBackgroundImage(): string {
   if (getHardware() === Hardware.Anywhere) {
     return 'https://raw.githubusercontent.com/Screenly/Playground/refs/heads/master/edge-apps/menu-board/assets/pizza.png'
   }
-  return 'assets/pizza.png'
+  return pizzaImage
+}
+
+/**
+ * Get the default logo URL
+ * Returns a full GitHub URL for Anywhere screens (no relative path support),
+ * or a relative path for other hardware
+ */
+export function getDefaultLogoUrl(): string {
+  if (getHardware() === Hardware.Anywhere) {
+    return 'https://raw.githubusercontent.com/Screenly/Playground/refs/heads/master/edge-apps/menu-board/assets/screenly_food.svg'
+  }
+  return screenlyFoodLogo
 }
 
 /**

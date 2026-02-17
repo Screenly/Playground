@@ -722,7 +722,7 @@ settings:
       schema_version: 1
   logo_url:
     type: string
-    default_value: assets/screenly_food.svg
+    default_value: ''
     title: Restaurant Logo URL
     optional: true
     help_text: URL to your restaurant's logo image
