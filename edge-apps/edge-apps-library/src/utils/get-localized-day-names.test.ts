@@ -186,19 +186,6 @@ describe('getLocalizedDayNames', () => {
       ],
       short: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
     },
-    {
-      locale: 'ru',
-      full: [
-        'воскресенье',
-        'понедельник',
-        'вторник',
-        'среда',
-        'четверг',
-        'пятница',
-        'суббота',
-      ],
-      short: ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'],
-    },
   ]
 
   for (const {
@@ -212,4 +199,29 @@ describe('getLocalizedDayNames', () => {
       expect(result.short).toEqual(expectedShort)
     })
   }
+
+  test('should return full and short day names for ru', () => {
+    const result = getLocalizedDayNames('ru')
+    expect(result.full).toEqual([
+      'воскресенье',
+      'понедельник',
+      'вторник',
+      'среда',
+      'четверг',
+      'пятница',
+      'суббота',
+    ])
+    // Russian abbreviated day names vary by ICU version: older ICU (Linux/CI)
+    // returns lowercase ('вс', 'пн', …) while newer ICU (macOS) returns
+    // title-cased ('Вс', 'Пн', …). Normalize to lowercase before comparing.
+    expect(result.short.map((s) => s.toLowerCase())).toEqual([
+      'вс',
+      'пн',
+      'вт',
+      'ср',
+      'чт',
+      'пт',
+      'сб',
+    ])
+  })
 })
