@@ -1,5 +1,4 @@
-import { describe, it, expect, afterEach } from 'bun:test'
-import { setupScreenlyMock, resetScreenlyMock } from '@screenly/edge-apps/test'
+import { describe, it, expect } from 'bun:test'
 import {
   escapeHtml,
   calculateItemsPerPage,
@@ -7,28 +6,6 @@ import {
   getDefaultBackgroundImage,
   getDefaultLogoUrl,
 } from './utils'
-
-// Helper to test asset URLs for different hardware types
-function testAssetUrl(
-  fn: () => string,
-  expectedAnywhereUrl: string,
-  hardwareTypes: string[] = ['Raspberry Pi', 'Screenly Player Max'],
-) {
-  it('should return the HTTPS URL for Anywhere hardware', () => {
-    setupScreenlyMock({ hardware: undefined })
-    expect(fn()).toBe(expectedAnywhereUrl)
-  })
-
-  it.each(hardwareTypes)(
-    'should return bundled asset path for %s devices',
-    (hardware) => {
-      setupScreenlyMock({ hardware })
-      const result = fn()
-      expect(typeof result).toBe('string')
-      expect(result.length).toBeGreaterThan(0)
-    },
-  )
-}
 
 // eslint-disable-next-line max-lines-per-function
 describe('Menu Board Tests', () => {
@@ -143,24 +120,18 @@ describe('Menu Board Tests', () => {
   })
 
   describe('getDefaultBackgroundImage', () => {
-    afterEach(() => {
-      resetScreenlyMock()
+    it('should return the inlined asset', () => {
+      const result = getDefaultBackgroundImage()
+      expect(typeof result).toBe('string')
+      expect(result.length).toBeGreaterThan(0)
     })
-
-    testAssetUrl(
-      getDefaultBackgroundImage,
-      'https://raw.githubusercontent.com/Screenly/Playground/refs/heads/master/edge-apps/menu-board/assets/pizza.png',
-    )
   })
 
   describe('getDefaultLogoUrl', () => {
-    afterEach(() => {
-      resetScreenlyMock()
+    it('should return the inlined asset', () => {
+      const result = getDefaultLogoUrl()
+      expect(typeof result).toBe('string')
+      expect(result.length).toBeGreaterThan(0)
     })
-
-    testAssetUrl(
-      getDefaultLogoUrl,
-      'https://raw.githubusercontent.com/Screenly/Playground/refs/heads/master/edge-apps/menu-board/assets/screenly_food.svg',
-    )
   })
 })

@@ -1,4 +1,3 @@
-import { getHardware, Hardware } from '@screenly/edge-apps'
 import pizzaImage from '../assets/pizza.png'
 import screenlyFoodLogo from '../assets/screenly_food.svg'
 
@@ -36,26 +35,16 @@ export interface MenuItem {
 }
 
 /**
- * Get the default background image URL
- * Returns a full GitHub URL for Anywhere screens (no relative path support),
- * or a relative path for other hardware
+ * Get the default background image as a data URI (inlined by Vite)
  */
 export function getDefaultBackgroundImage(): string {
-  if (getHardware() === Hardware.Anywhere) {
-    return 'https://raw.githubusercontent.com/Screenly/Playground/refs/heads/master/edge-apps/menu-board/assets/pizza.png'
-  }
   return pizzaImage
 }
 
 /**
- * Get the default logo URL
- * Returns a full GitHub URL for Anywhere screens (no relative path support),
- * or a relative path for other hardware
+ * Get the default logo as a data URI (inlined by Vite)
  */
 export function getDefaultLogoUrl(): string {
-  if (getHardware() === Hardware.Anywhere) {
-    return 'https://raw.githubusercontent.com/Screenly/Playground/refs/heads/master/edge-apps/menu-board/assets/screenly_food.svg'
-  }
   return screenlyFoodLogo
 }
 
