@@ -1,7 +1,7 @@
 {
   "type": "module",
   "scripts": {
-    "lint": "eslint . --fix && echo 'REMOVE ME LATER'",
+    "lint": "eslint . --fix",
     "format": "prettier --write scripts/ scss/ ts/",
     "format:check": "prettier --check scripts/ scss/ ts/"
   },
