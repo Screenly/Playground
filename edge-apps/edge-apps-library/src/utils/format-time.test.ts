@@ -80,7 +80,6 @@ describe('formatTime', () => {
     expect(['pm', 'PM', 'अ', 'अपराह्न']).toContain(result.dayPeriod ?? '')
     expect(result.formatted).toContain('02:30:45')
   })
-  })
 
   test('should format time correctly for zh-CN locale (24-hour)', () => {
     const result = formatTime(testDate, 'zh-CN', 'UTC')
