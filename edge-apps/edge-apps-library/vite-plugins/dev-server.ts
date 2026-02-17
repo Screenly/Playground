@@ -154,6 +154,8 @@ export function screenlyDevServer(): Plugin {
       const handleConfigFileChange = (file: string) => {
         if (file === manifestPath || file === mockDataPath) {
           config = generateMockData(rootDir, config)
+          // Notify connected clients to perform a full reload so they pick up the new mock config
+          server.ws.send({ type: 'full-reload', path: '*' })
         }
       }
 
