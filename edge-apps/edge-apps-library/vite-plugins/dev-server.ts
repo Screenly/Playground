@@ -59,44 +59,76 @@ function generateScreenlyObject(config: BaseScreenlyMockData) {
   `
 }
 
-function generateMockData(rootDir: string): BaseScreenlyMockData {
+function generateMockData(
+  rootDir: string,
+  previousConfig: BaseScreenlyMockData = defaultScreenlyConfig,
+): BaseScreenlyMockData {
   const manifestPath = path.resolve(rootDir, 'screenly.yml')
   const mockDataPath = path.resolve(rootDir, 'mock-data.yml')
 
-  const manifest = YAML.parse(fs.readFileSync(manifestPath, 'utf8'))
+  let manifest: Record<string, unknown>
+  try {
+    if (!fs.existsSync(manifestPath)) {
+      console.warn(
+        `screenly.yml not found at ${manifestPath}, using previous config.`,
+      )
+      return previousConfig
+    }
+    manifest = YAML.parse(fs.readFileSync(manifestPath, 'utf8'))
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown error'
+    console.warn(
+      `Failed to parse screenly.yml: ${message}. Using previous config.`,
+    )
+    return previousConfig
+  }
+
   const screenlyConfig: BaseScreenlyMockData = structuredClone(
     defaultScreenlyConfig,
   )
 
   // Merge settings from manifest
-  for (const [key, value] of Object.entries(manifest.settings) as [
-    string,
-    ScreenlyManifestField,
-  ][]) {
-    if (value.type === 'string' || value.type === 'secret') {
-      const manifestField: ScreenlyManifestField = value
-      const defaultValue = manifestField?.default_value ?? ''
-      screenlyConfig.settings[key] = defaultValue
+  if (manifest?.settings && typeof manifest.settings === 'object') {
+    for (const [key, value] of Object.entries(manifest.settings) as [
+      string,
+      ScreenlyManifestField,
+    ][]) {
+      if (value.type === 'string' || value.type === 'secret') {
+        const manifestField: ScreenlyManifestField = value
+        const defaultValue = manifestField?.default_value ?? ''
+        screenlyConfig.settings[key] = defaultValue
+      }
     }
   }
 
   // Override with mock-data.yml if it exists
   if (fs.existsSync(mockDataPath)) {
-    const mockData = YAML.parse(fs.readFileSync(mockDataPath, 'utf8'))
-
-    // Override metadata if present
-    if (mockData.metadata) {
-      Object.assign(screenlyConfig.metadata, mockData.metadata)
+    let mockData: Record<string, unknown>
+    try {
+      mockData = YAML.parse(fs.readFileSync(mockDataPath, 'utf8'))
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unknown error'
+      console.warn(
+        `Failed to parse mock-data.yml: ${message}. Keeping config without mock-data overrides.`,
+      )
+      return screenlyConfig
     }
 
-    // Override settings if present
-    if (mockData.settings) {
-      Object.assign(screenlyConfig.settings, mockData.settings)
-    }
+    if (mockData && typeof mockData === 'object') {
+      // Override metadata if present
+      if (mockData.metadata) {
+        Object.assign(screenlyConfig.metadata, mockData.metadata)
+      }
 
-    // Override cors_proxy_url if present
-    if (mockData.cors_proxy_url) {
-      screenlyConfig.cors_proxy_url = mockData.cors_proxy_url
+      // Override settings if present
+      if (mockData.settings) {
+        Object.assign(screenlyConfig.settings, mockData.settings)
+      }
+
+      // Override cors_proxy_url if present
+      if (mockData.cors_proxy_url) {
+        screenlyConfig.cors_proxy_url = mockData.cors_proxy_url as string
+      }
     }
   }
 
@@ -115,19 +147,20 @@ export function screenlyDevServer(): Plugin {
       // Generate initial mock data
       config = generateMockData(rootDir)
 
-      // Watch for changes to screenly.yml
+      // Watch for changes to screenly.yml and mock-data.yml using Vite's watcher
       const manifestPath = path.resolve(rootDir, 'screenly.yml')
-      fs.watch(manifestPath, () => {
-        config = generateMockData(rootDir)
-      })
-
-      // Watch for changes to mock-data.yml if it exists
       const mockDataPath = path.resolve(rootDir, 'mock-data.yml')
-      if (fs.existsSync(mockDataPath)) {
-        fs.watch(mockDataPath, () => {
-          config = generateMockData(rootDir)
-        })
+
+      const handleConfigFileChange = (file: string) => {
+        if (file === manifestPath || file === mockDataPath) {
+          config = generateMockData(rootDir, config)
+        }
       }
+
+      server.watcher.add([manifestPath, mockDataPath])
+      server.watcher.on('add', handleConfigFileChange)
+      server.watcher.on('change', handleConfigFileChange)
+      server.watcher.on('unlink', handleConfigFileChange)
 
       server.middlewares.use((req, res, next) => {
         if (req.url === '/screenly.js?version=1') {
