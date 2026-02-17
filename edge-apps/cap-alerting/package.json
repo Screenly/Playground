@@ -9,7 +9,7 @@
     "predev": "bun run generate-mock-data",
     "dev": "run-p edge-apps-dev cors-proxy-server",
     "edge-apps-dev": "edge-apps-scripts dev",
-    "cors-proxy-server": "bun ../blueprint/scripts/cors-proxy-server.ts",
+    "cors-proxy-server": "bun ../edge-apps-library/scripts/cors-proxy-server.ts",
     "build": "edge-apps-scripts build",
     "build:dev": "edge-apps-scripts build:dev",
     "build:prod": "edge-apps-scripts build",
