@@ -18,8 +18,16 @@ function copyScreenlyFiles(): Plugin {
         const srcPath = resolve(process.cwd(), file)
         if (existsSync(srcPath)) {
           const destPath = resolve(process.cwd(), 'dist', file)
-          copyFileSync(srcPath, destPath)
-          console.log(`Copied ${file} to dist/`)
+          try {
+            copyFileSync(srcPath, destPath)
+            console.log(`Copied ${file} to dist/`)
+          } catch (error) {
+            const message =
+              error instanceof Error ? error.message : 'Unknown error'
+            throw new Error(
+              `Failed to copy "${file}" to dist/: ${message}`,
+            )
+          }
         }
       }
     },
