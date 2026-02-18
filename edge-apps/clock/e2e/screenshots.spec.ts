@@ -1,19 +1,7 @@
 import { test } from '@playwright/test'
+import { RESOLUTIONS } from '@screenly/edge-apps/test/screenshots'
 import fs from 'fs'
 import path from 'path'
-
-const RESOLUTIONS = [
-  { width: 4096, height: 2160 },
-  { width: 2160, height: 4096 },
-  { width: 3840, height: 2160 },
-  { width: 2160, height: 3840 },
-  { width: 1920, height: 1080 },
-  { width: 1080, height: 1920 },
-  { width: 1280, height: 720 },
-  { width: 720, height: 1280 },
-  { width: 800, height: 480 },
-  { width: 480, height: 800 },
-]
 
 const mockScreenlyData = {
   metadata: {
@@ -35,7 +23,7 @@ const mockScreenlyData = {
     screenly_logo_light: '',
     screenly_logo_dark: '',
   },
-  cors_proxy_url: 'https://example.com',
+  cors_proxy_url: 'http://127.0.0.1:8080',
 }
 
 const screenlyJsContent = `

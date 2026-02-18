@@ -35,6 +35,10 @@
     "./test": {
       "import": "./dist/test/index.js",
       "types": "./dist/test/index.d.ts"
+    },
+    "./test/screenshots": {
+      "import": "./dist/test/screenshots.js",
+      "types": "./dist/test/screenshots.d.ts"
     }
   },
   "files": [
