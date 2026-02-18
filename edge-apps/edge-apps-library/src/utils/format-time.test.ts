@@ -75,8 +75,10 @@ describe('formatTime', () => {
     expect(result.hour).toBe('02')
     expect(result.minute).toBe('30')
     expect(result.second).toBe('45')
-    expect(result.dayPeriod).toBe('pm')
-    expect(result.formatted).toMatch(/02:30:45\s+pm/)
+    // hi-IN PM representation varies across ICU versions:
+    // older ICU (Linux/CI) returns 'pm'; newer ICU (macOS) returns 'अ' or 'अपराह्न'
+    expect(['pm', 'PM', 'अ', 'अपराह्न']).toContain(result.dayPeriod ?? '')
+    expect(result.formatted).toContain('02:30:45')
   })
 
   test('should format time correctly for zh-CN locale (24-hour)', () => {
