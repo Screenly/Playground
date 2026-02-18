@@ -27,6 +27,12 @@
         "vite": "^7.3.1",
         "yaml": "^2.8.2",
       },
+      "peerDependencies": {
+        "@playwright/test": "^1.58.0",
+      },
+      "optionalPeers": [
+        "@playwright/test",
+      ],
     },
   },
   "packages": {

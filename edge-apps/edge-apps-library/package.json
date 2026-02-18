@@ -40,6 +40,7 @@
   "files": [
     "dist",
     "bin",
+    "configs",
     "scripts",
     "eslint.config.ts",
     "src/styles",
@@ -73,6 +74,14 @@
     "offline-geocode-city": "^1.0.2",
     "panic-overlay": "^1.0.51",
     "tailwindcss": "^4.1.18"
+  },
+  "peerDependencies": {
+    "@playwright/test": "^1.58.0"
+  },
+  "peerDependenciesMeta": {
+    "@playwright/test": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",

@@ -32,6 +32,14 @@ const commands = {
     description: 'Run TypeScript type checking',
     handler: typeCheckCommand,
   },
+  preview: {
+    description: 'Start Vite preview server (serves dist/)',
+    handler: previewCommand,
+  },
+  screenshots: {
+    description: 'Capture screenshots at all supported resolutions',
+    handler: screenshotsCommand,
+  },
 }
 
 /**
@@ -182,6 +190,34 @@ async function typeCheckCommand(args: string[]) {
     execSync(`"${tscBin}" ${tscArgs.map((arg) => `"${arg}"`).join(' ')}`, {
       stdio: 'inherit',
       cwd: process.cwd(),
+    })
+  } catch {
+    process.exit(1)
+  }
+}
+
+async function previewCommand(args: string[]) {
+  try {
+    const { viteBin, configPath } = getVitePaths()
+    const viteArgs = ['preview', '--config', configPath, '--port', '4173', '--strictPort', ...args]
+
+    spawnWithSignalHandling(viteBin, viteArgs, 'Failed to start preview server:')
+  } catch {
+    process.exit(1)
+  }
+}
+
+async function screenshotsCommand(_args: string[]) {
+  try {
+    const playwrightBin = path.resolve(process.cwd(), 'node_modules', '.bin', 'playwright')
+    const playwrightConfig = path.resolve(libraryRoot, 'configs', 'playwright.ts')
+    execSync(`"${playwrightBin}" test --config "${playwrightConfig}"`, {
+      stdio: 'inherit',
+      cwd: process.cwd(),
+      env: {
+        ...process.env,
+        NODE_PATH: getNodePath(),
+      },
     })
   } catch {
     process.exit(1)
