@@ -199,9 +199,21 @@ async function typeCheckCommand(args: string[]) {
 async function previewCommand(args: string[]) {
   try {
     const { viteBin, configPath } = getVitePaths()
-    const viteArgs = ['preview', '--config', configPath, '--port', '4173', '--strictPort', ...args]
+    const viteArgs = [
+      'preview',
+      '--config',
+      configPath,
+      '--port',
+      '4173',
+      '--strictPort',
+      ...args,
+    ]
 
-    spawnWithSignalHandling(viteBin, viteArgs, 'Failed to start preview server:')
+    spawnWithSignalHandling(
+      viteBin,
+      viteArgs,
+      'Failed to start preview server:',
+    )
   } catch {
     process.exit(1)
   }
@@ -209,8 +221,17 @@ async function previewCommand(args: string[]) {
 
 async function screenshotsCommand(_args: string[]) {
   try {
-    const playwrightBin = path.resolve(process.cwd(), 'node_modules', '.bin', 'playwright')
-    const playwrightConfig = path.resolve(libraryRoot, 'configs', 'playwright.ts')
+    const playwrightBin = path.resolve(
+      process.cwd(),
+      'node_modules',
+      '.bin',
+      'playwright',
+    )
+    const playwrightConfig = path.resolve(
+      libraryRoot,
+      'configs',
+      'playwright.ts',
+    )
     execSync(`"${playwrightBin}" test --config "${playwrightConfig}"`, {
       stdio: 'inherit',
       cwd: process.cwd(),
