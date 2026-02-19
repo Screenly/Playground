@@ -64,3 +64,82 @@ export function createMockScreenlyForScreenshots(
     screenlyJsContent: createScreenlyJsContent(mockScreenly),
   }
 }
+
+/**
+ * OpenWeather API mock data for Playwright route mocking
+ */
+export interface OpenWeatherMocks {
+  /** Mock data for reverse geocoding endpoint */
+  geocoding?: unknown
+  /** Mock data for current weather endpoint */
+  weather?: unknown
+  /** Mock data for forecast endpoint (optional) */
+  forecast?: unknown
+}
+
+/**
+ * Setup OpenWeather API route mocks in Playwright
+ * @param page - Playwright page object
+ * @param mocks - Mock data for OpenWeather API endpoints
+ */
+export async function setupOpenWeatherMocks(
+  page: { route: (url: string, handler: (route: any) => Promise<void>) => Promise<void> },
+  mocks: OpenWeatherMocks,
+): Promise<void> {
+  if (mocks.geocoding) {
+    await page.route(
+      '**/api.openweathermap.org/geo/1.0/reverse**',
+      async (route) => {
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify(mocks.geocoding),
+        })
+      },
+    )
+  }
+
+  if (mocks.weather) {
+    await page.route(
+      '**/api.openweathermap.org/data/2.5/weather**',
+      async (route) => {
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify(mocks.weather),
+        })
+      },
+    )
+  }
+
+  if (mocks.forecast) {
+    await page.route(
+      '**/api.openweathermap.org/data/2.5/forecast**',
+      async (route) => {
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify(mocks.forecast),
+        })
+      },
+    )
+  }
+}
+
+/**
+ * Setup screenly.js route mock in Playwright
+ * @param page - Playwright page object
+ * @param screenlyJsContent - JavaScript content string for screenly.js
+ */
+export async function setupScreenlyJsMock(
+  page: { route: (url: string, handler: (route: any) => Promise<void>) => Promise<void> },
+  screenlyJsContent: string,
+): Promise<void> {
+  await page.route('/screenly.js?version=1', async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/javascript',
+      body: screenlyJsContent,
+    })
+  })
+}

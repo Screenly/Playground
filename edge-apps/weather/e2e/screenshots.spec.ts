@@ -5,18 +5,22 @@ import {
   setupOpenWeatherMocks,
   setupScreenlyJsMock,
 } from '@screenly/edge-apps/test/screenshots'
-import { mockGeocodingResponse, mockWeatherResponse } from './weather-mocks'
+import {
+  mockForecastResponse,
+  mockGeocodingResponse,
+  mockWeatherResponse,
+} from './weather-mocks'
 import fs from 'fs'
 import path from 'path'
 
 const { screenlyJsContent } = createMockScreenlyForScreenshots(
   {
-    coordinates: [40.7128, -74.006],
-    location: 'New York, NY',
+    coordinates: [37.3893889, -122.0832101],
+    location: 'Mountain View, CA',
   },
   {
     theme: 'light',
-    override_timezone: 'America/New_York',
+    override_timezone: 'America/Los_Angeles',
     override_locale: 'en',
     openweathermap_api_key: 'mock-api-key',
   },
@@ -35,6 +39,7 @@ for (const { width, height } of RESOLUTIONS) {
     await setupOpenWeatherMocks(page, {
       geocoding: mockGeocodingResponse,
       weather: mockWeatherResponse,
+      forecast: mockForecastResponse,
     })
 
     await page.goto('/')
