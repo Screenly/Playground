@@ -18,7 +18,6 @@
     "deploy": "bun run build && screenly edge-app deploy --path=dist/",
     "type-check": "edge-apps-scripts type-check",
     "screenshots": "edge-apps-scripts screenshots",
-    "screenshots:preview": "edge-apps-scripts preview",
     "prepare": "cd ../edge-apps-library && bun install && bun run build"
   },
   "prettier": "../edge-apps-library/.prettierrc.json",

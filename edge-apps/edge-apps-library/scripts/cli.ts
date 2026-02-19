@@ -32,10 +32,6 @@ const commands = {
     description: 'Run TypeScript type checking',
     handler: typeCheckCommand,
   },
-  preview: {
-    description: 'Start Vite preview server (serves dist/)',
-    handler: previewCommand,
-  },
   screenshots: {
     description: 'Capture screenshots at all supported resolutions',
     handler: screenshotsCommand,
@@ -191,29 +187,6 @@ async function typeCheckCommand(args: string[]) {
       stdio: 'inherit',
       cwd: process.cwd(),
     })
-  } catch {
-    process.exit(1)
-  }
-}
-
-async function previewCommand(args: string[]) {
-  try {
-    const { viteBin, configPath } = getVitePaths()
-    const viteArgs = [
-      'preview',
-      '--config',
-      configPath,
-      '--port',
-      '4173',
-      '--strictPort',
-      ...args,
-    ]
-
-    spawnWithSignalHandling(
-      viteBin,
-      viteArgs,
-      'Failed to start preview server:',
-    )
   } catch {
     process.exit(1)
   }
