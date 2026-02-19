@@ -11,6 +11,16 @@ import { createMockScreenly } from './mock.js'
 
 export { createMockScreenly }
 
+interface PlaywrightRouteFulfillOptions {
+  status?: number
+  contentType?: string
+  body?: string
+}
+
+interface PlaywrightRoute {
+  fulfill(options: PlaywrightRouteFulfillOptions): Promise<void>
+}
+
 /**
  * Standard resolutions for screenshot testing
  * Covers all supported Screenly player resolutions
@@ -83,7 +93,12 @@ export interface OpenWeatherMocks {
  * @param mocks - Mock data for OpenWeather API endpoints
  */
 export async function setupOpenWeatherMocks(
-  page: { route: (url: string, handler: (route: any) => Promise<void>) => Promise<void> },
+  page: {
+    route: (
+      url: string,
+      handler: (route: PlaywrightRoute) => Promise<void>,
+    ) => Promise<void>
+  },
   mocks: OpenWeatherMocks,
 ): Promise<void> {
   if (mocks.geocoding) {
@@ -132,7 +147,12 @@ export async function setupOpenWeatherMocks(
  * @param screenlyJsContent - JavaScript content string for screenly.js
  */
 export async function setupScreenlyJsMock(
-  page: { route: (url: string, handler: (route: any) => Promise<void>) => Promise<void> },
+  page: {
+    route: (
+      url: string,
+      handler: (route: PlaywrightRoute) => Promise<void>,
+    ) => Promise<void>
+  },
   screenlyJsContent: string,
 ): Promise<void> {
   await page.route('/screenly.js?version=1', async (route) => {
