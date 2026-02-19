@@ -56,3 +56,13 @@ bun run dev      # Start development server
 ```bash
 bun test
 ```
+
+## Screenshots
+
+Generate screenshots at all supported resolutions:
+
+```bash
+bun run screenshots
+```
+
+Screenshots are saved to the `screenshots/` directory.
