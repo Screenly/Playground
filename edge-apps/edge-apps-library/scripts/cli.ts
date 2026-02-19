@@ -4,8 +4,10 @@
  */
 
 import { execSync, spawn, type ChildProcess } from 'child_process'
+import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import sharp from 'sharp'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -192,6 +194,19 @@ async function typeCheckCommand(args: string[]) {
   }
 }
 
+async function convertPngsToWebP(screenshotsDir: string): Promise<void> {
+  const pngFiles = fs
+    .readdirSync(screenshotsDir)
+    .filter((f) => f.endsWith('.png'))
+
+  for (const file of pngFiles) {
+    const pngPath = path.join(screenshotsDir, file)
+    const webpPath = path.join(screenshotsDir, file.replace('.png', '.webp'))
+    await sharp(pngPath).webp().toFile(webpPath)
+    fs.unlinkSync(pngPath)
+  }
+}
+
 async function screenshotsCommand(_args: string[]) {
   try {
     const playwrightBin = path.resolve(
@@ -213,6 +228,11 @@ async function screenshotsCommand(_args: string[]) {
         NODE_PATH: getNodePath(),
       },
     })
+
+    const screenshotsDir = path.resolve(process.cwd(), 'screenshots')
+    if (fs.existsSync(screenshotsDir)) {
+      await convertPngsToWebP(screenshotsDir)
+    }
   } catch {
     process.exit(1)
   }
