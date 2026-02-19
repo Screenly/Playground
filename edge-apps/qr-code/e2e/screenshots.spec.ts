@@ -1,10 +1,10 @@
 import { test } from '@playwright/test'
 import {
   createMockScreenlyForScreenshots,
+  getScreenshotsDir,
   RESOLUTIONS,
   setupScreenlyJsMock,
 } from '@screenly/edge-apps/test/screenshots'
-import fs from 'fs'
 import path from 'path'
 
 const { screenlyJsContent } = createMockScreenlyForScreenshots(
@@ -23,8 +23,7 @@ const { screenlyJsContent } = createMockScreenlyForScreenshots(
 
 for (const { width, height } of RESOLUTIONS) {
   test(`screenshot ${width}x${height}`, async ({ browser }) => {
-    const screenshotsDir = path.resolve('screenshots')
-    fs.mkdirSync(screenshotsDir, { recursive: true })
+    const screenshotsDir = getScreenshotsDir()
 
     const context = await browser.newContext({ viewport: { width, height } })
     const page = await context.newPage()

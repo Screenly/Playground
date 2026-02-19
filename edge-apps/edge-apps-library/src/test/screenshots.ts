@@ -2,6 +2,8 @@
  * Screenshot testing utilities and constants
  */
 
+import fs from 'fs'
+import path from 'path'
 import type {
   ScreenlyMetadata,
   ScreenlyObject,
@@ -37,6 +39,16 @@ export const RESOLUTIONS = [
   { width: 800, height: 480 },
   { width: 480, height: 800 },
 ] as const
+
+/**
+ * Returns the screenshots output directory path, creating it if it doesn't exist.
+ * Resolves to `<cwd>/screenshots/`.
+ */
+export function getScreenshotsDir(): string {
+  const dir = path.resolve('screenshots')
+  fs.mkdirSync(dir, { recursive: true })
+  return dir
+}
 
 /**
  * Creates the screenly.js content string for Playwright route mocking
