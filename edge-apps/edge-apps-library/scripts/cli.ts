@@ -4,8 +4,10 @@
  */
 
 import { execSync, spawn, type ChildProcess } from 'child_process'
+import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import sharp from 'sharp'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -31,6 +33,10 @@ const commands = {
   'type-check': {
     description: 'Run TypeScript type checking',
     handler: typeCheckCommand,
+  },
+  screenshots: {
+    description: 'Capture screenshots at all supported resolutions',
+    handler: screenshotsCommand,
   },
 }
 
@@ -184,6 +190,56 @@ async function typeCheckCommand(args: string[]) {
       cwd: process.cwd(),
     })
   } catch {
+    process.exit(1)
+  }
+}
+
+async function convertPngsToWebP(screenshotsDir: string): Promise<void> {
+  const pngFiles = fs
+    .readdirSync(screenshotsDir)
+    .filter((f) => f.endsWith('.png'))
+
+  for (const file of pngFiles) {
+    const pngPath = path.join(screenshotsDir, file)
+    const webpPath = path.join(screenshotsDir, file.replace('.png', '.webp'))
+    await sharp(pngPath).webp().toFile(webpPath)
+    fs.unlinkSync(pngPath)
+  }
+}
+
+async function screenshotsCommand(_args: string[]) {
+  try {
+    const playwrightBin = path.resolve(
+      process.cwd(),
+      'node_modules',
+      '.bin',
+      'playwright',
+    )
+    const playwrightConfig = path.resolve(
+      libraryRoot,
+      'configs',
+      'playwright.ts',
+    )
+    execSync(`"${playwrightBin}" test --config "${playwrightConfig}"`, {
+      stdio: 'inherit',
+      cwd: process.cwd(),
+      env: {
+        ...process.env,
+        NODE_PATH: getNodePath(),
+      },
+    })
+
+    const screenshotsDir = path.resolve(process.cwd(), 'screenshots')
+    if (fs.existsSync(screenshotsDir)) {
+      await convertPngsToWebP(screenshotsDir)
+    }
+  } catch (error) {
+    console.error(
+      'Failed to run screenshot tests. Ensure `@playwright/test` is installed and the Playwright config file exists.',
+    )
+    if (error instanceof Error && error.message) {
+      console.error(error.message)
+    }
     process.exit(1)
   }
 }
