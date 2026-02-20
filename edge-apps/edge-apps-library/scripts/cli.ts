@@ -233,7 +233,13 @@ async function screenshotsCommand(_args: string[]) {
     if (fs.existsSync(screenshotsDir)) {
       await convertPngsToWebP(screenshotsDir)
     }
-  } catch {
+  } catch (error) {
+    console.error(
+      'Failed to run screenshot tests. Ensure `@playwright/test` is installed and the Playwright config file exists.',
+    )
+    if (error instanceof Error && error.message) {
+      console.error(error.message)
+    }
     process.exit(1)
   }
 }
