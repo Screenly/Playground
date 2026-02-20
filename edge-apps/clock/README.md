@@ -22,7 +22,7 @@ The app accepts the following settings via `screenly.yml`:
 
 | Setting                  | Description                                                                                                                                                   | Type               | Default |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ------- |
-| `openweathermap_api_key` | OpenWeatherMap API key to access weather data and location information. Get your API key from <https://openweathermap.org/api>                                | optional           | -       |
+| `openweathermap_api_key` | OpenWeatherMap API key to access weather data and location information. Get your API key from the [OpenWeatherMap API](https://openweathermap.org/api)        | optional           | -       |
 | `override_locale`        | Override the default locale with a supported language code                                                                                                    | optional           | `en`    |
 | `override_timezone`      | Override the default timezone with a supported timezone identifier (e.g., `Europe/London`, `America/New_York`). Defaults to the system timezone if left blank | optional           | -       |
 | `theme`                  | Visual theme for the app: 'light' or 'dark'                                                                                                                   | required           | `light` |

@@ -4,7 +4,7 @@
 
 ### Bun
 
-All Edge Apps with a build system use [Bun](https://bun.sh/) as the package manager and runtime. Install it via:
+All Edge Apps with a build tool use [Bun](https://bun.sh/) as the package manager and runtime. Install it via:
 
 ```bash
 curl -fsSL https://bun.sh/install | bash
