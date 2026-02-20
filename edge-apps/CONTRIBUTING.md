@@ -54,6 +54,7 @@ This builds the app, starts a local preview server, captures screenshots at all 
 
 - `cap-alerting`
 - `clock`
+- `grafana`
 - `menu-board`
 - `qr-code`
 - `simple-timer`
