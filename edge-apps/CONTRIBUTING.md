@@ -38,7 +38,7 @@ This builds the app, starts a local preview server, captures screenshots at all 
 ### Supported Resolutions
 
 | Width | Height | Orientation |
-|-------|--------|-------------|
+| ----- | ------ | ----------- |
 | 4096  | 2160   | Landscape   |
 | 2160  | 4096   | Portrait    |
 | 3840  | 2160   | Landscape   |
