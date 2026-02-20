@@ -26,6 +26,7 @@ function copyScreenlyFiles(): Plugin {
               error instanceof Error ? error.message : 'Unknown error'
             throw new Error(
               `Failed to copy "${file}" to dist/: ${message}`,
+              { cause: error },
             )
           }
         }
