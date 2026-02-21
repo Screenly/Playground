@@ -6,12 +6,12 @@ A collection of simulated digital signage dashboards. Choose from four distinct 
 
 ## Dashboard Views
 
-| Value | Description |
-|---|---|
-| `website-traffic` | Live visitor count, traffic sources, device breakdown, and 12-month page-view trend |
-| `health-safety` | Days without incident, open hazards, PPE compliance, zone safety status, and safety notices |
-| `manufacturing-kpi` | Production output vs target, machine utilization, downtime breakdown, shopfloor status, and alerts |
-| `production-qa` | First pass yield, defect/scrap/rework rates, inspection throughput, batch pass/fail, and cost of poor quality |
+| Value               | Description                                                                                                   |
+| ------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `website-traffic`   | Live visitor count, traffic sources, device breakdown, and 12-month page-view trend                           |
+| `health-safety`     | Days without incident, open hazards, PPE compliance, zone safety status, and safety notices                   |
+| `manufacturing-kpi` | Production output vs target, machine utilization, downtime breakdown, shopfloor status, and alerts            |
+| `production-qa`     | First pass yield, defect/scrap/rework rates, inspection throughput, batch pass/fail, and cost of poor quality |
 
 ## Key Highlights
 
