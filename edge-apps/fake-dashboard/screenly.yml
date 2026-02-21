@@ -18,12 +18,12 @@ settings:
       properties:
         help_text: Select which dashboard to display
         options:
-        - label: Website Traffic
-          value: website-traffic
-        - label: Health & Safety
-          value: health-safety
-        - label: Manufacturing KPI
-          value: manufacturing-kpi
-        - label: Production QA
-          value: production-qa
+          - label: Website Traffic
+            value: website-traffic
+          - label: Health & Safety
+            value: health-safety
+          - label: Manufacturing KPI
+            value: manufacturing-kpi
+          - label: Production QA
+            value: production-qa
         type: select

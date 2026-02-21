@@ -29,18 +29,19 @@
 }
 
 :root {
-  --primary-color: #7E2CD2;
-  --text-color: #E4E4E7;
+  --primary-color: #7e2cd2;
+  --text-color: #e4e4e7;
   --bg-color: #030303;
   --card-bg: #141414;
-  --success-color: #22C55E;
-  --danger-color: #EF4444;
-  --grid-color: #FFFFFF0F;
-  --border-color: #FFFFFF1A;
+  --success-color: #22c55e;
+  --danger-color: #ef4444;
+  --grid-color: #ffffff0f;
+  --border-color: #ffffff1a;
   --base-font-size: 16px;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -52,7 +53,9 @@ body {
   position: relative;
   background-color: var(--bg-color);
   color: var(--text-color);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, sans-serif;
   padding: 0;
   -webkit-font-smoothing: antialiased;
 }
@@ -74,7 +77,7 @@ h2 {
 }
 
 h3 {
-  font-size: clamp(.7rem, .7vh + .7vw, 10rem);
+  font-size: clamp(0.7rem, 0.7vh + 0.7vw, 10rem);
   font-weight: 500;
   margin: 0;
   opacity: 0.7;
@@ -91,7 +94,8 @@ h3 {
 
 .dashboard-header {
   grid-column: 1 / -1;
-  padding: clamp(0.75rem, 2vh, 2rem) clamp(0.75rem, 2vw, 2rem) 0 clamp(0.75rem, 2vw, 2rem);
+  padding: clamp(0.75rem, 2vh, 2rem) clamp(0.75rem, 2vw, 2rem) 0
+    clamp(0.75rem, 2vw, 2rem);
   text-align: center;
 }
 
@@ -119,8 +123,8 @@ h3 {
   flex-direction: column;
   background: var(--card-bg);
   border-radius: 0.75rem;
-  padding: clamp(.5rem, .5vw + .5vh, 2rem);
-  gap: clamp(.5rem, .5vw + .5vh, 2rem);
+  padding: clamp(0.5rem, 0.5vw + 0.5vh, 2rem);
+  gap: clamp(0.5rem, 0.5vw + 0.5vh, 2rem);
 }
 
 .page-views-container {
@@ -139,7 +143,10 @@ canvas {
 
 .metrics-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(clamp(180px, 20%, 250px), 1fr));
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(clamp(180px, 20%, 250px), 1fr)
+  );
   gap: clamp(1rem, 1vh + 1vw, 10rem);
   margin-top: auto;
 }
@@ -169,7 +176,7 @@ canvas {
 }
 
 .metric-card .icon.purple-bg {
-  background: #7E2CD233;
+  background: #7e2cd233;
 }
 
 .metric-value {
@@ -199,7 +206,8 @@ canvas {
   display: flex;
   flex-direction: column;
   gap: clamp(1rem, 1vh + 1vw, 2rem);
-  padding: clamp(.5rem, 1vw + 1vh, 2rem) clamp(.5rem, 1vw + 1vh, 2rem) clamp(.5rem, 1vw + 1vh, 2rem) 0;
+  padding: clamp(0.5rem, 1vw + 1vh, 2rem) clamp(0.5rem, 1vw + 1vh, 2rem)
+    clamp(0.5rem, 1vw + 1vh, 2rem) 0;
   background: transparent;
   min-width: 0;
 }
@@ -209,7 +217,7 @@ canvas {
 .realtime-card {
   background: var(--card-bg);
   border-radius: 0.75rem;
-  padding: clamp(.5rem, .5vw + .5vh, 1.5rem);
+  padding: clamp(0.5rem, 0.5vw + 0.5vh, 1.5rem);
   min-width: 0;
   flex-shrink: 0;
 }
@@ -264,7 +272,6 @@ canvas {
   font-weight: 500;
 }
 
-
 .realtime-card {
   margin-top: auto;
   border-top: 1px solid var(--border-color);
@@ -283,7 +290,7 @@ canvas {
 
 .realtime-label {
   font-size: clamp(1rem, 0.7vh + 0.7vw, 10rem);
-  color: #FFFFFF80;
+  color: #ffffff80;
   letter-spacing: 0.01em;
 }
 
@@ -303,7 +310,7 @@ canvas {
   }
 
   h3 {
-    font-size: clamp(.7rem, 1vh + 1vw, 10rem);
+    font-size: clamp(0.7rem, 1vh + 1vw, 10rem);
   }
 
   .metric-value {
@@ -322,12 +329,14 @@ canvas {
   }
 
   .main-content {
-    padding: clamp(0.75rem, 2vw + 2vh, 1.5rem) clamp(0.75rem, 2vw + 2vh, 1.5rem) 0 clamp(0.75rem, 2vw + 2vh, 1.5rem);
+    padding: clamp(0.75rem, 2vw + 2vh, 1.5rem) clamp(0.75rem, 2vw + 2vh, 1.5rem)
+      0 clamp(0.75rem, 2vw + 2vh, 1.5rem);
     overflow: visible;
   }
 
   .sidebar {
-    padding: clamp(0.75rem, 2vw + 2vh, 1.5rem) clamp(0.75rem, 2vw + 2vh, 1.5rem) clamp(0.75rem, 2vw + 2vh, 1.5rem) clamp(0.75rem, 2vw + 2vh, 1.5rem);
+    padding: clamp(0.75rem, 2vw + 2vh, 1.5rem) clamp(0.75rem, 2vw + 2vh, 1.5rem)
+      clamp(0.75rem, 2vw + 2vh, 1.5rem) clamp(0.75rem, 2vw + 2vh, 1.5rem);
     max-height: none;
   }
 
@@ -379,7 +388,7 @@ canvas {
 
 @media (max-width: 800px) and (orientation: landscape) {
   h3 {
-    font-size: clamp(.5rem, .5vh + .5vw, 10rem);
+    font-size: clamp(0.5rem, 0.5vh + 0.5vw, 10rem);
   }
 
   .dashboard {
@@ -387,7 +396,7 @@ canvas {
   }
 
   .source-item {
-    font-size: clamp(.5rem, 1vh + 1vw, 10rem);
+    font-size: clamp(0.5rem, 1vh + 1vw, 10rem);
   }
 
   .device-chart-container {
@@ -405,7 +414,7 @@ canvas {
   }
 
   .source-item {
-    font-size: clamp(.5rem, .8vh + .8vw, 10rem);
+    font-size: clamp(0.5rem, 0.8vh + 0.8vw, 10rem);
   }
 
   .device-chart-container {

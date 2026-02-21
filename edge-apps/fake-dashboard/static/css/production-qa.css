@@ -3,9 +3,21 @@
 #dash-production-qa {
   --bg-color: #edf1f7;
   --bg-gradient:
-    radial-gradient(ellipse at 20% 50%, rgba(59 130 246 / 6%) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 20%, rgba(6 182 212 / 5%) 0%, transparent 45%),
-    radial-gradient(ellipse at 50% 100%, rgba(168 85 247 / 4%) 0%, transparent 35%);
+    radial-gradient(
+      ellipse at 20% 50%,
+      rgba(59 130 246 / 6%) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 80% 20%,
+      rgba(6 182 212 / 5%) 0%,
+      transparent 45%
+    ),
+    radial-gradient(
+      ellipse at 50% 100%,
+      rgba(168 85 247 / 4%) 0%,
+      transparent 35%
+    );
   --card-bg: #fff;
   --card-border: rgba(0 0 0 / 7%);
   --card-glow: 0 0.125rem 0.75rem rgba(0 0 0 / 6%);
@@ -21,7 +33,9 @@
   background-color: var(--bg-color);
   background-image: var(--bg-gradient);
   color: var(--text-color);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -80,7 +94,14 @@
   left: 5%;
   right: 5%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent-cyan), var(--accent-blue), var(--accent-purple), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent-cyan),
+    var(--accent-blue),
+    var(--accent-purple),
+    transparent
+  );
   opacity: 0.4;
 }
 
@@ -166,7 +187,11 @@
   left: 0;
   right: 0;
   height: 2.5rem;
-  background: linear-gradient(180deg, rgba(52 211 153 / 5%) 0%, transparent 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(52 211 153 / 5%) 0%,
+    transparent 100%
+  );
   pointer-events: none;
 }
 
@@ -175,7 +200,11 @@
 }
 
 #dash-production-qa .kpi-card.st-amber::after {
-  background: linear-gradient(180deg, rgba(251 191 36 / 5%) 0%, transparent 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(251 191 36 / 5%) 0%,
+    transparent 100%
+  );
 }
 
 #dash-production-qa .kpi-card.st-red::before {
@@ -183,7 +212,11 @@
 }
 
 #dash-production-qa .kpi-card.st-red::after {
-  background: linear-gradient(180deg, rgba(248 113 113 / 5%) 0%, transparent 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(248 113 113 / 5%) 0%,
+    transparent 100%
+  );
 }
 
 #dash-production-qa .kpi-label {

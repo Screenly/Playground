@@ -2,28 +2,28 @@
 
 // ── Website Traffic Dashboard ────────────────────────────────────────────────
 var WebsiteTraffic = (function () {
-  function randomInt (min, max) {
+  function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min
   }
 
-  function formatNumber (num) {
+  function formatNumber(num) {
     if (num >= 1000) {
       return (num / 1000).toFixed(1) + 'k'
     }
     return num.toString()
   }
 
-  function formatDuration (seconds) {
+  function formatDuration(seconds) {
     var minutes = Math.floor(seconds / 60)
     var remainingSeconds = seconds % 60
     return minutes + 'm ' + remainingSeconds + 's'
   }
 
-  function formatPercentage (value) {
+  function formatPercentage(value) {
     return value.toFixed(1) + '%'
   }
 
-  function generatePageViewsHistory () {
+  function generatePageViewsHistory() {
     var months = []
     var currentDate = new Date()
 
@@ -44,18 +44,21 @@ var WebsiteTraffic = (function () {
 
       return {
         month: month,
-        views: Math.max(Math.round(baseValue + seasonal + random + trend), 40000)
+        views: Math.max(
+          Math.round(baseValue + seasonal + random + trend),
+          40000,
+        ),
       }
     })
 
     return data
   }
 
-  function generateStaticMetrics () {
+  function generateStaticMetrics() {
     var users = randomInt(65000, 85000)
-    var sessionMultiplier = 1.05 + (Math.random() * 0.1)
+    var sessionMultiplier = 1.05 + Math.random() * 0.1
     var sessions = Math.round(users * sessionMultiplier)
-    var bounceRate = 20 + (Math.random() * 10)
+    var bounceRate = 20 + Math.random() * 10
     var sessionDuration = randomInt(120, 180)
     var usersChange = randomInt(15, 35)
     var sessionsChange = randomInt(30, 50)
@@ -70,13 +73,13 @@ var WebsiteTraffic = (function () {
       usersChange: usersChange,
       sessionsChange: sessionsChange,
       bounceRateChange: bounceRateChange,
-      durationChange: durationChange
+      durationChange: durationChange,
     }
   }
 
-  function generateRealtimeVisitors () {
+  function generateRealtimeVisitors() {
     var metrics = generateStaticMetrics()
-    var basePercentage = 1.4 + (Math.random() * 0.4)
+    var basePercentage = 1.4 + Math.random() * 0.4
     var baseVisitors = Math.round(metrics.users * (basePercentage / 100))
     var variation = Math.round(baseVisitors * 0.2)
     return baseVisitors + randomInt(-variation, variation)
@@ -85,7 +88,7 @@ var WebsiteTraffic = (function () {
   var deviceData = null
   var sourceData = null
 
-  function generateDeviceData () {
+  function generateDeviceData() {
     if (!deviceData) {
       var desktop = randomInt(65, 75)
       var mobile = randomInt(20, 25)
@@ -94,13 +97,13 @@ var WebsiteTraffic = (function () {
       deviceData = {
         Desktop: desktop,
         Mobile: mobile,
-        Tablets: tablets
+        Tablets: tablets,
       }
     }
     return deviceData
   }
 
-  function generateSourceData () {
+  function generateSourceData() {
     if (!sourceData) {
       var direct = randomInt(45, 50)
       var organic = randomInt(25, 30)
@@ -111,35 +114,48 @@ var WebsiteTraffic = (function () {
         Direct: direct,
         Organic: organic,
         Social: social,
-        Referral: referral
+        Referral: referral,
       }
     }
     return sourceData
   }
 
-  function updateMetrics () {
+  function updateMetrics() {
     var metrics = generateStaticMetrics()
 
-    document.getElementById('usersValue').textContent = formatNumber(metrics.users)
-    document.getElementById('sessionsValue').textContent = formatNumber(metrics.sessions)
-    document.getElementById('bounceValue').textContent = formatPercentage(metrics.bounceRate)
-    document.getElementById('durationValue').textContent = formatDuration(metrics.sessionDuration)
+    document.getElementById('usersValue').textContent = formatNumber(
+      metrics.users,
+    )
+    document.getElementById('sessionsValue').textContent = formatNumber(
+      metrics.sessions,
+    )
+    document.getElementById('bounceValue').textContent = formatPercentage(
+      metrics.bounceRate,
+    )
+    document.getElementById('durationValue').textContent = formatDuration(
+      metrics.sessionDuration,
+    )
 
-    document.getElementById('usersChange').textContent = '+' + metrics.usersChange + '%'
-    document.getElementById('sessionsChange').textContent = '+' + metrics.sessionsChange + '%'
-    document.getElementById('bounceChange').textContent = metrics.bounceRateChange + '%'
-    document.getElementById('durationChange').textContent = '+' + metrics.durationChange + '%'
+    document.getElementById('usersChange').textContent =
+      '+' + metrics.usersChange + '%'
+    document.getElementById('sessionsChange').textContent =
+      '+' + metrics.sessionsChange + '%'
+    document.getElementById('bounceChange').textContent =
+      metrics.bounceRateChange + '%'
+    document.getElementById('durationChange').textContent =
+      '+' + metrics.durationChange + '%'
   }
 
-  function updateRealtimeVisitors () {
+  function updateRealtimeVisitors() {
     var visitors = generateRealtimeVisitors()
-    document.getElementById('realtimeValue').textContent = visitors.toLocaleString()
+    document.getElementById('realtimeValue').textContent =
+      visitors.toLocaleString()
   }
 
   var pageViewsData = null
   var pageViewsChart, deviceChart
 
-  function initPageViewsChart () {
+  function initPageViewsChart() {
     if (!pageViewsData) {
       pageViewsData = generatePageViewsHistory()
     }
@@ -153,18 +169,24 @@ var WebsiteTraffic = (function () {
     return new Chart(ctx, {
       type: 'line',
       data: {
-        labels: pageViewsData.map(function (d) { return d.month }),
-        datasets: [{
-          label: 'Page Views',
-          data: pageViewsData.map(function (d) { return d.views }),
-          borderColor: '#7E2CD2',
-          backgroundColor: gradient,
-          tension: 0.4,
-          fill: true,
-          borderWidth: 2,
-          pointRadius: 0,
-          pointHoverRadius: 4
-        }]
+        labels: pageViewsData.map(function (d) {
+          return d.month
+        }),
+        datasets: [
+          {
+            label: 'Page Views',
+            data: pageViewsData.map(function (d) {
+              return d.views
+            }),
+            borderColor: '#7E2CD2',
+            backgroundColor: gradient,
+            tension: 0.4,
+            fill: true,
+            borderWidth: 2,
+            pointRadius: 0,
+            pointHoverRadius: 4,
+          },
+        ],
       },
       options: {
         responsive: true,
@@ -183,9 +205,9 @@ var WebsiteTraffic = (function () {
             callbacks: {
               label: function (context) {
                 return context.parsed.y.toLocaleString()
-              }
-            }
-          }
+              },
+            },
+          },
         },
         interaction: { intersect: false, mode: 'index' },
         scales: {
@@ -198,24 +220,30 @@ var WebsiteTraffic = (function () {
               font: { size: 12, weight: '500' },
               padding: 8,
               maxTicksLimit: 6,
-              callback: function (value) { return value.toLocaleString() }
-            }
+              callback: function (value) {
+                return value.toLocaleString()
+              },
+            },
           },
           x: {
             border: { display: false },
-            grid: { display: true, color: 'rgba(255, 255, 255, 0.06)', drawTicks: false },
+            grid: {
+              display: true,
+              color: 'rgba(255, 255, 255, 0.06)',
+              drawTicks: false,
+            },
             ticks: {
               color: 'rgba(255, 255, 255, 0.5)',
               font: { size: 12, weight: '500' },
-              padding: 8
-            }
-          }
-        }
-      }
+              padding: 8,
+            },
+          },
+        },
+      },
     })
   }
 
-  function initDeviceChart () {
+  function initDeviceChart() {
     var ctx = document.getElementById('deviceChart').getContext('2d')
     var data = generateDeviceData()
 
@@ -223,12 +251,14 @@ var WebsiteTraffic = (function () {
       type: 'doughnut',
       data: {
         labels: Object.keys(data),
-        datasets: [{
-          data: Object.values(data),
-          backgroundColor: ['#7E2CD2', '#22C55E', '#EF4444'],
-          borderWidth: 0,
-          borderRadius: 4
-        }]
+        datasets: [
+          {
+            data: Object.values(data),
+            backgroundColor: ['#7E2CD2', '#22C55E', '#EF4444'],
+            borderWidth: 0,
+            borderRadius: 4,
+          },
+        ],
       },
       options: {
         responsive: true,
@@ -242,8 +272,8 @@ var WebsiteTraffic = (function () {
               padding: 20,
               font: { size: 13, weight: '500' },
               usePointStyle: true,
-              pointStyle: 'circle'
-            }
+              pointStyle: 'circle',
+            },
           },
           tooltip: {
             backgroundColor: '#1f1f1f',
@@ -251,35 +281,40 @@ var WebsiteTraffic = (function () {
             bodyColor: '#fff',
             borderColor: 'rgba(255, 255, 255, 0.1)',
             borderWidth: 1,
-            padding: 12
-          }
-        }
-      }
+            padding: 12,
+          },
+        },
+      },
     })
   }
 
-  function updateSources () {
+  function updateSources() {
     var sources = generateSourceData()
     var container = document.getElementById('sourcesContainer')
     container.innerHTML = ''
 
     Object.entries(sources).forEach(function (entry) {
-      container.innerHTML += '<div class="source-item"><span>' + entry[0] + '</span><span>' + entry[1] + '%</span></div>'
+      container.innerHTML +=
+        '<div class="source-item"><span>' +
+        entry[0] +
+        '</span><span>' +
+        entry[1] +
+        '%</span></div>'
     })
   }
 
-  function initCharts () {
+  function initCharts() {
     pageViewsChart = initPageViewsChart()
     deviceChart = initDeviceChart()
   }
 
-  function updateCharts () {
+  function updateCharts() {
     var data = generateDeviceData()
     deviceChart.data.datasets[0].data = Object.values(data)
     deviceChart.update()
   }
 
-  function init () {
+  function init() {
     initCharts()
     updateMetrics()
     updateSources()
@@ -311,42 +346,48 @@ var WebsiteTraffic = (function () {
 
 // ── Health & Safety Dashboard ────────────────────────────────────────────────
 var HealthSafety = (function () {
-  function randomInt (min, max) {
+  function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min
   }
 
-  function randomFloat (min, max, decimals) {
+  function randomFloat(min, max, decimals) {
     return parseFloat((Math.random() * (max - min) + min).toFixed(decimals))
   }
 
-  function pickRandom (arr) {
+  function pickRandom(arr) {
     return arr[randomInt(0, arr.length - 1)]
   }
 
-  function updateClock () {
+  function updateClock() {
     var now = new Date()
-    document.getElementById('hs-headerDate').textContent = now.toLocaleDateString(
-      'en-US',
-      { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }
-    )
-    document.getElementById('hs-headerTime').textContent = now.toLocaleTimeString(
-      'en-US',
-      { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }
-    )
+    document.getElementById('hs-headerDate').textContent =
+      now.toLocaleDateString('en-US', {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      })
+    document.getElementById('hs-headerTime').textContent =
+      now.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+      })
   }
 
-  function generateKPIs () {
+  function generateKPIs() {
     return {
       daysWithout: randomInt(85, 200),
       hazards: randomInt(3, 12),
       nearMiss: randomInt(1, 8),
       ppe: randomFloat(93, 99, 0),
       firstAid: randomInt(0, 5),
-      safetyScore: randomInt(88, 99)
+      safetyScore: randomInt(88, 99),
     }
   }
 
-  function updateKPIs () {
+  function updateKPIs() {
     var kpi = generateKPIs()
 
     document.getElementById('hs-daysWithout').textContent = kpi.daysWithout
@@ -361,15 +402,18 @@ var HealthSafety = (function () {
     var daysAgo = kpi.daysWithout
     var lastDate = new Date()
     lastDate.setDate(lastDate.getDate() - daysAgo)
-    document.getElementById('hs-lastIncidentDate').textContent = lastDate.toLocaleDateString(
-      'en-US', { month: 'short', day: 'numeric', year: 'numeric' }
-    )
+    document.getElementById('hs-lastIncidentDate').textContent =
+      lastDate.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      })
 
     var trends = [
       { id: 'hs-kpiHazardsTrend', val: randomInt(-3, 4), up: false },
       { id: 'hs-kpiNearMissTrend', val: randomInt(-3, 3), up: false },
       { id: 'hs-kpiPPETrend', val: randomInt(-1, 3), suffix: '%', up: true },
-      { id: 'hs-kpiFirstAidTrend', val: randomInt(-2, 2), up: false }
+      { id: 'hs-kpiFirstAidTrend', val: randomInt(-2, 2), up: false },
     ]
 
     trends.forEach(function (t) {
@@ -393,13 +437,13 @@ var HealthSafety = (function () {
     padding: 10,
     cornerRadius: 6,
     titleFont: { size: chartFontSize + 1 },
-    bodyFont: { size: chartFontSize }
+    bodyFont: { size: chartFontSize },
   }
 
   var incidentData = null
   var incidentChart = null
 
-  function generateIncidentData () {
+  function generateIncidentData() {
     if (!incidentData) {
       var months = []
       var incidents = []
@@ -412,21 +456,35 @@ var HealthSafety = (function () {
         incidents.push(randomInt(0, 5))
         nearMisses.push(randomInt(2, 9))
       }
-      incidentData = { months: months, incidents: incidents, nearMisses: nearMisses }
+      incidentData = {
+        months: months,
+        incidents: incidents,
+        nearMisses: nearMisses,
+      }
     }
     return incidentData
   }
 
-  function initIncidentChart () {
+  function initIncidentChart() {
     var data = generateIncidentData()
     var ctx = document.getElementById('hs-incidentChart').getContext('2d')
 
-    var gradientRed = ctx.createLinearGradient(0, 0, 0, ctx.canvas.clientHeight || 200)
+    var gradientRed = ctx.createLinearGradient(
+      0,
+      0,
+      0,
+      ctx.canvas.clientHeight || 200,
+    )
     gradientRed.addColorStop(0, 'rgba(190, 18, 60, 0.25)')
     gradientRed.addColorStop(0.7, 'rgba(190, 18, 60, 0.04)')
     gradientRed.addColorStop(1, 'rgba(190, 18, 60, 0)')
 
-    var gradientAmber = ctx.createLinearGradient(0, 0, 0, ctx.canvas.clientHeight || 200)
+    var gradientAmber = ctx.createLinearGradient(
+      0,
+      0,
+      0,
+      ctx.canvas.clientHeight || 200,
+    )
     gradientAmber.addColorStop(0, 'rgba(180, 83, 9, 0.15)')
     gradientAmber.addColorStop(0.7, 'rgba(180, 83, 9, 0.02)')
     gradientAmber.addColorStop(1, 'rgba(180, 83, 9, 0)')
@@ -447,7 +505,7 @@ var HealthSafety = (function () {
             pointRadius: 3,
             pointBackgroundColor: '#be123c',
             pointBorderColor: '#fff',
-            pointBorderWidth: 1.5
+            pointBorderWidth: 1.5,
           },
           {
             label: 'Near Misses',
@@ -457,9 +515,9 @@ var HealthSafety = (function () {
             tension: 0.4,
             fill: true,
             borderWidth: 2,
-            pointRadius: 0
-          }
-        ]
+            pointRadius: 0,
+          },
+        ],
       },
       options: {
         responsive: true,
@@ -475,25 +533,34 @@ var HealthSafety = (function () {
               padding: 12,
               font: { size: chartFontSize },
               color: 'rgba(120, 113, 108, 0.7)',
-              usePointStyle: false
-            }
+              usePointStyle: false,
+            },
           },
-          tooltip: commonTooltip
+          tooltip: commonTooltip,
         },
         scales: {
           y: {
             beginAtZero: true,
             border: { display: false },
             grid: { color: 'rgba(0, 0, 0, 0.05)', drawTicks: false },
-            ticks: { font: { size: chartFontSize }, padding: 6, maxTicksLimit: 5, stepSize: 2 }
+            ticks: {
+              font: { size: chartFontSize },
+              padding: 6,
+              maxTicksLimit: 5,
+              stepSize: 2,
+            },
           },
           x: {
             border: { display: false },
             grid: { display: false },
-            ticks: { font: { size: chartFontSize }, padding: 6, maxRotation: 0 }
-          }
-        }
-      }
+            ticks: {
+              font: { size: chartFontSize },
+              padding: 6,
+              maxRotation: 0,
+            },
+          },
+        },
+      },
     })
   }
 
@@ -501,18 +568,24 @@ var HealthSafety = (function () {
   var zoneHazardChart = null
   var zoneNames = ['Zone A', 'Zone B', 'Zone C', 'Zone D']
 
-  function generateZoneHazardData () {
+  function generateZoneHazardData() {
     if (!zoneHazardData) {
       zoneHazardData = {
-        high: zoneNames.map(function () { return randomInt(0, 3) }),
-        medium: zoneNames.map(function () { return randomInt(1, 5) }),
-        low: zoneNames.map(function () { return randomInt(2, 6) })
+        high: zoneNames.map(function () {
+          return randomInt(0, 3)
+        }),
+        medium: zoneNames.map(function () {
+          return randomInt(1, 5)
+        }),
+        low: zoneNames.map(function () {
+          return randomInt(2, 6)
+        }),
       }
     }
     return zoneHazardData
   }
 
-  function initZoneHazardChart () {
+  function initZoneHazardChart() {
     var data = generateZoneHazardData()
     var ctx = document.getElementById('hs-zoneHazardChart').getContext('2d')
 
@@ -521,10 +594,25 @@ var HealthSafety = (function () {
       data: {
         labels: zoneNames,
         datasets: [
-          { label: 'High', data: data.high, backgroundColor: 'rgba(190, 18, 60, 0.75)', borderRadius: 3 },
-          { label: 'Medium', data: data.medium, backgroundColor: 'rgba(180, 83, 9, 0.65)', borderRadius: 3 },
-          { label: 'Low', data: data.low, backgroundColor: 'rgba(13, 148, 136, 0.55)', borderRadius: 3 }
-        ]
+          {
+            label: 'High',
+            data: data.high,
+            backgroundColor: 'rgba(190, 18, 60, 0.75)',
+            borderRadius: 3,
+          },
+          {
+            label: 'Medium',
+            data: data.medium,
+            backgroundColor: 'rgba(180, 83, 9, 0.65)',
+            borderRadius: 3,
+          },
+          {
+            label: 'Low',
+            data: data.low,
+            backgroundColor: 'rgba(13, 148, 136, 0.55)',
+            borderRadius: 3,
+          },
+        ],
       },
       options: {
         responsive: true,
@@ -542,10 +630,10 @@ var HealthSafety = (function () {
               font: { size: chartFontSize },
               color: 'rgba(120, 113, 108, 0.7)',
               usePointStyle: true,
-              pointStyle: 'rectRounded'
-            }
+              pointStyle: 'rectRounded',
+            },
           },
-          tooltip: commonTooltip
+          tooltip: commonTooltip,
         },
         scales: {
           x: {
@@ -553,27 +641,39 @@ var HealthSafety = (function () {
             beginAtZero: true,
             border: { display: false },
             grid: { color: 'rgba(0, 0, 0, 0.05)', drawTicks: false },
-            ticks: { font: { size: chartFontSize }, padding: 6, stepSize: 2 }
+            ticks: { font: { size: chartFontSize }, padding: 6, stepSize: 2 },
           },
           y: {
             stacked: true,
             border: { display: false },
             grid: { display: false },
-            ticks: { font: { size: chartFontSize, weight: '600' }, padding: 6 }
-          }
-        }
-      }
+            ticks: { font: { size: chartFontSize, weight: '600' }, padding: 6 },
+          },
+        },
+      },
     })
   }
 
   var zoneStatuses = [
     { weight: 6, cls: 'safe', label: 'All Clear', detail: 'No active hazards' },
-    { weight: 3, cls: 'caution', label: 'Caution', detail: 'Active hazard report' },
-    { weight: 1, cls: 'danger', label: 'Restricted', detail: 'Access restricted' }
+    {
+      weight: 3,
+      cls: 'caution',
+      label: 'Caution',
+      detail: 'Active hazard report',
+    },
+    {
+      weight: 1,
+      cls: 'danger',
+      label: 'Restricted',
+      detail: 'Access restricted',
+    },
   ]
 
-  function pickZoneStatus () {
-    var total = zoneStatuses.reduce(function (s, z) { return s + z.weight }, 0)
+  function pickZoneStatus() {
+    var total = zoneStatuses.reduce(function (s, z) {
+      return s + z.weight
+    }, 0)
     var rand = Math.random() * total
     var acc = 0
     for (var i = 0; i < zoneStatuses.length; i++) {
@@ -583,17 +683,26 @@ var HealthSafety = (function () {
     return zoneStatuses[0]
   }
 
-  function renderZones () {
+  function renderZones() {
     var container = document.getElementById('hs-zoneGrid')
     var html = ''
 
     zoneNames.forEach(function (name) {
       var status = pickZoneStatus()
-      html += '<div class="zone-tile ' + status.cls + '">' +
+      html +=
+        '<div class="zone-tile ' +
+        status.cls +
+        '">' +
         '<span class="zone-light"></span>' +
-        '<span class="zone-name">' + name + '</span>' +
-        '<span class="zone-status-text">' + status.label + '</span>' +
-        '<span class="zone-detail">' + status.detail + '</span>' +
+        '<span class="zone-name">' +
+        name +
+        '</span>' +
+        '<span class="zone-status-text">' +
+        status.label +
+        '</span>' +
+        '<span class="zone-detail">' +
+        status.detail +
+        '</span>' +
         '</div>'
     })
 
@@ -601,29 +710,82 @@ var HealthSafety = (function () {
   }
 
   var alertTemplates = [
-    { type: 'critical', icon: '\uD83D\uDEA8', title: 'Gas leak detected Zone C', detail: 'Evacuate immediately.' },
-    { type: 'critical', icon: '\uD83D\uDEA8', title: 'Forklift collision Bay 3', detail: 'Area cordoned off.' },
-    { type: 'warning', icon: '\u26A0\uFE0F', title: 'PPE violation: Zone B dock', detail: '3 workers without hard hats.' },
-    { type: 'warning', icon: '\u26A0\uFE0F', title: 'Fire drill scheduled 14:00', detail: 'All to assembly points.' },
-    { type: 'info', icon: '\u2139\uFE0F', title: 'Safety training: Fri 09:00', detail: 'Lockout/tagout refresher.' },
-    { type: 'info', icon: '\u2139\uFE0F', title: 'First aid kit restocked', detail: 'Zone A and D kits updated.' },
-    { type: 'warning', icon: '\u26A0\uFE0F', title: 'Noise levels above limit', detail: 'Zone D exceeding 85 dB.' },
-    { type: 'critical', icon: '\uD83D\uDEA8', title: 'Emergency shower offline', detail: 'Chemical lab repair in progress.' }
+    {
+      type: 'critical',
+      icon: '\uD83D\uDEA8',
+      title: 'Gas leak detected Zone C',
+      detail: 'Evacuate immediately.',
+    },
+    {
+      type: 'critical',
+      icon: '\uD83D\uDEA8',
+      title: 'Forklift collision Bay 3',
+      detail: 'Area cordoned off.',
+    },
+    {
+      type: 'warning',
+      icon: '\u26A0\uFE0F',
+      title: 'PPE violation: Zone B dock',
+      detail: '3 workers without hard hats.',
+    },
+    {
+      type: 'warning',
+      icon: '\u26A0\uFE0F',
+      title: 'Fire drill scheduled 14:00',
+      detail: 'All to assembly points.',
+    },
+    {
+      type: 'info',
+      icon: '\u2139\uFE0F',
+      title: 'Safety training: Fri 09:00',
+      detail: 'Lockout/tagout refresher.',
+    },
+    {
+      type: 'info',
+      icon: '\u2139\uFE0F',
+      title: 'First aid kit restocked',
+      detail: 'Zone A and D kits updated.',
+    },
+    {
+      type: 'warning',
+      icon: '\u26A0\uFE0F',
+      title: 'Noise levels above limit',
+      detail: 'Zone D exceeding 85 dB.',
+    },
+    {
+      type: 'critical',
+      icon: '\uD83D\uDEA8',
+      title: 'Emergency shower offline',
+      detail: 'Chemical lab repair in progress.',
+    },
   ]
 
-  function renderAlerts () {
-    var shuffled = alertTemplates.slice().sort(function () { return 0.5 - Math.random() })
+  function renderAlerts() {
+    var shuffled = alertTemplates.slice().sort(function () {
+      return 0.5 - Math.random()
+    })
     var alerts = shuffled.slice(0, 5)
     var container = document.getElementById('hs-alertsList')
     var html = ''
 
     alerts.forEach(function (alert) {
       var minsAgo = randomInt(2, 55)
-      html += '<div class="alert-item ' + alert.type + '">' +
-        '<span class="alert-icon">' + alert.icon + '</span>' +
+      html +=
+        '<div class="alert-item ' +
+        alert.type +
+        '">' +
+        '<span class="alert-icon">' +
+        alert.icon +
+        '</span>' +
         '<div class="alert-content">' +
-        '<div class="alert-title">' + alert.title + '</div>' +
-        '<div class="alert-time">' + minsAgo + 'm ago &middot; ' + alert.detail + '</div>' +
+        '<div class="alert-title">' +
+        alert.title +
+        '</div>' +
+        '<div class="alert-time">' +
+        minsAgo +
+        'm ago &middot; ' +
+        alert.detail +
+        '</div>' +
         '</div>' +
         '</div>'
     })
@@ -633,21 +795,24 @@ var HealthSafety = (function () {
 
   var allCharts = []
 
-  function destroyAllCharts () {
-    allCharts.forEach(function (c) { if (c) c.destroy() })
+  function destroyAllCharts() {
+    allCharts.forEach(function (c) {
+      if (c) c.destroy()
+    })
     allCharts = []
   }
 
-  function initAllCharts () {
+  function initAllCharts() {
     Chart.defaults.color = 'rgba(120, 113, 108, 0.8)'
     Chart.defaults.borderColor = 'rgba(0, 0, 0, 0.06)'
-    Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+    Chart.defaults.font.family =
+      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
     initIncidentChart()
     initZoneHazardChart()
     allCharts = [incidentChart, zoneHazardChart]
   }
 
-  function init () {
+  function init() {
     updateClock()
     updateKPIs()
     initAllCharts()
@@ -682,24 +847,30 @@ var HealthSafety = (function () {
 
 // ── Manufacturing Dashboard ──────────────────────────────────────────────────
 var Manufacturing = (function () {
-  function randomInt (min, max) {
+  function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min
   }
 
-  function randomFloat (min, max, decimals) {
+  function randomFloat(min, max, decimals) {
     return parseFloat((Math.random() * (max - min) + min).toFixed(decimals))
   }
 
-  function updateClock () {
+  function updateClock() {
     var now = new Date()
-    document.getElementById('mfg-headerDate').textContent = now.toLocaleDateString(
-      'en-US',
-      { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }
-    )
-    document.getElementById('mfg-headerTime').textContent = now.toLocaleTimeString(
-      'en-US',
-      { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }
-    )
+    document.getElementById('mfg-headerDate').textContent =
+      now.toLocaleDateString('en-US', {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      })
+    document.getElementById('mfg-headerTime').textContent =
+      now.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+      })
 
     var hour = now.getHours()
     var shift = 'Shift A'
@@ -710,7 +881,7 @@ var Manufacturing = (function () {
 
   var DAILY_TARGET = 2400
 
-  function generateKPIs () {
+  function generateKPIs() {
     var output = randomInt(2280, 2420)
     var targetPct = ((output / DAILY_TARGET) * 100).toFixed(1)
     var utilization = randomFloat(85, 94, 1)
@@ -718,13 +889,21 @@ var Manufacturing = (function () {
     var defectRate = randomFloat(0.8, 2.0, 1)
     var otd = randomFloat(93, 99, 1)
 
-    return { output: output, targetPct: targetPct, utilization: utilization, downtime: downtime, defectRate: defectRate, otd: otd }
+    return {
+      output: output,
+      targetPct: targetPct,
+      utilization: utilization,
+      downtime: downtime,
+      defectRate: defectRate,
+      otd: otd,
+    }
   }
 
-  function updateKPIs () {
+  function updateKPIs() {
     var kpi = generateKPIs()
 
-    document.getElementById('mfg-kpiOutput').textContent = kpi.output.toLocaleString()
+    document.getElementById('mfg-kpiOutput').textContent =
+      kpi.output.toLocaleString()
     document.getElementById('mfg-kpiTarget').textContent = kpi.targetPct + '%'
     document.getElementById('mfg-kpiUtil').textContent = kpi.utilization + '%'
     document.getElementById('mfg-kpiDowntime').textContent = kpi.downtime
@@ -746,12 +925,42 @@ var Manufacturing = (function () {
     }
 
     var trends = [
-      { id: 'mfg-kpiOutputTrend', val: randomFloat(-3, 6, 1), suffix: '%', up: true },
-      { id: 'mfg-kpiTargetTrend', val: randomFloat(-2, 4, 1), suffix: '%', up: true },
-      { id: 'mfg-kpiUtilTrend', val: randomFloat(-2, 4, 1), suffix: '%', up: true },
-      { id: 'mfg-kpiDowntimeTrend', val: randomInt(-15, 15), suffix: ' min', up: false },
-      { id: 'mfg-kpiDefectTrend', val: randomFloat(-0.5, 0.5, 1), suffix: '%', up: false },
-      { id: 'mfg-kpiOTDTrend', val: randomFloat(-1, 2, 1), suffix: '%', up: true }
+      {
+        id: 'mfg-kpiOutputTrend',
+        val: randomFloat(-3, 6, 1),
+        suffix: '%',
+        up: true,
+      },
+      {
+        id: 'mfg-kpiTargetTrend',
+        val: randomFloat(-2, 4, 1),
+        suffix: '%',
+        up: true,
+      },
+      {
+        id: 'mfg-kpiUtilTrend',
+        val: randomFloat(-2, 4, 1),
+        suffix: '%',
+        up: true,
+      },
+      {
+        id: 'mfg-kpiDowntimeTrend',
+        val: randomInt(-15, 15),
+        suffix: ' min',
+        up: false,
+      },
+      {
+        id: 'mfg-kpiDefectTrend',
+        val: randomFloat(-0.5, 0.5, 1),
+        suffix: '%',
+        up: false,
+      },
+      {
+        id: 'mfg-kpiOTDTrend',
+        val: randomFloat(-1, 2, 1),
+        suffix: '%',
+        up: true,
+      },
     ]
 
     trends.forEach(function (t) {
@@ -773,13 +982,13 @@ var Manufacturing = (function () {
     borderWidth: 1,
     padding: 8,
     titleFont: { size: chartFontSize },
-    bodyFont: { size: chartFontSize }
+    bodyFont: { size: chartFontSize },
   }
 
   var productionData = null
   var productionChart = null
 
-  function generateHourlyData () {
+  function generateHourlyData() {
     var hours = []
     var actual = []
     var target = []
@@ -795,11 +1004,16 @@ var Manufacturing = (function () {
     return { hours: hours, actual: actual, target: target }
   }
 
-  function initProductionChart () {
+  function initProductionChart() {
     if (!productionData) productionData = generateHourlyData()
     var ctx = document.getElementById('mfg-productionChart').getContext('2d')
 
-    var gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.clientHeight || 200)
+    var gradient = ctx.createLinearGradient(
+      0,
+      0,
+      0,
+      ctx.canvas.clientHeight || 200,
+    )
     gradient.addColorStop(0, 'rgba(6, 182, 212, 0.3)')
     gradient.addColorStop(0.6, 'rgba(6, 182, 212, 0.08)')
     gradient.addColorStop(1, 'rgba(6, 182, 212, 0)')
@@ -817,7 +1031,7 @@ var Manufacturing = (function () {
             tension: 0.35,
             fill: true,
             borderWidth: 2,
-            pointRadius: 0
+            pointRadius: 0,
           },
           {
             label: 'Target',
@@ -827,9 +1041,9 @@ var Manufacturing = (function () {
             tension: 0,
             fill: false,
             borderWidth: 1.5,
-            pointRadius: 0
-          }
-        ]
+            pointRadius: 0,
+          },
+        ],
       },
       options: {
         responsive: true,
@@ -845,40 +1059,63 @@ var Manufacturing = (function () {
               padding: 10,
               font: { size: chartFontSize },
               color: 'rgba(30, 41, 59, 0.6)',
-              usePointStyle: false
-            }
+              usePointStyle: false,
+            },
           },
-          tooltip: commonTooltip
+          tooltip: commonTooltip,
         },
         scales: {
           y: {
             beginAtZero: true,
             border: { display: false },
             grid: { color: 'rgba(0, 0, 0, 0.06)', drawTicks: false },
-            ticks: { font: { size: chartFontSize }, padding: 4, maxTicksLimit: 5 }
+            ticks: {
+              font: { size: chartFontSize },
+              padding: 4,
+              maxTicksLimit: 5,
+            },
           },
           x: {
             border: { display: false },
             grid: { display: false },
-            ticks: { font: { size: chartFontSize }, padding: 4, maxRotation: 0 }
-          }
-        }
-      }
+            ticks: {
+              font: { size: chartFontSize },
+              padding: 4,
+              maxRotation: 0,
+            },
+          },
+        },
+      },
     })
   }
 
-  var machineNames = ['CNC-01', 'CNC-02', 'CNC-03', 'CNC-04', 'Press-01', 'Press-02', 'Press-03', 'Press-04', 'Weld-01', 'Weld-02', 'Weld-03', 'Asm-01']
+  var machineNames = [
+    'CNC-01',
+    'CNC-02',
+    'CNC-03',
+    'CNC-04',
+    'Press-01',
+    'Press-02',
+    'Press-03',
+    'Press-04',
+    'Weld-01',
+    'Weld-02',
+    'Weld-03',
+    'Asm-01',
+  ]
   var utilizationValues = null
   var utilizationChart = null
 
-  function generateUtilizationData () {
+  function generateUtilizationData() {
     if (!utilizationValues) {
-      utilizationValues = machineNames.map(function () { return randomInt(65, 98) })
+      utilizationValues = machineNames.map(function () {
+        return randomInt(65, 98)
+      })
     }
     return utilizationValues
   }
 
-  function initUtilizationChart () {
+  function initUtilizationChart() {
     var data = generateUtilizationData()
     var ctx = document.getElementById('mfg-utilizationChart').getContext('2d')
 
@@ -892,14 +1129,16 @@ var Manufacturing = (function () {
       type: 'bar',
       data: {
         labels: machineNames,
-        datasets: [{
-          label: 'Utilization %',
-          data: data,
-          backgroundColor: colors,
-          borderRadius: 3,
-          barPercentage: 0.7,
-          categoryPercentage: 0.85
-        }]
+        datasets: [
+          {
+            label: 'Utilization %',
+            data: data,
+            backgroundColor: colors,
+            borderRadius: 3,
+            barPercentage: 0.7,
+            categoryPercentage: 0.85,
+          },
+        ],
       },
       options: {
         responsive: true,
@@ -912,32 +1151,48 @@ var Manufacturing = (function () {
             max: 100,
             border: { display: false },
             grid: { color: 'rgba(0, 0, 0, 0.06)', drawTicks: false },
-            ticks: { font: { size: chartFontSize }, padding: 4, callback: function (v) { return v + '%' } }
+            ticks: {
+              font: { size: chartFontSize },
+              padding: 4,
+              callback: function (v) {
+                return v + '%'
+              },
+            },
           },
           y: {
             border: { display: false },
             grid: { display: false },
-            ticks: { font: { size: chartFontSize }, padding: 4 }
-          }
-        }
-      }
+            ticks: { font: { size: chartFontSize }, padding: 4 },
+          },
+        },
+      },
     })
   }
 
   var downtimeData = null
   var downtimeChart = null
 
-  function generateDowntimeData () {
+  function generateDowntimeData() {
     if (!downtimeData) {
       downtimeData = {
-        labels: ['Maintenance', 'Material Shortage', 'Operator Issue', 'Power / Technical'],
-        values: [randomInt(12, 22), randomInt(8, 15), randomInt(5, 12), randomInt(3, 10)]
+        labels: [
+          'Maintenance',
+          'Material Shortage',
+          'Operator Issue',
+          'Power / Technical',
+        ],
+        values: [
+          randomInt(12, 22),
+          randomInt(8, 15),
+          randomInt(5, 12),
+          randomInt(3, 10),
+        ],
       }
     }
     return downtimeData
   }
 
-  function initDowntimeChart () {
+  function initDowntimeChart() {
     var data = generateDowntimeData()
     var ctx = document.getElementById('mfg-downtimeChart').getContext('2d')
 
@@ -945,18 +1200,20 @@ var Manufacturing = (function () {
       type: 'doughnut',
       data: {
         labels: data.labels,
-        datasets: [{
-          data: data.values,
-          backgroundColor: [
-            'rgba(59, 130, 246, 0.9)',
-            'rgba(251, 191, 36, 0.9)',
-            'rgba(168, 85, 247, 0.9)',
-            'rgba(248, 113, 113, 0.9)'
-          ],
-          borderWidth: 2,
-          borderColor: '#fff',
-          borderRadius: 3
-        }]
+        datasets: [
+          {
+            data: data.values,
+            backgroundColor: [
+              'rgba(59, 130, 246, 0.9)',
+              'rgba(251, 191, 36, 0.9)',
+              'rgba(168, 85, 247, 0.9)',
+              'rgba(248, 113, 113, 0.9)',
+            ],
+            borderWidth: 2,
+            borderColor: '#fff',
+            borderRadius: 3,
+          },
+        ],
       },
       options: {
         responsive: true,
@@ -971,35 +1228,41 @@ var Manufacturing = (function () {
               font: { size: chartFontSize },
               color: 'rgba(30, 41, 59, 0.7)',
               usePointStyle: true,
-              pointStyle: 'circle'
-            }
+              pointStyle: 'circle',
+            },
           },
           tooltip: Object.assign({}, commonTooltip, {
             callbacks: {
               label: function (ctx) {
                 return ' ' + ctx.label + ': ' + ctx.parsed + ' min'
-              }
-            }
-          })
-        }
-      }
+              },
+            },
+          }),
+        },
+      },
     })
   }
 
   var qualityData = null
   var qualityChart = null
 
-  function generateQualityData () {
+  function generateQualityData() {
     if (!qualityData) {
       qualityData = {
         labels: ['Dimensional', 'Surface', 'Assembly', 'Weld', 'Paint'],
-        values: [randomInt(4, 12), randomInt(3, 9), randomInt(2, 7), randomInt(1, 6), randomInt(1, 5)]
+        values: [
+          randomInt(4, 12),
+          randomInt(3, 9),
+          randomInt(2, 7),
+          randomInt(1, 6),
+          randomInt(1, 5),
+        ],
       }
     }
     return qualityData
   }
 
-  function initQualityChart () {
+  function initQualityChart() {
     var data = generateQualityData()
     var ctx = document.getElementById('mfg-qualityChart').getContext('2d')
 
@@ -1007,20 +1270,22 @@ var Manufacturing = (function () {
       type: 'bar',
       data: {
         labels: data.labels,
-        datasets: [{
-          label: 'Defects',
-          data: data.values,
-          backgroundColor: [
-            'rgba(248, 113, 113, 0.85)',
-            'rgba(251, 191, 36, 0.85)',
-            'rgba(168, 85, 247, 0.85)',
-            'rgba(59, 130, 246, 0.85)',
-            'rgba(6, 182, 212, 0.85)'
-          ],
-          borderRadius: 3,
-          barPercentage: 0.65,
-          categoryPercentage: 0.8
-        }]
+        datasets: [
+          {
+            label: 'Defects',
+            data: data.values,
+            backgroundColor: [
+              'rgba(248, 113, 113, 0.85)',
+              'rgba(251, 191, 36, 0.85)',
+              'rgba(168, 85, 247, 0.85)',
+              'rgba(59, 130, 246, 0.85)',
+              'rgba(6, 182, 212, 0.85)',
+            ],
+            borderRadius: 3,
+            barPercentage: 0.65,
+            categoryPercentage: 0.8,
+          },
+        ],
       },
       options: {
         responsive: true,
@@ -1031,29 +1296,48 @@ var Manufacturing = (function () {
             beginAtZero: true,
             border: { display: false },
             grid: { color: 'rgba(0, 0, 0, 0.06)', drawTicks: false },
-            ticks: { font: { size: chartFontSize }, padding: 4, stepSize: 2 }
+            ticks: { font: { size: chartFontSize }, padding: 4, stepSize: 2 },
           },
           x: {
             border: { display: false },
             grid: { display: false },
-            ticks: { font: { size: chartFontSize }, padding: 4, maxRotation: 0 }
-          }
-        }
-      }
+            ticks: {
+              font: { size: chartFontSize },
+              padding: 4,
+              maxRotation: 0,
+            },
+          },
+        },
+      },
     })
   }
 
-  var operators = ['R. Kumar', 'S. Patel', 'J. Torres', 'M. Chen', 'A. Novak', 'D. Williams', 'K. Tanaka', 'P. Morales', 'L. Fischer', 'B. Singh', 'H. Park', 'C. Reeves']
+  var operators = [
+    'R. Kumar',
+    'S. Patel',
+    'J. Torres',
+    'M. Chen',
+    'A. Novak',
+    'D. Williams',
+    'K. Tanaka',
+    'P. Morales',
+    'L. Fischer',
+    'B. Singh',
+    'H. Park',
+    'C. Reeves',
+  ]
   var jobPrefixes = ['ORD-4', 'ORD-5', 'ORD-6', 'ORD-7']
   var statuses = [
     { label: 'Running', cls: 'running', weight: 7 },
     { label: 'Idle', cls: 'idle', weight: 2 },
     { label: 'Maintenance', cls: 'maintenance', weight: 1 },
-    { label: 'Error', cls: 'error', weight: 0.5 }
+    { label: 'Error', cls: 'error', weight: 0.5 },
   ]
 
-  function pickWeightedStatus () {
-    var total = statuses.reduce(function (sum, s) { return sum + s.weight }, 0)
+  function pickWeightedStatus() {
+    var total = statuses.reduce(function (sum, s) {
+      return sum + s.weight
+    }, 0)
     var r = Math.random() * total
     var acc = 0
     for (var i = 0; i < statuses.length; i++) {
@@ -1063,31 +1347,61 @@ var Manufacturing = (function () {
     return statuses[0]
   }
 
-  function generateShopfloor () {
+  function generateShopfloor() {
     return machineNames.map(function (machine, i) {
       var status = pickWeightedStatus()
-      var eff = status.cls === 'running' ? randomInt(78, 99) : status.cls === 'idle' ? randomInt(0, 15) : 0
-      var job = status.cls === 'running' || status.cls === 'idle' ? jobPrefixes[randomInt(0, 3)] + randomInt(100, 999) : '\u2014'
+      var eff =
+        status.cls === 'running'
+          ? randomInt(78, 99)
+          : status.cls === 'idle'
+            ? randomInt(0, 15)
+            : 0
+      var job =
+        status.cls === 'running' || status.cls === 'idle'
+          ? jobPrefixes[randomInt(0, 3)] + randomInt(100, 999)
+          : '\u2014'
       var effClass = 'high'
       if (eff < 70) effClass = 'low'
       else if (eff < 85) effClass = 'medium'
 
-      return { machine: machine, status: status, job: job, operator: operators[i], efficiency: eff, effClass: effClass }
+      return {
+        machine: machine,
+        status: status,
+        job: job,
+        operator: operators[i],
+        efficiency: eff,
+        effClass: effClass,
+      }
     })
   }
 
-  function renderShopfloor () {
+  function renderShopfloor() {
     var rows = generateShopfloor()
     var tbody = document.getElementById('mfg-shopfloorBody')
     var html = ''
 
     rows.forEach(function (row) {
-      html += '<tr>' +
-        '<td>' + row.machine + '</td>' +
-        '<td><span class="status-badge ' + row.status.cls + '"><span class="status-dot"></span>' + row.status.label + '</span></td>' +
-        '<td>' + row.job + '</td>' +
-        '<td>' + row.operator + '</td>' +
-        '<td><span class="efficiency-value ' + row.effClass + '">' + row.efficiency + '%</span></td>' +
+      html +=
+        '<tr>' +
+        '<td>' +
+        row.machine +
+        '</td>' +
+        '<td><span class="status-badge ' +
+        row.status.cls +
+        '"><span class="status-dot"></span>' +
+        row.status.label +
+        '</span></td>' +
+        '<td>' +
+        row.job +
+        '</td>' +
+        '<td>' +
+        row.operator +
+        '</td>' +
+        '<td><span class="efficiency-value ' +
+        row.effClass +
+        '">' +
+        row.efficiency +
+        '%</span></td>' +
         '</tr>'
     })
 
@@ -1095,29 +1409,82 @@ var Manufacturing = (function () {
   }
 
   var alertTemplates = [
-    { type: 'critical', icon: '\u26A0\uFE0F', title: 'CNC-03 unplanned downtime', detail: 'Spindle overtemp fault detected' },
-    { type: 'critical', icon: '\u26A0\uFE0F', title: 'Weld-02 safety interlock', detail: 'E-stop triggered on Line 3' },
-    { type: 'warning', icon: '\u26A0\uFE0F', title: 'Defect rate above 1.5%', detail: 'Surface defects on Press-02 output' },
-    { type: 'warning', icon: '\u26A0\uFE0F', title: 'Material low: AL-6061 bar', detail: 'Reorder threshold reached' },
-    { type: 'info', icon: '\uD83D\uDD27', title: 'PM due: Press-04', detail: 'Scheduled maintenance in 2 hours' },
-    { type: 'info', icon: '\uD83D\uDD27', title: 'Tool change: CNC-01', detail: 'Insert wear limit at 92%' },
-    { type: 'warning', icon: '\u26A0\uFE0F', title: 'OEE drop on Line 2', detail: 'Below 75% for last hour' },
-    { type: 'critical', icon: '\u26A0\uFE0F', title: 'Compressed air pressure low', detail: 'Main header below 85 PSI' }
+    {
+      type: 'critical',
+      icon: '\u26A0\uFE0F',
+      title: 'CNC-03 unplanned downtime',
+      detail: 'Spindle overtemp fault detected',
+    },
+    {
+      type: 'critical',
+      icon: '\u26A0\uFE0F',
+      title: 'Weld-02 safety interlock',
+      detail: 'E-stop triggered on Line 3',
+    },
+    {
+      type: 'warning',
+      icon: '\u26A0\uFE0F',
+      title: 'Defect rate above 1.5%',
+      detail: 'Surface defects on Press-02 output',
+    },
+    {
+      type: 'warning',
+      icon: '\u26A0\uFE0F',
+      title: 'Material low: AL-6061 bar',
+      detail: 'Reorder threshold reached',
+    },
+    {
+      type: 'info',
+      icon: '\uD83D\uDD27',
+      title: 'PM due: Press-04',
+      detail: 'Scheduled maintenance in 2 hours',
+    },
+    {
+      type: 'info',
+      icon: '\uD83D\uDD27',
+      title: 'Tool change: CNC-01',
+      detail: 'Insert wear limit at 92%',
+    },
+    {
+      type: 'warning',
+      icon: '\u26A0\uFE0F',
+      title: 'OEE drop on Line 2',
+      detail: 'Below 75% for last hour',
+    },
+    {
+      type: 'critical',
+      icon: '\u26A0\uFE0F',
+      title: 'Compressed air pressure low',
+      detail: 'Main header below 85 PSI',
+    },
   ]
 
-  function renderAlerts () {
-    var shuffled = alertTemplates.slice().sort(function () { return 0.5 - Math.random() })
+  function renderAlerts() {
+    var shuffled = alertTemplates.slice().sort(function () {
+      return 0.5 - Math.random()
+    })
     var alerts = shuffled.slice(0, 5)
     var container = document.getElementById('mfg-alertsList')
     var html = ''
 
     alerts.forEach(function (alert) {
       var minsAgo = randomInt(2, 45)
-      html += '<div class="alert-item ' + alert.type + '">' +
-        '<span class="alert-icon">' + alert.icon + '</span>' +
+      html +=
+        '<div class="alert-item ' +
+        alert.type +
+        '">' +
+        '<span class="alert-icon">' +
+        alert.icon +
+        '</span>' +
         '<div class="alert-content">' +
-        '<div class="alert-title">' + alert.title + '</div>' +
-        '<div class="alert-time">' + minsAgo + 'm ago &middot; ' + alert.detail + '</div>' +
+        '<div class="alert-title">' +
+        alert.title +
+        '</div>' +
+        '<div class="alert-time">' +
+        minsAgo +
+        'm ago &middot; ' +
+        alert.detail +
+        '</div>' +
         '</div>' +
         '</div>'
     })
@@ -1127,15 +1494,18 @@ var Manufacturing = (function () {
 
   var allCharts = []
 
-  function destroyAllCharts () {
-    allCharts.forEach(function (c) { if (c) c.destroy() })
+  function destroyAllCharts() {
+    allCharts.forEach(function (c) {
+      if (c) c.destroy()
+    })
     allCharts = []
   }
 
-  function initAllCharts () {
+  function initAllCharts() {
     Chart.defaults.color = 'rgba(30, 41, 59, 0.6)'
     Chart.defaults.borderColor = 'rgba(0, 0, 0, 0.06)'
-    Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+    Chart.defaults.font.family =
+      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
     initProductionChart()
     initUtilizationChart()
     initDowntimeChart()
@@ -1143,7 +1513,7 @@ var Manufacturing = (function () {
     allCharts = [productionChart, utilizationChart, downtimeChart, qualityChart]
   }
 
-  function init () {
+  function init() {
     updateClock()
     updateKPIs()
     initAllCharts()
@@ -1177,22 +1547,30 @@ var Manufacturing = (function () {
 
 // ── Production QA Dashboard ──────────────────────────────────────────────────
 var ProductionQA = (function () {
-  function randomInt (min, max) {
+  function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min
   }
 
-  function randomFloat (min, max, dec) {
+  function randomFloat(min, max, dec) {
     return parseFloat((Math.random() * (max - min) + min).toFixed(dec))
   }
 
-  function updateClock () {
+  function updateClock() {
     var now = new Date()
-    document.getElementById('qa-headerDate').textContent = now.toLocaleDateString(
-      'en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }
-    )
-    document.getElementById('qa-headerTime').textContent = now.toLocaleTimeString(
-      'en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }
-    )
+    document.getElementById('qa-headerDate').textContent =
+      now.toLocaleDateString('en-US', {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      })
+    document.getElementById('qa-headerTime').textContent =
+      now.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+      })
     var h = now.getHours()
     var shift = 'Shift A'
     if (h >= 14 && h < 22) shift = 'Shift B'
@@ -1202,21 +1580,21 @@ var ProductionQA = (function () {
 
   var FPY_TARGET = 97.2
 
-  function setCardStatus (id, status) {
+  function setCardStatus(id, status) {
     var el = document.getElementById(id)
     el.classList.remove('st-amber', 'st-red')
     if (status === 'red') el.classList.add('st-red')
     else if (status === 'amber') el.classList.add('st-amber')
   }
 
-  function setTrend (id, value, isPositive) {
+  function setTrend(id, value, isPositive) {
     var el = document.getElementById(id)
     var arrow = isPositive ? '\u25B2' : '\u25BC'
     el.textContent = arrow + ' ' + value
     el.className = 'kpi-trend ' + (isPositive ? 'positive' : 'negative')
   }
 
-  function updateKPIs () {
+  function updateKPIs() {
     var fpy = randomFloat(95.0, 99.5, 1)
     var defect = randomFloat(1.5, 4.5, 1)
     var scrap = randomFloat(0.5, 2.5, 1)
@@ -1225,33 +1603,53 @@ var ProductionQA = (function () {
     var complaints = randomInt(1, 7)
 
     document.getElementById('qa-kpiFpy').textContent = fpy.toFixed(1) + '%'
-    document.getElementById('qa-kpiDefect').textContent = defect.toFixed(1) + '%'
+    document.getElementById('qa-kpiDefect').textContent =
+      defect.toFixed(1) + '%'
     document.getElementById('qa-kpiScrap').textContent = scrap.toFixed(1) + '%'
-    document.getElementById('qa-kpiRework').textContent = rework.toFixed(1) + '%'
+    document.getElementById('qa-kpiRework').textContent =
+      rework.toFixed(1) + '%'
     document.getElementById('qa-kpiAudit').textContent = audit + '%'
     document.getElementById('qa-kpiComplaints').textContent = complaints
 
-    setCardStatus('qa-cardFpy', fpy < 95 ? 'red' : fpy < FPY_TARGET ? 'amber' : '')
+    setCardStatus(
+      'qa-cardFpy',
+      fpy < 95 ? 'red' : fpy < FPY_TARGET ? 'amber' : '',
+    )
     var fpyD = randomFloat(-1.0, 1.5, 1)
     setTrend('qa-trendFpy', Math.abs(fpyD) + '% vs target', fpyD >= 0)
 
-    setCardStatus('qa-cardDefect', defect > 4 ? 'red' : defect > 2.8 ? 'amber' : '')
+    setCardStatus(
+      'qa-cardDefect',
+      defect > 4 ? 'red' : defect > 2.8 ? 'amber' : '',
+    )
     var defD = randomFloat(-0.8, 0.6, 1)
     setTrend('qa-trendDefect', Math.abs(defD) + '%', defD <= 0)
 
-    setCardStatus('qa-cardScrap', scrap > 2.0 ? 'red' : scrap > 1.2 ? 'amber' : '')
+    setCardStatus(
+      'qa-cardScrap',
+      scrap > 2.0 ? 'red' : scrap > 1.2 ? 'amber' : '',
+    )
     var scrD = randomFloat(-0.5, 0.4, 1)
     setTrend('qa-trendScrap', Math.abs(scrD) + '%', scrD <= 0)
 
-    setCardStatus('qa-cardRework', rework > 1.5 ? 'red' : rework > 0.8 ? 'amber' : '')
+    setCardStatus(
+      'qa-cardRework',
+      rework > 1.5 ? 'red' : rework > 0.8 ? 'amber' : '',
+    )
     var rwD = randomFloat(-0.4, 0.3, 1)
     setTrend('qa-trendRework', Math.abs(rwD) + '%', rwD <= 0)
 
-    setCardStatus('qa-cardAudit', audit < 80 ? 'red' : audit < 90 ? 'amber' : '')
+    setCardStatus(
+      'qa-cardAudit',
+      audit < 80 ? 'red' : audit < 90 ? 'amber' : '',
+    )
     var auD = randomInt(-3, 5)
     setTrend('qa-trendAudit', Math.abs(auD) + ' pts', auD >= 0)
 
-    setCardStatus('qa-cardComplaints', complaints >= 6 ? 'red' : complaints >= 4 ? 'amber' : '')
+    setCardStatus(
+      'qa-cardComplaints',
+      complaints >= 6 ? 'red' : complaints >= 4 ? 'amber' : '',
+    )
     var coD = randomInt(-3, 2)
     setTrend('qa-trendComplaints', Math.abs(coD) + ' vs last mo', coD <= 0)
   }
@@ -1261,19 +1659,24 @@ var ProductionQA = (function () {
     { name: 'Surface Damage', min: 12, max: 25 },
     { name: 'Assembly Issue', min: 8, max: 18 },
     { name: 'Paint Defect', min: 5, max: 14 },
-    { name: 'Weld Porosity', min: 3, max: 10 }
+    { name: 'Weld Porosity', min: 3, max: 10 },
   ]
 
   var DEFECT_COLORS = [
-    'var(--kpi-red)', 'var(--kpi-amber)', 'var(--accent-purple)',
-    'var(--accent-blue)', 'var(--accent-cyan)'
+    'var(--kpi-red)',
+    'var(--kpi-amber)',
+    'var(--accent-purple)',
+    'var(--accent-blue)',
+    'var(--accent-cyan)',
   ]
 
-  function renderDefectBreakdown () {
+  function renderDefectBreakdown() {
     var cats = DEFECT_CATS.map(function (c) {
       return { name: c.name, pct: randomInt(c.min, c.max) }
     })
-    cats.sort(function (a, b) { return b.pct - a.pct })
+    cats.sort(function (a, b) {
+      return b.pct - a.pct
+    })
     var maxPct = cats[0].pct
 
     var container = document.getElementById('qa-defectBreakdown')
@@ -1281,11 +1684,20 @@ var ProductionQA = (function () {
 
     cats.forEach(function (c, i) {
       var barW = Math.round((c.pct / maxPct) * 100)
-      html += '<div class="db-row">' +
-        '<span class="db-name">' + c.name + '</span>' +
-        '<span class="db-pct">' + c.pct + '%</span>' +
+      html +=
+        '<div class="db-row">' +
+        '<span class="db-name">' +
+        c.name +
+        '</span>' +
+        '<span class="db-pct">' +
+        c.pct +
+        '%</span>' +
         '<div class="db-bar-track">' +
-          '<div class="db-bar-fill" style="width:' + barW + '%;background:' + DEFECT_COLORS[i] + '"></div>' +
+        '<div class="db-bar-fill" style="width:' +
+        barW +
+        '%;background:' +
+        DEFECT_COLORS[i] +
+        '"></div>' +
         '</div>' +
         '</div>'
     })
@@ -1293,7 +1705,7 @@ var ProductionQA = (function () {
     container.innerHTML = html
   }
 
-  function renderThroughput () {
+  function renderThroughput() {
     var perHr = randomInt(82, 108)
     var target = 100
     var totalToday = randomInt(1400, 1950)
@@ -1304,25 +1716,42 @@ var ProductionQA = (function () {
     if (pct < 80) color = 'var(--kpi-red)'
     else if (pct < 90) color = 'var(--kpi-amber)'
 
-    var gradient = 'conic-gradient(' + color + ' 0deg ' + deg + 'deg, rgba(0,0,0,0.06) ' + deg + 'deg 360deg)'
+    var gradient =
+      'conic-gradient(' +
+      color +
+      ' 0deg ' +
+      deg +
+      'deg, rgba(0,0,0,0.06) ' +
+      deg +
+      'deg 360deg)'
 
     document.getElementById('qa-throughput').innerHTML =
-      '<div class="gauge-ring" style="background:' + gradient + '">' +
-        '<div class="gauge-inner">' +
-          '<span class="gauge-val">' + perHr + '</span>' +
-          '<span class="gauge-unit">per hr</span>' +
-        '</div>' +
+      '<div class="gauge-ring" style="background:' +
+      gradient +
+      '">' +
+      '<div class="gauge-inner">' +
+      '<span class="gauge-val">' +
+      perHr +
+      '</span>' +
+      '<span class="gauge-unit">per hr</span>' +
+      '</div>' +
       '</div>' +
       '<div class="gauge-info">' +
-        '<span class="gauge-info-primary">' + totalToday.toLocaleString() + '</span>' +
-        '<span class="gauge-info-label">Inspected Today</span>' +
-        '<span class="gauge-info-sub">Target: ' + target + '/hr &middot; ' + pct + '%</span>' +
+      '<span class="gauge-info-primary">' +
+      totalToday.toLocaleString() +
+      '</span>' +
+      '<span class="gauge-info-label">Inspected Today</span>' +
+      '<span class="gauge-info-sub">Target: ' +
+      target +
+      '/hr &middot; ' +
+      pct +
+      '%</span>' +
       '</div>'
   }
 
   var DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
-  function renderTrend () {
+  function renderTrend() {
     var values = []
     for (var i = 0; i < 7; i++) {
       values.push(randomFloat(94.5, 99.5, 1))
@@ -1338,10 +1767,19 @@ var ProductionQA = (function () {
       if (v < 95) color = 'var(--kpi-red)'
       else if (v < FPY_TARGET) color = 'var(--kpi-amber)'
 
-      html += '<div class="trend-col">' +
-        '<span class="trend-val">' + v.toFixed(1) + '</span>' +
-        '<div class="trend-bar" style="height:' + hPct + '%;background:' + color + '"></div>' +
-        '<span class="trend-day">' + DAYS[i] + '</span>' +
+      html +=
+        '<div class="trend-col">' +
+        '<span class="trend-val">' +
+        v.toFixed(1) +
+        '</span>' +
+        '<div class="trend-bar" style="height:' +
+        hPct +
+        '%;background:' +
+        color +
+        '"></div>' +
+        '<span class="trend-day">' +
+        DAYS[i] +
+        '</span>' +
         '</div>'
     })
     html += '</div>'
@@ -1349,57 +1787,88 @@ var ProductionQA = (function () {
     document.getElementById('qa-trendChart').innerHTML = html
   }
 
-  var LINE_COLORS = ['var(--kpi-red)', 'var(--kpi-amber)', 'var(--accent-blue)', 'var(--accent-cyan)']
+  var LINE_COLORS = [
+    'var(--kpi-red)',
+    'var(--kpi-amber)',
+    'var(--accent-blue)',
+    'var(--accent-cyan)',
+  ]
 
-  function renderLineDefects () {
+  function renderLineDefects() {
     var lines = [
       { name: 'Line A', count: randomInt(8, 18) },
       { name: 'Line B', count: randomInt(4, 14) },
       { name: 'Line C', count: randomInt(2, 10) },
-      { name: 'Line D', count: randomInt(1, 8) }
+      { name: 'Line D', count: randomInt(1, 8) },
     ]
-    lines.sort(function (a, b) { return b.count - a.count })
+    lines.sort(function (a, b) {
+      return b.count - a.count
+    })
     var max = lines[0].count || 1
 
     var html = ''
     lines.forEach(function (l, i) {
       var pct = Math.round((l.count / max) * 100)
-      html += '<div class="ld-row">' +
-        '<span class="ld-name">' + l.name + '</span>' +
+      html +=
+        '<div class="ld-row">' +
+        '<span class="ld-name">' +
+        l.name +
+        '</span>' +
         '<div class="ld-bar-track">' +
-          '<div class="ld-bar-fill" style="width:' + pct + '%;background:' + LINE_COLORS[i] + '"></div>' +
+        '<div class="ld-bar-fill" style="width:' +
+        pct +
+        '%;background:' +
+        LINE_COLORS[i] +
+        '"></div>' +
         '</div>' +
-        '<span class="ld-count">' + l.count + '</span>' +
+        '<span class="ld-count">' +
+        l.count +
+        '</span>' +
         '</div>'
     })
 
     document.getElementById('qa-lineDefects').innerHTML = html
   }
 
-  function renderBatchStatus () {
+  function renderBatchStatus() {
     var total = randomInt(40, 60)
     var fail = randomInt(1, 6)
     var pass = total - fail
     var passPct = ((pass / total) * 100).toFixed(1)
     var passDeg = Math.round((pass / total) * 360)
 
-    var gradient = 'conic-gradient(var(--kpi-green) 0deg ' + passDeg + 'deg, var(--kpi-red) ' + passDeg + 'deg 360deg)'
+    var gradient =
+      'conic-gradient(var(--kpi-green) 0deg ' +
+      passDeg +
+      'deg, var(--kpi-red) ' +
+      passDeg +
+      'deg 360deg)'
 
     document.getElementById('qa-batchStatus').innerHTML =
-      '<div class="gauge-ring" style="background:' + gradient + '">' +
-        '<div class="gauge-inner">' +
-          '<span class="gauge-val">' + passPct + '%</span>' +
-          '<span class="gauge-unit">pass rate</span>' +
-        '</div>' +
+      '<div class="gauge-ring" style="background:' +
+      gradient +
+      '">' +
+      '<div class="gauge-inner">' +
+      '<span class="gauge-val">' +
+      passPct +
+      '%</span>' +
+      '<span class="gauge-unit">pass rate</span>' +
+      '</div>' +
       '</div>' +
       '<div class="bs-info">' +
-        '<div class="bs-row"><span class="bs-count pass">' + pass + '</span><span class="bs-label">Passed</span></div>' +
-        '<div class="bs-row"><span class="bs-count fail">' + fail + '</span><span class="bs-label">Failed</span></div>' +
-        '<span class="bs-total">' + total + ' batches inspected</span>' +
+      '<div class="bs-row"><span class="bs-count pass">' +
+      pass +
+      '</span><span class="bs-label">Passed</span></div>' +
+      '<div class="bs-row"><span class="bs-count fail">' +
+      fail +
+      '</span><span class="bs-label">Failed</span></div>' +
+      '<span class="bs-total">' +
+      total +
+      ' batches inspected</span>' +
       '</div>'
   }
 
-  function renderCOPQ () {
+  function renderCOPQ() {
     var scrapCost = randomFloat(5.0, 12.0, 1)
     var reworkCost = randomFloat(1.5, 5.0, 1)
     var warrantyCost = randomFloat(0.5, 3.0, 1)
@@ -1411,29 +1880,45 @@ var ProductionQA = (function () {
       { label: 'Scrap', val: scrapCost, color: 'var(--kpi-red)' },
       { label: 'Rework', val: reworkCost, color: 'var(--kpi-amber)' },
       { label: 'Warranty', val: warrantyCost, color: 'var(--accent-blue)' },
-      { label: 'Inspection', val: inspectionCost, color: 'var(--accent-purple)' }
+      {
+        label: 'Inspection',
+        val: inspectionCost,
+        color: 'var(--accent-purple)',
+      },
     ]
 
-    var html = '<div class="copq-total">' +
+    var html =
+      '<div class="copq-total">' +
       '<span class="copq-total-label">Total COPQ</span>' +
-      '<span class="copq-total-val">$' + total.toFixed(1) + 'K</span>' +
+      '<span class="copq-total-val">$' +
+      total.toFixed(1) +
+      'K</span>' +
       '</div>'
 
     items.forEach(function (item) {
       var pct = Math.round((item.val / max) * 100)
-      html += '<div class="copq-row">' +
-        '<span class="copq-label">' + item.label + '</span>' +
+      html +=
+        '<div class="copq-row">' +
+        '<span class="copq-label">' +
+        item.label +
+        '</span>' +
         '<div class="copq-bar-track">' +
-          '<div class="copq-bar-fill" style="width:' + pct + '%;background:' + item.color + '"></div>' +
+        '<div class="copq-bar-fill" style="width:' +
+        pct +
+        '%;background:' +
+        item.color +
+        '"></div>' +
         '</div>' +
-        '<span class="copq-val">$' + item.val.toFixed(1) + 'K</span>' +
+        '<span class="copq-val">$' +
+        item.val.toFixed(1) +
+        'K</span>' +
         '</div>'
     })
 
     document.getElementById('qa-copq').innerHTML = html
   }
 
-  function refreshAll () {
+  function refreshAll() {
     updateKPIs()
     renderDefectBreakdown()
     renderThroughput()
@@ -1443,7 +1928,7 @@ var ProductionQA = (function () {
     renderCOPQ()
   }
 
-  function init () {
+  function init() {
     updateClock()
     refreshAll()
     setInterval(updateClock, 1000)
@@ -1461,7 +1946,7 @@ window.addEventListener('load', function () {
     'website-traffic': 'dash-website',
     'health-safety': 'dash-health-safety',
     'manufacturing-kpi': 'dash-manufacturing',
-    'production-qa': 'dash-production-qa'
+    'production-qa': 'dash-production-qa',
   }
 
   var viewId = viewMap[dashboard] || 'dash-website'
