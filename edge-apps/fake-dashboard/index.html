@@ -6,72 +6,377 @@
     <script src="screenly.js?version=1"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="stylesheet" href="static/css/health-safety.css">
+    <link rel="stylesheet" href="static/css/manufacturing.css">
+    <link rel="stylesheet" href="static/css/production-qa.css">
     <script src="static/js/chart.min.js"></script>
   </head>
   <body>
-    <div class="dashboard">
-      <div class="dashboard-header">
-        <h1>Website Traffic</h1>
+
+    <!-- Website Traffic Dashboard (default) -->
+    <div id="dash-website" class="dash-view">
+      <div class="dashboard">
+        <div class="dashboard-header">
+          <h1>Website Traffic</h1>
+        </div>
+        <div class="main-content">
+          <div class="page-views-card">
+            <h2>Monthly Page Views</h2>
+            <div class="page-views-container">
+              <canvas id="pageViewsChart"></canvas>
+            </div>
+          </div>
+
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="icon purple-bg">👥</div>
+              <h3>Total Users</h3>
+              <div class="metric-value" id="usersValue">75.1k</div>
+              <div class="metric-change positive" id="usersChange">+29%</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="icon purple-bg">🔄</div>
+              <h3>Total Sessions</h3>
+              <div class="metric-value" id="sessionsValue">81.5k</div>
+              <div class="metric-change positive" id="sessionsChange">+43%</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="icon purple-bg">↩️</div>
+              <h3>Bounce Rate</h3>
+              <div class="metric-value" id="bounceValue">25.0%</div>
+              <div class="metric-change negative" id="bounceChange">-25%</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="icon purple-bg">⏱️</div>
+              <h3>Avg. Session Duration</h3>
+              <div class="metric-value" id="durationValue">2m 35s</div>
+              <div class="metric-change positive" id="durationChange">+11%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar">
+          <div class="device-card">
+            <h2>Device Breakdown</h2>
+            <div class="device-chart-container">
+              <canvas id="deviceChart"></canvas>
+            </div>
+          </div>
+
+          <div class="sources-card">
+            <h2>Traffic Sources</h2>
+            <div class="sessions-source" id="sourcesContainer">
+              <!-- Will be populated by JavaScript -->
+            </div>
+          </div>
+
+          <div class="realtime-card">
+            <h2>Live Visitors</h2>
+            <div class="realtime-value" id="realtimeValue">1,234</div>
+            <div class="realtime-label">current visitors on site</div>
+          </div>
+        </div>
       </div>
-      <div class="main-content">
-        <div class="page-views-card">
-          <h2>Monthly Page Views</h2>
-          <div class="page-views-container">
-            <canvas id="pageViewsChart"></canvas>
-          </div>
-        </div>
+    </div>
 
-        <div class="metrics-grid">
-          <div class="metric-card">
-            <div class="icon purple-bg">👥</div>
-            <h3>Total Users</h3>
-            <div class="metric-value" id="usersValue">75.1k</div>
-            <div class="metric-change positive" id="usersChange">+29%</div>
-          </div>
+    <!-- Health & Safety Dashboard -->
+    <div id="dash-health-safety" class="dash-view">
+      <div class="dashboard">
 
-          <div class="metric-card">
-            <div class="icon purple-bg">🔄</div>
-            <h3>Total Sessions</h3>
-            <div class="metric-value" id="sessionsValue">81.5k</div>
-            <div class="metric-change positive" id="sessionsChange">+43%</div>
+        <header class="dash-header">
+          <div class="header-brand">
+            <div class="shield-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="M9 12l2 2 4-4"/>
+              </svg>
+            </div>
+            <div class="header-titles">
+              <h1>Health &amp; Safety Dashboard</h1>
+              <span class="site-name">Riverside Industrial Complex &ndash; Zone A-D</span>
+            </div>
+            <div class="safety-score" id="safetyScore">
+              <span class="score-value">94</span>
+              <span class="score-label">Safety Score</span>
+            </div>
           </div>
+          <div class="header-datetime">
+            <span class="header-date" id="hs-headerDate"></span>
+            <span class="header-time" id="hs-headerTime"></span>
+          </div>
+        </header>
 
-          <div class="metric-card">
-            <div class="icon purple-bg">↩️</div>
-            <h3>Bounce Rate</h3>
-            <div class="metric-value" id="bounceValue">25.0%</div>
-            <div class="metric-change negative" id="bounceChange">-25%</div>
+        <section class="kpi-row">
+          <div class="kpi-hero">
+            <span class="hero-label">Days Without Incident</span>
+            <span class="hero-value" id="hs-daysWithout">127</span>
+            <span class="hero-sub">Last incident: <span id="hs-lastIncidentDate">Oct 15, 2025</span></span>
           </div>
+          <div class="kpi-card kpi-hazards">
+            <div class="kpi-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <span class="kpi-val" id="hs-kpiHazards">7</span>
+            <span class="kpi-lbl">Open Hazards</span>
+            <span class="kpi-trend negative" id="hs-kpiHazardsTrend">&#9650; 2</span>
+          </div>
+          <div class="kpi-card kpi-nearmiss">
+            <div class="kpi-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+            </div>
+            <span class="kpi-val" id="hs-kpiNearMiss">4</span>
+            <span class="kpi-lbl">Near Misses</span>
+            <span class="kpi-trend positive" id="hs-kpiNearMissTrend">&#9660; 2</span>
+          </div>
+          <div class="kpi-card kpi-ppe">
+            <div class="kpi-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                <path d="M9 12l2 2 4-4"/>
+              </svg>
+            </div>
+            <span class="kpi-val" id="hs-kpiPPE">97%</span>
+            <span class="kpi-lbl">PPE Compliance</span>
+            <span class="kpi-trend positive" id="hs-kpiPPETrend">&#9650; 1%</span>
+          </div>
+          <div class="kpi-card kpi-firstaid">
+            <div class="kpi-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+            </div>
+            <span class="kpi-val" id="hs-kpiFirstAid">2</span>
+            <span class="kpi-lbl">First Aid Cases</span>
+            <span class="kpi-trend positive" id="hs-kpiFirstAidTrend">&#9660; 1</span>
+          </div>
+        </section>
 
-          <div class="metric-card">
-            <div class="icon purple-bg">⏱️</div>
-            <h3>Avg. Session Duration</h3>
-            <div class="metric-value" id="durationValue">2m 35s</div>
-            <div class="metric-change positive" id="durationChange">+11%</div>
+        <section class="charts-row">
+          <div class="chart-card">
+            <h2>Incident Trend (12 Months)</h2>
+            <div class="chart-container"><canvas id="hs-incidentChart"></canvas></div>
           </div>
-        </div>
+          <div class="chart-card">
+            <h2>Hazards by Zone</h2>
+            <div class="chart-container"><canvas id="hs-zoneHazardChart"></canvas></div>
+          </div>
+        </section>
+
+        <section class="bottom-row">
+          <div class="zone-card">
+            <h2>Zone Safety Status</h2>
+            <div class="zone-grid" id="hs-zoneGrid"></div>
+          </div>
+          <div class="alerts-card">
+            <h2>Safety Notices</h2>
+            <div class="alerts-list" id="hs-alertsList"></div>
+          </div>
+        </section>
+
       </div>
+    </div>
 
-      <div class="sidebar">
-        <div class="device-card">
-          <h2>Device Breakdown</h2>
-          <div class="device-chart-container">
-            <canvas id="deviceChart"></canvas>
+    <!-- Manufacturing KPI Dashboard -->
+    <div id="dash-manufacturing" class="dash-view">
+      <div class="dashboard">
+
+        <header class="dashboard-header">
+          <div class="header-left">
+            <h1>Manufacturing Operations Dashboard</h1>
+            <span class="plant-name">Plant A &ndash; Production Unit</span>
           </div>
-        </div>
-
-        <div class="sources-card">
-          <h2>Traffic Sources</h2>
-          <div class="sessions-source" id="sourcesContainer">
-            <!-- Will be populated by JavaScript -->
+          <div class="header-right">
+            <div class="header-datetime">
+              <span class="header-date" id="mfg-headerDate"></span>
+              <span class="header-time" id="mfg-headerTime"></span>
+            </div>
+            <div class="shift-badge" id="mfg-shiftBadge">Shift A</div>
           </div>
-        </div>
+        </header>
 
-        <div class="realtime-card">
-          <h2>Live Visitors</h2>
-          <div class="realtime-value" id="realtimeValue">1,234</div>
-          <div class="realtime-label">current visitors on site</div>
-        </div>
+        <section class="kpi-row">
+          <div class="kpi-card">
+            <span class="kpi-label">Total Output</span>
+            <span class="kpi-value" id="mfg-kpiOutput">2,347</span>
+            <span class="kpi-unit">units today</span>
+            <span class="kpi-trend positive" id="mfg-kpiOutputTrend">&#9650; 4.2%</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">Target vs Actual</span>
+            <span class="kpi-value" id="mfg-kpiTarget">97.8%</span>
+            <span class="kpi-unit">of 2,400 target</span>
+            <span class="kpi-trend positive" id="mfg-kpiTargetTrend">&#9650; 1.3%</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">Machine Utilization</span>
+            <span class="kpi-value" id="mfg-kpiUtil">88.5%</span>
+            <span class="kpi-unit">avg across lines</span>
+            <span class="kpi-trend positive" id="mfg-kpiUtilTrend">&#9650; 2.1%</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">Downtime</span>
+            <span class="kpi-value amber" id="mfg-kpiDowntime">47</span>
+            <span class="kpi-unit">minutes today</span>
+            <span class="kpi-trend negative" id="mfg-kpiDowntimeTrend">&#9650; 12 min</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">Defect Rate</span>
+            <span class="kpi-value" id="mfg-kpiDefect">1.2%</span>
+            <span class="kpi-unit">of total output</span>
+            <span class="kpi-trend positive" id="mfg-kpiDefectTrend">&#9660; 0.3%</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">On-Time Delivery</span>
+            <span class="kpi-value" id="mfg-kpiOTD">96.4%</span>
+            <span class="kpi-unit">shipments on schedule</span>
+            <span class="kpi-trend positive" id="mfg-kpiOTDTrend">&#9650; 0.8%</span>
+          </div>
+        </section>
+
+        <section class="charts-row">
+          <div class="chart-card chart-production">
+            <h2>Production Trend</h2>
+            <div class="chart-container">
+              <canvas id="mfg-productionChart"></canvas>
+            </div>
+          </div>
+          <div class="chart-card chart-utilization">
+            <h2>Machine Utilization</h2>
+            <div class="chart-container">
+              <canvas id="mfg-utilizationChart"></canvas>
+            </div>
+          </div>
+          <div class="chart-card chart-downtime">
+            <h2>Downtime Breakdown</h2>
+            <div class="chart-container">
+              <canvas id="mfg-downtimeChart"></canvas>
+            </div>
+          </div>
+        </section>
+
+        <section class="bottom-row">
+          <div class="shopfloor-card">
+            <h2>Shopfloor Status</h2>
+            <div class="table-wrapper">
+              <table class="shopfloor-table">
+                <thead>
+                  <tr>
+                    <th>Machine</th>
+                    <th>Status</th>
+                    <th>Job</th>
+                    <th>Operator</th>
+                    <th>Eff %</th>
+                  </tr>
+                </thead>
+                <tbody id="mfg-shopfloorBody">
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="quality-card">
+            <h2>Quality Defects</h2>
+            <div class="chart-container">
+              <canvas id="mfg-qualityChart"></canvas>
+            </div>
+          </div>
+
+          <div class="alerts-card">
+            <h2>Alerts</h2>
+            <div class="alerts-list" id="mfg-alertsList">
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Production QA Dashboard -->
+    <div id="dash-production-qa" class="dash-view">
+      <div class="dashboard">
+
+        <header class="dashboard-header">
+          <div class="header-left">
+            <h1>QA / QC Metrics Dashboard</h1>
+            <span class="plant-name">Production Line A</span>
+          </div>
+          <div class="header-right">
+            <div class="header-datetime">
+              <span class="header-date" id="qa-headerDate"></span>
+              <span class="header-time" id="qa-headerTime"></span>
+            </div>
+            <div class="shift-badge" id="qa-shiftBadge">Shift A</div>
+          </div>
+        </header>
+
+        <section class="kpi-row">
+          <div class="kpi-card" id="qa-cardFpy">
+            <span class="kpi-label">First Pass Yield</span>
+            <span class="kpi-value" id="qa-kpiFpy">97.3%</span>
+            <span class="kpi-trend" id="qa-trendFpy"></span>
+          </div>
+          <div class="kpi-card" id="qa-cardDefect">
+            <span class="kpi-label">Defect Rate</span>
+            <span class="kpi-value" id="qa-kpiDefect">2.7%</span>
+            <span class="kpi-trend" id="qa-trendDefect"></span>
+          </div>
+          <div class="kpi-card" id="qa-cardScrap">
+            <span class="kpi-label">Scrap Rate</span>
+            <span class="kpi-value" id="qa-kpiScrap">1.2%</span>
+            <span class="kpi-trend" id="qa-trendScrap"></span>
+          </div>
+          <div class="kpi-card" id="qa-cardRework">
+            <span class="kpi-label">Rework Rate</span>
+            <span class="kpi-value" id="qa-kpiRework">0.8%</span>
+            <span class="kpi-trend" id="qa-trendRework"></span>
+          </div>
+          <div class="kpi-card" id="qa-cardAudit">
+            <span class="kpi-label">Audit Score</span>
+            <span class="kpi-value" id="qa-kpiAudit">94%</span>
+            <span class="kpi-trend" id="qa-trendAudit"></span>
+          </div>
+          <div class="kpi-card" id="qa-cardComplaints">
+            <span class="kpi-label">Complaints MTD</span>
+            <span class="kpi-value" id="qa-kpiComplaints">3</span>
+            <span class="kpi-trend" id="qa-trendComplaints"></span>
+          </div>
+        </section>
+
+        <section class="panels-grid">
+          <div class="panel-card">
+            <h2>Top Defect Categories</h2>
+            <div class="defect-breakdown" id="qa-defectBreakdown"></div>
+          </div>
+          <div class="panel-card">
+            <h2>Inspection Throughput</h2>
+            <div class="throughput" id="qa-throughput"></div>
+          </div>
+          <div class="panel-card">
+            <h2>Quality Trend <span class="h2-sub">7 Days &middot; FPY %</span></h2>
+            <div class="trend-chart" id="qa-trendChart"></div>
+          </div>
+          <div class="panel-card">
+            <h2>Defects by Production Line</h2>
+            <div class="line-defects" id="qa-lineDefects"></div>
+          </div>
+          <div class="panel-card">
+            <h2>Batch Pass vs Fail</h2>
+            <div class="batch-status" id="qa-batchStatus"></div>
+          </div>
+          <div class="panel-card">
+            <h2>Cost of Poor Quality</h2>
+            <div class="copq" id="qa-copq"></div>
+          </div>
+        </section>
+
       </div>
     </div>
 

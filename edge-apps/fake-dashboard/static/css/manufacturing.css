@@ -1,0 +1,670 @@
+/* stylelint-disable media-feature-range-notation */
+
+#dash-manufacturing {
+  --bg-color: #edf1f7;
+  --bg-gradient: radial-gradient(ellipse at 20% 50%, rgba(59 130 246 / 6%) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 20%, rgba(6 182 212 / 5%) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 100%, rgba(168 85 247 / 4%) 0%, transparent 35%);
+  --card-bg: #fff;
+  --card-border: rgba(0 0 0 / 7%);
+  --card-glow: 0 0.125rem 0.75rem rgba(0 0 0 / 6%);
+  --text-color: #1a2332;
+  --text-secondary: #374151;
+  --text-muted: #64748b;
+  --accent-blue: #2563eb;
+  --accent-cyan: #0891b2;
+  --accent-purple: #9333ea;
+  --success-color: #16a34a;
+  --warning-color: #d97706;
+  --danger-color: #dc2626;
+  --kpi-green: #16a34a;
+  --kpi-amber: #d97706;
+  --kpi-red: #dc2626;
+  background-color: var(--bg-color);
+  background-image: var(--bg-gradient);
+  color: var(--text-color);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#dash-manufacturing h1 {
+  font-size: clamp(0.875rem, 1.2vw + 0.6vh, 3rem);
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.01em;
+  color: var(--text-color);
+}
+
+#dash-manufacturing h2 {
+  font-size: clamp(0.625rem, 0.55vw + 0.55vh, 2rem);
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 1;
+}
+
+#dash-manufacturing .dashboard {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr auto;
+  height: 100%;
+  padding: clamp(0.5rem, 0.7vw, 1.25rem);
+  gap: clamp(0.375rem, 0.5vw, 0.75rem);
+  overflow: hidden;
+}
+
+#dash-manufacturing .dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  padding: clamp(0.5rem, 0.6vh, 1rem) clamp(0.75rem, 1vw, 1.5rem);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 0.625rem;
+  box-shadow: var(--card-glow);
+  position: relative;
+}
+
+#dash-manufacturing .dashboard-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  right: 5%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan), var(--accent-blue), var(--accent-purple), transparent);
+  opacity: 0.4;
+}
+
+#dash-manufacturing .header-left {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(0.5rem, 1vw, 1.5rem);
+}
+
+#dash-manufacturing .plant-name {
+  font-size: clamp(0.5rem, 0.5vw + 0.4vh, 1.5rem);
+  color: var(--accent-cyan);
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+#dash-manufacturing .header-right {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 1.5vw, 2rem);
+}
+
+#dash-manufacturing .header-datetime {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.375rem, 0.8vw, 1.25rem);
+  font-size: clamp(0.5rem, 0.5vw + 0.4vh, 1.5rem);
+  color: var(--text-muted);
+}
+
+#dash-manufacturing .header-time {
+  color: var(--text-color);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+#dash-manufacturing .shift-badge {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  color: #fff;
+  font-size: clamp(0.5rem, 0.45vw + 0.35vh, 1.25rem);
+  font-weight: 700;
+  padding: clamp(0.25rem, 0.35vh, 0.5rem) clamp(0.625rem, 1vw, 1.5rem);
+  border-radius: 0.375rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 0.125rem 0.5rem rgba(59 130 246 / 30%);
+}
+
+#dash-manufacturing .kpi-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: clamp(0.375rem, 0.5vw, 0.75rem);
+}
+
+#dash-manufacturing .kpi-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 0.625rem;
+  padding: clamp(0.5rem, 0.6vh, 0.875rem) clamp(0.5rem, 0.7vw, 1.125rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.1rem, 0.2vh, 0.3rem);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--card-glow);
+}
+
+#dash-manufacturing .kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0.1875rem;
+  background: linear-gradient(90deg, var(--kpi-green), rgba(52 211 153 / 40%));
+}
+
+#dash-manufacturing .kpi-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2.5rem;
+  background: linear-gradient(180deg, rgba(52 211 153 / 5%) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+#dash-manufacturing .kpi-card:nth-child(4)::before {
+  background: linear-gradient(90deg, var(--kpi-amber), rgba(251 191 36 / 40%));
+}
+
+#dash-manufacturing .kpi-card:nth-child(4)::after {
+  background: linear-gradient(180deg, rgba(251 191 36 / 5%) 0%, transparent 100%);
+}
+
+#dash-manufacturing .kpi-label {
+  font-size: clamp(0.4375rem, 0.4vw + 0.3vh, 1rem);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+#dash-manufacturing .kpi-value {
+  font-size: clamp(1.125rem, 1.8vw + 0.9vh, 5rem);
+  font-weight: 800;
+  color: var(--text-color);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+#dash-manufacturing .kpi-value.amber {
+  color: var(--kpi-amber);
+}
+
+#dash-manufacturing .kpi-value.red {
+  color: var(--kpi-red);
+}
+
+#dash-manufacturing .kpi-unit {
+  font-size: clamp(0.375rem, 0.35vw + 0.25vh, 0.875rem);
+  color: var(--text-muted);
+}
+
+#dash-manufacturing .kpi-trend {
+  font-size: clamp(0.4375rem, 0.4vw + 0.3vh, 1rem);
+  font-weight: 700;
+}
+
+#dash-manufacturing .kpi-trend.positive {
+  color: var(--kpi-green);
+}
+
+#dash-manufacturing .kpi-trend.negative {
+  color: var(--kpi-red);
+}
+
+#dash-manufacturing .kpi-trend.neutral {
+  color: var(--kpi-amber);
+}
+
+#dash-manufacturing .charts-row {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 1fr;
+  gap: clamp(0.375rem, 0.5vw, 0.75rem);
+  min-height: 0;
+}
+
+#dash-manufacturing .chart-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 0.625rem;
+  padding: clamp(0.5rem, 0.6vh, 0.875rem) clamp(0.5rem, 0.7vw, 1.125rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.25rem, 0.3vh, 0.5rem);
+  min-height: 0;
+  overflow: hidden;
+  box-shadow: var(--card-glow);
+}
+
+#dash-manufacturing .chart-container {
+  flex: 1;
+  position: relative;
+  min-height: 0;
+}
+
+#dash-manufacturing .chart-container canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#dash-manufacturing .bottom-row {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 1fr;
+  gap: clamp(0.375rem, 0.5vw, 0.75rem);
+  min-height: 0;
+  overflow: hidden;
+}
+
+#dash-manufacturing .shopfloor-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 0.625rem;
+  padding: clamp(0.5rem, 0.6vh, 0.875rem) clamp(0.5rem, 0.7vw, 1.125rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.25rem, 0.3vh, 0.5rem);
+  min-height: 0;
+  overflow: hidden;
+  box-shadow: var(--card-glow);
+}
+
+#dash-manufacturing .table-wrapper {
+  flex: 1;
+  overflow: hidden;
+}
+
+#dash-manufacturing .shopfloor-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(0.4375rem, 0.4vw + 0.35vh, 1.125rem);
+}
+
+#dash-manufacturing .shopfloor-table thead th {
+  text-align: left;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: clamp(0.375rem, 0.35vw + 0.3vh, 1rem);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: clamp(0.25rem, 0.3vh, 0.5rem) clamp(0.25rem, 0.3vw, 0.5rem);
+  border-bottom: 1px solid rgba(0 0 0 / 10%);
+}
+
+#dash-manufacturing .shopfloor-table tbody td {
+  padding: clamp(0.1875rem, 0.25vh, 0.375rem) clamp(0.25rem, 0.3vw, 0.5rem);
+  border-bottom: 1px solid rgba(0 0 0 / 6%);
+  color: var(--text-color);
+  white-space: nowrap;
+}
+
+#dash-manufacturing .shopfloor-table tbody tr:nth-child(even) {
+  background: rgba(0 0 0 / 3%);
+}
+
+#dash-manufacturing .shopfloor-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+#dash-manufacturing .status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(0.1875rem, 0.2vw, 0.375rem);
+  font-size: clamp(0.3125rem, 0.3vw + 0.25vh, 0.75rem);
+  font-weight: 700;
+  padding: clamp(0.0625rem, 0.1vh, 0.25rem) clamp(0.3125rem, 0.35vw, 0.625rem);
+  border-radius: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+#dash-manufacturing .status-dot {
+  width: clamp(0.25rem, 0.3vw, 0.5rem);
+  height: clamp(0.25rem, 0.3vw, 0.5rem);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+#dash-manufacturing .status-badge.running {
+  background: rgba(52 211 153 / 12%);
+  color: var(--success-color);
+}
+
+#dash-manufacturing .status-badge.running .status-dot {
+  background: var(--success-color);
+  box-shadow: 0 0 0.375rem var(--success-color);
+  animation: mfg-pulse-dot 2s ease-in-out infinite;
+}
+
+#dash-manufacturing .status-badge.idle {
+  background: rgba(251 191 36 / 12%);
+  color: var(--warning-color);
+}
+
+#dash-manufacturing .status-badge.idle .status-dot {
+  background: var(--warning-color);
+}
+
+#dash-manufacturing .status-badge.maintenance {
+  background: rgba(59 130 246 / 12%);
+  color: var(--accent-blue);
+}
+
+#dash-manufacturing .status-badge.maintenance .status-dot {
+  background: var(--accent-blue);
+}
+
+#dash-manufacturing .status-badge.error {
+  background: rgba(248 113 113 / 12%);
+  color: var(--danger-color);
+}
+
+#dash-manufacturing .status-badge.error .status-dot {
+  background: var(--danger-color);
+  box-shadow: 0 0 0.375rem var(--danger-color);
+  animation: mfg-pulse-dot 1s ease-in-out infinite;
+}
+
+@keyframes mfg-pulse-dot {
+  0%,
+  100% { opacity: 1; }
+
+  50% { opacity: 0.4; }
+}
+
+#dash-manufacturing .efficiency-value {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+#dash-manufacturing .efficiency-value.high {
+  color: var(--success-color);
+}
+
+#dash-manufacturing .efficiency-value.medium {
+  color: var(--warning-color);
+}
+
+#dash-manufacturing .efficiency-value.low {
+  color: var(--danger-color);
+}
+
+#dash-manufacturing .quality-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 0.625rem;
+  padding: clamp(0.5rem, 0.6vh, 0.875rem) clamp(0.5rem, 0.7vw, 1.125rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.25rem, 0.3vh, 0.5rem);
+  min-height: 0;
+  overflow: hidden;
+  box-shadow: var(--card-glow);
+}
+
+#dash-manufacturing .alerts-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 0.625rem;
+  padding: clamp(0.5rem, 0.6vh, 0.875rem) clamp(0.5rem, 0.7vw, 1.125rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.375rem, 0.4vh, 0.625rem);
+  min-height: 0;
+  overflow: hidden;
+  box-shadow: var(--card-glow);
+}
+
+#dash-manufacturing .alerts-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.3125rem, 0.4vh, 0.625rem);
+  overflow: hidden;
+}
+
+#dash-manufacturing .alert-item {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(0.375rem, 0.5vw, 0.75rem);
+  padding: clamp(0.375rem, 0.45vh, 0.75rem) clamp(0.375rem, 0.5vw, 0.75rem);
+  border-radius: 0.5rem;
+  font-size: clamp(0.5rem, 0.5vw + 0.4vh, 1.25rem);
+  line-height: 1.35;
+}
+
+#dash-manufacturing .alert-item.critical {
+  background: rgba(248 113 113 / 8%);
+  border-left: 0.25rem solid var(--danger-color);
+  box-shadow: inset 0 0 1rem rgba(248 113 113 / 4%);
+}
+
+#dash-manufacturing .alert-item.warning {
+  background: rgba(251 191 36 / 8%);
+  border-left: 0.25rem solid var(--warning-color);
+  box-shadow: inset 0 0 1rem rgba(251 191 36 / 4%);
+}
+
+#dash-manufacturing .alert-item.info {
+  background: rgba(59 130 246 / 8%);
+  border-left: 0.25rem solid var(--accent-blue);
+  box-shadow: inset 0 0 1rem rgba(59 130 246 / 4%);
+}
+
+#dash-manufacturing .alert-icon {
+  flex-shrink: 0;
+  font-family: 'Noto Color Emoji', sans-serif;
+  font-size: clamp(0.625rem, 0.6vw + 0.4vh, 1.5rem);
+  line-height: 1.2;
+}
+
+#dash-manufacturing .alert-content {
+  flex: 1;
+  min-width: 0;
+}
+
+#dash-manufacturing .alert-title {
+  font-weight: 700;
+  color: var(--text-color);
+  font-size: clamp(0.5rem, 0.5vw + 0.4vh, 1.25rem);
+}
+
+#dash-manufacturing .alert-time {
+  color: var(--text-muted);
+  font-size: clamp(0.4375rem, 0.4vw + 0.3vh, 1rem);
+  margin-top: clamp(0.0625rem, 0.1vh, 0.125rem);
+}
+
+@media (orientation: portrait) {
+  #dash-manufacturing .dashboard {
+    grid-template-rows: auto auto auto auto auto;
+    height: auto;
+    min-height: 100%;
+    overflow-y: auto;
+    padding: clamp(0.5rem, 1vh, 1.25rem);
+    gap: clamp(0.5rem, 0.8vh, 1rem);
+  }
+
+  #dash-manufacturing .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(0.375rem, 0.6vh, 0.75rem);
+  }
+
+  #dash-manufacturing .header-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  #dash-manufacturing h1 {
+    font-size: clamp(1rem, 1.2vh + 0.8vw, 3rem);
+  }
+
+  #dash-manufacturing h2 {
+    font-size: clamp(0.75rem, 0.7vh + 0.5vw, 2rem);
+  }
+
+  #dash-manufacturing .plant-name {
+    font-size: clamp(0.625rem, 0.6vh + 0.4vw, 1.5rem);
+  }
+
+  #dash-manufacturing .header-datetime {
+    font-size: clamp(0.625rem, 0.6vh + 0.4vw, 1.5rem);
+  }
+
+  #dash-manufacturing .shift-badge {
+    font-size: clamp(0.5625rem, 0.55vh + 0.35vw, 1.25rem);
+  }
+
+  #dash-manufacturing .kpi-row {
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(0.5rem, 0.7vh, 1rem);
+  }
+
+  #dash-manufacturing .kpi-value {
+    font-size: clamp(1.125rem, 1.5vh + 0.8vw, 4.5rem);
+  }
+
+  #dash-manufacturing .kpi-label {
+    font-size: clamp(0.5625rem, 0.5vh + 0.35vw, 1.125rem);
+  }
+
+  #dash-manufacturing .kpi-unit {
+    font-size: clamp(0.5rem, 0.45vh + 0.3vw, 1rem);
+  }
+
+  #dash-manufacturing .kpi-trend {
+    font-size: clamp(0.5625rem, 0.5vh + 0.35vw, 1.125rem);
+  }
+
+  #dash-manufacturing .kpi-card {
+    padding: clamp(0.5rem, 0.7vh, 1rem) clamp(0.5rem, 0.7vw, 1.125rem);
+  }
+
+  #dash-manufacturing .charts-row {
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(0.5rem, 0.7vh, 1rem);
+  }
+
+  #dash-manufacturing .chart-downtime {
+    grid-column: 1 / -1;
+  }
+
+  #dash-manufacturing .chart-container {
+    min-height: clamp(10rem, 18vh, 22rem);
+  }
+
+  #dash-manufacturing .bottom-row {
+    grid-template-columns: 1fr;
+    gap: clamp(0.5rem, 0.7vh, 1rem);
+    overflow: visible;
+  }
+
+  #dash-manufacturing .shopfloor-card {
+    overflow: visible;
+  }
+
+  #dash-manufacturing .table-wrapper {
+    overflow: visible;
+  }
+
+  #dash-manufacturing .shopfloor-table {
+    font-size: clamp(0.5625rem, 0.55vh + 0.4vw, 1.25rem);
+  }
+
+  #dash-manufacturing .shopfloor-table thead th {
+    font-size: clamp(0.5rem, 0.5vh + 0.35vw, 1.125rem);
+    padding: clamp(0.375rem, 0.4vh, 0.625rem) clamp(0.375rem, 0.4vw, 0.625rem);
+  }
+
+  #dash-manufacturing .shopfloor-table tbody td {
+    padding: clamp(0.25rem, 0.35vh, 0.5rem) clamp(0.375rem, 0.4vw, 0.625rem);
+  }
+
+  #dash-manufacturing .status-badge {
+    font-size: clamp(0.4375rem, 0.45vh + 0.3vw, 0.875rem);
+  }
+
+  #dash-manufacturing .alert-item {
+    font-size: clamp(0.625rem, 0.65vh + 0.4vw, 1.375rem);
+  }
+
+  #dash-manufacturing .alert-title {
+    font-size: clamp(0.625rem, 0.65vh + 0.4vw, 1.375rem);
+  }
+
+  #dash-manufacturing .alert-time {
+    font-size: clamp(0.5rem, 0.55vh + 0.35vw, 1.125rem);
+  }
+
+  #dash-manufacturing .alert-icon {
+    font-size: clamp(0.75rem, 0.8vh + 0.5vw, 1.75rem);
+  }
+
+  #dash-manufacturing .alerts-card {
+    overflow: visible;
+  }
+
+  #dash-manufacturing .alerts-list {
+    overflow: visible;
+  }
+}
+
+@media (max-width: 800px) and (orientation: landscape) {
+  #dash-manufacturing .dashboard {
+    gap: clamp(0.1875rem, 0.3vw, 0.375rem);
+    padding: clamp(0.1875rem, 0.3vw, 0.375rem);
+  }
+
+  #dash-manufacturing .kpi-row {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  #dash-manufacturing .kpi-unit {
+    display: none;
+  }
+
+  #dash-manufacturing .shopfloor-table tbody td,
+  #dash-manufacturing .shopfloor-table thead th {
+    font-size: clamp(0.3125rem, 0.3vw + 0.25vh, 0.75rem);
+    padding: clamp(0.0625rem, 0.1vh, 0.1875rem) clamp(0.125rem, 0.2vw, 0.25rem);
+  }
+
+  #dash-manufacturing .alert-item {
+    font-size: clamp(0.375rem, 0.35vw + 0.3vh, 0.875rem);
+    padding: clamp(0.1875rem, 0.25vh, 0.375rem);
+  }
+
+  #dash-manufacturing .alert-title {
+    font-size: clamp(0.375rem, 0.35vw + 0.3vh, 0.875rem);
+  }
+
+  #dash-manufacturing .alert-time {
+    font-size: clamp(0.3125rem, 0.3vw + 0.25vh, 0.75rem);
+  }
+}
+
+@media (max-width: 480px) and (orientation: portrait) {
+  #dash-manufacturing .kpi-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  #dash-manufacturing .charts-row {
+    grid-template-columns: 1fr;
+  }
+
+  #dash-manufacturing .chart-downtime {
+    grid-column: auto;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1919px) and (orientation: landscape) {
+  #dash-manufacturing .shopfloor-table {
+    font-size: clamp(0.5rem, 0.45vw + 0.35vh, 1rem);
+  }
+}
