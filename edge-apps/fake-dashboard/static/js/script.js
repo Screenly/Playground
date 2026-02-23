@@ -1,7 +1,7 @@
 /* global Chart, screenly */
 
 // ── Website Traffic Dashboard ────────────────────────────────────────────────
-var WebsiteTraffic = (function () {
+let WebsiteTraffic = (function () {
   function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min
   }
@@ -14,8 +14,8 @@ var WebsiteTraffic = (function () {
   }
 
   function formatDuration(seconds) {
-    var minutes = Math.floor(seconds / 60)
-    var remainingSeconds = seconds % 60
+    let minutes = Math.floor(seconds / 60)
+    let remainingSeconds = seconds % 60
     return minutes + 'm ' + remainingSeconds + 's'
   }
 
@@ -24,23 +24,23 @@ var WebsiteTraffic = (function () {
   }
 
   function generatePageViewsHistory() {
-    var months = []
-    var currentDate = new Date()
+    let months = []
+    let currentDate = new Date()
 
-    for (var i = 11; i >= 0; i--) {
-      var date = new Date(currentDate)
+    for (let i = 11; i >= 0; i--) {
+      let date = new Date(currentDate)
       date.setMonth(currentDate.getMonth() - i)
       months.push(date.toLocaleString('default', { month: 'short' }))
     }
 
-    var baseValue = 65000
-    var seasonalFactor = 15000
-    var randomFactor = 10000
+    let baseValue = 65000
+    let seasonalFactor = 15000
+    let randomFactor = 10000
 
-    var data = months.map(function (month, index) {
-      var seasonal = Math.sin((index + 6) * (Math.PI / 6)) * seasonalFactor
-      var random = (Math.random() - 0.5) * randomFactor
-      var trend = (index / 11) * 20000
+    let data = months.map(function (month, index) {
+      let seasonal = Math.sin((index + 6) * (Math.PI / 6)) * seasonalFactor
+      let random = (Math.random() - 0.5) * randomFactor
+      let trend = (index / 11) * 20000
 
       return {
         month: month,
@@ -55,15 +55,15 @@ var WebsiteTraffic = (function () {
   }
 
   function generateStaticMetrics() {
-    var users = randomInt(65000, 85000)
-    var sessionMultiplier = 1.05 + Math.random() * 0.1
-    var sessions = Math.round(users * sessionMultiplier)
-    var bounceRate = 20 + Math.random() * 10
-    var sessionDuration = randomInt(120, 180)
-    var usersChange = randomInt(15, 35)
-    var sessionsChange = randomInt(30, 50)
-    var bounceRateChange = -randomInt(15, 30)
-    var durationChange = randomInt(5, 15)
+    let users = randomInt(65000, 85000)
+    let sessionMultiplier = 1.05 + Math.random() * 0.1
+    let sessions = Math.round(users * sessionMultiplier)
+    let bounceRate = 20 + Math.random() * 10
+    let sessionDuration = randomInt(120, 180)
+    let usersChange = randomInt(15, 35)
+    let sessionsChange = randomInt(30, 50)
+    let bounceRateChange = -randomInt(15, 30)
+    let durationChange = randomInt(5, 15)
 
     return {
       users: users,
@@ -78,21 +78,21 @@ var WebsiteTraffic = (function () {
   }
 
   function generateRealtimeVisitors() {
-    var metrics = generateStaticMetrics()
-    var basePercentage = 1.4 + Math.random() * 0.4
-    var baseVisitors = Math.round(metrics.users * (basePercentage / 100))
-    var variation = Math.round(baseVisitors * 0.2)
+    let metrics = generateStaticMetrics()
+    let basePercentage = 1.4 + Math.random() * 0.4
+    let baseVisitors = Math.round(metrics.users * (basePercentage / 100))
+    let variation = Math.round(baseVisitors * 0.2)
     return baseVisitors + randomInt(-variation, variation)
   }
 
-  var deviceData = null
-  var sourceData = null
+  let deviceData = null
+  let sourceData = null
 
   function generateDeviceData() {
     if (!deviceData) {
-      var desktop = randomInt(65, 75)
-      var mobile = randomInt(20, 25)
-      var tablets = 100 - desktop - mobile
+      let desktop = randomInt(65, 75)
+      let mobile = randomInt(20, 25)
+      let tablets = 100 - desktop - mobile
 
       deviceData = {
         Desktop: desktop,
@@ -105,10 +105,10 @@ var WebsiteTraffic = (function () {
 
   function generateSourceData() {
     if (!sourceData) {
-      var direct = randomInt(45, 50)
-      var organic = randomInt(25, 30)
-      var social = randomInt(15, 20)
-      var referral = 100 - direct - organic - social
+      let direct = randomInt(45, 50)
+      let organic = randomInt(25, 30)
+      let social = randomInt(15, 20)
+      let referral = 100 - direct - organic - social
 
       sourceData = {
         Direct: direct,
@@ -121,7 +121,7 @@ var WebsiteTraffic = (function () {
   }
 
   function updateMetrics() {
-    var metrics = generateStaticMetrics()
+    let metrics = generateStaticMetrics()
 
     document.getElementById('usersValue').textContent = formatNumber(
       metrics.users,
@@ -147,22 +147,22 @@ var WebsiteTraffic = (function () {
   }
 
   function updateRealtimeVisitors() {
-    var visitors = generateRealtimeVisitors()
+    let visitors = generateRealtimeVisitors()
     document.getElementById('realtimeValue').textContent =
       visitors.toLocaleString()
   }
 
-  var pageViewsData = null
-  var pageViewsChart, deviceChart
+  let pageViewsData = null
+  let pageViewsChart, deviceChart
 
   function initPageViewsChart() {
     if (!pageViewsData) {
       pageViewsData = generatePageViewsHistory()
     }
 
-    var ctx = document.getElementById('pageViewsChart').getContext('2d')
+    let ctx = document.getElementById('pageViewsChart').getContext('2d')
 
-    var gradient = ctx.createLinearGradient(0, 0, 0, 400)
+    let gradient = ctx.createLinearGradient(0, 0, 0, 400)
     gradient.addColorStop(0, 'rgba(126, 44, 210, 0.3)')
     gradient.addColorStop(1, 'rgba(126, 44, 210, 0)')
 
@@ -244,8 +244,8 @@ var WebsiteTraffic = (function () {
   }
 
   function initDeviceChart() {
-    var ctx = document.getElementById('deviceChart').getContext('2d')
-    var data = generateDeviceData()
+    let ctx = document.getElementById('deviceChart').getContext('2d')
+    let data = generateDeviceData()
 
     return new Chart(ctx, {
       type: 'doughnut',
@@ -289,8 +289,8 @@ var WebsiteTraffic = (function () {
   }
 
   function updateSources() {
-    var sources = generateSourceData()
-    var container = document.getElementById('sourcesContainer')
+    let sources = generateSourceData()
+    let container = document.getElementById('sourcesContainer')
     container.innerHTML = ''
 
     Object.entries(sources).forEach(function (entry) {
@@ -309,7 +309,7 @@ var WebsiteTraffic = (function () {
   }
 
   function updateCharts() {
-    var data = generateDeviceData()
+    let data = generateDeviceData()
     deviceChart.data.datasets[0].data = Object.values(data)
     deviceChart.update()
   }
@@ -330,7 +330,7 @@ var WebsiteTraffic = (function () {
 
     setInterval(updateRealtimeVisitors, 5000)
 
-    var resizeTimeout
+    let resizeTimeout
     window.addEventListener('resize', function () {
       clearTimeout(resizeTimeout)
       resizeTimeout = setTimeout(function () {
@@ -345,7 +345,7 @@ var WebsiteTraffic = (function () {
 })()
 
 // ── Health & Safety Dashboard ────────────────────────────────────────────────
-var HealthSafety = (function () {
+let HealthSafety = (function () {
   function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min
   }
@@ -359,7 +359,7 @@ var HealthSafety = (function () {
   }
 
   function updateClock() {
-    var now = new Date()
+    let now = new Date()
     document.getElementById('hs-headerDate').textContent =
       now.toLocaleDateString('en-US', {
         weekday: 'short',
@@ -388,7 +388,7 @@ var HealthSafety = (function () {
   }
 
   function updateKPIs() {
-    var kpi = generateKPIs()
+    let kpi = generateKPIs()
 
     document.getElementById('hs-daysWithout').textContent = kpi.daysWithout
     document.getElementById('hs-kpiHazards').textContent = kpi.hazards
@@ -396,11 +396,11 @@ var HealthSafety = (function () {
     document.getElementById('hs-kpiPPE').textContent = kpi.ppe + '%'
     document.getElementById('hs-kpiFirstAid').textContent = kpi.firstAid
 
-    var scoreEl = document.getElementById('safetyScore')
+    let scoreEl = document.getElementById('safetyScore')
     scoreEl.querySelector('.score-value').textContent = kpi.safetyScore
 
-    var daysAgo = kpi.daysWithout
-    var lastDate = new Date()
+    let daysAgo = kpi.daysWithout
+    let lastDate = new Date()
     lastDate.setDate(lastDate.getDate() - daysAgo)
     document.getElementById('hs-lastIncidentDate').textContent =
       lastDate.toLocaleDateString('en-US', {
@@ -409,7 +409,7 @@ var HealthSafety = (function () {
         year: 'numeric',
       })
 
-    var trends = [
+    let trends = [
       { id: 'hs-kpiHazardsTrend', val: randomInt(-3, 4), up: false },
       { id: 'hs-kpiNearMissTrend', val: randomInt(-3, 3), up: false },
       { id: 'hs-kpiPPETrend', val: randomInt(-1, 3), suffix: '%', up: true },
@@ -417,18 +417,18 @@ var HealthSafety = (function () {
     ]
 
     trends.forEach(function (t) {
-      var el = document.getElementById(t.id)
-      var arrow = t.val >= 0 ? '\u25B2' : '\u25BC'
-      var isPositive = t.up ? t.val >= 0 : t.val <= 0
-      var suffix = t.suffix || ''
+      let el = document.getElementById(t.id)
+      let arrow = t.val >= 0 ? '\u25B2' : '\u25BC'
+      let isPositive = t.up ? t.val >= 0 : t.val <= 0
+      let suffix = t.suffix || ''
       el.textContent = arrow + ' ' + Math.abs(t.val) + suffix
       el.className = 'kpi-trend ' + (isPositive ? 'positive' : 'negative')
     })
   }
 
-  var chartFontSize = Math.max(10, Math.round(window.innerWidth * 0.009))
+  let chartFontSize = Math.max(10, Math.round(window.innerWidth * 0.009))
 
-  var commonTooltip = {
+  let commonTooltip = {
     backgroundColor: '#1c1917',
     titleColor: '#fff',
     bodyColor: '#d6d3d1',
@@ -440,17 +440,17 @@ var HealthSafety = (function () {
     bodyFont: { size: chartFontSize },
   }
 
-  var incidentData = null
-  var incidentChart = null
+  let incidentData = null
+  let incidentChart = null
 
   function generateIncidentData() {
     if (!incidentData) {
-      var months = []
-      var incidents = []
-      var nearMisses = []
-      var now = new Date()
-      for (var i = 11; i >= 0; i--) {
-        var d = new Date(now)
+      let months = []
+      let incidents = []
+      let nearMisses = []
+      let now = new Date()
+      for (let i = 11; i >= 0; i--) {
+        let d = new Date(now)
         d.setMonth(now.getMonth() - i)
         months.push(d.toLocaleString('default', { month: 'short' }))
         incidents.push(randomInt(0, 5))
@@ -466,10 +466,10 @@ var HealthSafety = (function () {
   }
 
   function initIncidentChart() {
-    var data = generateIncidentData()
-    var ctx = document.getElementById('hs-incidentChart').getContext('2d')
+    let data = generateIncidentData()
+    let ctx = document.getElementById('hs-incidentChart').getContext('2d')
 
-    var gradientRed = ctx.createLinearGradient(
+    let gradientRed = ctx.createLinearGradient(
       0,
       0,
       0,
@@ -479,7 +479,7 @@ var HealthSafety = (function () {
     gradientRed.addColorStop(0.7, 'rgba(190, 18, 60, 0.04)')
     gradientRed.addColorStop(1, 'rgba(190, 18, 60, 0)')
 
-    var gradientAmber = ctx.createLinearGradient(
+    let gradientAmber = ctx.createLinearGradient(
       0,
       0,
       0,
@@ -564,9 +564,9 @@ var HealthSafety = (function () {
     })
   }
 
-  var zoneHazardData = null
-  var zoneHazardChart = null
-  var zoneNames = ['Zone A', 'Zone B', 'Zone C', 'Zone D']
+  let zoneHazardData = null
+  let zoneHazardChart = null
+  let zoneNames = ['Zone A', 'Zone B', 'Zone C', 'Zone D']
 
   function generateZoneHazardData() {
     if (!zoneHazardData) {
@@ -586,8 +586,8 @@ var HealthSafety = (function () {
   }
 
   function initZoneHazardChart() {
-    var data = generateZoneHazardData()
-    var ctx = document.getElementById('hs-zoneHazardChart').getContext('2d')
+    let data = generateZoneHazardData()
+    let ctx = document.getElementById('hs-zoneHazardChart').getContext('2d')
 
     zoneHazardChart = new Chart(ctx, {
       type: 'bar',
@@ -654,7 +654,7 @@ var HealthSafety = (function () {
     })
   }
 
-  var zoneStatuses = [
+  let zoneStatuses = [
     { weight: 6, cls: 'safe', label: 'All Clear', detail: 'No active hazards' },
     {
       weight: 3,
@@ -671,12 +671,12 @@ var HealthSafety = (function () {
   ]
 
   function pickZoneStatus() {
-    var total = zoneStatuses.reduce(function (s, z) {
+    let total = zoneStatuses.reduce(function (s, z) {
       return s + z.weight
     }, 0)
-    var rand = Math.random() * total
-    var acc = 0
-    for (var i = 0; i < zoneStatuses.length; i++) {
+    let rand = Math.random() * total
+    let acc = 0
+    for (let i = 0; i < zoneStatuses.length; i++) {
       acc += zoneStatuses[i].weight
       if (rand < acc) return zoneStatuses[i]
     }
@@ -684,11 +684,11 @@ var HealthSafety = (function () {
   }
 
   function renderZones() {
-    var container = document.getElementById('hs-zoneGrid')
-    var html = ''
+    let container = document.getElementById('hs-zoneGrid')
+    let html = ''
 
     zoneNames.forEach(function (name) {
-      var status = pickZoneStatus()
+      let status = pickZoneStatus()
       html +=
         '<div class="zone-tile ' +
         status.cls +
@@ -709,7 +709,7 @@ var HealthSafety = (function () {
     container.innerHTML = html
   }
 
-  var alertTemplates = [
+  let alertTemplates = [
     {
       type: 'critical',
       icon: '\uD83D\uDEA8',
@@ -761,15 +761,15 @@ var HealthSafety = (function () {
   ]
 
   function renderAlerts() {
-    var shuffled = alertTemplates.slice().sort(function () {
+    let shuffled = alertTemplates.slice().sort(function () {
       return 0.5 - Math.random()
     })
-    var alerts = shuffled.slice(0, 5)
-    var container = document.getElementById('hs-alertsList')
-    var html = ''
+    let alerts = shuffled.slice(0, 5)
+    let container = document.getElementById('hs-alertsList')
+    let html = ''
 
     alerts.forEach(function (alert) {
-      var minsAgo = randomInt(2, 55)
+      let minsAgo = randomInt(2, 55)
       html +=
         '<div class="alert-item ' +
         alert.type +
@@ -793,7 +793,7 @@ var HealthSafety = (function () {
     container.innerHTML = html
   }
 
-  var allCharts = []
+  let allCharts = []
 
   function destroyAllCharts() {
     allCharts.forEach(function (c) {
@@ -826,7 +826,7 @@ var HealthSafety = (function () {
       renderAlerts()
     }, 30000)
 
-    var resizeTimeout
+    let resizeTimeout
     window.addEventListener('resize', function () {
       clearTimeout(resizeTimeout)
       resizeTimeout = setTimeout(function () {
@@ -846,7 +846,7 @@ var HealthSafety = (function () {
 })()
 
 // ── Manufacturing Dashboard ──────────────────────────────────────────────────
-var Manufacturing = (function () {
+let Manufacturing = (function () {
   function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min
   }
@@ -856,7 +856,7 @@ var Manufacturing = (function () {
   }
 
   function updateClock() {
-    var now = new Date()
+    let now = new Date()
     document.getElementById('mfg-headerDate').textContent =
       now.toLocaleDateString('en-US', {
         weekday: 'short',
@@ -872,22 +872,22 @@ var Manufacturing = (function () {
         hour12: false,
       })
 
-    var hour = now.getHours()
-    var shift = 'Shift A'
+    let hour = now.getHours()
+    let shift = 'Shift A'
     if (hour >= 14 && hour < 22) shift = 'Shift B'
     else if (hour >= 22 || hour < 6) shift = 'Shift C'
     document.getElementById('mfg-shiftBadge').textContent = shift
   }
 
-  var DAILY_TARGET = 2400
+  let DAILY_TARGET = 2400
 
   function generateKPIs() {
-    var output = randomInt(2280, 2420)
-    var targetPct = ((output / DAILY_TARGET) * 100).toFixed(1)
-    var utilization = randomFloat(85, 94, 1)
-    var downtime = randomInt(28, 72)
-    var defectRate = randomFloat(0.8, 2.0, 1)
-    var otd = randomFloat(93, 99, 1)
+    let output = randomInt(2280, 2420)
+    let targetPct = ((output / DAILY_TARGET) * 100).toFixed(1)
+    let utilization = randomFloat(85, 94, 1)
+    let downtime = randomInt(28, 72)
+    let defectRate = randomFloat(0.8, 2.0, 1)
+    let otd = randomFloat(93, 99, 1)
 
     return {
       output: output,
@@ -900,7 +900,7 @@ var Manufacturing = (function () {
   }
 
   function updateKPIs() {
-    var kpi = generateKPIs()
+    let kpi = generateKPIs()
 
     document.getElementById('mfg-kpiOutput').textContent =
       kpi.output.toLocaleString()
@@ -910,12 +910,12 @@ var Manufacturing = (function () {
     document.getElementById('mfg-kpiDefect').textContent = kpi.defectRate + '%'
     document.getElementById('mfg-kpiOTD').textContent = kpi.otd + '%'
 
-    var downtimeEl = document.getElementById('mfg-kpiDowntime')
+    let downtimeEl = document.getElementById('mfg-kpiDowntime')
     downtimeEl.className = 'kpi-value'
     if (kpi.downtime > 60) downtimeEl.classList.add('red')
     else if (kpi.downtime > 40) downtimeEl.classList.add('amber')
 
-    var downtimeCard = downtimeEl.closest('.kpi-card')
+    let downtimeCard = downtimeEl.closest('.kpi-card')
     if (kpi.downtime > 60) {
       downtimeCard.style.setProperty('--dt-bar', 'var(--kpi-red)')
     } else if (kpi.downtime > 40) {
@@ -924,7 +924,7 @@ var Manufacturing = (function () {
       downtimeCard.style.setProperty('--dt-bar', 'var(--kpi-green)')
     }
 
-    var trends = [
+    let trends = [
       {
         id: 'mfg-kpiOutputTrend',
         val: randomFloat(-3, 6, 1),
@@ -964,17 +964,17 @@ var Manufacturing = (function () {
     ]
 
     trends.forEach(function (t) {
-      var el = document.getElementById(t.id)
-      var arrow = t.val >= 0 ? '\u25B2' : '\u25BC'
-      var isPositive = t.up ? t.val >= 0 : t.val <= 0
+      let el = document.getElementById(t.id)
+      let arrow = t.val >= 0 ? '\u25B2' : '\u25BC'
+      let isPositive = t.up ? t.val >= 0 : t.val <= 0
       el.textContent = arrow + ' ' + Math.abs(t.val) + t.suffix
       el.className = 'kpi-trend ' + (isPositive ? 'positive' : 'negative')
     })
   }
 
-  var chartFontSize = Math.max(9, Math.round(window.innerWidth * 0.007))
+  let chartFontSize = Math.max(9, Math.round(window.innerWidth * 0.007))
 
-  var commonTooltip = {
+  let commonTooltip = {
     backgroundColor: 'rgba(15, 23, 42, 0.9)',
     titleColor: '#fff',
     bodyColor: '#fff',
@@ -985,19 +985,19 @@ var Manufacturing = (function () {
     bodyFont: { size: chartFontSize },
   }
 
-  var productionData = null
-  var productionChart = null
+  let productionData = null
+  let productionChart = null
 
   function generateHourlyData() {
-    var hours = []
-    var actual = []
-    var target = []
-    var baseTarget = 100
+    let hours = []
+    let actual = []
+    let target = []
+    let baseTarget = 100
 
-    for (var h = 6; h <= 22; h++) {
+    for (let h = 6; h <= 22; h++) {
       hours.push(h + ':00')
       target.push(baseTarget)
-      var base = randomInt(88, 112)
+      let base = randomInt(88, 112)
       if (h >= 12 && h <= 13) base = randomInt(60, 85)
       actual.push(base)
     }
@@ -1006,9 +1006,9 @@ var Manufacturing = (function () {
 
   function initProductionChart() {
     if (!productionData) productionData = generateHourlyData()
-    var ctx = document.getElementById('mfg-productionChart').getContext('2d')
+    let ctx = document.getElementById('mfg-productionChart').getContext('2d')
 
-    var gradient = ctx.createLinearGradient(
+    let gradient = ctx.createLinearGradient(
       0,
       0,
       0,
@@ -1089,7 +1089,7 @@ var Manufacturing = (function () {
     })
   }
 
-  var machineNames = [
+  let machineNames = [
     'CNC-01',
     'CNC-02',
     'CNC-03',
@@ -1103,8 +1103,8 @@ var Manufacturing = (function () {
     'Weld-03',
     'Asm-01',
   ]
-  var utilizationValues = null
-  var utilizationChart = null
+  let utilizationValues = null
+  let utilizationChart = null
 
   function generateUtilizationData() {
     if (!utilizationValues) {
@@ -1116,10 +1116,10 @@ var Manufacturing = (function () {
   }
 
   function initUtilizationChart() {
-    var data = generateUtilizationData()
-    var ctx = document.getElementById('mfg-utilizationChart').getContext('2d')
+    let data = generateUtilizationData()
+    let ctx = document.getElementById('mfg-utilizationChart').getContext('2d')
 
-    var colors = data.map(function (v) {
+    let colors = data.map(function (v) {
       if (v >= 85) return 'rgba(52, 211, 153, 0.8)'
       if (v >= 70) return 'rgba(251, 191, 36, 0.8)'
       return 'rgba(248, 113, 113, 0.8)'
@@ -1169,8 +1169,8 @@ var Manufacturing = (function () {
     })
   }
 
-  var downtimeData = null
-  var downtimeChart = null
+  let downtimeData = null
+  let downtimeChart = null
 
   function generateDowntimeData() {
     if (!downtimeData) {
@@ -1193,8 +1193,8 @@ var Manufacturing = (function () {
   }
 
   function initDowntimeChart() {
-    var data = generateDowntimeData()
-    var ctx = document.getElementById('mfg-downtimeChart').getContext('2d')
+    let data = generateDowntimeData()
+    let ctx = document.getElementById('mfg-downtimeChart').getContext('2d')
 
     downtimeChart = new Chart(ctx, {
       type: 'doughnut',
@@ -1243,8 +1243,8 @@ var Manufacturing = (function () {
     })
   }
 
-  var qualityData = null
-  var qualityChart = null
+  let qualityData = null
+  let qualityChart = null
 
   function generateQualityData() {
     if (!qualityData) {
@@ -1263,8 +1263,8 @@ var Manufacturing = (function () {
   }
 
   function initQualityChart() {
-    var data = generateQualityData()
-    var ctx = document.getElementById('mfg-qualityChart').getContext('2d')
+    let data = generateQualityData()
+    let ctx = document.getElementById('mfg-qualityChart').getContext('2d')
 
     qualityChart = new Chart(ctx, {
       type: 'bar',
@@ -1312,7 +1312,7 @@ var Manufacturing = (function () {
     })
   }
 
-  var operators = [
+  let operators = [
     'R. Kumar',
     'S. Patel',
     'J. Torres',
@@ -1326,8 +1326,8 @@ var Manufacturing = (function () {
     'H. Park',
     'C. Reeves',
   ]
-  var jobPrefixes = ['ORD-4', 'ORD-5', 'ORD-6', 'ORD-7']
-  var statuses = [
+  let jobPrefixes = ['ORD-4', 'ORD-5', 'ORD-6', 'ORD-7']
+  let statuses = [
     { label: 'Running', cls: 'running', weight: 7 },
     { label: 'Idle', cls: 'idle', weight: 2 },
     { label: 'Maintenance', cls: 'maintenance', weight: 1 },
@@ -1335,12 +1335,12 @@ var Manufacturing = (function () {
   ]
 
   function pickWeightedStatus() {
-    var total = statuses.reduce(function (sum, s) {
+    let total = statuses.reduce(function (sum, s) {
       return sum + s.weight
     }, 0)
-    var r = Math.random() * total
-    var acc = 0
-    for (var i = 0; i < statuses.length; i++) {
+    let r = Math.random() * total
+    let acc = 0
+    for (let i = 0; i < statuses.length; i++) {
       acc += statuses[i].weight
       if (r < acc) return statuses[i]
     }
@@ -1349,18 +1349,18 @@ var Manufacturing = (function () {
 
   function generateShopfloor() {
     return machineNames.map(function (machine, i) {
-      var status = pickWeightedStatus()
-      var eff =
+      let status = pickWeightedStatus()
+      let eff =
         status.cls === 'running'
           ? randomInt(78, 99)
           : status.cls === 'idle'
             ? randomInt(0, 15)
             : 0
-      var job =
+      let job =
         status.cls === 'running' || status.cls === 'idle'
           ? jobPrefixes[randomInt(0, 3)] + randomInt(100, 999)
           : '\u2014'
-      var effClass = 'high'
+      let effClass = 'high'
       if (eff < 70) effClass = 'low'
       else if (eff < 85) effClass = 'medium'
 
@@ -1376,9 +1376,9 @@ var Manufacturing = (function () {
   }
 
   function renderShopfloor() {
-    var rows = generateShopfloor()
-    var tbody = document.getElementById('mfg-shopfloorBody')
-    var html = ''
+    let rows = generateShopfloor()
+    let tbody = document.getElementById('mfg-shopfloorBody')
+    let html = ''
 
     rows.forEach(function (row) {
       html +=
@@ -1408,7 +1408,7 @@ var Manufacturing = (function () {
     tbody.innerHTML = html
   }
 
-  var alertTemplates = [
+  let alertTemplates = [
     {
       type: 'critical',
       icon: '\u26A0\uFE0F',
@@ -1460,15 +1460,15 @@ var Manufacturing = (function () {
   ]
 
   function renderAlerts() {
-    var shuffled = alertTemplates.slice().sort(function () {
+    let shuffled = alertTemplates.slice().sort(function () {
       return 0.5 - Math.random()
     })
-    var alerts = shuffled.slice(0, 5)
-    var container = document.getElementById('mfg-alertsList')
-    var html = ''
+    let alerts = shuffled.slice(0, 5)
+    let container = document.getElementById('mfg-alertsList')
+    let html = ''
 
     alerts.forEach(function (alert) {
-      var minsAgo = randomInt(2, 45)
+      let minsAgo = randomInt(2, 45)
       html +=
         '<div class="alert-item ' +
         alert.type +
@@ -1492,7 +1492,7 @@ var Manufacturing = (function () {
     container.innerHTML = html
   }
 
-  var allCharts = []
+  let allCharts = []
 
   function destroyAllCharts() {
     allCharts.forEach(function (c) {
@@ -1527,7 +1527,7 @@ var Manufacturing = (function () {
       renderAlerts()
     }, 30000)
 
-    var resizeTimeout
+    let resizeTimeout
     window.addEventListener('resize', function () {
       clearTimeout(resizeTimeout)
       resizeTimeout = setTimeout(function () {
@@ -1546,7 +1546,7 @@ var Manufacturing = (function () {
 })()
 
 // ── Production QA Dashboard ──────────────────────────────────────────────────
-var ProductionQA = (function () {
+let ProductionQA = (function () {
   function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min
   }
@@ -1556,7 +1556,7 @@ var ProductionQA = (function () {
   }
 
   function updateClock() {
-    var now = new Date()
+    let now = new Date()
     document.getElementById('qa-headerDate').textContent =
       now.toLocaleDateString('en-US', {
         weekday: 'short',
@@ -1571,36 +1571,36 @@ var ProductionQA = (function () {
         second: '2-digit',
         hour12: false,
       })
-    var h = now.getHours()
-    var shift = 'Shift A'
+    let h = now.getHours()
+    let shift = 'Shift A'
     if (h >= 14 && h < 22) shift = 'Shift B'
     else if (h >= 22 || h < 6) shift = 'Shift C'
     document.getElementById('qa-shiftBadge').textContent = shift
   }
 
-  var FPY_TARGET = 97.2
+  let FPY_TARGET = 97.2
 
   function setCardStatus(id, status) {
-    var el = document.getElementById(id)
+    let el = document.getElementById(id)
     el.classList.remove('st-amber', 'st-red')
     if (status === 'red') el.classList.add('st-red')
     else if (status === 'amber') el.classList.add('st-amber')
   }
 
   function setTrend(id, value, isPositive) {
-    var el = document.getElementById(id)
-    var arrow = isPositive ? '\u25B2' : '\u25BC'
+    let el = document.getElementById(id)
+    let arrow = isPositive ? '\u25B2' : '\u25BC'
     el.textContent = arrow + ' ' + value
     el.className = 'kpi-trend ' + (isPositive ? 'positive' : 'negative')
   }
 
   function updateKPIs() {
-    var fpy = randomFloat(95.0, 99.5, 1)
-    var defect = randomFloat(1.5, 4.5, 1)
-    var scrap = randomFloat(0.5, 2.5, 1)
-    var rework = randomFloat(0.3, 1.8, 1)
-    var audit = randomInt(82, 99)
-    var complaints = randomInt(1, 7)
+    let fpy = randomFloat(95.0, 99.5, 1)
+    let defect = randomFloat(1.5, 4.5, 1)
+    let scrap = randomFloat(0.5, 2.5, 1)
+    let rework = randomFloat(0.3, 1.8, 1)
+    let audit = randomInt(82, 99)
+    let complaints = randomInt(1, 7)
 
     document.getElementById('qa-kpiFpy').textContent = fpy.toFixed(1) + '%'
     document.getElementById('qa-kpiDefect').textContent =
@@ -1615,46 +1615,46 @@ var ProductionQA = (function () {
       'qa-cardFpy',
       fpy < 95 ? 'red' : fpy < FPY_TARGET ? 'amber' : '',
     )
-    var fpyD = randomFloat(-1.0, 1.5, 1)
+    let fpyD = randomFloat(-1.0, 1.5, 1)
     setTrend('qa-trendFpy', Math.abs(fpyD) + '% vs target', fpyD >= 0)
 
     setCardStatus(
       'qa-cardDefect',
       defect > 4 ? 'red' : defect > 2.8 ? 'amber' : '',
     )
-    var defD = randomFloat(-0.8, 0.6, 1)
+    let defD = randomFloat(-0.8, 0.6, 1)
     setTrend('qa-trendDefect', Math.abs(defD) + '%', defD <= 0)
 
     setCardStatus(
       'qa-cardScrap',
       scrap > 2.0 ? 'red' : scrap > 1.2 ? 'amber' : '',
     )
-    var scrD = randomFloat(-0.5, 0.4, 1)
+    let scrD = randomFloat(-0.5, 0.4, 1)
     setTrend('qa-trendScrap', Math.abs(scrD) + '%', scrD <= 0)
 
     setCardStatus(
       'qa-cardRework',
       rework > 1.5 ? 'red' : rework > 0.8 ? 'amber' : '',
     )
-    var rwD = randomFloat(-0.4, 0.3, 1)
+    let rwD = randomFloat(-0.4, 0.3, 1)
     setTrend('qa-trendRework', Math.abs(rwD) + '%', rwD <= 0)
 
     setCardStatus(
       'qa-cardAudit',
       audit < 80 ? 'red' : audit < 90 ? 'amber' : '',
     )
-    var auD = randomInt(-3, 5)
+    let auD = randomInt(-3, 5)
     setTrend('qa-trendAudit', Math.abs(auD) + ' pts', auD >= 0)
 
     setCardStatus(
       'qa-cardComplaints',
       complaints >= 6 ? 'red' : complaints >= 4 ? 'amber' : '',
     )
-    var coD = randomInt(-3, 2)
+    let coD = randomInt(-3, 2)
     setTrend('qa-trendComplaints', Math.abs(coD) + ' vs last mo', coD <= 0)
   }
 
-  var DEFECT_CATS = [
+  let DEFECT_CATS = [
     { name: 'Dimensional Error', min: 18, max: 35 },
     { name: 'Surface Damage', min: 12, max: 25 },
     { name: 'Assembly Issue', min: 8, max: 18 },
@@ -1662,7 +1662,7 @@ var ProductionQA = (function () {
     { name: 'Weld Porosity', min: 3, max: 10 },
   ]
 
-  var DEFECT_COLORS = [
+  let DEFECT_COLORS = [
     'var(--kpi-red)',
     'var(--kpi-amber)',
     'var(--accent-purple)',
@@ -1671,19 +1671,19 @@ var ProductionQA = (function () {
   ]
 
   function renderDefectBreakdown() {
-    var cats = DEFECT_CATS.map(function (c) {
+    let cats = DEFECT_CATS.map(function (c) {
       return { name: c.name, pct: randomInt(c.min, c.max) }
     })
     cats.sort(function (a, b) {
       return b.pct - a.pct
     })
-    var maxPct = cats[0].pct
+    let maxPct = cats[0].pct
 
-    var container = document.getElementById('qa-defectBreakdown')
-    var html = ''
+    let container = document.getElementById('qa-defectBreakdown')
+    let html = ''
 
     cats.forEach(function (c, i) {
-      var barW = Math.round((c.pct / maxPct) * 100)
+      let barW = Math.round((c.pct / maxPct) * 100)
       html +=
         '<div class="db-row">' +
         '<span class="db-name">' +
@@ -1706,17 +1706,17 @@ var ProductionQA = (function () {
   }
 
   function renderThroughput() {
-    var perHr = randomInt(82, 108)
-    var target = 100
-    var totalToday = randomInt(1400, 1950)
-    var pct = Math.min(Math.round((perHr / target) * 100), 100)
-    var deg = Math.round((pct / 100) * 360)
+    let perHr = randomInt(82, 108)
+    let target = 100
+    let totalToday = randomInt(1400, 1950)
+    let pct = Math.min(Math.round((perHr / target) * 100), 100)
+    let deg = Math.round((pct / 100) * 360)
 
-    var color = 'var(--kpi-green)'
+    let color = 'var(--kpi-green)'
     if (pct < 80) color = 'var(--kpi-red)'
     else if (pct < 90) color = 'var(--kpi-amber)'
 
-    var gradient =
+    let gradient =
       'conic-gradient(' +
       color +
       ' 0deg ' +
@@ -1749,21 +1749,21 @@ var ProductionQA = (function () {
       '</div>'
   }
 
-  var DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  let DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
   function renderTrend() {
-    var values = []
-    for (var i = 0; i < 7; i++) {
+    let values = []
+    for (let i = 0; i < 7; i++) {
       values.push(randomFloat(94.5, 99.5, 1))
     }
-    var minV = 93
-    var maxV = 100
-    var range = maxV - minV
+    let minV = 93
+    let maxV = 100
+    let range = maxV - minV
 
-    var html = '<div class="trend-bars">'
+    let html = '<div class="trend-bars">'
     values.forEach(function (v, i) {
-      var hPct = Math.max(((v - minV) / range) * 100, 4)
-      var color = 'var(--kpi-green)'
+      let hPct = Math.max(((v - minV) / range) * 100, 4)
+      let color = 'var(--kpi-green)'
       if (v < 95) color = 'var(--kpi-red)'
       else if (v < FPY_TARGET) color = 'var(--kpi-amber)'
 
@@ -1787,7 +1787,7 @@ var ProductionQA = (function () {
     document.getElementById('qa-trendChart').innerHTML = html
   }
 
-  var LINE_COLORS = [
+  let LINE_COLORS = [
     'var(--kpi-red)',
     'var(--kpi-amber)',
     'var(--accent-blue)',
@@ -1795,7 +1795,7 @@ var ProductionQA = (function () {
   ]
 
   function renderLineDefects() {
-    var lines = [
+    let lines = [
       { name: 'Line A', count: randomInt(8, 18) },
       { name: 'Line B', count: randomInt(4, 14) },
       { name: 'Line C', count: randomInt(2, 10) },
@@ -1804,11 +1804,11 @@ var ProductionQA = (function () {
     lines.sort(function (a, b) {
       return b.count - a.count
     })
-    var max = lines[0].count || 1
+    let max = lines[0].count || 1
 
-    var html = ''
+    let html = ''
     lines.forEach(function (l, i) {
-      var pct = Math.round((l.count / max) * 100)
+      let pct = Math.round((l.count / max) * 100)
       html +=
         '<div class="ld-row">' +
         '<span class="ld-name">' +
@@ -1831,13 +1831,13 @@ var ProductionQA = (function () {
   }
 
   function renderBatchStatus() {
-    var total = randomInt(40, 60)
-    var fail = randomInt(1, 6)
-    var pass = total - fail
-    var passPct = ((pass / total) * 100).toFixed(1)
-    var passDeg = Math.round((pass / total) * 360)
+    let total = randomInt(40, 60)
+    let fail = randomInt(1, 6)
+    let pass = total - fail
+    let passPct = ((pass / total) * 100).toFixed(1)
+    let passDeg = Math.round((pass / total) * 360)
 
-    var gradient =
+    let gradient =
       'conic-gradient(var(--kpi-green) 0deg ' +
       passDeg +
       'deg, var(--kpi-red) ' +
@@ -1869,14 +1869,14 @@ var ProductionQA = (function () {
   }
 
   function renderCOPQ() {
-    var scrapCost = randomFloat(5.0, 12.0, 1)
-    var reworkCost = randomFloat(1.5, 5.0, 1)
-    var warrantyCost = randomFloat(0.5, 3.0, 1)
-    var inspectionCost = randomFloat(1.0, 4.0, 1)
-    var total = scrapCost + reworkCost + warrantyCost + inspectionCost
-    var max = Math.max(scrapCost, reworkCost, warrantyCost, inspectionCost)
+    let scrapCost = randomFloat(5.0, 12.0, 1)
+    let reworkCost = randomFloat(1.5, 5.0, 1)
+    let warrantyCost = randomFloat(0.5, 3.0, 1)
+    let inspectionCost = randomFloat(1.0, 4.0, 1)
+    let total = scrapCost + reworkCost + warrantyCost + inspectionCost
+    let max = Math.max(scrapCost, reworkCost, warrantyCost, inspectionCost)
 
-    var items = [
+    let items = [
       { label: 'Scrap', val: scrapCost, color: 'var(--kpi-red)' },
       { label: 'Rework', val: reworkCost, color: 'var(--kpi-amber)' },
       { label: 'Warranty', val: warrantyCost, color: 'var(--accent-blue)' },
@@ -1887,7 +1887,7 @@ var ProductionQA = (function () {
       },
     ]
 
-    var html =
+    let html =
       '<div class="copq-total">' +
       '<span class="copq-total-label">Total COPQ</span>' +
       '<span class="copq-total-val">$' +
@@ -1896,7 +1896,7 @@ var ProductionQA = (function () {
       '</div>'
 
     items.forEach(function (item) {
-      var pct = Math.round((item.val / max) * 100)
+      let pct = Math.round((item.val / max) * 100)
       html +=
         '<div class="copq-row">' +
         '<span class="copq-label">' +
@@ -1940,16 +1940,16 @@ var ProductionQA = (function () {
 
 // ── Main Dashboard Switcher ──────────────────────────────────────────────────
 window.addEventListener('load', function () {
-  var dashboard = (screenly.settings.dashboard || 'website-traffic').trim()
+  let dashboard = (screenly.settings.dashboard || 'website-traffic').trim()
 
-  var viewMap = {
+  let viewMap = {
     'website-traffic': 'dash-website',
     'health-safety': 'dash-health-safety',
     'manufacturing-kpi': 'dash-manufacturing',
     'production-qa': 'dash-production-qa',
   }
 
-  var viewId = viewMap[dashboard] || 'dash-website'
+  let viewId = viewMap[dashboard] || 'dash-website'
   document.getElementById(viewId).classList.add('active')
 
   switch (dashboard) {
