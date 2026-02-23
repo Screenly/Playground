@@ -293,14 +293,16 @@ let WebsiteTraffic = (function () {
     let container = document.getElementById('sourcesContainer')
     container.innerHTML = ''
 
+    var html = ''
     Object.entries(sources).forEach(function (entry) {
-      container.innerHTML +=
+      html +=
         '<div class="source-item"><span>' +
         entry[0] +
         '</span><span>' +
         entry[1] +
         '%</span></div>'
     })
+    container.innerHTML = html
   }
 
   function initCharts() {
