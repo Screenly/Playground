@@ -1,8 +1,8 @@
 # Fake Dashboard App
 
-A collection of simulated digital signage dashboards. Choose from four distinct views, website analytics, workplace safety, manufacturing operations, or production quality, each with realistic, auto-refreshing data.
+A collection of simulated digital signage dashboards. Choose from four distinct views, site analytics, workplace safety, manufacturing operations, or production quality, each with realistic, auto-refreshing data.
 
-### Website Analytics Dashboard
+### Site Analytics Dashboard
 
 ![Website Analytics Dashboard](static/img/website-analytics-preview.webp)
 
