@@ -66,14 +66,14 @@ let WebsiteTraffic = (function () {
     let durationChange = randomInt(5, 15)
 
     return {
-      users: users,
-      sessions: sessions,
-      bounceRate: bounceRate,
-      sessionDuration: sessionDuration,
-      usersChange: usersChange,
-      sessionsChange: sessionsChange,
-      bounceRateChange: bounceRateChange,
-      durationChange: durationChange,
+      users,
+      sessions,
+      bounceRate,
+      sessionDuration,
+      usersChange,
+      sessionsChange,
+      bounceRateChange,
+      durationChange,
     }
   }
 
@@ -341,7 +341,7 @@ let WebsiteTraffic = (function () {
     })
   }
 
-  return { init: init }
+  return { init }
 })()
 
 // ── Health & Safety Dashboard ────────────────────────────────────────────────
@@ -457,9 +457,9 @@ let HealthSafety = (function () {
         nearMisses.push(randomInt(2, 9))
       }
       incidentData = {
-        months: months,
-        incidents: incidents,
-        nearMisses: nearMisses,
+        months,
+        incidents,
+        nearMisses,
       }
     }
     return incidentData
@@ -842,7 +842,7 @@ let HealthSafety = (function () {
   // suppress unused variable warning for pickRandom
   void pickRandom
 
-  return { init: init }
+  return { init }
 })()
 
 // ── Manufacturing Dashboard ──────────────────────────────────────────────────
@@ -890,12 +890,12 @@ let Manufacturing = (function () {
     let otd = randomFloat(93, 99, 1)
 
     return {
-      output: output,
-      targetPct: targetPct,
-      utilization: utilization,
-      downtime: downtime,
-      defectRate: defectRate,
-      otd: otd,
+      output,
+      targetPct,
+      utilization,
+      downtime,
+      defectRate,
+      otd,
     }
   }
 
@@ -1001,7 +1001,7 @@ let Manufacturing = (function () {
       if (h >= 12 && h <= 13) base = randomInt(60, 85)
       actual.push(base)
     }
-    return { hours: hours, actual: actual, target: target }
+    return { hours, actual, target }
   }
 
   function initProductionChart() {
@@ -1365,12 +1365,12 @@ let Manufacturing = (function () {
       else if (eff < 85) effClass = 'medium'
 
       return {
-        machine: machine,
-        status: status,
-        job: job,
+        machine,
+        status,
+        job,
         operator: operators[i],
         efficiency: eff,
-        effClass: effClass,
+        effClass,
       }
     })
   }
@@ -1542,7 +1542,7 @@ let Manufacturing = (function () {
     })
   }
 
-  return { init: init }
+  return { init }
 })()
 
 // ── Production QA Dashboard ──────────────────────────────────────────────────
@@ -1935,7 +1935,7 @@ let ProductionQA = (function () {
     setInterval(refreshAll, 30000)
   }
 
-  return { init: init }
+  return { init }
 })()
 
 // ── Main Dashboard Switcher ──────────────────────────────────────────────────
