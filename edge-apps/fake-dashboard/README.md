@@ -1,8 +1,22 @@
 # Fake Dashboard App
 
-![Sonar Dashboard](static/img/fake-dashboard-preview.webp)
+A collection of simulated digital signage dashboards. Choose from four distinct views, website analytics, workplace safety, manufacturing operations, or production quality, each with realistic, auto-refreshing data.
 
-A collection of simulated digital signage dashboards. Choose from four distinct views — website analytics, workplace safety, manufacturing operations, or production quality — each with realistic, auto-refreshing data.
+### Website Analytics Dashboard
+
+![Website Analytics Dashboard](static/img/website-analytics-preview.webp)
+
+### Health & Safety
+
+![Health & Safety Dashboard](static/img/health-safety.png)
+
+### Manufacturing KPI
+
+![Manufacturing KPI Dashboard](static/img/manufacturing-kpi.png)
+
+### Production QA
+
+![Production QA](static/img/production-qa.png)
 
 ## Dashboard Views
 
