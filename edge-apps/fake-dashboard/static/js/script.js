@@ -1,4 +1,5 @@
 /* global Chart, screenly */
+/* eslint-disable no-unused-vars */
 
 // ── Website Traffic Dashboard ────────────────────────────────────────────────
 let WebsiteTraffic = (function () {
