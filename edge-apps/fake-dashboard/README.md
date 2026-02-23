@@ -2,11 +2,11 @@
 
 A collection of simulated digital signage dashboards. Choose from four distinct views, site analytics, workplace safety, manufacturing operations, or production quality, each with realistic, auto-refreshing data.
 
-### Site Analytics Dashboard
+## Site Analytics Dashboard
 
 ![Website Analytics Dashboard](static/img/website-analytics-preview.webp)
 
-### Health & Safety
+## Health & Safety
 
 ![Health & Safety Dashboard](static/img/health-safety.png)
 
@@ -14,7 +14,7 @@ A collection of simulated digital signage dashboards. Choose from four distinct 
 
 ![Manufacturing KPI Dashboard](static/img/manufacturing-kpi.png)
 
-### Production QA
+## Production QA
 
 ![Production QA](static/img/production-qa.png)
 
