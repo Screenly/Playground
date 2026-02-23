@@ -841,9 +841,6 @@ let HealthSafety = (function () {
     })
   }
 
-  // suppress unused variable warning for pickRandom
-  void pickRandom
-
   return { init }
 })()
 
