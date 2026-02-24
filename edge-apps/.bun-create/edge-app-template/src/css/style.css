@@ -10,7 +10,7 @@ body {
   overflow: hidden;
   color: white;
   font-family: 'Inter', system-ui, sans-serif;
-  background: var(--color-bg, #171e24) no-repeat center center;
+  background: url('/static/images/bg.webp') no-repeat center center;
   background-size: cover;
 }
 
