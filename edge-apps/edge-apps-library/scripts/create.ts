@@ -60,8 +60,27 @@ function replaceInFile(
 export async function createCommand(_args: string[]) {
   const projectRoot = process.cwd()
   const pkgPath = path.join(projectRoot, 'package.json')
-  const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'))
-  const appName: string = pkg.name ?? 'my-edge-app'
+
+  let pkg: Record<string, unknown>
+  try {
+    pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'))
+  } catch (error) {
+    console.error(
+      `Failed to read or parse package.json at ${pkgPath}. ` +
+        'Make sure you are running this command from an Edge App project root.',
+    )
+    if (error instanceof Error && error.message) {
+      console.error(`Details: ${error.message}`)
+    }
+    process.exitCode = 1
+    return
+  }
+
+  const rawName =
+    typeof pkg.name === 'string' && pkg.name.length > 0
+      ? pkg.name
+      : path.basename(projectRoot) || 'my-edge-app'
+  const appName = rawName.replace(/^@[^/]+\//, '').replace(/\//g, '-')
   const appTitle = toTitleCase(appName)
   const appDescription = `${appTitle} - Screenly Edge App`
 
