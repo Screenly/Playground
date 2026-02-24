@@ -7,7 +7,6 @@ import { execSync, spawn, type ChildProcess } from 'child_process'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import sharp from 'sharp'
 import { createCommand } from './create'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -201,6 +200,7 @@ async function typeCheckCommand(args: string[]) {
 }
 
 async function convertPngsToWebP(screenshotsDir: string): Promise<void> {
+  const { default: sharp } = await import('sharp')
   const pngFiles = fs
     .readdirSync(screenshotsDir)
     .filter((f) => f.endsWith('.png'))
