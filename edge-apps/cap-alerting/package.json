@@ -31,7 +31,7 @@
     "@playwright/test": "^1.58.0",
     "@screenly/edge-apps": "workspace:../edge-apps-library",
     "@types/bun": "^1.3.9",
-    "@types/jsdom": "^27.0.0",
+    "@types/jsdom": "^28.0.0",
     "bun-types": "^1.3.9",
     "jsdom": "^28.1.0",
     "npm-run-all2": "^8.0.4",
