@@ -40,6 +40,16 @@ A collection of simulated digital signage dashboards. Choose from four distinct 
 
 The active dashboard is controlled by the **Dashboard View** setting (`dashboard`) in the Edge App instance. Set it to one of the values from the table above. The default is `website-traffic`.
 
+## Run Locally
+
+```bash
+$ cd edge-apps/fake-dashboard
+$ screenly edge-app run --generate-mock-data
+#generate mock data file under the mock-data.yml
+$ screenly edge-app run
+```
+
+
 ## Installation
 
 ```bash
