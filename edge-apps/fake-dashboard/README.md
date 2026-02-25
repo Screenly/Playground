@@ -49,7 +49,6 @@ $ screenly edge-app run --generate-mock-data
 $ screenly edge-app run
 ```
 
-
 ## Installation
 
 ```bash
