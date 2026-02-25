@@ -1,4 +1,5 @@
 **/*.min.js
+edge-apps/.bun-create/
 edge-apps/cap-alerting/
 edge-apps/clock/
 edge-apps/edge-apps-library/

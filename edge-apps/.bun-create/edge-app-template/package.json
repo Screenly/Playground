@@ -1,0 +1,38 @@
+{
+  "name": "edge-app-template",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "prebuild": "bun run type-check",
+    "generate-mock-data": "screenly edge-app run --generate-mock-data",
+    "predev": "bun run generate-mock-data",
+    "dev": "edge-apps-scripts dev",
+    "build": "edge-apps-scripts build",
+    "build:dev": "edge-apps-scripts build:dev",
+    "build:prod": "edge-apps-scripts build",
+    "test": "bun test --pass-with-no-tests src/",
+    "test:unit": "bun test --pass-with-no-tests src/",
+    "lint": "edge-apps-scripts lint --fix",
+    "format": "prettier --write src/ README.md index.html",
+    "format:check": "prettier --check src/ README.md index.html",
+    "deploy": "bun run build && screenly edge-app deploy --path=dist/",
+    "type-check": "edge-apps-scripts type-check",
+    "screenshots": "edge-apps-scripts screenshots",
+    "prepare": "cd ../edge-apps-library && bun install && bun run build"
+  },
+  "prettier": "../edge-apps-library/.prettierrc.json",
+  "devDependencies": {
+    "@playwright/test": "^1.58.0",
+    "@screenly/edge-apps": "workspace:../edge-apps-library",
+    "@types/bun": "^1.3.9",
+    "@types/jsdom": "^27.0.0",
+    "bun-types": "^1.3.9",
+    "jsdom": "^28.1.0",
+    "npm-run-all2": "^8.0.4",
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3"
+  },
+  "bun-create": {
+    "postinstall": "edge-apps-scripts create"
+  }
+}
