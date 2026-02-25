@@ -7,4 +7,23 @@ author: Screenly, Inc.
 ready_signal: true
 entrypoint:
   type: file
-settings: {}
+settings:
+  dashboard:
+    type: string
+    default_value: website-traffic
+    title: Dashboard View
+    optional: true
+    help_text:
+      schema_version: 1
+      properties:
+        help_text: Select which dashboard to display
+        options:
+          - label: Website Traffic
+            value: website-traffic
+          - label: Health & Safety
+            value: health-safety
+          - label: Manufacturing KPI
+            value: manufacturing-kpi
+          - label: Production QA
+            value: production-qa
+        type: select
