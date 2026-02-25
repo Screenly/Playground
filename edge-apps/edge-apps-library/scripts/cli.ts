@@ -7,7 +7,7 @@ import { execSync, spawn, type ChildProcess } from 'child_process'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import sharp from 'sharp'
+import { createCommand } from './create'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -37,6 +37,11 @@ const commands = {
   screenshots: {
     description: 'Capture screenshots at all supported resolutions',
     handler: screenshotsCommand,
+  },
+  create: {
+    description:
+      'Initialize a scaffolded Edge App (replaces template placeholders)',
+    handler: createCommand,
   },
 }
 
@@ -195,6 +200,7 @@ async function typeCheckCommand(args: string[]) {
 }
 
 async function convertPngsToWebP(screenshotsDir: string): Promise<void> {
+  const { default: sharp } = await import('sharp')
   const pngFiles = fs
     .readdirSync(screenshotsDir)
     .filter((f) => f.endsWith('.png'))

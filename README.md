@@ -35,6 +35,16 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [Weather App](https://github.com/Screenly/Playground/tree/master/edge-apps/weather) - A simple weather app.
 - [Welcome App](https://github.com/Screenly/Playground/tree/master/edge-apps/welcome-app) - A customizable welcome screen app.
 
+### Creating a New Edge App
+
+To scaffold a new Edge App, run the following from the `edge-apps/` directory:
+
+```bash
+bun create edge-app-template --no-git <your-app-name>
+```
+
+This generates a new app with TypeScript, the Screenly design system, manifest files, and all standard scripts pre-configured. See [`edge-apps/README.md`](/edge-apps/README.md) for full details.
+
 ### TypeScript Library (New)
 
 The Playground also offers an Edge Apps library that contains utilities for building Edge Apps including helper functions.
