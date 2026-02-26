@@ -1,18 +1,18 @@
 import './css/style.css'
 import '@screenly/edge-apps/components'
 import {
+  formatLocalizedDate,
+  getLocale,
   getSettingWithDefault,
+  getTimeZone,
   setupErrorHandling,
   setupTheme,
   signalReady,
 } from '@screenly/edge-apps'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   setupErrorHandling()
   setupTheme()
-
-  const theme = getSettingWithDefault<string>('theme', 'light')
-  document.body.setAttribute('data-theme', theme)
 
   const messageHeader = getSettingWithDefault<string>(
     'message_header',
@@ -24,28 +24,24 @@ document.addEventListener('DOMContentLoaded', () => {
     messageHeaderEl.textContent = messageHeader
   }
 
-  const messageBody = getSettingWithDefault<string>('message_body', '')
+  const messageBody = getSettingWithDefault<string>(
+    'message_body',
+    'A simple message app allows users to display text on a screen, making it a\nbasic tool for digital signage. Users can input and edit both the heading\nand message body directly from the Screenly dashboard.\n',
+  )
   const messageBodyEl = document.querySelector<HTMLDivElement>('#message-body')
-  if (messageBodyEl && messageBody) {
+  if (messageBodyEl) {
     messageBodyEl.textContent = messageBody
   }
 
-  const overrideLocale = getSettingWithDefault<string>('override_locale', 'en')
-  const overrideTimezone = getSettingWithDefault<string>(
-    'override_timezone',
-    '',
-  )
   const dateBadgeEl = document.querySelector<HTMLDivElement>('#date-badge')
   if (dateBadgeEl) {
+    const [locale, timezone] = await Promise.all([getLocale(), getTimeZone()])
     const now = new Date()
-    const options: Intl.DateTimeFormatOptions = {
+    dateBadgeEl.textContent = formatLocalizedDate(now, locale, {
       month: 'long',
       year: 'numeric',
-    }
-    if (overrideTimezone) {
-      options.timeZone = overrideTimezone
-    }
-    dateBadgeEl.textContent = now.toLocaleDateString(overrideLocale, options)
+      timeZone: timezone,
+    })
   }
 
   signalReady()
