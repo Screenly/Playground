@@ -65,8 +65,14 @@ function isValidLocale(locale: string): boolean {
 /**
  * Resolve timezone configuration with fallback chain
  * Fallback order: override setting (validated) → GPS-based detection → 'UTC'
+ *
+ * @param latitude - Optional latitude coordinate (overrides metadata coordinates)
+ * @param longitude - Optional longitude coordinate (overrides metadata coordinates)
  */
-export async function getTimeZone(): Promise<string> {
+export async function getTimeZone(
+  latitude?: number,
+  longitude?: number,
+): Promise<string> {
   // Priority 1: Use override setting if provided and valid
   const overrideTimezone = getSettingWithDefault<string>(
     'override_timezone',
@@ -83,8 +89,12 @@ export async function getTimeZone(): Promise<string> {
   }
 
   try {
-    const [latitude, longitude] = getMetadata().coordinates
-    return tzlookup(latitude, longitude)
+    // Use provided coordinates or fall back to metadata coordinates
+    const [lat, lng] =
+      latitude !== undefined && longitude !== undefined
+        ? [latitude, longitude]
+        : getMetadata().coordinates
+    return tzlookup(lat, lng)
   } catch (error) {
     console.warn('Failed to get timezone from coordinates, using UTC:', error)
     return 'UTC'
