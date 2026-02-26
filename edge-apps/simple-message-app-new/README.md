@@ -1,4 +1,4 @@
-# Simple Message App New
+# Simple Message App
 
 ## Getting Started
 
@@ -11,7 +11,7 @@ bun install
 Create and deploy the Edge App:
 
 ```bash
-screenly edge-app create --name simple-message-app-new --in-place
+screenly edge-app create --name simple-message-app --in-place
 bun run deploy
 screenly edge-app instance create
 ```
