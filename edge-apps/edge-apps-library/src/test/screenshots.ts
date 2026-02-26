@@ -15,7 +15,8 @@ export { createMockScreenly }
 
 /**
  * Fixed date used for screenshot tests to ensure idempotent output.
- * Matches the timestamp used in mock weather API responses (2025-02-19T21:20:00Z).
+ * If tests rely on specific timestamps from mocked APIs, keep those mocks
+ * consistent with this value.
  */
 export const FIXED_SCREENSHOT_DATE = new Date('2025-02-19T21:20:00Z')
 
