@@ -1,0 +1,173 @@
+@import '@screenly/edge-apps/styles';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: url('/static/images/bg.webp') no-repeat center center;
+  background-size: cover;
+  background-color: #171e24;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-index-backdrop);
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(7px);
+}
+
+auto-scaler {
+  position: relative;
+  z-index: var(--z-index-content);
+}
+
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  color: white;
+}
+
+app-header {
+  position: absolute;
+  left: 1.3125em;
+  top: 1.5625em;
+  width: calc(100% - 2.625em);
+}
+
+#left-content {
+  position: absolute;
+  left: calc(8.33% + 8.25em);
+  top: 15.5em;
+  width: 32.25em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+#announcement-label {
+  font-weight: 300;
+  font-size: 1.44em;
+  line-height: normal;
+  letter-spacing: -0.0182em;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+#message-header {
+  margin: 0;
+  font-size: 4em;
+  font-weight: 400;
+  line-height: normal;
+  color: white;
+  white-space: pre-wrap;
+}
+
+#date-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 2.031em;
+  width: fit-content;
+  padding: 0.417em 0.781em;
+  border: 0.0875em solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.885em;
+  background: linear-gradient(
+    167deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0.01) 100%
+  );
+  box-shadow:
+    0 0.677em 2.083em rgba(0, 0, 0, 0.15),
+    inset 0 0.0875em 0 rgba(255, 255, 255, 0.1),
+    inset 0 -0.0875em 0 rgba(255, 255, 255, 0.03);
+  font-size: 1.2em;
+  font-weight: 300;
+  line-height: normal;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: -0.01em;
+}
+
+#message-body-card {
+  position: absolute;
+  left: calc(50% + 3.5em);
+  top: 12.0625em;
+  width: 37.8125em;
+  height: 47.9375em;
+  border: 0.047em solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5em;
+  padding: 2em;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    linear-gradient(
+      128deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+  box-shadow:
+    inset 0 0.047em 0 rgba(255, 255, 255, 0.15),
+    inset 0 -0.047em 0 rgba(255, 255, 255, 0.05);
+}
+
+#message-body {
+  font-size: 1.875em;
+  font-weight: 300;
+  line-height: 1.333;
+  color: white;
+  white-space: pre-wrap;
+}
+
+@media (orientation: portrait) {
+  #app {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    gap: 1.5em;
+  }
+
+  app-header {
+    position: static;
+    width: 100%;
+  }
+
+  #left-content {
+    position: static;
+    width: 100%;
+    flex: 0 0 auto;
+    justify-content: flex-start;
+  }
+
+  #announcement-label {
+    font-size: 2.5em;
+    padding-left: 0.25em;
+  }
+
+  #message-header {
+    font-size: 4.75em;
+  }
+
+  #date-badge {
+    font-size: 2em;
+  }
+
+  #message-body-card {
+    position: static;
+    width: 100%;
+    flex: 1;
+    height: auto;
+    border-radius: 2.5em;
+    padding: 3em;
+  }
+
+  #message-body {
+    font-size: 2.625em;
+    line-height: 1.417;
+  }
+}
