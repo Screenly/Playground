@@ -14,10 +14,19 @@ body {
   background-size: cover;
 }
 
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-index-backdrop);
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(7px);
+}
+
 auto-scaler {
   position: fixed;
-  top: 0;
-  left: 0;
+  z-index: var(--z-index-content);
 }
 
 #app {
@@ -31,7 +40,6 @@ auto-scaler {
 
 .header {
   flex-shrink: 0;
-  width: 100%;
 }
 
 .content {
