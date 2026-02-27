@@ -1,4 +1,4 @@
-# Fake Dashboard App
+# Demo Dashboard App
 
 A collection of simulated digital signage dashboards. Choose from four distinct views, site analytics, workplace safety, manufacturing operations, or production quality, each with realistic, auto-refreshing data.
 
@@ -43,7 +43,7 @@ The active dashboard is controlled by the **Dashboard View** setting (`dashboard
 ## Run Locally
 
 ```bash
-$ cd edge-apps/fake-dashboard
+$ cd edge-apps/demo-dashboard
 $ screenly edge-app run --generate-mock-data
 #generate mock data file under the mock-data.yml
 $ screenly edge-app run
@@ -52,9 +52,9 @@ $ screenly edge-app run
 ## Installation
 
 ```bash
-$ cd edge-apps/fake-dashboard
+$ cd edge-apps/demo-dashboard
 $ screenly edge-app create \
-    --name fake-dashboard \
+    --name demo-dashboard \
     --in-place
 $ screenly edge-app deploy
 [...] # You can tweak settings here.
@@ -64,4 +64,4 @@ $ screenly edge-app instance create
 # Alternatively, you can use --latest in place of --revision.
 ```
 
-For more details, please check the [Fake Dashboard Edge App Page](https://www.screenly.io/edge-apps/fake-dashboard/).
+For more details, please check the [Demo Dashboard Edge App Page](https://www.screenly.io/edge-apps/demo-dashboard/).
