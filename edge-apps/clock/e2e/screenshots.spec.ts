@@ -3,6 +3,7 @@ import {
   createMockScreenlyForScreenshots,
   getScreenshotsDir,
   RESOLUTIONS,
+  setupClockMock,
   setupOpenWeatherMocks,
   setupScreenlyJsMock,
 } from '@screenly/edge-apps/test/screenshots'
@@ -30,6 +31,7 @@ for (const { width, height } of RESOLUTIONS) {
     const page = await context.newPage()
 
     // Setup mocks
+    await setupClockMock(page)
     await setupScreenlyJsMock(page, screenlyJsContent)
     await setupOpenWeatherMocks(page, {
       geocoding: mockGeocodingResponse,
