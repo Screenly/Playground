@@ -1,8 +1,8 @@
 ---
 syntax: manifest_v1
-id: 01JZAZAF1XGC2DPEEDPAEM7K87
-description: Fake Dashboard Edge App
-icon: https://playground.srly.io/edge-apps/fake-dashboard/static/img/icon.svg
+id: 01JVC8XG3G41PBQJW5F9D5QNJG
+description: Demo Dashboard App
+icon: https://playground.srly.io/edge-apps/demo-dashboard/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
 entrypoint:
