@@ -3,11 +3,13 @@ import '@screenly/edge-apps/components'
 import {
   getSettingWithDefault,
   setupErrorHandling,
+  setupTheme,
   signalReady,
 } from '@screenly/edge-apps'
 
 document.addEventListener('DOMContentLoaded', () => {
   setupErrorHandling()
+  setupTheme()
 
   const welcomeHeading = getSettingWithDefault<string>(
     'welcome_heading',
