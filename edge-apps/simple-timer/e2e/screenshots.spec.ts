@@ -3,6 +3,7 @@ import {
   createMockScreenlyForScreenshots,
   getScreenshotsDir,
   RESOLUTIONS,
+  setupClockMock,
   setupScreenlyJsMock,
 } from '@screenly/edge-apps/test/screenshots'
 import path from 'path'
@@ -25,6 +26,7 @@ for (const { width, height } of RESOLUTIONS) {
     const page = await context.newPage()
 
     // Setup mocks
+    await setupClockMock(page)
     await setupScreenlyJsMock(page, screenlyJsContent)
 
     await page.goto('/')
