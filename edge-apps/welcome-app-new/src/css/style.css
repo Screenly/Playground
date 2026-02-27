@@ -72,3 +72,18 @@ auto-scaler {
   -webkit-line-clamp: 3;
   overflow: hidden;
 }
+
+@media (orientation: portrait) {
+  .content {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+
+  .welcome-heading {
+    font-size: 7.5rem;
+  }
+
+  .welcome-message {
+    font-size: 2.75rem;
+  }
+}
