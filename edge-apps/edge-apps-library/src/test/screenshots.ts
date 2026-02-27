@@ -13,6 +13,13 @@ import { createMockScreenly } from './mock.js'
 
 export { createMockScreenly }
 
+/**
+ * Fixed date used for screenshot tests to ensure idempotent output.
+ * If tests rely on specific timestamps from mocked APIs, keep those mocks
+ * consistent with this value.
+ */
+export const FIXED_SCREENSHOT_DATE = new Date('2025-02-19T21:20:00Z')
+
 interface PlaywrightRouteFulfillOptions {
   status?: number
   contentType?: string
@@ -174,4 +181,22 @@ export async function setupScreenlyJsMock(
       body: screenlyJsContent,
     })
   })
+}
+
+/**
+ * Freeze the browser clock to a fixed point in time before page load.
+ * Must be called before `page.goto()` to ensure the clock is set before
+ * any JavaScript runs. This makes screenshots idempotent regardless of
+ * when the test is executed.
+ *
+ * @param page - Playwright page object
+ * @param date - The date to freeze the clock at (defaults to FIXED_SCREENSHOT_DATE)
+ */
+export async function setupClockMock(
+  page: {
+    clock: { setFixedTime(time: Date | number | string): Promise<void> }
+  },
+  date: Date | number | string = FIXED_SCREENSHOT_DATE,
+): Promise<void> {
+  await page.clock.setFixedTime(date)
 }
