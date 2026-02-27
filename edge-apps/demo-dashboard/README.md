@@ -64,4 +64,4 @@ $ screenly edge-app instance create
 # Alternatively, you can use --latest in place of --revision.
 ```
 
-For more details, please check the [Demo Dashboard Edge App Page](https://www.screenly.io/edge-apps/demo-dashboard/).
+For more details, please check the [Demo Dashboard App Page](https://www.screenly.io/edge-apps/demo-dashboard/).
