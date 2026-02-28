@@ -7,10 +7,7 @@ import {
   signalReady,
 } from '@screenly/edge-apps'
 
-document.addEventListener('DOMContentLoaded', () => {
-  setupErrorHandling()
-  setupTheme()
-
+export default function init() {
   const welcomeHeading = getSettingWithDefault<string>(
     'welcome_heading',
     'Welcome',
@@ -33,4 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   signalReady()
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setupErrorHandling()
+  setupTheme()
+  init()
 })
