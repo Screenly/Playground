@@ -10,10 +10,7 @@ import {
   signalReady,
 } from '@screenly/edge-apps'
 
-document.addEventListener('DOMContentLoaded', async () => {
-  setupErrorHandling()
-  setupTheme()
-
+export default async function init() {
   const messageHeader = getSettingWithDefault<string>(
     'message_header',
     'Simple Message App',
@@ -45,4 +42,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   signalReady()
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  setupErrorHandling()
+  setupTheme()
+  await init()
 })
