@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "welcome-app-new",
+      "name": "welcome-app",
       "devDependencies": {
         "@playwright/test": "^1.58.0",
         "@screenly/edge-apps": "workspace:../edge-apps-library",
