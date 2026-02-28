@@ -36,16 +36,16 @@ settings:
     title: Override Locale
     optional: true
     help_text: |
-      Override the default locale with a supported language code (e.g., en, fr, de). Defaults to English if not specified.
-      You can find the available locales here: https://momentjs.com/
+      Override the default locale with a supported BCP 47 language tag (e.g., en, fr, de). Defaults to English if not specified.
+      For more details on valid locale identifiers, see the Intl locales argument documentation: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl#locales_argument
   override_timezone:
     type: string
     default_value: ''
     title: Override Timezone
     optional: true
     help_text: |
-      Override the default timezone with a supported timezone identifier (e.g., Europe/London, America/New_York). Defaults to the system timezone if left blank.
-      You can find the available timezones here: https://momentjs.com/timezone/
+      Override the default timezone with a supported IANA timezone identifier (e.g., Europe/London, America/New_York). Defaults to the system timezone if left blank.
+      You can find the list of IANA timezones here: https://www.iana.org/time-zones
   tag_manager_id:
     type: string
     default_value: GTM-P98SPZ9Z
