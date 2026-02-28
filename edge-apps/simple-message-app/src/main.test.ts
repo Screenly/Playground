@@ -5,7 +5,7 @@ import { setupScreenlyMock, resetScreenlyMock } from '@screenly/edge-apps/test'
 // is defined before the DOMContentLoaded listener fires during module load.
 setupScreenlyMock()
 
-import init from './main.ts'
+import init from './main'
 
 const DEFAULT_BODY =
   'A simple message app allows users to display text on a screen, making it a\nbasic tool for digital signage. Users can input and edit both the heading\nand message body directly from the Screenly dashboard.\n'
