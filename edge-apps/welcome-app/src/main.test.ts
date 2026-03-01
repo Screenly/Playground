@@ -8,7 +8,7 @@ setupScreenlyMock(
   { welcome_heading: 'Welcome', welcome_message: 'to the team' },
 )
 
-import init from './main.ts'
+import init from './main'
 
 describe('Welcome App', () => {
   beforeEach(() => {
