@@ -54,7 +54,13 @@ export interface ScreenlySettings extends Record<string, unknown> {
  */
 export interface PeripheralEvent {
   /** Sensor type identifier (e.g. "temperature", "humidity") */
-  sensor: 'temperature' | 'humidity' | 'air_pressure' | 'digital' | 'analog' | 'byte_array'
+  sensor:
+    | 'temperature'
+    | 'humidity'
+    | 'air_pressure'
+    | 'digital'
+    | 'analog'
+    | 'byte_array'
   /** Sensor reading — float for numeric sensors, base64url string for byte_array */
   value: number | string
   /** Physical unit (e.g. "°C", "%", "hPa"), or null when not applicable */

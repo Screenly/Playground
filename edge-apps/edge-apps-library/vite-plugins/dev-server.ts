@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import type { ViteDevServer, Plugin } from 'vite'
 import YAML from 'yaml'
 import fs from 'fs'
@@ -51,9 +52,18 @@ const defaultScreenlyConfig: BaseScreenlyMockData = {
 const PERIPHERAL_WS_PORT = 9010
 const ETB = '\x17'
 
-type SensorType = 'temperature' | 'humidity' | 'air_pressure' | 'digital' | 'analog' | 'byte_array'
+type SensorType =
+  | 'temperature'
+  | 'humidity'
+  | 'air_pressure'
+  | 'digital'
+  | 'analog'
+  | 'byte_array'
 
-const SENSOR_META: Record<SensorType, { wireKey: string; unit: string | null }> = {
+const SENSOR_META: Record<
+  SensorType,
+  { wireKey: string; unit: string | null }
+> = {
   temperature: { wireKey: 'ambient_temperature', unit: '°C' },
   humidity: { wireKey: 'humidity', unit: '%' },
   air_pressure: { wireKey: 'air_pressure', unit: 'hPa' },
@@ -64,18 +74,26 @@ const SENSOR_META: Record<SensorType, { wireKey: string; unit: string | null }> 
 
 function makeMockSensorValue(sensor: SensorType): number | string {
   switch (sensor) {
-    case 'temperature': return parseFloat((20 + Math.random() * 10).toFixed(2))
-    case 'humidity': return parseFloat((40 + Math.random() * 40).toFixed(2))
-    case 'air_pressure': return parseFloat((1000 + Math.random() * 30).toFixed(2))
-    case 'digital': return Math.round(Math.random())
-    case 'analog': return parseFloat((Math.random() * 5).toFixed(3))
-    case 'byte_array': return Buffer.from('mock').toString('base64url')
+    case 'temperature':
+      return parseFloat((20 + Math.random() * 10).toFixed(2))
+    case 'humidity':
+      return parseFloat((40 + Math.random() * 40).toFixed(2))
+    case 'air_pressure':
+      return parseFloat((1000 + Math.random() * 30).toFixed(2))
+    case 'digital':
+      return Math.round(Math.random())
+    case 'analog':
+      return parseFloat((Math.random() * 5).toFixed(3))
+    case 'byte_array':
+      return Buffer.from('mock').toString('base64url')
   }
 }
 
+// eslint-disable-next-line max-lines-per-function
 function startPeripheralMockServer(): void {
   const wss = new WebSocketServer({ port: PERIPHERAL_WS_PORT })
 
+  // eslint-disable-next-line max-lines-per-function
   wss.on('connection', (ws) => {
     let identified = false
 
@@ -96,9 +114,10 @@ function startPeripheralMockServer(): void {
       // Identification handshake
       if (req.identification) {
         identified = true
-        const ack = JSON.stringify({
-          response: { request_id: requestId, ok: { identification: null } },
-        }) + ETB
+        const ack =
+          JSON.stringify({
+            response: { request_id: requestId, ok: { identification: null } },
+          }) + ETB
         ws.send(ack)
         return
       }
@@ -111,42 +130,49 @@ function startPeripheralMockServer(): void {
         const sensor = channelName as SensorType
         const meta = SENSOR_META[sensor]
         const value = makeMockSensorValue(sensor)
-        const response = JSON.stringify({
-          response: {
-            request_id: requestId,
-            ok: {
-              source_channel_get_state: {
-                name: channelName,
-                [meta.wireKey]: value,
-                unit: meta.unit,
-                timestamp: new Date().toISOString(),
+        const response =
+          JSON.stringify({
+            response: {
+              request_id: requestId,
+              ok: {
+                source_channel_get_state: {
+                  name: channelName,
+                  [meta.wireKey]: value,
+                  unit: meta.unit,
+                  timestamp: new Date().toISOString(),
+                },
               },
             },
-          },
-        }) + ETB
+          }) + ETB
         ws.send(response)
       }
     })
 
     // Push unsolicited sensor events every 3 seconds
-    const activeSensors: SensorType[] = ['temperature', 'humidity', 'air_pressure']
+    const activeSensors: SensorType[] = [
+      'temperature',
+      'humidity',
+      'air_pressure',
+    ]
     const interval = setInterval(() => {
       if (!identified || ws.readyState !== ws.OPEN) return
-      const sensor = activeSensors[Math.floor(Math.random() * activeSensors.length)]
+      const sensor =
+        activeSensors[Math.floor(Math.random() * activeSensors.length)]
       const meta = SENSOR_META[sensor]
       const value = makeMockSensorValue(sensor)
       const requestId = `mock-push-${Date.now()}`
-      const event = JSON.stringify({
-        request: {
-          id: requestId,
-          source_channel_event: {
-            name: sensor,
-            [meta.wireKey]: value,
-            unit: meta.unit,
-            timestamp: new Date().toISOString(),
+      const event =
+        JSON.stringify({
+          request: {
+            id: requestId,
+            source_channel_event: {
+              name: sensor,
+              [meta.wireKey]: value,
+              unit: meta.unit,
+              timestamp: new Date().toISOString(),
+            },
           },
-        },
-      }) + ETB
+        }) + ETB
       ws.send(event)
     }, 3000)
 
@@ -168,6 +194,7 @@ function startPeripheralMockServer(): void {
   )
 }
 
+// eslint-disable-next-line max-lines-per-function
 function generateScreenlyObject(config: BaseScreenlyMockData) {
   return `
     // Generated screenly.js for development mode
