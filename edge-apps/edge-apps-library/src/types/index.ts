@@ -50,6 +50,36 @@ export interface ScreenlySettings extends Record<string, unknown> {
 }
 
 /**
+ * A normalized peripheral sensor event delivered by screenly.peripherals.subscribe()
+ */
+export interface PeripheralEvent {
+  /** Sensor type identifier (e.g. "temperature", "humidity") */
+  sensor: 'temperature' | 'humidity' | 'air_pressure' | 'digital' | 'analog' | 'byte_array'
+  /** Sensor reading — float for numeric sensors, base64url string for byte_array */
+  value: number | string
+  /** Physical unit (e.g. "°C", "%", "hPa"), or null when not applicable */
+  unit: string | null
+  /** ISO 8601 timestamp with millisecond precision */
+  timestamp: string
+}
+
+/**
+ * Peripheral sensor integration API exposed on the screenly object
+ */
+export interface ScreenlyPeripherals {
+  /**
+   * Subscribe to live sensor events from connected peripherals.
+   * The callback is invoked whenever a new reading arrives.
+   *
+   * @example
+   * screenly.peripherals.subscribe((event) => {
+   *   console.log(event.sensor, event.value, event.unit, event.timestamp)
+   * })
+   */
+  subscribe: (callback: (event: PeripheralEvent) => void) => void
+}
+
+/**
  * The global screenly object provided by screenly.js
  */
 export interface ScreenlyObject {
@@ -61,6 +91,8 @@ export interface ScreenlyObject {
   settings: ScreenlySettings
   /** CORS proxy URL for fetching external resources */
   cors_proxy_url: string
+  /** Peripheral sensor integration (screenly.js v2+) */
+  peripherals?: ScreenlyPeripherals
 }
 
 /**

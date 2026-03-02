@@ -2,6 +2,7 @@ import type { ViteDevServer, Plugin } from 'vite'
 import YAML from 'yaml'
 import fs from 'fs'
 import path from 'path'
+import { WebSocketServer } from 'ws'
 
 type ScreenlyManifestField = {
   type: string
@@ -47,6 +48,126 @@ const defaultScreenlyConfig: BaseScreenlyMockData = {
   cors_proxy_url: 'http://127.0.0.1:8080',
 }
 
+const PERIPHERAL_WS_PORT = 9010
+const ETB = '\x17'
+
+type SensorType = 'temperature' | 'humidity' | 'air_pressure' | 'digital' | 'analog' | 'byte_array'
+
+const SENSOR_META: Record<SensorType, { wireKey: string; unit: string | null }> = {
+  temperature: { wireKey: 'ambient_temperature', unit: '°C' },
+  humidity: { wireKey: 'humidity', unit: '%' },
+  air_pressure: { wireKey: 'air_pressure', unit: 'hPa' },
+  digital: { wireKey: 'digital', unit: null },
+  analog: { wireKey: 'analog', unit: null },
+  byte_array: { wireKey: 'byte_array', unit: null },
+}
+
+function makeMockSensorValue(sensor: SensorType): number | string {
+  switch (sensor) {
+    case 'temperature': return parseFloat((20 + Math.random() * 10).toFixed(2))
+    case 'humidity': return parseFloat((40 + Math.random() * 40).toFixed(2))
+    case 'air_pressure': return parseFloat((1000 + Math.random() * 30).toFixed(2))
+    case 'digital': return Math.round(Math.random())
+    case 'analog': return parseFloat((Math.random() * 5).toFixed(3))
+    case 'byte_array': return Buffer.from('mock').toString('base64url')
+  }
+}
+
+function startPeripheralMockServer(): void {
+  const wss = new WebSocketServer({ port: PERIPHERAL_WS_PORT })
+
+  wss.on('connection', (ws) => {
+    let identified = false
+
+    ws.on('message', (raw: Buffer) => {
+      const text = raw.toString().replace(ETB, '')
+      let msg: Record<string, unknown>
+      try {
+        msg = JSON.parse(text)
+      } catch {
+        return
+      }
+
+      const req = msg.request as Record<string, unknown> | undefined
+      if (!req) return
+
+      const requestId = req.id as string
+
+      // Identification handshake
+      if (req.identification) {
+        identified = true
+        const ack = JSON.stringify({
+          response: { request_id: requestId, ok: { identification: null } },
+        }) + ETB
+        ws.send(ack)
+        return
+      }
+
+      if (!identified) return
+
+      // GetState request
+      const channelName = req.source_channel_get_state as string | undefined
+      if (channelName && channelName in SENSOR_META) {
+        const sensor = channelName as SensorType
+        const meta = SENSOR_META[sensor]
+        const value = makeMockSensorValue(sensor)
+        const response = JSON.stringify({
+          response: {
+            request_id: requestId,
+            ok: {
+              source_channel_get_state: {
+                name: channelName,
+                [meta.wireKey]: value,
+                unit: meta.unit,
+                timestamp: new Date().toISOString(),
+              },
+            },
+          },
+        }) + ETB
+        ws.send(response)
+      }
+    })
+
+    // Push unsolicited sensor events every 3 seconds
+    const activeSensors: SensorType[] = ['temperature', 'humidity', 'air_pressure']
+    const interval = setInterval(() => {
+      if (!identified || ws.readyState !== ws.OPEN) return
+      const sensor = activeSensors[Math.floor(Math.random() * activeSensors.length)]
+      const meta = SENSOR_META[sensor]
+      const value = makeMockSensorValue(sensor)
+      const requestId = `mock-push-${Date.now()}`
+      const event = JSON.stringify({
+        request: {
+          id: requestId,
+          source_channel_event: {
+            name: sensor,
+            [meta.wireKey]: value,
+            unit: meta.unit,
+            timestamp: new Date().toISOString(),
+          },
+        },
+      }) + ETB
+      ws.send(event)
+    }, 3000)
+
+    ws.on('close', () => clearInterval(interval))
+  })
+
+  wss.on('error', (err: NodeJS.ErrnoException) => {
+    if (err.code === 'EADDRINUSE') {
+      console.warn(
+        `[screenly-dev-server] Port ${PERIPHERAL_WS_PORT} already in use — peripheral mock not started.`,
+      )
+    } else {
+      console.error('[screenly-dev-server] Peripheral WS error:', err.message)
+    }
+  })
+
+  console.log(
+    `[screenly-dev-server] Peripheral mock WS server listening on ws://127.0.0.1:${PERIPHERAL_WS_PORT}`,
+  )
+}
+
 function generateScreenlyObject(config: BaseScreenlyMockData) {
   return `
     // Generated screenly.js for development mode
@@ -54,7 +175,98 @@ function generateScreenlyObject(config: BaseScreenlyMockData) {
       signalReadyForRendering: () => {},
       metadata: ${JSON.stringify(config.metadata, null, 2)},
       settings: ${JSON.stringify(config.settings, null, 2)},
-      cors_proxy_url: ${JSON.stringify(config.cors_proxy_url)}
+      cors_proxy_url: ${JSON.stringify(config.cors_proxy_url)},
+      peripherals: (() => {
+        const ETB = '\\x17'
+        const WS_URL = 'ws://127.0.0.1:${PERIPHERAL_WS_PORT}'
+        const SENSOR_META = {
+          temperature: { wireKey: 'ambient_temperature', unit: '°C' },
+          humidity: { wireKey: 'humidity', unit: '%' },
+          air_pressure: { wireKey: 'air_pressure', unit: 'hPa' },
+          digital: { wireKey: 'digital', unit: null },
+          analog: { wireKey: 'analog', unit: null },
+          byte_array: { wireKey: 'byte_array', unit: null },
+        }
+
+        let ws = null
+        let identified = false
+        const subscribers = []
+
+        function generateUlid() {
+          return Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2, 12).toUpperCase()
+        }
+
+        function send(payload) {
+          if (ws && ws.readyState === WebSocket.OPEN) {
+            ws.send(JSON.stringify(payload) + ETB)
+          }
+        }
+
+        function normalizeEvent(channelEvent) {
+          for (const [sensor, meta] of Object.entries(SENSOR_META)) {
+            if (meta.wireKey in channelEvent) {
+              return {
+                sensor,
+                value: channelEvent[meta.wireKey],
+                unit: meta.unit,
+                timestamp: channelEvent.timestamp,
+              }
+            }
+          }
+          return null
+        }
+
+        function connect() {
+          ws = new WebSocket(WS_URL)
+
+          ws.onopen = () => {
+            const id = generateUlid()
+            send({ request: { id, identification: { node_id: generateUlid(), description: 'Edge App Dev' } } })
+          }
+
+          ws.onmessage = (e) => {
+            const text = e.data.replace(ETB, '')
+            let msg
+            try { msg = JSON.parse(text) } catch { return }
+
+            // Handle identification ACK
+            if (msg.response?.ok?.identification !== undefined) {
+              identified = true
+              return
+            }
+
+            // Handle ACK requirement for unsolicited push events
+            if (msg.request?.source_channel_event) {
+              const event = normalizeEvent(msg.request.source_channel_event)
+              if (event) {
+                subscribers.forEach(cb => cb(event))
+                dispatchEvent(new CustomEvent('screenly:peripheral', { detail: event }))
+              }
+              send({ response: { request_id: msg.request.id, ok: 'source_channel_event' } })
+              return
+            }
+
+            if (msg.request?.downstream_node_event) {
+              send({ response: { request_id: msg.request.id, ok: 'downstream_node_event' } })
+              return
+            }
+          }
+
+          ws.onerror = () => console.warn('[screenly] Peripheral WS error')
+          ws.onclose = () => {
+            identified = false
+            setTimeout(connect, 2000)
+          }
+        }
+
+        connect()
+
+        return {
+          subscribe(callback) {
+            subscribers.push(callback)
+          }
+        }
+      })()
     }
   `
 }
@@ -143,6 +355,9 @@ export function screenlyDevServer(): Plugin {
     name: 'screenly-dev-server',
     configureServer(server: ViteDevServer) {
       rootDir = server.config.root
+
+      // Start peripheral mock WebSocket server
+      startPeripheralMockServer()
 
       // Generate initial mock data
       config = generateMockData(rootDir)

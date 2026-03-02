@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Peripheral Integration POC - Screenly Edge App</title>
+    <script src="screenly.js?version=1"></script>
+  </head>
+  <body>
+    <auto-scaler
+      reference-width="1920"
+      reference-height="1080"
+      orientation="auto"
+    >
+      <div id="app">
+        <app-header class="header" show-date></app-header>
+        <main class="content">
+          <h1 class="title">Peripheral Sensors</h1>
+          <div id="sensor-grid">
+            <div class="sensor-card" id="card-temperature">
+              <span class="sensor-label">Temperature</span>
+              <span class="sensor-value" id="val-temperature">—</span>
+              <span class="sensor-unit" id="unit-temperature"></span>
+              <span class="sensor-timestamp" id="ts-temperature"></span>
+            </div>
+            <div class="sensor-card" id="card-humidity">
+              <span class="sensor-label">Humidity</span>
+              <span class="sensor-value" id="val-humidity">—</span>
+              <span class="sensor-unit" id="unit-humidity"></span>
+              <span class="sensor-timestamp" id="ts-humidity"></span>
+            </div>
+            <div class="sensor-card" id="card-air_pressure">
+              <span class="sensor-label">Air Pressure</span>
+              <span class="sensor-value" id="val-air_pressure">—</span>
+              <span class="sensor-unit" id="unit-air_pressure"></span>
+              <span class="sensor-timestamp" id="ts-air_pressure"></span>
+            </div>
+          </div>
+        </main>
+      </div>
+    </auto-scaler>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
