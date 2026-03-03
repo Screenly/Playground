@@ -4,10 +4,10 @@ id: 01JX2TC3ZWDZTB98VET1J1BBPF
 description: CharlieHR App
 icon: https://playground.srly.io/edge-apps/charlie-hr-app/static/img/icon.svg
 author: Screenly, Inc.
-ready_signal: true
 categories:
   - HR
   - Dashboard
+ready_signal: true
 settings:
   client_id:
     type: string

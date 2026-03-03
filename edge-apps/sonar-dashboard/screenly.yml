@@ -4,10 +4,10 @@ id:
 description: Sonar Dashboard Edge App
 icon: https://playground.srly.io/edge-apps/sonar-dashboard/static/img/icon.png
 author: Screenly, Inc.
-ready_signal: true
 categories:
   - Dashboards
-  - Utilities
+  - Productivity
+ready_signal: true
 settings:
   api_host:
     type: string

@@ -4,9 +4,9 @@ id: 01JH83JQZ2FX46WG5H7FFEAGFE
 description: Displays the screen metadata like position on Google map, coordinates, hostname, etc.
 icon: https://playground.srly.io/edge-apps/asset-metadata/static/images/icon.svg
 author: Screenly, Inc.
-ready_signal: true
 categories:
   - Utilities
+ready_signal: true
 settings:
   enable_analytics:
     type: string

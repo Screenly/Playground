@@ -6,10 +6,10 @@ icon: https://playground.srly.io/edge-apps/menu-board/static/img/icon.svg
 author: Screenly, Inc
 entrypoint:
   type: file
-ready_signal: true
 categories:
   - Productivity
   - Utilities
+ready_signal: true
 settings:
   accent_color:
     type: string

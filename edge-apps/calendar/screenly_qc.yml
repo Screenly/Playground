@@ -4,10 +4,10 @@ id: 01JZHNQJRE2D6PB67HQHWG6PKA
 description: Screenly Calendar Edge App QC
 icon: https://playground.srly.io/edge-apps/calendar/src/img/icon.svg
 author: Screenly, Inc.
-ready_signal: true
 categories:
   - Productivity
   - Utilities
+ready_signal: true
 settings:
   bypass_cors:
     type: string

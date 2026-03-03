@@ -4,10 +4,10 @@ id: 01KFGJ66NE1947RZ36AVSZ5SEV
 description: A Grafana dashboard integration app
 icon: https://playground.srly.io/edge-apps/grafana/static/img/icon.svg
 author: Screenly, Inc.
-ready_signal: true
 categories:
   - Dashboards
   - Authentication
+ready_signal: true
 settings:
   access_token:
     type: secret

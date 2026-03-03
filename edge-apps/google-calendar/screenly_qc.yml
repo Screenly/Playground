@@ -4,10 +4,10 @@ id: 01KA95PA8PGQVPH9JKRGVMV528
 description: Google Calendar Edge App QC
 icon: https://playground.srly.io/edge-apps/google-calendar/src/img/icon.svg
 author: Screenly, Inc.
-ready_signal: true
 categories:
   - Productivity
   - Utilities
+ready_signal: true
 settings:
   access_token:
     type: secret

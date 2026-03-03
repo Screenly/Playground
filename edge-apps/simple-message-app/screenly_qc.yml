@@ -4,10 +4,10 @@ id: 01JZHP34BQWKHFN9KPT0W0MH2N
 description: Screenly Simple Message App QC
 icon: https://playground.srly.io/edge-apps/simple-message-app/static/img/icon.svg
 author: Screenly, Inc.
-ready_signal: true
 categories:
   - Utilities
   - Messaging & Content
+ready_signal: true
 settings:
   enable_analytics:
     type: string

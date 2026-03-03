@@ -4,10 +4,10 @@ id: 01JZHR3FMNDC4RHTSKSCC6D15J
 description: CharlieHR App, Displays your employee's information. Documented here https://www.screenly.io/edge-apps/charliehr-dashboard/ .
 icon: https://playground.srly.io/edge-apps/charlie-hr-app/static/img/icon.svg
 author: Screenly, Inc.
-ready_signal: true
 categories:
   - HR
   - Dashboard
+ready_signal: true
 settings:
   client_id:
     type: string
