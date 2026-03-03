@@ -1,6 +1,6 @@
 # Peripheral Integration POC
 
-**Date:** 2026-03-02
+**Date:** 2026-03-03
 
 ---
 
@@ -23,13 +23,25 @@ screenly.peripherals.watchState((readings) => {
   {
     "ambient_temperature": 21.896982,
     "name": "my_living_room_temp",
-    "timestamp": "2026-02-28T16:30:17.937+03:00",
+    "timestamp": 1772570314358,
     "unit": "°C"
+  },
+  {
+    "humidity": 58.3,
+    "name": "room_humidity",
+    "timestamp": 1772570314358,
+    "unit": "%"
+  },
+  {
+    "air_pressure": 1012.4,
+    "name": "room_pressure",
+    "timestamp": 1772570314358,
+    "unit": "hPa"
   },
   {
     "secure_card_id": "DEADBEEF",
     "name": "room1_access",
-    "timestamp": "2026-02-28T16:30:17.937+03:00"
+    "timestamp": 1772570314358
   }
 ]
 ```
@@ -77,28 +89,47 @@ The integrator pushes events without a request. The client **must ACK** each one
 
 | Event | Description |
 | --- | --- |
-| `source_channel_event` | New sensor reading from driver |
+| `edge_app_source_state` | Full snapshot of all channel readings |
 | `downstream_node_event` | Driver error / disconnect / reconnect |
 
 ACK shape:
 ```json
-{ "response": { "request_id": "<event_request_id>", "ok": "source_channel_event" } }
+{ "response": { "request_id": "<event_request_id>", "ok": "edge_app_source_state" } }
 ```
 
-### Wire format example (temperature)
+### Wire format example
 
 ```json
-// GetState response
+// Pushed immediately after identification, then every 5 seconds
 {
-  "response": {
-    "request_id": "<id>",
-    "ok": {
-      "source_channel_get_state": {
-        "name": "temperature",
-        "ambient_temperature": 22.22,
-        "unit": "°C",
-        "timestamp": "2026-03-02T14:30:45.123+03:00"
-      }
+  "request": {
+    "id": "<ULID>",
+    "edge_app_source_state": {
+      "states": [
+        {
+          "name": "my_living_room_temp",
+          "ambient_temperature": 22.22,
+          "unit": "°C",
+          "timestamp": 1772570314358
+        },
+        {
+          "name": "room_humidity",
+          "humidity": 58.3,
+          "unit": "%",
+          "timestamp": 1772570314358
+        },
+        {
+          "name": "room_pressure",
+          "air_pressure": 1012.4,
+          "unit": "hPa",
+          "timestamp": 1772570314358
+        },
+        {
+          "name": "room1_access",
+          "secure_card_id": "DEADBEEF",
+          "timestamp": 1772570314358
+        }
+      ]
     }
   }
 }
@@ -141,7 +172,7 @@ When `bun run dev` is started:
 
 1. A WebSocket server starts on `ws://127.0.0.1:9010` (same port as the real integrator)
 2. The generated `screenly.js` includes the full `peripherals` implementation as an IIFE
-3. The mock server responds to the identification handshake, handles `source_channel_get_state` requests, and pushes `source_channel_event` messages every **3 seconds** for `ambient_temperature` and `secure_card_id`
+3. The mock server responds to the identification handshake, immediately pushes a full `edge_app_source_state` snapshot after identification, then repeats every **5 seconds** for all channels: `ambient_temperature`, `humidity`, `air_pressure`, and `secure_card_id`
 
 If port 9010 is already in use (e.g. the real integrator is running), the mock server silently skips startup and the real hardware takes over — no code change needed.
 

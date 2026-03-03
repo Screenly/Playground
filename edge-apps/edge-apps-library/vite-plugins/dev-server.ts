@@ -52,13 +52,19 @@ const defaultScreenlyConfig: BaseScreenlyMockData = {
 const PERIPHERAL_WS_PORT = 9010
 const ETB = '\x17'
 
-type SensorType = 'ambient_temperature' | 'secure_card_id'
+type SensorType =
+  | 'ambient_temperature'
+  | 'humidity'
+  | 'air_pressure'
+  | 'secure_card_id'
 
 const SENSOR_META: Record<
   SensorType,
   { channelName: string; unit: string | null }
 > = {
   ambient_temperature: { channelName: 'my_living_room_temp', unit: '°C' },
+  humidity: { channelName: 'room_humidity', unit: '%' },
+  air_pressure: { channelName: 'room_pressure', unit: 'hPa' },
   secure_card_id: { channelName: 'room1_access', unit: null },
 }
 
@@ -71,11 +77,39 @@ function makeMockSensorValue(sensor: SensorType): number | string {
   switch (sensor) {
     case 'ambient_temperature':
       return parseFloat((20 + Math.random() * 10).toFixed(2))
+    case 'humidity':
+      return parseFloat((40 + Math.random() * 40).toFixed(2))
+    case 'air_pressure':
+      return parseFloat((1000 + Math.random() * 30).toFixed(2))
     case 'secure_card_id':
       return Math.random() < 0.5
         ? MOCK_CARD_IDS.operator
         : MOCK_CARD_IDS.maintenance
   }
+}
+
+function generateUlid(): string {
+  return (
+    Date.now().toString(36).toUpperCase() +
+    Math.random().toString(36).slice(2, 12).toUpperCase()
+  )
+}
+
+function buildStateSnapshot(): Record<string, unknown>[] {
+  return (
+    Object.entries(SENSOR_META) as [
+      SensorType,
+      { channelName: string; unit: string | null },
+    ][]
+  ).map(([wireKey, meta]) => {
+    const reading: Record<string, unknown> = {
+      name: meta.channelName,
+      [wireKey]: makeMockSensorValue(wireKey),
+      timestamp: Date.now(),
+    }
+    if (meta.unit) reading.unit = meta.unit
+    return reading
+  })
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -108,6 +142,15 @@ function startPeripheralMockServer(): void {
             response: { request_id: requestId, ok: { identification: null } },
           }) + ETB
         ws.send(ack)
+        // Push full state snapshot immediately after identification
+        const initialSnapshot =
+          JSON.stringify({
+            request: {
+              id: generateUlid(),
+              edge_app_source_state: { states: buildStateSnapshot() },
+            },
+          }) + ETB
+        ws.send(initialSnapshot)
         return
       }
 
@@ -129,7 +172,7 @@ function startPeripheralMockServer(): void {
         const reading: Record<string, unknown> = {
           name: channelName,
           [wireKey]: value,
-          timestamp: new Date().toISOString(),
+          timestamp: Date.now(),
         }
         if (meta.unit) reading.unit = meta.unit
         const response =
@@ -143,27 +186,14 @@ function startPeripheralMockServer(): void {
       }
     })
 
-    // Push unsolicited sensor events every 3 seconds
-    const activeSensors = Object.entries(SENSOR_META) as [
-      SensorType,
-      { channelName: string; unit: string | null },
-    ][]
+    // Push full state snapshot every 5 seconds
     const interval = setInterval(() => {
       if (!identified || ws.readyState !== ws.OPEN) return
-      const [wireKey, meta] =
-        activeSensors[Math.floor(Math.random() * activeSensors.length)]
-      const value = makeMockSensorValue(wireKey)
-      const pushEvent: Record<string, unknown> = {
-        name: meta.channelName,
-        [wireKey]: value,
-        timestamp: new Date().toISOString(),
-      }
-      if (meta.unit) pushEvent.unit = meta.unit
       const event =
         JSON.stringify({
           request: {
-            id: `mock-push-${Date.now()}`,
-            source_channel_event: pushEvent,
+            id: generateUlid(),
+            edge_app_source_state: { states: buildStateSnapshot() },
           },
         }) + ETB
       ws.send(event)
@@ -187,7 +217,6 @@ function startPeripheralMockServer(): void {
   )
 }
 
-// eslint-disable-next-line max-lines-per-function
 function generateScreenlyObject(config: BaseScreenlyMockData) {
   return `
     // Generated screenly.js for development mode
@@ -199,16 +228,10 @@ function generateScreenlyObject(config: BaseScreenlyMockData) {
       peripherals: (() => {
         const ETB = '\\x17'
         const WS_URL = 'ws://127.0.0.1:${PERIPHERAL_WS_PORT}'
-        const SENSOR_META = {
-          ambient_temperature: { channelName: 'my_living_room_temp', unit: '°C' },
-          secure_card_id: { channelName: 'room1_access', unit: null },
-        }
 
         let ws = null
         let identified = false
         const subscribers = []
-        const KNOWN_CHANNELS = Object.values(SENSOR_META).map(m => m.channelName)
-        const pendingChannels = new Set()
         const readings = {}
 
         function generateUlid() {
@@ -227,13 +250,6 @@ function generateScreenlyObject(config: BaseScreenlyMockData) {
           dispatchEvent(new CustomEvent('screenly:peripheral', { detail: snapshot }))
         }
 
-        function fetchInitialSnapshot() {
-          KNOWN_CHANNELS.forEach(channel => {
-            pendingChannels.add(channel)
-            send({ request: { id: generateUlid(), source_channel_get_state: channel } })
-          })
-        }
-
         function connect() {
           ws = new WebSocket(WS_URL)
 
@@ -246,30 +262,15 @@ function generateScreenlyObject(config: BaseScreenlyMockData) {
             let msg
             try { msg = JSON.parse(text) } catch { return }
 
-            // Handle identification ACK — fetch full snapshot immediately after
             if (msg.response?.ok?.identification !== undefined) {
               identified = true
-              fetchInitialSnapshot()
               return
             }
 
-            // Handle GetState response — store raw report, fire when all channels received
-            if (msg.response?.ok?.source_channel_get_state) {
-              const report = msg.response.ok.source_channel_get_state
-              readings[report.name] = report
-              pendingChannels.delete(report.name)
-              if (pendingChannels.size === 0) {
-                notifySubscribers()
-              }
-              return
-            }
-
-            // Handle unsolicited push events — update reading and notify
-            if (msg.request?.source_channel_event) {
-              const report = msg.request.source_channel_event
-              readings[report.name] = report
+            if (msg.request?.edge_app_source_state) {
+              msg.request.edge_app_source_state.states.forEach(s => { readings[s.name] = s })
               notifySubscribers()
-              send({ response: { request_id: msg.request.id, ok: 'source_channel_event' } })
+              send({ response: { request_id: msg.request.id, ok: 'edge_app_source_state' } })
               return
             }
 
@@ -280,10 +281,7 @@ function generateScreenlyObject(config: BaseScreenlyMockData) {
           }
 
           ws.onerror = () => console.warn('[screenly] Peripheral WS error')
-          ws.onclose = () => {
-            identified = false
-            setTimeout(connect, 2000)
-          }
+          ws.onclose = () => { identified = false; setTimeout(connect, 2000) }
         }
 
         return {

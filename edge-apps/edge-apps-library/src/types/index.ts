@@ -56,8 +56,8 @@ export interface ScreenlySettings extends Record<string, unknown> {
 export interface PeripheralReading {
   /** Channel name as configured on the player (e.g. "my_living_room_temp") */
   name: string
-  /** ISO 8601 timestamp with millisecond precision */
-  timestamp: string
+  /** Unix epoch timestamp in milliseconds */
+  timestamp: number
   /** Physical unit (e.g. "°C", "%", "hPa") — omitted when not applicable */
   unit?: string
   /** Sensor-specific value field (e.g. ambient_temperature, humidity, byte_array) */
