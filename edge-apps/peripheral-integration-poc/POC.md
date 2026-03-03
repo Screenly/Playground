@@ -63,7 +63,7 @@ Before any data can flow, the client must identify itself:
 ### Request types (Edge App → Integrator)
 
 | Request | Description |
-|---|---|
+| --- | --- |
 | `identification` | Handshake at startup |
 | `source_channel_get_state` | Query current value for a named channel |
 | `source_channel_get_history` | Query time-series data for a named channel |
@@ -73,7 +73,7 @@ Before any data can flow, the client must identify itself:
 The integrator pushes events without a request. The client **must ACK** each one — the integrator retries 5× then drops the connection on failure.
 
 | Event | Description |
-|---|---|
+| --- | --- |
 | `source_channel_event` | New sensor reading from driver |
 | `downstream_node_event` | Driver error / disconnect / reconnect |
 
@@ -104,7 +104,7 @@ ACK shape:
 ### Sensor wire keys → normalized event mapping
 
 | Sensor | Wire key | Unit |
-|---|---|---|
+| --- | --- | --- |
 | `temperature` | `ambient_temperature` | `°C` |
 | `humidity` | `humidity` | `%` |
 | `air_pressure` | `air_pressure` | `hPa` |
@@ -193,7 +193,7 @@ interface ScreenlyPeripherals {
 ## Files Changed
 
 | File | Change |
-|---|---|
+| --- | --- |
 | `edge-apps/peripheral-integration-poc/` | New Edge App (this POC) |
 | `edge-apps/edge-apps-library/vite-plugins/dev-server.ts` | Added `startPeripheralMockServer()` + `peripherals` IIFE in generated `screenly.js` |
 | `edge-apps/edge-apps-library/src/types/index.ts` | Added `PeripheralReading`, `PeripheralSnapshot`, `ScreenlyPeripherals`, extended `ScreenlyObject` |
