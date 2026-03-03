@@ -5,6 +5,9 @@ description: Screenly Countdown Edge App
 icon: https://playground.srly.io/edge-apps/countdown-timer/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
+categories:
+  - Utilities
+  - Productivity
 settings:
   countdown_headline:
     type: string

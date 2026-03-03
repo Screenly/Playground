@@ -5,6 +5,8 @@ description: Displays the current weather and time
 icon: https://playground.srly.io/edge-apps/weather/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
+categories:
+  - Utilities
 settings:
   enable_analytics:
     type: string

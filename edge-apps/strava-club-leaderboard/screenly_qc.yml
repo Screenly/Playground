@@ -5,6 +5,9 @@ description: Displays a leaderboard of Strava club activities.
 icon: https://playground.srly.io/edge-apps/strava-club-leaderboard/static/images/icon.svg
 author: Screenly, Inc.
 ready_signal: true
+categories:
+  - Dashboards
+  - Just for Fun
 settings:
   access_token:
     type: secret

@@ -5,6 +5,8 @@ description: Screenly Clock Edge App
 icon: https://playground.srly.io/edge-apps/clock/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
+categories:
+  - Utilities
 settings:
   enable_analytics:
     type: string

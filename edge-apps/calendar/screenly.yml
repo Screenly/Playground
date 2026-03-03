@@ -5,6 +5,9 @@ description: Screenly Calendar Edge App
 icon: https://playground.srly.io/edge-apps/calendar/src/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
+categories:
+  - Productivity
+  - Utilities
 settings:
   bypass_cors:
     type: string

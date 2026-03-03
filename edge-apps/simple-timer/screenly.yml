@@ -5,6 +5,9 @@ description: Screenly Simple Timer Edge App
 icon: https://playground.srly.io/edge-apps/simple-timer/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
+categories:
+  - Utilities
+  - Productivity
 settings:
   display_errors:
     type: string

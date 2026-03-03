@@ -2,6 +2,9 @@
 syntax: manifest_v1
 id: 01JZHP6080GEG4NMP751NHCGSP
 ready_signal: true
+categories:
+  - Utilities
+  - Dashboards
 description: |
   Displays TFL Bus Status for a given bus stop.
   You can find the list of all bus stops here:

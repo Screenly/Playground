@@ -5,6 +5,9 @@ description: Fake Dashboard Edge App
 icon: https://playground.srly.io/edge-apps/fake-dashboard/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
+categories:
+  - Dashboards
+  - Just for Fun
 entrypoint:
   type: file
 settings:

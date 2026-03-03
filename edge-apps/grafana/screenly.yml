@@ -5,6 +5,9 @@ description: A Grafana dashboard integration app
 icon: https://playground.srly.io/edge-apps/grafana/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
+categories:
+  - Dashboards
+  - Authentication
 settings:
   access_token:
     type: secret

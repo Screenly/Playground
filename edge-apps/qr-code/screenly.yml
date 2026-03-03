@@ -5,6 +5,9 @@ description: A QR code generator app with customizable header
 icon: https://playground.srly.io/edge-apps/qr-code/static/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
+categories:
+  - Utilities
+  - Productivity
 settings:
   call_to_action:
     type: string

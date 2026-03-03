@@ -6,6 +6,9 @@ description: |
   Displays Power BI dashboards and reports with big focus on security.
 icon: 'https://playground.srly.io/edge-apps/powerbi-legacy/static/images/icon.svg'
 ready_signal: true
+categories:
+  - Dashboards
+  - Authentication
 settings:
   azure_ad_client_id:
     type: string

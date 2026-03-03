@@ -5,6 +5,9 @@ description: Google Calendar Edge App
 icon: https://playground.srly.io/edge-apps/google-calendar/src/img/icon.svg
 author: Screenly, Inc.
 ready_signal: true
+categories:
+  - Productivity
+  - Utilities
 settings:
   access_token:
     type: secret
