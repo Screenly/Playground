@@ -218,6 +218,9 @@ function generateScreenlyObject(config: BaseScreenlyMockData) {
         let ws = null
         let identified = false
         const subscribers = []
+        const KNOWN_CHANNELS = Object.keys(SENSOR_META)
+        const pendingChannels = new Set()
+        const snapshot = {}
 
         function generateUlid() {
           return Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2, 12).toUpperCase()
@@ -229,26 +232,48 @@ function generateScreenlyObject(config: BaseScreenlyMockData) {
           }
         }
 
-        function normalizeEvent(channelEvent) {
-          for (const [sensor, meta] of Object.entries(SENSOR_META)) {
+        function toReading(channelEvent) {
+          for (const [channel, meta] of Object.entries(SENSOR_META)) {
             if (meta.wireKey in channelEvent) {
               return {
-                sensor,
-                value: channelEvent[meta.wireKey],
-                unit: meta.unit,
-                timestamp: channelEvent.timestamp,
+                channel,
+                reading: {
+                  value: channelEvent[meta.wireKey],
+                  unit: meta.unit,
+                  retrieved_at: new Date(channelEvent.timestamp).getTime(),
+                }
               }
             }
           }
           return null
         }
 
+        function buildSnapshot() {
+          return Object.assign({}, snapshot, {
+            _timestamp: Date.now(),
+            _id: generateUlid(),
+            _uptime: Math.floor(performance.now() / 1000),
+          })
+        }
+
+        function notifySubscribers() {
+          const full = buildSnapshot()
+          subscribers.forEach(cb => cb(full))
+          dispatchEvent(new CustomEvent('screenly:peripheral', { detail: full }))
+        }
+
+        function fetchInitialSnapshot() {
+          KNOWN_CHANNELS.forEach(channel => {
+            pendingChannels.add(channel)
+            send({ request: { id: generateUlid(), source_channel_get_state: channel } })
+          })
+        }
+
         function connect() {
           ws = new WebSocket(WS_URL)
 
           ws.onopen = () => {
-            const id = generateUlid()
-            send({ request: { id, identification: { node_id: generateUlid(), description: 'Edge App Dev' } } })
+            send({ request: { id: generateUlid(), identification: { node_id: generateUlid(), description: 'Edge App Dev' } } })
           }
 
           ws.onmessage = (e) => {
@@ -256,18 +281,33 @@ function generateScreenlyObject(config: BaseScreenlyMockData) {
             let msg
             try { msg = JSON.parse(text) } catch { return }
 
-            // Handle identification ACK
+            // Handle identification ACK — fetch full snapshot immediately after
             if (msg.response?.ok?.identification !== undefined) {
               identified = true
+              fetchInitialSnapshot()
               return
             }
 
-            // Handle ACK requirement for unsolicited push events
+            // Handle GetState response — aggregate into snapshot, fire when all channels received
+            if (msg.response?.ok?.source_channel_get_state) {
+              const report = msg.response.ok.source_channel_get_state
+              const result = toReading(report)
+              if (result) {
+                snapshot[result.channel + '_1'] = result.reading
+                pendingChannels.delete(result.channel)
+              }
+              if (pendingChannels.size === 0) {
+                notifySubscribers()
+              }
+              return
+            }
+
+            // Handle unsolicited push events — update snapshot and notify
             if (msg.request?.source_channel_event) {
-              const event = normalizeEvent(msg.request.source_channel_event)
-              if (event) {
-                subscribers.forEach(cb => cb(event))
-                dispatchEvent(new CustomEvent('screenly:peripheral', { detail: event }))
+              const result = toReading(msg.request.source_channel_event)
+              if (result) {
+                snapshot[result.channel + '_1'] = result.reading
+                notifySubscribers()
               }
               send({ response: { request_id: msg.request.id, ok: 'source_channel_event' } })
               return

@@ -50,23 +50,29 @@ export interface ScreenlySettings extends Record<string, unknown> {
 }
 
 /**
- * A normalized peripheral sensor event delivered by screenly.peripherals.subscribe()
+ * A single sensor reading within a PeripheralSnapshot
  */
-export interface PeripheralEvent {
-  /** Sensor type identifier (e.g. "temperature", "humidity") */
-  sensor:
-    | 'temperature'
-    | 'humidity'
-    | 'air_pressure'
-    | 'digital'
-    | 'analog'
-    | 'byte_array'
+export interface PeripheralReading {
   /** Sensor reading — float for numeric sensors, base64url string for byte_array */
   value: number | string
   /** Physical unit (e.g. "°C", "%", "hPa"), or null when not applicable */
   unit: string | null
-  /** ISO 8601 timestamp with millisecond precision */
-  timestamp: string
+  /** Unix epoch milliseconds */
+  retrieved_at: number
+}
+
+/**
+ * Full snapshot of all peripheral sensor readings delivered by screenly.peripherals.subscribe()
+ */
+export interface PeripheralSnapshot {
+  /** Sensor readings keyed by channel name (e.g. "temperature_1", "humidity_1") */
+  [channel: string]: PeripheralReading | number | string
+  /** Unix epoch milliseconds of when the snapshot was assembled */
+  _timestamp: number
+  /** Unique snapshot identifier */
+  _id: string
+  /** Player uptime in seconds */
+  _uptime: number
 }
 
 /**
@@ -74,15 +80,16 @@ export interface PeripheralEvent {
  */
 export interface ScreenlyPeripherals {
   /**
-   * Subscribe to live sensor events from connected peripherals.
-   * The callback is invoked whenever a new reading arrives.
+   * Subscribe to live peripheral sensor snapshots.
+   * The callback is invoked with the full state of all sensors on connect
+   * and again whenever any sensor value is updated.
    *
    * @example
-   * screenly.peripherals.subscribe((event) => {
-   *   console.log(event.sensor, event.value, event.unit, event.timestamp)
+   * screenly.peripherals.subscribe((snapshot) => {
+   *   console.log(snapshot.temperature_1.value, snapshot._timestamp)
    * })
    */
-  subscribe: (callback: (event: PeripheralEvent) => void) => void
+  subscribe: (callback: (snapshot: PeripheralSnapshot) => void) => void
 }
 
 /**

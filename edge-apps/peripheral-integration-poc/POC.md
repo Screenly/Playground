@@ -9,23 +9,27 @@
 The proposed API for Edge Apps to consume peripheral sensor data is a single function call:
 
 ```js
-screenly.peripherals.subscribe((event) => {
-  console.log(event.sensor, event.value, event.unit, event.timestamp)
+screenly.peripherals.subscribe((snapshot) => {
+  console.log(snapshot.temperature_1.value, snapshot._timestamp)
 })
 ```
 
-`screenly.js` (v2) owns the entire WebSocket lifecycle — handshake, ACKs, reconnection. Edge App developers write one line and receive live sensor data. That's it.
+`screenly.js` (v2) owns the entire WebSocket lifecycle — handshake, ACKs, reconnection. Edge App developers write one line and receive the full state of all connected sensors. That's it.
 
-**Normalized event shape:**
+**Snapshot shape:**
 
 ```json
 {
-  "sensor": "temperature",
-  "value": 22.22,
-  "unit": "°C",
-  "timestamp": "2026-03-02T14:30:45.123+03:00"
+  "temperature_1": { "value": 22.22, "unit": "°C", "retrieved_at": 1740920445123 },
+  "humidity_1":    { "value": 58.5,  "unit": "%",  "retrieved_at": 1740920445124 },
+  "air_pressure_1":{ "value": 1013.25, "unit": "hPa", "retrieved_at": 1740920445125 },
+  "_timestamp": 1740920445126,
+  "_id": "01JNA4X0000PERIPHERAL0000001",
+  "_uptime": 3600
 }
 ```
+
+The callback fires once on connect with a full snapshot of all channels, then again whenever any sensor value is updated.
 
 Supported sensor types: `temperature`, `humidity`, `air_pressure`, `digital`, `analog`, `byte_array`.
 
@@ -125,7 +129,7 @@ Edge App developers shouldn't need to know about:
 - ACKing unsolicited push events (with retry semantics)
 - Reconnection logic
 
-All of this is handled inside `screenly.js`. The Edge App only sees normalized `PeripheralEvent` objects.
+All of this is handled inside `screenly.js`. The Edge App only sees a normalized `PeripheralSnapshot` object.
 
 ### Why not `screenly.peripherals.init(channel, type, callback)`?
 
@@ -133,11 +137,11 @@ The original proposal included `channel-name` and `sensor-type` parameters. This
 
 ### On `dispatchEvent`
 
-In addition to the `subscribe` callback, `screenly.js` also dispatches a `CustomEvent` on `window` for each event:
+In addition to the `subscribe` callback, `screenly.js` also dispatches a `CustomEvent` on `window` for each snapshot:
 
 ```js
 window.addEventListener('screenly:peripheral', (e) => {
-  console.log(e.detail) // same PeripheralEvent shape
+  console.log(e.detail) // same PeripheralSnapshot shape
 })
 ```
 
@@ -161,18 +165,24 @@ If port 9010 is already in use (e.g. the real integrator is running), the mock s
 
 ## TypeScript Types
 
-`PeripheralEvent` and `ScreenlyPeripherals` are defined in `edge-apps/edge-apps-library/src/types/index.ts` and exported from `@screenly/edge-apps`.
+`PeripheralReading`, `PeripheralSnapshot`, and `ScreenlyPeripherals` are defined in `edge-apps/edge-apps-library/src/types/index.ts` and exported from `@screenly/edge-apps`.
 
 ```ts
-interface PeripheralEvent {
-  sensor: 'temperature' | 'humidity' | 'air_pressure' | 'digital' | 'analog' | 'byte_array'
+interface PeripheralReading {
   value: number | string
   unit: string | null
-  timestamp: string // ISO 8601, millisecond precision
+  retrieved_at: number // Unix epoch milliseconds
+}
+
+interface PeripheralSnapshot {
+  [channel: string]: PeripheralReading | number | string
+  _timestamp: number  // Unix epoch milliseconds
+  _id: string
+  _uptime: number     // Player uptime in seconds
 }
 
 interface ScreenlyPeripherals {
-  subscribe: (callback: (event: PeripheralEvent) => void) => void
+  subscribe: (callback: (snapshot: PeripheralSnapshot) => void) => void
 }
 ```
 
@@ -186,5 +196,5 @@ interface ScreenlyPeripherals {
 |---|---|
 | `edge-apps/peripheral-integration-poc/` | New Edge App (this POC) |
 | `edge-apps/edge-apps-library/vite-plugins/dev-server.ts` | Added `startPeripheralMockServer()` + `peripherals` IIFE in generated `screenly.js` |
-| `edge-apps/edge-apps-library/src/types/index.ts` | Added `PeripheralEvent`, `ScreenlyPeripherals`, extended `ScreenlyObject` |
+| `edge-apps/edge-apps-library/src/types/index.ts` | Added `PeripheralReading`, `PeripheralSnapshot`, `ScreenlyPeripherals`, extended `ScreenlyObject` |
 | `edge-apps/edge-apps-library/package.json` | Added `ws` + `@types/ws` dev dependencies |
