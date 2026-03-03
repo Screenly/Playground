@@ -12,6 +12,7 @@ import { initTimers } from './core/timer'
 import { initPublicClock } from './features/publicClock'
 import { initOperatorDashboard } from './features/operatorDashboard'
 import { initSafetyCarousel } from './features/safetyCarousel'
+import { initPeripherals } from './features/peripherals'
 
 document.addEventListener('DOMContentLoaded', () => {
   setupErrorHandling()
@@ -22,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPublicClock()
   initOperatorDashboard()
   initSafetyCarousel()
+  initPeripherals()
 
   signalReady()
 })
