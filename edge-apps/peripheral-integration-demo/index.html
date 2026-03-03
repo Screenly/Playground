@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Peripheral Integration Demo</title>
+    <script src="screenly.js?version=1"></script>
+  </head>
+
+  <body class="bg-black text-white">
+    <auto-scaler
+      reference-width="1080"
+      reference-height="1920"
+      orientation="auto"
+      class="bg-gray-600"
+    >
+      <div id="app" class="flex flex-col h-full">
+        <!-- ================= WELCOME OVERLAY ================= -->
+        <div
+          id="welcome-overlay"
+          class="hidden fixed inset-0 bg-black/90 backdrop-blur-xl flex items-center justify-center z-50 opacity-0 transition-opacity duration-500"
+        >
+          <div class="text-center space-y-4 text-white">
+            <div id="welcome-name" class="text-6xl font-bold"></div>
+            <div id="welcome-role" class="text-4xl text-zinc-400"></div>
+          </div>
+        </div>
+
+        <!-- ================= ROLE SWITCH BUTTONS ================= -->
+        <div class="buttons flex gap-3 p-4">
+          <button id="btn-public" class="btn-switch">Public</button>
+          <button id="btn-operator" class="btn-switch">Operator</button>
+          <button id="btn-maintenance" class="btn-switch">Maintenance</button>
+        </div>
+
+        <!-- ================= MAIN CONTENT ================= -->
+        <main class="content p-10 flex flex-col gap-6">
+          <!-- ===================================================== -->
+          <!-- =============== ROLE HEADER ========================= -->
+          <!-- ===================================================== -->
+
+          <header id="role-header" class="role-header hidden">
+            <span id="role-header-time" class="role-header-time"></span>
+            <span id="role-header-date" class="role-header-date"></span>
+          </header>
+
+          <!-- ===================================================== -->
+          <!-- ================= PUBLIC SCREEN ===================== -->
+          <!-- ===================================================== -->
+
+          <div id="screen-public" class="screen flex flex-col flex-1">
+            <!-- ================= CLOCK ================= -->
+            <div
+              class="flex flex-col items-center justify-center flex-1 min-h-0"
+            >
+              <span
+                id="public-time"
+                class="text-7xl font-bold tracking-wide"
+              ></span>
+              <span id="public-date" class="text-3xl text-zinc-400 mt-2"></span>
+            </div>
+
+            <!-- ================= TEMPERATURE ================= -->
+            <div class="mt-6 text-center">
+              <p class="text-2xl">
+                Temperature:
+                <span id="public-temperature" class="font-semibold"></span>°C
+              </p>
+            </div>
+
+            <!-- ================= SAFETY CAROUSEL ================= -->
+            <div
+              class="mt-10 bg-zinc-900 rounded-3xl p-8 border border-zinc-800"
+            >
+              <h3 class="text-3xl font-semibold mb-6 text-center">
+                🏭 Manufacturing Safety Tips
+              </h3>
+
+              <div
+                class="min-h-[120px] flex items-center justify-center text-center"
+              >
+                <div
+                  id="safety-text"
+                  class="text-2xl opacity-100 transition-opacity duration-500"
+                ></div>
+              </div>
+            </div>
+
+            <!-- ================= ACCESS BLOCK ================= -->
+            <div
+              class="mt-10 bg-zinc-900 rounded-3xl p-8 text-center border border-zinc-800"
+            >
+              <div class="text-3xl font-semibold mb-4">🔐 Secure Access</div>
+
+              <div class="text-xl text-zinc-400 mb-6">
+                Scan your authorized badge or card to access operational data.
+              </div>
+
+              <div
+                class="flex justify-center gap-4 text-lg text-zinc-500 flex-wrap"
+              >
+                <span>✔ Role-based access</span>
+                <span>•</span>
+                <span>✔ Secure authentication</span>
+                <span>•</span>
+                <span>✔ Real-time visibility</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===================================================== -->
+          <!-- ================= OPERATOR ========================= -->
+          <!-- ===================================================== -->
+
+          <div
+            id="screen-operator"
+            class="screen hidden flex flex-col flex-1 gap-10"
+          >
+            <!-- ================= PRODUCTION STATUS (TOP PRIORITY) ================= -->
+            <div class="bg-zinc-900 rounded-3xl p-10 border border-zinc-800">
+              <h2 class="text-5xl font-bold mb-8">🏭 Production Status</h2>
+
+              <!-- Machine Status -->
+              <div class="mb-6">
+                <div class="text-2xl text-zinc-400">Machine Status</div>
+                <div
+                  id="operator-machine-status"
+                  class="text-4xl font-semibold mt-2 text-green-400"
+                >
+                  Running
+                </div>
+              </div>
+
+              <!-- Order Info -->
+              <div class="grid grid-cols-2 gap-8 text-2xl">
+                <div>
+                  <div class="text-zinc-400">Order / Batch ID</div>
+                  <div id="operator-batch" class="font-semibold mt-2">--</div>
+                </div>
+
+                <div>
+                  <div class="text-zinc-400">Product</div>
+                  <div id="operator-product" class="font-semibold mt-2">--</div>
+                </div>
+
+                <div>
+                  <div class="text-zinc-400">Target Quantity</div>
+                  <div id="operator-target" class="font-semibold mt-2">0</div>
+                </div>
+
+                <div>
+                  <div class="text-zinc-400">Actual Produced</div>
+                  <div
+                    id="operator-actual"
+                    class="font-semibold mt-2 text-green-400"
+                  >
+                    0
+                  </div>
+                </div>
+
+                <div>
+                  <div class="text-zinc-400">Remaining</div>
+                  <div
+                    id="operator-remaining"
+                    class="font-semibold mt-2 text-red-400"
+                  >
+                    0
+                  </div>
+                </div>
+              </div>
+
+              <!-- Progress Bar -->
+              <div class="mt-10">
+                <div class="text-2xl text-zinc-400 mb-3">
+                  Production Progress
+                </div>
+
+                <div
+                  class="w-full bg-zinc-800 rounded-full h-8 overflow-hidden"
+                >
+                  <div
+                    id="operator-progress-bar"
+                    class="bg-green-500 h-full transition-all duration-500"
+                    style="width: 0%"
+                  ></div>
+                </div>
+
+                <div
+                  id="operator-progress-percent"
+                  class="text-right mt-3 text-3xl font-bold text-green-400"
+                >
+                  0%
+                </div>
+              </div>
+            </div>
+
+            <!-- ================= QUALITY INFORMATION ================= -->
+            <div class="bg-zinc-900 rounded-3xl p-10 border border-zinc-800">
+              <h2 class="text-5xl font-bold mb-8">📋 Quality Information</h2>
+              <div class="grid grid-cols-2 gap-8 text-2xl">
+                <div>
+                  <div class="text-zinc-400">Pass Rate</div>
+                  <div
+                    id="operator-quality-pass-rate"
+                    class="font-semibold mt-2 text-green-400"
+                  >
+                    --
+                  </div>
+                </div>
+                <div>
+                  <div class="text-zinc-400">Defects This Batch</div>
+                  <div
+                    id="operator-quality-defects"
+                    class="font-semibold mt-2 text-amber-400"
+                  >
+                    --
+                  </div>
+                </div>
+                <div>
+                  <div class="text-zinc-400">Quality Score</div>
+                  <div
+                    id="operator-quality-score"
+                    class="font-semibold mt-2 text-blue-400"
+                  >
+                    --
+                  </div>
+                </div>
+                <div>
+                  <div class="text-zinc-400">Last Inspection</div>
+                  <div
+                    id="operator-last-inspection"
+                    class="font-semibold mt-2 text-zinc-300"
+                  >
+                    --
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===================================================== -->
+          <!-- ================= MAINTENANCE ======================= -->
+          <!-- ===================================================== -->
+
+          <div
+            id="screen-maintenance"
+            class="screen hidden flex flex-col gap-6"
+          >
+            <h2 class="text-4xl mb-6">Maintenance View</h2>
+
+            <p class="text-2xl">
+              Screenly Version:
+              <span id="maintenance-screenly-version"></span>
+            </p>
+
+            <p class="text-2xl">
+              Hardware:
+              <span id="maintenance-hardware"></span>
+            </p>
+
+            <p class="text-2xl">
+              Name (CMS):
+              <span id="maintenance-screen-name"></span>
+            </p>
+
+            <p class="text-2xl">
+              Hostname:
+              <span id="maintenance-hostname"></span>
+            </p>
+
+            <p class="text-2xl">
+              Timezone:
+              <span id="maintenance-timezone"></span>
+            </p>
+
+            <p class="text-2xl">
+              Network:
+              <span id="maintenance-network"></span>
+            </p>
+          </div>
+        </main>
+
+        <!-- ===================================================== -->
+        <!-- ================= SESSION BAR ======================= -->
+        <!-- ===================================================== -->
+
+        <div
+          id="logout-bar"
+          class="hidden fixed bottom-0 left-0 w-full bg-zinc-900 border-t border-zinc-800 p-6 text-center text-2xl space-y-2 z-40"
+        >
+          <div class="text-zinc-400">
+            Scan your card again to extend your session
+          </div>
+
+          <div class="text-red-500 font-bold text-3xl">
+            Returning to public view in
+            <span id="logout-timer">60</span>s
+          </div>
+        </div>
+      </div>
+    </auto-scaler>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
