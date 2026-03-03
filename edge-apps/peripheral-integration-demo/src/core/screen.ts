@@ -92,7 +92,7 @@ async function preloadScreenData(role: ScreenType): Promise<void> {
   }
 }
 
-async function showWelcomeThenSwitch(role: ScreenType) {
+export async function showWelcomeThenSwitch(role: ScreenType) {
   const { name, role: roleLabel } = userMap[role]
   const welcomeOverlay = getEl('welcome-overlay')
   const welcomeName = getEl('welcome-name')

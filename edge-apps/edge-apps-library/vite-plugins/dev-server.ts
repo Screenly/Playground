@@ -62,15 +62,19 @@ const SENSOR_META: Record<
   secure_card_id: { channelName: 'room1_access', unit: null },
 }
 
+const MOCK_CARD_IDS = {
+  operator: 'DEADBEEF',
+  maintenance: 'CAFEBABE',
+}
+
 function makeMockSensorValue(sensor: SensorType): number | string {
   switch (sensor) {
     case 'ambient_temperature':
       return parseFloat((20 + Math.random() * 10).toFixed(2))
     case 'secure_card_id':
-      return Math.floor(Math.random() * 0xffffffff)
-        .toString(16)
-        .toUpperCase()
-        .padStart(8, '0')
+      return Math.random() < 0.5
+        ? MOCK_CARD_IDS.operator
+        : MOCK_CARD_IDS.maintenance
   }
 }
 
@@ -163,7 +167,7 @@ function startPeripheralMockServer(): void {
           },
         }) + ETB
       ws.send(event)
-    }, 3000)
+    }, 5000)
 
     ws.on('close', () => clearInterval(interval))
   })
