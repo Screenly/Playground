@@ -52,40 +52,25 @@ const defaultScreenlyConfig: BaseScreenlyMockData = {
 const PERIPHERAL_WS_PORT = 9010
 const ETB = '\x17'
 
-type SensorType =
-  | 'temperature'
-  | 'humidity'
-  | 'air_pressure'
-  | 'digital'
-  | 'analog'
-  | 'byte_array'
+type SensorType = 'ambient_temperature' | 'secure_card_id'
 
 const SENSOR_META: Record<
   SensorType,
-  { wireKey: string; unit: string | null }
+  { channelName: string; unit: string | null }
 > = {
-  temperature: { wireKey: 'ambient_temperature', unit: '°C' },
-  humidity: { wireKey: 'humidity', unit: '%' },
-  air_pressure: { wireKey: 'air_pressure', unit: 'hPa' },
-  digital: { wireKey: 'digital', unit: null },
-  analog: { wireKey: 'analog', unit: null },
-  byte_array: { wireKey: 'byte_array', unit: null },
+  ambient_temperature: { channelName: 'my_living_room_temp', unit: '°C' },
+  secure_card_id: { channelName: 'room1_access', unit: null },
 }
 
 function makeMockSensorValue(sensor: SensorType): number | string {
   switch (sensor) {
-    case 'temperature':
+    case 'ambient_temperature':
       return parseFloat((20 + Math.random() * 10).toFixed(2))
-    case 'humidity':
-      return parseFloat((40 + Math.random() * 40).toFixed(2))
-    case 'air_pressure':
-      return parseFloat((1000 + Math.random() * 30).toFixed(2))
-    case 'digital':
-      return Math.round(Math.random())
-    case 'analog':
-      return parseFloat((Math.random() * 5).toFixed(3))
-    case 'byte_array':
-      return Buffer.from('mock').toString('base64url')
+    case 'secure_card_id':
+      return Math.floor(Math.random() * 0xffffffff)
+        .toString(16)
+        .toUpperCase()
+        .padStart(8, '0')
   }
 }
 
@@ -126,22 +111,28 @@ function startPeripheralMockServer(): void {
 
       // GetState request
       const channelName = req.source_channel_get_state as string | undefined
-      if (channelName && channelName in SENSOR_META) {
-        const sensor = channelName as SensorType
-        const meta = SENSOR_META[sensor]
-        const value = makeMockSensorValue(sensor)
+      const sensorEntry = channelName
+        ? (
+            Object.entries(SENSOR_META) as [
+              SensorType,
+              { channelName: string; unit: string | null },
+            ][]
+          ).find(([, meta]) => meta.channelName === channelName)
+        : undefined
+      if (sensorEntry) {
+        const [wireKey, meta] = sensorEntry
+        const value = makeMockSensorValue(wireKey)
+        const reading: Record<string, unknown> = {
+          name: channelName,
+          [wireKey]: value,
+          timestamp: new Date().toISOString(),
+        }
+        if (meta.unit) reading.unit = meta.unit
         const response =
           JSON.stringify({
             response: {
               request_id: requestId,
-              ok: {
-                source_channel_get_state: {
-                  name: channelName,
-                  [meta.wireKey]: value,
-                  unit: meta.unit,
-                  timestamp: new Date().toISOString(),
-                },
-              },
+              ok: { source_channel_get_state: reading },
             },
           }) + ETB
         ws.send(response)
@@ -149,28 +140,26 @@ function startPeripheralMockServer(): void {
     })
 
     // Push unsolicited sensor events every 3 seconds
-    const activeSensors: SensorType[] = [
-      'temperature',
-      'humidity',
-      'air_pressure',
-    ]
+    const activeSensors = Object.entries(SENSOR_META) as [
+      SensorType,
+      { channelName: string; unit: string | null },
+    ][]
     const interval = setInterval(() => {
       if (!identified || ws.readyState !== ws.OPEN) return
-      const sensor =
+      const [wireKey, meta] =
         activeSensors[Math.floor(Math.random() * activeSensors.length)]
-      const meta = SENSOR_META[sensor]
-      const value = makeMockSensorValue(sensor)
-      const requestId = `mock-push-${Date.now()}`
+      const value = makeMockSensorValue(wireKey)
+      const pushEvent: Record<string, unknown> = {
+        name: meta.channelName,
+        [wireKey]: value,
+        timestamp: new Date().toISOString(),
+      }
+      if (meta.unit) pushEvent.unit = meta.unit
       const event =
         JSON.stringify({
           request: {
-            id: requestId,
-            source_channel_event: {
-              name: sensor,
-              [meta.wireKey]: value,
-              unit: meta.unit,
-              timestamp: new Date().toISOString(),
-            },
+            id: `mock-push-${Date.now()}`,
+            source_channel_event: pushEvent,
           },
         }) + ETB
       ws.send(event)
@@ -207,20 +196,16 @@ function generateScreenlyObject(config: BaseScreenlyMockData) {
         const ETB = '\\x17'
         const WS_URL = 'ws://127.0.0.1:${PERIPHERAL_WS_PORT}'
         const SENSOR_META = {
-          temperature: { wireKey: 'ambient_temperature', unit: '°C' },
-          humidity: { wireKey: 'humidity', unit: '%' },
-          air_pressure: { wireKey: 'air_pressure', unit: 'hPa' },
-          digital: { wireKey: 'digital', unit: null },
-          analog: { wireKey: 'analog', unit: null },
-          byte_array: { wireKey: 'byte_array', unit: null },
+          ambient_temperature: { channelName: 'my_living_room_temp', unit: '°C' },
+          secure_card_id: { channelName: 'room1_access', unit: null },
         }
 
         let ws = null
         let identified = false
         const subscribers = []
-        const KNOWN_CHANNELS = Object.keys(SENSOR_META)
+        const KNOWN_CHANNELS = Object.values(SENSOR_META).map(m => m.channelName)
         const pendingChannels = new Set()
-        const snapshot = {}
+        const readings = {}
 
         function generateUlid() {
           return Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2, 12).toUpperCase()
@@ -232,34 +217,10 @@ function generateScreenlyObject(config: BaseScreenlyMockData) {
           }
         }
 
-        function toReading(channelEvent) {
-          for (const [channel, meta] of Object.entries(SENSOR_META)) {
-            if (meta.wireKey in channelEvent) {
-              return {
-                channel,
-                reading: {
-                  value: channelEvent[meta.wireKey],
-                  unit: meta.unit,
-                  retrieved_at: new Date(channelEvent.timestamp).getTime(),
-                }
-              }
-            }
-          }
-          return null
-        }
-
-        function buildSnapshot() {
-          return Object.assign({}, snapshot, {
-            _timestamp: Date.now(),
-            _id: generateUlid(),
-            _uptime: Math.floor(performance.now() / 1000),
-          })
-        }
-
         function notifySubscribers() {
-          const full = buildSnapshot()
-          subscribers.forEach(cb => cb(full))
-          dispatchEvent(new CustomEvent('screenly:peripheral', { detail: full }))
+          const snapshot = Object.values(readings)
+          subscribers.forEach(cb => cb(snapshot))
+          dispatchEvent(new CustomEvent('screenly:peripheral', { detail: snapshot }))
         }
 
         function fetchInitialSnapshot() {
@@ -288,27 +249,22 @@ function generateScreenlyObject(config: BaseScreenlyMockData) {
               return
             }
 
-            // Handle GetState response — aggregate into snapshot, fire when all channels received
+            // Handle GetState response — store raw report, fire when all channels received
             if (msg.response?.ok?.source_channel_get_state) {
               const report = msg.response.ok.source_channel_get_state
-              const result = toReading(report)
-              if (result) {
-                snapshot[result.channel + '_1'] = result.reading
-                pendingChannels.delete(result.channel)
-              }
+              readings[report.name] = report
+              pendingChannels.delete(report.name)
               if (pendingChannels.size === 0) {
                 notifySubscribers()
               }
               return
             }
 
-            // Handle unsolicited push events — update snapshot and notify
+            // Handle unsolicited push events — update reading and notify
             if (msg.request?.source_channel_event) {
-              const result = toReading(msg.request.source_channel_event)
-              if (result) {
-                snapshot[result.channel + '_1'] = result.reading
-                notifySubscribers()
-              }
+              const report = msg.request.source_channel_event
+              readings[report.name] = report
+              notifySubscribers()
               send({ response: { request_id: msg.request.id, ok: 'source_channel_event' } })
               return
             }
@@ -326,10 +282,9 @@ function generateScreenlyObject(config: BaseScreenlyMockData) {
           }
         }
 
-        connect()
-
         return {
-          subscribe(callback) {
+          watchState(callback) {
+            if (!ws) connect()
             subscribers.push(callback)
           }
         }

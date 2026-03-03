@@ -50,29 +50,18 @@ export interface ScreenlySettings extends Record<string, unknown> {
 }
 
 /**
- * A single sensor reading within a PeripheralSnapshot
+ * A single peripheral channel reading as delivered by the Peripheral Integrator.
+ * The sensor-specific value is carried under its wire key (e.g. ambient_temperature, humidity).
  */
 export interface PeripheralReading {
-  /** Sensor reading — float for numeric sensors, base64url string for byte_array */
-  value: number | string
-  /** Physical unit (e.g. "°C", "%", "hPa"), or null when not applicable */
-  unit: string | null
-  /** Unix epoch milliseconds */
-  retrieved_at: number
-}
-
-/**
- * Full snapshot of all peripheral sensor readings delivered by screenly.peripherals.subscribe()
- */
-export interface PeripheralSnapshot {
-  /** Sensor readings keyed by channel name (e.g. "temperature_1", "humidity_1") */
-  [channel: string]: PeripheralReading | number | string
-  /** Unix epoch milliseconds of when the snapshot was assembled */
-  _timestamp: number
-  /** Unique snapshot identifier */
-  _id: string
-  /** Player uptime in seconds */
-  _uptime: number
+  /** Channel name as configured on the player (e.g. "my_living_room_temp") */
+  name: string
+  /** ISO 8601 timestamp with millisecond precision */
+  timestamp: string
+  /** Physical unit (e.g. "°C", "%", "hPa") — omitted when not applicable */
+  unit?: string
+  /** Sensor-specific value field (e.g. ambient_temperature, humidity, byte_array) */
+  [wireKey: string]: unknown
 }
 
 /**
@@ -81,15 +70,15 @@ export interface PeripheralSnapshot {
 export interface ScreenlyPeripherals {
   /**
    * Subscribe to live peripheral sensor snapshots.
-   * The callback is invoked with the full state of all sensors on connect
-   * and again whenever any sensor value is updated.
+   * The callback is invoked with the full state of all channels on connect
+   * and again whenever any channel value is updated.
    *
    * @example
-   * screenly.peripherals.subscribe((snapshot) => {
-   *   console.log(snapshot.temperature_1.value, snapshot._timestamp)
+   * screenly.peripherals.watchState((readings) => {
+   *   readings.forEach(r => console.log(r.name, r.timestamp))
    * })
    */
-  subscribe: (callback: (snapshot: PeripheralSnapshot) => void) => void
+  watchState: (callback: (readings: PeripheralReading[]) => void) => void
 }
 
 /**
