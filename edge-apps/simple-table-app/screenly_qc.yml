@@ -6,6 +6,8 @@ icon: https://playground.srly.io/edge-apps/simple-table-app/static/images/icon.s
 author: Screenly, Inc.
 entrypoint:
   type: file
+categories:
+  - Utilities
 ready_signal: true
 settings:
   content:

@@ -4,6 +4,9 @@ id: 01KBG6Q8K9AVF1N3HYR95QRKWP
 description: A QR code generator app with customizable header
 icon: https://playground.srly.io/edge-apps/qr-code/static/img/icon.svg
 author: Screenly, Inc.
+categories:
+  - Utilities
+  - Productivity
 ready_signal: true
 settings:
   call_to_action:

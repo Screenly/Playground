@@ -7,6 +7,8 @@ author: Screenly, Inc.
 entrypoint:
   type: file
 ready_signal: true
+categories:
+  - Utilities
 settings:
   cap_feed_url:
     type: string
