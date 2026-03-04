@@ -185,33 +185,111 @@ auto-scaler {
 }
 
 /* ===================== */
-/* Role header           */
+/* Glass card variants   */
 /* ===================== */
 
-.role-header {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 1rem;
-  flex-shrink: 0;
-  padding: 0.5rem 0;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(12px);
+.glass-card--left {
+  align-items: flex-start;
+  padding: 3rem;
 }
 
-.role-header.hidden {
+.glass-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.glass-card-icon {
+  width: 48px;
+  height: 48px;
+  color: white;
+  flex-shrink: 0;
+}
+
+/* ===================== */
+/* Operator fields       */
+/* ===================== */
+
+.operator-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.operator-label {
+  font-size: 26px;
+  color: #cbd5e0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.operator-value {
+  font-size: 34px;
+  font-weight: 600;
+  color: white;
+}
+
+.operator-value--green {
+  font-size: 40px;
+  font-weight: 600;
+  color: #80ed99;
+}
+
+.operator-value--red {
+  font-size: 40px;
+  font-weight: 600;
+  color: #e33876;
+}
+
+.operator-value--amber {
+  font-size: 40px;
+  font-weight: 600;
+  color: #efcb68;
+}
+
+.operator-progress-track {
+  width: 100%;
+  height: 24px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.operator-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: #80ed99;
+  transition: width 0.5s ease;
+}
+
+/* ===================== */
+/* Session bar           */
+/* ===================== */
+
+.session-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 2.25rem 1.5rem;
+  text-align: center;
+  z-index: 40;
+}
+
+.session-bar.hidden {
   display: none;
 }
 
-.role-header-date {
-  font-size: 1.125rem;
-  opacity: 0.9;
+.session-bar-hint {
+  font-size: 28px;
+  color: #cbd5e0;
 }
 
-.role-header-time {
-  font-size: 1.125rem;
-  font-weight: 300;
-  opacity: 0.95;
+.session-bar-countdown {
+  font-size: 30px;
+  font-weight: 600;
+  color: #e33876;
 }

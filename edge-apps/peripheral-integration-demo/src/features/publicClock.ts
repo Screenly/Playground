@@ -19,14 +19,6 @@ function tick() {
   getEl('public-time').textContent = timeStr
   getEl('public-date').textContent = dateStrShort
   getEl('public-date-long').textContent = dateStr
-
-  if (
-    state.currentScreen === 'operator' ||
-    state.currentScreen === 'maintenance'
-  ) {
-    getEl('role-header-time').textContent = timeStr
-    getEl('role-header-date').textContent = dateStrShort
-  }
 }
 
 export async function initPublicClock() {

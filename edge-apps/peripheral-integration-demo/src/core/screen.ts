@@ -43,11 +43,6 @@ function syncScreensToState(state: ReturnType<typeof getState>) {
     screens[key].classList.toggle('hidden', key !== state.currentScreen)
   })
 
-  const roleHeader = getEl('role-header')
-  const isRoleScreen =
-    state.currentScreen === 'operator' || state.currentScreen === 'maintenance'
-  roleHeader.classList.toggle('hidden', !isRoleScreen)
-
   const publicTemp = getEl('public-temperature')
   publicTemp.textContent = `${state.temperature}°C`
 
