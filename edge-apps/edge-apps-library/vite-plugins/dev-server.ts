@@ -245,9 +245,9 @@ function generateScreenlyObject(config: BaseScreenlyMockData) {
         }
 
         function notifySubscribers() {
-          const snapshot = Object.values(readings)
-          subscribers.forEach(cb => cb(snapshot))
-          dispatchEvent(new CustomEvent('screenly:peripheral', { detail: snapshot }))
+          const msg = { request: { id: generateUlid(), edge_app_source_state: { states: Object.values(readings) } } }
+          subscribers.forEach(cb => cb(msg))
+          dispatchEvent(new CustomEvent('screenly:peripheral', { detail: msg }))
         }
 
         function connect() {

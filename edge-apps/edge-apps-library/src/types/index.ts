@@ -65,20 +65,33 @@ export interface PeripheralReading {
 }
 
 /**
+ * Full wire message delivered by the Peripheral Integrator.
+ * Matches the `edge_app_source_state` push event shape from Octo-Avenger.
+ */
+export interface PeripheralStateMessage {
+  request: {
+    id: string
+    edge_app_source_state: {
+      states: PeripheralReading[]
+    }
+  }
+}
+
+/**
  * Peripheral sensor integration API exposed on the screenly object
  */
 export interface ScreenlyPeripherals {
   /**
    * Subscribe to live peripheral sensor snapshots.
-   * The callback is invoked with the full state of all channels on connect
+   * The callback is invoked with the full wire message on connect
    * and again whenever any channel value is updated.
    *
    * @example
-   * screenly.peripherals.watchState((readings) => {
-   *   readings.forEach(r => console.log(r.name, r.timestamp))
+   * screenly.peripherals.watchState((msg) => {
+   *   msg.request.edge_app_source_state.states.forEach(r => console.log(r.name, r.timestamp))
    * })
    */
-  watchState: (callback: (readings: PeripheralReading[]) => void) => void
+  watchState: (callback: (msg: PeripheralStateMessage) => void) => void
 }
 
 /**

@@ -54,13 +54,15 @@ Screenshots are saved to the `screenshots/` directory.
 Edge Apps consume sensor data via a single function call:
 
 ```js
-screenly.peripherals?.watchState((readings) => {
-  const tempReading = readings.find((r) => 'ambient_temperature' in r)
+screenly.peripherals?.watchState((msg) => {
+  const states = msg.request.edge_app_source_state.states
+
+  const tempReading = states.find((r) => 'ambient_temperature' in r)
   if (tempReading) {
     setTemperature(tempReading.ambient_temperature)
   }
 
-  const cardReading = readings.find((r) => 'secure_card_id' in r)
+  const cardReading = states.find((r) => 'secure_card_id' in r)
   if (cardReading) {
     const role = authenticate(cardReading.secure_card_id)
     if (role) showWelcomeThenSwitch(role)
@@ -73,19 +75,26 @@ screenly.peripherals?.watchState((readings) => {
 **Sample data delivered to the callback:**
 
 ```json
-[
-  {
-    "ambient_temperature": 21.896982,
-    "name": "my_living_room_temp",
-    "timestamp": 1772570314358,
-    "unit": "°C"
-  },
-  {
-    "secure_card_id": "DEADBEEF",
-    "name": "room1_access",
-    "timestamp": 1772570314358
+{
+  "request": {
+    "id": "01KJTPS9C0NV33QENDF3B4MXMV",
+    "edge_app_source_state": {
+      "states": [
+        {
+          "name": "my_living_room_temp",
+          "ambient_temperature": 21.9,
+          "unit": "°C",
+          "timestamp": 1772570314358
+        },
+        {
+          "name": "room1_access",
+          "secure_card_id": "DEADBEEF",
+          "timestamp": 1772570314358
+        }
+      ]
+    }
   }
-]
+}
 ```
 
 The callback fires once on connect with the full state of all channels, then again whenever any sensor value is updated.

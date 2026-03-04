@@ -1,11 +1,14 @@
-import type { PeripheralReading } from '@screenly/edge-apps'
+import type { PeripheralStateMessage } from '@screenly/edge-apps'
 
 import { getState, setTemperature } from '../core/state'
 import { showWelcomeThenSwitch } from '../core/screen'
 import { authenticate } from './authenticate'
 
 export function initPeripherals() {
-  screenly.peripherals?.watchState((readings: PeripheralReading[]) => {
+  screenly.peripherals?.watchState((msg: PeripheralStateMessage) => {
+    console.log('Peripheral readings:', JSON.stringify(msg, null, 2))
+    const readings = msg.request.edge_app_source_state.states
+
     const tempReading = readings.find((r) => 'ambient_temperature' in r)
     if (tempReading) {
       setTemperature(tempReading.ambient_temperature as number)
