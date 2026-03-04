@@ -326,39 +326,72 @@
           <!-- Maintenance Screen -->
           <div
             id="screen-maintenance"
-            class="screen hidden flex flex-col gap-6"
+            class="screen hidden flex flex-col flex-1 gap-8"
           >
-            <h2 class="text-4xl mb-6">Maintenance View</h2>
+            <div class="glass-card glass-card--left">
+              <div class="glass-card-heading">
+                <!-- Bar-chart icon -->
+                <svg
+                  class="glass-card-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="18" y1="20" x2="18" y2="10" />
+                  <line x1="12" y1="20" x2="12" y2="4" />
+                  <line x1="6" y1="20" x2="6" y2="14" />
+                </svg>
+                <span class="glass-card-title">Maintenance View</span>
+              </div>
 
-            <p class="text-2xl">
-              Screenly Version:
-              <span id="maintenance-screenly-version"></span>
-            </p>
-
-            <p class="text-2xl">
-              Hardware:
-              <span id="maintenance-hardware"></span>
-            </p>
-
-            <p class="text-2xl">
-              Name (CMS):
-              <span id="maintenance-screen-name"></span>
-            </p>
-
-            <p class="text-2xl">
-              Hostname:
-              <span id="maintenance-hostname"></span>
-            </p>
-
-            <p class="text-2xl">
-              Timezone:
-              <span id="maintenance-timezone"></span>
-            </p>
-
-            <p class="text-2xl">
-              Network:
-              <span id="maintenance-network"></span>
-            </p>
+              <div class="maintenance-rows">
+                <div class="maintenance-row">
+                  <span class="maintenance-label">Screenly Version</span>
+                  <span
+                    id="maintenance-screenly-version"
+                    class="maintenance-value"
+                  ></span>
+                </div>
+                <div class="maintenance-row">
+                  <span class="maintenance-label">Hardware</span>
+                  <span
+                    id="maintenance-hardware"
+                    class="maintenance-value"
+                  ></span>
+                </div>
+                <div class="maintenance-row">
+                  <span class="maintenance-label">Name (CMS)</span>
+                  <span
+                    id="maintenance-screen-name"
+                    class="maintenance-value"
+                  ></span>
+                </div>
+                <div class="maintenance-row">
+                  <span class="maintenance-label">Hostname</span>
+                  <span
+                    id="maintenance-hostname"
+                    class="maintenance-value"
+                  ></span>
+                </div>
+                <div class="maintenance-row">
+                  <span class="maintenance-label">Timezone</span>
+                  <span
+                    id="maintenance-timezone"
+                    class="maintenance-value"
+                  ></span>
+                </div>
+                <div class="maintenance-row">
+                  <span class="maintenance-label">Network</span>
+                  <span
+                    id="maintenance-network"
+                    class="maintenance-value"
+                  ></span>
+                </div>
+              </div>
+            </div>
           </div>
         </main>
 

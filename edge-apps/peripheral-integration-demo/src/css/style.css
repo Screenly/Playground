@@ -266,6 +266,43 @@ auto-scaler {
 }
 
 /* ===================== */
+/* Maintenance rows      */
+/* ===================== */
+
+.maintenance-rows {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.maintenance-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 24px;
+}
+
+.maintenance-row:last-child {
+  border-bottom: none;
+}
+
+.maintenance-label {
+  color: #cbd5e0;
+  flex-shrink: 0;
+}
+
+.maintenance-label::after {
+  content: ':';
+}
+
+.maintenance-value {
+  color: white;
+  font-weight: 600;
+}
+
+/* ===================== */
 /* Session bar           */
 /* ===================== */
 
