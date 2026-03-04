@@ -3,11 +3,11 @@ export function initSafetyCarousel() {
   if (!safetyText) return
 
   const tips = [
-    '⚠ Always wear PPE',
-    '🧤 Use gloves properly',
-    '🚧 Keep emergency exits clear',
-    '🤖 Do not bypass safety guards',
-    '🛑 Stop machine if abnormal sound occurs',
+    'Always wear PPE',
+    'Use gloves properly',
+    'Keep emergency exits clear',
+    'Do not bypass safety guards',
+    'Stop machine if abnormal sound occurs',
   ]
 
   let index = 0
