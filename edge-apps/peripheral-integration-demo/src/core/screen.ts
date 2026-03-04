@@ -138,13 +138,5 @@ export function initScreens() {
   subscribe(syncScreensToState)
   syncScreensToState(getState())
 
-  getEl('btn-public').addEventListener('click', () => setScreen('public'))
-  getEl('btn-operator').addEventListener('click', () =>
-    showWelcomeThenSwitch('operator'),
-  )
-  getEl('btn-maintenance').addEventListener('click', () =>
-    showWelcomeThenSwitch('maintenance'),
-  )
-
   setupNetworkListeners()
 }
