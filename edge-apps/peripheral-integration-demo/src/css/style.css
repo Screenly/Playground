@@ -21,9 +21,7 @@ auto-scaler {
   z-index: var(--z-index-content);
 }
 
-/* ===================== */
-/* Welcome overlay       */
-/* ===================== */
+/* Welcome overlay */
 
 .welcome-overlay {
   background-color: #171e24;
@@ -42,9 +40,7 @@ auto-scaler {
   text-shadow: 0 2px 7px rgba(0, 0, 0, 0.25);
 }
 
-/* ===================== */
-/* Background            */
-/* ===================== */
+/* Background */
 
 .bg-glow {
   position: absolute;
@@ -77,9 +73,7 @@ auto-scaler {
   opacity: 0.1;
 }
 
-/* ===================== */
-/* Top bar               */
-/* ===================== */
+/* Top bar */
 
 .top-bar {
   display: flex;
@@ -109,9 +103,7 @@ auto-scaler {
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* ===================== */
-/* Public clock          */
-/* ===================== */
+/* Public clock */
 
 .public-clock {
   display: flex;
@@ -168,9 +160,7 @@ auto-scaler {
   letter-spacing: -0.96px;
 }
 
-/* ===================== */
-/* Glass cards           */
-/* ===================== */
+/* Glass cards */
 
 .glass-card {
   display: flex;
@@ -205,9 +195,7 @@ auto-scaler {
   text-shadow: 0 2px 7px rgba(0, 0, 0, 0.25);
 }
 
-/* ===================== */
-/* Glass card variants   */
-/* ===================== */
+/* Glass card variants */
 
 .glass-card--left {
   align-items: flex-start;
@@ -228,9 +216,7 @@ auto-scaler {
   flex-shrink: 0;
 }
 
-/* ===================== */
-/* Operator fields       */
-/* ===================== */
+/* Operator fields */
 
 .operator-field {
   display: flex;
@@ -286,9 +272,7 @@ auto-scaler {
   transition: width 0.5s ease;
 }
 
-/* ===================== */
-/* Maintenance rows      */
-/* ===================== */
+/* Maintenance rows */
 
 .maintenance-rows {
   display: flex;
@@ -323,9 +307,7 @@ auto-scaler {
   font-weight: 600;
 }
 
-/* ===================== */
-/* Session bar           */
-/* ===================== */
+/* Session bar */
 
 .session-bar {
   position: fixed;

@@ -10,10 +10,10 @@ import { subscribe, getState, setScreen, type ScreenType } from './state'
 import {
   waitForScreenDataPrepared,
   dispatchScreenDataPrepared,
-} from './screenEvents'
+} from './screen-events'
 import { getNetworkStatus } from '../utils/network'
 import { formatDisplayTime } from '../utils/time'
-import { updateOperatorDashboard } from '../features/operatorDashboard'
+import { updateOperatorDashboard } from '../features/operator-dashboard'
 
 function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms))

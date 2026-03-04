@@ -9,9 +9,9 @@ import {
 
 import { initScreens } from './core/screen'
 import { initTimers } from './core/timer'
-import { initPublicClock } from './features/publicClock'
-import { initOperatorDashboard } from './features/operatorDashboard'
-import { initSafetyCarousel } from './features/safetyCarousel'
+import { initPublicClock } from './features/public-clock'
+import { initOperatorDashboard } from './features/operator-dashboard'
+import { initSafetyCarousel } from './features/safety-carousel'
 import { initPeripherals } from './features/peripherals'
 
 document.addEventListener('DOMContentLoaded', () => {
