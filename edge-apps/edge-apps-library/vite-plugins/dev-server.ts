@@ -88,11 +88,21 @@ function makeMockSensorValue(sensor: SensorType): number | string {
   }
 }
 
+// Generates a 26-character ULID using Crockford's Base32 alphabet
+// (0-9, A-Z excluding I, L, O, U): 10 timestamp chars + 16 random chars
 function generateUlid(): string {
-  return (
-    Date.now().toString(36).toUpperCase() +
-    Math.random().toString(36).slice(2, 12).toUpperCase()
-  )
+  const chars = '0123456789ABCDEFGHJKMNPQRSTVWXYZ'
+  let t = Date.now()
+  let time = ''
+  for (let i = 9; i >= 0; i--) {
+    time = chars[t % 32] + time
+    t = Math.floor(t / 32)
+  }
+  let rand = ''
+  for (let i = 0; i < 16; i++) {
+    rand += chars[Math.floor(Math.random() * 32)]
+  }
+  return time + rand
 }
 
 function buildStateSnapshot(): Record<string, unknown>[] {
@@ -156,6 +166,9 @@ function startPeripheralMockServer(): void {
 
       if (!identified) return
 
+      // Registration is fire-and-forget — no response needed
+      if (req.edge_app_registration) return
+
       // GetState request
       const channelName = req.source_channel_get_state as string | undefined
       const sensorEntry = channelName
@@ -217,6 +230,7 @@ function startPeripheralMockServer(): void {
   )
 }
 
+// eslint-disable-next-line max-lines-per-function
 function generateScreenlyObject(config: BaseScreenlyMockData) {
   return `
     // Generated screenly.js for development mode
@@ -234,8 +248,15 @@ function generateScreenlyObject(config: BaseScreenlyMockData) {
         const subscribers = []
         const readings = {}
 
+        // Generates a 26-character ULID using Crockford's Base32 alphabet
+        // (0-9, A-Z excluding I, L, O, U): 10 timestamp chars + 16 random chars
         function generateUlid() {
-          return Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2, 12).toUpperCase()
+          const chars = '0123456789ABCDEFGHJKMNPQRSTVWXYZ'
+          let t = Date.now(), time = ''
+          for (let i = 9; i >= 0; i--) { time = chars[t % 32] + time; t = Math.floor(t / 32) }
+          let rand = ''
+          for (let i = 0; i < 16; i++) { rand += chars[Math.floor(Math.random() * 32)] }
+          return time + rand
         }
 
         function send(payload) {
@@ -285,6 +306,22 @@ function generateScreenlyObject(config: BaseScreenlyMockData) {
         }
 
         return {
+          register(edgeAppId) {
+            if (!ws) connect()
+            const sendRegistration = () => {
+              send({ request: { id: generateUlid(), edge_app_registration: { id: edgeAppId, secret: '', requested_source_channels: [] } } })
+            }
+            if (ws.readyState === WebSocket.OPEN && identified) {
+              sendRegistration()
+            } else {
+              ws.addEventListener('message', function onIdentified() {
+                if (identified) {
+                  sendRegistration()
+                  ws.removeEventListener('message', onIdentified)
+                }
+              })
+            }
+          },
           watchState(callback) {
             if (!ws) connect()
             subscribers.push(callback)

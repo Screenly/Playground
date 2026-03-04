@@ -91,6 +91,7 @@ export interface ScreenlyPeripherals {
    *   msg.request.edge_app_source_state.states.forEach(r => console.log(r.name, r.timestamp))
    * })
    */
+  register: (edgeAppId: string) => void
   watchState: (callback: (msg: PeripheralStateMessage) => void) => void
 }
 
@@ -106,6 +107,8 @@ export interface ScreenlyObject {
   settings: ScreenlySettings
   /** CORS proxy URL for fetching external resources */
   cors_proxy_url: string
+  /** Edge App ID assigned by Screenly (screenly.js v2+) */
+  screenly_edge_app_id?: string
   /** Peripheral sensor integration (screenly.js v2+) */
   peripherals?: ScreenlyPeripherals
 }
