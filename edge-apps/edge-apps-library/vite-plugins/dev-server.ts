@@ -1,9 +1,9 @@
-/* eslint-disable max-lines */
 import type { ViteDevServer, Plugin } from 'vite'
 import YAML from 'yaml'
 import fs from 'fs'
 import path from 'path'
 import { WebSocketServer } from 'ws'
+import { ulid } from 'ulid'
 
 type ScreenlyManifestField = {
   type: string
@@ -88,23 +88,6 @@ function makeMockSensorValue(sensor: SensorType): number | string {
   }
 }
 
-// Generates a 26-character ULID using Crockford's Base32 alphabet
-// (0-9, A-Z excluding I, L, O, U): 10 timestamp chars + 16 random chars
-function generateUlid(): string {
-  const chars = '0123456789ABCDEFGHJKMNPQRSTVWXYZ'
-  let t = Date.now()
-  let time = ''
-  for (let i = 9; i >= 0; i--) {
-    time = chars[t % 32] + time
-    t = Math.floor(t / 32)
-  }
-  let rand = ''
-  for (let i = 0; i < 16; i++) {
-    rand += chars[Math.floor(Math.random() * 32)]
-  }
-  return time + rand
-}
-
 function buildStateSnapshot(): Record<string, unknown>[] {
   return (
     Object.entries(SENSOR_META) as [
@@ -156,7 +139,7 @@ function startPeripheralMockServer(): void {
         const initialSnapshot =
           JSON.stringify({
             request: {
-              id: generateUlid(),
+              id: ulid(),
               edge_app_source_state: { states: buildStateSnapshot() },
             },
           }) + ETB
@@ -205,7 +188,7 @@ function startPeripheralMockServer(): void {
       const event =
         JSON.stringify({
           request: {
-            id: generateUlid(),
+            id: ulid(),
             edge_app_source_state: { states: buildStateSnapshot() },
           },
         }) + ETB
@@ -230,7 +213,6 @@ function startPeripheralMockServer(): void {
   )
 }
 
-// eslint-disable-next-line max-lines-per-function
 function generateScreenlyObject(config: BaseScreenlyMockData) {
   return `
     // Generated screenly.js for development mode
@@ -239,95 +221,6 @@ function generateScreenlyObject(config: BaseScreenlyMockData) {
       metadata: ${JSON.stringify(config.metadata, null, 2)},
       settings: ${JSON.stringify(config.settings, null, 2)},
       cors_proxy_url: ${JSON.stringify(config.cors_proxy_url)},
-      peripherals: (() => {
-        const ETB = '\\x17'
-        const WS_URL = 'ws://127.0.0.1:${PERIPHERAL_WS_PORT}'
-
-        let ws = null
-        let identified = false
-        const subscribers = []
-        const readings = {}
-
-        // Generates a 26-character ULID using Crockford's Base32 alphabet
-        // (0-9, A-Z excluding I, L, O, U): 10 timestamp chars + 16 random chars
-        function generateUlid() {
-          const chars = '0123456789ABCDEFGHJKMNPQRSTVWXYZ'
-          let t = Date.now(), time = ''
-          for (let i = 9; i >= 0; i--) { time = chars[t % 32] + time; t = Math.floor(t / 32) }
-          let rand = ''
-          for (let i = 0; i < 16; i++) { rand += chars[Math.floor(Math.random() * 32)] }
-          return time + rand
-        }
-
-        function send(payload) {
-          if (ws && ws.readyState === WebSocket.OPEN) {
-            ws.send(JSON.stringify(payload) + ETB)
-          }
-        }
-
-        function notifySubscribers() {
-          const msg = { request: { id: generateUlid(), edge_app_source_state: { states: Object.values(readings) } } }
-          subscribers.forEach(cb => cb(msg))
-          dispatchEvent(new CustomEvent('screenly:peripheral', { detail: msg }))
-        }
-
-        function connect() {
-          ws = new WebSocket(WS_URL)
-
-          ws.onopen = () => {
-            send({ request: { id: generateUlid(), identification: { node_id: generateUlid(), description: 'Edge App Dev' } } })
-          }
-
-          ws.onmessage = (e) => {
-            const text = e.data.replace(ETB, '')
-            let msg
-            try { msg = JSON.parse(text) } catch { return }
-
-            if (msg.response?.ok?.identification !== undefined) {
-              identified = true
-              return
-            }
-
-            if (msg.request?.edge_app_source_state) {
-              msg.request.edge_app_source_state.states.forEach(s => { readings[s.name] = s })
-              notifySubscribers()
-              send({ response: { request_id: msg.request.id, ok: 'edge_app_source_state' } })
-              return
-            }
-
-            if (msg.request?.downstream_node_event) {
-              send({ response: { request_id: msg.request.id, ok: 'downstream_node_event' } })
-              return
-            }
-          }
-
-          ws.onerror = () => console.warn('[screenly] Peripheral WS error')
-          ws.onclose = () => { identified = false; setTimeout(connect, 2000) }
-        }
-
-        return {
-          register(edgeAppId) {
-            if (!ws) connect()
-            const sendRegistration = () => {
-              send({ request: { id: generateUlid(), edge_app_registration: { id: edgeAppId, secret: '', requested_source_channels: [] } } })
-            }
-            if (ws.readyState === WebSocket.OPEN && identified) {
-              sendRegistration()
-            } else {
-              ws.addEventListener('message', function onIdentified() {
-                if (identified) {
-                  sendRegistration()
-                  ws.removeEventListener('message', onIdentified)
-                }
-              })
-            }
-          },
-          watchState(callback) {
-            if (!ws) connect()
-            subscribers.push(callback)
-          }
-        }
-      })()
     }
   `
 }

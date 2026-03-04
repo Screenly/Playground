@@ -9,3 +9,6 @@ export * from './components/index.js'
 
 // Types
 export * from './types/index.js'
+
+// Peripheral integration
+export * from './peripherals/index.js'

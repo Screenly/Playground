@@ -51,10 +51,15 @@ Screenshots are saved to the `screenshots/` directory.
 
 ## Peripheral API
 
-Edge Apps consume sensor data via a single function call:
+Edge Apps consume sensor data using `createPeripheralClient()` from `@screenly/edge-apps`:
 
 ```js
-screenly.peripherals?.watchState((msg) => {
+import { createPeripheralClient } from '@screenly/edge-apps'
+
+const client = createPeripheralClient()
+client.register(edgeAppId)
+
+client.watchState((msg) => {
   const states = msg.request.edge_app_source_state.states
 
   const tempReading = states.find((r) => 'ambient_temperature' in r)
@@ -70,7 +75,7 @@ screenly.peripherals?.watchState((msg) => {
 })
 ```
 
-`screenly.js` (v2) owns the entire WebSocket lifecycle — handshake, ACKs, reconnection. Edge App developers write one line and receive the full state of all connected sensors.
+The client handles the WebSocket lifecycle — handshake, ACKs, and reconnection.
 
 **Sample data delivered to the callback:**
 
