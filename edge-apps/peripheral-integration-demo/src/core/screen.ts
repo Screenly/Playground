@@ -93,7 +93,7 @@ export async function showWelcomeThenSwitch(role: ScreenType) {
   const welcomeName = getEl('welcome-name')
   const welcomeRole = getEl('welcome-role')
 
-  welcomeName.textContent = `👋 Welcome, ${name}`
+  welcomeName.textContent = `Welcome, ${name}`
   welcomeRole.textContent = `Role: ${roleLabel}`
   welcomeOverlay.classList.remove('hidden')
   requestAnimationFrame(() => welcomeOverlay.classList.remove('opacity-0'))

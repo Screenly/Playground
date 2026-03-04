@@ -15,21 +15,25 @@
       class="bg-[#171e24]"
     >
       <div id="app" class="flex flex-col h-full overflow-hidden">
-        <!-- Welcome Overlay -->
-        <div
-          id="welcome-overlay"
-          class="hidden fixed inset-0 bg-black/90 backdrop-blur-xl flex items-center justify-center z-50 opacity-0 transition-opacity duration-500"
-        >
-          <div class="text-center space-y-4 text-white">
-            <div id="welcome-name" class="text-6xl font-bold"></div>
-            <div id="welcome-role" class="text-4xl text-zinc-400"></div>
-          </div>
-        </div>
-
         <!-- Background: soft purple radial glows -->
         <div class="bg-glow">
           <div class="bg-glow-primary"></div>
           <div class="bg-glow-secondary"></div>
+        </div>
+
+        <!-- Welcome Overlay -->
+        <div
+          id="welcome-overlay"
+          class="hidden fixed inset-0 flex items-center justify-center z-50 opacity-0 transition-opacity duration-500 welcome-overlay"
+        >
+          <div class="bg-glow">
+            <div class="bg-glow-primary"></div>
+            <div class="bg-glow-secondary"></div>
+          </div>
+          <div class="text-center">
+            <div id="welcome-name" class="welcome-name"></div>
+            <div id="welcome-role" class="welcome-role"></div>
+          </div>
         </div>
 
         <!-- Main Content -->

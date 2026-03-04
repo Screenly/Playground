@@ -22,6 +22,27 @@ auto-scaler {
 }
 
 /* ===================== */
+/* Welcome overlay       */
+/* ===================== */
+
+.welcome-overlay {
+  background-color: #171e24;
+}
+
+.welcome-name {
+  font-size: 52px;
+  color: white;
+  line-height: 1.5;
+}
+
+.welcome-role {
+  font-size: 39px;
+  color: #cbd5e0;
+  letter-spacing: -1.5px;
+  text-shadow: 0 2px 7px rgba(0, 0, 0, 0.25);
+}
+
+/* ===================== */
 /* Background            */
 /* ===================== */
 
