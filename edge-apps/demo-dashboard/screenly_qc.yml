@@ -4,6 +4,9 @@ id: 01JZAZAF1XGC2DPEEDPAEM7K87
 description: Demo Dashboard App
 icon: https://playground.srly.io/edge-apps/demo-dashboard/static/img/icon.svg
 author: Screenly, Inc.
+categories:
+  - Dashboards
+  - Just for Fun
 ready_signal: true
 entrypoint:
   type: file

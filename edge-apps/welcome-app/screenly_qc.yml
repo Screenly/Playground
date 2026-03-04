@@ -4,6 +4,8 @@ id: 01JZHPBTR1RMMHATDHAJ0V4H7N
 description: Screenly Welcome App.
 icon: https://playground.srly.io/edge-apps/welcome-app/static/images/icon.svg
 author: Screenly, Inc.
+categories:
+  - Messaging & Content
 ready_signal: true
 settings:
   enable_analytics:

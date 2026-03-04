@@ -4,6 +4,9 @@ id: 01KB238NJA0BARWX712K7TM8GF
 description: Outlook Calendar Edge App
 icon: https://playground.srly.io/edge-apps/outlook-calendar/src/img/icon.svg
 author: Screenly, Inc.
+categories:
+  - Productivity
+  - Utilities
 ready_signal: true
 settings:
   access_token:
