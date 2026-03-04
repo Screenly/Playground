@@ -53,7 +53,7 @@ export interface ScreenlySettings extends Record<string, unknown> {
  * A single peripheral channel reading as delivered by the Peripheral Integrator.
  * The sensor-specific value is carried under its wire key (e.g. ambient_temperature, humidity).
  */
-export interface PeripheralReading {
+export interface PeripheralState {
   /** Channel name as configured on the player (e.g. "my_living_room_temp") */
   name: string
   /** Unix epoch timestamp in milliseconds */
@@ -72,7 +72,7 @@ export interface PeripheralStateMessage {
   request: {
     id: string
     edge_app_source_state: {
-      states: PeripheralReading[]
+      states: PeripheralState[]
     }
   }
 }
