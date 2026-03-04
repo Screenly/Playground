@@ -20,12 +20,11 @@ screenly edge-app instance create
 
 The app accepts the following settings via `screenly.yml`:
 
-| Setting             | Description                                                                                                                                                   | Type     | Default         |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | --------------- |
-| `display_errors`    | Display errors on screen for debugging purposes                                                                                                               | optional | `false`         |
-| `message`           | The message to display on screen                                                                                                                              | required | `Hello, World!` |
-| `override_locale`   | Override the default locale with a supported language code                                                                                                    | optional | `en`            |
-| `override_timezone` | Override the default timezone with a supported timezone identifier (e.g., `Europe/London`, `America/New_York`). Defaults to the system timezone if left blank | optional | -               |
+| Setting             | Description                                                                                                                                                   | Type     | Default |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------- |
+| `display_errors`    | Display errors on screen for debugging purposes                                                                                                               | optional | `false` |
+| `override_locale`   | Override the default locale with a supported language code                                                                                                    | optional | `en`    |
+| `override_timezone` | Override the default timezone with a supported timezone identifier (e.g., `Europe/London`, `America/New_York`). Defaults to the system timezone if left blank | optional | -       |
 
 ## Development
 
@@ -55,8 +54,17 @@ Screenshots are saved to the `screenshots/` directory.
 Edge Apps consume sensor data via a single function call:
 
 ```js
-screenly.peripherals.watchState((readings) => {
-  readings.forEach((r) => console.log(r.name, r.timestamp))
+screenly.peripherals?.watchState((readings) => {
+  const tempReading = readings.find((r) => 'ambient_temperature' in r)
+  if (tempReading) {
+    setTemperature(tempReading.ambient_temperature)
+  }
+
+  const cardReading = readings.find((r) => 'secure_card_id' in r)
+  if (cardReading) {
+    const role = authenticate(cardReading.secure_card_id)
+    if (role) showWelcomeThenSwitch(role)
+  }
 })
 ```
 
