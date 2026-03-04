@@ -21,10 +21,18 @@ export function initPeripherals() {
 
     const cardReading = readings.find((r) => 'secure_card' in r)
     if (cardReading) {
-      const uid = (cardReading.secure_card as { uid: string }).uid
-      const role = authenticate(uid)
-      if (role && role !== getState().currentScreen) {
-        showWelcomeThenSwitch(role)
+      const MAX_CARD_AGE_MS = 60_000 // card data must not be older than 1 minute
+      const ageMs = Date.now() - (cardReading.timestamp as number)
+      if (ageMs > MAX_CARD_AGE_MS) {
+        if (getState().currentScreen !== 'public') {
+          showWelcomeThenSwitch('public')
+        }
+      } else {
+        const uid = (cardReading.secure_card as { uid: string }).uid
+        const role = authenticate(uid)
+        if (role && role !== getState().currentScreen) {
+          showWelcomeThenSwitch(role)
+        }
       }
     }
   })
