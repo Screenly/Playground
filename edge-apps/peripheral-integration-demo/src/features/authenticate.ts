@@ -2,8 +2,8 @@ export type RoleScreen = 'operator' | 'maintenance'
 
 // TODO: Replace with a proper implementation backed by real card-to-role data.
 const CARD_ROLES: Record<string, RoleScreen> = {
-  DEADBEEF: 'operator',
-  CAFEBABE: 'maintenance',
+  yHSl7w: 'operator',
+  mK3pXq: 'maintenance',
 }
 
 export function authenticate(cardId: string): RoleScreen | null {

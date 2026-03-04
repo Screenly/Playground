@@ -19,9 +19,10 @@ export function initPeripherals() {
       setTemperature(tempReading.ambient_temperature as number)
     }
 
-    const cardReading = readings.find((r) => 'secure_card_id' in r)
+    const cardReading = readings.find((r) => 'secure_card' in r)
     if (cardReading) {
-      const role = authenticate(cardReading.secure_card_id as string)
+      const uid = (cardReading.secure_card as { uid: string }).uid
+      const role = authenticate(uid)
       if (role && role !== getState().currentScreen) {
         showWelcomeThenSwitch(role)
       }

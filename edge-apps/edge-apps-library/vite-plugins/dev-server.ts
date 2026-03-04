@@ -56,7 +56,7 @@ type SensorType =
   | 'ambient_temperature'
   | 'humidity'
   | 'air_pressure'
-  | 'secure_card_id'
+  | 'secure_card'
 
 const SENSOR_META: Record<
   SensorType,
@@ -65,15 +65,17 @@ const SENSOR_META: Record<
   ambient_temperature: { channelName: 'my_living_room_temp', unit: '°C' },
   humidity: { channelName: 'room_humidity', unit: '%' },
   air_pressure: { channelName: 'room_pressure', unit: 'hPa' },
-  secure_card_id: { channelName: 'room1_access', unit: null },
+  secure_card: { channelName: 'ew_demo_nfc_reader', unit: null },
 }
 
-const MOCK_CARD_IDS = {
-  operator: 'DEADBEEF',
-  maintenance: 'CAFEBABE',
+const MOCK_CARD_UIDS = {
+  operator: 'yHSl7w',
+  maintenance: 'mK3pXq',
 }
 
-function makeMockSensorValue(sensor: SensorType): number | string {
+function makeMockSensorValue(
+  sensor: SensorType,
+): number | Record<string, string> {
   switch (sensor) {
     case 'ambient_temperature':
       return parseFloat((20 + Math.random() * 10).toFixed(2))
@@ -81,10 +83,13 @@ function makeMockSensorValue(sensor: SensorType): number | string {
       return parseFloat((40 + Math.random() * 40).toFixed(2))
     case 'air_pressure':
       return parseFloat((1000 + Math.random() * 30).toFixed(2))
-    case 'secure_card_id':
-      return Math.random() < 0.5
-        ? MOCK_CARD_IDS.operator
-        : MOCK_CARD_IDS.maintenance
+    case 'secure_card':
+      return {
+        uid:
+          Math.random() < 0.5
+            ? MOCK_CARD_UIDS.operator
+            : MOCK_CARD_UIDS.maintenance,
+      }
   }
 }
 

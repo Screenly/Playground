@@ -67,9 +67,10 @@ client.watchState((msg) => {
     setTemperature(tempReading.ambient_temperature)
   }
 
-  const cardReading = states.find((r) => 'secure_card_id' in r)
+  const cardReading = states.find((r) => 'secure_card' in r)
   if (cardReading) {
-    const role = authenticate(cardReading.secure_card_id)
+    const uid = cardReading.secure_card.uid
+    const role = authenticate(uid)
     if (role) showWelcomeThenSwitch(role)
   }
 })
@@ -86,14 +87,26 @@ The client handles the WebSocket lifecycle — handshake, ACKs, and reconnection
     "edge_app_source_state": {
       "states": [
         {
-          "name": "my_living_room_temp",
-          "ambient_temperature": 21.9,
+          "name": "temperature",
+          "ambient_temperature": 23.5,
           "unit": "°C",
           "timestamp": 1772570314358
         },
         {
-          "name": "room1_access",
-          "secure_card_id": "DEADBEEF",
+          "name": "humidity",
+          "humidity": 32.2,
+          "unit": "%",
+          "timestamp": 1772570314358
+        },
+        {
+          "name": "pressure",
+          "air_pressure": 919.5,
+          "unit": "hPa",
+          "timestamp": 1772570314358
+        },
+        {
+          "name": "ew_demo_nfc_reader",
+          "secure_card": { "uid": "yHSl7w" },
           "timestamp": 1772570314358
         }
       ]
