@@ -49,7 +49,7 @@ function syncScreensToState(state: ReturnType<typeof getState>) {
   roleHeader.classList.toggle('hidden', !isRoleScreen)
 
   const publicTemp = getEl('public-temperature')
-  publicTemp.textContent = String(state.temperature)
+  publicTemp.textContent = `${state.temperature}°C`
 
   if (state.currentScreen === 'maintenance') {
     getEl('maintenance-network').textContent = getNetworkStatus()

@@ -17,7 +17,8 @@ function tick() {
   )
 
   getEl('public-time').textContent = timeStr
-  getEl('public-date').textContent = dateStr
+  getEl('public-date').textContent = dateStrShort
+  getEl('public-date-long').textContent = dateStr
 
   if (
     state.currentScreen === 'operator' ||

@@ -21,7 +21,173 @@ auto-scaler {
   z-index: var(--z-index-content);
 }
 
-/* Custom reusable header for role screens (operator, maintenance) */
+/* ===================== */
+/* Background            */
+/* ===================== */
+
+.bg-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bg-glow-primary {
+  position: absolute;
+  width: 900px;
+  height: 900px;
+  left: -200px;
+  top: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #7e2bd0 0%, #454ad1 50%, transparent 75%);
+  filter: blur(80px);
+  opacity: 0.2;
+}
+
+.bg-glow-secondary {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  left: 400px;
+  top: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #6738d0 0%, transparent 70%);
+  filter: blur(60px);
+  opacity: 0.1;
+}
+
+/* ===================== */
+/* Top bar               */
+/* ===================== */
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(
+    132deg,
+    rgba(0, 0, 0, 0.09) 3%,
+    rgba(0, 0, 0, 0.01) 100%
+  );
+  backdrop-filter: blur(30px);
+}
+
+.top-bar-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.top-bar-date {
+  font-size: 1.5rem;
+  color: white;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ===================== */
+/* Public clock          */
+/* ===================== */
+
+.public-clock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.public-date-long {
+  font-size: 39px;
+  color: #cbd5e0;
+  letter-spacing: -1.5px;
+  text-shadow: 0 2px 7px rgba(0, 0, 0, 0.25);
+}
+
+.public-time {
+  font-size: 100px;
+  font-weight: 600;
+  color: white;
+  line-height: 1;
+  text-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
+}
+
+.temperature-pill {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px;
+  border: 2px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(
+    167deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0.01) 100%
+  );
+  box-shadow:
+    inset 0 2.5px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -2.5px 0 rgba(255, 255, 255, 0.03),
+    0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.temperature-label {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #cbd5e0;
+  letter-spacing: -0.96px;
+}
+
+.temperature-value {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: white;
+  letter-spacing: -0.96px;
+}
+
+/* ===================== */
+/* Glass cards           */
+/* ===================== */
+
+.glass-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem 4rem;
+  border-radius: 60px;
+  border: 1px solid rgba(203, 213, 224, 0.12);
+  background: linear-gradient(
+    164deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  box-shadow:
+    inset 0 0.75px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -0.75px 0 rgba(255, 255, 255, 0.05);
+}
+
+.glass-card-title {
+  font-size: 39px;
+  color: white;
+  letter-spacing: -1.5px;
+  text-shadow: 0 2px 7px rgba(0, 0, 0, 0.25);
+}
+
+.glass-card-body {
+  font-size: 1.5rem;
+  color: #cbd5e0;
+  text-align: center;
+  letter-spacing: -0.96px;
+  text-shadow: 0 2px 7px rgba(0, 0, 0, 0.25);
+}
+
+/* ===================== */
+/* Role header           */
+/* ===================== */
+
 .role-header {
   display: flex;
   align-items: center;
@@ -48,22 +214,4 @@ auto-scaler {
   font-size: 1.125rem;
   font-weight: 300;
   opacity: 0.95;
-}
-
-/* Public screen: large centered time and date */
-.public-clock {
-  text-align: center;
-}
-
-.public-time {
-  font-size: clamp(4rem, 15vw, 10rem);
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-}
-
-.public-date {
-  font-size: clamp(1.5rem, 5vw, 3.5rem);
-  opacity: 0.85;
-  margin-top: 0.25em;
 }

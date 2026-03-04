@@ -8,6 +8,7 @@ import { authenticate } from './authenticate'
 export function initPeripherals() {
   const client = createPeripheralClient()
 
+  // TODO: Replace with the actual Edge App ID once the app is published.
   const edgeAppId = '01JZQK8VW3MXNP4RSDTHF6CY2B'
   client.register(edgeAppId)
 
