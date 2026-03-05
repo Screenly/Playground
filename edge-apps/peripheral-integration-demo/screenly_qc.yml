@@ -3,6 +3,9 @@ syntax: manifest_v1
 description: Peripheral Integration Demo - Screenly Edge App
 icon: https://playground.srly.io/edge-apps/peripheral-integration-demo/static/img/icon.svg
 author: Screenly, Inc.
+categories:
+- Authentication
+- Dashboards
 ready_signal: true
 settings:
   display_errors:
