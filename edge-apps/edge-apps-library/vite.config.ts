@@ -48,7 +48,12 @@ export default defineConfig({
   },
   build: {
     cssCodeSplit: false,
-    assetsInlineLimit: 7000000,
+    assetsInlineLimit: (filePath, content) => {
+      // Never inline fonts — large base64 blobs in CSS trigger WAF false positives
+      if (/\.(woff2?|ttf|otf|eot)$/.test(filePath)) return false
+      // Inline everything else (e.g. images) under 7 MB
+      return content.length < 7_000_000
+    },
     minify: true,
     rollupOptions: {
       input: 'index.html',
