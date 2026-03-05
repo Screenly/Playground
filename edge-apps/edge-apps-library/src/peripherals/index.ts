@@ -1,6 +1,6 @@
 import { ulid } from 'ulid'
 
-import type { EdgeAppSourceState } from '../types/index.js'
+import type { PeripheralStateMessage } from '../types/index.js'
 
 // WebSocket address of the hardware integration service on the Screenly player.
 // Port 9010 is a fixed port defined in the player firmware for Edge App connections.
@@ -26,13 +26,13 @@ function sendMessage(ws: WebSocket, payload: unknown): void {
 
 export interface PeripheralClient {
   register: (edgeAppId: string) => void
-  watchState: (callback: (msg: EdgeAppSourceState) => void) => void
+  watchState: (callback: (msg: PeripheralStateMessage) => void) => void
 }
 
 // eslint-disable-next-line max-lines-per-function
 export function createPeripheralClient(): PeripheralClient {
   let ws: WebSocket | null = null
-  const subscribers: Array<(msg: EdgeAppSourceState) => void> = []
+  const subscribers: Array<(msg: PeripheralStateMessage) => void> = []
   const readings: Record<string, unknown> = {}
 
   /**
@@ -40,13 +40,13 @@ export function createPeripheralClient(): PeripheralClient {
    * dispatches it to every callback registered via watchState().
    */
   function notifySubscribers() {
-    const msg: EdgeAppSourceState = {
+    const msg: PeripheralStateMessage = {
       request: {
         id: ulid(),
         edge_app_source_state: {
           states: Object.values(
             readings,
-          ) as EdgeAppSourceState['request']['edge_app_source_state']['states'],
+          ) as PeripheralStateMessage['request']['edge_app_source_state']['states'],
         },
       },
     }
@@ -113,7 +113,7 @@ export function createPeripheralClient(): PeripheralClient {
       }
     },
 
-    watchState(callback: (msg: EdgeAppSourceState) => void) {
+    watchState(callback: (msg: PeripheralStateMessage) => void) {
       if (!ws) connect()
       subscribers.push(callback)
     },

@@ -1,5 +1,5 @@
 import { createPeripheralClient } from '@screenly/edge-apps'
-import type { EdgeAppSourceState } from '@screenly/edge-apps'
+import type { PeripheralStateMessage } from '@screenly/edge-apps'
 
 import { getState, setTemperature } from '../core/state'
 import { showWelcomeThenSwitch } from '../core/screen'
@@ -12,7 +12,7 @@ export function initPeripherals() {
   const edgeAppId = '01JZQK8VW3MXNP4RSDTHF6CY2B'
   client.register(edgeAppId)
 
-  client.watchState((msg: EdgeAppSourceState) => {
+  client.watchState((msg: PeripheralStateMessage) => {
     const readings = msg.request.edge_app_source_state.states
 
     const tempReading = readings.find((r) => 'ambient_temperature' in r)
