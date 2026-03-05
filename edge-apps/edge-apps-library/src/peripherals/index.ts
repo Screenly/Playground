@@ -83,13 +83,6 @@ export function createPeripheralClient(): PeripheralClient {
         })
         return
       }
-
-      if (request?.downstream_node_event) {
-        sendMessage(ws!, {
-          response: { request_id: request.id, ok: 'downstream_node_event' },
-        })
-        return
-      }
     }
 
     ws.onerror = () => console.warn('Peripheral WebSocket error')
