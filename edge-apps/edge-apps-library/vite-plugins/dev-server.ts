@@ -114,9 +114,16 @@ function buildStateSnapshot(): Record<string, unknown>[] {
 function startPeripheralMockServer(): void {
   const wss = new WebSocketServer({ port: PERIPHERAL_WS_PORT })
 
-  // eslint-disable-next-line max-lines-per-function
   wss.on('connection', (ws) => {
-    let identified = false
+    // Push full state snapshot immediately on connection
+    const initialSnapshot =
+      JSON.stringify({
+        request: {
+          id: ulid(),
+          edge_app_source_state: { states: buildStateSnapshot() },
+        },
+      }) + ETB
+    ws.send(initialSnapshot)
 
     ws.on('message', (raw: Buffer) => {
       const text = raw.toString().replace(ETB, '')
@@ -131,28 +138,6 @@ function startPeripheralMockServer(): void {
       if (!req) return
 
       const requestId = req.id as string
-
-      // Identification handshake
-      if (req.identification) {
-        identified = true
-        const ack =
-          JSON.stringify({
-            response: { request_id: requestId, ok: { identification: null } },
-          }) + ETB
-        ws.send(ack)
-        // Push full state snapshot immediately after identification
-        const initialSnapshot =
-          JSON.stringify({
-            request: {
-              id: ulid(),
-              edge_app_source_state: { states: buildStateSnapshot() },
-            },
-          }) + ETB
-        ws.send(initialSnapshot)
-        return
-      }
-
-      if (!identified) return
 
       // Registration is fire-and-forget — no response needed
       if (req.edge_app_registration) return
@@ -189,7 +174,7 @@ function startPeripheralMockServer(): void {
 
     // Push full state snapshot every 5 seconds
     const interval = setInterval(() => {
-      if (!identified || ws.readyState !== ws.OPEN) return
+      if (ws.readyState !== ws.OPEN) return
       const event =
         JSON.stringify({
           request: {

@@ -42,15 +42,6 @@ export function createPeripheralClient(): PeripheralClient {
   function connect() {
     ws = new WebSocket(PERIPHERAL_WS_URL)
 
-    ws.onopen = () => {
-      send({
-        request: {
-          id: ulid(),
-          identification: { node_id: ulid(), description: 'Edge App' },
-        },
-      })
-    }
-
     ws.onmessage = (e: MessageEvent) => {
       const text = (e.data as string).replace(ETB, '')
       let msg: Record<string, unknown>
