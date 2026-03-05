@@ -16,7 +16,6 @@ export interface PeripheralClient {
 // eslint-disable-next-line max-lines-per-function
 export function createPeripheralClient(): PeripheralClient {
   let ws: WebSocket | null = null
-  let identified = false
   const subscribers: Array<(msg: PeripheralStateMessage) => void> = []
   const readings: Record<string, unknown> = {}
 
@@ -61,15 +60,6 @@ export function createPeripheralClient(): PeripheralClient {
         return
       }
 
-      const response = msg.response as Record<string, unknown> | undefined
-      if (
-        response?.ok !== undefined &&
-        (response.ok as Record<string, unknown>)?.identification !== undefined
-      ) {
-        identified = true
-        return
-      }
-
       const request = msg.request as Record<string, unknown> | undefined
       if (request?.edge_app_source_state) {
         const state = request.edge_app_source_state as {
@@ -95,7 +85,6 @@ export function createPeripheralClient(): PeripheralClient {
 
     ws.onerror = () => console.warn('[screenly] Peripheral WS error')
     ws.onclose = () => {
-      identified = false
       setTimeout(connect, 2000)
     }
   }
@@ -115,15 +104,10 @@ export function createPeripheralClient(): PeripheralClient {
           },
         })
       }
-      if (ws!.readyState === WebSocket.OPEN && identified) {
+      if (ws!.readyState === WebSocket.OPEN) {
         sendRegistration()
       } else {
-        ws!.addEventListener('message', function onIdentified() {
-          if (identified) {
-            sendRegistration()
-            ws!.removeEventListener('message', onIdentified)
-          }
-        })
+        ws!.addEventListener('open', sendRegistration, { once: true })
       }
     },
 
