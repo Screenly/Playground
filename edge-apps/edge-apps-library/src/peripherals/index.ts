@@ -2,8 +2,8 @@ import { ulid } from 'ulid'
 
 import type { EdgeAppSourceState } from '../types/index.js'
 
-// WebSocket address of the Peripheral Integrator (Octo-Avenger).
-// Matches EDGEAPP_WS_PORT = 9010 in peripheral-integrator/src/constants.rs.
+// WebSocket address of the hardware integration service on the Screenly player.
+// Port 9010 is a fixed port defined in the player firmware for Edge App connections.
 const PERIPHERAL_WS_URL = 'ws://127.0.0.1:9010'
 
 const ETB = '\x17'

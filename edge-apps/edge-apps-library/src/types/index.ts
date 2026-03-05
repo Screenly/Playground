@@ -50,7 +50,7 @@ export interface ScreenlySettings extends Record<string, unknown> {
 }
 
 /**
- * A single peripheral channel reading as delivered by the Peripheral Integrator.
+ * A single peripheral channel reading as delivered by the hardware integration service.
  * The sensor-specific value is carried under its wire key (e.g. ambient_temperature, humidity).
  */
 export interface SourceChannelStateReport {
@@ -65,8 +65,8 @@ export interface SourceChannelStateReport {
 }
 
 /**
- * Full wire message delivered by the Peripheral Integrator.
- * Matches the `edge_app_source_state` push event shape from Octo-Avenger.
+ * Full wire message delivered by the hardware integration service.
+ * Matches the `edge_app_source_state` push event shape from the hardware integration service.
  */
 export interface EdgeAppSourceState {
   request: {
