@@ -12,7 +12,6 @@ import {
   dispatchScreenDataPrepared,
 } from './screen-events'
 import { getNetworkStatus } from '../utils/network'
-import { formatDisplayTime } from '../utils/time'
 import { updateOperatorDashboard } from '../features/operator-dashboard'
 
 function delay(ms: number): Promise<void> {
@@ -66,16 +65,6 @@ async function loadMaintenanceInfo() {
 
 async function preloadScreenData(role: ScreenType): Promise<void> {
   try {
-    if (role === 'operator' || role === 'maintenance') {
-      const state = getState()
-      const { timeStr, dateStrShort } = formatDisplayTime(
-        new Date(),
-        state.locale,
-        state.timezone,
-      )
-      getEl('role-header-time').textContent = timeStr
-      getEl('role-header-date').textContent = dateStrShort
-    }
     if (role === 'maintenance') {
       await loadMaintenanceInfo()
       getEl('maintenance-network').textContent = getNetworkStatus()

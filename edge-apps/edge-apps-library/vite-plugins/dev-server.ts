@@ -198,7 +198,7 @@ function startPeripheralMockServer(): void {
           },
         }) + ETB
       ws.send(event)
-    }, 5000)
+    }, 10000)
 
     ws.on('close', () => clearInterval(interval))
   })
