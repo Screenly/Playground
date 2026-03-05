@@ -8,6 +8,22 @@ const PERIPHERAL_WS_URL = 'ws://127.0.0.1:9010'
 
 const ETB = '\x17'
 
+/**
+ * Serializes `payload` as JSON, appends the ETB delimiter, and sends it over
+ * the WebSocket connection to the hardware integration service.
+ * Throws if the connection is not open or if the underlying send fails.
+ */
+function sendMessage(ws: WebSocket, payload: unknown): void {
+  if (ws.readyState !== WebSocket.OPEN) {
+    throw new Error('Cannot send message: WebSocket is not open')
+  }
+  try {
+    ws.send(JSON.stringify(payload) + ETB)
+  } catch (err) {
+    throw new Error('Failed to send message', { cause: err })
+  }
+}
+
 export interface PeripheralClient {
   register: (edgeAppId: string) => void
   watchState: (callback: (msg: EdgeAppSourceState) => void) => void
@@ -19,12 +35,10 @@ export function createPeripheralClient(): PeripheralClient {
   const subscribers: Array<(msg: EdgeAppSourceState) => void> = []
   const readings: Record<string, unknown> = {}
 
-  function send(payload: unknown) {
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send(JSON.stringify(payload) + ETB)
-    }
-  }
-
+  /**
+   * Packages the latest cached sensor readings into a wire message and
+   * dispatches it to every callback registered via watchState().
+   */
   function notifySubscribers() {
     const msg: EdgeAppSourceState = {
       request: {
@@ -47,7 +61,8 @@ export function createPeripheralClient(): PeripheralClient {
       let msg: Record<string, unknown>
       try {
         msg = JSON.parse(text) as Record<string, unknown>
-      } catch {
+      } catch (err) {
+        console.warn('Failed to parse peripheral message', err)
         return
       }
 
@@ -59,22 +74,25 @@ export function createPeripheralClient(): PeripheralClient {
         state.states.forEach((s) => {
           readings[s.name] = s
         })
+        // Trigger registered callbacks with the updated readings so the app
+        // can react — e.g. refresh the temperature display or switch screens
+        // based on a card read.
         notifySubscribers()
-        send({
+        sendMessage(ws!, {
           response: { request_id: request.id, ok: 'edge_app_source_state' },
         })
         return
       }
 
       if (request?.downstream_node_event) {
-        send({
+        sendMessage(ws!, {
           response: { request_id: request.id, ok: 'downstream_node_event' },
         })
         return
       }
     }
 
-    ws.onerror = () => console.warn('[screenly] Peripheral WS error')
+    ws.onerror = () => console.warn('Peripheral WebSocket error')
     ws.onclose = () => {
       setTimeout(connect, 2000)
     }
@@ -84,7 +102,7 @@ export function createPeripheralClient(): PeripheralClient {
     register(edgeAppId: string) {
       if (!ws) connect()
       const sendRegistration = () => {
-        send({
+        sendMessage(ws!, {
           request: {
             id: ulid(),
             edge_app_registration: {
