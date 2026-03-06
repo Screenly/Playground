@@ -5,6 +5,9 @@ author: Screenly, Inc.
 description: |
   Displays Power BI dashboards and reports with big focus on security.
 icon: 'https://playground.srly.io/edge-apps/powerbi-legacy/static/images/icon.svg'
+categories:
+  - Dashboards
+  - Authentication
 ready_signal: true
 settings:
   azure_ad_client_id:
