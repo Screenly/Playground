@@ -56,8 +56,15 @@ export function createPeripheralClient(): PeripheralClient {
   function connect() {
     ws = new WebSocket(PERIPHERAL_WS_URL)
 
-    ws.onmessage = (e: MessageEvent) => {
-      const text = (e.data as string).replace(ETB, '')
+    ws.onmessage = async (e: MessageEvent) => {
+      let text: string
+      if (e.data instanceof Blob) {
+        text = await e.data.text()
+      } else {
+        text = e.data as string
+      }
+
+      text = text.replace(ETB, '')
       let msg: Record<string, unknown>
       try {
         msg = JSON.parse(text) as Record<string, unknown>
@@ -74,9 +81,6 @@ export function createPeripheralClient(): PeripheralClient {
         state.states.forEach((s) => {
           readings[s.name] = s
         })
-        // Trigger registered callbacks with the updated readings so the app
-        // can react — e.g. refresh the temperature display or switch screens
-        // based on a card read.
         notifySubscribers()
         sendMessage(ws!, {
           response: { request_id: request.id, ok: 'edge_app_source_state' },

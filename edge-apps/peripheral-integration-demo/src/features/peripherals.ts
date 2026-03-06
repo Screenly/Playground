@@ -22,7 +22,7 @@ export function initPeripherals() {
 
     const cardReading = readings.find((r) => 'secure_card' in r)
     if (cardReading) {
-      const MAX_CARD_AGE_MS = 60_000 // card data must not be older than 1 minute
+      const MAX_CARD_AGE_MS = 60_000
       const ageMs = Date.now() - (cardReading.timestamp as number)
       if (ageMs > MAX_CARD_AGE_MS) {
         if (getState().currentScreen !== 'public') {
