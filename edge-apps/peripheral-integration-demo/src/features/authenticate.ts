@@ -1,7 +1,7 @@
 export type RoleScreen = 'operator' | 'maintenance'
 
 const CARD_ROLES: Record<string, RoleScreen> = {
-  'uhtzBg': 'operator',
+  uhtzBg: 'operator',
   'gj-6XA': 'maintenance',
 }
 
