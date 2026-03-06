@@ -13,9 +13,8 @@
       reference-height="1920"
       orientation="landscape"
       padding="0"
-      class="bg-[#171e24]"
     >
-      <div id="app" class="flex flex-col h-full overflow-hidden">
+      <div id="app">
         <!-- Background: soft purple radial glows -->
         <div class="bg-glow">
           <div class="bg-glow-primary"></div>
@@ -23,22 +22,19 @@
         </div>
 
         <!-- Welcome Overlay -->
-        <div
-          id="welcome-overlay"
-          class="hidden fixed inset-0 flex items-center justify-center z-50 opacity-0 transition-opacity duration-500 welcome-overlay"
-        >
+        <div id="welcome-overlay" class="welcome-overlay hidden opacity-0">
           <div class="bg-glow">
             <div class="bg-glow-primary"></div>
             <div class="bg-glow-secondary"></div>
           </div>
-          <div class="text-center">
+          <div class="welcome-content">
             <div id="welcome-name" class="welcome-name"></div>
             <div id="welcome-role" class="welcome-role"></div>
           </div>
         </div>
 
         <!-- Main Content -->
-        <main class="relative flex flex-col h-full px-10 py-8 gap-8">
+        <main class="main-content">
           <!-- Top Bar (shared across all views) -->
           <div class="top-bar">
             <span class="top-bar-title">embedded world</span>
@@ -46,9 +42,9 @@
           </div>
 
           <!-- Public Screen -->
-          <div id="screen-public" class="screen flex flex-col flex-1 gap-10">
+          <div id="screen-public" class="screen">
             <!-- Clock + Temperature -->
-            <div class="public-clock py-60">
+            <div class="public-clock">
               <p id="public-date-long" class="public-date-long"></p>
               <p id="public-time" class="public-time"></p>
               <div class="temperature-pill">
@@ -57,13 +53,13 @@
               </div>
             </div>
 
-            <div class="flex flex-col grow-1 gap-20">
+            <div class="card-stack">
               <!-- Secure Access Card -->
               <div class="glass-card">
-                <div class="flex items-center gap-6">
+                <div class="card-header">
                   <!-- Lock icon -->
                   <svg
-                    class="w-12 h-12 text-white"
+                    class="glass-card-icon"
                     width="48"
                     height="48"
                     viewBox="0 0 24 24"
@@ -85,10 +81,10 @@
 
               <!-- Safety Carousel Card -->
               <div class="glass-card">
-                <div class="flex items-center gap-6">
+                <div class="card-header">
                   <!-- Gear icon -->
                   <svg
-                    class="w-12 h-12 text-white"
+                    class="glass-card-icon"
                     width="48"
                     height="48"
                     viewBox="0 0 24 24"
@@ -107,19 +103,13 @@
                     >Manufacturing Safety Tips</span
                   >
                 </div>
-                <div
-                  id="safety-text"
-                  class="glass-card-body opacity-100 transition-opacity duration-500"
-                ></div>
+                <div id="safety-text" class="glass-card-body"></div>
               </div>
             </div>
           </div>
 
           <!-- Operator Screen -->
-          <div
-            id="screen-operator"
-            class="screen hidden flex flex-col flex-1 gap-8"
-          >
+          <div id="screen-operator" class="screen hidden">
             <!-- Production Status -->
             <div class="glass-card glass-card--left">
               <div class="glass-card-heading">
@@ -152,7 +142,7 @@
                 >
               </div>
 
-              <div class="grid grid-cols-2 gap-10">
+              <div class="operator-grid">
                 <div class="operator-field">
                   <span class="operator-label">Order / Batch ID</span>
                   <span id="operator-batch" class="operator-value">--</span>
@@ -184,11 +174,11 @@
               </div>
 
               <div class="operator-field">
-                <div class="flex items-center justify-between">
+                <div class="progress-row">
                   <span class="operator-label">Production Progress</span>
                   <span
                     id="operator-progress-percent"
-                    class="operator-value--green text-[30px] font-semibold"
+                    class="operator-value--green operator-progress-percent"
                     >0%</span
                   >
                 </div>
@@ -228,7 +218,7 @@
                 <span class="glass-card-title">Quality Information</span>
               </div>
 
-              <div class="grid grid-cols-2 gap-10">
+              <div class="operator-grid">
                 <div class="operator-field">
                   <span class="operator-label">Pass Rate</span>
                   <span
@@ -264,10 +254,7 @@
           </div>
 
           <!-- Maintenance Screen -->
-          <div
-            id="screen-maintenance"
-            class="screen hidden flex flex-col flex-1 gap-8"
-          >
+          <div id="screen-maintenance" class="screen hidden">
             <div class="glass-card glass-card--left">
               <div class="glass-card-heading">
                 <!-- Bar-chart icon -->

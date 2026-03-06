@@ -1,4 +1,3 @@
-@import 'tailwindcss';
 @import '@screenly/edge-apps/styles';
 
 body {
@@ -11,20 +10,104 @@ body {
   background-size: cover;
 }
 
-#app {
-  width: 100%;
-  height: 100%;
+/* Utility classes toggled by JavaScript */
+
+.hidden {
+  display: none !important;
 }
+
+.opacity-0 {
+  opacity: 0;
+}
+
+/* Root layout */
 
 auto-scaler {
   position: relative;
   z-index: var(--z-index-content);
+  background-color: #171e24;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Main content layout */
+
+.main-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 2rem 2.5rem;
+  gap: 2rem;
+}
+
+/* Screen containers */
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 2rem;
+}
+
+#screen-public {
+  gap: 2.5rem;
+}
+
+/* Card stack (public view: two glass cards) */
+
+.card-stack {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 5rem;
+}
+
+/* Card header row (icon + title) — used in public view glass cards */
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Operator 2-column grid */
+
+.operator-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+}
+
+/* Progress label + percent row */
+
+.progress-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /* Welcome overlay */
 
 .welcome-overlay {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  transition: opacity 0.5s;
   background-color: #171e24;
+}
+
+.welcome-content {
+  text-align: center;
 }
 
 .welcome-name {
@@ -111,6 +194,7 @@ auto-scaler {
   align-items: center;
   gap: 1rem;
   margin-top: 1rem;
+  padding-block: 15rem;
 }
 
 .public-date-long {
@@ -256,6 +340,10 @@ auto-scaler {
   color: #efcb68;
 }
 
+.operator-progress-percent {
+  font-size: 30px;
+}
+
 .operator-progress-track {
   width: 100%;
   height: 24px;
@@ -270,6 +358,12 @@ auto-scaler {
   border-radius: 999px;
   background: #80ed99;
   transition: width 0.5s ease;
+}
+
+/* Safety text carousel */
+
+#safety-text {
+  transition: opacity 0.5s;
 }
 
 /* Maintenance rows */
@@ -317,10 +411,6 @@ auto-scaler {
   padding: 2.25rem 1.5rem;
   text-align: center;
   z-index: 40;
-}
-
-.session-bar.hidden {
-  display: none;
 }
 
 .session-bar-hint {
