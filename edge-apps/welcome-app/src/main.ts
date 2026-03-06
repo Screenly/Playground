@@ -1,11 +1,39 @@
-import '@/assets/main.scss'
+import './css/style.css'
+import '@screenly/edge-apps/components'
+import {
+  getSettingWithDefault,
+  setupErrorHandling,
+  setupTheme,
+  signalReady,
+} from '@screenly/edge-apps'
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import App from './App.vue'
+export default function init() {
+  const welcomeHeading = getSettingWithDefault<string>(
+    'welcome_heading',
+    'Welcome',
+  )
+  const welcomeMessage = getSettingWithDefault<string>(
+    'welcome_message',
+    'to the team',
+  )
 
-const app = createApp(App)
+  const headingEl =
+    document.querySelector<HTMLParagraphElement>('#welcome-heading')
+  if (headingEl) {
+    headingEl.textContent = welcomeHeading
+  }
 
-app.use(createPinia())
+  const messageEl =
+    document.querySelector<HTMLParagraphElement>('#welcome-message')
+  if (messageEl) {
+    messageEl.textContent = welcomeMessage
+  }
 
-app.mount('#app')
+  signalReady()
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setupErrorHandling()
+  setupTheme()
+  init()
+})
