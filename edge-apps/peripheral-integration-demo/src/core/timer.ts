@@ -56,6 +56,12 @@ function onStateChange(state: ReturnType<typeof getState>) {
   }
 }
 
+export function restartLogoutTimer() {
+  if (getState().currentScreen !== 'public') {
+    startLogoutTimer()
+  }
+}
+
 export function initTimers() {
   subscribe(onStateChange)
   onStateChange(getState())

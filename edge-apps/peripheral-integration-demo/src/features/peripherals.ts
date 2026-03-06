@@ -3,6 +3,7 @@ import type { PeripheralStateMessage } from '@screenly/edge-apps'
 
 import { getState, setTemperature } from '../core/state'
 import { showWelcomeThenSwitch } from '../core/screen'
+import { restartLogoutTimer } from '../core/timer'
 import { authenticate } from './authenticate'
 
 export function initPeripherals() {
@@ -31,8 +32,12 @@ export function initPeripherals() {
       } else {
         const uid = (cardReading.secure_card as { uid: string }).uid
         const role = authenticate(uid)
-        if (role && role !== getState().currentScreen) {
-          showWelcomeThenSwitch(role)
+        if (role) {
+          if (role !== getState().currentScreen) {
+            showWelcomeThenSwitch(role)
+          } else {
+            restartLogoutTimer()
+          }
         }
       }
     }
