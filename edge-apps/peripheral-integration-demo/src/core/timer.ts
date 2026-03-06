@@ -47,10 +47,10 @@ function onStateChange(state: ReturnType<typeof getState>) {
   if (state.currentScreen === previousScreen) {
     return
   }
-  
+
   previousScreen = state.currentScreen
   clearTimer()
-  
+
   if (state.currentScreen !== 'public') {
     startLogoutTimer()
   }
