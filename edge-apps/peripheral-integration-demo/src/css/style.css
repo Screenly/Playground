@@ -202,6 +202,7 @@ auto-scaler {
   color: #cbd5e0;
   letter-spacing: -1.5px;
   text-shadow: 0 2px 7px rgba(0, 0, 0, 0.25);
+  margin: 0;
 }
 
 .public-time {
@@ -210,6 +211,7 @@ auto-scaler {
   color: white;
   line-height: 1;
   text-shadow: 0 3px 9px rgba(0, 0, 0, 0.25);
+  margin: 2rem 0;
 }
 
 .temperature-pill {
