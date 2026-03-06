@@ -69,8 +69,8 @@ const SENSOR_META: Record<
 }
 
 const MOCK_CARD_UIDS = {
-  operator: 'yHSl7w',
-  maintenance: 'mK3pXq',
+  operator: 'uhtzBg',
+  maintenance: 'gj-6XA',
 }
 
 function makeMockSensorValue(
