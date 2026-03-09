@@ -16,7 +16,7 @@ const { screenlyJsContent } = createMockScreenlyForScreenshots(
     override_timezone: 'America/New_York',
     theme: 'light',
     welcome_heading: 'Welcome',
-    welcome_message: 'to the team',
+    welcome_message: 'to the team, Sam!',
   },
 )
 
