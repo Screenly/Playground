@@ -49,17 +49,17 @@ export function setLocale(locale: string) {
   notify()
 }
 
-export function setTemperature(value: number) {
+export function setTemperature(value: number | null) {
   state.temperature = value
   notify()
 }
 
-export function setHumidity(value: number) {
+export function setHumidity(value: number | null) {
   state.humidity = value
   notify()
 }
 
-export function setAirPressure(value: number) {
+export function setAirPressure(value: number | null) {
   state.airPressure = value
   notify()
 }
