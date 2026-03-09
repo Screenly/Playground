@@ -6,7 +6,6 @@ import {
   getSettingWithDefault,
   getTimeZone,
   setupErrorHandling,
-  setupTheme,
   signalReady,
 } from '@screenly/edge-apps'
 
@@ -46,6 +45,5 @@ export default async function init() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   setupErrorHandling()
-  setupTheme()
   await init()
 })

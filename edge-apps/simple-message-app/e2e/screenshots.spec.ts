@@ -18,7 +18,6 @@ const { screenlyJsContent } = createMockScreenlyForScreenshots(
     override_locale: 'en',
     override_timezone: 'America/New_York',
     tag_manager_id: 'GTM-P98SPZ9Z',
-    theme: 'light',
   },
 )
 

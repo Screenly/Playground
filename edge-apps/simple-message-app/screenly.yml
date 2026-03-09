@@ -57,10 +57,3 @@ settings:
     help_text: |
       Enter your Google Tag Manager container ID to enable tracking and analytics.
     is_global: true
-  theme:
-    type: string
-    default_value: light
-    title: Theme
-    optional: false
-    help_text: |
-      Select the visual theme for the application ('light' or 'dark').

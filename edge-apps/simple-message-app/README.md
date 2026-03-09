@@ -28,7 +28,6 @@ The app accepts the following settings via `screenly.yml`:
 | `override_locale`   | Override the default locale using a [BCP&nbsp;47](https://developer.mozilla.org/en-US/docs/Web/Localization/Locale_identification_and_negotiation#locale_identifiers) locale tag (e.g., `en`, `en-GB`, `fr`, `fr-CA`, `de`) | optional | `en`                 |
 | `override_timezone` | Override the default timezone using an [IANA time zone identifier](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) (e.g., `Europe/London`, `America/New_York`). Defaults to the system timezone if left blank | optional | -                    |
 | `tag_manager_id`    | Google Tag Manager container ID to enable tracking and analytics                                                                                                                                                            | optional | `GTM-P98SPZ9Z`       |
-| `theme`             | Visual theme for the application (`light` or `dark`)                                                                                                                                                                        | required | `light`              |
 
 ## Development
 
