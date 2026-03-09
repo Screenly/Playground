@@ -31,6 +31,8 @@ function getEl(id: string): HTMLElement {
   return document.getElementById(id)!
 }
 
+let isTransitioning = false
+
 function syncScreensToState(state: ReturnType<typeof getState>) {
   const screens: Record<ScreenType, HTMLElement> = {
     public: getEl('screen-public'),
@@ -38,9 +40,15 @@ function syncScreensToState(state: ReturnType<typeof getState>) {
     maintenance: getEl('screen-maintenance'),
   }
 
-  ;(Object.keys(screens) as ScreenType[]).forEach((key) => {
-    screens[key].classList.toggle('hidden', key !== state.currentScreen)
-  })
+  if (isTransitioning) {
+    ;(Object.keys(screens) as ScreenType[]).forEach((key) => {
+      screens[key].classList.add('hidden')
+    })
+  } else {
+    ;(Object.keys(screens) as ScreenType[]).forEach((key) => {
+      screens[key].classList.toggle('hidden', key !== state.currentScreen)
+    })
+  }
 
   const publicTemp = getEl('public-temperature')
   publicTemp.textContent = `${Math.round(state.temperature)}°C`
@@ -77,35 +85,41 @@ async function preloadScreenData(role: ScreenType): Promise<void> {
 }
 
 export async function showWelcomeThenSwitch(role: ScreenType) {
-  const { name, role: roleLabel } = userMap[role]
-  const welcomeOverlay = getEl('welcome-overlay')
-  const welcomeName = getEl('welcome-name')
-  const welcomeRole = getEl('welcome-role')
+  isTransitioning = true
+  try {
+    const { name, role: roleLabel } = userMap[role]
+    const welcomeOverlay = getEl('welcome-overlay')
+    const welcomeName = getEl('welcome-name')
+    const welcomeRole = getEl('welcome-role')
 
-  welcomeName.textContent = `Welcome, ${name}`
-  welcomeRole.textContent = `Role: ${roleLabel}`
-  welcomeOverlay.classList.remove('hidden')
-  requestAnimationFrame(() => welcomeOverlay.classList.remove('opacity-0'))
-  ;(
-    Object.keys({ public: 1, operator: 1, maintenance: 1 }) as ScreenType[]
-  ).forEach((key) => {
-    getEl(`screen-${key}`).classList.add('hidden')
-  })
+    welcomeName.textContent = `Welcome, ${name}`
+    welcomeRole.textContent = `Role: ${roleLabel}`
+    welcomeOverlay.classList.remove('hidden')
+    requestAnimationFrame(() => welcomeOverlay.classList.remove('opacity-0'))
+    ;(
+      Object.keys({ public: 1, operator: 1, maintenance: 1 }) as ScreenType[]
+    ).forEach((key) => {
+      getEl(`screen-${key}`).classList.add('hidden')
+    })
 
-  const overlayShownAt = Date.now()
-  const dataReadyPromise = waitForScreenDataPrepared(role)
-  preloadScreenData(role)
+    const overlayShownAt = Date.now()
+    const dataReadyPromise = waitForScreenDataPrepared(role)
+    preloadScreenData(role)
 
-  await dataReadyPromise
-  const elapsed = Date.now() - overlayShownAt
-  if (elapsed < WELCOME_DURATION_MS) {
-    await delay(WELCOME_DURATION_MS - elapsed)
+    await dataReadyPromise
+    const elapsed = Date.now() - overlayShownAt
+    if (elapsed < WELCOME_DURATION_MS) {
+      await delay(WELCOME_DURATION_MS - elapsed)
+    }
+
+    welcomeOverlay.classList.add('opacity-0')
+    await delay(FADE_OUT_MS)
+    welcomeOverlay.classList.add('hidden')
+    isTransitioning = false
+    setScreen(role)
+  } finally {
+    isTransitioning = false
   }
-
-  welcomeOverlay.classList.add('opacity-0')
-  await delay(FADE_OUT_MS)
-  welcomeOverlay.classList.add('hidden')
-  setScreen(role)
 }
 
 function setupNetworkListeners() {
