@@ -94,14 +94,12 @@ function stopUpdates() {
 
 function updateSensorData(state: ReturnType<typeof getState>) {
   getEl('sensor-temperature').textContent =
-    state.temperature !== null
-      ? `${Math.round(state.temperature)}°C`
-      : 'No Data'
+    state.temperature !== null ? `${state.temperature.toFixed(2)}°C` : 'No Data'
   getEl('sensor-humidity').textContent =
-    state.humidity !== null ? `${Math.round(state.humidity)}%` : 'No Data'
+    state.humidity !== null ? `${state.humidity.toFixed(2)}%` : 'No Data'
   getEl('sensor-air-pressure').textContent =
     state.airPressure !== null
-      ? `${Math.round(state.airPressure)} hPa`
+      ? `${state.airPressure.toFixed(2)} hPa`
       : 'No Data'
 }
 
