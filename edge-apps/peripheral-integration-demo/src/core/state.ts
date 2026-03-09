@@ -49,18 +49,16 @@ export function setLocale(locale: string) {
   notify()
 }
 
-export function setTemperature(value: number | null) {
-  state.temperature = value
-  notify()
-}
-
-export function setHumidity(value: number | null) {
-  state.humidity = value
-  notify()
-}
-
-export function setAirPressure(value: number | null) {
-  state.airPressure = value
+export function setSensorReadings(readings: {
+  temperature?: number | null
+  humidity?: number | null
+  airPressure?: number | null
+}) {
+  if (readings.temperature !== undefined)
+    state.temperature = readings.temperature
+  if (readings.humidity !== undefined) state.humidity = readings.humidity
+  if (readings.airPressure !== undefined)
+    state.airPressure = readings.airPressure
   notify()
 }
 
