@@ -14,7 +14,6 @@ const { screenlyJsContent } = createMockScreenlyForScreenshots(
     enable_analytics: 'false',
     override_locale: 'en',
     override_timezone: 'America/New_York',
-    theme: 'light',
     welcome_heading: 'Welcome',
     welcome_message: 'to the team, Sam!',
   },

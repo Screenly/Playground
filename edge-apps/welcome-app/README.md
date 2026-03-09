@@ -26,7 +26,6 @@ The app accepts the following settings via `screenly.yml`:
 | `override_locale`   | Override the default locale with a supported language code (e.g., `en_US`, `fr_FR`, `de_DE`)                                                                  | optional | `en`           |
 | `override_timezone` | Override the default timezone with a supported timezone identifier (e.g., `Europe/London`, `America/New_York`). Defaults to the system timezone if left blank | optional | -              |
 | `tag_manager_id`    | Google Tag Manager container ID to enable tracking and analytics                                                                                              | optional | `GTM-P98SPZ9Z` |
-| `theme`             | Visual theme for the application (`light` or `dark`)                                                                                                          | required | `light`        |
 | `welcome_heading`   | Heading text displayed as the welcome message title                                                                                                           | required | `Welcome`      |
 | `welcome_message`   | Body text displayed as the welcome message content                                                                                                            | required | `to the team`  |
 

@@ -3,7 +3,6 @@ import '@screenly/edge-apps/components'
 import {
   getSettingWithDefault,
   setupErrorHandling,
-  setupTheme,
   signalReady,
 } from '@screenly/edge-apps'
 
@@ -34,6 +33,5 @@ export default function init() {
 
 document.addEventListener('DOMContentLoaded', () => {
   setupErrorHandling()
-  setupTheme()
   init()
 })
