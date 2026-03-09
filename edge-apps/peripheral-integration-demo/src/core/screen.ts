@@ -5,6 +5,7 @@ import {
   getHostname,
   getTimeZone,
 } from '@screenly/edge-apps'
+import { Hardware } from '@screenly/edge-apps'
 
 import { subscribe, getState, setScreen, type ScreenType } from './state'
 import {
@@ -58,9 +59,17 @@ function syncScreensToState(state: ReturnType<typeof getState>) {
   }
 }
 
+const HARDWARE_DISPLAY: Record<Hardware, string> = {
+  [Hardware.RaspberryPi]: 'Raspberry Pi',
+  [Hardware.ScreenlyPlayerMax]: 'Screenly Player Max',
+  [Hardware.Anywhere]: 'Anywhere',
+  [Hardware.Unknown]: 'Anywhere',
+}
+
 async function loadMaintenanceInfo() {
   getEl('maintenance-screenly-version').textContent = getScreenlyVersion()
-  getEl('maintenance-hardware').textContent = getHardware()
+  getEl('maintenance-hardware').textContent =
+    HARDWARE_DISPLAY[getHardware()] ?? getHardware()
   getEl('maintenance-screen-name').textContent = getScreenName()
   getEl('maintenance-hostname').textContent = getHostname()
   try {
