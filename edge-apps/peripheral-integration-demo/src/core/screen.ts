@@ -52,7 +52,8 @@ function syncScreensToState(state: ReturnType<typeof getState>) {
   }
 
   const publicTemp = getEl('public-temperature')
-  publicTemp.textContent = `${Math.round(state.temperature)}°C`
+  publicTemp.textContent =
+    state.temperature !== null ? `${Math.round(state.temperature)}°C` : '--'
 
   if (state.currentScreen === 'maintenance') {
     getEl('maintenance-network').textContent = getNetworkStatus()

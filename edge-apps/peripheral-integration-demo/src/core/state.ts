@@ -4,14 +4,18 @@ export interface AppState {
   currentScreen: ScreenType
   timezone: string
   locale: string
-  temperature: number
+  temperature: number | null
+  humidity: number | null
+  airPressure: number | null
 }
 
 const state: AppState = {
   currentScreen: 'public',
   timezone: 'UTC',
   locale: 'en',
-  temperature: 22,
+  temperature: null,
+  humidity: null,
+  airPressure: null,
 }
 
 type Listener = (state: AppState) => void
@@ -47,6 +51,16 @@ export function setLocale(locale: string) {
 
 export function setTemperature(value: number) {
   state.temperature = value
+  notify()
+}
+
+export function setHumidity(value: number) {
+  state.humidity = value
+  notify()
+}
+
+export function setAirPressure(value: number) {
+  state.airPressure = value
   notify()
 }
 

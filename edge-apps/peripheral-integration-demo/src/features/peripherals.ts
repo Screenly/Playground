@@ -1,7 +1,12 @@
 import { createPeripheralClient } from '@screenly/edge-apps'
 import type { PeripheralStateMessage } from '@screenly/edge-apps'
 
-import { getState, setTemperature } from '../core/state'
+import {
+  getState,
+  setTemperature,
+  setHumidity,
+  setAirPressure,
+} from '../core/state'
 import { showWelcomeThenSwitch } from '../core/screen'
 import { restartLogoutTimer } from '../core/timer'
 import { authenticate } from './authenticate'
@@ -19,6 +24,16 @@ export function initPeripherals() {
     const tempReading = readings.find((r) => 'ambient_temperature' in r)
     if (tempReading) {
       setTemperature(tempReading.ambient_temperature as number)
+    }
+
+    const humidityReading = readings.find((r) => 'humidity' in r)
+    if (humidityReading) {
+      setHumidity(humidityReading.humidity as number)
+    }
+
+    const pressureReading = readings.find((r) => 'air_pressure' in r)
+    if (pressureReading) {
+      setAirPressure(pressureReading.air_pressure as number)
     }
 
     const cardReading = readings.find((r) => 'secure_card' in r)
