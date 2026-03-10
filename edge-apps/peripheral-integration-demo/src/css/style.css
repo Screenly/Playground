@@ -370,6 +370,14 @@ auto-scaler {
 
 /* Maintenance rows */
 
+#screen-maintenance {
+  flex: 1;
+}
+
+#screen-maintenance .glass-card:last-child {
+  flex: 0 1 auto;
+}
+
 .maintenance-rows {
   display: flex;
   flex-direction: column;
@@ -424,4 +432,21 @@ auto-scaler {
   font-size: 30px;
   font-weight: 600;
   color: #e33876;
+}
+
+.maintenance-raw-state {
+  width: 100%;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 16px;
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.maintenance-raw-state code {
+  display: block;
+  height: 100%;
+  padding: 1.5rem;
+  white-space: pre;
 }

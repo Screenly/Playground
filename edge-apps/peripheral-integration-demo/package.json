@@ -31,5 +31,8 @@
     "npm-run-all2": "^8.0.4",
     "prettier": "^3.8.1",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "highlight.js": "^11.11.1"
   }
 }

@@ -92,17 +92,31 @@ function stopUpdates() {
   }
 }
 
+function updateSensorData(state: ReturnType<typeof getState>) {
+  getEl('sensor-temperature').textContent =
+    state.temperature !== null ? `${state.temperature.toFixed(2)}°C` : 'No Data'
+  getEl('sensor-humidity').textContent =
+    state.humidity !== null ? `${state.humidity.toFixed(2)}%` : 'No Data'
+  getEl('sensor-air-pressure').textContent =
+    state.airPressure !== null
+      ? `${state.airPressure.toFixed(2)} hPa`
+      : 'No Data'
+}
+
 function onStateChange(state: ReturnType<typeof getState>) {
   if (state.currentScreen === 'operator') {
     startUpdates()
   } else {
     stopUpdates()
   }
+  updateSensorData(state)
 }
 
 export function initOperatorDashboard() {
   subscribe(onStateChange)
-  if (getState().currentScreen === 'operator') startUpdates()
+  const state = getState()
+  if (state.currentScreen === 'operator') startUpdates()
+  updateSensorData(state)
 }
 
 export function updateOperatorDashboard() {

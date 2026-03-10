@@ -1,4 +1,5 @@
 import './css/style.css'
+import 'highlight.js/styles/monokai.css'
 import '@screenly/edge-apps/components'
 
 import {

@@ -6,14 +6,24 @@ import {
   getTimeZone,
 } from '@screenly/edge-apps'
 import { Hardware } from '@screenly/edge-apps'
+import hljs from 'highlight.js/lib/core'
+import json from 'highlight.js/lib/languages/json'
 
-import { subscribe, getState, setScreen, type ScreenType } from './state'
+import {
+  subscribe,
+  getState,
+  setScreen,
+  type ScreenType,
+  getLastPeripheralState,
+} from './state'
 import {
   waitForScreenDataPrepared,
   dispatchScreenDataPrepared,
 } from './screen-events'
 import { getNetworkStatus } from '../utils/network'
 import { updateOperatorDashboard } from '../features/operator-dashboard'
+
+hljs.registerLanguage('json', json)
 
 function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms))
@@ -52,7 +62,8 @@ function syncScreensToState(state: ReturnType<typeof getState>) {
   }
 
   const publicTemp = getEl('public-temperature')
-  publicTemp.textContent = `${Math.round(state.temperature)}°C`
+  publicTemp.textContent =
+    state.temperature !== null ? `${Math.round(state.temperature)}°C` : '--'
 
   if (state.currentScreen === 'maintenance') {
     getEl('maintenance-network').textContent = getNetworkStatus()
@@ -77,6 +88,14 @@ async function loadMaintenanceInfo() {
     getEl('maintenance-timezone').textContent = tz
   } catch {
     getEl('maintenance-timezone').textContent = '—'
+  }
+
+  const rawState = getLastPeripheralState()
+  const codeEl = getEl('maintenance-raw-state').querySelector('code')!
+  if (rawState) {
+    codeEl.innerHTML = hljs.highlight(JSON.stringify(rawState, null, 2), {
+      language: 'json',
+    }).value
   }
 }
 

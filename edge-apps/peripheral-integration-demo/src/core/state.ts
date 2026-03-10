@@ -4,14 +4,18 @@ export interface AppState {
   currentScreen: ScreenType
   timezone: string
   locale: string
-  temperature: number
+  temperature: number | null
+  humidity: number | null
+  airPressure: number | null
 }
 
 const state: AppState = {
   currentScreen: 'public',
   timezone: 'UTC',
   locale: 'en',
-  temperature: 22,
+  temperature: null,
+  humidity: null,
+  airPressure: null,
 }
 
 type Listener = (state: AppState) => void
@@ -45,11 +49,29 @@ export function setLocale(locale: string) {
   notify()
 }
 
-export function setTemperature(value: number) {
-  state.temperature = value
+export function setSensorReadings(readings: {
+  temperature?: number | null
+  humidity?: number | null
+  airPressure?: number | null
+}) {
+  if (readings.temperature !== undefined)
+    state.temperature = readings.temperature
+  if (readings.humidity !== undefined) state.humidity = readings.humidity
+  if (readings.airPressure !== undefined)
+    state.airPressure = readings.airPressure
   notify()
 }
 
 export function getState(): Readonly<AppState> {
   return { ...state }
+}
+
+let lastPeripheralState: unknown = null
+
+export function setLastPeripheralState(raw: unknown) {
+  lastPeripheralState = raw
+}
+
+export function getLastPeripheralState(): unknown {
+  return lastPeripheralState
 }
