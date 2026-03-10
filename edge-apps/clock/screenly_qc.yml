@@ -4,6 +4,8 @@ id: 01JZHR7YXWK81TNPY9F9JKQ5H4
 description: Screenly Clock Edge App
 icon: https://playground.srly.io/edge-apps/clock/static/img/icon.svg
 author: Screenly, Inc.
+categories:
+  - Utilities
 ready_signal: true
 settings:
   enable_analytics:
@@ -49,13 +51,6 @@ settings:
     help_text: |
       Enter your Google Tag Manager container ID to enable tracking and analytics.
     is_global: true
-  theme:
-    type: string
-    default_value: light
-    title: Theme
-    optional: false
-    help_text: |
-      Select the visual theme for the app ('light' or 'dark').
   unit:
     type: string
     default_value: auto

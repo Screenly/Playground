@@ -4,6 +4,9 @@ id: 01K6ZS32JCFHG6E56T28YYPNG2
 description: Display's employee information like leaves, birthdays, and anniversaries from BambooHR
 icon: https://playground.srly.io/edge-apps/bamboo-hr-app/static/images/icon.svg
 author: Screenly, Inc.
+categories:
+  - HR
+  - Dashboard
 ready_signal: true
 settings:
   api_key:

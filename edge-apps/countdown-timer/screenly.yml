@@ -4,6 +4,9 @@ id: 01HS8ZSEPGFZDKE606PD038TTB
 description: Screenly Countdown Edge App
 icon: https://playground.srly.io/edge-apps/countdown-timer/static/img/icon.svg
 author: Screenly, Inc.
+categories:
+  - Utilities
+  - Productivity
 ready_signal: true
 settings:
   countdown_headline:

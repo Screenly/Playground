@@ -4,4 +4,6 @@ id: 01JZAZRKW0N9S7PNNHJYJQMDDA
 description: Flying Toasters App
 icon: 'https://playground.srly.io/edge-apps/flying-toasters/static/img/icon.svg'
 author: Bryan Braun
+categories:
+  - Just for Fun
 settings:
