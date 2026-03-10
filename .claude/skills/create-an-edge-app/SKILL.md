@@ -31,6 +31,7 @@ All apps depend on the `@screenly/edge-apps` library (`workspace:../edge-apps-li
 
 ### About the Manifest Files
 
+- Update the `categories` key to reflect the app's purpose.
 - Add any app-specific settings under the `settings` key, sorted alphabetically.
 - More information about manifest files can be found in the [Edge Apps documentation in the `Screenly/cli` repository](https://raw.githubusercontent.com/Screenly/cli/refs/heads/master/docs/EdgeApps.md).
 
