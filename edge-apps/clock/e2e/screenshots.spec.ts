@@ -16,7 +16,6 @@ const { screenlyJsContent } = createMockScreenlyForScreenshots(
     location: 'New York, NY',
   },
   {
-    theme: 'light',
     override_timezone: 'America/New_York',
     override_locale: 'en',
     openweathermap_api_key: 'mock-api-key',
