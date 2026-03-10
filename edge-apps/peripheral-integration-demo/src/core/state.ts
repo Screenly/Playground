@@ -65,3 +65,13 @@ export function setSensorReadings(readings: {
 export function getState(): Readonly<AppState> {
   return { ...state }
 }
+
+let lastPeripheralState: unknown = null
+
+export function setLastPeripheralState(raw: unknown) {
+  lastPeripheralState = raw
+}
+
+export function getLastPeripheralState(): unknown {
+  return lastPeripheralState
+}
