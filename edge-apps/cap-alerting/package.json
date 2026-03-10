@@ -24,7 +24,7 @@
     "prepare": "cd ../edge-apps-library && bun install && bun run build"
   },
   "dependencies": {
-    "fast-xml-parser": "^5.4.2"
+    "fast-xml-parser": "^5.5.1"
   },
   "prettier": "../edge-apps-library/.prettierrc.json",
   "devDependencies": {
