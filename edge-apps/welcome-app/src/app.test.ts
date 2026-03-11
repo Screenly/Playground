@@ -1,14 +1,7 @@
 import { describe, test, expect, beforeEach, afterEach } from 'bun:test'
 import { setupScreenlyMock, resetScreenlyMock } from '@screenly/edge-apps/test'
 
-// Must be called before importing main.ts so that the global `screenly` object
-// is defined before the DOMContentLoaded listener fires during module load.
-setupScreenlyMock(
-  {},
-  { welcome_heading: 'Welcome', welcome_message: 'to the team' },
-)
-
-import init from './main'
+import init from './app'
 
 describe('Welcome App', () => {
   beforeEach(() => {
