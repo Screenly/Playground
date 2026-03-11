@@ -11,6 +11,9 @@ import './weekly-calendar-view/weekly-calendar-view.js'
 
 import { WeeklyCalendarView } from './weekly-calendar-view/weekly-calendar-view.js'
 
-if (typeof window !== 'undefined' && !customElements.get('weekly-calendar-view')) {
+if (
+  typeof window !== 'undefined' &&
+  !customElements.get('weekly-calendar-view')
+) {
   customElements.define('weekly-calendar-view', WeeklyCalendarView)
 }

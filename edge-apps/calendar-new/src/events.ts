@@ -108,6 +108,8 @@ export const fetchCalendarEventsFromICal = async (
     return events
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error)
-    throw new Error(`Error fetching calendar events: ${errorMessage}`)
+    throw new Error(`Error fetching calendar events: ${errorMessage}`, {
+      cause: error,
+    })
   }
 }
