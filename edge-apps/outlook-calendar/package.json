@@ -29,8 +29,8 @@
   "prettier": "../edge-apps-library/.prettierrc.json",
   "dependencies": {
     "@photostructure/tz-lookup": "^11.5.0",
-    "@sentry/browser": "^10.42.0",
-    "@sentry/vue": "^10.42.0",
+    "@sentry/browser": "^10.43.0",
+    "@sentry/vue": "^10.43.0",
     "country-locale-map": "^1.9.12",
     "dayjs": "^1.11.19",
     "offline-geocode-city": "^1.0.2",
