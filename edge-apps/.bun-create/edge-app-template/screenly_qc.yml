@@ -3,6 +3,8 @@ syntax: manifest_v1
 description: {{APP_DESCRIPTION}}
 icon: https://playground.srly.io/edge-apps/{{APP_NAME}}/static/img/icon.svg
 author: Screenly, Inc.
+categories:
+  - Messaging & Content
 ready_signal: true
 settings:
   display_errors:
