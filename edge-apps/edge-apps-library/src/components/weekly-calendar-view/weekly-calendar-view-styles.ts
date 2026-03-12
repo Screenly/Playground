@@ -48,8 +48,8 @@ export const COMPONENT_CSS = `:host {
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  width: 3.5rem;
-  padding-top: 3rem;
+  width: 6.5rem;
+  padding-top: 5.225rem;
 }
 
 .time-label {
@@ -57,8 +57,8 @@ export const COMPONENT_CSS = `:host {
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
-  padding-right: 0.5rem;
-  font-size: 0.625rem;
+  padding-right: 1rem;
+  font-size: 0.98rem;
   color: #6b7280;
   white-space: nowrap;
   transform: translateY(-0.5em);
@@ -90,7 +90,7 @@ export const COMPONENT_CSS = `:host {
   justify-content: center;
   padding: 0.375rem 0.25rem;
   gap: 0.125rem;
-  height: 3rem;
+  height: 5.225rem;
   flex-shrink: 0;
   border-bottom: 0.0625rem solid #f3f4f6;
 }
@@ -100,22 +100,24 @@ export const COMPONENT_CSS = `:host {
 }
 
 .day-name {
-  font-size: 0.5625rem;
+  font-size: 0.98rem;
   font-weight: 500;
   color: #6b7280;
   text-transform: uppercase;
   letter-spacing: 0.03em;
+  line-height: 1.333;
 }
 
 .day-header.today .day-name {
   color: #fff;
+  opacity: 0.8;
 }
 
 .day-date {
-  font-size: 0.875rem;
+  font-size: 1.469rem;
   font-weight: 600;
   color: #111827;
-  line-height: 1;
+  line-height: 1.556;
 }
 
 .day-header.today .day-date {
