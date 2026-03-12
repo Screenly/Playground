@@ -129,7 +129,7 @@ export const COMPONENT_CSS = `:host {
   position: relative;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .hour-row {
@@ -204,7 +204,7 @@ export const COMPONENT_CSS = `:host {
 .current-time-indicator::before {
   content: '';
   position: absolute;
-  left: -0.25rem;
+  left: -0.27rem;
   top: -0.25rem;
   width: 0.5rem;
   height: 0.5rem;
