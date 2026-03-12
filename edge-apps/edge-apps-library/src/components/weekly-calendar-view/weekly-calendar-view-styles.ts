@@ -25,11 +25,13 @@ export const COMPONENT_CSS = `:host {
 
 .this-week-title {
   font-size: 2.8125rem;
-  font-weight: 700;
-  font-style: italic;
+  font-weight: 400;
+  font-style: normal;
   color: var(--calendar-accent-color, #0f3a97);
+  letter-spacing: -0.1125rem;
   margin: 0 0 0.75rem 0;
-  line-height: 1.1;
+  line-height: normal;
+  text-align: center;
   flex-shrink: 0;
 }
 
