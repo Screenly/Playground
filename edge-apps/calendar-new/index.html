@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calendar</title>
+    <script src="screenly.js?version=1"></script>
+  </head>
+  <body>
+    <auto-scaler
+      reference-width="1920"
+      reference-height="1080"
+      orientation="auto"
+    >
+      <div id="app">
+        <app-header class="header" show-date></app-header>
+        <main class="content">
+          <weekly-calendar-view id="calendar"></weekly-calendar-view>
+        </main>
+      </div>
+    </auto-scaler>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
