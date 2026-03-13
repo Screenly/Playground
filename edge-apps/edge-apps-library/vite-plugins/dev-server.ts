@@ -101,38 +101,39 @@ function generateMockData(
     }
   }
 
-  // Override with mock-data.yml if it exists
-  if (fs.existsSync(mockDataPath)) {
-    let mockData: Record<string, unknown>
-    try {
-      mockData = YAML.parse(fs.readFileSync(mockDataPath, 'utf8'))
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error'
-      console.warn(
-        `Failed to parse mock-data.yml: ${message}. Keeping config without mock-data overrides.`,
-      )
-      return screenlyConfig
-    }
-
-    if (mockData && typeof mockData === 'object') {
-      // Override metadata if present
-      if (mockData.metadata) {
-        Object.assign(screenlyConfig.metadata, mockData.metadata)
-      }
-
-      // Override settings if present
-      if (mockData.settings) {
-        Object.assign(screenlyConfig.settings, mockData.settings)
-      }
-
-      // Override cors_proxy_url if present
-      if (mockData.cors_proxy_url) {
-        screenlyConfig.cors_proxy_url = mockData.cors_proxy_url as string
-      }
-    }
-  }
+  applyMockDataOverrides(mockDataPath, screenlyConfig)
 
   return screenlyConfig
+}
+
+function applyMockDataOverrides(
+  mockDataPath: string,
+  screenlyConfig: BaseScreenlyMockData,
+): void {
+  if (!fs.existsSync(mockDataPath)) return
+
+  let mockData: Record<string, unknown>
+  try {
+    mockData = YAML.parse(fs.readFileSync(mockDataPath, 'utf8'))
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown error'
+    console.warn(
+      `Failed to parse mock-data.yml: ${message}. Keeping config without mock-data overrides.`,
+    )
+    return
+  }
+
+  if (!mockData || typeof mockData !== 'object') return
+
+  if (mockData.metadata) {
+    Object.assign(screenlyConfig.metadata, mockData.metadata)
+  }
+  if (mockData.settings) {
+    Object.assign(screenlyConfig.settings, mockData.settings)
+  }
+  if (mockData.cors_proxy_url) {
+    screenlyConfig.cors_proxy_url = mockData.cors_proxy_url as string
+  }
 }
 
 export function screenlyDevServer(): Plugin {
