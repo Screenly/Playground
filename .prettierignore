@@ -3,6 +3,7 @@ edge-apps/.bun-create/
 edge-apps/cap-alerting/
 edge-apps/clock/
 edge-apps/edge-apps-library/
+edge-apps/peripheral-integration-demo/
 edge-apps/grafana/
 edge-apps/powerbi-legacy/
 edge-apps/powerbi-legacy/**

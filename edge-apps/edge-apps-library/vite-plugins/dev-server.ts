@@ -2,6 +2,8 @@ import type { ViteDevServer, Plugin } from 'vite'
 import YAML from 'yaml'
 import fs from 'fs'
 import path from 'path'
+import { WebSocketServer } from 'ws'
+import { ulid } from 'ulid'
 
 type ScreenlyManifestField = {
   type: string
@@ -47,6 +49,160 @@ const defaultScreenlyConfig: BaseScreenlyMockData = {
   cors_proxy_url: 'http://127.0.0.1:8080',
 }
 
+const PERIPHERAL_WS_PORT = 9010
+const ETB = '\x17'
+
+type SensorType =
+  | 'ambient_temperature'
+  | 'humidity'
+  | 'air_pressure'
+  | 'secure_card'
+
+const SENSOR_META: Record<
+  SensorType,
+  { channelName: string; unit: string | null }
+> = {
+  ambient_temperature: { channelName: 'my_living_room_temp', unit: '°C' },
+  humidity: { channelName: 'room_humidity', unit: '%' },
+  air_pressure: { channelName: 'room_pressure', unit: 'hPa' },
+  secure_card: { channelName: 'ew_demo_nfc_reader', unit: null },
+}
+
+const MOCK_CARD_UIDS = {
+  operator: 'uhtzBg',
+  maintenance: 'gj-6XA',
+}
+
+function makeMockSensorValue(
+  sensor: SensorType,
+): number | Record<string, string> {
+  switch (sensor) {
+    case 'ambient_temperature':
+      return parseFloat((20 + Math.random() * 10).toFixed(2))
+    case 'humidity':
+      return parseFloat((40 + Math.random() * 40).toFixed(2))
+    case 'air_pressure':
+      return parseFloat((1000 + Math.random() * 30).toFixed(2))
+    case 'secure_card':
+      return {
+        uid:
+          Math.random() < 0.5
+            ? MOCK_CARD_UIDS.operator
+            : MOCK_CARD_UIDS.maintenance,
+      }
+  }
+}
+
+function buildStateSnapshot(): Record<string, unknown>[] {
+  return (
+    Object.entries(SENSOR_META) as [
+      SensorType,
+      { channelName: string; unit: string | null },
+    ][]
+  ).map(([wireKey, meta]) => {
+    const reading: Record<string, unknown> = {
+      name: meta.channelName,
+      [wireKey]: makeMockSensorValue(wireKey),
+      timestamp: Date.now(),
+    }
+    if (meta.unit) reading.unit = meta.unit
+    return reading
+  })
+}
+
+// eslint-disable-next-line max-lines-per-function
+function startPeripheralMockServer(): void {
+  const wss = new WebSocketServer({ port: PERIPHERAL_WS_PORT })
+
+  wss.on('connection', (ws) => {
+    // Push full state snapshot immediately on connection
+    const initialSnapshot =
+      JSON.stringify({
+        request: {
+          id: ulid(),
+          edge_app_source_state: { states: buildStateSnapshot() },
+        },
+      }) + ETB
+    ws.send(initialSnapshot)
+
+    ws.on('message', (raw: Buffer) => {
+      const text = raw.toString().replace(ETB, '')
+      let msg: Record<string, unknown>
+      try {
+        msg = JSON.parse(text)
+      } catch {
+        return
+      }
+
+      const req = msg.request as Record<string, unknown> | undefined
+      if (!req) return
+
+      const requestId = req.id as string
+
+      // Registration is fire-and-forget — no response needed
+      if (req.edge_app_registration) return
+
+      // GetState request
+      const channelName = req.source_channel_get_state as string | undefined
+      const sensorEntry = channelName
+        ? (
+            Object.entries(SENSOR_META) as [
+              SensorType,
+              { channelName: string; unit: string | null },
+            ][]
+          ).find(([, meta]) => meta.channelName === channelName)
+        : undefined
+      if (sensorEntry) {
+        const [wireKey, meta] = sensorEntry
+        const value = makeMockSensorValue(wireKey)
+        const reading: Record<string, unknown> = {
+          name: channelName,
+          [wireKey]: value,
+          timestamp: Date.now(),
+        }
+        if (meta.unit) reading.unit = meta.unit
+        const response =
+          JSON.stringify({
+            response: {
+              request_id: requestId,
+              ok: { source_channel_get_state: reading },
+            },
+          }) + ETB
+        ws.send(response)
+      }
+    })
+
+    // Push full state snapshot every 5 seconds
+    const interval = setInterval(() => {
+      if (ws.readyState !== ws.OPEN) return
+      const event =
+        JSON.stringify({
+          request: {
+            id: ulid(),
+            edge_app_source_state: { states: buildStateSnapshot() },
+          },
+        }) + ETB
+      ws.send(event)
+    }, 10000)
+
+    ws.on('close', () => clearInterval(interval))
+  })
+
+  wss.on('error', (err: NodeJS.ErrnoException) => {
+    if (err.code === 'EADDRINUSE') {
+      console.warn(
+        `[screenly-dev-server] Port ${PERIPHERAL_WS_PORT} already in use — peripheral mock not started.`,
+      )
+    } else {
+      console.error('[screenly-dev-server] Peripheral WS error:', err.message)
+    }
+  })
+
+  console.log(
+    `[screenly-dev-server] Peripheral mock WS server listening on ws://127.0.0.1:${PERIPHERAL_WS_PORT}`,
+  )
+}
+
 function generateScreenlyObject(config: BaseScreenlyMockData) {
   return `
     // Generated screenly.js for development mode
@@ -54,7 +210,7 @@ function generateScreenlyObject(config: BaseScreenlyMockData) {
       signalReadyForRendering: () => {},
       metadata: ${JSON.stringify(config.metadata, null, 2)},
       settings: ${JSON.stringify(config.settings, null, 2)},
-      cors_proxy_url: ${JSON.stringify(config.cors_proxy_url)}
+      cors_proxy_url: ${JSON.stringify(config.cors_proxy_url)},
     }
   `
 }
@@ -155,6 +311,9 @@ export function screenlyDevServer(): Plugin {
     name: 'screenly-dev-server',
     configureServer(server: ViteDevServer) {
       rootDir = server.config.root
+
+      // Start peripheral mock WebSocket server
+      startPeripheralMockServer()
 
       // Generate initial mock data
       config = generateMockData(rootDir)
