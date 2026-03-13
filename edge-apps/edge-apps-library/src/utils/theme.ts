@@ -1,4 +1,5 @@
 import type { ThemeColors, BrandingConfig } from '../types/index.js'
+import defaultLogoUrl from '../assets/images/screenly.svg'
 
 /**
  * Default theme colors used by Screenly
@@ -199,8 +200,8 @@ export async function setupBrandingLogo(): Promise<string> {
     fallbackUrl = darkLogo || lightLogo || ''
   }
 
-  // Return early if logoUrl is empty
-  if (!logoUrl) return ''
+  // Return default logo if no logo is configured
+  if (!logoUrl) return defaultLogoUrl
   // Try to fetch the image using the CORS proxy URL
   try {
     return await fetchLogoImage(logoUrl)
@@ -217,8 +218,8 @@ export async function setupBrandingLogo(): Promise<string> {
       err,
     )
   }
-  // Return empty string if all fetches fail
-  return ''
+  // Return default logo if all fetches fail
+  return defaultLogoUrl
 }
 
 /**
@@ -230,6 +231,6 @@ export async function setupBranding(): Promise<BrandingConfig> {
 
   return {
     colors,
-    logoUrl: logoUrl || undefined,
+    logoUrl,
   }
 }
