@@ -1,13 +1,15 @@
-import { describe, test, expect, beforeEach, afterEach } from 'bun:test'
+import { describe, test, expect, beforeEach, afterEach, mock } from 'bun:test'
 import {
   getPrimaryColor,
   getSecondaryColor,
   getThemeColors,
   applyThemeColors,
   setupTheme,
+  setupBrandingLogo,
   DEFAULT_THEME_COLORS,
 } from './theme'
 import { setupScreenlyMock, resetScreenlyMock } from '../test/mock'
+import defaultLogoUrl from '../assets/images/screenly.svg'
 
 // eslint-disable-next-line max-lines-per-function
 describe('theme utilities', () => {
@@ -149,6 +151,38 @@ describe('theme utilities', () => {
           '--theme-color-primary',
         ),
       ).toBe('#FF0000')
+    })
+  })
+
+  describe('setupBrandingLogo', () => {
+    let originalFetch: typeof globalThis.fetch
+
+    beforeEach(() => {
+      originalFetch = globalThis.fetch
+    })
+
+    afterEach(() => {
+      globalThis.fetch = originalFetch
+    })
+
+    test('should return default logo when no logos are configured', async () => {
+      const result = await setupBrandingLogo()
+      expect(result).toBe(defaultLogoUrl)
+    })
+
+    test('should return default logo when primary and fallback fetches fail', async () => {
+      setupScreenlyMock(
+        {},
+        {
+          screenly_logo_light: 'http://example.com/logo.png',
+          screenly_logo_dark: '',
+        },
+      )
+      globalThis.fetch = mock(() =>
+        Promise.reject(new Error('Network error')),
+      ) as typeof globalThis.fetch
+      const result = await setupBrandingLogo()
+      expect(result).toBe(defaultLogoUrl)
     })
   })
 })

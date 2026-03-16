@@ -170,12 +170,11 @@ export async function fetchLogoImage(fileUrl: string): Promise<string> {
  * Setup branding logo from Screenly settings.
  *
  * Attempts to fetch the logo image using a CORS proxy URL based on the current theme.
- * Falls back to a direct URL if the proxy fetch fails, and returns an empty string if no logo is configured or all fetch attempts fail.
+ * Falls back to a direct URL if the proxy fetch fails, and returns the default logo if no logo is configured or all fetch attempts fail.
  *
  * @returns {Promise<string>} The processed logo URL:
  *   - Returns a data URI for SVG images, or the original URL for PNG/JPEG images, if successfully fetched via the CORS proxy or fallback URL.
- *   - Returns the fallback URL if all fetch attempts fail but a logo URL is configured.
- *   - Returns an empty string if no logo is configured or all fetch attempts fail.
+ *   - Returns the default logo URL if no logo is configured or all fetch attempts fail.
  */
 export async function setupBrandingLogo(): Promise<string> {
   const settings = screenly.settings
@@ -201,7 +200,7 @@ export async function setupBrandingLogo(): Promise<string> {
   }
 
   // Return default logo if no logo is configured
-  if (!logoUrl) return defaultLogoUrl
+  if (!fallbackUrl) return defaultLogoUrl
   // Try to fetch the image using the CORS proxy URL
   try {
     return await fetchLogoImage(logoUrl)
