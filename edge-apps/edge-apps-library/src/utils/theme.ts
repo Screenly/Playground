@@ -187,16 +187,14 @@ export async function setupBrandingLogo(): Promise<string> {
   let logoUrl = ''
   let fallbackUrl = ''
 
-  if (theme === 'light') {
-    logoUrl = lightLogo
-      ? `${screenly.cors_proxy_url}/${lightLogo}`
-      : `${screenly.cors_proxy_url}/${darkLogo}`
-    fallbackUrl = lightLogo || darkLogo || ''
-  } else if (theme === 'dark') {
-    logoUrl = darkLogo
-      ? `${screenly.cors_proxy_url}/${darkLogo}`
-      : `${screenly.cors_proxy_url}/${lightLogo}`
-    fallbackUrl = darkLogo || lightLogo || ''
+  const isDark = theme === 'dark'
+  const primaryLogo = isDark ? darkLogo : lightLogo
+  const secondaryLogo = isDark ? lightLogo : darkLogo
+  const resolvedLogo = primaryLogo || secondaryLogo
+
+  if (resolvedLogo) {
+    logoUrl = `${screenly.cors_proxy_url}/${resolvedLogo}`
+    fallbackUrl = resolvedLogo
   }
 
   // Return default logo if no logo is configured
