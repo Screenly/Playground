@@ -11,7 +11,7 @@ bun install
 Create and deploy the Edge App:
 
 ```bash
-screenly edge-app create --name calendar-new --in-place
+screenly edge-app create --name calendar --in-place
 bun run deploy
 screenly edge-app instance create
 ```
