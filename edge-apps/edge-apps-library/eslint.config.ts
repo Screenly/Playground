@@ -21,6 +21,7 @@ export default defineConfig(
           varsIgnorePattern: '^_',
         },
       ],
+      'complexity': ['error', { max: 20 }],
       'max-lines-per-function': ['error', {
         max: 70,
         skipBlankLines: true,

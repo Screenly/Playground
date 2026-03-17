@@ -101,38 +101,50 @@ function generateMockData(
     }
   }
 
-  // Override with mock-data.yml if it exists
-  if (fs.existsSync(mockDataPath)) {
-    let mockData: Record<string, unknown>
-    try {
-      mockData = YAML.parse(fs.readFileSync(mockDataPath, 'utf8'))
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error'
-      console.warn(
-        `Failed to parse mock-data.yml: ${message}. Keeping config without mock-data overrides.`,
-      )
-      return screenlyConfig
-    }
-
-    if (mockData && typeof mockData === 'object') {
-      // Override metadata if present
-      if (mockData.metadata) {
-        Object.assign(screenlyConfig.metadata, mockData.metadata)
-      }
-
-      // Override settings if present
-      if (mockData.settings) {
-        Object.assign(screenlyConfig.settings, mockData.settings)
-      }
-
-      // Override cors_proxy_url if present
-      if (mockData.cors_proxy_url) {
-        screenlyConfig.cors_proxy_url = mockData.cors_proxy_url as string
-      }
-    }
-  }
+  applyMockDataOverrides(mockDataPath, screenlyConfig)
 
   return screenlyConfig
+}
+
+function applyMockDataOverrides(
+  mockDataPath: string,
+  screenlyConfig: BaseScreenlyMockData,
+): void {
+  if (!fs.existsSync(mockDataPath)) return
+
+  // Typed as unknown since YAML.parse() can return any value (string, array, null, etc.)
+  let parsedMockData: unknown
+  try {
+    parsedMockData = YAML.parse(fs.readFileSync(mockDataPath, 'utf8'))
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown error'
+    console.warn(
+      `Failed to parse mock-data.yml: ${message}. Keeping config without mock-data overrides.`,
+    )
+    return
+  }
+
+  // Narrow to a plain object after ruling out null, primitives, and arrays
+  if (
+    !parsedMockData ||
+    typeof parsedMockData !== 'object' ||
+    Array.isArray(parsedMockData)
+  )
+    return
+
+  const mockData = parsedMockData as Record<string, unknown>
+
+  const { metadata, settings, cors_proxy_url } = mockData
+
+  if (metadata && typeof metadata === 'object' && !Array.isArray(metadata)) {
+    Object.assign(screenlyConfig.metadata, metadata)
+  }
+  if (settings && typeof settings === 'object' && !Array.isArray(settings)) {
+    Object.assign(screenlyConfig.settings, settings)
+  }
+  if (typeof cors_proxy_url === 'string' && cors_proxy_url.length > 0) {
+    screenlyConfig.cors_proxy_url = cors_proxy_url
+  }
 }
 
 export function screenlyDevServer(): Plugin {
