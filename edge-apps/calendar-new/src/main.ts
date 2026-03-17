@@ -1,6 +1,7 @@
 import './css/style.css'
 import '@screenly/edge-apps/components'
 import type { WeeklyCalendarView } from '@screenly/edge-apps/components'
+import type { DailyCalendarView } from '@screenly/edge-apps/components'
 import {
   setupErrorHandling,
   setupTheme,
@@ -28,16 +29,29 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupErrorHandling()
   setupTheme()
 
-  const calendarEl = document.getElementById('calendar') as WeeklyCalendarView
+  const calendarMode = (screenly.settings.calendar_mode as string) || 'weekly'
+  const isDaily = calendarMode === 'daily'
+
+  const weeklyEl = document.getElementById(
+    'weekly-calendar',
+  ) as WeeklyCalendarView
+  const dailyEl = document.getElementById('daily-calendar') as DailyCalendarView
+
+  if (isDaily) {
+    dailyEl.classList.add('active')
+  } else {
+    weeklyEl.classList.add('active')
+  }
 
   const timezone = await getTimeZone()
   const locale = await getLocale()
 
-  calendarEl.setAttribute('timezone', timezone)
-  calendarEl.setAttribute('locale', locale)
+  const activeEl = isDaily ? dailyEl : weeklyEl
+  activeEl.setAttribute('timezone', timezone)
+  activeEl.setAttribute('locale', locale)
 
   const tick = () => {
-    calendarEl.now = new Date()
+    activeEl.now = new Date()
   }
   tick()
   setInterval(tick, 1000)
@@ -45,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const refresh = async () => {
     try {
       const events = await fetchCalendarEventsFromICal({ timezone })
-      calendarEl.events = events
+      activeEl.events = events
     } catch (error) {
       console.error('Failed to fetch calendar events:', error)
     }

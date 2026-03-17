@@ -49,6 +49,7 @@ export function getEventStyle(
   zIndex: number
   clippedTop: boolean
   clippedBottom: boolean
+  isLastColumn: boolean
 } {
   const windowSize = 12
   const windowEndHour = (windowStartHour + windowSize) % 24
@@ -93,6 +94,7 @@ export function getEventStyle(
     zIndex,
     clippedTop,
     clippedBottom,
+    isLastColumn,
   }
 }
 
@@ -132,6 +134,28 @@ export function formatEventTime(
   } catch {
     return ''
   }
+}
+
+export function filterEventsForWindow(
+  events: CalendarEvent[],
+  dayDateStr: string,
+  windowStartHour: number,
+  tz: string,
+): CalendarEvent[] {
+  const windowEndHour = (windowStartHour + 12) % 24
+  const normalizedWindowEnd =
+    windowEndHour <= windowStartHour ? windowEndHour + 24 : windowEndHour
+  return events.filter((event) => {
+    if (event.isAllDay) return false
+    const eventStart = dayjs(event.startTime).tz(tz)
+    if (eventStart.format('YYYY-MM-DD') !== dayDateStr) return false
+    const startH = eventStart.hour() + eventStart.minute() / 60
+    const endDt = dayjs(event.endTime).tz(tz)
+    const endH = endDt.hour() + endDt.minute() / 60
+    const normStart = startH < windowStartHour ? startH + 24 : startH
+    const normEnd = endH <= windowStartHour ? endH + 24 : endH
+    return normStart < normalizedWindowEnd && normEnd > windowStartHour
+  })
 }
 
 export function setAttribute(

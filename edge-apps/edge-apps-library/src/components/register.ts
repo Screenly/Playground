@@ -8,12 +8,21 @@ import './app-header/app-header.js'
 import './auto-scaler/auto-scaler.js'
 import './dev-tools/dev-tools.js'
 import './weekly-calendar-view/weekly-calendar-view.js'
+import './daily-calendar-view/daily-calendar-view.js'
 
 import { WeeklyCalendarView } from './weekly-calendar-view/weekly-calendar-view.js'
+import { DailyCalendarView } from './daily-calendar-view/daily-calendar-view.js'
 
 if (
   typeof window !== 'undefined' &&
   !customElements.get('weekly-calendar-view')
 ) {
   customElements.define('weekly-calendar-view', WeeklyCalendarView)
+}
+
+if (
+  typeof window !== 'undefined' &&
+  !customElements.get('daily-calendar-view')
+) {
+  customElements.define('daily-calendar-view', DailyCalendarView)
 }

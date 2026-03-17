@@ -40,8 +40,13 @@ body {
   overflow: hidden;
 }
 
-weekly-calendar-view {
+.calendar-view {
   flex: 1;
   min-height: 0;
   min-width: 0;
+  display: none;
+}
+
+.calendar-view.active {
+  display: flex;
 }

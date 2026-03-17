@@ -14,7 +14,7 @@ export const COMPONENT_CSS = `:host {
   box-sizing: border-box;
 }
 
-.weekly-calendar-container {
+.daily-calendar-container {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -22,7 +22,7 @@ export const COMPONENT_CSS = `:host {
   padding: 1rem 1.25rem 1rem 1rem;
 }
 
-.this-week-title {
+.today-title {
   font-size: 2.8125rem;
   font-weight: 400;
   font-style: normal;
@@ -34,13 +34,14 @@ export const COMPONENT_CSS = `:host {
   flex-shrink: 0;
 }
 
-.week-grid {
+.day-grid {
   display: flex;
   flex: 1;
   min-height: 0;
   background: #fff;
   border-radius: 0.75rem;
   overflow: hidden;
+  padding-top: 1.25rem;
 }
 
 .time-gutter {
@@ -48,7 +49,6 @@ export const COMPONENT_CSS = `:host {
   flex-direction: column;
   flex-shrink: 0;
   width: 6.5rem;
-  padding-top: 5.225rem;
 }
 
 .time-label {
@@ -63,72 +63,13 @@ export const COMPONENT_CSS = `:host {
   transform: translateY(-0.5em);
 }
 
-.days-grid {
-  display: flex;
-  flex: 1;
-  min-width: 0;
-  border-left: 0.0625rem solid #f3f4f6;
-}
-
-.day-column {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-width: 0;
-  border-right: 0.0625rem solid #f3f4f6;
-}
-
-.day-column:last-child {
-  border-right: none;
-}
-
-.day-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0.375rem 0.25rem;
-  gap: 0.125rem;
-  height: 5.225rem;
-  flex-shrink: 0;
-  border-bottom: 0.0625rem solid #f3f4f6;
-}
-
-.day-header.today {
-  background: var(--theme-color-primary, #0f3a97);
-}
-
-.day-name {
-  font-size: 0.98rem;
-  font-weight: 500;
-  color: #6b7280;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  line-height: 1.333;
-}
-
-.day-header.today .day-name {
-  color: #fff;
-  opacity: 0.8;
-}
-
-.day-date {
-  font-size: 1.469rem;
-  font-weight: 600;
-  color: #111827;
-  line-height: 1.556;
-}
-
-.day-header.today .day-date {
-  color: #fff;
-}
-
 .day-body {
   flex: 1;
   position: relative;
   display: flex;
   flex-direction: column;
   overflow: visible;
+  border-left: 0.0625rem solid #f3f4f6;
 }
 
 .hour-row {
@@ -145,9 +86,9 @@ export const COMPONENT_CSS = `:host {
 .events-area {
   position: absolute;
   top: 0;
-  left: 0.327rem;
+  left: 0.653rem;
   bottom: 0;
-  right: 0.653rem;
+  right: 1.25rem;
 }
 
 .event-wrapper {
