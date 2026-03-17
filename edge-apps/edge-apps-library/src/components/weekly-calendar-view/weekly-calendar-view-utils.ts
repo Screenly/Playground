@@ -1,5 +1,10 @@
 import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
 import type { CalendarEvent, EventLayout } from './event-layout.js'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 export interface TimeSlot {
   time: string
@@ -14,17 +19,24 @@ export function generateTimeSlots(
   startHour: number,
   now: Date,
   locale: string,
+  tz: string,
 ): TimeSlot[] {
   const slots: TimeSlot[] = []
   for (let i = 0; i < 12; i++) {
     const hour = (startHour + i) % 24
-    const baseDate = new Date(now)
-    baseDate.setHours(hour, 0, 0, 0)
+    const baseDate = dayjs(now)
+      .tz(tz)
+      .hour(hour)
+      .minute(0)
+      .second(0)
+      .millisecond(0)
+      .toDate()
     let timeString: string
     try {
       timeString = baseDate.toLocaleTimeString(locale, {
         hour: 'numeric',
         minute: '2-digit',
+        timeZone: tz,
       })
     } catch {
       const formattedHour = hour === 0 ? 12 : hour % 12 || 12

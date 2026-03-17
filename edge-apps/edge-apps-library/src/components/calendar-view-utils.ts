@@ -1,10 +1,13 @@
-import type { CalendarEvent, EventLayout } from './event-layout.js'
+import type {
+  CalendarEvent,
+  EventLayout,
+} from './weekly-calendar-view/event-layout.js'
 import {
   type TimeSlot,
   getEventStyle,
   formatEventStartTime,
   formatEventTime,
-} from './weekly-calendar-view-utils.js'
+} from './weekly-calendar-view/weekly-calendar-view-utils.js'
 
 export function buildTimeGutter(timeSlots: TimeSlot[]): HTMLElement {
   const timeGutter = document.createElement('div')

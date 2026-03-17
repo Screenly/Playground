@@ -14,10 +14,7 @@ import {
   getWindowStartHour,
   filterEventsForWindow,
 } from '../weekly-calendar-view/weekly-calendar-view-utils.js'
-import {
-  buildTimeGutter,
-  buildEventElement,
-} from '../weekly-calendar-view/calendar-view-utils.js'
+import { buildTimeGutter, buildEventElement } from '../calendar-view-utils.js'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
@@ -149,7 +146,7 @@ export class DailyCalendarView extends HTMLElement {
       10,
     )
     const windowStartHour = getWindowStartHour(currentHour)
-    const timeSlots = generateTimeSlots(windowStartHour, now, locale)
+    const timeSlots = generateTimeSlots(windowStartHour, now, locale, tz)
     const todayStr = dayjs(now).tz(tz).format('YYYY-MM-DD')
     const todayEvents = filterEventsForWindow(
       this._events,

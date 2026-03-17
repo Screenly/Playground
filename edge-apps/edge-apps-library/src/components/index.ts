@@ -9,6 +9,7 @@ export { BrandLogo } from './brand-logo/brand-logo.js'
 export { EdgeAppDevToolsElement } from './dev-tools/dev-tools.js'
 export { WeeklyCalendarView } from './weekly-calendar-view/index.js'
 export { DailyCalendarView } from './daily-calendar-view/index.js'
+export { ScheduleCalendarView } from './schedule-calendar-view/index.js'
 export type { CalendarEvent } from './weekly-calendar-view/index.js'
 
 // Side-effect: Register all components when this module is imported
