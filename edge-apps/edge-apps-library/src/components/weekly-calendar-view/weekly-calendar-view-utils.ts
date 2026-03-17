@@ -96,6 +96,24 @@ export function getEventStyle(
   }
 }
 
+export function formatEventStartTime(
+  startTime: string,
+  locale: string,
+  tz: string,
+): string {
+  try {
+    const start = new Date(startTime)
+    const opts: Intl.DateTimeFormatOptions = {
+      hour: 'numeric',
+      minute: '2-digit',
+      timeZone: tz,
+    }
+    return start.toLocaleTimeString(locale, opts)
+  } catch {
+    return ''
+  }
+}
+
 export function formatEventTime(
   startTime: string,
   endTime: string,

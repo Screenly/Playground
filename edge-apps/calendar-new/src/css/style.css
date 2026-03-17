@@ -9,13 +9,11 @@
 body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   font-family: 'Inter', system-ui, sans-serif;
-  background: #f3f5f7;
-}
-
-auto-scaler {
-  position: relative;
+  background: #000;
 }
 
 #app {
@@ -28,7 +26,8 @@ auto-scaler {
 
 .header {
   flex-shrink: 0;
-  margin: 0.75rem 0 0;
+  margin: 0.75rem 1.3125rem 0;
+  width: calc(100% - 2.625rem);
 }
 
 .content {
@@ -43,15 +42,4 @@ weekly-calendar-view {
   flex: 1;
   min-height: 0;
   min-width: 0;
-}
-
-@media (orientation: portrait) {
-  #app {
-    height: 100%;
-  }
-
-  .content {
-    flex: 1;
-    height: auto;
-  }
 }

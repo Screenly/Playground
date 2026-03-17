@@ -29,7 +29,7 @@ export const COMPONENT_CSS = `:host {
   font-style: normal;
   color: var(--calendar-accent-color, #0f3a97);
   letter-spacing: -0.1125rem;
-  margin: 0 0 0.75rem 0;
+  margin: 2rem 0 2.875rem 0;
   line-height: normal;
   text-align: center;
   flex-shrink: 0;
@@ -146,19 +146,31 @@ export const COMPONENT_CSS = `:host {
 .event-wrapper {
   position: absolute;
   z-index: 2;
-  padding: 0 0.0625rem;
+  padding: 0 0.653rem;
 }
 
 .event-item {
   height: 100%;
   background: #ededed;
-  border-left: 0.3125rem solid var(--calendar-accent-color, #0f3a97);
-  border-radius: 0 0.25rem 0.25rem 0;
-  padding: 0.125rem 0.25rem;
+  border-left: 0.327rem solid var(--calendar-accent-color, #0f3a97);
+  border-radius: 0 0.653rem 0.653rem 0;
+  padding: 0.5rem 0.98rem;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 0.0625rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.327rem;
+}
+
+.event-item.event-compact {
+  justify-content: center;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.event-inline-time {
+  color: var(--calendar-accent-color, #0f3a97);
 }
 
 .event-item.clipped-top {
@@ -172,23 +184,23 @@ export const COMPONENT_CSS = `:host {
 }
 
 .event-title {
-  font-size: 0.5rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: #111827;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.3;
+  line-height: normal;
 }
 
 .event-time {
-  font-size: 0.4375rem;
+  font-size: 0.75rem;
   font-weight: 400;
   color: var(--calendar-accent-color, #0f3a97);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.2;
+  line-height: normal;
 }
 
 .current-time-indicator {

@@ -9,12 +9,14 @@ import {
   getEventKey,
 } from './event-layout.js'
 import { COMPONENT_CSS } from './weekly-calendar-view-styles.js'
+import { getLocalizedDayNames } from '../../utils/index.js'
 import {
   type TimeSlot,
   generateTimeSlots,
   getEventStyle,
   getWindowStartHour,
   formatEventTime,
+  formatEventStartTime,
   setAttribute,
 } from './weekly-calendar-view-utils.js'
 
@@ -22,8 +24,6 @@ dayjs.extend(utc)
 dayjs.extend(timezone)
 
 export type { CalendarEvent }
-
-const DAYS_OF_WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 export class WeeklyCalendarView extends HTMLElement {
   private _events: CalendarEvent[] = []
@@ -156,19 +156,42 @@ export class WeeklyCalendarView extends HTMLElement {
       item.style.setProperty('background-color', event.backgroundColor)
     }
 
+    // For short events (< 45 min), center content vertically and show title only.
+    // All other events show title + time with uniform padding.
+    const fortyFiveMinPercent = (45 / 60) * (100 / 12)
+    const isCompact = style.heightPct <= fortyFiveMinPercent
+    if (isCompact) {
+      item.classList.add('event-compact')
+    }
+
     const titleEl = document.createElement('div')
     titleEl.className = 'event-title'
-    titleEl.textContent = event.title
-    const timeEl = document.createElement('div')
-    timeEl.className = 'event-time'
-    timeEl.textContent = formatEventTime(
-      event.startTime,
-      event.endTime,
-      locale,
-      tz,
-    )
-    item.appendChild(titleEl)
-    item.appendChild(timeEl)
+
+    if (isCompact) {
+      titleEl.textContent = `${event.title}, `
+      const inlineTimeEl = document.createElement('span')
+      inlineTimeEl.className = 'event-inline-time'
+      inlineTimeEl.textContent = formatEventStartTime(
+        event.startTime,
+        locale,
+        tz,
+      )
+      titleEl.appendChild(inlineTimeEl)
+      item.appendChild(titleEl)
+    } else {
+      titleEl.textContent = event.title
+      const timeEl = document.createElement('div')
+      timeEl.className = 'event-time'
+      timeEl.textContent = formatEventTime(
+        event.startTime,
+        event.endTime,
+        locale,
+        tz,
+      )
+      item.appendChild(titleEl)
+      item.appendChild(timeEl)
+    }
+
     wrapper.appendChild(item)
     return wrapper
   }
@@ -184,9 +207,8 @@ export class WeeklyCalendarView extends HTMLElement {
     const tz = this._timezone
     const locale = this._locale
 
-    const dayDate = new Date(weekStart)
-    dayDate.setDate(dayDate.getDate() + dayIdx)
-    const dayDateStr = dayjs(dayDate).tz(tz).format('YYYY-MM-DD')
+    const dayDayjs = dayjs(weekStart).tz(tz).add(dayIdx, 'day')
+    const dayDateStr = dayDayjs.format('YYYY-MM-DD')
     const isToday = dayDateStr === todayStr
 
     const dayCol = document.createElement('div')
@@ -197,11 +219,11 @@ export class WeeklyCalendarView extends HTMLElement {
     dayHeader.className = isToday ? 'day-header today' : 'day-header'
     const dayName = document.createElement('span')
     dayName.className = 'day-name'
-    dayName.textContent = DAYS_OF_WEEK[dayIdx] || ''
+    dayName.textContent = getLocalizedDayNames(locale).short[dayIdx] || ''
     dayHeader.appendChild(dayName)
     const dayDateNum = document.createElement('span')
     dayDateNum.className = 'day-date'
-    dayDateNum.textContent = String(dayDate.getDate())
+    dayDateNum.textContent = String(dayDayjs.date())
     dayHeader.appendChild(dayDateNum)
     dayCol.appendChild(dayHeader)
 
@@ -258,6 +280,8 @@ export class WeeklyCalendarView extends HTMLElement {
     const locale = this._locale
     const now = this._now
 
+    // 'en-US' is intentional — we need locale-independent numeric output
+    // for parseInt() to work correctly regardless of the configured locale.
     const currentHour = parseInt(
       now.toLocaleString('en-US', {
         hour: 'numeric',
