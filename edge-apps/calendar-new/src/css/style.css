@@ -28,6 +28,8 @@ body {
   flex-shrink: 0;
   margin: 0.75rem 1.3125rem 0;
   width: calc(100% - 2.625rem);
+  background: var(--theme-color-primary, #0f3a97);
+  color: white;
 }
 
 .content {

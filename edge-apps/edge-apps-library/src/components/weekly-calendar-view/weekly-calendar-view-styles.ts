@@ -3,10 +3,9 @@ export const COMPONENT_CSS = `:host {
   flex-direction: column;
   width: 100%;
   height: 100%;
-  background: #f3f5f7;
+  background: transparent;
   font-family: 'Inter', system-ui, sans-serif;
   overflow: hidden;
-  box-sizing: border-box;
 }
 
 *,
@@ -27,7 +26,7 @@ export const COMPONENT_CSS = `:host {
   font-size: 2.8125rem;
   font-weight: 400;
   font-style: normal;
-  color: var(--calendar-accent-color, #0f3a97);
+  color: var(--theme-color-primary, #0f3a97);
   letter-spacing: -0.1125rem;
   margin: 2rem 0 2.875rem 0;
   line-height: normal;
@@ -96,7 +95,7 @@ export const COMPONENT_CSS = `:host {
 }
 
 .day-header.today {
-  background: var(--calendar-accent-color, #0f3a97);
+  background: var(--theme-color-primary, #0f3a97);
 }
 
 .day-name {
@@ -152,7 +151,7 @@ export const COMPONENT_CSS = `:host {
 .event-item {
   height: 100%;
   background: #ededed;
-  border-left: 0.327rem solid var(--calendar-accent-color, #0f3a97);
+  border-left: 0.327rem solid var(--theme-color-primary, #0f3a97);
   border-radius: 0 0.653rem 0.653rem 0;
   padding: 0.5rem 0.98rem;
   overflow: hidden;
@@ -170,7 +169,7 @@ export const COMPONENT_CSS = `:host {
 }
 
 .event-inline-time {
-  color: var(--calendar-accent-color, #0f3a97);
+  color: var(--theme-color-primary, #0f3a97);
 }
 
 .event-item.clipped-top {
@@ -196,7 +195,7 @@ export const COMPONENT_CSS = `:host {
 .event-time {
   font-size: 0.75rem;
   font-weight: 400;
-  color: var(--calendar-accent-color, #0f3a97);
+  color: var(--theme-color-primary, #0f3a97);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
