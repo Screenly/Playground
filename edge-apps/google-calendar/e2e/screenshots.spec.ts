@@ -144,6 +144,7 @@ for (const mode of CALENDAR_MODES) {
   const { screenlyJsContent } = createMockScreenlyForScreenshots(
     { coordinates: [40.7128, -74.006], location: 'New York, NY' },
     {
+      access_token: 'mock-access-token',
       calendar_id: 'primary',
       calendar_mode: mode,
       display_errors: 'false',
@@ -164,7 +165,7 @@ for (const mode of CALENDAR_MODES) {
       await setupClockMock(page, FIXED_SCREENSHOT_DATE)
       await setupScreenlyJsMock(page, screenlyJsContent)
 
-      await page.route('**/googleapis.com/calendar/v3/calendars/**', async (route) => {
+      await page.route(/googleapis\.com\/calendar\/v3\/calendars\//, async (route) => {
         await route.fulfill({
           status: 200,
           contentType: 'application/json',
@@ -172,7 +173,7 @@ for (const mode of CALENDAR_MODES) {
         })
       })
 
-      await page.route('**/googleapis.com/calendar/v3/colors', async (route) => {
+      await page.route(/googleapis\.com\/calendar\/v3\/colors/, async (route) => {
         await route.fulfill({
           status: 200,
           contentType: 'application/json',
