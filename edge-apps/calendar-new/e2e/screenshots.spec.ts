@@ -11,47 +11,66 @@ import path from 'path'
 
 const ICAL_URL = 'https://calendar.example.com/feed.ics'
 
-const { screenlyJsContent } = createMockScreenlyForScreenshots(
-  { coordinates: [40.7128, -74.006], location: 'New York, NY' },
-  {
-    bypass_cors: 'false',
-    calendar_mode: 'weekly',
-    display_errors: 'false',
-    ical_url: ICAL_URL,
-    override_locale: 'en',
-    override_timezone: 'America/New_York',
-  },
-)
-
 // FIXED_SCREENSHOT_DATE = 2025-02-19T21:20:00Z = 4:20 PM EST (Wed Feb 19, 2025)
 // Window: 1 PM – 1 AM (windowStartHour = 13 since currentHour = 16 > 12)
 // Week: Sun Feb 16 – Sat Feb 22
+
+// Events in UTC — rendered in America/New_York (UTC-5 in February):
+//   20250219T160000Z = 11:00 AM EST  (before window, clipped)
+//   20250219T180000Z = 1:00 PM EST   (window start — Team Meeting & Overlapping Event)
+//   20250219T190000Z = 2:00 PM EST   (Long Workshop start)
+//   20250219T210000Z = 4:00 PM EST   (now ≈ 4:20 PM — schedule view "today" events)
+//   20250219T220000Z = 5:00 PM EST   (Evening Event)
+//   20250220T030000Z = 10:00 PM EST  (Evening Event ends, past midnight UTC)
+//   20250220T140000Z = 9:00 AM EST tomorrow
+//   20250217T170000Z = 12:00 PM EST Monday
+//   20250218T190000Z = 2:00 PM EST Tuesday
 const ICS_CONTENT = `BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Calendar Test//EN
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+X-WR-CALNAME:Test Calendar
+X-WR-TIMEZONE:America/New_York
 BEGIN:VEVENT
-DTSTART:20250219T180000Z
-DTEND:20250219T190000Z
+DTSTART:20250221T200000Z
+DTEND:20250221T213000Z
 SUMMARY:Team Meeting
 UID:event-1@test
 END:VEVENT
 BEGIN:VEVENT
-DTSTART:20250219T160000Z
+DTSTART:20250219T190000Z
 DTEND:20250219T210000Z
 SUMMARY:Long Workshop
 UID:event-2@test
 END:VEVENT
 BEGIN:VEVENT
-DTSTART:20250219T120000Z
-DTEND:20250219T160000Z
+DTSTART:20250219T160000Z
+DTEND:20250219T190000Z
 SUMMARY:Morning Session (clipped top)
 UID:event-3@test
 END:VEVENT
 BEGIN:VEVENT
-DTSTART:20250219T210000Z
+DTSTART:20250219T220000Z
 DTEND:20250220T030000Z
 SUMMARY:Evening Event (clipped bottom)
 UID:event-4@test
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20250219T213000Z
+DTEND:20250219T223000Z
+SUMMARY:Design Review
+UID:event-10@test
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20250219T230000Z
+DTEND:20250219T240000Z
+SUMMARY:Client Call
+UID:event-11@test
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20250220T000000Z
+DTEND:20250220T010000Z
+SUMMARY:Late Sync
+UID:event-12@test
 END:VEVENT
 BEGIN:VEVENT
 DTSTART:20250217T170000Z
@@ -66,39 +85,86 @@ SUMMARY:Tuesday Review
 UID:event-6@test
 END:VEVENT
 BEGIN:VEVENT
-DTSTART:20250219T180000Z
-DTEND:20250219T190000Z
+DTSTART:20250221T210000Z
+DTEND:20250221T220000Z
 SUMMARY:Overlapping Event
 UID:event-7@test
 END:VEVENT
+BEGIN:VEVENT
+DTSTART:20250220T140000Z
+DTEND:20250220T150000Z
+SUMMARY:Tomorrow Standup
+UID:event-8@test
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20250220T163000Z
+DTEND:20250220T173000Z
+SUMMARY:Product Demo
+UID:event-9@test
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20250220T190000Z
+DTEND:20250220T200000Z
+SUMMARY:Tomorrow Review
+UID:event-13@test
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20250220T200000Z
+DTEND:20250220T210000Z
+SUMMARY:Team Sync
+UID:event-14@test
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20250220T213000Z
+DTEND:20250220T223000Z
+SUMMARY:1:1 with Manager
+UID:event-15@test
+END:VEVENT
 END:VCALENDAR`
 
-for (const { width, height } of RESOLUTIONS) {
-  test(`screenshot ${width}x${height}`, async ({ browser }) => {
-    const screenshotsDir = getScreenshotsDir()
+const CALENDAR_MODES = ['schedule', 'weekly', 'daily'] as const
 
-    const context = await browser.newContext({ viewport: { width, height } })
-    const page = await context.newPage()
+for (const mode of CALENDAR_MODES) {
+  const { screenlyJsContent } = createMockScreenlyForScreenshots(
+    { coordinates: [40.7128, -74.006], location: 'New York, NY' },
+    {
+      bypass_cors: 'false',
+      calendar_mode: mode,
+      display_errors: 'false',
+      ical_url: ICAL_URL,
+      override_locale: 'en',
+      override_timezone: 'America/New_York',
+      screenly_color_accent: '#2E8B57',
+    },
+  )
 
-    await setupClockMock(page, FIXED_SCREENSHOT_DATE)
-    await setupScreenlyJsMock(page, screenlyJsContent)
+  for (const { width, height } of RESOLUTIONS) {
+    test(`screenshot ${mode} ${width}x${height}`, async ({ browser }) => {
+      const screenshotsDir = getScreenshotsDir()
 
-    await page.route(ICAL_URL, async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: 'text/calendar',
-        body: ICS_CONTENT,
+      const context = await browser.newContext({ viewport: { width, height } })
+      const page = await context.newPage()
+
+      await setupClockMock(page, FIXED_SCREENSHOT_DATE)
+      await setupScreenlyJsMock(page, screenlyJsContent)
+
+      await page.route(ICAL_URL, async (route) => {
+        await route.fulfill({
+          status: 200,
+          contentType: 'text/calendar',
+          body: ICS_CONTENT,
+        })
       })
+
+      await page.goto('/')
+      await page.waitForLoadState('networkidle')
+
+      await page.screenshot({
+        path: path.join(screenshotsDir, `${mode}-${width}x${height}.png`),
+        fullPage: false,
+      })
+
+      await context.close()
     })
-
-    await page.goto('/')
-    await page.waitForLoadState('networkidle')
-
-    await page.screenshot({
-      path: path.join(screenshotsDir, `${width}x${height}.png`),
-      fullPage: false,
-    })
-
-    await context.close()
-  })
+  }
 }
