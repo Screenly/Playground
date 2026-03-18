@@ -170,20 +170,21 @@ export function filterEventsForWindow(
   })
 }
 
+const ALLOWED_ATTRIBUTES = new Set([
+  'class',
+  'style',
+  'data-day-index',
+  'data-hour',
+  'title',
+  'aria-label',
+])
+
 export function setAttribute(
   el: HTMLElement,
   name: string,
   value: string,
 ): void {
-  const allowed = new Set([
-    'class',
-    'style',
-    'data-day-index',
-    'data-hour',
-    'title',
-    'aria-label',
-  ])
-  if (allowed.has(name) || name.startsWith('data-')) {
+  if (ALLOWED_ATTRIBUTES.has(name) || name.startsWith('data-')) {
     el.setAttribute(name, value)
   }
 }

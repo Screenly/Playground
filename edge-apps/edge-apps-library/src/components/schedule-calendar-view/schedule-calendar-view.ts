@@ -209,3 +209,10 @@ export class ScheduleCalendarView extends HTMLElement {
     shadow.appendChild(container)
   }
 }
+
+if (
+  typeof window !== 'undefined' &&
+  !customElements.get('schedule-calendar-view')
+) {
+  customElements.define('schedule-calendar-view', ScheduleCalendarView)
+}

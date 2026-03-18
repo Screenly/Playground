@@ -4,6 +4,7 @@ import utc from 'dayjs/plugin/utc'
 import dayJsTimezone from 'dayjs/plugin/timezone'
 import type { CalendarEvent, ViewMode } from './types.js'
 import { VIEW_MODE } from './types.js'
+import { getSettingWithDefault } from '@screenly/edge-apps'
 
 dayjs.extend(utc)
 dayjs.extend(dayJsTimezone)
@@ -43,9 +44,7 @@ export const fetchCalendarEventsFromICal = async (
     const screenlySettings = screenly.settings
     const { ical_url: icalUrl } = screenlySettings
     const corsProxy = screenly.cors_proxy_url
-    const bypassCors = Boolean(
-      JSON.parse(screenlySettings.bypass_cors as string),
-    )
+    const bypassCors = getSettingWithDefault('bypass_cors', false)
     const viewMode = screenlySettings.calendar_mode as string
 
     const icalUrlWithProxy = bypassCors

@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     activeEl.now = new Date()
   }
   tick()
-  setInterval(tick, 1000)
+  setInterval(tick, 30_000)
 
   const refresh = async () => {
     try {

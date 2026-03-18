@@ -135,19 +135,12 @@ export class DailyCalendarView extends HTMLElement {
     const locale = this._locale
     const now = this._now
 
-    // 'en-US' is intentional — we need locale-independent numeric output
-    // for parseInt() to work correctly regardless of the configured locale.
-    const currentHour = parseInt(
-      now.toLocaleString('en-US', {
-        hour: 'numeric',
-        hour12: false,
-        timeZone: tz,
-      }),
-      10,
-    )
+    const nowInTz = dayjs(now).tz(tz)
+    const currentHour = nowInTz.hour()
+    const currentMinute = nowInTz.minute()
     const windowStartHour = getWindowStartHour(currentHour)
     const timeSlots = generateTimeSlots(windowStartHour, now, locale, tz)
-    const todayStr = dayjs(now).tz(tz).format('YYYY-MM-DD')
+    const todayStr = nowInTz.format('YYYY-MM-DD')
     const todayEvents = filterEventsForWindow(
       this._events,
       todayStr,
@@ -155,11 +148,6 @@ export class DailyCalendarView extends HTMLElement {
       tz,
     )
     const eventLayouts = this._getEventLayouts(todayEvents)
-
-    const currentMinute = parseInt(
-      now.toLocaleString('en-US', { minute: 'numeric', timeZone: tz }),
-      10,
-    )
     const currentSlotIndex = timeSlots.findIndex(
       (slot) => slot.hour === currentHour,
     )
@@ -193,4 +181,11 @@ export class DailyCalendarView extends HTMLElement {
     container.appendChild(dayGrid)
     shadow.appendChild(container)
   }
+}
+
+if (
+  typeof window !== 'undefined' &&
+  !customElements.get('daily-calendar-view')
+) {
+  customElements.define('daily-calendar-view', DailyCalendarView)
 }

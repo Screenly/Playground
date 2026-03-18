@@ -195,26 +195,14 @@ export class WeeklyCalendarView extends HTMLElement {
     const locale = this._locale
     const now = this._now
 
-    // 'en-US' is intentional — we need locale-independent numeric output
-    // for parseInt() to work correctly regardless of the configured locale.
-    const currentHour = parseInt(
-      now.toLocaleString('en-US', {
-        hour: 'numeric',
-        hour12: false,
-        timeZone: tz,
-      }),
-      10,
-    )
+    const nowInTz = dayjs(now).tz(tz)
+    const currentHour = nowInTz.hour()
+    const currentMinute = nowInTz.minute()
     const windowStartHour = getWindowStartHour(currentHour)
     const timeSlots = generateTimeSlots(windowStartHour, now, locale, tz)
     const weekStart = this._getWeekStart()
     const eventLayouts = this._getEventLayouts()
-    const todayStr = dayjs(now).tz(tz).format('YYYY-MM-DD')
-
-    const currentMinute = parseInt(
-      now.toLocaleString('en-US', { minute: 'numeric', timeZone: tz }),
-      10,
-    )
+    const todayStr = nowInTz.format('YYYY-MM-DD')
     const currentSlotIndex = timeSlots.findIndex(
       (slot) => slot.hour === currentHour,
     )
@@ -255,4 +243,11 @@ export class WeeklyCalendarView extends HTMLElement {
     container.appendChild(weekGrid)
     shadow.appendChild(container)
   }
+}
+
+if (
+  typeof window !== 'undefined' &&
+  !customElements.get('weekly-calendar-view')
+) {
+  customElements.define('weekly-calendar-view', WeeklyCalendarView)
 }
