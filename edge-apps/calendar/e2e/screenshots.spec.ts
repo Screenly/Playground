@@ -7,7 +7,12 @@ import {
   setupClockMock,
   setupScreenlyJsMock,
 } from '@screenly/edge-apps/test/screenshots'
+import fs from 'fs'
 import path from 'path'
+
+const LOGO_DATA_URL = `data:image/svg+xml;base64,${Buffer.from(
+  fs.readFileSync(path.join(import.meta.dirname, 'screenly.svg'), 'utf-8'),
+).toString('base64')}`
 
 const ICAL_URL = 'https://calendar.example.com/feed.ics'
 
@@ -16,7 +21,7 @@ const ICAL_URL = 'https://calendar.example.com/feed.ics'
 // Week: Sun Feb 16 – Sat Feb 22
 
 // Events in UTC — rendered in America/New_York (UTC-5 in February):
-//   20250219T160000Z = 11:00 AM EST  (before window, clipped)
+//   20250219T160000Z = 11:00 AM EST  (before window)
 //   20250219T180000Z = 1:00 PM EST   (window start — Team Meeting & Overlapping Event)
 //   20250219T190000Z = 2:00 PM EST   (Long Workshop start)
 //   20250219T210000Z = 4:00 PM EST   (now ≈ 4:20 PM — schedule view "today" events)
@@ -45,13 +50,13 @@ END:VEVENT
 BEGIN:VEVENT
 DTSTART:20250219T160000Z
 DTEND:20250219T190000Z
-SUMMARY:Morning Session (clipped top)
+SUMMARY:Morning Session
 UID:event-3@test
 END:VEVENT
 BEGIN:VEVENT
 DTSTART:20250219T220000Z
 DTEND:20250220T030000Z
-SUMMARY:Evening Event (clipped bottom)
+SUMMARY:Evening Event
 UID:event-4@test
 END:VEVENT
 BEGIN:VEVENT
@@ -135,6 +140,7 @@ for (const mode of CALENDAR_MODES) {
       override_locale: 'en',
       override_timezone: 'America/New_York',
       screenly_color_accent: '#2E8B57',
+      screenly_logo_light: LOGO_DATA_URL,
     },
   )
 
