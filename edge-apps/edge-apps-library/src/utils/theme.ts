@@ -1,4 +1,5 @@
 import type { ThemeColors, BrandingConfig } from '../types/index.js'
+import defaultLogoUrl from '../assets/images/screenly.svg'
 
 /**
  * Default theme colors used by Screenly
@@ -169,12 +170,11 @@ export async function fetchLogoImage(fileUrl: string): Promise<string> {
  * Setup branding logo from Screenly settings.
  *
  * Attempts to fetch the logo image using a CORS proxy URL based on the current theme.
- * Falls back to a direct URL if the proxy fetch fails, and returns an empty string if no logo is configured or all fetch attempts fail.
+ * Falls back to a direct URL if the proxy fetch fails, and returns the default logo if no logo is configured or all fetch attempts fail.
  *
  * @returns {Promise<string>} The processed logo URL:
  *   - Returns a data URI for SVG images, or the original URL for PNG/JPEG images, if successfully fetched via the CORS proxy or fallback URL.
- *   - Returns the fallback URL if all fetch attempts fail but a logo URL is configured.
- *   - Returns an empty string if no logo is configured or all fetch attempts fail.
+ *   - Returns the default logo URL if no logo is configured or all fetch attempts fail.
  */
 export async function setupBrandingLogo(): Promise<string> {
   const settings = screenly.settings
@@ -187,20 +187,18 @@ export async function setupBrandingLogo(): Promise<string> {
   let logoUrl = ''
   let fallbackUrl = ''
 
-  if (theme === 'light') {
-    logoUrl = lightLogo
-      ? `${screenly.cors_proxy_url}/${lightLogo}`
-      : `${screenly.cors_proxy_url}/${darkLogo}`
-    fallbackUrl = lightLogo || darkLogo || ''
-  } else if (theme === 'dark') {
-    logoUrl = darkLogo
-      ? `${screenly.cors_proxy_url}/${darkLogo}`
-      : `${screenly.cors_proxy_url}/${lightLogo}`
-    fallbackUrl = darkLogo || lightLogo || ''
+  const isDark = theme === 'dark'
+  const primaryLogo = isDark ? darkLogo : lightLogo
+  const secondaryLogo = isDark ? lightLogo : darkLogo
+  const resolvedLogo = primaryLogo || secondaryLogo
+
+  if (resolvedLogo) {
+    logoUrl = `${screenly.cors_proxy_url}/${resolvedLogo}`
+    fallbackUrl = resolvedLogo
   }
 
-  // Return early if logoUrl is empty
-  if (!logoUrl) return ''
+  // Return default logo if no logo is configured
+  if (!fallbackUrl) return defaultLogoUrl
   // Try to fetch the image using the CORS proxy URL
   try {
     return await fetchLogoImage(logoUrl)
@@ -217,8 +215,8 @@ export async function setupBrandingLogo(): Promise<string> {
       err,
     )
   }
-  // Return empty string if all fetches fail
-  return ''
+  // Return default logo if all fetches fail
+  return defaultLogoUrl
 }
 
 /**
@@ -230,6 +228,6 @@ export async function setupBranding(): Promise<BrandingConfig> {
 
   return {
     colors,
-    logoUrl: logoUrl || undefined,
+    logoUrl,
   }
 }
