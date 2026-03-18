@@ -1,43 +1,125 @@
-import '@/assets/main.scss'
+import './css/style.css'
+import '@screenly/edge-apps/components'
+import type { WeeklyCalendarView } from '@screenly/edge-apps/components'
+import type { DailyCalendarView } from '@screenly/edge-apps/components'
+import type { ScheduleCalendarView } from '@screenly/edge-apps/components'
+import {
+  setupErrorHandling,
+  setupTheme,
+  signalReady,
+  getLocale,
+  getTimeZone,
+  getCredentials,
+  getSettingWithDefault,
+} from '@screenly/edge-apps'
+import { fetchCalendarEventsFromGoogleAPI } from './events.js'
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import * as Sentry from '@sentry/vue'
-import panic from 'panic-overlay'
+const EVENTS_REFRESH_INTERVAL = 10_000
+const TOKEN_REFRESH_INTERVAL_SEC = 30 * 60
 
-import App from './App.vue'
+function centerAutoScalerVertically() {
+  const scaler = document.querySelector('auto-scaler') as HTMLElement | null
+  if (!scaler) return
+  const scaledHeight = scaler.getBoundingClientRect().height
+  const offsetY = Math.max(0, (window.innerHeight - scaledHeight) / 2)
+  scaler.style.top = `${offsetY}px`
+}
 
-const displayErrors = screenly.settings.display_errors === 'true' || false
+const initTokenRefreshLoop = (onRefresh: () => Promise<void>) => {
+  let errorStep = 0
+  const initErrorDelaySec = 15
+  const maxErrorStep = 7
 
-const app = createApp(App)
-
-panic.configure({ handleErrors: displayErrors })
-
-if (displayErrors) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  app.config.errorHandler = (err, instance, info) => {
-    panic(err instanceof Error ? err : new Error(String(err)))
+  const run = async () => {
+    let nextTimeout = TOKEN_REFRESH_INTERVAL_SEC
+    try {
+      await onRefresh()
+      errorStep = 0
+    } catch {
+      nextTimeout = Math.min(
+        initErrorDelaySec * Math.pow(2, errorStep),
+        nextTimeout,
+      )
+      if (errorStep >= maxErrorStep) return
+      errorStep++
+    }
+    setTimeout(run, nextTimeout * 1000)
   }
 
-  window.addEventListener('error', () => screenly.signalReadyForRendering(), {
-    once: true,
-  })
-  window.addEventListener(
-    'unhandledrejection',
-    () => screenly.signalReadyForRendering(),
-    { once: true },
-  )
+  setTimeout(run, TOKEN_REFRESH_INTERVAL_SEC * 1000)
 }
 
-// Initialize Sentry if DSN is provided
-const sentryDsn = screenly.settings.sentry_dsn
-if (sentryDsn) {
-  Sentry.init({
-    app,
-    dsn: sentryDsn as string,
-  })
-}
+document.addEventListener('DOMContentLoaded', async () => {
+  const scaler = document.querySelector('auto-scaler')
+  scaler?.addEventListener('scalechange', centerAutoScalerVertically)
+  window.addEventListener('resize', centerAutoScalerVertically)
+  centerAutoScalerVertically()
+  setupErrorHandling()
+  setupTheme()
 
-app.use(createPinia())
+  const calendarMode = getSettingWithDefault('calendar_mode', 'schedule')
 
-app.mount('#app')
+  const scheduleEl = document.getElementById(
+    'schedule-calendar',
+  ) as ScheduleCalendarView
+  const weeklyEl = document.getElementById(
+    'weekly-calendar',
+  ) as WeeklyCalendarView
+  const dailyEl = document.getElementById('daily-calendar') as DailyCalendarView
+
+  const activeEl =
+    calendarMode === 'daily'
+      ? dailyEl
+      : calendarMode === 'weekly'
+        ? weeklyEl
+        : scheduleEl
+
+  activeEl.classList.add('active')
+
+  const timezone = await getTimeZone()
+  const locale = await getLocale()
+  activeEl.setAttribute('timezone', timezone)
+  activeEl.setAttribute('locale', locale)
+
+  const tick = () => {
+    activeEl.now = new Date()
+  }
+  tick()
+  setInterval(tick, 30_000)
+
+  // Token management
+  let accessToken: string | null =
+    getSettingWithDefault('access_token', '') || null
+
+  const refreshToken = async () => {
+    try {
+      const { token } = await getCredentials()
+      accessToken = token
+    } catch (error) {
+      console.warn('Failed to refresh access token:', error)
+    }
+  }
+
+  // If no static token, fetch dynamically
+  if (!accessToken) {
+    await refreshToken()
+  }
+  initTokenRefreshLoop(refreshToken)
+
+  const refresh = async () => {
+    if (!accessToken) return
+    try {
+      const events = await fetchCalendarEventsFromGoogleAPI(
+        accessToken,
+        timezone,
+      )
+      activeEl.events = events
+    } catch (error) {
+      console.error('Failed to fetch calendar events:', error)
+    }
+  }
+  await refresh()
+  setInterval(refresh, EVENTS_REFRESH_INTERVAL)
+
+  signalReady()
+})
