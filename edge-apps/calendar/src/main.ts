@@ -9,18 +9,11 @@ import {
   signalReady,
   getLocale,
   getTimeZone,
+  centerAutoScalerVertically,
 } from '@screenly/edge-apps'
 import { fetchCalendarEventsFromICal } from './events.js'
 
 const EVENTS_REFRESH_INTERVAL = 10_000
-
-function centerAutoScalerVertically() {
-  const scaler = document.querySelector('auto-scaler') as HTMLElement | null
-  if (!scaler) return
-  const scaledHeight = scaler.getBoundingClientRect().height
-  const offsetY = Math.max(0, (window.innerHeight - scaledHeight) / 2)
-  scaler.style.top = `${offsetY}px`
-}
 
 document.addEventListener('DOMContentLoaded', async () => {
   const scaler = document.querySelector('auto-scaler')

@@ -1,3 +1,4 @@
+export * from './calendar.js'
 export * from './error-handling.js'
 export * from './html.js'
 export * from './theme.js'

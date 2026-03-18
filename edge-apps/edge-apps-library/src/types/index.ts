@@ -91,6 +91,17 @@ export interface BrandingConfig {
 export type Orientation = 'landscape' | 'portrait' | 'auto'
 
 /**
+ * Calendar view mode
+ */
+export type CalendarViewMode = 'daily' | 'weekly' | 'schedule'
+
+export const CALENDAR_VIEW_MODE = {
+  DAILY: 'daily' as CalendarViewMode,
+  WEEKLY: 'weekly' as CalendarViewMode,
+  SCHEDULE: 'schedule' as CalendarViewMode,
+}
+
+/**
  * Reference resolution configuration
  */
 export interface ReferenceResolution {

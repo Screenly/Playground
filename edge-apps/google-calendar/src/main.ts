@@ -11,19 +11,12 @@ import {
   getTimeZone,
   getCredentials,
   getSettingWithDefault,
+  centerAutoScalerVertically,
 } from '@screenly/edge-apps'
 import { fetchCalendarEventsFromGoogleAPI } from './events.js'
 
 const EVENTS_REFRESH_INTERVAL = 10_000
 const TOKEN_REFRESH_INTERVAL_SEC = 30 * 60
-
-function centerAutoScalerVertically() {
-  const scaler = document.querySelector('auto-scaler') as HTMLElement | null
-  if (!scaler) return
-  const scaledHeight = scaler.getBoundingClientRect().height
-  const offsetY = Math.max(0, (window.innerHeight - scaledHeight) / 2)
-  scaler.style.top = `${offsetY}px`
-}
 
 const initTokenRefreshLoop = (onRefresh: () => Promise<void>) => {
   let errorStep = 0

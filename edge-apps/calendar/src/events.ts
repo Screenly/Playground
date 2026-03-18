@@ -1,39 +1,10 @@
 import ical from 'ical.js'
-import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'
-import dayJsTimezone from 'dayjs/plugin/timezone'
-import type { CalendarEvent, ViewMode } from './types.js'
-import { VIEW_MODE } from './types.js'
-import { getSettingWithDefault } from '@screenly/edge-apps'
-
-dayjs.extend(utc)
-dayjs.extend(dayJsTimezone)
+import { getSettingWithDefault, getDateRangeForViewMode } from '@screenly/edge-apps'
+import type { CalendarEvent } from './types.js'
+import { CALENDAR_VIEW_MODE } from './types.js'
 
 interface FetchSettings {
   timezone: string
-}
-
-const getDateRangeForViewMode = (viewMode: ViewMode, timezone: string) => {
-  const nowInTimezone = dayjs().tz(timezone)
-  const todayInTimezone = nowInTimezone.startOf('day')
-
-  let startDate: Date
-  let endDate: Date
-
-  if (viewMode === VIEW_MODE.DAILY) {
-    startDate = todayInTimezone.toDate()
-    endDate = todayInTimezone.add(1, 'day').toDate()
-  } else if (viewMode === VIEW_MODE.WEEKLY) {
-    const weekStart = todayInTimezone.startOf('week')
-    startDate = weekStart.toDate()
-    endDate = weekStart.add(7, 'days').toDate()
-  } else {
-    const monthStart = todayInTimezone.startOf('month')
-    startDate = monthStart.toDate()
-    endDate = monthStart.add(1, 'month').toDate()
-  }
-
-  return { startDate, endDate }
 }
 
 export const fetchCalendarEventsFromICal = async (
@@ -62,10 +33,10 @@ export const fetchCalendarEventsFromICal = async (
     const vcalendar = new ical.Component(jcalData)
     const vevents = vcalendar.getAllSubcomponents('vevent')
 
-    const mappedViewMode: ViewMode =
-      viewMode === 'monthly' ? VIEW_MODE.SCHEDULE : (viewMode as ViewMode)
+    const mappedCalendarViewMode: CalendarViewMode =
+      viewMode === 'monthly' ? CALENDAR_VIEW_MODE.SCHEDULE : (viewMode as CalendarViewMode)
     const { startDate, endDate } = getDateRangeForViewMode(
-      mappedViewMode,
+      mappedCalendarViewMode,
       timezone,
     )
 

@@ -1,46 +1,22 @@
-import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'
-import dayJsTimezone from 'dayjs/plugin/timezone'
-import { getSettingWithDefault } from '@screenly/edge-apps'
-import type { CalendarEvent, ViewMode } from './types.js'
-import { VIEW_MODE } from './types.js'
+import {
+  getSettingWithDefault,
+  getDateRangeForViewMode,
+} from '@screenly/edge-apps'
+import type { CalendarEvent } from './types.js'
+import { CALENDAR_VIEW_MODE } from './types.js'
 import { fetchCalendarColors, getEventBackgroundColor } from './colors.js'
-
-dayjs.extend(utc)
-dayjs.extend(dayJsTimezone)
-
-const getDateRangeForViewMode = (viewMode: ViewMode, timezone: string) => {
-  const nowInTimezone = dayjs().tz(timezone)
-  const todayInTimezone = nowInTimezone.startOf('day')
-
-  let startDate: Date
-  let endDate: Date
-
-  if (viewMode === VIEW_MODE.DAILY) {
-    startDate = todayInTimezone.toDate()
-    endDate = todayInTimezone.add(1, 'day').toDate()
-  } else if (viewMode === VIEW_MODE.WEEKLY) {
-    const weekStart = todayInTimezone.startOf('week')
-    startDate = weekStart.toDate()
-    endDate = weekStart.add(7, 'days').toDate()
-  } else {
-    const monthStart = todayInTimezone.startOf('month')
-    startDate = monthStart.toDate()
-    endDate = monthStart.add(1, 'month').toDate()
-  }
-
-  return { startDate, endDate }
-}
 
 export const fetchCalendarEventsFromGoogleAPI = async (
   accessToken: string,
   timezone: string,
 ): Promise<CalendarEvent[]> => {
   const viewMode = getSettingWithDefault('calendar_mode', 'schedule')
-  const mappedViewMode: ViewMode =
-    viewMode === 'monthly' ? VIEW_MODE.SCHEDULE : (viewMode as ViewMode)
+  const mappedCalendarViewMode: CalendarViewMode =
+    viewMode === 'monthly'
+      ? CALENDAR_VIEW_MODE.SCHEDULE
+      : (viewMode as CalendarViewMode)
   const { startDate, endDate } = getDateRangeForViewMode(
-    mappedViewMode,
+    mappedCalendarViewMode,
     timezone,
   )
 

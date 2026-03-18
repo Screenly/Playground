@@ -1,5 +1,10 @@
-import { describe, test, expect, beforeEach, afterEach } from 'bun:test'
-import { isPortrait, isLandscape, getOrientation } from './screen'
+import { describe, test, expect, beforeEach, afterEach, mock } from 'bun:test'
+import {
+  isPortrait,
+  isLandscape,
+  getOrientation,
+  centerAutoScalerVertically,
+} from './screen'
 
 function createMockMatchMedia(orientation: 'portrait' | 'landscape') {
   return (query: string) => {
@@ -66,5 +71,63 @@ describe('screen utilities', () => {
       window.matchMedia = createMockMatchMedia('landscape')
       expect(getOrientation()).toBe('landscape')
     })
+  })
+})
+
+describe('centerAutoScalerVertically', () => {
+  let originalQuerySelector: typeof document.querySelector
+  let originalInnerHeight: number
+
+  beforeEach(() => {
+    originalQuerySelector = document.querySelector.bind(document)
+    originalInnerHeight = window.innerHeight
+  })
+
+  afterEach(() => {
+    document.querySelector = originalQuerySelector
+    Object.defineProperty(window, 'innerHeight', {
+      value: originalInnerHeight,
+      writable: true,
+    })
+  })
+
+  test('should do nothing when auto-scaler element is not found', () => {
+    document.querySelector = mock(() => null)
+    // Should not throw
+    expect(() => centerAutoScalerVertically()).not.toThrow()
+  })
+
+  test('should set top offset to center the scaler vertically', () => {
+    Object.defineProperty(window, 'innerHeight', {
+      value: 1080,
+      writable: true,
+    })
+
+    const mockScaler = {
+      getBoundingClientRect: () => ({ height: 600 }) as DOMRect,
+      style: { top: '' },
+    } as unknown as HTMLElement
+
+    document.querySelector = mock(() => mockScaler)
+
+    centerAutoScalerVertically()
+
+    // offsetY = (1080 - 600) / 2 = 240
+    expect(mockScaler.style.top).toBe('240px')
+  })
+
+  test('should clamp offset to 0 when scaler is taller than viewport', () => {
+    Object.defineProperty(window, 'innerHeight', { value: 400, writable: true })
+
+    const mockScaler = {
+      getBoundingClientRect: () => ({ height: 600 }) as DOMRect,
+      style: { top: '' },
+    } as unknown as HTMLElement
+
+    document.querySelector = mock(() => mockScaler)
+
+    centerAutoScalerVertically()
+
+    expect(mockScaler.style.top).toBe('0px')
   })
 })

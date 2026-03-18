@@ -7,10 +7,5 @@ export interface CalendarEvent {
   backgroundColor?: string
 }
 
-export type ViewMode = 'daily' | 'weekly' | 'schedule'
-
-export const VIEW_MODE = {
-  DAILY: 'daily' as ViewMode,
-  WEEKLY: 'weekly' as ViewMode,
-  SCHEDULE: 'schedule' as ViewMode,
-}
+export type { CalendarViewMode } from '@screenly/edge-apps'
+export { CALENDAR_VIEW_MODE } from '@screenly/edge-apps'
