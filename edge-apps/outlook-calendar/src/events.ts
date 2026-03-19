@@ -11,6 +11,11 @@ import { CALENDAR_VIEW_MODE } from '@screenly/edge-apps'
 dayjs.extend(utc)
 dayjs.extend(dayjsTimezone)
 
+// The Microsoft Graph /calendarview endpoint defaults to a page size of 10,
+// which silently truncates results for busy weeks. We pass $top to ensure
+// the full date range is returned.
+const GRAPH_MAX_EVENTS = 100
+
 export const fetchCalendarEventsFromMicrosoftAPI = async (
   accessToken: string,
   timezone: string,
@@ -31,7 +36,7 @@ export const fetchCalendarEventsFromMicrosoftAPI = async (
   const baseUrl = calendarId
     ? `https://graph.microsoft.com/v1.0/me/calendars/${encodeURIComponent(calendarId)}/calendarview`
     : 'https://graph.microsoft.com/v1.0/me/calendarview'
-  const apiUrl = `${baseUrl}?$select=subject,start,end,isAllDay&startDateTime=${encodeURIComponent(startDateTime)}&endDateTime=${encodeURIComponent(endDateTime)}&$orderby=start/dateTime`
+  const apiUrl = `${baseUrl}?$select=subject,start,end,isAllDay&startDateTime=${encodeURIComponent(startDateTime)}&endDateTime=${encodeURIComponent(endDateTime)}&$orderby=start/dateTime&$top=${GRAPH_MAX_EVENTS}`
 
   const response = await fetch(apiUrl, {
     headers: { Authorization: `Bearer ${accessToken}` },
