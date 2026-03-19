@@ -64,31 +64,31 @@ export function getEventStyle(
   isLastColumn: boolean
 } {
   const windowSize = 12
-  const windowEndHour = (windowStartHour + windowSize) % 24
 
   const startDt = dayjs(event.startTime).tz(tz)
   const endDt = dayjs(event.endTime).tz(tz)
 
-  const startHour = startDt.hour() + startDt.minute() / 60
-  const endHour = endDt.hour() + endDt.minute() / 60
+  // Anchor window to the event's calendar date in the target timezone
+  const windowStart = startDt.startOf('day').add(windowStartHour, 'hour')
+  const windowEnd = windowStart.add(windowSize, 'hour')
 
-  const normalizedWindowEnd =
-    windowEndHour <= windowStartHour ? windowEndHour + 24 : windowEndHour
-  const normalizedStart =
-    startHour < windowStartHour ? startHour + 24 : startHour
-  const normalizedEnd = endHour <= windowStartHour ? endHour + 24 : endHour
+  const startMs = startDt.valueOf()
+  const endMs = endDt.valueOf()
+  const windowStartMs = windowStart.valueOf()
+  const windowEndMs = windowEnd.valueOf()
+  const windowDurationMs = windowEnd.diff(windowStart)
 
-  const visibleStart = Math.max(normalizedStart, windowStartHour)
-  const visibleEnd = Math.min(normalizedEnd, normalizedWindowEnd)
+  const visibleStartMs = Math.max(startMs, windowStartMs)
+  const visibleEndMs = Math.min(endMs, windowEndMs)
 
-  const topPct = ((visibleStart - windowStartHour) / windowSize) * 100
+  const topPct = ((visibleStartMs - windowStartMs) / windowDurationMs) * 100
   const heightPct = Math.max(
-    ((visibleEnd - visibleStart) / windowSize) * 100,
+    ((visibleEndMs - visibleStartMs) / windowDurationMs) * 100,
     0.5,
   )
 
-  const clippedTop = normalizedStart < windowStartHour
-  const clippedBottom = normalizedEnd > normalizedWindowEnd
+  const clippedTop = startMs < windowStartMs
+  const clippedBottom = endMs > windowEndMs
 
   const columnWidth = 100 / layout.totalColumns
   const span = layout.columnSpan > 0 ? layout.columnSpan : 1
@@ -154,19 +154,20 @@ export function filterEventsForWindow(
   windowStartHour: number,
   tz: string,
 ): CalendarEvent[] {
-  const windowEndHour = (windowStartHour + 12) % 24
-  const normalizedWindowEnd =
-    windowEndHour <= windowStartHour ? windowEndHour + 24 : windowEndHour
+  const windowStart = dayjs
+    .tz(`${dayDateStr}T00:00:00`, tz)
+    .add(windowStartHour, 'hour')
+  const windowEnd = windowStart.add(12, 'hour')
+  const windowStartMs = windowStart.valueOf()
+  const windowEndMs = windowEnd.valueOf()
+
   return events.filter((event) => {
     if (event.isAllDay) return false
     const eventStart = dayjs(event.startTime).tz(tz)
     if (eventStart.format('YYYY-MM-DD') !== dayDateStr) return false
-    const startH = eventStart.hour() + eventStart.minute() / 60
-    const endDt = dayjs(event.endTime).tz(tz)
-    const endH = endDt.hour() + endDt.minute() / 60
-    const normStart = startH < windowStartHour ? startH + 24 : startH
-    const normEnd = endH <= windowStartHour ? endH + 24 : endH
-    return normStart < normalizedWindowEnd && normEnd > windowStartHour
+    const eventStartMs = eventStart.valueOf()
+    const eventEndMs = dayjs(event.endTime).tz(tz).valueOf()
+    return eventStartMs < windowEndMs && eventEndMs > windowStartMs
   })
 }
 

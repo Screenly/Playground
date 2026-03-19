@@ -29,6 +29,7 @@ export class WeeklyCalendarView extends HTMLElement {
   private _timezone: string = 'UTC'
   private _locale: string = 'en'
   private _initialized: boolean = false
+  private _lastWindowStartHour: number = -1
 
   static get observedAttributes() {
     return ['timezone', 'locale']
@@ -65,7 +66,15 @@ export class WeeklyCalendarView extends HTMLElement {
 
   set now(value: Date) {
     this._now = value
-    if (this._initialized) this._render()
+    if (!this._initialized) return
+    const newWindowStartHour = getWindowStartHour(
+      dayjs(value).tz(this._timezone).hour(),
+    )
+    if (newWindowStartHour !== this._lastWindowStartHour) {
+      this._render()
+    } else {
+      this._updateTimeIndicator()
+    }
   }
 
   private _getWeekStart(): Date {
@@ -189,6 +198,31 @@ export class WeeklyCalendarView extends HTMLElement {
     return dayCol
   }
 
+  private _updateTimeIndicator() {
+    const shadow = this.shadowRoot!
+    const tz = this._timezone
+    const nowInTz = dayjs(this._now).tz(tz)
+    const currentHour = nowInTz.hour()
+    const currentMinute = nowInTz.minute()
+    const windowStartHour = this._lastWindowStartHour
+    const slotIndex = currentHour - windowStartHour
+    const timeIndicatorPct =
+      slotIndex >= 0 && slotIndex < 12
+        ? ((slotIndex + currentMinute / 60) / 12) * 100
+        : -1
+
+    const indicator = shadow.querySelector(
+      '.current-time-indicator',
+    ) as HTMLElement | null
+    if (indicator) {
+      if (timeIndicatorPct >= 0 && timeIndicatorPct <= 100) {
+        indicator.style.setProperty('top', `${timeIndicatorPct}%`)
+      } else {
+        indicator.remove()
+      }
+    }
+  }
+
   private _render() {
     const shadow = this.shadowRoot!
     const tz = this._timezone
@@ -199,6 +233,7 @@ export class WeeklyCalendarView extends HTMLElement {
     const currentHour = nowInTz.hour()
     const currentMinute = nowInTz.minute()
     const windowStartHour = getWindowStartHour(currentHour)
+    this._lastWindowStartHour = windowStartHour
     const timeSlots = generateTimeSlots(windowStartHour, now, locale, tz)
     const weekStart = this._getWeekStart()
     const eventLayouts = this._getEventLayouts()
