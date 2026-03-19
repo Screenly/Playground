@@ -9,9 +9,12 @@ import {
 } from '@screenly/edge-apps/test/screenshots'
 import fs from 'fs'
 import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const LOGO_DATA_URL = `data:image/svg+xml;base64,${Buffer.from(
-  fs.readFileSync(path.join(import.meta.dirname, 'screenly.svg'), 'utf-8'),
+  fs.readFileSync(path.join(__dirname, 'screenly.svg'), 'utf-8'),
 ).toString('base64')}`
 
 const ICAL_URL = 'https://calendar.example.com/feed.ics'
