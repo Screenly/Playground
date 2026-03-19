@@ -7,9 +7,9 @@ import {
   findEventClusters,
   calculateClusterLayouts,
   getEventKey,
-} from './event-layout.js'
+} from '../event-layout.js'
 import { COMPONENT_CSS } from './weekly-calendar-view-styles.js'
-import { getLocalizedDayNames } from '../../utils/index.js'
+import { getLocalizedDayNames } from '../../../utils/index.js'
 import {
   generateTimeSlots,
   getWindowStartHour,

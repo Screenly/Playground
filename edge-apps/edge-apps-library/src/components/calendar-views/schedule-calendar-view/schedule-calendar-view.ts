@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
-import type { CalendarEvent } from '../weekly-calendar-view/event-layout.js'
+import type { CalendarEvent } from '../event-layout.js'
 import { COMPONENT_CSS } from './schedule-calendar-view-styles.js'
 import { formatEventTime } from '../weekly-calendar-view/weekly-calendar-view-utils.js'
 

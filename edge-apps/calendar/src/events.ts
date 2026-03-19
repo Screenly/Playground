@@ -1,7 +1,10 @@
 import ical from 'ical.js'
-import { getSettingWithDefault, getDateRangeForViewMode } from '@screenly/edge-apps'
-import type { CalendarEvent } from './types.js'
-import { CALENDAR_VIEW_MODE } from './types.js'
+import {
+  getSettingWithDefault,
+  getDateRangeForViewMode,
+} from '@screenly/edge-apps'
+import type { CalendarEvent, CalendarViewMode } from '@screenly/edge-apps'
+import { CALENDAR_VIEW_MODE } from '@screenly/edge-apps'
 
 interface FetchSettings {
   timezone: string
@@ -34,7 +37,9 @@ export const fetchCalendarEventsFromICal = async (
     const vevents = vcalendar.getAllSubcomponents('vevent')
 
     const mappedCalendarViewMode: CalendarViewMode =
-      viewMode === 'monthly' ? CALENDAR_VIEW_MODE.SCHEDULE : (viewMode as CalendarViewMode)
+      viewMode === 'monthly'
+        ? CALENDAR_VIEW_MODE.SCHEDULE
+        : (viewMode as CalendarViewMode)
     const { startDate, endDate } = getDateRangeForViewMode(
       mappedCalendarViewMode,
       timezone,

@@ -15,7 +15,7 @@ export function getDateRangeForViewMode(
   viewMode: CalendarViewMode,
   tz: string,
 ): { startDate: Date; endDate: Date } {
-  const todayInTimezone = dayjs().tz(tz).startOf('day')
+  const todayInTimezone = dayjs(Date.now()).tz(tz).startOf('day')
 
   if (viewMode === CALENDAR_VIEW_MODE.DAILY) {
     return {

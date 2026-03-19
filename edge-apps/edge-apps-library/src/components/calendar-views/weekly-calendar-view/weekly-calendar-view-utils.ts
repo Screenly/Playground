@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
-import type { CalendarEvent, EventLayout } from './event-layout.js'
+import type { CalendarEvent, EventLayout } from '../event-layout.js'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)

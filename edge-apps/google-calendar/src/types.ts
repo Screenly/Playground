@@ -1,11 +1,5 @@
-export interface CalendarEvent {
-  title: string
-  startTime: string
-  endTime: string
-  isAllDay: boolean
-  colorId?: string
-  backgroundColor?: string
-}
+import type { CalendarEvent as BaseCalendarEvent } from '@screenly/edge-apps'
 
-export type { CalendarViewMode } from '@screenly/edge-apps'
-export { CALENDAR_VIEW_MODE } from '@screenly/edge-apps'
+export interface CalendarEvent extends BaseCalendarEvent {
+  colorId?: string
+}

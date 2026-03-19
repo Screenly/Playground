@@ -2,8 +2,9 @@ import {
   getSettingWithDefault,
   getDateRangeForViewMode,
 } from '@screenly/edge-apps'
+import type { CalendarViewMode } from '@screenly/edge-apps'
+import { CALENDAR_VIEW_MODE } from '@screenly/edge-apps'
 import type { CalendarEvent } from './types.js'
-import { CALENDAR_VIEW_MODE } from './types.js'
 import { fetchCalendarColors, getEventBackgroundColor } from './colors.js'
 
 export const fetchCalendarEventsFromGoogleAPI = async (

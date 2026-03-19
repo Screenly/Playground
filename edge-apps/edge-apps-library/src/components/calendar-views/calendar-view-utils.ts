@@ -1,7 +1,4 @@
-import type {
-  CalendarEvent,
-  EventLayout,
-} from './weekly-calendar-view/event-layout.js'
+import type { CalendarEvent, EventLayout } from './event-layout.js'
 import {
   type TimeSlot,
   getEventStyle,

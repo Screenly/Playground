@@ -7,7 +7,7 @@ import {
   findEventClusters,
   calculateClusterLayouts,
   getEventKey,
-} from '../weekly-calendar-view/event-layout.js'
+} from '../event-layout.js'
 import { COMPONENT_CSS } from './daily-calendar-view-styles.js'
 import {
   generateTimeSlots,
