@@ -1,73 +1,78 @@
-# Outlook Calendar App
-
-## Prerequisites
-
-- Bun (v1.2.2+)
-- Screenly Edge App CLI (v1.0.3+)
+# Screenly Outlook Calendar App
 
 ## Getting Started
 
-We need to initialize the necessary dependencies and build the source
-code first so that a `dist` directory can be created. This is essential as a manifest file
-(which defaults to `screenly.yml`) and an `index.html` file is needed.
-
 ```bash
 bun install
-bun run build
-screenly edge-app create \
-    --name=EDGE_APP_NAME \
-    --in-place
-```
-
-## Connect Screenly to a Microsoft Account
-
-You should connect Screenly to a Microsoft account so that the app can access the calendar events via an Outlook Calendar access token.
-
-To get started, go to the [Integrations](https://app.screenlyapp.com/manage/integrations) page and click the "+ Connect" button next to "Outlook Calendar".
-
-You will be prompted to confirm the connection to a Microsoft account. Click the "Connect" button.
-
-You will be redirected to a Microsoft OAuth consent screen. Select the Microsoft account you want to connect to Screenly. Follow through the prompts to grant Screenly access to your Outlook Calendar data.
-
-Once connected, you will be redirected back to the integrations page. You should see that the Outlook Calendar integration is now connected.
-
-## Create an Edge App Instance via CLI
-
-```bash
-screenly edge-app instance create --name=EDGE_APP_INSTANCE_NAME
 ```
 
 ## Deployment
 
+Create and deploy the Edge App:
+
 ```bash
+screenly edge-app create --name outlook-calendar --in-place
 bun run deploy
+screenly edge-app instance create
 ```
+
+## Configuration
+
+The app accepts the following settings via `screenly.yml`:
+
+| Setting             | Description                                                                                                                                | Type     | Default    |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | -------- | ---------- |
+| `access_token`      | OAuth access token for Microsoft Graph API. For testing only — in production, tokens are fetched dynamically via the Screenly integration. | optional | -          |
+| `calendar_id`       | Outlook Calendar ID to display events from. Leave blank to use the default calendar.                                                       | optional | -          |
+| `calendar_mode`     | View mode: `schedule`, `weekly`, or `daily`                                                                                                | optional | `schedule` |
+| `override_locale`   | Override the default locale (e.g. `fr`, `de`)                                                                                              | optional | `en`       |
+| `override_timezone` | Override the default timezone (e.g. `America/New_York`). Defaults to the system timezone if left blank                                     | optional | -          |
+| `theme`             | Visual theme: `light` or `dark`                                                                                                            | optional | `light`    |
+| `display_errors`    | Display errors on screen for debugging purposes                                                                                            | optional | `false`    |
+| `sentry_dsn`        | Sentry DSN for error tracking and monitoring                                                                                               | optional | -          |
 
 ## Development
 
-Install the dependencies for the first run:
-
 ```bash
-bun install
+bun install      # Install dependencies
+bun run dev      # Start development server
 ```
 
-Run the following command to start the development server:
+Update `mock-data.yml` with your `screenly_app_auth_token` and set `screenly_oauth_tokens_url` to your local token proxy.
+
+## Testing
 
 ```bash
-bun run dev
+bun test
 ```
 
-This will start the development server via the [Screenly CLI](https://github.com/Screenly/cli) and open the app in the browser.
+## Screenshots
 
-Update `mock-data.yml` with the following values:
-
-- `screenly_app_auth_token`: A Microsoft OAuth access token with sufficient scopes to read calendar events
-  - Check [this documentation about using OAuth 2.0 web server applications](https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-auth-code-flow) for more information on how to get an access token.
-- `screenly_oauth_tokens_url`: `https://api.screenlyappstage.com/api/v3/edge-apps/oauth/tokens/`
-
-## Linting and Formatting
+Generate screenshots at all supported resolutions:
 
 ```bash
-bun run lint
-bun run format
+bun run screenshots
 ```
+
+Screenshots are saved to the `screenshots/` directory.
+
+## Connecting to Outlook Calendar
+
+This app uses the **Microsoft Graph API** and requires a Microsoft OAuth access token. In production, Screenly manages the OAuth flow automatically.
+
+To connect your Microsoft account:
+
+1. Go to the [Integrations](https://app.screenlyapp.com/manage/integrations) page in Screenly.
+2. Click **+ Connect** next to **Outlook Calendar**.
+3. Follow the OAuth consent flow to grant Screenly access to your Outlook Calendar data.
+
+Once connected, the app will fetch and refresh the access token automatically.
+
+## Getting the Calendar ID
+
+By default, the app displays events from your primary Outlook calendar. To use a specific calendar:
+
+1. Open [Outlook Web](https://outlook.live.com/) or the Outlook desktop app.
+2. Right-click the calendar you want in the left sidebar and select **Calendar properties** (or **Settings**).
+3. Copy the calendar ID from the URL or settings page.
+4. Use this value as your `calendar_id` setting. Leave blank to use the default calendar.

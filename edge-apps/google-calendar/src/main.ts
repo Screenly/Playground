@@ -12,35 +12,11 @@ import {
   getCredentials,
   getSettingWithDefault,
   centerAutoScalerVertically,
+  initTokenRefreshLoop,
 } from '@screenly/edge-apps'
 import { fetchCalendarEventsFromGoogleAPI } from './events.js'
 
 const EVENTS_REFRESH_INTERVAL = 10_000
-const TOKEN_REFRESH_INTERVAL_SEC = 30 * 60
-
-const initTokenRefreshLoop = (onRefresh: () => Promise<void>) => {
-  let errorStep = 0
-  const initErrorDelaySec = 15
-  const maxErrorStep = 7
-
-  const run = async () => {
-    let nextTimeout = TOKEN_REFRESH_INTERVAL_SEC
-    try {
-      await onRefresh()
-      errorStep = 0
-    } catch {
-      nextTimeout = Math.min(
-        initErrorDelaySec * Math.pow(2, errorStep),
-        nextTimeout,
-      )
-      if (errorStep >= maxErrorStep) return
-      errorStep++
-    }
-    setTimeout(run, nextTimeout * 1000)
-  }
-
-  setTimeout(run, TOKEN_REFRESH_INTERVAL_SEC * 1000)
-}
 
 document.addEventListener('DOMContentLoaded', async () => {
   const scaler = document.querySelector('auto-scaler')
