@@ -61,17 +61,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     getSettingWithDefault('access_token', '') || null
 
   const refreshToken = async () => {
-    try {
-      const { token } = await getCredentials()
-      accessToken = token
-    } catch (error) {
-      console.warn('Failed to refresh access token:', error)
-    }
+    const { token } = await getCredentials()
+    accessToken = token
   }
 
   // If no static token, fetch dynamically
   if (!accessToken) {
-    await refreshToken()
+    try {
+      await refreshToken()
+    } catch (error) {
+      console.warn('Failed to fetch initial access token:', error)
+    }
   }
   initTokenRefreshLoop(refreshToken)
 
