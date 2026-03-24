@@ -125,44 +125,36 @@ export class WeeklyCalendarView extends HTMLElement {
     return layoutMap
   }
 
-  private _buildDayColumn(
+  private _buildDayHeader(
     dayIdx: number,
-    weekStart: Date,
-    windowStartHour: number,
-    todayStr: string,
-    timeIndicatorPct: number,
-    eventLayouts: Map<string, EventLayout>,
+    dayDayjs: dayjs.Dayjs,
+    isToday: boolean,
   ): HTMLElement {
-    const timezone = this._timezone
     const locale = this._locale
-
-    const dayDayjs = dayjs(weekStart).tz(timezone).add(dayIdx, 'day')
-    const dayDateStr = dayDayjs.format('YYYY-MM-DD')
-    const isToday = dayDateStr === todayStr
-
-    const dayCol = document.createElement('div')
-    dayCol.className = 'day-column'
-    setAttribute(dayCol, 'data-day-index', String(dayIdx))
 
     const dayHeader = document.createElement('div')
     dayHeader.className = isToday ? 'day-header today' : 'day-header'
+
     const dayName = document.createElement('span')
     dayName.className = 'day-name'
     dayName.textContent = getLocalizedDayNames(locale).short[dayIdx] || ''
     dayHeader.appendChild(dayName)
+
     const dayDateNum = document.createElement('span')
     dayDateNum.className = 'day-date'
     dayDateNum.textContent = String(dayDayjs.date())
     dayHeader.appendChild(dayDateNum)
-    dayCol.appendChild(dayHeader)
 
-    const dayBody = document.createElement('div')
-    dayBody.className = 'day-body'
-    for (let rowIdx = 0; rowIdx < 12; rowIdx++) {
-      const hourRow = document.createElement('div')
-      hourRow.className = 'hour-row'
-      dayBody.appendChild(hourRow)
-    }
+    return dayHeader
+  }
+
+  private _buildDayEventsArea(
+    dayDateStr: string,
+    windowStartHour: number,
+    eventLayouts: Map<string, EventLayout>,
+  ): HTMLElement {
+    const timezone = this._timezone
+    const locale = this._locale
 
     const eventsArea = document.createElement('div')
     eventsArea.className = 'events-area'
@@ -186,7 +178,39 @@ export class WeeklyCalendarView extends HTMLElement {
       )
     }
 
-    dayBody.appendChild(eventsArea)
+    return eventsArea
+  }
+
+  private _buildDayColumn(
+    dayIdx: number,
+    weekStart: Date,
+    windowStartHour: number,
+    todayStr: string,
+    timeIndicatorPct: number,
+    eventLayouts: Map<string, EventLayout>,
+  ): HTMLElement {
+    const timezone = this._timezone
+
+    const dayDayjs = dayjs(weekStart).tz(timezone).add(dayIdx, 'day')
+    const dayDateStr = dayDayjs.format('YYYY-MM-DD')
+    const isToday = dayDateStr === todayStr
+
+    const dayCol = document.createElement('div')
+    dayCol.className = 'day-column'
+    setAttribute(dayCol, 'data-day-index', String(dayIdx))
+    dayCol.appendChild(this._buildDayHeader(dayIdx, dayDayjs, isToday))
+
+    const dayBody = document.createElement('div')
+    dayBody.className = 'day-body'
+    for (let rowIdx = 0; rowIdx < 12; rowIdx++) {
+      const hourRow = document.createElement('div')
+      hourRow.className = 'hour-row'
+      dayBody.appendChild(hourRow)
+    }
+
+    dayBody.appendChild(
+      this._buildDayEventsArea(dayDateStr, windowStartHour, eventLayouts),
+    )
 
     if (isToday && timeIndicatorPct >= 0 && timeIndicatorPct <= 100) {
       const indicator = document.createElement('div')

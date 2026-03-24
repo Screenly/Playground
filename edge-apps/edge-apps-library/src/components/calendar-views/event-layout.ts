@@ -108,13 +108,12 @@ export const findEventClusters = (
   return clusters
 }
 
-export const calculateClusterLayouts = (
+const assignColumns = (
   cluster: CalendarEvent[],
   timezone: string,
-): Map<CalendarEvent, EventLayout> => {
-  const layouts = new Map<CalendarEvent, EventLayout>()
+): { assignments: Map<CalendarEvent, number>; totalColumns: number } => {
   const columns: dayjs.Dayjs[] = []
-  const eventColumnAssignments = new Map<CalendarEvent, number>()
+  const assignments = new Map<CalendarEvent, number>()
 
   for (const event of cluster) {
     const eventStart = dayjs(event.startTime).tz(timezone)
@@ -133,45 +132,73 @@ export const calculateClusterLayouts = (
     }
 
     columns[assignedColumn] = dayjs(event.endTime).tz(timezone)
-    eventColumnAssignments.set(event, assignedColumn)
+    assignments.set(event, assignedColumn)
   }
 
-  const totalColumns = columns.length
+  return { assignments, totalColumns: columns.length }
+}
 
+const groupByColumn = (
+  cluster: CalendarEvent[],
+  assignments: Map<CalendarEvent, number>,
+  totalColumns: number,
+): Map<number, CalendarEvent[]> => {
   const eventsByColumn = new Map<number, CalendarEvent[]>()
   for (let col = 0; col < totalColumns; col++) {
     eventsByColumn.set(col, [])
   }
   for (const event of cluster) {
-    const eventColumn = eventColumnAssignments.get(event)
+    const eventColumn = assignments.get(event)
     if (eventColumn !== undefined) {
       eventsByColumn.get(eventColumn)!.push(event)
     }
   }
+  return eventsByColumn
+}
+
+const calculateColumnSpan = (
+  event: CalendarEvent,
+  eventColumn: number,
+  totalColumns: number,
+  eventsByColumn: Map<number, CalendarEvent[]>,
+  timezone: string,
+): number => {
+  const eventStart = dayjs(event.startTime).tz(timezone)
+  const eventEnd = dayjs(event.endTime).tz(timezone)
+  let columnSpan = 1
+
+  for (let col = eventColumn + 1; col < totalColumns; col++) {
+    const eventsInCol = eventsByColumn.get(col) || []
+    const columnBlocked = eventsInCol.some((other) => {
+      const otherStart = dayjs(other.startTime).tz(timezone)
+      const otherEnd = dayjs(other.endTime).tz(timezone)
+      return eventStart.isBefore(otherEnd) && otherStart.isBefore(eventEnd)
+    })
+    if (columnBlocked) break
+    columnSpan++
+  }
+
+  return columnSpan
+}
+
+export const calculateClusterLayouts = (
+  cluster: CalendarEvent[],
+  timezone: string,
+): Map<CalendarEvent, EventLayout> => {
+  const { assignments, totalColumns } = assignColumns(cluster, timezone)
+  const eventsByColumn = groupByColumn(cluster, assignments, totalColumns)
+  const layouts = new Map<CalendarEvent, EventLayout>()
 
   for (const event of cluster) {
-    const eventStart = dayjs(event.startTime).tz(timezone)
-    const eventEnd = dayjs(event.endTime).tz(timezone)
-    const eventColumn = eventColumnAssignments.get(event)!
-
-    let columnSpan = 1
-    for (let col = eventColumn + 1; col < totalColumns; col++) {
-      const eventsInCol = eventsByColumn.get(col) || []
-      const columnBlocked = eventsInCol.some((other) => {
-        const otherStart = dayjs(other.startTime).tz(timezone)
-        const otherEnd = dayjs(other.endTime).tz(timezone)
-        return eventStart.isBefore(otherEnd) && otherStart.isBefore(eventEnd)
-      })
-      if (columnBlocked) break
-      columnSpan++
-    }
-
-    layouts.set(event, {
+    const eventColumn = assignments.get(event)!
+    const columnSpan = calculateColumnSpan(
       event,
-      column: eventColumn,
-      columnSpan,
+      eventColumn,
       totalColumns,
-    })
+      eventsByColumn,
+      timezone,
+    )
+    layouts.set(event, { event, column: eventColumn, columnSpan, totalColumns })
   }
 
   return layouts
