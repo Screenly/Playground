@@ -11,6 +11,9 @@ export interface TimeSlot {
   hour: number
 }
 
+// Once the current hour is past noon, lock the window to 1 PM so the view
+// always shows 13:00–01:00 for the rest of the afternoon and evening.
+// Before 1 PM the window simply starts at the current hour.
 export function getWindowStartHour(currentHour: number): number {
   return currentHour > 12 ? 13 : currentHour
 }
