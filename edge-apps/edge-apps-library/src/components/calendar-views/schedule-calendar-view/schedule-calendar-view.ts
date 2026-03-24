@@ -61,27 +61,28 @@ export class ScheduleCalendarView extends HTMLElement {
     todayEvents: CalendarEvent[]
     tomorrowEvents: CalendarEvent[]
   } {
-    const tz = this._timezone
-    const nowInTz = dayjs(this._now).tz(tz)
+    const timezone = this._timezone
+    const nowInTz = dayjs(this._now).tz(timezone)
     const startOfToday = nowInTz.startOf('day')
     const startOfTomorrow = startOfToday.add(1, 'day')
     const startOfDayAfter = startOfTomorrow.add(1, 'day')
 
     const sortByStart = (a: CalendarEvent, b: CalendarEvent) =>
-      dayjs(a.startTime).tz(tz).valueOf() - dayjs(b.startTime).tz(tz).valueOf()
+      dayjs(a.startTime).tz(timezone).valueOf() -
+      dayjs(b.startTime).tz(timezone).valueOf()
 
     const todayAll = this._events
-      .filter((e) => {
-        if (e.isAllDay) return false
-        const start = dayjs(e.startTime).tz(tz)
+      .filter((event) => {
+        if (event.isAllDay) return false
+        const start = dayjs(event.startTime).tz(timezone)
         return start.isAfter(nowInTz) && start.isBefore(startOfTomorrow)
       })
       .sort(sortByStart)
 
     const tomorrowAll = this._events
-      .filter((e) => {
-        if (e.isAllDay) return false
-        const start = dayjs(e.startTime).tz(tz)
+      .filter((event) => {
+        if (event.isAllDay) return false
+        const start = dayjs(event.startTime).tz(timezone)
         return (
           !start.isBefore(startOfTomorrow) && start.isBefore(startOfDayAfter)
         )
@@ -103,7 +104,7 @@ export class ScheduleCalendarView extends HTMLElement {
   }
 
   private _buildEventItem(event: CalendarEvent): HTMLElement {
-    const tz = this._timezone
+    const timezone = this._timezone
     const locale = this._locale
 
     const item = document.createElement('div')
@@ -122,7 +123,7 @@ export class ScheduleCalendarView extends HTMLElement {
       event.startTime,
       event.endTime,
       locale,
-      tz,
+      timezone,
     )
 
     item.appendChild(titleEl)
@@ -162,17 +163,17 @@ export class ScheduleCalendarView extends HTMLElement {
   }
 
   private _getDayLabel(offsetDays: number): string {
-    const tz = this._timezone
+    const timezone = this._timezone
     const locale = this._locale
-    const date = dayjs(this._now).tz(tz).add(offsetDays, 'day')
+    const date = dayjs(this._now).tz(timezone).add(offsetDays, 'day')
     const weekday = date.toDate().toLocaleDateString(locale, {
       weekday: 'long',
-      timeZone: tz,
+      timeZone: timezone,
     })
     const dayNum = date.date()
     const month = date.toDate().toLocaleDateString(locale, {
       month: 'short',
-      timeZone: tz,
+      timeZone: timezone,
     })
     return `${weekday}, ${month} ${dayNum}`
   }

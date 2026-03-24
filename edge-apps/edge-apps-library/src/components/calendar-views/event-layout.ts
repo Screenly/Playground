@@ -27,37 +27,37 @@ export interface EventLayout {
 const eventsOverlap = (
   a: CalendarEvent,
   b: CalendarEvent,
-  tz: string,
+  timezone: string,
 ): boolean => {
-  const aStart = dayjs(a.startTime).tz(tz)
-  const aEnd = dayjs(a.endTime).tz(tz)
-  const bStart = dayjs(b.startTime).tz(tz)
-  const bEnd = dayjs(b.endTime).tz(tz)
+  const aStart = dayjs(a.startTime).tz(timezone)
+  const aEnd = dayjs(a.endTime).tz(timezone)
+  const bStart = dayjs(b.startTime).tz(timezone)
+  const bEnd = dayjs(b.endTime).tz(timezone)
   return aStart.isBefore(bEnd) && bStart.isBefore(aEnd)
 }
 
 export const findEventClusters = (
   allEvents: CalendarEvent[],
-  tz: string,
+  timezone: string,
 ): CalendarEvent[][] => {
   if (allEvents.length === 0) return []
 
   const sortedEvents = [...allEvents].sort((a, b) =>
-    dayjs(a.startTime).tz(tz).diff(dayjs(b.startTime).tz(tz)),
+    dayjs(a.startTime).tz(timezone).diff(dayjs(b.startTime).tz(timezone)),
   )
 
   const adjacencyList = new Map<CalendarEvent, Set<CalendarEvent>>()
   for (let i = 0; i < sortedEvents.length; i++) {
     const eventI = sortedEvents[i]!
     adjacencyList.set(eventI, new Set())
-    const eventAEnd = dayjs(eventI.endTime).tz(tz)
+    const eventAEnd = dayjs(eventI.endTime).tz(timezone)
 
     for (let j = i + 1; j < sortedEvents.length; j++) {
       const eventJ = sortedEvents[j]!
-      const eventBStart = dayjs(eventJ.startTime).tz(tz)
+      const eventBStart = dayjs(eventJ.startTime).tz(timezone)
       if (eventBStart.isSameOrAfter(eventAEnd)) break
 
-      if (eventsOverlap(eventI, eventJ, tz)) {
+      if (eventsOverlap(eventI, eventJ, timezone)) {
         adjacencyList.get(eventI)!.add(eventJ)
         if (!adjacencyList.has(eventJ)) {
           adjacencyList.set(eventJ, new Set())
@@ -94,8 +94,8 @@ export const findEventClusters = (
 
     cluster.sort((a, b) => {
       const startDiff = dayjs(a.startTime)
-        .tz(tz)
-        .diff(dayjs(b.startTime).tz(tz))
+        .tz(timezone)
+        .diff(dayjs(b.startTime).tz(timezone))
       if (startDiff !== 0) return startDiff
       const aDuration = dayjs(a.endTime).diff(dayjs(a.startTime))
       const bDuration = dayjs(b.endTime).diff(dayjs(b.startTime))
@@ -110,14 +110,14 @@ export const findEventClusters = (
 
 export const calculateClusterLayouts = (
   cluster: CalendarEvent[],
-  tz: string,
+  timezone: string,
 ): Map<CalendarEvent, EventLayout> => {
   const layouts = new Map<CalendarEvent, EventLayout>()
   const columns: dayjs.Dayjs[] = []
   const eventColumnAssignments = new Map<CalendarEvent, number>()
 
   for (const event of cluster) {
-    const eventStart = dayjs(event.startTime).tz(tz)
+    const eventStart = dayjs(event.startTime).tz(timezone)
 
     let assignedColumn = -1
     for (let col = 0; col < columns.length; col++) {
@@ -132,7 +132,7 @@ export const calculateClusterLayouts = (
       columns.push(dayjs(0))
     }
 
-    columns[assignedColumn] = dayjs(event.endTime).tz(tz)
+    columns[assignedColumn] = dayjs(event.endTime).tz(timezone)
     eventColumnAssignments.set(event, assignedColumn)
   }
 
@@ -142,24 +142,24 @@ export const calculateClusterLayouts = (
   for (let col = 0; col < totalColumns; col++) {
     eventsByColumn.set(col, [])
   }
-  for (const e of cluster) {
-    const eColumn = eventColumnAssignments.get(e)
-    if (eColumn !== undefined) {
-      eventsByColumn.get(eColumn)!.push(e)
+  for (const event of cluster) {
+    const eventColumn = eventColumnAssignments.get(event)
+    if (eventColumn !== undefined) {
+      eventsByColumn.get(eventColumn)!.push(event)
     }
   }
 
   for (const event of cluster) {
-    const eventStart = dayjs(event.startTime).tz(tz)
-    const eventEnd = dayjs(event.endTime).tz(tz)
+    const eventStart = dayjs(event.startTime).tz(timezone)
+    const eventEnd = dayjs(event.endTime).tz(timezone)
     const eventColumn = eventColumnAssignments.get(event)!
 
     let columnSpan = 1
     for (let col = eventColumn + 1; col < totalColumns; col++) {
       const eventsInCol = eventsByColumn.get(col) || []
       const columnBlocked = eventsInCol.some((other) => {
-        const otherStart = dayjs(other.startTime).tz(tz)
-        const otherEnd = dayjs(other.endTime).tz(tz)
+        const otherStart = dayjs(other.startTime).tz(timezone)
+        const otherEnd = dayjs(other.endTime).tz(timezone)
         return eventStart.isBefore(otherEnd) && otherStart.isBefore(eventEnd)
       })
       if (columnBlocked) break

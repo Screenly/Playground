@@ -23,9 +23,9 @@ export function buildEventElement(
   windowStartHour: number,
   layout: EventLayout,
   locale: string,
-  tz: string,
+  timezone: string,
 ): HTMLElement {
-  const style = getEventStyle(event, windowStartHour, layout, tz)
+  const style = getEventStyle(event, windowStartHour, layout, timezone)
 
   const wrapper = document.createElement('div')
   wrapper.className = 'event-wrapper'
@@ -60,7 +60,11 @@ export function buildEventElement(
     titleEl.textContent = `${event.title}, `
     const inlineTimeEl = document.createElement('span')
     inlineTimeEl.className = 'event-inline-time'
-    inlineTimeEl.textContent = formatEventStartTime(event.startTime, locale, tz)
+    inlineTimeEl.textContent = formatEventStartTime(
+      event.startTime,
+      locale,
+      timezone,
+    )
     titleEl.appendChild(inlineTimeEl)
     item.appendChild(titleEl)
   } else {
@@ -71,7 +75,7 @@ export function buildEventElement(
       event.startTime,
       event.endTime,
       locale,
-      tz,
+      timezone,
     )
     item.appendChild(titleEl)
     item.appendChild(timeEl)

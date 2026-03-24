@@ -69,14 +69,14 @@ export class DailyCalendarView extends HTMLElement {
   private _getEventLayouts(
     todayEvents: CalendarEvent[],
   ): Map<string, EventLayout> {
-    const tz = this._timezone
+    const timezone = this._timezone
     const layoutMap = new Map<string, EventLayout>()
 
     if (todayEvents.length === 0) return layoutMap
 
-    const clusters = findEventClusters(todayEvents, tz)
+    const clusters = findEventClusters(todayEvents, timezone)
     for (const cluster of clusters) {
-      const clusterLayouts = calculateClusterLayouts(cluster, tz)
+      const clusterLayouts = calculateClusterLayouts(cluster, timezone)
       for (const [event, layout] of clusterLayouts) {
         layoutMap.set(getEventKey(event), layout)
       }
@@ -91,7 +91,7 @@ export class DailyCalendarView extends HTMLElement {
     timeIndicatorPct: number,
     eventLayouts: Map<string, EventLayout>,
   ): HTMLElement {
-    const tz = this._timezone
+    const timezone = this._timezone
     const locale = this._locale
 
     const dayBody = document.createElement('div')
@@ -113,7 +113,7 @@ export class DailyCalendarView extends HTMLElement {
         totalColumns: 1,
       }
       eventsArea.appendChild(
-        buildEventElement(event, windowStartHour, layout, locale, tz),
+        buildEventElement(event, windowStartHour, layout, locale, timezone),
       )
     }
 
@@ -131,21 +131,21 @@ export class DailyCalendarView extends HTMLElement {
 
   private _render() {
     const shadow = this.shadowRoot!
-    const tz = this._timezone
+    const timezone = this._timezone
     const locale = this._locale
     const now = this._now
 
-    const nowInTz = dayjs(now).tz(tz)
+    const nowInTz = dayjs(now).tz(timezone)
     const currentHour = nowInTz.hour()
     const currentMinute = nowInTz.minute()
     const windowStartHour = getWindowStartHour(currentHour)
-    const timeSlots = generateTimeSlots(windowStartHour, now, locale, tz)
+    const timeSlots = generateTimeSlots(windowStartHour, now, locale, timezone)
     const todayStr = nowInTz.format('YYYY-MM-DD')
     const todayEvents = filterEventsForWindow(
       this._events,
       todayStr,
       windowStartHour,
-      tz,
+      timezone,
     )
     const eventLayouts = this._getEventLayouts(todayEvents)
     const currentSlotIndex = timeSlots.findIndex(

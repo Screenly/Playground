@@ -19,13 +19,13 @@ export function generateTimeSlots(
   startHour: number,
   now: Date,
   locale: string,
-  tz: string,
+  timezone: string,
 ): TimeSlot[] {
   const slots: TimeSlot[] = []
   for (let i = 0; i < 12; i++) {
     const hour = (startHour + i) % 24
     const baseDate = dayjs(now)
-      .tz(tz)
+      .tz(timezone)
       .hour(hour)
       .minute(0)
       .second(0)
@@ -36,7 +36,7 @@ export function generateTimeSlots(
       timeString = baseDate.toLocaleTimeString(locale, {
         hour: 'numeric',
         minute: '2-digit',
-        timeZone: tz,
+        timeZone: timezone,
       })
     } catch {
       const formattedHour = hour === 0 ? 12 : hour % 12 || 12
@@ -52,7 +52,7 @@ export function getEventStyle(
   event: CalendarEvent,
   windowStartHour: number,
   layout: EventLayout,
-  tz: string,
+  timezone: string,
 ): {
   topPct: number
   heightPct: number
@@ -65,8 +65,8 @@ export function getEventStyle(
 } {
   const windowSize = 12
 
-  const startDt = dayjs(event.startTime).tz(tz)
-  const endDt = dayjs(event.endTime).tz(tz)
+  const startDt = dayjs(event.startTime).tz(timezone)
+  const endDt = dayjs(event.endTime).tz(timezone)
 
   // Anchor window to the event's calendar date in the target timezone
   const windowStart = startDt.startOf('day').add(windowStartHour, 'hour')
@@ -113,14 +113,14 @@ export function getEventStyle(
 export function formatEventStartTime(
   startTime: string,
   locale: string,
-  tz: string,
+  timezone: string,
 ): string {
   try {
     const start = new Date(startTime)
     const opts: Intl.DateTimeFormatOptions = {
       hour: 'numeric',
       minute: '2-digit',
-      timeZone: tz,
+      timeZone: timezone,
     }
     return start.toLocaleTimeString(locale, opts)
   } catch {
@@ -132,7 +132,7 @@ export function formatEventTime(
   startTime: string,
   endTime: string,
   locale: string,
-  tz: string,
+  timezone: string,
 ): string {
   try {
     const start = new Date(startTime)
@@ -140,7 +140,7 @@ export function formatEventTime(
     const opts: Intl.DateTimeFormatOptions = {
       hour: 'numeric',
       minute: '2-digit',
-      timeZone: tz,
+      timeZone: timezone,
     }
     return `${start.toLocaleTimeString(locale, opts)} – ${end.toLocaleTimeString(locale, opts)}`
   } catch {
@@ -152,10 +152,10 @@ export function filterEventsForWindow(
   events: CalendarEvent[],
   dayDateStr: string,
   windowStartHour: number,
-  tz: string,
+  timezone: string,
 ): CalendarEvent[] {
   const windowStart = dayjs
-    .tz(`${dayDateStr}T00:00:00`, tz)
+    .tz(`${dayDateStr}T00:00:00`, timezone)
     .add(windowStartHour, 'hour')
   const windowEnd = windowStart.add(12, 'hour')
   const windowStartMs = windowStart.valueOf()
@@ -163,10 +163,10 @@ export function filterEventsForWindow(
 
   return events.filter((event) => {
     if (event.isAllDay) return false
-    const eventStart = dayjs(event.startTime).tz(tz)
+    const eventStart = dayjs(event.startTime).tz(timezone)
     if (eventStart.format('YYYY-MM-DD') !== dayDateStr) return false
     const eventStartMs = eventStart.valueOf()
-    const eventEndMs = dayjs(event.endTime).tz(tz).valueOf()
+    const eventEndMs = dayjs(event.endTime).tz(timezone).valueOf()
     return eventStartMs < windowEndMs && eventEndMs > windowStartMs
   })
 }

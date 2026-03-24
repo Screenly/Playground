@@ -78,20 +78,20 @@ export class WeeklyCalendarView extends HTMLElement {
   }
 
   private _getWeekStart(): Date {
-    const tz = this._timezone
-    const nowInTz = dayjs(this._now).tz(tz)
+    const timezone = this._timezone
+    const nowInTz = dayjs(this._now).tz(timezone)
     const weekStart = nowInTz.startOf('week')
     return weekStart.toDate()
   }
 
   private _getEventLayouts(): Map<string, EventLayout> {
-    const tz = this._timezone
-    const weekStartDate = dayjs(this._getWeekStart()).tz(tz)
+    const timezone = this._timezone
+    const weekStartDate = dayjs(this._getWeekStart()).tz(timezone)
     const layoutMap = new Map<string, EventLayout>()
     const eventsByDay = new Map<number, CalendarEvent[]>()
 
     const weekEvents = this._events.filter((event) => {
-      const eventStart = dayjs(event.startTime).tz(tz)
+      const eventStart = dayjs(event.startTime).tz(timezone)
       return (
         !eventStart.isBefore(weekStartDate) &&
         eventStart.isBefore(weekStartDate.add(7, 'day'))
@@ -99,7 +99,7 @@ export class WeeklyCalendarView extends HTMLElement {
     })
 
     weekEvents.forEach((event) => {
-      const eventStart = dayjs(event.startTime).tz(tz)
+      const eventStart = dayjs(event.startTime).tz(timezone)
       const dayDiff = eventStart.diff(weekStartDate, 'day')
       const dayIndex = ((dayDiff % 7) + 7) % 7
 
@@ -113,9 +113,9 @@ export class WeeklyCalendarView extends HTMLElement {
       const dayEvents = eventsByDay.get(dayIndex) || []
       if (dayEvents.length === 0) continue
 
-      const clusters = findEventClusters(dayEvents, tz)
+      const clusters = findEventClusters(dayEvents, timezone)
       for (const cluster of clusters) {
-        const clusterLayouts = calculateClusterLayouts(cluster, tz)
+        const clusterLayouts = calculateClusterLayouts(cluster, timezone)
         for (const [event, layout] of clusterLayouts) {
           layoutMap.set(getEventKey(event), layout)
         }
@@ -133,10 +133,10 @@ export class WeeklyCalendarView extends HTMLElement {
     timeIndicatorPct: number,
     eventLayouts: Map<string, EventLayout>,
   ): HTMLElement {
-    const tz = this._timezone
+    const timezone = this._timezone
     const locale = this._locale
 
-    const dayDayjs = dayjs(weekStart).tz(tz).add(dayIdx, 'day')
+    const dayDayjs = dayjs(weekStart).tz(timezone).add(dayIdx, 'day')
     const dayDateStr = dayDayjs.format('YYYY-MM-DD')
     const isToday = dayDateStr === todayStr
 
@@ -171,7 +171,7 @@ export class WeeklyCalendarView extends HTMLElement {
       this._events,
       dayDateStr,
       windowStartHour,
-      tz,
+      timezone,
     )
 
     for (const event of dayEvents) {
@@ -182,7 +182,7 @@ export class WeeklyCalendarView extends HTMLElement {
         totalColumns: 1,
       }
       eventsArea.appendChild(
-        buildEventElement(event, windowStartHour, layout, locale, tz),
+        buildEventElement(event, windowStartHour, layout, locale, timezone),
       )
     }
 
@@ -200,8 +200,8 @@ export class WeeklyCalendarView extends HTMLElement {
 
   private _updateTimeIndicator() {
     const shadow = this.shadowRoot!
-    const tz = this._timezone
-    const nowInTz = dayjs(this._now).tz(tz)
+    const timezone = this._timezone
+    const nowInTz = dayjs(this._now).tz(timezone)
     const currentHour = nowInTz.hour()
     const currentMinute = nowInTz.minute()
     const windowStartHour = this._lastWindowStartHour
@@ -225,16 +225,16 @@ export class WeeklyCalendarView extends HTMLElement {
 
   private _render() {
     const shadow = this.shadowRoot!
-    const tz = this._timezone
+    const timezone = this._timezone
     const locale = this._locale
     const now = this._now
 
-    const nowInTz = dayjs(now).tz(tz)
+    const nowInTz = dayjs(now).tz(timezone)
     const currentHour = nowInTz.hour()
     const currentMinute = nowInTz.minute()
     const windowStartHour = getWindowStartHour(currentHour)
     this._lastWindowStartHour = windowStartHour
-    const timeSlots = generateTimeSlots(windowStartHour, now, locale, tz)
+    const timeSlots = generateTimeSlots(windowStartHour, now, locale, timezone)
     const weekStart = this._getWeekStart()
     const eventLayouts = this._getEventLayouts()
     const todayStr = nowInTz.format('YYYY-MM-DD')
