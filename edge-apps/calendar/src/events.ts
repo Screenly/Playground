@@ -66,6 +66,7 @@ export const fetchCalendarEventsFromICal = async (
         const eventEnd = event.endDate.toJSDate()
 
         events.push({
+          id: event.uid || undefined,
           title: event.summary || 'Busy',
           startTime: eventStart.toISOString(),
           endTime: eventEnd.toISOString(),

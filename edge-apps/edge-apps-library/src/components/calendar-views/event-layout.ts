@@ -10,6 +10,7 @@ dayjs.extend(isSameOrBefore)
 dayjs.extend(isSameOrAfter)
 
 export interface CalendarEvent {
+  id?: string
   title: string
   startTime: string
   endTime: string
@@ -205,4 +206,6 @@ export const calculateClusterLayouts = (
 }
 
 export const getEventKey = (event: CalendarEvent): string =>
-  `${event.startTime}|${event.endTime}|${event.title || ''}`
+  event.id
+    ? event.id
+    : `${event.startTime}|${event.endTime}|${event.title || ''}`

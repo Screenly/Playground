@@ -60,6 +60,7 @@ export const fetchCalendarEventsFromMicrosoftAPI = async (
     const endTime = dayjs.tz(item.end.dateTime, item.end.timeZone).toISOString()
 
     events.push({
+      id: item.id,
       title: item.subject || 'Busy',
       startTime,
       endTime,

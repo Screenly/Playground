@@ -56,6 +56,7 @@ export const fetchCalendarEventsFromGoogleAPI = async (
     const backgroundColor = getEventBackgroundColor(colorId, colors)
 
     events.push({
+      id: item.id,
       title: item.summary || 'Busy',
       startTime: new Date(startTime).toISOString(),
       endTime: new Date(endTime).toISOString(),
