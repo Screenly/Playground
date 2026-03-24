@@ -88,7 +88,7 @@ export class DailyCalendarView extends HTMLElement {
   private _buildDayBody(
     todayEvents: CalendarEvent[],
     windowStartHour: number,
-    timeIndicatorPct: number,
+    timeIndicatorPercent: number,
     eventLayouts: Map<string, EventLayout>,
   ): HTMLElement {
     const timezone = this._timezone
@@ -119,10 +119,10 @@ export class DailyCalendarView extends HTMLElement {
 
     dayBody.appendChild(eventsArea)
 
-    if (timeIndicatorPct >= 0 && timeIndicatorPct <= 100) {
+    if (timeIndicatorPercent >= 0 && timeIndicatorPercent <= 100) {
       const indicator = document.createElement('div')
       indicator.className = 'current-time-indicator'
-      indicator.style.setProperty('top', `${timeIndicatorPct}%`)
+      indicator.style.setProperty('top', `${timeIndicatorPercent}%`)
       dayBody.appendChild(indicator)
     }
 
@@ -135,12 +135,12 @@ export class DailyCalendarView extends HTMLElement {
     const locale = this._locale
     const now = this._now
 
-    const nowInTz = dayjs(now).tz(timezone)
-    const currentHour = nowInTz.hour()
-    const currentMinute = nowInTz.minute()
+    const currentTime = dayjs(now).tz(timezone)
+    const currentHour = currentTime.hour()
+    const currentMinute = currentTime.minute()
     const windowStartHour = getWindowStartHour(currentHour)
     const timeSlots = generateTimeSlots(windowStartHour, now, locale, timezone)
-    const todayStr = nowInTz.format('YYYY-MM-DD')
+    const todayStr = currentTime.format('YYYY-MM-DD')
     const todayEvents = filterEventsForWindow(
       this._events,
       todayStr,
@@ -151,7 +151,7 @@ export class DailyCalendarView extends HTMLElement {
     const currentSlotIndex = timeSlots.findIndex(
       (slot) => slot.hour === currentHour,
     )
-    const timeIndicatorPct =
+    const timeIndicatorPercent =
       currentSlotIndex >= 0
         ? ((currentSlotIndex + currentMinute / 60) / 12) * 100
         : -1
@@ -173,7 +173,7 @@ export class DailyCalendarView extends HTMLElement {
       this._buildDayBody(
         todayEvents,
         windowStartHour,
-        timeIndicatorPct,
+        timeIndicatorPercent,
         eventLayouts,
       ),
     )

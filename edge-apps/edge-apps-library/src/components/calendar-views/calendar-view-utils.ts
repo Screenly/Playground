@@ -91,18 +91,20 @@ export function buildEventElement(
 
   const wrapper = document.createElement('div')
   wrapper.className = 'event-wrapper'
-  wrapper.style.setProperty('top', `${style.topPct}%`)
-  wrapper.style.setProperty('height', `${style.heightPct}%`)
-  wrapper.style.setProperty('left', `${style.leftPct}%`)
+  wrapper.style.setProperty('top', `${style.topPercent}%`)
+  wrapper.style.setProperty('height', `${style.heightPercent}%`)
+  wrapper.style.setProperty('left', `${style.leftPercent}%`)
   wrapper.style.setProperty('z-index', String(style.zIndex))
   if (style.isLastColumn) {
     wrapper.style.setProperty('right', '0')
   } else {
-    wrapper.style.setProperty('width', `${style.widthPct}%`)
+    wrapper.style.setProperty('width', `${style.widthPercent}%`)
   }
 
-  const fortyFiveMinPercent = (45 / 60) * (100 / 12)
-  const isCompact = style.heightPct <= fortyFiveMinPercent
+  // Events shorter than 45 minutes don't have room for a stacked title + time range,
+  // so they get the compact inline layout instead.
+  const COMPACT_THRESHOLD_PCT = (45 / 60) * (100 / 12)
+  const isCompact = style.heightPercent <= COMPACT_THRESHOLD_PCT
 
   const item = isCompact
     ? buildCompactEventItem(event, locale, timezone)

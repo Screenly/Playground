@@ -13,10 +13,10 @@ export function getEventStyle(
   layout: EventLayout,
   timezone: string,
 ): {
-  topPct: number
-  heightPct: number
-  widthPct: number
-  leftPct: number
+  topPercent: number
+  heightPercent: number
+  widthPercent: number
+  leftPercent: number
   zIndex: number
   clippedTop: boolean
   clippedBottom: boolean
@@ -40,8 +40,8 @@ export function getEventStyle(
   const visibleStartMs = Math.max(startMs, windowStartMs)
   const visibleEndMs = Math.min(endMs, windowEndMs)
 
-  const topPct = ((visibleStartMs - windowStartMs) / windowDurationMs) * 100
-  const heightPct = Math.max(
+  const topPercent = ((visibleStartMs - windowStartMs) / windowDurationMs) * 100
+  const heightPercent = Math.max(
     ((visibleEndMs - visibleStartMs) / windowDurationMs) * 100,
     0.5,
   )
@@ -53,15 +53,15 @@ export function getEventStyle(
   const span = layout.columnSpan > 0 ? layout.columnSpan : 1
   const isLastColumn = layout.column + span >= layout.totalColumns
   const overlapBonus = isLastColumn ? 0 : columnWidth * 0.7
-  const widthPct = columnWidth * span + overlapBonus
-  const leftPct = layout.column * columnWidth
+  const widthPercent = columnWidth * span + overlapBonus
+  const leftPercent = layout.column * columnWidth
   const zIndex = 2 + layout.column
 
   return {
-    topPct,
-    heightPct,
-    widthPct,
-    leftPct,
+    topPercent,
+    heightPercent,
+    widthPercent,
+    leftPercent,
     zIndex,
     clippedTop,
     clippedBottom,

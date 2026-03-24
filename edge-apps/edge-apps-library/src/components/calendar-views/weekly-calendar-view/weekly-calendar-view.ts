@@ -79,8 +79,8 @@ export class WeeklyCalendarView extends HTMLElement {
 
   private _getWeekStart(): Date {
     const timezone = this._timezone
-    const nowInTz = dayjs(this._now).tz(timezone)
-    const weekStart = nowInTz.startOf('week')
+    const now = dayjs(this._now).tz(timezone)
+    const weekStart = now.startOf('week')
     return weekStart.toDate()
   }
 
@@ -186,7 +186,7 @@ export class WeeklyCalendarView extends HTMLElement {
     weekStart: Date,
     windowStartHour: number,
     todayStr: string,
-    timeIndicatorPct: number,
+    timeIndicatorPercent: number,
     eventLayouts: Map<string, EventLayout>,
   ): HTMLElement {
     const timezone = this._timezone
@@ -212,10 +212,10 @@ export class WeeklyCalendarView extends HTMLElement {
       this._buildDayEventsArea(dayDateStr, windowStartHour, eventLayouts),
     )
 
-    if (isToday && timeIndicatorPct >= 0 && timeIndicatorPct <= 100) {
+    if (isToday && timeIndicatorPercent >= 0 && timeIndicatorPercent <= 100) {
       const indicator = document.createElement('div')
       indicator.className = 'current-time-indicator'
-      indicator.style.setProperty('top', `${timeIndicatorPct}%`)
+      indicator.style.setProperty('top', `${timeIndicatorPercent}%`)
       dayBody.appendChild(indicator)
     }
     dayCol.appendChild(dayBody)
@@ -225,12 +225,12 @@ export class WeeklyCalendarView extends HTMLElement {
   private _updateTimeIndicator() {
     const shadow = this.shadowRoot!
     const timezone = this._timezone
-    const nowInTz = dayjs(this._now).tz(timezone)
-    const currentHour = nowInTz.hour()
-    const currentMinute = nowInTz.minute()
+    const currentTime = dayjs(this._now).tz(timezone)
+    const currentHour = currentTime.hour()
+    const currentMinute = currentTime.minute()
     const windowStartHour = this._lastWindowStartHour
     const slotIndex = currentHour - windowStartHour
-    const timeIndicatorPct =
+    const timeIndicatorPercent =
       slotIndex >= 0 && slotIndex < 12
         ? ((slotIndex + currentMinute / 60) / 12) * 100
         : -1
@@ -239,8 +239,8 @@ export class WeeklyCalendarView extends HTMLElement {
       '.current-time-indicator',
     ) as HTMLElement | null
     if (indicator) {
-      if (timeIndicatorPct >= 0 && timeIndicatorPct <= 100) {
-        indicator.style.setProperty('top', `${timeIndicatorPct}%`)
+      if (timeIndicatorPercent >= 0 && timeIndicatorPercent <= 100) {
+        indicator.style.setProperty('top', `${timeIndicatorPercent}%`)
       } else {
         indicator.remove()
       }
@@ -253,19 +253,19 @@ export class WeeklyCalendarView extends HTMLElement {
     const locale = this._locale
     const now = this._now
 
-    const nowInTz = dayjs(now).tz(timezone)
-    const currentHour = nowInTz.hour()
-    const currentMinute = nowInTz.minute()
+    const currentTime = dayjs(now).tz(timezone)
+    const currentHour = currentTime.hour()
+    const currentMinute = currentTime.minute()
     const windowStartHour = getWindowStartHour(currentHour)
     this._lastWindowStartHour = windowStartHour
     const timeSlots = generateTimeSlots(windowStartHour, now, locale, timezone)
     const weekStart = this._getWeekStart()
     const eventLayouts = this._getEventLayouts()
-    const todayStr = nowInTz.format('YYYY-MM-DD')
+    const todayStr = currentTime.format('YYYY-MM-DD')
     const currentSlotIndex = timeSlots.findIndex(
       (slot) => slot.hour === currentHour,
     )
-    const timeIndicatorPct =
+    const timeIndicatorPercent =
       currentSlotIndex >= 0
         ? ((currentSlotIndex + currentMinute / 60) / 12) * 100
         : -1
@@ -292,7 +292,7 @@ export class WeeklyCalendarView extends HTMLElement {
           weekStart,
           windowStartHour,
           todayStr,
-          timeIndicatorPct,
+          timeIndicatorPercent,
           eventLayouts,
         ),
       )

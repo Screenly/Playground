@@ -10,6 +10,7 @@ import {
   getLocale,
   getTimeZone,
   centerAutoScalerVertically,
+  getSettingWithDefault,
 } from '@screenly/edge-apps'
 import { fetchCalendarEventsFromICal } from './events.js'
 
@@ -23,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupErrorHandling()
   setupTheme()
 
-  const calendarMode = (screenly.settings.calendar_mode as string) || 'schedule'
+  const calendarMode = getSettingWithDefault('calendar_mode', 'schedule')
 
   const scheduleEl = document.getElementById(
     'schedule-calendar',
