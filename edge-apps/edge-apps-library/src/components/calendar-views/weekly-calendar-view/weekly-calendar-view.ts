@@ -14,8 +14,8 @@ import {
   generateTimeSlots,
   getWindowStartHour,
   filterEventsForWindow,
-  setAttribute,
-} from './weekly-calendar-view-utils.js'
+} from '../calendar-window-utils.js'
+import { setAttribute } from './weekly-calendar-view-utils.js'
 import { buildTimeGutter, buildEventElement } from '../calendar-view-utils.js'
 
 dayjs.extend(utc)

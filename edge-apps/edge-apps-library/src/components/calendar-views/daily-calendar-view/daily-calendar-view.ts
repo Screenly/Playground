@@ -13,7 +13,7 @@ import {
   generateTimeSlots,
   getWindowStartHour,
   filterEventsForWindow,
-} from '../weekly-calendar-view/weekly-calendar-view-utils.js'
+} from '../calendar-window-utils.js'
 import { buildTimeGutter, buildEventElement } from '../calendar-view-utils.js'
 
 dayjs.extend(utc)

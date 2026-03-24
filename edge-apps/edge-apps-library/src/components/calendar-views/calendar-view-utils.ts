@@ -1,6 +1,6 @@
 import type { CalendarEvent, EventLayout } from './event-layout.js'
+import type { TimeSlot } from './calendar-window-utils.js'
 import {
-  type TimeSlot,
   getEventStyle,
   formatEventStartTime,
   formatEventTime,
