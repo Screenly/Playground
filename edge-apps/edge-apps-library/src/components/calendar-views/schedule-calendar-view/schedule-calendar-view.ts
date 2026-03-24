@@ -62,8 +62,8 @@ export class ScheduleCalendarView extends HTMLElement {
     tomorrowEvents: CalendarEvent[]
   } {
     const timezone = this._timezone
-    const nowInTz = dayjs(this._now).tz(timezone)
-    const startOfToday = nowInTz.startOf('day')
+    const now = dayjs(this._now).tz(timezone)
+    const startOfToday = now.startOf('day')
     const startOfTomorrow = startOfToday.add(1, 'day')
     const startOfDayAfter = startOfTomorrow.add(1, 'day')
 
@@ -75,7 +75,9 @@ export class ScheduleCalendarView extends HTMLElement {
       .filter((event) => {
         if (event.isAllDay) return false
         const start = dayjs(event.startTime).tz(timezone)
-        return start.isAfter(nowInTz) && start.isBefore(startOfTomorrow)
+        const end = dayjs(event.endTime).tz(timezone)
+        // Include events that start today and haven't ended yet (covers ongoing events)
+        return start.isBefore(startOfTomorrow) && end.isAfter(now)
       })
       .sort(sortByStart)
 

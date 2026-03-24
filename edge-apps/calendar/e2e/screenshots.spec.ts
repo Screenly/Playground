@@ -27,8 +27,9 @@ const ICAL_URL = 'https://calendar.example.com/feed.ics'
 //   20250219T160000Z = 11:00 AM EST  (before window)
 //   20250219T180000Z = 1:00 PM EST   (window start — Team Meeting & Overlapping Event)
 //   20250219T190000Z = 2:00 PM EST   (Long Workshop start)
+//   20250219T200000Z = 3:00 PM EST   (Ongoing Meeting start — in progress at 4:20 PM)
 //   20250219T210000Z = 4:00 PM EST   (now ≈ 4:20 PM — schedule view "today" events)
-//   20250219T220000Z = 5:00 PM EST   (Evening Event)
+//   20250219T220000Z = 5:00 PM EST   (Ongoing Meeting end / Evening Event start)
 //   20250220T030000Z = 10:00 PM EST  (Evening Event ends, past midnight UTC)
 //   20250220T140000Z = 9:00 AM EST tomorrow
 //   20250217T170000Z = 12:00 PM EST Monday
@@ -49,6 +50,12 @@ DTSTART:20250219T190000Z
 DTEND:20250219T210000Z
 SUMMARY:Long Workshop
 UID:event-2@test
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20250219T200000Z
+DTEND:20250219T220000Z
+SUMMARY:Ongoing Meeting
+UID:event-13@test
 END:VEVENT
 BEGIN:VEVENT
 DTSTART:20250219T160000Z

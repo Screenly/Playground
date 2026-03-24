@@ -25,8 +25,9 @@ const LOGO_DATA_URL = `data:image/svg+xml;base64,${Buffer.from(
 //   20250219T160000Z = 11:00 AM EST  (before window)
 //   20250219T180000Z = 1:00 PM EST   (window start)
 //   20250219T190000Z = 2:00 PM EST   (Long Workshop start)
+//   20250219T200000Z = 3:00 PM EST   (Ongoing Meeting start — in progress at 4:20 PM)
 //   20250219T210000Z = 4:00 PM EST   (now ≈ 4:20 PM)
-//   20250219T220000Z = 5:00 PM EST   (Evening Event)
+//   20250219T220000Z = 5:00 PM EST   (Ongoing Meeting end / Evening Event start)
 //   20250220T030000Z = 10:00 PM EST  (Evening Event ends, past midnight UTC)
 //   20250220T140000Z = 9:00 AM EST tomorrow
 //   20250217T170000Z = 12:00 PM EST Monday
@@ -45,6 +46,12 @@ const GOOGLE_EVENTS_RESPONSE = {
       start: { dateTime: '2025-02-19T19:00:00Z' },
       end: { dateTime: '2025-02-19T21:00:00Z' },
       colorId: '2',
+    },
+    {
+      summary: 'Ongoing Meeting',
+      start: { dateTime: '2025-02-19T20:00:00Z' },
+      end: { dateTime: '2025-02-19T22:00:00Z' },
+      colorId: '3',
     },
     {
       summary: 'Morning Session',

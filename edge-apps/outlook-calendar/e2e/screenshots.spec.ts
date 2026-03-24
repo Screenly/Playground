@@ -40,6 +40,12 @@ const MICROSOFT_EVENTS_RESPONSE = {
       end: { dateTime: '2025-02-19T16:00:00', timeZone: 'America/New_York' },
     },
     {
+      subject: 'Ongoing Meeting',
+      isAllDay: false,
+      start: { dateTime: '2025-02-19T15:00:00', timeZone: 'America/New_York' },
+      end: { dateTime: '2025-02-19T17:00:00', timeZone: 'America/New_York' },
+    },
+    {
       subject: 'Morning Session',
       isAllDay: false,
       start: { dateTime: '2025-02-19T11:00:00', timeZone: 'America/New_York' },
