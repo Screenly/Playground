@@ -137,7 +137,8 @@ export class WeeklyCalendarView extends HTMLElement {
 
     const dayName = document.createElement('span')
     dayName.className = 'day-name'
-    dayName.textContent = getLocalizedDayNames(locale).short[dayIdx] || ''
+    dayName.textContent =
+      getLocalizedDayNames(locale).short[dayDayjs.day()] || ''
     dayHeader.appendChild(dayName)
 
     const dayDateNum = document.createElement('span')
