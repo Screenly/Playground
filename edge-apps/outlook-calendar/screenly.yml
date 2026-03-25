@@ -2,7 +2,7 @@
 syntax: manifest_v1
 id: 01KB238NJA0BARWX712K7TM8GF
 description: Outlook Calendar Edge App
-icon: https://playground.srly.io/edge-apps/outlook-calendar/src/img/icon.svg
+icon: https://playground.srly.io/edge-apps/outlook-calendar/static/img/icon.svg
 author: Screenly, Inc.
 categories:
   - Productivity
@@ -20,12 +20,12 @@ settings:
       schema_version: 1
   calendar_id:
     type: string
-    default_value: primary
+    default_value: ''
     title: Outlook Calendar ID
     optional: true
     help_text:
       properties:
-        help_text: Enter the Outlook Calendar ID to display events from (defaults to primary calendar).
+        help_text: Enter the Outlook Calendar ID to display events from (leave blank to use the default calendar).
         type: oauth:outlook_calendar:calendar_id
       schema_version: 1
   calendar_mode:

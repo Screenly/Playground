@@ -1,43 +1,60 @@
-import '@/assets/main.scss'
+import './css/style.css'
+import '@screenly/edge-apps/components'
+import type { WeeklyCalendarView } from '@screenly/edge-apps/components'
+import type { DailyCalendarView } from '@screenly/edge-apps/components'
+import type { ScheduleCalendarView } from '@screenly/edge-apps/components'
+import {
+  getCredentials,
+  getSettingWithDefault,
+  initCalendarApp,
+  initTokenRefreshLoop,
+  setupErrorHandling,
+  setupTheme,
+} from '@screenly/edge-apps'
+import { fetchCalendarEventsFromGoogleAPI } from './events.js'
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import * as Sentry from '@sentry/vue'
-import panic from 'panic-overlay'
+document.addEventListener('DOMContentLoaded', async () => {
+  setupErrorHandling()
+  setupTheme()
 
-import App from './App.vue'
+  const calendarMode = getSettingWithDefault('calendar_mode', 'schedule')
 
-const displayErrors = screenly.settings.display_errors === 'true' || false
+  const scheduleEl = document.getElementById(
+    'schedule-calendar',
+  ) as ScheduleCalendarView
+  const weeklyEl = document.getElementById(
+    'weekly-calendar',
+  ) as WeeklyCalendarView
+  const dailyEl = document.getElementById('daily-calendar') as DailyCalendarView
 
-const app = createApp(App)
+  const activeEl =
+    calendarMode === 'daily'
+      ? dailyEl
+      : calendarMode === 'weekly'
+        ? weeklyEl
+        : scheduleEl
 
-panic.configure({ handleErrors: displayErrors })
+  activeEl.classList.add('active')
 
-if (displayErrors) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  app.config.errorHandler = (err, instance, info) => {
-    panic(err instanceof Error ? err : new Error(String(err)))
+  let accessToken: string | null =
+    getSettingWithDefault('access_token', '') || null
+
+  const refreshToken = async () => {
+    const { token } = await getCredentials()
+    accessToken = token
   }
 
-  window.addEventListener('error', () => screenly.signalReadyForRendering(), {
-    once: true,
+  if (!accessToken) {
+    try {
+      await refreshToken()
+    } catch (error) {
+      console.warn('Failed to fetch initial access token:', error)
+    }
+  }
+  initTokenRefreshLoop(refreshToken)
+
+  await initCalendarApp(activeEl, async (timezone) => {
+    if (!accessToken) return []
+    return fetchCalendarEventsFromGoogleAPI(accessToken, timezone)
   })
-  window.addEventListener(
-    'unhandledrejection',
-    () => screenly.signalReadyForRendering(),
-    { once: true },
-  )
-}
-
-// Initialize Sentry if DSN is provided
-const sentryDsn = screenly.settings.sentry_dsn
-if (sentryDsn) {
-  Sentry.init({
-    app,
-    dsn: sentryDsn as string,
-  })
-}
-
-app.use(createPinia())
-
-app.mount('#app')
+})

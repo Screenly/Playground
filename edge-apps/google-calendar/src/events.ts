@@ -1,58 +1,16 @@
-import { VIEW_MODE } from '@/constants'
-import type { CalendarEvent, ViewMode } from '@/constants'
-import { useSettingsStore } from '@/stores/settings'
-import { fetchCalendarColors, getEventBackgroundColor } from '@/colors'
-import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'
-import dayJsTimezone from 'dayjs/plugin/timezone'
-
-dayjs.extend(utc)
-dayjs.extend(dayJsTimezone)
-
-const getDateRangeForViewMode = (viewMode: ViewMode) => {
-  const settingsStore = useSettingsStore()
-  const timezone = settingsStore.overrideTimezone || 'UTC'
-
-  // Use dayjs to get current time in the target timezone, ignoring browser timezone
-  const nowInTimezone = dayjs().tz(timezone)
-  const todayInTimezone = nowInTimezone.startOf('day')
-
-  let startDate: Date
-  let endDate: Date
-
-  if (viewMode === VIEW_MODE.DAILY) {
-    // For daily view, start at midnight in the target timezone
-    startDate = todayInTimezone.toDate()
-    endDate = todayInTimezone.add(1, 'day').toDate()
-  } else if (viewMode === VIEW_MODE.WEEKLY) {
-    // For weekly view, show full week starting from Sunday in the target timezone
-    const weekStart = todayInTimezone.startOf('week')
-    startDate = weekStart.toDate()
-    endDate = weekStart.add(7, 'days').toDate()
-  } else if (viewMode === VIEW_MODE.SCHEDULE) {
-    // For schedule view, show full month starting from the first day of the month
-    const monthStart = todayInTimezone.startOf('month')
-    startDate = monthStart.toDate()
-    endDate = monthStart.add(1, 'month').toDate()
-  } else {
-    // Default to daily view
-    startDate = todayInTimezone.toDate()
-    endDate = todayInTimezone.add(1, 'day').toDate()
-  }
-
-  return { startDate, endDate }
-}
+import {
+  getSettingWithDefault,
+  getCalendarDateRange,
+} from '@screenly/edge-apps'
+import type { CalendarEvent } from './types.js'
+import { fetchCalendarColors, getEventBackgroundColor } from './colors.js'
 
 export const fetchCalendarEventsFromGoogleAPI = async (
   accessToken: string,
+  timezone: string,
 ): Promise<CalendarEvent[]> => {
-  const { calendar_mode: viewMode } = screenly.settings
-  // Map "monthly" to "schedule" view mode
-  const mappedViewMode =
-    viewMode === 'monthly' ? VIEW_MODE.SCHEDULE : (viewMode as ViewMode)
-  const { startDate, endDate } = getDateRangeForViewMode(mappedViewMode)
+  const { startDate, endDate } = getCalendarDateRange(timezone)
 
-  // Fetch colors first
   let colors = null
   try {
     colors = await fetchCalendarColors(accessToken)
@@ -60,18 +18,14 @@ export const fetchCalendarEventsFromGoogleAPI = async (
     console.warn('Failed to fetch calendar colors, using defaults:', error)
   }
 
-  // Fetch events from Google Calendar API
-  const settingsStore = useSettingsStore()
-  const calendarId = settingsStore.calendarId
-  const encodedCalendarId = encodeURIComponent(calendarId as string)
+  const calendarId = getSettingWithDefault('calendar_id', 'primary')
+  const encodedCalendarId = encodeURIComponent(calendarId)
   const timeMin = startDate.toISOString()
   const timeMax = endDate.toISOString()
   const apiUrl = `https://www.googleapis.com/calendar/v3/calendars/${encodedCalendarId}/events?timeMin=${encodeURIComponent(timeMin)}&timeMax=${encodeURIComponent(timeMax)}&singleEvents=true&orderBy=startTime`
 
   const response = await fetch(apiUrl, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
+    headers: { Authorization: `Bearer ${accessToken}` },
   })
 
   if (!response.ok) {
@@ -80,9 +34,7 @@ export const fetchCalendarEventsFromGoogleAPI = async (
 
   const data = await response.json()
 
-  if (!data.items) {
-    return []
-  }
+  if (!data.items) return []
 
   const events: CalendarEvent[] = []
 
@@ -94,6 +46,7 @@ export const fetchCalendarEventsFromGoogleAPI = async (
     const backgroundColor = getEventBackgroundColor(colorId, colors)
 
     events.push({
+      id: item.id,
       title: item.summary || 'Busy',
       startTime: new Date(startTime).toISOString(),
       endTime: new Date(endTime).toISOString(),

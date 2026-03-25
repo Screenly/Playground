@@ -1,45 +1,40 @@
-import '@/assets/main.scss'
+import './css/style.css'
+import '@screenly/edge-apps/components'
+import type { WeeklyCalendarView } from '@screenly/edge-apps/components'
+import type { DailyCalendarView } from '@screenly/edge-apps/components'
+import type { ScheduleCalendarView } from '@screenly/edge-apps/components'
+import {
+  getSettingWithDefault,
+  initCalendarApp,
+  setupErrorHandling,
+  setupTheme,
+} from '@screenly/edge-apps'
+import { fetchCalendarEventsFromICal } from './events.js'
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import * as Sentry from '@sentry/vue'
-import panic from 'panic-overlay'
+document.addEventListener('DOMContentLoaded', async () => {
+  setupErrorHandling()
+  setupTheme()
 
-import App from './App.vue'
+  const calendarMode = getSettingWithDefault('calendar_mode', 'schedule')
 
-const displayErrors = screenly.settings.display_errors === 'true' || false
+  const scheduleEl = document.getElementById(
+    'schedule-calendar',
+  ) as ScheduleCalendarView
+  const weeklyEl = document.getElementById(
+    'weekly-calendar',
+  ) as WeeklyCalendarView
+  const dailyEl = document.getElementById('daily-calendar') as DailyCalendarView
 
-const app = createApp(App)
+  const activeEl =
+    calendarMode === 'daily'
+      ? dailyEl
+      : calendarMode === 'weekly'
+        ? weeklyEl
+        : scheduleEl
 
-panic.configure({ handleErrors: displayErrors })
+  activeEl.classList.add('active')
 
-if (displayErrors) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  app.config.errorHandler = (err, instance, info) => {
-    panic(err instanceof Error ? err : new Error(String(err)))
-  }
-
-  window.addEventListener('error', () => screenly.signalReadyForRendering(), {
-    once: true,
-  })
-  window.addEventListener(
-    'unhandledrejection',
-    () => screenly.signalReadyForRendering(),
-    {
-      once: true,
-    },
+  await initCalendarApp(activeEl, (timezone) =>
+    fetchCalendarEventsFromICal({ timezone }),
   )
-}
-
-// Initialize Sentry if DSN is provided
-const sentryDsn = screenly.settings.sentry_dsn
-if (sentryDsn) {
-  Sentry.init({
-    app,
-    dsn: sentryDsn as string,
-  })
-}
-
-app.use(createPinia())
-
-app.mount('#app')
+})

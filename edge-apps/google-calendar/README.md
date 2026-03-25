@@ -1,77 +1,77 @@
-# Google Calendar App
-
-## Prerequisites
-
-- Bun (v1.2.2+)
-- Screenly Edge App CLI (v1.0.3+)
+# Screenly Google Calendar App
 
 ## Getting Started
 
-We need to initialize the necessary dependencies and build the source
-code first so that a `dist` directory can be created. This is essential as a manifest file
-(which defaults to `screenly.yml`) and an `index.html` file is needed.
-
 ```bash
 bun install
-bun run build
-screenly edge-app create \
-    --name=EDGE_APP_NAME \
-    --in-place
-```
-
-## Connect Screenly to Google Account
-
-You should connect Screenly to a Google account so that the app can access the calendar events via a Google Calendar access token.
-
-To get started, go to the [Integrations](https://app.screenlyapp.com/manage/integrations) page and click the "+ Connect" button next to "Google Calendar".
-
-![Connect Google Calendar](./static/images/google-calendar-integration-01.png)
-
-You will be prompted to confirm the connection to a Google account. Click the "Connect" button.
-
-![Connect Google Calendar](./static/images/google-calendar-integration-02.png)
-
-You will be redirected to a Google OAuth consent screen. Select the Google account you want to connect to Screenly. Follow through the prompts to grant Screenly access to your Google Calendar data.
-
-Once connected, you will be redirected back to the integrations page. You should see that the Google Calendar integration is now connected.
-
-## Create an Edge App Instance via CLI
-
-```bash
-screenly edge-app instance create --name=EDGE_APP_INSTANCE_NAME
 ```
 
 ## Deployment
 
+Create and deploy the Edge App:
+
 ```bash
+screenly edge-app create --name google-calendar --in-place
 bun run deploy
+screenly edge-app instance create
 ```
+
+## Configuration
+
+The app accepts the following settings via `screenly.yml`:
+
+| Setting             | Description                                                                                                                                | Type     | Default    |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | -------- | ---------- |
+| `access_token`      | OAuth access token for Google Calendar API. For testing only — in production, tokens are fetched dynamically via the Screenly integration. | optional | -          |
+| `calendar_id`       | Google Calendar ID to display events from (e.g. `primary` or `your@gmail.com`)                                                             | optional | `primary`  |
+| `calendar_mode`     | View mode: `schedule`, `weekly`, or `daily`                                                                                                | optional | `schedule` |
+| `override_locale`   | Override the default locale (e.g. `fr`, `de`)                                                                                              | optional | `en`       |
+| `override_timezone` | Override the default timezone (e.g. `America/New_York`). Defaults to the system timezone if left blank                                     | optional | -          |
+| `theme`             | Visual theme: `light` or `dark`                                                                                                            | optional | `light`    |
+| `display_errors`    | Display errors on screen for debugging purposes                                                                                            | optional | `false`    |
+| `sentry_dsn`        | Sentry DSN for error tracking and monitoring                                                                                               | optional | -          |
 
 ## Development
 
-Install the dependencies for the first run:
-
 ```bash
-bun install
+bun install      # Install dependencies
+bun run dev      # Start development server
 ```
 
-Run the following command to start the development server:
+Update `mock-data.yml` with your `access_token` and `calendar_id`.
+
+## Testing
 
 ```bash
-bun run dev
+bun test
 ```
 
-This will start the development server via the [Screenly CLI](https://github.com/Screenly/cli) and open the app in the browser.
+## Screenshots
 
-Update `mock-data.yml` with the following values:
-
-- `screenly_app_auth_token`: A Google OAuth access token with sufficient scopes to read calendar events
-  - Check [this documentation about using OAuth 2.0 web server applications](https://developers.google.com/identity/protocols/oauth2/web-server#httprest_2) for more information on how to get an access token.
-- `screenly_oauth_tokens_url`: `https://api.screenlyappstage.com/api/v3/edge-apps/oauth/tokens/`
-
-## Linting and Formatting
+Generate screenshots at all supported resolutions:
 
 ```bash
-bun run lint
-bun run format
+bun run screenshots
 ```
+
+Screenshots are saved to the `screenshots/` directory.
+
+## Connecting to Google Calendar
+
+This app uses the **Google Calendar API** (not iCal/ICS) and requires a Google OAuth access token. In production, Screenly manages the OAuth flow automatically.
+
+To connect your Google account:
+
+1. Go to the [Integrations](https://app.screenlyapp.com/manage/integrations) page in Screenly.
+2. Click **+ Connect** next to **Google Calendar**.
+3. Follow the OAuth consent flow to grant Screenly access to your Google Calendar data.
+
+Once connected, the app will fetch and refresh the access token automatically.
+
+## Getting the Calendar ID
+
+1. Open [Google Calendar](https://calendar.google.com/).
+2. In the left sidebar, hover over the calendar you want, click the **⋮** menu, then **Settings and sharing**.
+3. Scroll down to **Integrate calendar**.
+4. Copy the **Calendar ID** (e.g. `primary` or `your@gmail.com` for the primary calendar, or a longer ID like `abc123@group.calendar.google.com` for shared calendars).
+5. Use this value as your `calendar_id` setting.

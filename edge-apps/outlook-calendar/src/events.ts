@@ -1,101 +1,57 @@
-import { VIEW_MODE } from '@/constants'
-import type { CalendarEvent, ViewMode } from '@/constants'
-import { useSettingsStore } from '@/stores/settings'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-import dayJsTimezone from 'dayjs/plugin/timezone'
+import dayjsTimezone from 'dayjs/plugin/timezone'
+import {
+  getSettingWithDefault,
+  getCalendarDateRange,
+} from '@screenly/edge-apps'
+import type { CalendarEvent } from '@screenly/edge-apps'
 
 dayjs.extend(utc)
-dayjs.extend(dayJsTimezone)
+dayjs.extend(dayjsTimezone)
 
-const getDateRangeForViewMode = (viewMode: ViewMode) => {
-  const settingsStore = useSettingsStore()
-  const timezone = settingsStore.overrideTimezone || 'UTC'
-
-  // Use dayjs to get current time in the target timezone, ignoring browser timezone
-  const nowInTimezone = dayjs().tz(timezone)
-  const todayInTimezone = nowInTimezone.startOf('day')
-
-  let startDate: Date
-  let endDate: Date
-
-  if (viewMode === VIEW_MODE.DAILY) {
-    // For daily view, start at midnight in the target timezone
-    startDate = todayInTimezone.toDate()
-    endDate = todayInTimezone.add(1, 'day').toDate()
-  } else if (viewMode === VIEW_MODE.WEEKLY) {
-    // For weekly view, show full week starting from Sunday in the target timezone
-    const weekStart = todayInTimezone.startOf('week')
-    startDate = weekStart.toDate()
-    endDate = weekStart.add(7, 'days').toDate()
-  } else if (viewMode === VIEW_MODE.SCHEDULE) {
-    // For schedule view, show full month starting from the first day of the month
-    const monthStart = todayInTimezone.startOf('month')
-    startDate = monthStart.toDate()
-    endDate = monthStart.add(1, 'month').toDate()
-  } else {
-    // Default to daily view
-    startDate = todayInTimezone.toDate()
-    endDate = todayInTimezone.add(1, 'day').toDate()
-  }
-
-  return { startDate, endDate }
-}
+// The Microsoft Graph /calendarview endpoint defaults to a page size of 10,
+// which silently truncates results for busy weeks. We pass $top to ensure
+// the full date range is returned.
+const GRAPH_MAX_EVENTS = 100
 
 export const fetchCalendarEventsFromMicrosoftAPI = async (
   accessToken: string,
+  timezone: string,
 ): Promise<CalendarEvent[]> => {
-  const { calendar_mode: viewMode } = screenly.settings
-  const { startDate, endDate } = getDateRangeForViewMode(viewMode as ViewMode)
+  const { startDate, endDate } = getCalendarDateRange(timezone)
 
-  // Fetch events from Microsoft Graph API
   const startDateTime = startDate.toISOString()
   const endDateTime = endDate.toISOString()
-  // NOTE: start and end automatically include dateTime and timeZone properties
-  const apiUrl = `https://graph.microsoft.com/v1.0/me/calendarview?$select=subject,start,end,isAllDay&startDateTime=${encodeURIComponent(startDateTime)}&endDateTime=${encodeURIComponent(endDateTime)}&$orderby=start/dateTime`
+  const calendarId = getSettingWithDefault('calendar_id', '')
+  const baseUrl = calendarId
+    ? `https://graph.microsoft.com/v1.0/me/calendars/${encodeURIComponent(calendarId)}/calendarview`
+    : 'https://graph.microsoft.com/v1.0/me/calendarview'
+  const apiUrl = `${baseUrl}?$select=subject,start,end,isAllDay&startDateTime=${encodeURIComponent(startDateTime)}&endDateTime=${encodeURIComponent(endDateTime)}&$orderby=start/dateTime&$top=${GRAPH_MAX_EVENTS}`
 
-  let response
-  let data
+  const response = await fetch(apiUrl, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  })
 
-  try {
-    response = await fetch(apiUrl, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
-
-    if (!response.ok) {
-      throw new Error(
-        'Failed to fetch calendar events from Microsoft Graph API',
-      )
-    }
-
-    data = await response.json()
-  } catch {
-    return []
+  if (!response.ok) {
+    throw new Error('Failed to fetch calendar events from Microsoft Graph API')
   }
 
-  if (!data.value) {
-    return []
-  }
+  const data = await response.json()
+
+  if (!data.value) return []
 
   const events: CalendarEvent[] = []
 
   for (const item of data.value) {
     const isAllDay = !!item.isAllDay
-
-    // Microsoft Graph API returns dateTime with timezone info
-    // We need to parse them properly considering the timezone
-    const startDateTime = item.start.dateTime
-    const startTimeZone = item.start.timeZone
-    const endDateTime = item.end.dateTime
-    const endTimeZone = item.end.timeZone
-
-    // Parse the datetime with its timezone and convert to UTC ISO string
-    const startTime = dayjs.tz(startDateTime, startTimeZone).toISOString()
-    const endTime = dayjs.tz(endDateTime, endTimeZone).toISOString()
+    const startTime = dayjs
+      .tz(item.start.dateTime, item.start.timeZone)
+      .toISOString()
+    const endTime = dayjs.tz(item.end.dateTime, item.end.timeZone).toISOString()
 
     events.push({
+      id: item.id,
       title: item.subject || 'Busy',
       startTime,
       endTime,
