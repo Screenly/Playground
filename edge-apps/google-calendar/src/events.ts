@@ -1,9 +1,7 @@
 import {
   getSettingWithDefault,
-  getDateRangeForViewMode,
+  getCalendarDateRange,
 } from '@screenly/edge-apps'
-import type { CalendarViewMode } from '@screenly/edge-apps'
-import { CALENDAR_VIEW_MODE } from '@screenly/edge-apps'
 import type { CalendarEvent } from './types.js'
 import { fetchCalendarColors, getEventBackgroundColor } from './colors.js'
 
@@ -11,15 +9,7 @@ export const fetchCalendarEventsFromGoogleAPI = async (
   accessToken: string,
   timezone: string,
 ): Promise<CalendarEvent[]> => {
-  const viewMode = getSettingWithDefault('calendar_mode', 'schedule')
-  const mappedCalendarViewMode: CalendarViewMode =
-    viewMode === 'monthly'
-      ? CALENDAR_VIEW_MODE.SCHEDULE
-      : (viewMode as CalendarViewMode)
-  const { startDate, endDate } = getDateRangeForViewMode(
-    mappedCalendarViewMode,
-    timezone,
-  )
+  const { startDate, endDate } = getCalendarDateRange(timezone)
 
   let colors = null
   try {

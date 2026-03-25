@@ -3,10 +3,9 @@ import utc from 'dayjs/plugin/utc'
 import dayjsTimezone from 'dayjs/plugin/timezone'
 import {
   getSettingWithDefault,
-  getDateRangeForViewMode,
+  getCalendarDateRange,
 } from '@screenly/edge-apps'
-import type { CalendarEvent, CalendarViewMode } from '@screenly/edge-apps'
-import { CALENDAR_VIEW_MODE } from '@screenly/edge-apps'
+import type { CalendarEvent } from '@screenly/edge-apps'
 
 dayjs.extend(utc)
 dayjs.extend(dayjsTimezone)
@@ -20,15 +19,7 @@ export const fetchCalendarEventsFromMicrosoftAPI = async (
   accessToken: string,
   timezone: string,
 ): Promise<CalendarEvent[]> => {
-  const viewMode = getSettingWithDefault('calendar_mode', 'schedule')
-  const mappedCalendarViewMode: CalendarViewMode =
-    viewMode === 'monthly'
-      ? CALENDAR_VIEW_MODE.SCHEDULE
-      : (viewMode as CalendarViewMode)
-  const { startDate, endDate } = getDateRangeForViewMode(
-    mappedCalendarViewMode,
-    timezone,
-  )
+  const { startDate, endDate } = getCalendarDateRange(timezone)
 
   const startDateTime = startDate.toISOString()
   const endDateTime = endDate.toISOString()

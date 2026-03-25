@@ -1,10 +1,9 @@
 import ical from 'ical.js'
 import {
   getSettingWithDefault,
-  getDateRangeForViewMode,
+  getCalendarDateRange,
 } from '@screenly/edge-apps'
-import type { CalendarEvent, CalendarViewMode } from '@screenly/edge-apps'
-import { CALENDAR_VIEW_MODE } from '@screenly/edge-apps'
+import type { CalendarEvent } from '@screenly/edge-apps'
 
 interface FetchSettings {
   timezone: string
@@ -19,8 +18,6 @@ export const fetchCalendarEventsFromICal = async (
     const { ical_url: icalUrl } = screenlySettings
     const corsProxy = screenly.cors_proxy_url
     const bypassCors = getSettingWithDefault('bypass_cors', false)
-    const viewMode = screenlySettings.calendar_mode as string
-
     const icalUrlWithProxy = bypassCors
       ? `${corsProxy}/${icalUrl as string}`
       : (icalUrl as string)
@@ -36,14 +33,7 @@ export const fetchCalendarEventsFromICal = async (
     const vcalendar = new ical.Component(jcalData)
     const vevents = vcalendar.getAllSubcomponents('vevent')
 
-    const mappedCalendarViewMode: CalendarViewMode =
-      viewMode === 'monthly'
-        ? CALENDAR_VIEW_MODE.SCHEDULE
-        : (viewMode as CalendarViewMode)
-    const { startDate, endDate } = getDateRangeForViewMode(
-      mappedCalendarViewMode,
-      timezone,
-    )
+    const { startDate, endDate } = getCalendarDateRange(timezone)
 
     const startTimestamp = startDate.getTime()
     const endTimestamp = endDate.getTime()

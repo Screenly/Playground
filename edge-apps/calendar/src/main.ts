@@ -4,23 +4,14 @@ import type { WeeklyCalendarView } from '@screenly/edge-apps/components'
 import type { DailyCalendarView } from '@screenly/edge-apps/components'
 import type { ScheduleCalendarView } from '@screenly/edge-apps/components'
 import {
+  getSettingWithDefault,
+  initCalendarApp,
   setupErrorHandling,
   setupTheme,
-  signalReady,
-  getLocale,
-  getTimeZone,
-  centerAutoScalerVertically,
-  getSettingWithDefault,
 } from '@screenly/edge-apps'
 import { fetchCalendarEventsFromICal } from './events.js'
 
-const EVENTS_REFRESH_INTERVAL = 10_000
-
 document.addEventListener('DOMContentLoaded', async () => {
-  const scaler = document.querySelector('auto-scaler')
-  scaler?.addEventListener('scalechange', centerAutoScalerVertically)
-  window.addEventListener('resize', centerAutoScalerVertically)
-  centerAutoScalerVertically()
   setupErrorHandling()
   setupTheme()
 
@@ -43,27 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   activeEl.classList.add('active')
 
-  const timezone = await getTimeZone()
-  const locale = await getLocale()
-  activeEl.setAttribute('timezone', timezone)
-  activeEl.setAttribute('locale', locale)
-
-  const tick = () => {
-    activeEl.now = new Date()
-  }
-  tick()
-  setInterval(tick, 30_000)
-
-  const refresh = async () => {
-    try {
-      const events = await fetchCalendarEventsFromICal({ timezone })
-      activeEl.events = events
-    } catch (error) {
-      console.error('Failed to fetch calendar events:', error)
-    }
-  }
-  await refresh()
-  setInterval(refresh, EVENTS_REFRESH_INTERVAL)
-
-  signalReady()
+  await initCalendarApp(activeEl, (timezone) =>
+    fetchCalendarEventsFromICal({ timezone }),
+  )
 })

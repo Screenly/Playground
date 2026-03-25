@@ -4,25 +4,16 @@ import type { WeeklyCalendarView } from '@screenly/edge-apps/components'
 import type { DailyCalendarView } from '@screenly/edge-apps/components'
 import type { ScheduleCalendarView } from '@screenly/edge-apps/components'
 import {
-  setupErrorHandling,
-  setupTheme,
-  signalReady,
-  getLocale,
-  getTimeZone,
   getCredentials,
   getSettingWithDefault,
-  centerAutoScalerVertically,
+  initCalendarApp,
   initTokenRefreshLoop,
+  setupErrorHandling,
+  setupTheme,
 } from '@screenly/edge-apps'
 import { fetchCalendarEventsFromGoogleAPI } from './events.js'
 
-const EVENTS_REFRESH_INTERVAL = 10_000
-
 document.addEventListener('DOMContentLoaded', async () => {
-  const scaler = document.querySelector('auto-scaler')
-  scaler?.addEventListener('scalechange', centerAutoScalerVertically)
-  window.addEventListener('resize', centerAutoScalerVertically)
-  centerAutoScalerVertically()
   setupErrorHandling()
   setupTheme()
 
@@ -45,18 +36,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   activeEl.classList.add('active')
 
-  const timezone = await getTimeZone()
-  const locale = await getLocale()
-  activeEl.setAttribute('timezone', timezone)
-  activeEl.setAttribute('locale', locale)
-
-  const tick = () => {
-    activeEl.now = new Date()
-  }
-  tick()
-  setInterval(tick, 30_000)
-
-  // Token management
   let accessToken: string | null =
     getSettingWithDefault('access_token', '') || null
 
@@ -65,7 +44,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     accessToken = token
   }
 
-  // If no static token, fetch dynamically
   if (!accessToken) {
     try {
       await refreshToken()
@@ -75,20 +53,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
   initTokenRefreshLoop(refreshToken)
 
-  const refresh = async () => {
-    if (!accessToken) return
-    try {
-      const events = await fetchCalendarEventsFromGoogleAPI(
-        accessToken,
-        timezone,
-      )
-      activeEl.events = events
-    } catch (error) {
-      console.error('Failed to fetch calendar events:', error)
-    }
-  }
-  await refresh()
-  setInterval(refresh, EVENTS_REFRESH_INTERVAL)
-
-  signalReady()
+  await initCalendarApp(activeEl, async (timezone) => {
+    if (!accessToken) return []
+    return fetchCalendarEventsFromGoogleAPI(accessToken, timezone)
+  })
 })
