@@ -103,8 +103,8 @@ export function buildEventElement(
 
   // Events shorter than 45 minutes don't have room for a stacked title + time range,
   // so they get the compact inline layout instead.
-  const COMPACT_THRESHOLD_PCT = (45 / 60) * (100 / 12)
-  const isCompact = style.heightPercent <= COMPACT_THRESHOLD_PCT
+  const COMPACT_THRESHOLD_PERCENT = (45 / 60) * (100 / 12)
+  const isCompact = style.heightPercent <= COMPACT_THRESHOLD_PERCENT
 
   const item = isCompact
     ? buildCompactEventItem(event, locale, timezone)
