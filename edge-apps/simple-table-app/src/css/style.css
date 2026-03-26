@@ -142,8 +142,7 @@ auto-scaler {
 @media (orientation: portrait) {
   .content {
     padding: 1.5rem 2rem;
-    align-items: flex-start;
-    padding-top: 3rem;
+    align-items: center;
   }
 
   #table-wrapper {
