@@ -75,10 +75,3 @@ settings:
     help_text: |
       Enter your Sentry DSN to enable error tracking and monitoring.
     is_global: true
-  theme:
-    type: string
-    default_value: light
-    title: Theme
-    optional: false
-    help_text: |
-      Select the visual theme for the application ('light' or 'dark').
