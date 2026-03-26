@@ -32,7 +32,6 @@ screenly edge-app setting set bypass_cors=true
 | `bypass_cors`       | Enable CORS bypass for iCal URLs that require it                                                       | optional | `true`     |
 | `override_locale`   | Override the default locale (e.g. `fr`, `de`)                                                          | optional | `en`       |
 | `override_timezone` | Override the default timezone (e.g. `America/New_York`). Defaults to the system timezone if left blank | optional | -          |
-| `theme`             | Visual theme: `light` or `dark`                                                                        | optional | `light`    |
 | `display_errors`    | Display errors on screen for debugging purposes                                                        | optional | `false`    |
 | `sentry_dsn`        | Sentry DSN for error tracking and monitoring                                                           | optional | -          |
 
