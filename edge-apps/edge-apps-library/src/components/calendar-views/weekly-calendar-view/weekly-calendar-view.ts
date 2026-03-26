@@ -126,7 +126,6 @@ export class WeeklyCalendarView extends HTMLElement {
   }
 
   private _buildDayHeader(
-    dayIdx: number,
     dayDayjs: dayjs.Dayjs,
     isToday: boolean,
   ): HTMLElement {
@@ -137,7 +136,8 @@ export class WeeklyCalendarView extends HTMLElement {
 
     const dayName = document.createElement('span')
     dayName.className = 'day-name'
-    dayName.textContent = getLocalizedDayNames(locale).short[dayIdx] || ''
+    dayName.textContent =
+      getLocalizedDayNames(locale).short[dayDayjs.day()] || ''
     dayHeader.appendChild(dayName)
 
     const dayDateNum = document.createElement('span')
@@ -198,7 +198,7 @@ export class WeeklyCalendarView extends HTMLElement {
     const dayCol = document.createElement('div')
     dayCol.className = 'day-column'
     setAttribute(dayCol, 'data-day-index', String(dayIdx))
-    dayCol.appendChild(this._buildDayHeader(dayIdx, dayDayjs, isToday))
+    dayCol.appendChild(this._buildDayHeader(dayDayjs, isToday))
 
     const dayBody = document.createElement('div')
     dayBody.className = 'day-body'

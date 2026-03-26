@@ -197,19 +197,19 @@ export function getLocalizedDayNames(locale: string): {
   const full: string[] = []
   const short: string[] = []
 
-  // Find the first Sunday of the current year
+  // Find the first Sunday of the current year using local time
+  // (avoid Date.UTC — toLocaleDateString uses local time, so UTC midnight
+  //  maps to the previous day in negative-offset timezones like PST)
   const now = new Date()
   const year = now.getFullYear()
-  const firstDay = new Date(Date.UTC(year, 0, 1))
-  const dayOfWeek = firstDay.getUTCDay() // 0 = Sunday, 1 = Monday, etc.
+  const firstDay = new Date(year, 0, 1)
+  const dayOfWeek = firstDay.getDay() // 0 = Sunday, 1 = Monday, etc.
 
   // Calculate offset to get to the first Sunday
   const offset = dayOfWeek === 0 ? 0 : 7 - dayOfWeek
-  const firstSunday = new Date(Date.UTC(year, 0, 1 + offset))
 
   for (let i = 0; i < 7; i++) {
-    const date = new Date(firstSunday)
-    date.setUTCDate(firstSunday.getUTCDate() + i)
+    const date = new Date(year, 0, 1 + offset + i)
 
     full.push(date.toLocaleDateString(locale, { weekday: 'long' }))
     short.push(date.toLocaleDateString(locale, { weekday: 'short' }))

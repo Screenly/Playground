@@ -1,5 +1,10 @@
 import { describe, test, expect, beforeEach, afterEach } from 'bun:test'
-import { getTimeZone, formatCoordinates, getLocale } from './locale'
+import {
+  getTimeZone,
+  formatCoordinates,
+  getLocale,
+  getLocalizedDayNames,
+} from './locale'
 import { setupScreenlyMock, resetScreenlyMock } from '../test/mock'
 
 // eslint-disable-next-line max-lines-per-function
@@ -99,6 +104,29 @@ describe('locale utilities', () => {
       // Zero latitude is technically neither N nor S, but the function returns S
       // Zero longitude is technically neither E nor W, but the function returns W
       expect(formatted).toBe('0.0000° S, 0.0000° W')
+    })
+  })
+
+  describe('getLocalizedDayNames', () => {
+    test('should index day names Sunday (0) through Saturday (6) in any environment timezone', () => {
+      const { full, short } = getLocalizedDayNames('en')
+
+      expect(full).toHaveLength(7)
+      expect(short).toHaveLength(7)
+
+      // Jan 5, 2025 is a known Sunday in local time — use it as a reference.
+      // Since toLocaleDateString with { weekday } only renders the weekday name,
+      // the comparison holds regardless of which year the function sampled.
+      for (let i = 0; i < 7; i++) {
+        const refDate = new Date(2025, 0, 5 + i) // local time, no UTC offset issue
+        expect(refDate.getDay()).toBe(i) // sanity: 0=Sun … 6=Sat
+        expect(short[i]).toBe(
+          refDate.toLocaleDateString('en', { weekday: 'short' }),
+        )
+        expect(full[i]).toBe(
+          refDate.toLocaleDateString('en', { weekday: 'long' }),
+        )
+      }
     })
   })
 
