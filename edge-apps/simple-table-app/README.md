@@ -1,4 +1,4 @@
-# Simple Table
+# Screenly Simple Table App
 
 ## Getting Started
 
@@ -20,12 +20,12 @@ screenly edge-app instance create
 
 The app accepts the following settings via `screenly.yml`:
 
-| Setting             | Description                                                                                                                                                   | Type     | Default         |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | --------------- |
-| `display_errors`    | Display errors on screen for debugging purposes                                                                                                               | optional | `false`         |
-| `message`           | The message to display on screen                                                                                                                              | required | `Hello, World!` |
-| `override_locale`   | Override the default locale with a supported language code                                                                                                    | optional | `en`            |
-| `override_timezone` | Override the default timezone with a supported timezone identifier (e.g., `Europe/London`, `America/New_York`). Defaults to the system timezone if left blank | optional | -               |
+| Setting             | Description                                                                                                                                                   | Type     | Default                      |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---------------------------- |
+| `content`           | CSV data to display. The first row is treated as column headers.                                                                                              | required | `Name,Age\nJohn,25\nJane,30` |
+| `override_locale`   | Override the default locale with a supported language code                                                                                                    | optional | `en`                         |
+| `override_timezone` | Override the default timezone with a supported timezone identifier (e.g., `Europe/London`, `America/New_York`). Defaults to the system timezone if left blank | optional | -                            |
+| `title`             | Optional title displayed above the table. Leave empty to hide.                                                                                                | optional | -                            |
 
 ## Development
 
@@ -33,6 +33,8 @@ The app accepts the following settings via `screenly.yml`:
 bun install      # Install dependencies
 bun run dev      # Start development server
 ```
+
+Update `mock-data.yml` with your desired CSV content and settings.
 
 ## Testing
 
