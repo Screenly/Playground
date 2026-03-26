@@ -1,6 +1,7 @@
 import './css/style.css'
 import '@screenly/edge-apps/components'
 import {
+  escapeHtml,
   getSettingWithDefault,
   setupErrorHandling,
   setupTheme,
@@ -13,15 +14,6 @@ function parseCSV(csv: string): string[][] {
     .split('\n')
     .map((row) => row.split(',').map((cell) => cell.trim()))
     .filter((row) => row.length > 0 && row.some((cell) => cell !== ''))
-}
-
-function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;')
 }
 
 function renderTable(csv: string): void {
