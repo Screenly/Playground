@@ -3,11 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edge App</title>
+    <title>Simple Table</title>
+    <script src="screenly.js?version=1"></script>
   </head>
   <body>
-    <div id="app"></div>
-    <script src="screenly.js?version=1"></script>
+    <auto-scaler
+      reference-width="1920"
+      reference-height="1080"
+      orientation="auto"
+    >
+      <div id="app">
+        <app-header class="header" show-date></app-header>
+        <main class="content">
+          <div id="table-wrapper">
+            <h2 id="table-title" hidden></h2>
+            <div class="table-card">
+              <table id="data-table">
+                <thead id="table-head"></thead>
+                <tbody id="table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+    </auto-scaler>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
