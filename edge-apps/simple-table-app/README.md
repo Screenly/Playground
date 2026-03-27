@@ -39,7 +39,7 @@ Update `mock-data.yml` with your desired CSV content and settings.
 ## Testing
 
 ```bash
-bun test
+bun run test:unit
 ```
 
 ## Screenshots
