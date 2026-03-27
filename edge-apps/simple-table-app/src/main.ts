@@ -3,7 +3,7 @@ import '@screenly/edge-apps/components'
 import { setupErrorHandling } from '@screenly/edge-apps'
 import init from './app'
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   setupErrorHandling()
-  init()
+  await init()
 })
