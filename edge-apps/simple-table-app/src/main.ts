@@ -1,19 +1,18 @@
 import './css/style.css'
 import '@screenly/edge-apps/components'
 import {
-  escapeHtml,
   getSettingWithDefault,
   setupErrorHandling,
   setupTheme,
   signalReady,
 } from '@screenly/edge-apps'
+import Papa from 'papaparse'
 
 function parseCSV(csv: string): string[][] {
-  return csv
-    .trim()
-    .split('\n')
-    .map((row) => row.split(',').map((cell) => cell.trim()))
-    .filter((row) => row.length > 0 && row.some((cell) => cell !== ''))
+  const result = Papa.parse<string[]>(csv.trim(), {
+    skipEmptyLines: true,
+  })
+  return result.data
 }
 
 function renderTable(csv: string): void {
@@ -29,7 +28,7 @@ function renderTable(csv: string): void {
   const headerRow = document.createElement('tr')
   headers.forEach((header) => {
     const th = document.createElement('th')
-    th.textContent = escapeHtml(header)
+    th.textContent = header
     headerRow.appendChild(th)
   })
   thead.appendChild(headerRow)
@@ -38,7 +37,7 @@ function renderTable(csv: string): void {
     const tr = document.createElement('tr')
     row.forEach((cell) => {
       const td = document.createElement('td')
-      td.textContent = escapeHtml(cell)
+      td.textContent = cell
       tr.appendChild(td)
     })
     tbody.appendChild(tr)

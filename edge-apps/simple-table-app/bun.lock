@@ -4,11 +4,15 @@
   "workspaces": {
     "": {
       "name": "simple-table",
+      "dependencies": {
+        "papaparse": "^5.5.3",
+      },
       "devDependencies": {
         "@playwright/test": "^1.58.0",
         "@screenly/edge-apps": "workspace:../edge-apps-library",
         "@types/bun": "^1.3.9",
         "@types/jsdom": "^27.0.0",
+        "@types/papaparse": "^5.5.2",
         "bun-types": "^1.3.9",
         "jsdom": "^28.1.0",
         "npm-run-all2": "^8.0.4",
@@ -544,6 +548,8 @@
 
     "@types/node": ["@types/node@25.5.0", "", { "dependencies": { "undici-types": "~7.18.0" } }, "sha512-jp2P3tQMSxWugkCUKLRPVUpGaL5MVFwF8RDuSRztfwgN1wmqJeMSbKlnEtQqU8UrhTmzEmZdu2I6v2dpp7XIxw=="],
 
+    "@types/papaparse": ["@types/papaparse@5.5.2", "", { "dependencies": { "@types/node": "*" } }, "sha512-gFnFp/JMzLHCwRf7tQHrNnfhN4eYBVYYI897CGX4MY1tzY9l2aLkVyx2IlKZ/SAqDbB3I1AOZW5gTMGGsqWliA=="],
+
     "@types/sharp": ["@types/sharp@0.32.0", "", { "dependencies": { "sharp": "*" } }, "sha512-OOi3kL+FZDnPhVzsfD37J88FNeZh6gQsGcLc95NbeURRGvmSjeXiDcyWzF2o3yh/gQAUn2uhh/e+CPCa5nwAxw=="],
 
     "@types/tough-cookie": ["@types/tough-cookie@4.0.5", "", {}, "sha512-/Ad8+nIOV7Rl++6f1BdKxFSMgmoqEoYbHRpPcx3JEfv8VRsQe9Z4mCXeJBzxs7mbHY/XOZZuXlRNfhpVPbs6ZA=="],
@@ -855,6 +861,8 @@
     "p-locate": ["p-locate@5.0.0", "", { "dependencies": { "p-limit": "^3.0.2" } }, "sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw=="],
 
     "panic-overlay": ["panic-overlay@1.0.51", "", { "dependencies": { "parcel": "^2.0.0-beta.1", "stacktracey": "^2.1.7" } }, "sha512-zBi6seSnjwUgO1t1BF6693DxjGWDBS9nWRDaNeWRJ1zym/q1w+MJEY8sfoEISM4wlxSlYEfiWOQE8DAajk56YA=="],
+
+    "papaparse": ["papaparse@5.5.3", "", {}, "sha512-5QvjGxYVjxO59MGU2lHVYpRWBBtKHnlIAcSe1uNFCkkptUh63NFRj0FJQm7nR67puEruUci/ZkjmEFrjCAyP4A=="],
 
     "parcel": ["parcel@2.16.4", "", { "dependencies": { "@parcel/config-default": "2.16.4", "@parcel/core": "2.16.4", "@parcel/diagnostic": "2.16.4", "@parcel/events": "2.16.4", "@parcel/feature-flags": "2.16.4", "@parcel/fs": "2.16.4", "@parcel/logger": "2.16.4", "@parcel/package-manager": "2.16.4", "@parcel/reporter-cli": "2.16.4", "@parcel/reporter-dev-server": "2.16.4", "@parcel/reporter-tracer": "2.16.4", "@parcel/utils": "2.16.4", "chalk": "^4.1.2", "commander": "^12.1.0", "get-port": "^4.2.0" }, "bin": { "parcel": "lib/bin.js" } }, "sha512-RQlrqs4ujYNJpTQi+dITqPKNhRWEqpjPd1YBcGp50Wy3FcJHpwu0/iRm7XWz2dKU/Bwp2qCcVYPIeEDYi2uOUw=="],
 
