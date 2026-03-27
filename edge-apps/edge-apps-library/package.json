@@ -73,13 +73,13 @@
   "license": "MIT",
   "dependencies": {
     "@photostructure/tz-lookup": "^11.5.0",
-    "dayjs": "^1.11.19",
-    "@tailwindcss/vite": "^4.2.1",
+    "dayjs": "^1.11.20",
+    "@tailwindcss/vite": "^4.2.2",
     "country-locale-map": "^1.9.12",
     "offline-geocode-city": "^1.0.2",
     "panic-overlay": "^1.0.51",
     "sharp": "^0.34.5",
-    "tailwindcss": "^4.2.1"
+    "tailwindcss": "^4.2.2"
   },
   "peerDependencies": {
     "@playwright/test": "^1.58.0"
@@ -91,18 +91,18 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@types/bun": "^1.3.10",
-    "@types/jsdom": "^28.0.0",
-    "@types/node": "^25.4.0",
+    "@types/bun": "^1.3.11",
+    "@types/jsdom": "^28.0.1",
+    "@types/node": "^25.5.0",
     "@types/sharp": "^0.32.0",
-    "bun-types": "^1.3.10",
-    "eslint": "^10.0.3",
+    "bun-types": "^1.3.11",
+    "eslint": "^10.1.0",
     "jiti": "^2.6.1",
-    "jsdom": "^28.1.0",
+    "jsdom": "^29.0.1",
     "prettier": "^3.8.1",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.57.0",
-    "vite": "^7.3.1",
-    "yaml": "^2.8.2"
+    "typescript": "^6.0.2",
+    "typescript-eslint": "^8.57.2",
+    "vite": "^8.0.3",
+    "yaml": "^2.8.3"
   }
 }
