@@ -11,9 +11,10 @@ import path from 'path'
 const { screenlyJsContent } = createMockScreenlyForScreenshots(
   { coordinates: [40.7128, -74.006], location: 'New York, NY' },
   {
-    content: 'Name,Age\nAlice,30\nBob,25',
+    content:
+      'Name,Department,Location,Years\nAlice Johnson,Engineering,New York,5\nBob Smith,Marketing,Los Angeles,3\nCarol White,Design,Chicago,7\nDavid Lee,Engineering,San Francisco,2\nEva Brown,Product,Seattle,4',
     override_timezone: 'America/New_York',
-    title: 'Sample Table',
+    title: 'Team Directory',
   },
 )
 
