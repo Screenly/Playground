@@ -9,18 +9,29 @@ export function parseCSV(csv: string): string[][] {
   const result = Papa.parse<string[]>(csv.trim(), {
     skipEmptyLines: true,
   })
+
+  if (result.errors && result.errors.length > 0) {
+    const firstError = result.errors[0]
+    const location =
+      typeof firstError.row === 'number' ? ` on row ${firstError.row}` : ''
+    throw new Error(`Failed to parse CSV${location}: ${firstError.message}`)
+  }
+
   return result.data
 }
 
 export function renderTable(csv: string): void {
+  const thead = document.getElementById('table-head')
+  const tbody = document.getElementById('table-body')
+  if (!thead || !tbody) return
+
+  thead.innerHTML = ''
+  tbody.innerHTML = ''
+
   const rows = parseCSV(csv)
   if (rows.length === 0) return
 
   const [headers, ...dataRows] = rows
-
-  const thead = document.getElementById('table-head')
-  const tbody = document.getElementById('table-body')
-  if (!thead || !tbody) return
 
   const headerRow = document.createElement('tr')
   headers.forEach((header) => {

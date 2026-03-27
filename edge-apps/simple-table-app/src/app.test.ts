@@ -61,7 +61,7 @@ describe('Simple Table App', () => {
   })
 
   test('renders special characters safely via textContent', () => {
-    renderTable('Name\n<script>alert(1)</script>')
+    renderTable('Name,Value\n<script>alert(1)</script>,test')
 
     const cell = document.querySelector('#table-body td')
     expect(cell?.textContent).toBe('<script>alert(1)</script>')
