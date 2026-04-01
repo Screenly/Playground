@@ -17,7 +17,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupErrorHandling()
   setupTheme()
 
-  const calendarMode = getSettingWithDefault('calendar_mode', 'schedule')
+  const calendarMode = getSettingWithDefault(
+    'calendar_mode',
+    'schedule',
+  ) as string
 
   const scheduleEl = document.getElementById(
     'schedule-calendar',
