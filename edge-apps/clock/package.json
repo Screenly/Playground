@@ -20,7 +20,7 @@
     "screenshots": "edge-apps-scripts screenshots"
   },
   "dependencies": {
-    "@screenly/edge-apps": "^0.0.15"
+    "@screenly/edge-apps": "^0.0.16"
   },
   "prettier": "../.prettierrc.json",
   "devDependencies": {
