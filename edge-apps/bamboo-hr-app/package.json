@@ -26,7 +26,7 @@
     "prepare": "cd ../blueprint && bun install",
     "cors-proxy-server": "bun ../blueprint/scripts/cors-proxy-server.ts"
   },
-  "prettier": "../edge-apps-library/.prettierrc.json",
+  "prettier": "../.prettierrc.json",
   "dependencies": {
     "@photostructure/tz-lookup": "^11.5.0",
     "dayjs": "^1.11.19",

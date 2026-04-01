@@ -58,9 +58,8 @@ jobs:
             fi
           }
 
-          # Check if blueprint or edge-apps-library has changes and extract unique Edge App directories
+          # Check if blueprint has changes and extract unique Edge App directories
           BLUEPRINT_CHANGED=false
-          EDGE_APPS_LIBRARY_CHANGED=false
           CHANGED_APPS=""
 
           for file in "${FILES_ARRAY[@]}"; do
@@ -70,25 +69,15 @@ jobs:
                 BLUEPRINT_CHANGED=true
               fi
 
-              # Check for edge-apps-library changes
-              if [[ "$file" == edge-apps/edge-apps-library/* ]]; then
-                EDGE_APPS_LIBRARY_CHANGED=true
-              fi
-
               # Extract the app name (first directory after edge-apps/)
               APP_NAME=$(echo "$file" | cut -d'/' -f2)
               add_app_if_valid "$APP_NAME"
             fi
           done
 
-          # If blueprint or edge-apps-library changed, add all apps with build systems
-          if [[ "$BLUEPRINT_CHANGED" == "true" || "$EDGE_APPS_LIBRARY_CHANGED" == "true" ]]; then
-            if [[ "$BLUEPRINT_CHANGED" == "true" ]]; then
-              echo "Blueprint changed, adding all apps with build systems..."
-            fi
-            if [[ "$EDGE_APPS_LIBRARY_CHANGED" == "true" ]]; then
-              echo "edge-apps-library changed, adding all apps with build systems..."
-            fi
+          # If blueprint changed, add all apps with build systems
+          if [[ "$BLUEPRINT_CHANGED" == "true" ]]; then
+            echo "Blueprint changed, adding all apps with build systems..."
             # Dynamically discover all Edge Apps with build systems
             for app_dir in edge-apps/*/; do
               if [[ -d "$app_dir" ]]; then
@@ -146,15 +135,6 @@ jobs:
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.2.2
-
-      - name: Build edge-apps-library if needed
-        run: |
-          if [[ -d "edge-apps/edge-apps-library" ]] && grep -q "edge-apps-library" "edge-apps/${{ matrix.app }}/package.json"; then
-            echo "Building edge-apps-library dependency..."
-            cd edge-apps/edge-apps-library
-            bun install
-            bun run build
-          fi
 
       - name: Install dependencies
         working-directory: edge-apps/${{ matrix.app }}

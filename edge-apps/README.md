@@ -30,4 +30,4 @@ After scaffolding:
 
 ## TypeScript Library
 
-The [`edge-apps-library`](edge-apps-library/README.md) contains shared utilities, components, and styles used by the apps in this directory.
+The [`@screenly/edge-apps`](https://www.npmjs.com/package/@screenly/edge-apps) NPM package contains shared utilities, components, and styles used by the apps in this directory.

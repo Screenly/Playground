@@ -27,7 +27,7 @@ For reference on more complex implementations, consult:
 - Menu Board (`edge-apps/menu-board/`) — more complex layout
 - CAP Alerting (`edge-apps/cap-alerting/`) — advanced settings and data fetching
 
-All apps depend on the `@screenly/edge-apps` library (`workspace:../edge-apps-library`) and use `edge-apps-scripts` for tooling.
+All apps depend on the `@screenly/edge-apps` NPM package and use `edge-apps-scripts` for tooling.
 
 ### About the Manifest Files
 

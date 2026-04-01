@@ -1,7 +1,7 @@
 # Edge Apps Library
 
 > [!WARNING]
-> This library (blueprint) will be deprecated soon. Most of the common code, including Vue-specific components, will be merged into the new common library located in `edge-apps/edge-apps-library`. This library will remain available until all dependent apps have migrated.
+> This library (blueprint) will be deprecated soon. Most of the common code, including Vue-specific components, will be merged into the [`@screenly/edge-apps`](https://www.npmjs.com/package/@screenly/edge-apps) package. This library will remain available until all dependent apps have migrated.
 
 This shared library contains a set of utilities that can be used to build Edge Apps alongside the [Vue](https://vuejs.org/) framework.
 

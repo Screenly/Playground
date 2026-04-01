@@ -45,11 +45,11 @@ bun create edge-app-template --no-git <your-app-name>
 
 This generates a new app with TypeScript, the Screenly design system, manifest files, and all standard scripts pre-configured. See [`edge-apps/README.md`](/edge-apps/README.md) for full details.
 
-### TypeScript Library (New)
+### TypeScript Library
 
 The Playground also offers an Edge Apps library that contains utilities for building Edge Apps including helper functions.
 
-Details on how to use the library can be found in [this guide](/edge-apps/edge-apps-library/README.md).
+Details on how to use the library can be found in the [`@screenly/edge-apps` package on NPM](https://www.npmjs.com/package/@screenly/edge-apps).
 
 ## Other
 
@@ -57,4 +57,4 @@ Details on how to use the library can be found in [this guide](/edge-apps/edge-a
 - [Dynamic Playlists](https://github.com/Screenly/playground/tree/master/dynamic-playlists/): An example of how to use Screenly's API to enable/disable a playlist based on weather conditions.
 - [Instagram App](https://github.com/Screenly/playground/tree/master/instagram/): A basic Instagram app for Screenly.
 - [JavaScript Injectors](https://github.com/Screenly/playground/tree/master/javascript-injectors/): Examples showing Screenly's JavaScript Injector.
-- [Legacy Edge Apps Library](https://github.com/Screenly/playground/blob/master/docs/legacy-edge-apps-library.md): A deprecated Vue-centric library for building Edge Apps. This has been replaced by the new [TypeScript Library](/edge-apps/edge-apps-library/README.md).
+- [Legacy Edge Apps Library](https://github.com/Screenly/playground/blob/master/docs/legacy-edge-apps-library.md): A deprecated Vue-centric library for building Edge Apps. This has been replaced by the [`@screenly/edge-apps` NPM package](https://www.npmjs.com/package/@screenly/edge-apps).
