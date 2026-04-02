@@ -24,14 +24,14 @@
   "prettier": "../.prettierrc.json",
   "dependencies": {},
   "devDependencies": {
-    "@playwright/test": "^1.58.0",
+    "@playwright/test": "^1.59.1",
     "@screenly/edge-apps": "^0.0.17",
-    "@types/bun": "^1.3.10",
-    "@types/jsdom": "^28.0.0",
-    "bun-types": "^1.3.10",
-    "jsdom": "^28.1.0",
+    "@types/bun": "^1.3.11",
+    "@types/jsdom": "^28.0.1",
+    "bun-types": "^1.3.11",
+    "jsdom": "^29.0.1",
     "npm-run-all2": "^8.0.4",
     "prettier": "^3.8.1",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   }
 }
