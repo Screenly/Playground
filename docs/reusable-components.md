@@ -1,7 +1,7 @@
 # Reusable Components
 
 > [!WARNING]
-> The Vue-based reusable components in this guide are part of the legacy `blueprint` library. These are deprecated and will be removed once all dependent apps have migrated to the new `edge-apps-library`.
+> The Vue-based reusable components in this guide are part of the legacy `blueprint` library. These are deprecated and will be removed once all dependent apps have migrated to the [`@screenly/edge-apps`](https://www.npmjs.com/package/@screenly/edge-apps) package.
 
 Screenly's Edge App library offers a set of reusable Vue components that can be used to build Edge Apps.
 
