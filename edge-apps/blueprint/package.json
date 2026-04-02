@@ -1,5 +1,6 @@
 {
   "type": "module",
+  "version": "0.0.1",
   "scripts": {
     "lint": "eslint . --fix",
     "format": "prettier --write scss/ ts/",
