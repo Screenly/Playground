@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Birthday Greeting - Screenly Edge App</title>
+    <script src="screenly.js?version=1"></script>
+    <link rel="stylesheet" href="dist/css/style.css" />
+  </head>
+  <body>
+    <div class="container max-w-full">
+      <main class="main-content">
+        <div class="left-column h-full">
+          <div id="screenly-logo"></div>
+          <h1 class="greeting-title">
+            Happy<br />Birthday,<br /><span id="person-name"></span>!
+          </h1>
+          <p class="greeting-message">Wishing you all the best!</p>
+        </div>
+
+        <div class="right-column h-full">
+          <div class="photo-frame">
+            <div class="photo-container">
+              <div id="photo-placeholder" class="photo-placeholder"></div>
+              <img
+                id="person-photo"
+                class="person-photo hidden"
+                alt="Birthday photo"
+              />
+            </div>
+          </div>
+          <div class="role-badge">
+            <p class="role-label">Our very own</p>
+            <p id="person-role" class="role-title"></p>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="dist/js/main.js"></script>
+  </body>
+</html>
