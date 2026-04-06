@@ -6,7 +6,7 @@
       "name": "powerbi",
       "dependencies": {
         "panic-overlay": "^1.0.51",
-        "powerbi-client": "^2.22.2",
+        "powerbi-client": "^2.23.10",
       },
       "devDependencies": {
         "prettier": "3.8.1",
@@ -278,7 +278,7 @@
 
     "has-flag": ["has-flag@4.0.0", "", {}, "sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ=="],
 
-    "http-post-message": ["http-post-message@0.2.3", "", { "dependencies": { "es6-promise": "^3.2.1" } }, "sha512-76heerrzYhvWptJfWxUarHw2O3fkMqF48bbq/S6XFWHUc34o8tkySBwtReXuAKJAECZWVu8U0TYLckFcwtSdrg=="],
+    "http-post-message": ["http-post-message@0.3.0", "", { "dependencies": { "es6-promise": "^3.2.1" } }, "sha512-tfn1ca5RcRKdejbFanY2ydN4pXB+youdgtNz1GSKtWvzbaf63sGQWyRjo5bnqlebTjG85wY0GUADDD0tAVpmkQ=="],
 
     "is-extglob": ["is-extglob@2.1.1", "", {}, "sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ=="],
 
@@ -340,7 +340,7 @@
 
     "postcss-value-parser": ["postcss-value-parser@4.2.0", "", {}, "sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ=="],
 
-    "powerbi-client": ["powerbi-client@2.23.9", "", { "dependencies": { "http-post-message": "^0.2", "powerbi-models": "^2.0.1", "powerbi-router": "^0.1", "window-post-message-proxy": "^0.2.7" } }, "sha512-0yeoZrA4pfkxVG/3uahtpN7hI6z7ugzr3QyZfV2+fh+mbgjbORVo3lB1dN6KqFXxNgcNGDPJbSb386EKbsj16Q=="],
+    "powerbi-client": ["powerbi-client@2.23.10", "", { "dependencies": { "http-post-message": "^0.3.0", "powerbi-models": "^2.0.1", "powerbi-router": "^0.1", "window-post-message-proxy": "^0.3.0" } }, "sha512-jqAatMokgk6c204R92ZDwbbCZKtskrZ3GPaUXo1TDUiD89jg22GP1xkCwf2tMnrbG1VyWGjQIyAg+/HZPtyKNg=="],
 
     "powerbi-models": ["powerbi-models@2.0.1", "", {}, "sha512-hYYbxCNB3VJ/vn/mbldWHXLvJYHCS4ECzUEskzlTtaaVFILMhMr2r9p3wUjGTIUmZZQ6Ve8KkVT2o1w+aGjiGw=="],
 
@@ -380,7 +380,7 @@
 
     "weak-lru-cache": ["weak-lru-cache@1.2.2", "", {}, "sha512-DEAoo25RfSYMuTGc9vPJzZcZullwIqRDSI9LOy+fkCJPi6hykCnfKaXTuPBDuXAUcqHXyOgFtHNp/kB2FjYHbw=="],
 
-    "window-post-message-proxy": ["window-post-message-proxy@0.2.9", "", { "dependencies": { "es6-promise": "^3.1.2" } }, "sha512-hHmF5dvY27wy4EKN9c5qukPtzlbrdUzkMiCHud4gYKXCFAiGOBhCfi/dVBvwbUf0qrEGwFNnqkvk6DE54sdlcw=="],
+    "window-post-message-proxy": ["window-post-message-proxy@0.3.0", "", { "dependencies": { "es6-promise": "^3.1.2" } }, "sha512-dEpItkLX97djHvWzcbVmyelEPoq2Oglx2y5EYt+mCC0bwKvwbtE3ro3Zsg9heHAUir/3dHUBtV2Rr8DQQjwyPg=="],
 
     "lightningcss/detect-libc": ["detect-libc@2.1.2", "", {}, "sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ=="],
 
