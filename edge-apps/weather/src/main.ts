@@ -8,6 +8,7 @@ import {
   getSetting,
   getCityInfo,
   resolveMeasurementUnit,
+  setupErrorHandling,
   type MeasurementUnit,
 } from '@screenly/edge-apps'
 import '@screenly/edge-apps/components'
@@ -146,6 +147,8 @@ async function updateWeatherDisplay(
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+  setupErrorHandling()
+
   try {
     locationEl = document.querySelector('[data-location]')
     temperatureEl = document.querySelector('[data-temperature]')
