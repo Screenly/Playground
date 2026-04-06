@@ -16,7 +16,7 @@
   },
   "prettier": "../.prettierrc.json",
   "dependencies": {
-    "powerbi-client": "^2.22.2",
+    "powerbi-client": "^2.23.10",
     "panic-overlay": "^1.0.51"
   },
   "devDependencies": {
