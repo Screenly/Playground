@@ -5,7 +5,7 @@ description: Displays the current weather and time
 icon: https://playground.srly.io/edge-apps/weather/static/img/icon.svg
 author: Screenly, Inc.
 categories:
-  - Utilities
+- Utilities
 ready_signal: true
 settings:
   display_errors:
@@ -14,11 +14,11 @@ settings:
     title: Display Errors
     optional: true
     help_text:
-      schema_version: 1
       properties:
         advanced: true
         help_text: For debugging purposes to display errors on the screen.
         type: boolean
+      schema_version: 1
   enable_analytics:
     type: string
     default_value: 'true'
