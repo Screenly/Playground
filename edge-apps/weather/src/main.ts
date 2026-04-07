@@ -149,46 +149,42 @@ async function updateWeatherDisplay(
 document.addEventListener('DOMContentLoaded', async () => {
   setupErrorHandling()
 
-  try {
-    locationEl = document.querySelector('[data-location]')
-    temperatureEl = document.querySelector('[data-temperature]')
-    weatherDescriptionEl = document.querySelector('[data-weather-description]')
-    tempHighEl = document.querySelector('[data-temp-high]')
-    tempLowEl = document.querySelector('[data-temp-low]')
-    forecastItemsEl = document.querySelector('[data-forecast-items]')
-    forecastCardEl = document.querySelector('[data-forecast-card]')
-    forecastHeaderIconEl = document.querySelector('[data-forecast-header-icon]')
+  locationEl = document.querySelector('[data-location]')
+  temperatureEl = document.querySelector('[data-temperature]')
+  weatherDescriptionEl = document.querySelector('[data-weather-description]')
+  tempHighEl = document.querySelector('[data-temp-high]')
+  tempLowEl = document.querySelector('[data-temp-low]')
+  forecastItemsEl = document.querySelector('[data-forecast-items]')
+  forecastCardEl = document.querySelector('[data-forecast-card]')
+  forecastHeaderIconEl = document.querySelector('[data-forecast-header-icon]')
 
-    // Set forecast header icon
-    if (forecastHeaderIconEl) {
-      forecastHeaderIconEl.src = sunIcon
-    }
-
-    const [latitude, longitude] = getCoordinates()
-
-    timezone = await getTimeZone()
-    locale = await getLocale()
-
-    const { cityName, countryCode } = await getCityInfo(latitude, longitude)
-    if (locationEl) {
-      locationEl.textContent = cityName
-    }
-
-    // Get measurement unit from settings, or auto-detect based on location
-    measurementUnit = resolveMeasurementUnit(countryCode)
-
-    await updateWeatherDisplay(latitude, longitude, timezone, measurementUnit)
-
-    // Refresh weather every 15 minutes
-    setInterval(
-      () => {
-        updateWeatherDisplay(latitude, longitude, timezone, measurementUnit)
-      },
-      15 * 60 * 1000,
-    )
-  } catch (error) {
-    console.error('Failed to initialize app:', error)
+  // Set forecast header icon
+  if (forecastHeaderIconEl) {
+    forecastHeaderIconEl.src = sunIcon
   }
+
+  const [latitude, longitude] = getCoordinates()
+
+  timezone = await getTimeZone()
+  locale = await getLocale()
+
+  const { cityName, countryCode } = await getCityInfo(latitude, longitude)
+  if (locationEl) {
+    locationEl.textContent = cityName
+  }
+
+  // Get measurement unit from settings, or auto-detect based on location
+  measurementUnit = resolveMeasurementUnit(countryCode)
+
+  await updateWeatherDisplay(latitude, longitude, timezone, measurementUnit)
+
+  // Refresh weather every 15 minutes
+  setInterval(
+    () => {
+      updateWeatherDisplay(latitude, longitude, timezone, measurementUnit)
+    },
+    15 * 60 * 1000,
+  )
 
   signalReady()
 })
