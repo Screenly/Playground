@@ -27,12 +27,7 @@ function setText(id: string, value: string | undefined): void {
 document.addEventListener('DOMContentLoaded', async () => {
   setupErrorHandling()
 
-  const { colors, logoUrl } = await setupBranding()
-
-  document.documentElement.style.setProperty(
-    '--theme-color-primary',
-    colors.primary,
-  )
+  const { logoUrl } = await setupBranding()
 
   const logoImg = document.querySelector<HTMLImageElement>('#brand-logo')!
   if (logoUrl) {

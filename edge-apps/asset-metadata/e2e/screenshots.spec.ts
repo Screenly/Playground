@@ -12,9 +12,6 @@ const { screenlyJsContent } = createMockScreenlyForScreenshots(
   { coordinates: [40.7128, -74.006], location: 'New York, NY' },
   {
     display_errors: 'false',
-    message: 'Hello, World!',
-    override_locale: 'en',
-    override_timezone: 'America/New_York',
   },
 )
 

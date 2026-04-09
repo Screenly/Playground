@@ -235,6 +235,12 @@ app-header {
     gap: calc(1.5 * var(--su));
   }
 
+  .label-chip {
+    font-size: calc(2 * var(--su));
+    padding: calc(0.75 * var(--su)) calc(1 * var(--su));
+    border-radius: calc(1 * var(--su));
+  }
+
   .brand-logo {
     width: calc(20 * var(--su));
     height: calc(11 * var(--su));
