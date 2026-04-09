@@ -212,6 +212,34 @@ app-header {
     grid-template-rows: repeat(6, 1fr);
   }
 
+  .card-icon {
+    width: calc(4 * var(--su));
+    height: calc(4 * var(--su));
+  }
+
+  .card-label {
+    font-size: calc(2 * var(--su));
+  }
+
+  .card-value {
+    font-size: calc(3.5 * var(--su));
+  }
+
+  .grid-container {
+    gap: calc(2.5 * var(--su));
+  }
+
+  .card {
+    padding: calc(4 * var(--su));
+    border-radius: calc(2.5 * var(--su));
+    gap: calc(1.5 * var(--su));
+  }
+
+  .brand-logo {
+    width: calc(20 * var(--su));
+    height: calc(11 * var(--su));
+  }
+
   .hostname-card {
     grid-column: 1 / 3;
     grid-row: 1;
