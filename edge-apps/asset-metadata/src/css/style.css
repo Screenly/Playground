@@ -1,13 +1,11 @@
 @import '@screenly/edge-apps/styles';
 
 :root {
-  --app-bg: #e8ecf1;
-  --card-bg: rgba(255, 255, 255, 0.88);
-  --card-border: rgba(0, 0, 0, 0.06);
-  --text-primary: #0d0e1a;
-  --text-secondary: #6b7280;
-  --chip-bg: rgba(151, 46, 255, 0.13);
-  --chip-color: #972eff;
+  --card-border: rgba(255, 255, 255, 0.15);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.8);
+  --chip-bg: rgba(151, 46, 255, 0.35);
+  --chip-color: #d9b4ff;
 }
 
 *,
@@ -26,14 +24,23 @@ body {
 }
 
 body {
-  background-color: var(--app-bg);
+  background: url('/static/images/bg.webp') no-repeat center center;
+  background-size: cover;
   font-family: 'Inter', system-ui, sans-serif;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-index-backdrop);
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.15);
 }
 
 auto-scaler {
+  position: relative;
+  z-index: var(--z-index-content);
   width: 100%;
   height: 100%;
 }
@@ -43,6 +50,10 @@ auto-scaler {
   height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+app-header {
+  color: #fff;
 }
 
 .grid-container {
@@ -56,20 +67,23 @@ auto-scaler {
 }
 
 .card {
-  background: var(--card-bg);
+  background: linear-gradient(
+    106deg,
+    rgba(255, 255, 255, 0.12) 3%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
   border: 1px solid var(--card-border);
   border-radius: calc(1.2 * var(--su));
   padding: calc(2 * var(--su));
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 calc(0.2 * var(--su)) calc(0.8 * var(--su)) rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.15) inset,
+    0 -1px 0 0 rgba(255, 255, 255, 0.05) inset,
+    0 calc(0.2 * var(--su)) calc(1.5 * var(--su)) rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
   gap: calc(0.8 * var(--su));
-  overflow: hidden;
-  transition:
-    background 0.3s ease,
-    border-color 0.3s ease;
 }
 
 .card-header {
@@ -90,14 +104,14 @@ auto-scaler {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.8);
   line-height: 1;
 }
 
 .card-value {
-  font-size: calc(3 * var(--su));
+  font-size: calc(2.1 * var(--su));
   font-weight: 600;
-  color: var(--text-primary);
+  color: #fff;
   line-height: 1.15;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -124,7 +138,7 @@ auto-scaler {
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.8);
   text-align: center;
 }
 
@@ -138,9 +152,9 @@ auto-scaler {
 
 .label-chip {
   display: inline-block;
-  background: var(--chip-bg);
-  color: var(--chip-color);
-  border: 1px solid var(--chip-color);
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: calc(0.5 * var(--su));
   padding: calc(0.25 * var(--su)) calc(0.7 * var(--su));
   font-size: calc(0.9 * var(--su));
@@ -153,7 +167,7 @@ auto-scaler {
 
 .no-labels {
   font-size: calc(1.2 * var(--su));
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.8);
   font-style: italic;
 }
 
