@@ -60,7 +60,7 @@ auto-scaler {
 }
 
 .card {
-  width: calc(19 * var(--su));
+  width: calc(25 * var(--su));
   background: linear-gradient(
     106deg,
     rgba(255, 255, 255, 0.12) 3%,
