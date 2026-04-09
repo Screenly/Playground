@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const logoImg = document.getElementById('brand-logo') as HTMLImageElement
   if (logoImg && logoUrl) {
     logoImg.src = logoUrl
+    logoImg.hidden = false
   }
 
   setText('hostname', getHostname())
