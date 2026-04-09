@@ -55,7 +55,6 @@ Screenshots are saved to the `screenshots/` directory.
 
 ## Configuration
 
-| Setting          | Description                               | Type     | Default |
-| ---------------- | ----------------------------------------- | -------- | ------- |
-| `display_errors` | Display errors on screen for debugging    | optional | `false` |
-| `theme`          | Visual theme for the app (`light`/`dark`) | required | `light` |
+| Setting          | Description                            | Type     | Default |
+| ---------------- | -------------------------------------- | -------- | ------- |
+| `display_errors` | Display errors on screen for debugging | optional | `false` |

@@ -29,33 +29,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const { colors, logoUrl } = await setupBranding()
 
-  const theme = screenly.settings.theme ?? 'light'
-  document.body.classList.add(`theme-${theme}`)
-
   document.documentElement.style.setProperty(
-    '--app-bg',
-    theme === 'dark' ? '#0D1117' : '#E8ECF1',
+    '--theme-color-primary',
+    colors.primary,
   )
-  document.documentElement.style.setProperty(
-    '--card-bg',
-    theme === 'dark'
-      ? 'rgba(255, 255, 255, 0.07)'
-      : 'rgba(255, 255, 255, 0.88)',
-  )
-  document.documentElement.style.setProperty(
-    '--card-border',
-    theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.06)',
-  )
-  document.documentElement.style.setProperty(
-    '--text-primary',
-    theme === 'dark' ? '#F2F2F3' : '#0D0E1A',
-  )
-  document.documentElement.style.setProperty(
-    '--text-secondary',
-    theme === 'dark' ? '#9CA3AF' : '#6B7280',
-  )
-  document.documentElement.style.setProperty('--chip-bg', colors.primary + '22')
-  document.documentElement.style.setProperty('--chip-color', colors.primary)
 
   const logoImg = document.querySelector<HTMLImageElement>('#brand-logo')!
   if (logoUrl) {
