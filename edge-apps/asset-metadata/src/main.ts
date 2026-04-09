@@ -57,8 +57,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.documentElement.style.setProperty('--chip-bg', colors.primary + '22')
   document.documentElement.style.setProperty('--chip-color', colors.primary)
 
-  const logoImg = document.getElementById('brand-logo') as HTMLImageElement
-  if (logoImg && logoUrl) {
+  const logoImg = document.querySelector<HTMLImageElement>('#brand-logo')!
+  if (logoUrl) {
     logoImg.src = logoUrl
     logoImg.hidden = false
   }
