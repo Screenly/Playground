@@ -1,5 +1,6 @@
 import './css/style.css'
 import {
+  escapeHtml,
   getFormattedCoordinates,
   getHostname,
   getScreenName,
@@ -9,14 +10,6 @@ import {
   setupErrorHandling,
   signalReady,
 } from '@screenly/edge-apps'
-
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-}
 
 function setText(id: string, value: string | undefined): void {
   const el = document.getElementById(id)
