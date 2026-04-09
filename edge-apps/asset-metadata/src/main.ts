@@ -1,5 +1,4 @@
 import './css/style.css'
-import '@screenly/edge-apps/components'
 import {
   getFormattedCoordinates,
   getHostname,
@@ -27,13 +26,7 @@ function setText(id: string, value: string | undefined): void {
 document.addEventListener('DOMContentLoaded', async () => {
   setupErrorHandling()
 
-  const { logoUrl } = await setupBranding()
-
-  const logoImg = document.querySelector<HTMLImageElement>('#brand-logo')!
-  if (logoUrl) {
-    logoImg.src = logoUrl
-    logoImg.hidden = false
-  }
+  await setupBranding()
 
   setText('hostname', getHostname())
   setText('screen-name', getScreenName())

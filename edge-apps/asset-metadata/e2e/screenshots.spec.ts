@@ -9,7 +9,11 @@ import {
 import path from 'path'
 
 const { screenlyJsContent } = createMockScreenlyForScreenshots(
-  { coordinates: [40.7128, -74.006], location: 'New York, NY' },
+  {
+    coordinates: [40.7128, -74.006],
+    location: 'New York, NY',
+    tags: ['lobby', 'floor-2', 'new-york', 'retail', 'north-wing', 'entrance', 'demo'],
+  },
   {
     display_errors: 'false',
   },
