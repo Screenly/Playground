@@ -1,0 +1,68 @@
+---
+syntax: manifest_v1
+description: |
+  Displays SuiteAnalytics Dataset data from NetSuite on Screenly digital signage screens.
+icon: https://playground.srly.io/edge-apps/netsuite/static/img/icon.svg
+author: Screenly, Inc.
+categories:
+  - Dashboards
+  - Authentication
+ready_signal: true
+settings:
+  access_token:
+    type: secret
+    title: Access Token
+    optional: true
+    help_text:
+      properties:
+        help_text: For testing only. In production, the access token should be fetched dynamically via the API.
+        type: oauth:netsuite:access_token
+      schema_version: 1
+  account_id:
+    type: string
+    title: Account ID
+    optional: false
+    help_text: |
+      Your NetSuite account ID (e.g., 1234567 or 1234567-sb1 for sandboxes). Used to construct the API base URL.
+  dataset_id:
+    type: string
+    title: Dataset ID
+    optional: false
+    help_text:
+      properties:
+        help_text: The unique ID of the SuiteAnalytics dataset to display.
+        type: oauth:netsuite:dataset_id
+      schema_version: 1
+  display_errors:
+    type: string
+    default_value: 'false'
+    title: Display Errors
+    optional: true
+    help_text:
+      properties:
+        advanced: true
+        help_text: For debugging purposes to display errors on the screen.
+        type: boolean
+      schema_version: 1
+  max_rows:
+    type: string
+    default_value: '50'
+    title: Max Rows
+    optional: true
+    help_text:
+      properties:
+        advanced: true
+        help_text: Maximum number of rows to fetch from the dataset.
+        type: number
+      schema_version: 1
+  refresh_interval:
+    type: string
+    default_value: '15'
+    title: Refresh Interval (minutes)
+    optional: true
+    help_text:
+      properties:
+        advanced: true
+        help_text: How often to refresh the dataset data (in minutes). Default is 15 minutes. Minimum is 5 minutes.
+        type: number
+      schema_version: 1

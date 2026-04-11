@@ -1,0 +1,68 @@
+@import '@screenly/edge-apps/styles';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  color: white;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: url('/static/images/bg.webp') no-repeat center center;
+  background-size: cover;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-index-backdrop);
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(7px);
+}
+
+auto-scaler {
+  position: relative;
+  z-index: var(--z-index-content);
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 5rem);
+}
+
+#message {
+  font-size: 4rem;
+  font-weight: 300;
+  text-align: center;
+  text-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.25);
+  margin: 0;
+  padding: 0 4rem;
+}
+
+@media (orientation: portrait) {
+  #app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .content {
+    flex: 1;
+    height: auto;
+  }
+
+  #message {
+    font-size: 3rem;
+  }
+}
