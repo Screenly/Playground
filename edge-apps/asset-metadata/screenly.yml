@@ -8,6 +8,17 @@ categories:
   - Utilities
 ready_signal: true
 settings:
+  display_errors:
+    type: string
+    default_value: 'false'
+    title: Display Errors
+    optional: true
+    help_text:
+      properties:
+        advanced: true
+        help_text: For debugging purposes to display errors on the screen.
+        type: boolean
+      schema_version: 1
   enable_analytics:
     type: string
     default_value: 'true'
@@ -31,10 +42,3 @@ settings:
     help_text: |
       Enter your Google Tag Manager container ID to enable tracking and analytics.
     is_global: true
-  theme:
-    type: string
-    default_value: light
-    title: Theme
-    optional: false
-    help_text: |
-      Select the visual theme for the app ('light' or 'dark').
