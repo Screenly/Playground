@@ -1,82 +1,45 @@
 <!doctype html>
-<html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RSS Reader - Screenly Edge App</title>
+    <script src="screenly.js?version=1"></script>
+  </head>
+  <body>
+    <auto-scaler
+      reference-width="1920"
+      reference-height="1080"
+      orientation="auto"
+    >
+      <div id="app">
+        <app-header class="header" show-date></app-header>
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="static/css/common.css" rel="stylesheet">
-	<link href="static/css/style.css" rel="stylesheet">
-	<title>RSS Feed</title>
+        <main id="feed-grid" class="feed-grid" hidden>
+          <template id="feed-card-template">
+            <article class="feed-card">
+              <header class="feed-card-header">
+                <div class="feed-card-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19.01 7.38 20 6.18 20C4.98 20 4 19.01 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/>
+                  </svg>
+                </div>
+                <span class="feed-card-source"></span>
+              </header>
+              <div class="feed-card-body">
+                <h2 class="feed-card-title"></h2>
+                <time class="feed-card-date"></time>
+                <p class="feed-card-excerpt"></p>
+              </div>
+            </article>
+          </template>
+        </main>
 
-</head>
-
-<body x-data="rss">
-
-	<div class="main-container">
-		 <div class="primary-container">
-			<div class="primary-card">
-				<span class="content-heading" x-text="entries[0]?.title || 'Loading...'">Loading...</span>
-				<span class="rss-title">RSS Feed</span>
-				<span class="content-p" x-text="entries[0]?.content || 'Loading...'">Loading...</span>
-				<span class="content-timestamp content-timestamp-0">Loading...</span>
-			</div>
-			<div class="primary-card">
-				<span class="content-heading" x-text="entries[1]?.title || 'Loading...'">Loading...</span>
-				<span class="rss-title">RSS Feed</span>
-				<span class="content-p" x-text="entries[1]?.content || 'Loading...'">Loading...</span>
-				<span class="content-timestamp content-timestamp-1">Loading...</span>
-			</div>
-		</div>
-
-		<div class="primary-container">
-			<div class="primary-card">
-				<span class="content-heading" x-text="entries[2]?.title || 'Loading...'">Loading...</span>
-				<span class="rss-title">RSS Feed</span>
-				<span class="content-p" x-text="entries[2]?.content || 'Loading...'">Loading...</span>
-				<span class="content-timestamp content-timestamp-2">Loading...</span>
-			</div>
-			<div class="primary-card">
-				<span class="content-heading" x-text="entries[3]?.title || 'Loading...'">Loading...</span>
-				<span class="rss-title">RSS Feed</span>
-				<span class="content-p" x-text="entries[3]?.content || 'Loading...'">Loading...</span>
-				<span class="content-timestamp content-timestamp-3">Loading...</span>
-			</div>
-		</div>
-
-
-		<div class="secondary-container">
-			<div class="row-container">
-				<div class="secondary-card">
-					<div class="secondary-card-number-container">
-						<div class="secondary-card info-card">
-							<img id="brand-logo" src="static/img/Screenly.svg" class="brand-logo" alt="Brand Logo" />
-							<span class="info-text">Powered by Screenly</span>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row-container">
-				<div class="secondary-card">
-					<div class="secondary-card date-card">
-						<span class="date-text"></span>
-						<span class="date-number"></span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<script src="screenly.js?version=1"></script>
-	<script src="static/js/alpinejs-3.13.0.min.js" defer></script>
-	<script src="static/js/rss-parser-3.13.0.min.js"></script>
-	<script src="static/js/moment-with-locales.min.js"></script>
-	<script src="static/js/country-locale-map.1.18.5.min.js"></script>
-	<script src="static/js/moment-timezone-with-data.min.js"></script>
-	<script src="static/js/offline-geocode-city-1.0.2.min.js"></script>
-	<script src="static/js/tz.min.js"></script>
-  <script src="https://browser.sentry-cdn.com/8.30.0/bundle.tracing.min.js"
-  integrity="sha384-whi3vRW+DIBqY2lQQ6oghGXbbA0sL5NJxUL6CMC+LRJ0b4A64Qn7/6YhpeR0+3Nq"
-  crossorigin="anonymous"></script>
-	<script src="static/js/main.js"></script>
-</body>
+        <div id="feed-error" class="feed-error" hidden>
+          <p>Unable to load RSS feed. Retrying&hellip;</p>
+        </div>
+      </div>
+    </auto-scaler>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>
