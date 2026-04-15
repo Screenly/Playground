@@ -102,7 +102,8 @@ function renderCards(entries: RssEntry[], rssTitle: string) {
 
   for (const entry of entries) {
     const clone = template.content.cloneNode(true) as DocumentFragment
-    clone.querySelector<HTMLElement>('.feed-card-source')!.textContent = rssTitle
+    clone.querySelector<HTMLElement>('.feed-card-source')!.textContent =
+      rssTitle
     clone.querySelector<HTMLElement>('.feed-card-title')!.textContent =
       entry.title
     clone.querySelector<HTMLElement>('.feed-card-date')!.textContent =
