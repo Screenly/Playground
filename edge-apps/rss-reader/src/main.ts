@@ -14,7 +14,11 @@ import { loadCache, saveCache, stripHtml, type RssEntry } from './utils'
 
 const MAX_ENTRIES = 6
 
-async function fetchFeed(rssUrl: string): Promise<RssEntry[]> {
+async function fetchFeed(
+  rssUrl: string,
+  locale: string,
+  timezone: string,
+): Promise<RssEntry[]> {
   const bypassCors =
     getSettingWithDefault<string>('bypass_cors', 'true') === 'true'
   const url = bypassCors ? `${getCorsProxyUrl()}/${rssUrl}` : rssUrl
@@ -25,9 +29,6 @@ async function fetchFeed(rssUrl: string): Promise<RssEntry[]> {
   }
   const xml = await response.text()
   const feed = parseFeed(xml)
-
-  const locale = await getLocale()
-  const timezone = await getTimeZone()
 
   return feed.items.slice(0, MAX_ENTRIES).map((item) => {
     const rawContent = item.content ?? item.description ?? ''
@@ -91,19 +92,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const loadAndRender = async () => {
     try {
-      const entries = await fetchFeed(rssUrl)
-      renderCards(entries)
+      const entries = await fetchFeed(rssUrl, locale, timezone)
       saveCache(entries)
+      renderCards(entries)
       showGrid()
     } catch (err) {
       console.error('RSS fetch failed:', err)
       const cached = loadCache()
-      if (cached.length > 0) {
-        renderCards(cached)
-        showGrid()
-      } else {
+      if (cached.length === 0) {
         showError()
+        return
       }
+      renderCards(cached)
+      showGrid()
     }
   }
 
