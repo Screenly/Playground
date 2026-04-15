@@ -103,6 +103,12 @@ auto-scaler {
     inset 0 -0.75px 0 rgba(255, 255, 255, 0.05);
 }
 
+.feed-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
 .feed-card-title {
   margin: 0;
   font-size: 1.458rem;
@@ -116,11 +122,21 @@ auto-scaler {
 }
 
 .feed-card-date {
+  margin-top: 0.5rem;
   font-size: 1.042rem;
   font-weight: 400;
   line-height: 1.563rem;
   color: var(--text-muted);
   white-space: nowrap;
+}
+
+.feed-card-source {
+  font-size: 0.833rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .feed-card-excerpt {
@@ -186,8 +202,14 @@ auto-scaler {
   }
 
   .feed-card-date {
+    margin-top: 1rem;
     font-size: 2rem;
     line-height: 2.75rem;
+  }
+
+  .feed-card-source {
+    font-size: 1.5rem;
+    line-height: 2rem;
   }
 
   .feed-card-excerpt {

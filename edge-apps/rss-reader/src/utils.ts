@@ -4,6 +4,7 @@ export interface RssEntry {
   title: string
   content: string
   formattedDate: string
+  source: string
 }
 
 interface AppCache {

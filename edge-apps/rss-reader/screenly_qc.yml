@@ -62,7 +62,7 @@ settings:
     default_value: BBC News
     title: RSS Title
     optional: false
-    help_text: The title of the website where the feeds were derived, default is `BBC News`.
+    help_text: The source label displayed on each card, default is `BBC News`.
   rss_url:
     type: string
     default_value: http://feeds.bbci.co.uk/news/rss.xml

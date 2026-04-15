@@ -18,6 +18,7 @@ async function fetchFeed(
   rssUrl: string,
   locale: string,
   timezone: string,
+  source: string,
 ): Promise<RssEntry[]> {
   const bypassCors =
     getSettingWithDefault<string>('bypass_cors', 'true') === 'true'
@@ -34,6 +35,7 @@ async function fetchFeed(
     const rawContent = item.content ?? item.description ?? ''
     return {
       title: item.title ?? '',
+      source,
       content: rawContent.includes('<') ? stripHtml(rawContent) : rawContent,
       formattedDate: item.published
         ? formatLocalizedDate(item.published, locale, {
@@ -64,6 +66,8 @@ function renderCards(entries: RssEntry[]) {
       entry.title
     clone.querySelector<HTMLElement>('.feed-card-date')!.textContent =
       entry.formattedDate
+    clone.querySelector<HTMLElement>('.feed-card-source')!.textContent =
+      entry.source
     clone.querySelector<HTMLElement>('.feed-card-excerpt')!.textContent =
       entry.content
     grid.appendChild(clone)
@@ -87,12 +91,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     'rss_url',
     'http://feeds.bbci.co.uk/news/rss.xml',
   )
+  const rssTitle = getSettingWithDefault<string>('rss_title', 'RSS Feed')
   const cacheInterval =
     parseInt(getSettingWithDefault<string>('cache_interval', '1800')) * 1000
 
   const loadAndRender = async () => {
     try {
-      const entries = await fetchFeed(rssUrl, locale, timezone)
+      const entries = await fetchFeed(rssUrl, locale, timezone, rssTitle)
       saveCache(entries)
       renderCards(entries)
       showGrid()

@@ -18,8 +18,18 @@ const localStorageMock = (() => {
 global.localStorage = localStorageMock as unknown as Storage
 
 const ENTRIES: RssEntry[] = [
-  { title: 'Title 1', content: 'Content 1', formattedDate: 'Mon, Dec 8, 2025' },
-  { title: 'Title 2', content: 'Content 2', formattedDate: 'Mon, Dec 8, 2025' },
+  {
+    title: 'Title 1',
+    source: 'BBC News',
+    content: 'Content 1',
+    formattedDate: 'Mon, Dec 8, 2025',
+  },
+  {
+    title: 'Title 2',
+    source: 'BBC News',
+    content: 'Content 2',
+    formattedDate: 'Mon, Dec 8, 2025',
+  },
 ]
 
 describe('stripHtml', () => {
