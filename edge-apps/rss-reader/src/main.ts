@@ -2,6 +2,7 @@ import './css/style.css'
 import '@screenly/edge-apps/components'
 import { parseFeed } from '@rowanmanning/feed-parser'
 import {
+  formatLocalizedDate,
   getCorsProxyUrl,
   getLocale,
   getSettingWithDefault,
@@ -92,7 +93,7 @@ async function fetchFeed(rssUrl: string): Promise<RssEntry[]> {
   })
 }
 
-function renderCards(entries: RssEntry[], rssTitle: string) {
+function renderCards(entries: RssEntry[]) {
   const grid = document.getElementById('feed-grid')!
   const template = document.getElementById(
     'feed-card-template',
@@ -102,8 +103,6 @@ function renderCards(entries: RssEntry[], rssTitle: string) {
 
   for (const entry of entries) {
     const clone = template.content.cloneNode(true) as DocumentFragment
-    clone.querySelector<HTMLElement>('.feed-card-source')!.textContent =
-      rssTitle
     clone.querySelector<HTMLElement>('.feed-card-title')!.textContent =
       entry.title
     clone.querySelector<HTMLElement>('.feed-card-date')!.textContent =
@@ -132,27 +131,42 @@ document.addEventListener('DOMContentLoaded', async () => {
     'rss_url',
     'http://feeds.bbci.co.uk/news/rss.xml',
   )
-  const rssTitle = getSettingWithDefault<string>('rss_title', 'RSS Feed')
   const cacheInterval =
     parseInt(getSettingWithDefault<string>('cache_interval', '1800')) * 1000
 
   const loadAndRender = async () => {
     try {
       const entries = await fetchFeed(rssUrl)
-      renderCards(entries, rssTitle)
+      renderCards(entries)
       saveCache(entries)
       showGrid()
     } catch (err) {
       console.error('RSS fetch failed:', err)
       const cached = loadCache()
       if (cached.length > 0) {
-        renderCards(cached, rssTitle)
+        renderCards(cached)
         showGrid()
       } else {
         showError()
       }
     }
   }
+
+  const updateDate = () => {
+    const dateEl = document.getElementById('feed-date')!
+    dateEl.textContent = formatLocalizedDate(new Date(), locale, {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      timeZone: timezone,
+    })
+  }
+
+  const locale = await getLocale()
+  const timezone = await getTimeZone()
+
+  updateDate()
+  setInterval(updateDate, 60000)
 
   await loadAndRender()
   signalReady()
