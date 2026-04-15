@@ -14,7 +14,7 @@
   --card-gap: 1.25rem;
   --grid-gap: 1.25rem;
   --text-primary: #ffffff;
-  --text-muted: rgba(255, 255, 255, 0.5);
+  --text-muted: rgba(255, 255, 255, 0.8);
 }
 
 * {
@@ -140,8 +140,11 @@ auto-scaler {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-bottom: 10%;
   font-size: 1.5rem;
+  line-height: 3rem;
   color: var(--text-muted);
+  text-align: center;
 }
 
 @media (orientation: portrait) {
