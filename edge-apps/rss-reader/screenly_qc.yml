@@ -23,6 +23,17 @@ settings:
     optional: false
     help_text: |
       Specify the interval (in seconds) used to periodically cache feeds.
+  display_errors:
+    type: string
+    default_value: 'false'
+    title: Display Errors
+    optional: true
+    help_text:
+      schema_version: 1
+      properties:
+        advanced: true
+        help_text: For debugging purposes to display errors on the screen.
+        type: boolean
   enable_analytics:
     type: string
     default_value: 'true'
@@ -66,14 +77,6 @@ settings:
     optional: true
     help_text: Specify a Google Tag Manager ID
     is_global: true
-  theme:
-    type: string
-    default_value: light
-    title: Theme
-    optional: false
-    help_text: |-
-      Determines the visual theme for the application.
-      Options are 'light' or 'dark'.
   sentry_dsn:
     type: secret
     title: Sentry Client Key

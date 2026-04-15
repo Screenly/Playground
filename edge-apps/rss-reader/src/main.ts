@@ -8,7 +8,6 @@ import {
   getSettingWithDefault,
   getTimeZone,
   setupErrorHandling,
-  setupTheme,
   signalReady,
 } from '@screenly/edge-apps'
 
@@ -125,7 +124,6 @@ function showError() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   setupErrorHandling()
-  setupTheme()
 
   const rssUrl = getSettingWithDefault<string>(
     'rss_url',

@@ -63,7 +63,6 @@ const { screenlyJsContent } = createMockScreenlyForScreenshots(
     override_timezone: 'Europe/London',
     rss_title: 'BBC News',
     rss_url: RSS_URL,
-    theme: 'dark',
   },
 )
 
