@@ -10,60 +10,9 @@ import {
   setupErrorHandling,
   signalReady,
 } from '@screenly/edge-apps'
+import { loadCache, saveCache, stripHtml, type RssEntry } from './utils'
 
 const MAX_ENTRIES = 6
-
-interface RssEntry {
-  title: string
-  content: string
-  formattedDate: string
-}
-
-interface AppCache {
-  entries: RssEntry[]
-  timestamp: number
-}
-
-const CACHE_KEY = 'rssStore'
-
-function loadCache(): RssEntry[] {
-  try {
-    const raw = localStorage.getItem(CACHE_KEY)
-    if (!raw) return []
-    const parsed: AppCache = JSON.parse(raw)
-    return parsed.entries ?? []
-  } catch {
-    return []
-  }
-}
-
-function saveCache(entries: RssEntry[]) {
-  const data: AppCache = { entries, timestamp: Date.now() }
-  localStorage.setItem(CACHE_KEY, JSON.stringify(data))
-}
-
-function stripHtml(html: string): string {
-  return html
-    .replace(/<[^>]*>/g, '')
-    .replace(/\s+/g, ' ')
-    .trim()
-}
-
-function formatDate(date: Date, locale: string, timezone: string): string {
-  try {
-    return new Intl.DateTimeFormat(locale, {
-      timeZone: timezone,
-      weekday: 'short',
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-    }).format(date)
-  } catch {
-    return date.toISOString()
-  }
-}
 
 async function fetchFeed(rssUrl: string): Promise<RssEntry[]> {
   const bypassCors =
@@ -86,7 +35,15 @@ async function fetchFeed(rssUrl: string): Promise<RssEntry[]> {
       title: item.title ?? '',
       content: rawContent.includes('<') ? stripHtml(rawContent) : rawContent,
       formattedDate: item.published
-        ? formatDate(item.published, locale, timezone)
+        ? formatLocalizedDate(item.published, locale, {
+            timeZone: timezone,
+            weekday: 'short',
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+          })
         : '',
     }
   })
