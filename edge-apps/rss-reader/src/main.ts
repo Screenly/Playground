@@ -22,7 +22,9 @@ async function fetchFeed(
 ): Promise<RssEntry[]> {
   const bypassCors =
     getSettingWithDefault<string>('bypass_cors', 'true') === 'true'
-  const url = bypassCors ? `${getCorsProxyUrl()}/${rssUrl}` : rssUrl
+  const isAbsolute = /^https?:/.test(rssUrl)
+  const url =
+    bypassCors && isAbsolute ? `${getCorsProxyUrl()}/${rssUrl}` : rssUrl
 
   const response = await fetch(url)
   if (!response.ok) {
@@ -93,7 +95,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   )
   const rssTitle = getSettingWithDefault<string>('rss_title', 'RSS Feed')
   const cacheInterval =
-    parseInt(getSettingWithDefault<string>('cache_interval', '1800')) * 1000
+    getSettingWithDefault<number>('cache_interval', 1800) * 1000
 
   const loadAndRender = async () => {
     try {

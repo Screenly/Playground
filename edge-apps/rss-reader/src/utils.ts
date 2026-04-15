@@ -24,6 +24,8 @@ export function loadCache(): RssEntry[] {
     const raw = localStorage.getItem(CACHE_KEY)
     if (!raw) return []
     const parsed: AppCache = JSON.parse(raw)
+    // parsed.entries is undefined if the stored value is a legacy plain array;
+    // falling back to [] causes a fresh fetch on first run after upgrade.
     return parsed.entries ?? []
   } catch {
     return []
@@ -31,6 +33,10 @@ export function loadCache(): RssEntry[] {
 }
 
 export function saveCache(entries: RssEntry[]) {
-  const data: AppCache = { entries, timestamp: Date.now() }
-  localStorage.setItem(CACHE_KEY, JSON.stringify(data))
+  try {
+    const data: AppCache = { entries, timestamp: Date.now() }
+    localStorage.setItem(CACHE_KEY, JSON.stringify(data))
+  } catch (err) {
+    console.warn('Failed to save cache:', err)
+  }
 }
