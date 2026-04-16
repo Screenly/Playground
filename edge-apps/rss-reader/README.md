@@ -46,6 +46,21 @@ screenly edge-app instance create
 | `rss_title`         | Source label displayed on each card                                  | required | `BBC News`                             |
 | `rss_url`           | URL of the RSS feed to display                                       | required | `http://feeds.bbci.co.uk/news/rss.xml` |
 
+## Example Feeds
+
+The following feeds have been tested and are known to work. Some sources require the CORS proxy, so set `bypass_cors` accordingly.
+
+| Source              | URL                                                         | `bypass_cors` |
+| ------------------- | ----------------------------------------------------------- | ------------- |
+| ABC News            | `https://abcnews.go.com/abcnews/topstories`                 | `true`        |
+| Al Jazeera          | `https://www.aljazeera.com/xml/rss/all.xml`                 | `true`        |
+| BBC News            | `http://feeds.bbci.co.uk/news/rss.xml`                      | `true`        |
+| CNN                 | `http://rss.cnn.com/rss/cnn_topstories.rss`                 | `true`        |
+| Fox News            | `https://moxie.foxnews.com/google-publisher/latest.xml`     | `true`        |
+| NPR News            | `https://feeds.npr.org/1004/rss.xml`                        | `true`        |
+| New York Times      | `https://rss.nytimes.com/services/xml/rss/nyt/World.xml`    | `false`       |
+| Wall Street Journal | `https://feeds.content.dowjones.io/public/rss/RSSWorldNews` | `true`        |
+
 ## Screenshots
 
 ```bash
