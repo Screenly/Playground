@@ -45,7 +45,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 1.5rem 0.5rem 1rem;
+  padding: 0.75rem 1.5rem;
   border-radius: var(--radius-topbar);
   border: 1px solid var(--color-topbar-border);
   background-image:
@@ -143,16 +143,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: var(--radius-icon);
-  background-color: var(--color-icon-bg);
   flex-shrink: 0;
 }
 
 .card-icon svg {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
 .card-title {
