@@ -43,7 +43,7 @@ body::before {
   z-index: var(--z-index-backdrop);
   pointer-events: none;
   background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(7px);
+  backdrop-filter: blur(3px);
 }
 
 auto-scaler {
@@ -96,7 +96,7 @@ auto-scaler {
   background: var(--card-bg);
   border: 0.75px solid var(--card-border);
   border-radius: var(--card-radius);
-  backdrop-filter: blur(32px);
+  backdrop-filter: blur(10px);
   overflow: hidden;
   box-shadow:
     inset 0 0.75px 0 rgba(255, 255, 255, 0.15),
@@ -140,6 +140,7 @@ auto-scaler {
 }
 
 .feed-card-excerpt {
+  flex: 1;
   margin: 0;
   font-size: 1.042rem;
   font-weight: 500;
@@ -171,7 +172,7 @@ auto-scaler {
   }
 
   .feed-date {
-    padding: 17.25rem 2.5rem 0;
+    padding: 10rem 2.5rem 0;
     font-size: 5.625rem;
     line-height: 7.375rem;
     white-space: normal;
@@ -181,7 +182,7 @@ auto-scaler {
     flex: unset;
     margin-top: auto;
     grid-template-columns: 1fr;
-    grid-template-rows: none;
+    grid-auto-rows: 1fr;
     align-content: start;
     padding: 3.75rem 2.5rem 7.5rem;
   }
@@ -191,30 +192,30 @@ auto-scaler {
     padding: 3.25rem;
   }
 
-  .feed-card:nth-child(n + 3) {
+  .feed-card:nth-child(n + 4) {
     display: none;
   }
 
   .feed-card-title {
-    font-size: 2.75rem;
-    line-height: 3.5rem;
-    -webkit-line-clamp: 3;
+    font-size: 2rem;
+    line-height: 2.625rem;
+    -webkit-line-clamp: 2;
   }
 
   .feed-card-date {
-    margin-top: 1rem;
-    font-size: 2rem;
-    line-height: 2.75rem;
-  }
-
-  .feed-card-source {
+    margin-top: 0.75rem;
     font-size: 1.5rem;
     line-height: 2rem;
   }
 
+  .feed-card-source {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+  }
+
   .feed-card-excerpt {
-    font-size: 2rem;
-    line-height: 2.75rem;
-    -webkit-line-clamp: 5;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    -webkit-line-clamp: 3;
   }
 }
