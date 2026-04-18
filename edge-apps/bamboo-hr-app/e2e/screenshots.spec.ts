@@ -20,7 +20,7 @@ const { screenlyJsContent } = createMockScreenlyForScreenshots(
 )
 
 // FIXED_SCREENSHOT_DATE = 2025-02-19T21:20:00Z = Feb 19, 2025 (UTC)
-// Dates chosen so employees appear in all three sections
+// Dates chosen so employees appear in all three sections at max capacity (5 each)
 const EMPLOYEES_RESPONSE = {
   data: [
     {
@@ -29,7 +29,7 @@ const EMPLOYEES_RESPONSE = {
       firstName: 'Jane',
       lastName: 'Smith',
       dateOfBirth: '1990-02-19',
-      hireDate: '2020-02-20',
+      hireDate: '2018-02-19',
       employeePhoto:
         'https://resources.bamboohr.com/images/photo_person_160x160.png',
     },
@@ -39,7 +39,7 @@ const EMPLOYEES_RESPONSE = {
       firstName: 'Alexander',
       lastName: 'Johnson',
       dateOfBirth: '1985-02-20',
-      hireDate: '2018-02-19',
+      hireDate: '2015-02-20',
       employeePhoto:
         'https://resources.bamboohr.com/images/photo_person_160x160.png',
     },
@@ -49,7 +49,27 @@ const EMPLOYEES_RESPONSE = {
       firstName: 'Mary',
       lastName: 'Williams',
       dateOfBirth: '1992-02-19',
-      hireDate: '2022-02-20',
+      hireDate: '2020-02-19',
+      employeePhoto:
+        'https://resources.bamboohr.com/images/photo_person_160x160.png',
+    },
+    {
+      id: 4,
+      eeid: 104,
+      firstName: 'Robert',
+      lastName: 'Brown',
+      dateOfBirth: '1988-02-20',
+      hireDate: '2019-02-20',
+      employeePhoto:
+        'https://resources.bamboohr.com/images/photo_person_160x160.png',
+    },
+    {
+      id: 5,
+      eeid: 105,
+      firstName: 'Emily',
+      lastName: 'Davis',
+      dateOfBirth: '1995-02-19',
+      hireDate: '2022-02-19',
       employeePhoto:
         'https://resources.bamboohr.com/images/photo_person_160x160.png',
     },
@@ -72,6 +92,30 @@ const WHOS_OUT_RESPONSE = [
     start: '2025-02-19',
     end: '2025-02-19',
     type: 'sick',
+  },
+  {
+    id: 3,
+    employeeId: 103,
+    name: 'Mary Williams',
+    start: '2025-02-19',
+    end: '2025-02-20',
+    type: 'vacation',
+  },
+  {
+    id: 4,
+    employeeId: 104,
+    name: 'Robert Brown',
+    start: '2025-02-17',
+    end: '2025-02-22',
+    type: 'sick',
+  },
+  {
+    id: 5,
+    employeeId: 105,
+    name: 'Emily Davis',
+    start: '2025-02-19',
+    end: '2025-02-19',
+    type: 'vacation',
   },
 ]
 
