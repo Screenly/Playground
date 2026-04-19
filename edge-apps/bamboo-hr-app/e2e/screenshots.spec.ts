@@ -8,6 +8,7 @@ import {
   setupScreenlyJsMock,
 } from '@screenly/edge-apps/test/screenshots'
 import path from 'path'
+import { PHOTO_1, PHOTO_2, PHOTO_3, PHOTO_4, PHOTO_5 } from './photos'
 
 const { screenlyJsContent } = createMockScreenlyForScreenshots(
   { coordinates: [37.3861, -122.0839], location: 'Silicon Valley, USA' },
@@ -30,8 +31,7 @@ const EMPLOYEES_RESPONSE = {
       lastName: 'Smith',
       dateOfBirth: '1990-02-19',
       hireDate: '2018-02-19',
-      employeePhoto:
-        'https://resources.bamboohr.com/images/photo_person_160x160.png',
+      employeePhoto: PHOTO_1,
     },
     {
       id: 2,
@@ -40,8 +40,7 @@ const EMPLOYEES_RESPONSE = {
       lastName: 'Johnson',
       dateOfBirth: '1985-02-20',
       hireDate: '2015-02-20',
-      employeePhoto:
-        'https://resources.bamboohr.com/images/photo_person_160x160.png',
+      employeePhoto: PHOTO_2,
     },
     {
       id: 3,
@@ -50,8 +49,7 @@ const EMPLOYEES_RESPONSE = {
       lastName: 'Williams',
       dateOfBirth: '1992-02-19',
       hireDate: '2020-02-19',
-      employeePhoto:
-        'https://resources.bamboohr.com/images/photo_person_160x160.png',
+      employeePhoto: PHOTO_3,
     },
     {
       id: 4,
@@ -60,8 +58,7 @@ const EMPLOYEES_RESPONSE = {
       lastName: 'Brown',
       dateOfBirth: '1988-02-20',
       hireDate: '2019-02-20',
-      employeePhoto:
-        'https://resources.bamboohr.com/images/photo_person_160x160.png',
+      employeePhoto: PHOTO_4,
     },
     {
       id: 5,
@@ -70,8 +67,7 @@ const EMPLOYEES_RESPONSE = {
       lastName: 'Davis',
       dateOfBirth: '1995-02-19',
       hireDate: '2022-02-19',
-      employeePhoto:
-        'https://resources.bamboohr.com/images/photo_person_160x160.png',
+      employeePhoto: PHOTO_5,
     },
   ],
 }
