@@ -9,14 +9,11 @@
 :root {
   --color-bg: #171e24;
   --color-card-border: rgba(255, 255, 255, 0.06);
-  --color-card-inset-top: rgba(255, 255, 255, 0.1);
-  --color-card-inset-bottom: rgba(255, 255, 255, 0.03);
   --color-topbar-border: rgba(255, 255, 255, 0.1);
   --color-icon-bg: #ac1fff;
   --color-white: #ffffff;
   --color-text-shadow: rgba(0, 0, 0, 0.25);
   --radius-card: 1.05rem;
-  --radius-icon: 0.455rem;
   --radius-topbar: 1.25rem;
   --radius-avatar: 50%;
 }
@@ -25,9 +22,26 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  background: url('/static/images/bg.webp') no-repeat center center;
+  background-size: cover;
   background-color: var(--color-bg);
   color: var(--color-white);
   font-family: Inter, system-ui, sans-serif;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-index-backdrop);
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(7px);
+}
+
+auto-scaler {
+  position: relative;
+  z-index: var(--z-index-content);
 }
 
 #app {
@@ -116,19 +130,26 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  padding: 0.75rem 1rem;
+  padding: 1.25rem 1.5rem;
   height: 30rem;
   border-radius: var(--radius-card);
   border: 1.05px solid var(--color-card-border);
-  background-image: linear-gradient(
-    123.91deg,
-    rgba(255, 255, 255, 0.06) 0%,
-    rgba(255, 255, 255, 0.01) 100%
-  );
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(10, 10, 10, 0.45) 0%,
+      rgba(10, 10, 10, 0.45) 100%
+    ),
+    linear-gradient(
+      123.91deg,
+      rgba(255, 255, 255, 0.06) 0%,
+      rgba(255, 255, 255, 0.01) 100%
+    );
   box-shadow:
     0 0.84rem 2.52rem rgba(0, 0, 0, 0.15),
     inset 0 1.05px 0 rgba(255, 255, 255, 0.1),
     inset 0 -1.05px 0 rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(1rem);
   overflow: hidden;
 }
 
@@ -222,7 +243,6 @@ body {
 
 .avatar-group {
   display: flex;
-  flex-direction: row;
 }
 
 .avatar-group .avatar,
@@ -273,7 +293,7 @@ body {
 
   .card {
     height: auto;
-    padding: 1.5rem;
+    padding: 1.75rem 2rem;
     gap: 1.5rem;
   }
 
