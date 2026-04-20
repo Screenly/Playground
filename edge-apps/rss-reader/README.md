@@ -1,95 +1,70 @@
-# RSS Reader Edge App
+# RSS Reader
 
-![RSS Reader Edge App Preview](./static/img/rss-app-preview.png)
+Displays the latest entries from any RSS feed on your Screenly digital signage screens.
 
-This Edge App displays articles from an RSS feed.
-It uses [Alpine.js](https://alpinejs.dev/) for reactivity.
+![RSS Reader Preview](screenshots/3840x2160.webp)
 
-## Running the Edge App emulator
-
-Before running the development server, run the following commands.
-Doing so generates a file named `mock-data.yml`. Feel free to tweak the
-YAML file as you see fit.
+## Getting Started
 
 ```bash
-$ cd edge-apps/rss-reader
-$ screenly edge-app generate-mock-data
-# A file named `mock-data.yml` will be created if it doesn't exist yet.
+bun install
 ```
 
-Start the emulator:
+## Development
 
 ```bash
-$ screenly edge-app run
-# You'll get the following console output:
-Edge app emulator is running at http://127.0.0.1:40069/edge/1/index.html
+bun run dev
 ```
 
-The port number (e.g., `40069`) changes everytime you run the command.
-Hit `Ctrl-C` to close the server.
-
-## Uploading
+## Testing
 
 ```bash
-$ screenly edge-app create \
-    --name=my-rss-reader-app \
-    --in-place
-$ screenly edge-app deploy
+bun test
 ```
 
-Install the app
+## Build
 
 ```bash
-$ screenly edge-app instance create
-Edge app instance successfully created.
+bun run build
 ```
 
-Configure the feed:
+## Deployment
 
 ```bash
-$ screenly edge-app setting set rss_title=BBC
-Edge app setting successfully set.
-
-$ screenly edge-app setting set rss_url=http://feeds.bbci.co.uk/news/rss.xml
-Edge app setting successfully set.
+screenly edge-app create --name rss-reader --in-place
+bun run deploy
+screenly edge-app instance create
 ```
 
-In some instances, you need to bypass the CORS policy in order to retrieve news. To do this, we can use the built-in [CORS bypass](https://developer.screenly.io/edge-apps/#cors) in Edge Apps by setting:
+## Configuration
+
+| Setting             | Description                                                          | Type     | Default                                |
+| ------------------- | -------------------------------------------------------------------- | -------- | -------------------------------------- |
+| `bypass_cors`       | Route the RSS feed URL through the CORS proxy                        | optional | `true`                                 |
+| `cache_interval`    | How often (in seconds) to refresh the feed                           | required | `1800`                                 |
+| `display_errors`    | Show errors on screen for debugging purposes                         | optional | `false`                                |
+| `override_locale`   | Override the locale used for date formatting (e.g. `en`, `fr`, `de`) | optional | `en`                                   |
+| `override_timezone` | Override the timezone for date display (e.g. `Europe/London`)        | optional | system timezone                        |
+| `rss_title`         | Source label displayed on each card                                  | required | `BBC News`                             |
+| `rss_url`           | URL of the RSS feed to display                                       | required | `http://feeds.bbci.co.uk/news/rss.xml` |
+
+## Example Feeds
+
+The following feeds have been tested and are known to work. Some sources require the CORS proxy, so set `bypass_cors` accordingly.
+
+| Source              | URL                                                         | `bypass_cors` |
+| ------------------- | ----------------------------------------------------------- | ------------- |
+| ABC News            | `https://abcnews.go.com/abcnews/topstories`                 | `true`        |
+| Al Jazeera          | `https://www.aljazeera.com/xml/rss/all.xml`                 | `true`        |
+| BBC News            | `http://feeds.bbci.co.uk/news/rss.xml`                      | `true`        |
+| CNN                 | `http://rss.cnn.com/rss/cnn_topstories.rss`                 | `true`        |
+| Fox News            | `https://moxie.foxnews.com/google-publisher/latest.xml`     | `true`        |
+| NPR News            | `https://feeds.npr.org/1004/rss.xml`                        | `true`        |
+| New York Times      | `https://rss.nytimes.com/services/xml/rss/nyt/World.xml`    | `false`       |
+| Wall Street Journal | `https://feeds.content.dowjones.io/public/rss/RSSWorldNews` | `true`        |
+
+## Screenshots
 
 ```bash
-$ screenly edge-app setting set bypass_cors=true
-Edge app setting successfully set.
+bun run screenshots
 ```
-
-Here's a table that contains a list of some RSS feed URLs, and whether the CORS proxy should be bypassed or not.
-
-| URL                                                   | Requires CORS | bypass_cors |
-| ----------------------------------------------------- | ------------- | ----------- |
-| `http://feeds.bbci.co.uk/news/rss.xml`                | Yes           | true        |
-| `https://lifehacker.com/rss`                          | Yes           | true        |
-| `https://www.reddit.com/.rss`                         | Yes           | true        |
-| `https://rss.nytimes.com/services/xml/rss/nyt/US.xml` | No            | false       |
-| `http://rss.sciam.com/sciam/60secsciencepodcast`      | Yes           | true        |
-
-## Tweaking the time and locale settings
-
-### `override_timezone`
-
-For instance, if you want to set the RSS feed update date and time as per the current date and time in London,
-
-run the following command after setting the timer:
-
-```bash
-$ screenly edge-app setting set override_timezone='Europe/London'
-# A relatively long console output...
-Edge app setting successfully set.
-
-$ screenly edge-app setting set override_locale='en-gb'
-# A relatively long console output...
-Edge app setting successfully set.
-```
-
-See [this page](https://momentjs.com/) for the list of all possible values for the time zone.
-Alternatively, you can call `moment.locales()`, which returns all the supported locale values.
-
-Setting invalid values for the timezone won't crash the app itself, it'll just fall back to the default time.

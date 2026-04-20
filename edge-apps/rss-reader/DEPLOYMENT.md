@@ -13,7 +13,7 @@ Creates a new RSS reader app.
 - Environment (stage/production)
 - App Name (instance title)
 - App Description (manifest description)
-- RSS Title (displayed in app UI)
+- RSS Title (source label displayed on each card)
 - Icon URL
 - RSS Feed URL
 
