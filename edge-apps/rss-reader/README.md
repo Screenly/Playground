@@ -2,6 +2,8 @@
 
 Displays the latest entries from any RSS feed on your Screenly digital signage screens.
 
+![RSS Reader Preview](screenshots/3840x2160.webp)
+
 ## Getting Started
 
 ```bash
