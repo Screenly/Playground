@@ -16,7 +16,7 @@ import type { Employee, Leave } from './types'
 
 function makeEmployee(overrides: Partial<Employee> = {}): Employee {
   return {
-    eeid: 1,
+    eeid: '1',
     firstName: 'Jane',
     lastName: 'Smith',
     dateOfBirth: '',
@@ -80,7 +80,6 @@ describe('renderEmployeeDateList', () => {
     const today = dayjs().startOf('day')
     const employees = [
       makeEmployee({
-        eeid: 1,
         firstName: 'Jane',
         lastName: 'Smith',
         dateOfBirth: `1990-${today.format('MM-DD')}`,
@@ -104,7 +103,7 @@ describe('renderEmployeeDateList', () => {
     const date = `1990-${today.format('MM-DD')}`
     const employees = Array.from({ length: MAX_ITEMS + 2 }, (_, i) =>
       makeEmployee({
-        eeid: i,
+        eeid: String(i),
         firstName: `A${i}`,
         lastName: 'B',
         dateOfBirth: date,
@@ -127,19 +126,19 @@ describe('renderEmployeeDateList', () => {
     const tomorrow = today.add(1, 'day')
     const employees = [
       makeEmployee({
-        eeid: 1,
+        eeid: '1',
         firstName: 'Zara',
         lastName: 'Adams',
         dateOfBirth: `1990-${today.format('MM-DD')}`,
       }),
       makeEmployee({
-        eeid: 2,
+        eeid: '2',
         firstName: 'Anna',
         lastName: 'Zeno',
         dateOfBirth: `1990-${tomorrow.format('MM-DD')}`,
       }),
       makeEmployee({
-        eeid: 3,
+        eeid: '3',
         firstName: 'Anna',
         lastName: 'Adams',
         dateOfBirth: `1990-${today.format('MM-DD')}`,
@@ -163,7 +162,6 @@ describe('renderEmployeeDateList', () => {
     const today = dayjs().startOf('day')
     const employees = [
       makeEmployee({
-        eeid: 1,
         firstName: 'Jane',
         lastName: 'Smith',
         dateOfBirth: `1990-${today.format('MM-DD')}`,
@@ -246,7 +244,7 @@ describe('renderEmployeeDateList', () => {
 
 describe('renderOnLeave', () => {
   it('renders empty state when no leaves', () => {
-    renderOnLeave([])
+    renderOnLeave([], [])
     const list = document.getElementById('on-leave-list')!
     expect(list.querySelector('.empty-state')?.textContent).toBe(
       'No one on leave today.',
@@ -258,7 +256,7 @@ describe('renderOnLeave', () => {
       makeLeave({ name: 'Jane Smith' }),
       makeLeave({ id: 2, name: 'Bob Jones' }),
     ]
-    renderOnLeave(leaves)
+    renderOnLeave(leaves, [])
     const list = document.getElementById('on-leave-list')!
     expect(list.querySelectorAll('.employee-row').length).toBe(2)
   })
@@ -267,19 +265,33 @@ describe('renderOnLeave', () => {
     const leaves = Array.from({ length: MAX_ITEMS + 2 }, (_, i) =>
       makeLeave({ id: i, name: `Person ${i}` }),
     )
-    renderOnLeave(leaves)
+    renderOnLeave(leaves, [])
     const list = document.getElementById('on-leave-list')!
     expect(list.querySelectorAll('.employee-row').length).toBe(MAX_ITEMS)
   })
 
-  it('parses initials from full name', () => {
-    renderOnLeave([makeLeave({ name: 'Jane Smith' })])
+  it('parses initials from full name when no employee match', () => {
+    renderOnLeave([makeLeave({ name: 'Jane Smith' })], [])
     const list = document.getElementById('on-leave-list')!
     expect(list.querySelector('.avatar-initials')?.textContent).toBe('JS')
   })
 
+  it('uses employee photo when employeeId matches', () => {
+    const employees = [
+      makeEmployee({
+        eeid: '1',
+        firstName: 'Jane',
+        lastName: 'Smith',
+        employeePhoto: 'https://example.com/photo.jpg',
+      }),
+    ]
+    renderOnLeave([makeLeave({ employeeId: 1, name: 'Jane Smith' })], employees)
+    const list = document.getElementById('on-leave-list')!
+    expect(list.querySelector('img.avatar')).not.toBeNull()
+  })
+
   it('renders singular summary label for one employee', () => {
-    renderOnLeave([makeLeave({ name: 'Jane Smith' })])
+    renderOnLeave([makeLeave({ name: 'Jane Smith' })], [])
     const summary = document.getElementById('on-leave-summary')!
     expect(summary.querySelector('.summary-count')?.textContent).toBe(
       '1 employee is away today',
@@ -287,10 +299,13 @@ describe('renderOnLeave', () => {
   })
 
   it('renders plural summary label for multiple employees', () => {
-    renderOnLeave([
-      makeLeave({ name: 'Jane Smith' }),
-      makeLeave({ id: 2, name: 'Bob Jones' }),
-    ])
+    renderOnLeave(
+      [
+        makeLeave({ name: 'Jane Smith' }),
+        makeLeave({ id: 2, name: 'Bob Jones' }),
+      ],
+      [],
+    )
     const summary = document.getElementById('on-leave-summary')!
     expect(summary.querySelector('.summary-count')?.textContent).toBe(
       '2 employees are away today',

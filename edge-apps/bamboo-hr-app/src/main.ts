@@ -145,7 +145,7 @@ async function refreshData(apiKey: string, subdomain: string): Promise<void> {
   ])
   renderBirthdays(employees)
   renderAnniversaries(employees)
-  renderOnLeave(leaves)
+  renderOnLeave(leaves, employees)
 }
 
 document.addEventListener('DOMContentLoaded', async () => {

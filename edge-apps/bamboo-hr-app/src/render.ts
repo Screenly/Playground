@@ -140,13 +140,17 @@ export function renderEmployeeDateList(
   )
 }
 
-export function renderOnLeave(leaves: Leave[]): void {
+export function renderOnLeave(leaves: Leave[], employees: Employee[]): void {
+  const employeeMap = new Map(employees.map((e) => [Number(e.eeid), e]))
+
   const items = leaves.slice(0, MAX_ITEMS).map((leave) => {
+    const employee = employeeMap.get(leave.employeeId)
     const parts = leave.name.trim().split(/\s+/)
     return {
       name: leave.name,
       firstName: parts[0] ?? '',
       lastName: parts[parts.length - 1] ?? '',
+      photoUrl: employee?.employeePhoto ?? null,
     }
   })
 
@@ -156,9 +160,9 @@ export function renderOnLeave(leaves: Leave[]): void {
   if (items.length === 0) {
     renderEmptyState(list, 'No one on leave today.')
   } else {
-    for (const { name, firstName, lastName } of items) {
+    for (const { name, firstName, lastName, photoUrl } of items) {
       list.appendChild(
-        buildEmployeeRow(buildInitialsEl(firstName, lastName), name),
+        buildEmployeeRow(buildAvatarEl(photoUrl, firstName, lastName), name),
       )
     }
   }
@@ -168,8 +172,8 @@ export function renderOnLeave(leaves: Leave[]): void {
     items.length,
     items.length === 1 ? 'employee is away today' : 'employees are away today',
     'No one on leave today.',
-    items.map(({ firstName, lastName }) => ({
-      photoUrl: null,
+    items.map(({ firstName, lastName, photoUrl }) => ({
+      photoUrl,
       firstName,
       lastName,
     })),

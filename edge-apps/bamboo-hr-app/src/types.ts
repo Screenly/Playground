@@ -1,5 +1,5 @@
 export interface Employee {
-  eeid: number
+  eeid: string
   firstName: string
   lastName: string
   dateOfBirth: string

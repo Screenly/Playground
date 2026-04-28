@@ -25,8 +25,7 @@ const { screenlyJsContent } = createMockScreenlyForScreenshots(
 const EMPLOYEES_RESPONSE = {
   data: [
     {
-      id: 1,
-      eeid: 101,
+      eeid: '101',
       firstName: 'Jane',
       lastName: 'Smith',
       dateOfBirth: '1990-02-19',
@@ -34,8 +33,7 @@ const EMPLOYEES_RESPONSE = {
       employeePhoto: PHOTO_1,
     },
     {
-      id: 2,
-      eeid: 102,
+      eeid: '102',
       firstName: 'Alexander',
       lastName: 'Johnson',
       dateOfBirth: '1985-02-20',
@@ -43,8 +41,7 @@ const EMPLOYEES_RESPONSE = {
       employeePhoto: PHOTO_2,
     },
     {
-      id: 3,
-      eeid: 103,
+      eeid: '103',
       firstName: 'Mary',
       lastName: 'Williams',
       dateOfBirth: '1992-02-19',
@@ -52,8 +49,7 @@ const EMPLOYEES_RESPONSE = {
       employeePhoto: PHOTO_3,
     },
     {
-      id: 4,
-      eeid: 104,
+      eeid: '104',
       firstName: 'Robert',
       lastName: 'Brown',
       dateOfBirth: '1988-02-20',
@@ -61,8 +57,7 @@ const EMPLOYEES_RESPONSE = {
       employeePhoto: PHOTO_4,
     },
     {
-      id: 5,
-      eeid: 105,
+      eeid: '105',
       firstName: 'Emily',
       lastName: 'Davis',
       dateOfBirth: '1995-02-19',
