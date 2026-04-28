@@ -2,6 +2,8 @@
 
 Displays employee birthdays, work anniversaries, and who's on leave today, sourced from BambooHR.
 
+![BambooHR App Preview](screenshots/3840x2160.webp)
+
 ## Prerequisites
 
 - [Bun](https://bun.sh/) 1.2.2+
