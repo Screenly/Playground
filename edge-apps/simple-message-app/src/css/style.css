@@ -68,6 +68,7 @@ app-header {
   line-height: normal;
   color: white;
   white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 #date-badge {
@@ -122,6 +123,7 @@ app-header {
   line-height: 1.333;
   color: white;
   white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 @media (orientation: portrait) {
