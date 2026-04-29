@@ -103,8 +103,8 @@ auto-scaler {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 10rem;
-  padding-bottom: 2rem;
+  justify-content: center;
+  padding: 6rem 0 2rem;
 }
 
 #date-heading {
@@ -121,8 +121,8 @@ auto-scaler {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2.5rem;
-  width: calc(100% - 12rem);
-  max-width: 65.5rem;
+  width: calc(100% - 4rem);
+  max-width: 78rem;
 }
 
 .card {
@@ -130,8 +130,8 @@ auto-scaler {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  padding: 1.25rem 1.5rem;
-  height: 30rem;
+  padding: 1.75rem 2rem;
+  height: 34rem;
   border-radius: var(--radius-card);
   border: 1.05px solid var(--color-card-border);
   background-image:
@@ -273,7 +273,7 @@ auto-scaler {
   }
 
   #content {
-    padding-top: 20rem;
+    padding: 8rem 0 2rem;
   }
 
   #date-heading {
@@ -287,13 +287,14 @@ auto-scaler {
     grid-template-columns: 1fr;
     grid-auto-rows: 1fr;
     width: calc(100% - 3rem);
-    max-width: 40rem;
-    gap: 1.25rem;
+    max-width: 48rem;
+    gap: 1.75rem;
   }
 
   .card {
     height: auto;
-    padding: 1.75rem 2rem;
+    min-height: 16rem;
+    padding: 2rem 2.5rem;
     gap: 1.5rem;
   }
 
