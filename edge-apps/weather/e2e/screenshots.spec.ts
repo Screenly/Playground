@@ -20,6 +20,7 @@ const { screenlyJsContent } = createMockScreenlyForScreenshots(
     location: 'Mountain View, CA',
   },
   {
+    display_errors: 'false',
     override_timezone: 'America/Los_Angeles',
     override_locale: 'en',
     openweathermap_api_key: 'mock-api-key',
