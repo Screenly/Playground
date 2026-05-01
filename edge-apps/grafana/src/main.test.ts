@@ -83,31 +83,59 @@ describe('getRenderUrl', () => {
   })
 })
 
+// eslint-disable-next-line max-lines-per-function
 describe('fetchAndRenderDashboard', () => {
+  const RENDER_URL = 'https://example.com/render'
+  const TOKEN = 'token123'
+
   const imgElement = {
     setAttribute: mock(() => {}),
+    src: '',
   } as unknown as HTMLImageElement
 
-  beforeEach(() => {
-    ;(imgElement.setAttribute as ReturnType<typeof mock>).mockClear()
-  })
+  let originalFetch: typeof fetch
+  let originalCreateObjectURL: typeof URL.createObjectURL
+  let originalRevokeObjectURL: typeof URL.revokeObjectURL
 
-  test('should return success when fetch succeeds', async () => {
+  function mockSuccessfulFetch(objectUrl = 'blob:fake-url') {
     globalThis.fetch = mock(async () => ({
       ok: true,
       blob: async () => new Blob(['data'], { type: 'image/png' }),
     })) as unknown as typeof fetch
+    globalThis.URL.createObjectURL = mock(() => objectUrl)
+  }
 
-    globalThis.URL.createObjectURL = mock(() => 'blob:fake-url')
+  beforeEach(() => {
+    originalFetch = globalThis.fetch
+    originalCreateObjectURL = globalThis.URL.createObjectURL
+    originalRevokeObjectURL = globalThis.URL.revokeObjectURL
+    ;(imgElement.setAttribute as ReturnType<typeof mock>).mockClear()
+    ;(imgElement as { src: string }).src = ''
+  })
 
-    const result = await fetchAndRenderDashboard(
-      'https://example.com/render',
-      'token123',
-      imgElement,
-    )
+  afterEach(() => {
+    globalThis.fetch = originalFetch
+    globalThis.URL.createObjectURL = originalCreateObjectURL
+    globalThis.URL.revokeObjectURL = originalRevokeObjectURL
+  })
+
+  test('should return success when fetch succeeds', async () => {
+    mockSuccessfulFetch()
+
+    const result = await fetchAndRenderDashboard(RENDER_URL, TOKEN, imgElement)
 
     expect(result.success).toBe(true)
     expect(imgElement.setAttribute).toHaveBeenCalledWith('src', 'blob:fake-url')
+  })
+
+  test('should revoke the previous blob URL before setting a new one', async () => {
+    mockSuccessfulFetch('blob:new-url')
+    globalThis.URL.revokeObjectURL = mock(() => {})
+    ;(imgElement as { src: string }).src = 'blob:old-url'
+
+    await fetchAndRenderDashboard(RENDER_URL, TOKEN, imgElement)
+
+    expect(URL.revokeObjectURL).toHaveBeenCalledWith('blob:old-url')
   })
 
   test('should return failure with HTTP status when response is not ok', async () => {
@@ -118,7 +146,7 @@ describe('fetchAndRenderDashboard', () => {
     })) as unknown as typeof fetch
 
     const result = await fetchAndRenderDashboard(
-      'https://example.com/render',
+      RENDER_URL,
       'bad-token',
       imgElement,
     )
@@ -136,11 +164,7 @@ describe('fetchAndRenderDashboard', () => {
       Promise.reject(new Error('Network request failed')),
     ) as unknown as typeof fetch
 
-    const result = await fetchAndRenderDashboard(
-      'https://example.com/render',
-      'token123',
-      imgElement,
-    )
+    const result = await fetchAndRenderDashboard(RENDER_URL, TOKEN, imgElement)
 
     expect(result.success).toBe(false)
     if (!result.success) {

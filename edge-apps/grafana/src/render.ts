@@ -45,6 +45,10 @@ export async function fetchAndRenderDashboard(
     const blob = await response.blob()
     const objectUrl = URL.createObjectURL(blob)
 
+    if (imgElement.src.startsWith('blob:')) {
+      URL.revokeObjectURL(imgElement.src)
+    }
+
     imgElement.setAttribute('src', objectUrl)
     return { success: true }
   } catch (error) {
