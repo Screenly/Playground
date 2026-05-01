@@ -83,7 +83,6 @@ describe('getRenderUrl', () => {
   })
 })
 
-// eslint-disable-next-line max-lines-per-function
 describe('fetchAndRenderDashboard', () => {
   const RENDER_URL = 'https://example.com/render'
   const TOKEN = 'token123'
@@ -119,12 +118,20 @@ describe('fetchAndRenderDashboard', () => {
     globalThis.URL.revokeObjectURL = originalRevokeObjectURL
   })
 
-  test('should return success when fetch succeeds', async () => {
+  function mockFailedFetch(status: number, statusText: string, body = '') {
+    globalThis.fetch = mock(async () => ({
+      ok: false,
+      status,
+      statusText,
+      text: async () => body,
+    })) as unknown as typeof fetch
+  }
+
+  test('should render the image when fetch succeeds', async () => {
     mockSuccessfulFetch()
 
-    const result = await fetchAndRenderDashboard(RENDER_URL, TOKEN, imgElement)
+    await fetchAndRenderDashboard(RENDER_URL, TOKEN, imgElement)
 
-    expect(result.success).toBe(true)
     expect(imgElement.setAttribute).toHaveBeenCalledWith('src', 'blob:fake-url')
   })
 
@@ -138,39 +145,30 @@ describe('fetchAndRenderDashboard', () => {
     expect(URL.revokeObjectURL).toHaveBeenCalledWith('blob:old-url')
   })
 
-  test('should return failure with HTTP status when response is not ok', async () => {
-    globalThis.fetch = mock(async () => ({
-      ok: false,
-      status: 401,
-      statusText: 'Unauthorized',
-    })) as unknown as typeof fetch
+  test('should throw with HTTP status when response is not ok', async () => {
+    mockFailedFetch(401, 'Unauthorized')
 
-    const result = await fetchAndRenderDashboard(
-      RENDER_URL,
-      'bad-token',
-      imgElement,
-    )
-
-    expect(result.success).toBe(false)
-    if (!result.success) {
-      expect(result.status).toBe(401)
-      expect(result.statusText).toBe('Unauthorized')
-      expect(result.message).toContain('401')
-    }
+    expect(
+      fetchAndRenderDashboard(RENDER_URL, 'bad-token', imgElement),
+    ).rejects.toThrow('HTTP 401 Unauthorized')
   })
 
-  test('should return failure with error message on network error', async () => {
+  test('should include response body in the error when available', async () => {
+    mockFailedFetch(403, 'Forbidden', 'Access denied for this user')
+
+    expect(
+      fetchAndRenderDashboard(RENDER_URL, 'bad-token', imgElement),
+    ).rejects.toThrow('HTTP 403 Forbidden - Access denied for this user')
+  })
+
+  test('should throw on network error', async () => {
     globalThis.fetch = mock(() =>
       Promise.reject(new Error('Network request failed')),
     ) as unknown as typeof fetch
 
-    const result = await fetchAndRenderDashboard(RENDER_URL, TOKEN, imgElement)
-
-    expect(result.success).toBe(false)
-    if (!result.success) {
-      expect(result.message).toBe('Network request failed')
-      expect(result.status).toBeUndefined()
-    }
+    expect(
+      fetchAndRenderDashboard(RENDER_URL, TOKEN, imgElement),
+    ).rejects.toThrow('Network request failed')
   })
 })
 

@@ -110,8 +110,8 @@ for (const { width, height } of DISPLAY_ERRORS_RESOLUTIONS) {
       async (route) =>
         route.fulfill({
           status: 403,
-          contentType: 'application/json',
-          body: JSON.stringify({ message: 'Forbidden' }),
+          contentType: 'text/plain',
+          body: 'Access to this Grafana dashboard is forbidden.',
         }),
     )
   })
