@@ -38,14 +38,17 @@ window.onload = async function () {
   const imgElement = document.querySelector('#content img') as HTMLImageElement
 
   // Fetch dashboard immediately
-  const success = await fetchAndRenderDashboard(
+  const result = await fetchAndRenderDashboard(
     imageUrl,
     serviceAccessToken,
     imgElement,
   )
 
-  if (!success) {
-    throw new Error('Failed to load the Grafana dashboard image.')
+  if (!result.success) {
+    throw new Error(
+      `Failed to load the Grafana dashboard image (${result.message}). ` +
+        'This app requires the Grafana Image Renderer plugin and is not supported on Screenly Anywhere.',
+    )
   }
 
   // Set up interval to refresh the dashboard
