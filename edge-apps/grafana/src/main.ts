@@ -46,8 +46,7 @@ window.onload = async function () {
 
   if (!result.success) {
     throw new Error(
-      `Failed to load the Grafana dashboard image (${result.message}). ` +
-        'This app requires the Grafana Image Renderer plugin and is not supported on Screenly Anywhere.',
+      `Failed to load the Grafana dashboard image (${result.message}).`,
     )
   }
 
