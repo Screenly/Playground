@@ -69,6 +69,7 @@ screenly edge-app instance create
 | ------------------- | ------ | -------- | -------------------------------------------------------------------------- |
 | `api_key`           | secret | Yes      | BambooHR API key                                                           |
 | `subdomain`         | string | Yes      | BambooHR subdomain (e.g. `example` from `example.bamboohr.com`)            |
+| `display_errors`    | string | No       | Display errors on screen for debugging (`true`/`false`). Default: `false`. |
 | `override_locale`   | string | No       | Override locale (e.g. `en`, `fr`, `de`). Defaults to system locale.        |
 | `override_timezone` | string | No       | Override timezone (e.g. `Europe/London`). Defaults to GPS-based detection. |
 | `enable_analytics`  | string | No       | Enable analytics (`true`/`false`). Default: `true`.                        |
