@@ -6,7 +6,7 @@
       "name": "asset-metadata",
       "devDependencies": {
         "@playwright/test": "^1.58.0",
-        "@screenly/edge-apps": "^0.1.0",
+        "@screenly/edge-apps": "^1.0.0",
         "@types/bun": "^1.3.9",
         "@types/jsdom": "^27.0.0",
         "bun-types": "^1.3.9",
@@ -430,7 +430,7 @@
 
     "@rollup/rollup-win32-x64-msvc": ["@rollup/rollup-win32-x64-msvc@4.60.1", "", { "os": "win32", "cpu": "x64" }, "sha512-lWMnixq/QzxyhTV6NjQJ4SFo1J6PvOX8vUx5Wb4bBPsEb+8xZ89Bz6kOXpfXj9ak9AHTQVQzlgzBEc1SyM27xQ=="],
 
-    "@screenly/edge-apps": ["@screenly/edge-apps@0.1.0", "", { "dependencies": { "@eslint/js": "^10.0.1", "@photostructure/tz-lookup": "^11.5.0", "@tailwindcss/vite": "^4.2.1", "country-locale-map": "^1.9.12", "dayjs": "^1.11.19", "eslint": "^10.0.3", "jiti": "^2.6.1", "offline-geocode-city": "^1.0.2", "panic-overlay": "^1.0.51", "sharp": "^0.34.5", "tailwindcss": "^4.2.1", "typescript": "^5.9.3", "typescript-eslint": "^8.57.0", "vite": "^7.3.1", "yaml": "^2.8.2" }, "peerDependencies": { "@playwright/test": "^1.58.0" }, "optionalPeers": ["@playwright/test"], "bin": { "edge-apps-scripts": "bin/edge-apps-scripts.ts" } }, "sha512-JarR7bvOjVkgCtmIU/GNTUbBDdNYAS2BYlPHAoZPpb5AKs2zetcfj46bn7+e+cGuGiDOCEIjQVkhmro5yDNKYA=="],
+    "@screenly/edge-apps": ["@screenly/edge-apps@1.0.0", "", { "dependencies": { "@eslint/js": "^10.0.1", "@photostructure/tz-lookup": "^11.5.0", "@tailwindcss/vite": "^4.2.1", "country-locale-map": "^1.9.12", "dayjs": "^1.11.19", "eslint": "^10.0.3", "jiti": "^2.6.1", "offline-geocode-city": "^1.0.2", "panic-overlay": "^1.0.51", "sharp": "^0.34.5", "tailwindcss": "^4.2.1", "typescript": "^5.9.3", "typescript-eslint": "^8.57.0", "vite": "^7.3.1", "yaml": "^2.8.2" }, "peerDependencies": { "@playwright/test": "^1.58.0" }, "optionalPeers": ["@playwright/test"], "bin": { "edge-apps-scripts": "bin/edge-apps-scripts.js" } }, "sha512-BssCQgXvOFg3hUJKWnrYM6ydPCcYhGp0/et2LD+IFeGWvYsLHBAxGoc4Zl0xkugI4esrVTac+55usEj38lTeYw=="],
 
     "@swc/core": ["@swc/core@1.15.24", "", { "dependencies": { "@swc/counter": "^0.1.3", "@swc/types": "^0.1.26" }, "optionalDependencies": { "@swc/core-darwin-arm64": "1.15.24", "@swc/core-darwin-x64": "1.15.24", "@swc/core-linux-arm-gnueabihf": "1.15.24", "@swc/core-linux-arm64-gnu": "1.15.24", "@swc/core-linux-arm64-musl": "1.15.24", "@swc/core-linux-ppc64-gnu": "1.15.24", "@swc/core-linux-s390x-gnu": "1.15.24", "@swc/core-linux-x64-gnu": "1.15.24", "@swc/core-linux-x64-musl": "1.15.24", "@swc/core-win32-arm64-msvc": "1.15.24", "@swc/core-win32-ia32-msvc": "1.15.24", "@swc/core-win32-x64-msvc": "1.15.24" }, "peerDependencies": { "@swc/helpers": ">=0.5.17" }, "optionalPeers": ["@swc/helpers"] }, "sha512-5Hj8aNasue7yusUt8LGCUe/AjM7RMAce8ZoyDyiFwx7Al+GbYKL+yE7g4sJk8vEr1dKIkTRARkNIJENc4CjkBQ=="],
 
