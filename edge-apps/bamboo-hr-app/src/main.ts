@@ -2,14 +2,13 @@ import './css/style.css'
 import '@screenly/edge-apps/components'
 import {
   getCorsProxyUrl,
+  formatLocalizedDate,
   getLocale,
   getSettingWithDefault,
   getTimeZone,
   setupErrorHandling,
   setupTheme,
   signalReady,
-  formatTime,
-  formatLocalizedDate,
 } from '@screenly/edge-apps'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
@@ -112,21 +111,6 @@ function renderAnniversaries(employees: Employee[]): void {
   )
 }
 
-function updateClock(): void {
-  const timeEl = document.getElementById('clock-time')
-  const dateEl = document.getElementById('clock-date')
-  if (!timeEl || !dateEl) return
-
-  const now = new Date()
-  const { formatted } = formatTime(now, currentLocale, currentTimezone)
-  timeEl.textContent = formatted
-  dateEl.textContent = formatLocalizedDate(now, currentLocale, {
-    weekday: 'short',
-    day: 'numeric',
-    month: 'short',
-  })
-}
-
 function updateDateHeading(): void {
   const heading = document.getElementById('date-heading')
   if (!heading) return
@@ -162,9 +146,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   setTimezone(currentTimezone)
 
   updateDateHeading()
-  updateClock()
-  setInterval(updateClock, 1_000)
-
   signalReady()
 
   if (!apiKey || !subdomain) return
