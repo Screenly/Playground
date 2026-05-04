@@ -25,13 +25,13 @@
   "devDependencies": {
     "@playwright/test": "^1.59.1",
     "@screenly/edge-apps": "^1.0.0",
-    "@types/bun": "^1.3.9",
+    "@types/bun": "^1.3.13",
     "@types/jsdom": "^28.0.1",
-    "bun-types": "^1.3.9",
-    "jsdom": "^29.0.1",
+    "bun-types": "^1.3.13",
+    "jsdom": "^29.1.1",
     "npm-run-all2": "^8.0.4",
     "dayjs": "^1.11.19",
-    "prettier": "^3.8.1",
-    "typescript": "^6.0.2"
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.3"
   }
 }
