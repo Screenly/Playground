@@ -1,107 +1,79 @@
 # BambooHR App
 
-A digital signage dashboard that displays employee information from Bamboo HR, including birthdays, work anniversaries, and current leave status. Perfect for office displays and team spaces.
+Displays employee birthdays, work anniversaries, and who's on leave today, sourced from BambooHR.
 
-![BambooHR App Preview](./static/images/preview.png)
-
-## Features
-
-- Real-time employee information display
-- Birthday and work anniversary celebrations
-- Current leave status tracking
-- Automatic timezone and locale detection
-- Automatic brand colors and logo from Screenly brand page
-- Responsive design for any screen size
+![BambooHR App Preview](screenshots/3840x2160.webp)
 
 ## Prerequisites
 
-- Bun (1.2.2+)
-- Bamboo HR API credentials
-- Screenly CLI installed (see [installation guide](https://github.com/Screenly/cli))
+- [Bun](https://bun.sh/) 1.2.2+
+- [Screenly CLI](https://developer.screenly.io/edge-apps/#getting-started)
+- A BambooHR account with API access
 
-## Installation
-
-1. **Log in to Screenly CLI**
-
-```bash
-screenly login
-```
-
-2. **Create the Edge App**
-
-```bash
-cd edge-apps/bamboo-hr-app
-screenly edge-app create \
-    --name bamboo-hr-app \
-    --in-place
-```
-
-3. **Deploy the App**
-
-```bash
-bun install && bun run deploy
-```
-
-4. **Create an Instance**
-
-```bash
-screenly edge-app instance create
-```
-
-## Configuration
-
-### API Credentials
-
-Set your BambooHR subdomain:
-
-```bash
-screenly edge-app setting set subdomain=YOUR_SUBDOMAIN
-```
-
-Set your BambooHR API credentials:
-
-```bash
-screenly edge-app setting set api_key=YOUR_API_KEY
-```
-
-### Timezone and Locale
-
-Override the default timezone and locale if needed:
-
-```bash
-screenly edge-app setting set override_timezone='Europe/London'
-screenly edge-app setting set override_locale='en'
-```
-
-## Deployment
-
-```bash
-bun run deploy
-```
-
-> [!NOTE]
-> The `deploy` command takes care of building the app as well.
-
-## Development
-
-Install the dependencies for the first run:
+## Getting Started
 
 ```bash
 bun install
 ```
 
-Run the development environment with a single command:
+## Development
 
 ```bash
 bun run dev
 ```
 
-This will build in watch mode and start the development server via [Screenly CLI](https://github.com/Screenly/cli).
+This starts the Vite dev server alongside a local CORS proxy on `http://127.0.0.1:8080`.
 
-## Known Issues
+## Building
 
-This app does not work on Screenly Anywhere screens at the moment. It currently supports only physical players (Screenly Player and Screenly Player Max).
+```bash
+bun run build
+```
 
-## Support
+## Type Checking
 
-For issues or questions, please contact Screenly support or open an issue in the repository.
+```bash
+bun run type-check
+```
+
+## Linting & Formatting
+
+```bash
+bun run lint
+bun run format
+```
+
+## Testing
+
+```bash
+bun test
+```
+
+## Screenshots
+
+```bash
+bun run screenshots
+```
+
+## Deployment
+
+```bash
+screenly edge-app create --name bamboo-hr-app --in-place
+bun run deploy
+screenly edge-app instance create
+```
+
+## Configuration
+
+| Setting             | Type   | Required | Description                                                                |
+| ------------------- | ------ | -------- | -------------------------------------------------------------------------- |
+| `api_key`           | secret | Yes      | BambooHR API key                                                           |
+| `subdomain`         | string | Yes      | BambooHR subdomain (e.g. `example` from `example.bamboohr.com`)            |
+| `display_errors`    | string | No       | Display errors on screen for debugging (`true`/`false`). Default: `false`. |
+| `override_locale`   | string | No       | Override locale (e.g. `en`, `fr`, `de`). Defaults to system locale.        |
+| `override_timezone` | string | No       | Override timezone (e.g. `Europe/London`). Defaults to GPS-based detection. |
+| `enable_analytics`  | string | No       | Enable analytics (`true`/`false`). Default: `true`.                        |
+| `tag_manager_id`    | string | No       | Google Tag Manager ID.                                                     |
+| `sentry_dsn`        | secret | No       | Sentry DSN for error tracking.                                             |
+
+> **Note:** This app only works on physical Screenly players (not Screenly Anywhere) due to CORS proxy requirements.

@@ -49,7 +49,7 @@ jobs:
           # Function to add app to list if it has build system and isn't already included
           add_app_if_valid() {
             local app="$1"
-            if [[ -n "$app" && "$app" != "helpers" && "$app" != ".bun-create" && "$app" != "blueprint" ]]; then
+            if [[ -n "$app" && "$app" != "helpers" && "$app" != ".bun-create" ]]; then
               if [[ -f "edge-apps/$app/package.json" ]]; then
                 if [[ ! " $CHANGED_APPS " =~ $app ]]; then
                   CHANGED_APPS="$CHANGED_APPS $app"
@@ -58,34 +58,16 @@ jobs:
             fi
           }
 
-          # Check if blueprint has changes and extract unique Edge App directories
-          BLUEPRINT_CHANGED=false
+          # Extract unique Edge App directories from changed files
           CHANGED_APPS=""
 
           for file in "${FILES_ARRAY[@]}"; do
             if [[ "$file" == edge-apps/* ]]; then
-              # Check for blueprint changes
-              if [[ "$file" == edge-apps/blueprint/* ]]; then
-                BLUEPRINT_CHANGED=true
-              fi
-
               # Extract the app name (first directory after edge-apps/)
               APP_NAME=$(echo "$file" | cut -d'/' -f2)
               add_app_if_valid "$APP_NAME"
             fi
           done
-
-          # If blueprint changed, add all apps with build systems
-          if [[ "$BLUEPRINT_CHANGED" == "true" ]]; then
-            echo "Blueprint changed, adding all apps with build systems..."
-            # Dynamically discover all Edge Apps with build systems
-            for app_dir in edge-apps/*/; do
-              if [[ -d "$app_dir" ]]; then
-                app=$(basename "$app_dir")
-                add_app_if_valid "$app"
-              fi
-            done
-          fi
 
           # Remove leading space and set output
           CHANGED_APPS="${CHANGED_APPS# }"
