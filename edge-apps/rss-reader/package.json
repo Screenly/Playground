@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "devDependencies": {
     "@playwright/test": "^1.58.0",
-    "@screenly/edge-apps": "^0.1.0",
+    "@screenly/edge-apps": "^1.0.0",
     "@types/bun": "^1.3.9",
     "@types/jsdom": "^27.0.0",
     "bun-types": "^1.3.9",
@@ -17,7 +17,7 @@
     "prebuild": "bun run type-check",
     "generate-mock-data": "screenly edge-app run --generate-mock-data",
     "predev": "bun run generate-mock-data",
-    "cors-proxy-server": "bun ./node_modules/@screenly/edge-apps/scripts/cors-proxy-server.ts",
+    "cors-proxy-server": "edge-apps-scripts cors-proxy",
     "dev": "run-p cors-proxy-server edge-apps-dev",
     "edge-apps-dev": "edge-apps-scripts dev",
     "build": "edge-apps-scripts build",
