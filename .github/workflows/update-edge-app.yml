@@ -22,21 +22,6 @@ on:
         default: false
         type: boolean
 
-      build_system:
-        description: "Build system for the Edge App"
-        required: true
-        default: "vanilla"
-        type: choice
-        options:
-          - vanilla
-          - bun
-
-      deploy_from_dist:
-        description: "Deploy from the dist folder. If unchecked, deploy from app's root folder."
-        required: true
-        default: true
-        type: boolean
-
 run-name: Updating ${{ inputs.edge_app_name }} in ${{ inputs.environment }}
 
 jobs:
@@ -45,40 +30,16 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
     environment: ${{ inputs.environment }}
-    env:
-      API_BASE_URL: ${{ inputs.environment == 'stage' && 'https://api.screenlyappstage.com' || 'https://api.screenlyapp.com' }}
-      APP_NAME: ${{ inputs.edge_app_name }}
-      APP_PATH: edge-apps/${{ inputs.edge_app_name }}
-      SCREENLY_API_TOKEN: ${{ secrets.SCREENLY_API_TOKEN }}
-      MANIFEST_FILE_NAME: ${{ inputs.environment == 'stage' && 'screenly_qc.yml' || 'screenly.yml' }}
 
     steps:
-      - name: ⬇️  Checkout master branch
+      - name: ⬇️ Checkout master branch
         uses: actions/checkout@v6
         with:
           ref: master
 
-      - name: 🛠 Install Bun (React/Vue only)
-        if: ${{ inputs.build_system == 'bun' }}
-        uses: oven-sh/setup-bun@v2
+      - uses: Screenly/edge-apps-actions/update@feat/add-path-input
         with:
-          bun-version: 1.2.2
-
-      - name: 🛠 Setup and Build React/Vue App
-        if: ${{ inputs.build_system == 'bun' }}
-        working-directory: ${{ env.APP_PATH }}
-        run: |
-          bun install
-          bun run build
-
-      - name: 🔄 Modify APP_PATH based on app type
-        run: |
-          if [ "${{ inputs.build_system }}" = "bun" ] && [ "${{ inputs.deploy_from_dist }}" = "true" ]; then
-            echo "APP_PATH=${{ env.APP_PATH }}/dist" >> "$GITHUB_ENV"
-          fi
-
-      - name: 🚀 Deploy Edge App
-        uses: screenly/cli@master
-        with:
-          screenly_api_token: ${{ env.SCREENLY_API_TOKEN }}
-          cli_commands: edge-app deploy --path="${{ env.APP_PATH }}" --delete-missing-settings=${{ inputs.delete_missing_settings }}
+          screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
+          environment: ${{ inputs.environment }}
+          delete_missing_settings: ${{ inputs.delete_missing_settings }}
+          path: edge-apps/${{ inputs.edge_app_name }}
