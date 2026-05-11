@@ -38,7 +38,7 @@ jobs:
         with:
           ref: master
 
-      - uses: Screenly/edge-apps-actions/initialize@feat/add-path-input
+      - uses: Screenly/edge-apps-actions/initialize@v1
         with:
           screenly_api_token: ${{ secrets.SCREENLY_API_TOKEN }}
           edge_app_name: ${{ inputs.edge_app_name }}
