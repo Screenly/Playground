@@ -1,102 +1,53 @@
 # Screenly Clock App
 
-![Clock Screen](./static/img/Clock-Preview.png)
-
-## Prerequisites
-
-- [Bun (1.2.2+)](https://bun.sh/docs/installation)
-- [Screenly Edge App CLI (v1.0.3+)](https://github.com/Screenly/cli?tab=readme-ov-file#installation)
-
 ## Getting Started
 
 ```bash
 bun install
-screenly edge-app create \
-    --name=EDGE_APP_NAME \
-    --in-place
-```
-
-## Create an Edge App Instance via CLI
-
-```bash
-screenly edge-app instance create --name=EDGE_APP_INSTANCE_NAME
 ```
 
 ## Deployment
 
+Create and deploy the Edge App:
+
 ```bash
+screenly edge-app create --name my-clock --in-place
 bun run deploy
+screenly edge-app instance create
 ```
 
-> [!NOTE]
-> The `deploy` command takes care of building the app as well.
+## Configuration
+
+The app accepts the following settings via `screenly.yml`:
+
+| Setting                  | Description                                                                                                                                                   | Type               | Default |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ------- |
+| `openweathermap_api_key` | OpenWeatherMap API key to access weather data and location information. Get your API key from the [OpenWeatherMap API](https://openweathermap.org/api)        | optional           | -       |
+| `override_locale`        | Override the default locale with a supported language code                                                                                                    | optional           | `en`    |
+| `override_timezone`      | Override the default timezone with a supported timezone identifier (e.g., `Europe/London`, `America/New_York`). Defaults to the system timezone if left blank | optional           | -       |
+| `unit`                   | Measurement unit for temperature display: `auto` (automatically determined based on location), `metric` (Celsius), or `imperial` (Fahrenheit)                 | optional, advanced | `auto`  |
+
+**Note:** When `unit` is set to `auto` (default), temperature units are automatically determined based on the device's location. The following countries use Fahrenheit: United States (US), Bahamas (BS), Cayman Islands (KY), Liberia (LR), Palau (PW), Federated States of Micronesia (FM), and Marshall Islands (MH). All other countries use Celsius.
 
 ## Development
 
-Install the dependencies for the first run:
-
 ```bash
-bun install
+bun install      # Install dependencies
+bun run dev      # Start development server
 ```
 
-Run the development environment with a single command:
+## Testing
 
 ```bash
-bun run dev
+bun test
 ```
 
-This will build in watch mode and start the development server via [Screenly CLI](https://github.com/Screenly/cli).
+## Screenshots
 
-## Unit Tests
-
-To run unit tests:
+Generate screenshots at all supported resolutions:
 
 ```bash
-bun run test:unit
+bun run screenshots
 ```
 
-Press `q` to quit the test runner.
-
-## E2E Tests
-
-Install dependencies for the first run:
-
-```bash
-bun run playwright install-deps
-bun run playwright install
-```
-
-To run E2E tests:
-
-```bash
-bun run test:e2e
-```
-
-### Linting and Formatting
-
-```bash
-bun run lint
-bun run format
-```
-
-## Tweaking the settings
-
-### `override_timezone`
-
-For instance, if you want to clock app to display the current date and time in London,
-run the following command:
-
-```bash
-$ screenly edge-app setting set override_timezone='Europe/Paris'
-# A relatively long console output...
-Edge app setting successfully set.
-
-$ screenly edge-app setting set override_locale='fr'
-# A relatively long console output...
-Edge app setting successfully set.
-```
-
-See [this page](https://momentjs.com/) for the list of all possible values for the time zone.
-Alternatively, you can call `moment.locales()`, which returns all the supported locale values.
-
-Setting invalid values for the timezone won't crash the app itself, it'll just fall back to the default time.
+Screenshots are saved to the `screenshots/` directory.

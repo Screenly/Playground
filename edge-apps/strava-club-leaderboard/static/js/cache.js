@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 /* global */
 
 // Cache management for Strava Club Leaderboard App
@@ -8,14 +10,12 @@
 window.StravaCache = (function () {
   'use strict'
 
-  console.log('StravaCache module loading...')
-
   // Configuration
-  const CACHE_DURATION = 10 * 60 * 1000 // 10 minutes - Conservative caching for frequent updates
+  const CACHE_DURATION = 30 * 60 * 1000 // 30 minutes - Balance between freshness and rate limits
   const CACHE_NAMESPACE = 'strava_club_' // Namespace for cache keys
 
   // Get cached data with expiration check
-  function getCachedData (key) {
+  function getCachedData(key) {
     try {
       const cached = localStorage.getItem(key)
       if (cached) {
@@ -52,7 +52,7 @@ window.StravaCache = (function () {
   }
 
   // Helper function for cache write with error handling
-  function writeToCache (key, cacheEntry) {
+  function writeToCache(key, cacheEntry) {
     try {
       localStorage.setItem(key, JSON.stringify(cacheEntry))
       return true
@@ -65,7 +65,6 @@ window.StravaCache = (function () {
         // Try again after clearing
         try {
           localStorage.setItem(key, JSON.stringify(cacheEntry))
-          console.log('💾 Cache write successful after cleanup')
           return true
         } catch (retryError) {
           console.warn('❌ Failed to cache data after cleanup:', retryError)
@@ -79,28 +78,31 @@ window.StravaCache = (function () {
   }
 
   // Set cached data with default duration
-  function setCachedData (key, data) {
+  function setCachedData(key, data) {
     if (!key || data === undefined) {
-      console.warn('❌ Invalid cache parameters:', { key, hasData: data !== undefined })
+      console.warn('❌ Invalid cache parameters:', {
+        key,
+        hasData: data !== undefined,
+      })
       return false
     }
 
     const cacheEntry = {
       data,
       timestamp: Date.now(),
-      version: 1 // Cache version for future migrations
+      version: 1, // Cache version for future migrations
     }
 
     return writeToCache(key, cacheEntry)
   }
 
   // Set cached data with custom duration
-  function setCachedDataWithDuration (key, data, duration) {
+  function setCachedDataWithDuration(key, data, duration) {
     if (!key || data === undefined || !duration || duration <= 0) {
       console.warn('❌ Invalid cache parameters:', {
         key,
         hasData: data !== undefined,
-        duration
+        duration,
       })
       return false
     }
@@ -109,14 +111,14 @@ window.StravaCache = (function () {
       data,
       timestamp: Date.now(),
       customDuration: duration,
-      version: 1
+      version: 1,
     }
 
     return writeToCache(key, cacheEntry)
   }
 
   // Clear all Strava-related cache
-  function clearCache () {
+  function clearCache() {
     const keysToRemove = []
 
     // Collect all matching keys first (avoid modifying during iteration)
@@ -128,48 +130,44 @@ window.StravaCache = (function () {
     }
 
     // Remove collected keys
-    keysToRemove.forEach(key => {
+    keysToRemove.forEach((key) => {
       try {
         localStorage.removeItem(key)
       } catch (error) {
         console.warn('Failed to remove cache key:', key, error)
       }
     })
-
-    console.log(`🧹 Cleared ${keysToRemove.length} cache entries`)
   }
 
   // Clear cache on authentication change (token refresh/change)
-  function clearCacheOnAuthChange () {
-    console.log('Clearing cache due to authentication change')
+  function clearCacheOnAuthChange() {
     clearCache()
   }
 
   // Clear cache for specific club
-  function clearCacheForClub (clubId) {
+  function clearCacheForClub(clubId) {
     const keysToRemove = []
 
     // Find all cache keys for this club (activities and details)
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i)
-      if (key && (
-        key.startsWith(`${CACHE_NAMESPACE}activities_${clubId}_`) ||
-        key === `${CACHE_NAMESPACE}details_${clubId}`
-      )) {
+      if (
+        key &&
+        (key.startsWith(`${CACHE_NAMESPACE}activities_${clubId}_`) ||
+          key === `${CACHE_NAMESPACE}details_${clubId}`)
+      ) {
         keysToRemove.push(key)
       }
     }
 
     // Remove found keys
-    keysToRemove.forEach(key => {
+    keysToRemove.forEach((key) => {
       localStorage.removeItem(key)
     })
-
-    console.log(`Cleared ${keysToRemove.length} cache entries for club ${clubId}`)
   }
 
   // Get cache size and statistics
-  function getCacheStats () {
+  function getCacheStats() {
     const cacheInfo = []
     let totalSize = 0
 
@@ -190,7 +188,7 @@ window.StravaCache = (function () {
             age: parsed.timestamp ? Date.now() - parsed.timestamp : 0,
             version: parsed.version || 0,
             hasCustomDuration: !!parsed.customDuration,
-            customDuration: parsed.customDuration
+            customDuration: parsed.customDuration,
           })
         } catch (error) {
           // Handle corrupted entries
@@ -199,7 +197,7 @@ window.StravaCache = (function () {
             size: 0,
             timestamp: 0,
             age: 0,
-            corrupted: true
+            corrupted: true,
           })
         }
       }
@@ -208,19 +206,19 @@ window.StravaCache = (function () {
     return {
       totalKeys: cacheInfo.length,
       totalSize,
-      totalSizeMB: Math.round(totalSize / 1024 / 1024 * 100) / 100,
-      cacheInfo: cacheInfo.sort((a, b) => b.age - a.age) // Sort by age, oldest first
+      totalSizeMB: Math.round((totalSize / 1024 / 1024) * 100) / 100,
+      cacheInfo: cacheInfo.sort((a, b) => b.age - a.age), // Sort by age, oldest first
     }
   }
 
   // Manage cache size by removing old entries
-  function manageCacheSize (maxEntries = 50) {
+  function manageCacheSize(maxEntries = 50) {
     const stats = getCacheStats()
     let removedCount = 0
 
     // Remove corrupted entries first
-    const corruptedEntries = stats.cacheInfo.filter(item => item.corrupted)
-    corruptedEntries.forEach(item => {
+    const corruptedEntries = stats.cacheInfo.filter((item) => item.corrupted)
+    corruptedEntries.forEach((item) => {
       try {
         localStorage.removeItem(item.key)
         removedCount++
@@ -230,10 +228,10 @@ window.StravaCache = (function () {
     })
 
     // Then remove oldest entries if still over limit
-    const validEntries = stats.cacheInfo.filter(item => !item.corrupted)
+    const validEntries = stats.cacheInfo.filter((item) => !item.corrupted)
     if (validEntries.length > maxEntries) {
       const toRemove = validEntries.slice(maxEntries)
-      toRemove.forEach(item => {
+      toRemove.forEach((item) => {
         try {
           localStorage.removeItem(item.key)
           removedCount++
@@ -243,15 +241,11 @@ window.StravaCache = (function () {
       })
     }
 
-    if (removedCount > 0) {
-      console.log(`🧹 Removed ${removedCount} cache entries (${corruptedEntries.length} corrupted)`)
-    }
-
     return removedCount
   }
 
   // Check if cache is healthy (not too many entries, not too large)
-  function checkCacheHealth () {
+  function checkCacheHealth() {
     const stats = getCacheStats()
     const maxSize = 5 * 1024 * 1024 // 5MB limit
     const maxEntries = 50 // Reduced for more frequent cleanup
@@ -259,7 +253,9 @@ window.StravaCache = (function () {
     const issues = []
 
     if (stats.totalSize > maxSize) {
-      issues.push(`Cache size too large: ${Math.round(stats.totalSize / 1024 / 1024)}MB`)
+      issues.push(
+        `Cache size too large: ${Math.round(stats.totalSize / 1024 / 1024)}MB`,
+      )
     }
 
     if (stats.totalKeys > maxEntries) {
@@ -269,23 +265,26 @@ window.StravaCache = (function () {
     return {
       healthy: issues.length === 0,
       issues,
-      stats
+      stats,
     }
   }
 
   // Generate cache key with namespace and validation
-  function getCacheKey (type, ...parts) {
+  function getCacheKey(type, ...parts) {
     if (!type) {
       console.warn('❌ Cache key type is required')
       return null
     }
 
     // Filter out null/undefined parts and convert to string
-    const validParts = parts.filter(part => part !== null && part !== undefined)
-      .map(part => String(part))
+    const validParts = parts
+      .filter((part) => part !== null && part !== undefined)
+      .map((part) => String(part))
 
     if (validParts.length === 0) {
-      console.warn('❌ Cache key requires at least one additional part beyond type')
+      console.warn(
+        '❌ Cache key requires at least one additional part beyond type',
+      )
       return null
     }
 
@@ -300,7 +299,7 @@ window.StravaCache = (function () {
   }
 
   // Clear cache on quota exceeded error
-  function handleQuotaExceededError () {
+  function handleQuotaExceededError() {
     console.warn('💾 localStorage quota exceeded, performing cleanup...')
 
     // First try to clean up old entries
@@ -314,22 +313,10 @@ window.StravaCache = (function () {
   }
 
   // Add cache cleanup with detailed reporting
-  function cleanupCache () {
+  function cleanupCache() {
     const statsBefore = getCacheStats()
     const removedCount = manageCacheSize()
     const statsAfter = getCacheStats()
-
-    console.log('🧹 Cache cleanup report:', {
-      before: {
-        entries: statsBefore.totalKeys,
-        sizeMB: statsBefore.totalSizeMB
-      },
-      after: {
-        entries: statsAfter.totalKeys,
-        sizeMB: statsAfter.totalSizeMB
-      },
-      removed: removedCount
-    })
 
     return { statsBefore, statsAfter, removedCount }
   }
@@ -347,17 +334,7 @@ window.StravaCache = (function () {
     checkCacheHealth,
     getCacheKey,
     handleQuotaExceededError,
-    cleanupCache
-  }
-
-  console.log('StravaCache module loaded with functions:', Object.keys(cacheAPI))
-
-  // Test the getCacheKey function immediately
-  try {
-    const testKey = getCacheKey('test', 'key')
-    console.log('getCacheKey test successful:', testKey)
-  } catch (error) {
-    console.error('getCacheKey test failed:', error)
+    cleanupCache,
   }
 
   return cacheAPI

@@ -14,12 +14,12 @@
     "format": "bun run format:common --write",
     "format:check": "bun run format:common --check"
   },
-  "prettier": "../edge-apps-library/.prettierrc.json",
+  "prettier": "../.prettierrc.json",
   "dependencies": {
-    "powerbi-client": "^2.22.2",
+    "powerbi-client": "^2.23.10",
     "panic-overlay": "^1.0.51"
   },
   "devDependencies": {
-    "prettier": "3.8.1"
+    "prettier": "3.8.3"
   }
 }

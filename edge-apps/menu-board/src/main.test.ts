@@ -1,10 +1,10 @@
-import { describe, it, expect, afterEach } from 'bun:test'
-import { setupScreenlyMock, resetScreenlyMock } from '@screenly/edge-apps/test'
+import { describe, it, expect } from 'bun:test'
 import {
   escapeHtml,
   calculateItemsPerPage,
   getMenuItems,
   getDefaultBackgroundImage,
+  getDefaultLogoUrl,
 } from './utils'
 
 // eslint-disable-next-line max-lines-per-function
@@ -120,34 +120,18 @@ describe('Menu Board Tests', () => {
   })
 
   describe('getDefaultBackgroundImage', () => {
-    afterEach(() => {
-      resetScreenlyMock()
-    })
-
-    it('should return the HTTPS URL for Anywhere hardware', () => {
-      setupScreenlyMock({
-        hardware: undefined,
-      })
+    it('should return the inlined asset', () => {
       const result = getDefaultBackgroundImage()
-      expect(result).toBe(
-        'https://raw.githubusercontent.com/Screenly/Playground/refs/heads/master/edge-apps/menu-board/assets/pizza.png',
-      )
+      expect(typeof result).toBe('string')
+      expect(result.length).toBeGreaterThan(0)
     })
+  })
 
-    it('should return relative path for Raspberry Pi devices', () => {
-      setupScreenlyMock({
-        hardware: 'Raspberry Pi',
-      })
-      const result = getDefaultBackgroundImage()
-      expect(result).toBe('assets/pizza.png')
-    })
-
-    it('should return relative path for Screenly Player Max (x86) devices', () => {
-      setupScreenlyMock({
-        hardware: 'Screenly Player Max',
-      })
-      const result = getDefaultBackgroundImage()
-      expect(result).toBe('assets/pizza.png')
+  describe('getDefaultLogoUrl', () => {
+    it('should return the inlined asset', () => {
+      const result = getDefaultLogoUrl()
+      expect(typeof result).toBe('string')
+      expect(result.length).toBeGreaterThan(0)
     })
   })
 })

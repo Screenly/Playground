@@ -4,3 +4,4 @@ dist/
 .DS_Store
 static/js/*.js
 static/js/*.js.map
+screenshots/*.png

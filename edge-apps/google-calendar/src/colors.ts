@@ -9,36 +9,25 @@ interface CalendarColors {
   event: Record<string, ColorDefinition>
 }
 
-const CACHE_EXPIRATION_MS = 60 * 60 * 1000 // 1 hour in milliseconds
+const CACHE_EXPIRATION_MS = 60 * 60 * 1000 // 1 hour
 
 let cachedColors: CalendarColors | null = null
 let cacheTimestamp: number | null = null
 
 const isCacheValid = (): boolean => {
-  if (!cachedColors || !cacheTimestamp) {
-    return false
-  }
-
-  const now = Date.now()
-  const cacheAge = now - cacheTimestamp
-
-  return cacheAge < CACHE_EXPIRATION_MS
+  if (!cachedColors || !cacheTimestamp) return false
+  return Date.now() - cacheTimestamp < CACHE_EXPIRATION_MS
 }
 
 export const fetchCalendarColors = async (
   accessToken: string,
 ): Promise<CalendarColors> => {
-  if (isCacheValid()) {
-    return cachedColors!
-  }
+  if (isCacheValid()) return cachedColors!
 
-  const apiUrl = 'https://www.googleapis.com/calendar/v3/colors'
-
-  const response = await fetch(apiUrl, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  })
+  const response = await fetch(
+    'https://www.googleapis.com/calendar/v3/colors',
+    { headers: { Authorization: `Bearer ${accessToken}` } },
+  )
 
   if (!response.ok) {
     throw new Error('Failed to fetch calendar colors from Google Calendar API')
@@ -47,7 +36,6 @@ export const fetchCalendarColors = async (
   const data = await response.json()
   cachedColors = data
   cacheTimestamp = Date.now()
-
   return data
 }
 
@@ -56,9 +44,6 @@ export const getEventBackgroundColor = (
   colors: CalendarColors | null,
   defaultColor: string = '#6ec0f0',
 ): string => {
-  if (!colorId || !colors || !colors.event || !colors.event[colorId]) {
-    return defaultColor
-  }
-
+  if (!colorId || !colors?.event?.[colorId]) return defaultColor
   return colors.event[colorId].background
 }

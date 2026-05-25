@@ -37,6 +37,9 @@ playwright-report/
 /cypress/videos/
 /cypress/screenshots/
 
+# Screenshots
+edge-apps/**/screenshots/*.png
+
 # Project specific
 venv
 instagram/dist

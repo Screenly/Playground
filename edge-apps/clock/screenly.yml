@@ -4,6 +4,8 @@ id: 01HKT2K8GVE8P6RE36QFKPG5G1
 description: Screenly Clock Edge App
 icon: https://playground.srly.io/edge-apps/clock/static/img/icon.svg
 author: Screenly, Inc.
+categories:
+  - Utilities
 ready_signal: true
 settings:
   enable_analytics:
@@ -12,6 +14,18 @@ settings:
     title: Enable Analytics
     optional: true
     help_text: Enable or disable Sentry and Google Analytics integrations.
+    is_global: true
+  openweathermap_api_key:
+    type: secret
+    title: OpenWeatherMap API Key
+    optional: true
+    help_text:
+      properties:
+        help_text: |
+          Enter your OpenWeatherMap API key to access weather data. If not provided, weather information will not be displayed.
+          You can get your API key from https://openweathermap.org/api.
+        type: string
+      schema_version: 1
     is_global: true
   override_locale:
     type: string
@@ -37,10 +51,21 @@ settings:
     help_text: |
       Enter your Google Tag Manager container ID to enable tracking and analytics.
     is_global: true
-  theme:
+  unit:
     type: string
-    default_value: light
-    title: Theme
-    optional: false
-    help_text: |
-      Select the visual theme for the app ('light' or 'dark').
+    default_value: auto
+    title: Measurement Unit
+    optional: true
+    help_text:
+      properties:
+        advanced: true
+        help_text: Select the measurement unit for temperature display.
+        options:
+        - label: Auto (based on location)
+          value: auto
+        - label: Metric (°C)
+          value: metric
+        - label: Imperial (°F)
+          value: imperial
+        type: select
+      schema_version: 1

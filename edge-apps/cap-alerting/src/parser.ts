@@ -1,4 +1,4 @@
-import { CAPInfo, CAPAlert } from './types/cap.js'
+import { CAPInfo, CAPAlert, CAPArea } from './types/cap.js'
 import { XMLParser } from 'fast-xml-parser'
 
 function getStringOrUndefined(value: unknown): string | undefined {
@@ -12,8 +12,9 @@ function getNumberOrUndefined(value: unknown): number | undefined {
 function parseResource(res: Record<string, unknown>) {
   const resourceDesc = getStringOrUndefined(res.resourceDesc)
   const mimeType =
-    getStringOrUndefined((res as Record<string, unknown>).mimeType) ??
-    getStringOrUndefined((res as Record<string, unknown>)['mimeType'])
+    getStringOrUndefined(res.mimeType) ??
+    getStringOrUndefined(res['mimeType']) ??
+    ''
   const size = getNumberOrUndefined(res.size)
   const uri = getStringOrUndefined(res.uri)
   const derefUri = getStringOrUndefined(res.derefUri)
@@ -32,11 +33,15 @@ function parseResource(res: Record<string, unknown>) {
 
 function parseArea(area: Record<string, unknown>) {
   const areaDesc = getStringOrUndefined(area.areaDesc) ?? ''
-  const polygon = getStringOrUndefined(area.polygon) ?? area.polygon
-  const circle = getStringOrUndefined(area.circle) ?? area.circle
-  const geocode = area.geocode
-  const altitude = getNumberOrUndefined(area.altitude) ?? area.altitude
-  const ceiling = getNumberOrUndefined(area.ceiling) ?? area.ceiling
+  const polygon =
+    getStringOrUndefined(area.polygon) ??
+    (area.polygon as string | string[] | undefined)
+  const circle =
+    getStringOrUndefined(area.circle) ??
+    (area.circle as string | string[] | undefined)
+  const geocode = area.geocode as CAPArea['geocode']
+  const altitude = getNumberOrUndefined(area.altitude)
+  const ceiling = getNumberOrUndefined(area.ceiling)
 
   return {
     areaDesc,
@@ -48,7 +53,7 @@ function parseArea(area: Record<string, unknown>) {
   }
 }
 
-function parseInfo(info: CAPInfo): CAPInfo {
+function parseInfo(info: Record<string, unknown>): CAPInfo {
   const resourcesJson = info.resource
     ? Array.isArray(info.resource)
       ? info.resource
@@ -61,27 +66,27 @@ function parseInfo(info: CAPInfo): CAPInfo {
     : []
 
   return {
-    language: info.language || '',
-    category: info.category,
-    event: info.event,
-    responseType: info.responseType,
-    urgency: info.urgency,
-    severity: info.severity,
-    certainty: info.certainty,
-    audience: info.audience,
-    effective: info.effective,
-    onset: info.onset,
-    expires: info.expires,
-    senderName: info.senderName,
-    headline: info.headline,
-    description: info.description,
-    instruction: info.instruction,
-    web: info.web,
-    contact: info.contact,
-    parameter: info.parameter,
-    eventCode: info.eventCode,
-    resources: resourcesJson.map(parseResource),
-    areas: areasJson.map(parseArea),
+    language: getStringOrUndefined(info.language) ?? '',
+    category: info.category as string | string[] | undefined,
+    event: getStringOrUndefined(info.event),
+    responseType: info.responseType as string | string[] | undefined,
+    urgency: getStringOrUndefined(info.urgency),
+    severity: getStringOrUndefined(info.severity),
+    certainty: getStringOrUndefined(info.certainty),
+    audience: getStringOrUndefined(info.audience),
+    effective: getStringOrUndefined(info.effective),
+    onset: getStringOrUndefined(info.onset),
+    expires: getStringOrUndefined(info.expires),
+    senderName: getStringOrUndefined(info.senderName),
+    headline: getStringOrUndefined(info.headline),
+    description: getStringOrUndefined(info.description),
+    instruction: getStringOrUndefined(info.instruction),
+    web: getStringOrUndefined(info.web),
+    contact: getStringOrUndefined(info.contact),
+    parameter: info.parameter as CAPInfo['parameter'],
+    eventCode: info.eventCode as CAPInfo['eventCode'],
+    resources: (resourcesJson as Record<string, unknown>[]).map(parseResource),
+    areas: (areasJson as Record<string, unknown>[]).map(parseArea),
   }
 }
 

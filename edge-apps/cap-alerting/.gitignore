@@ -8,3 +8,4 @@ bun.lockb
 static/js/*.js
 static/js/*.js.map
 static/style.css
+screenshots/*.png

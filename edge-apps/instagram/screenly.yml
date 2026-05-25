@@ -3,6 +3,8 @@ syntax: manifest_v1
 description: Displays latest two Instagram post
 icon: 'https://playground.srly.io/edge-apps/instagram/static/images/icon.svg'
 author: Screenly, Inc.
+categories:
+  - Social Media
 settings:
   enable_analytics:
     type: string

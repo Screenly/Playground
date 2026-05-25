@@ -1,45 +1,43 @@
-import '@/assets/main.scss'
+import './css/style.css'
+import '@screenly/edge-apps/components'
+import type { WeeklyCalendarView } from '@screenly/edge-apps/components'
+import type { DailyCalendarView } from '@screenly/edge-apps/components'
+import type { ScheduleCalendarView } from '@screenly/edge-apps/components'
+import {
+  getSettingWithDefault,
+  initCalendarApp,
+  setupErrorHandling,
+  setupTheme,
+} from '@screenly/edge-apps'
+import { fetchCalendarEventsFromICal } from './events.js'
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import * as Sentry from '@sentry/vue'
-import panic from 'panic-overlay'
+document.addEventListener('DOMContentLoaded', async () => {
+  setupErrorHandling()
+  setupTheme()
 
-import App from './App.vue'
-
-const displayErrors = screenly.settings.display_errors === 'true' || false
-
-const app = createApp(App)
-
-panic.configure({ handleErrors: displayErrors })
-
-if (displayErrors) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  app.config.errorHandler = (err, instance, info) => {
-    panic(err instanceof Error ? err : new Error(String(err)))
-  }
-
-  window.addEventListener('error', () => screenly.signalReadyForRendering(), {
-    once: true,
-  })
-  window.addEventListener(
-    'unhandledrejection',
-    () => screenly.signalReadyForRendering(),
-    {
-      once: true,
-    },
+  const calendarMode = getSettingWithDefault<'daily' | 'weekly' | 'schedule'>(
+    'calendar_mode',
+    'schedule',
   )
-}
 
-// Initialize Sentry if DSN is provided
-const sentryDsn = screenly.settings.sentry_dsn
-if (sentryDsn) {
-  Sentry.init({
-    app,
-    dsn: sentryDsn as string,
-  })
-}
+  const scheduleEl = document.getElementById(
+    'schedule-calendar',
+  ) as ScheduleCalendarView
+  const weeklyEl = document.getElementById(
+    'weekly-calendar',
+  ) as WeeklyCalendarView
+  const dailyEl = document.getElementById('daily-calendar') as DailyCalendarView
 
-app.use(createPinia())
+  const activeEl =
+    calendarMode === 'daily'
+      ? dailyEl
+      : calendarMode === 'weekly'
+        ? weeklyEl
+        : scheduleEl
 
-app.mount('#app')
+  activeEl.classList.add('active')
+
+  await initCalendarApp(activeEl, (timezone) =>
+    fetchCalendarEventsFromICal({ timezone }),
+  )
+})

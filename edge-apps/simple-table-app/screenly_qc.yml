@@ -6,6 +6,8 @@ icon: https://playground.srly.io/edge-apps/simple-table-app/static/images/icon.s
 author: Screenly, Inc.
 entrypoint:
   type: file
+categories:
+  - Utilities
 ready_signal: true
 settings:
   content:
@@ -20,6 +22,17 @@ settings:
       properties:
         help_text: Enter your CSV data here. The first row will be treated as headers. Use commas to separate columns and new lines to separate rows.
         type: textarea
+      schema_version: 1
+  display_errors:
+    type: string
+    default_value: 'false'
+    title: Display Errors
+    optional: true
+    help_text:
+      properties:
+        advanced: true
+        help_text: For debugging purposes to display errors on the screen.
+        type: boolean
       schema_version: 1
   override_locale:
     type: string

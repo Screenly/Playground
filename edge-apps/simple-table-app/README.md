@@ -1,76 +1,53 @@
-# Simple Table App
+# Screenly Simple Table App
 
-A minimalist edge app for Screenly that displays CSV data as a beautifully formatted table.
+## Getting Started
 
-## Features
+```bash
+bun install
+```
 
-- **CSV Data Display**: Renders CSV content with automatic header detection
-- **Responsive Design**: Clean, minimal table layout that works on all screen sizes
+## Deployment
 
-## Settings
+Create and deploy the Edge App:
 
-### Required Settings
+```bash
+screenly edge-app create --name simple-table --in-place
+bun run deploy
+screenly edge-app instance create
+```
 
-- **CSV Content** (`content`): Your CSV data with comma-separated values. First row is treated as headers.
+## Configuration
 
-### Optional Settings
+The app accepts the following settings via `screenly.yml`:
 
-- **Table Title** (`title`): Optional title displayed above the table
-
-## Technical Details
-
-- **Framework**: Vue.js 3 with Composition API and TypeScript
-- **Build System**: Vite with SCSS support
-- **CSV Parsing**: Custom parser with quote handling
-- **Styling**: Modern CSS with flexbox and custom properties
+| Setting             | Description                                                                                                                                                   | Type     | Default                      |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---------------------------- |
+| `content`           | CSV data to display. The first row is treated as column headers.                                                                                              | required | `Name,Age\nJohn,25\nJane,30` |
+| `override_locale`   | Override the default locale with a supported language code                                                                                                    | optional | `en`                         |
+| `override_timezone` | Override the default timezone with a supported timezone identifier (e.g., `Europe/London`, `America/New_York`). Defaults to the system timezone if left blank | optional | -                            |
+| `title`             | Optional title displayed above the table. Leave empty to hide.                                                                                                | optional | -                            |
 
 ## Development
 
 ```bash
-# Install dependencies
-bun install
-
-# Start development server
-bun run dev
-
-# Build for production
-bun run build
-
-# Build only (without type checking)
-bun run build-only
+bun install      # Install dependencies
+bun run dev      # Start development server
 ```
 
-## Project Structure
+Update `mock-data.yml` with your desired CSV content and settings.
 
-```plaintext
-src/
-├── App.vue                      # Main app component
-├── main.ts                      # Application entry point
-├── components/
-│   ├── TableDisplay.vue         # Table component with header
-│   └── TimeDisplay.vue          # Time display component
-├── stores/
-│   └── settings.ts              # Settings store (timezone/locale)
-└── assets/
-    ├── main.scss                # Global styles
-    ├── table-display.scss       # Responsive table styles
-    ├── time-display.scss        # Time display styles
-    └── font/                    # Aeonik font files
+## Testing
 
-screenly.yml                     # Edge App configuration
+```bash
+bun run test:unit
 ```
 
-## CSV Format
+## Screenshots
 
-The app accepts standard CSV format:
+Generate screenshots at all supported resolutions:
 
-```csv
-Name, Surname, Age
-John, Smith, 25
-Jane, Brown, 30
+```bash
+bun run screenshots
 ```
 
-- First row is automatically treated as headers
-- Comma-separated values
-- Quote handling for values containing commas
-- Last column is automatically right-aligned (ideal for numeric data)
+Screenshots are saved to the `screenshots/` directory.

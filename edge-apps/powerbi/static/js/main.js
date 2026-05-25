@@ -77,19 +77,9 @@
         detailedMessage = `Failed to get embed token.`
       }
 
-      showError({
-        detailedMessage: detailedMessage,
-        technicalDetails: {
-          errorInfo: [
-            {
-              key: 'status',
-              value: response.status,
-            },
-          ],
-        },
-      })
-
-      throw new Error(detailedMessage)
+      const error = new Error(detailedMessage)
+      error.status = response.status
+      throw error
     }
 
     const { token } = await response.json()
@@ -110,12 +100,10 @@
         currentErrorStep = 0
       } catch {
         nextTimeout = Math.min(
-          initErrorDelaySec * Math.pow(2, currentErrorStep),
-          nextTimeout,
+          initErrorDelaySec *
+            Math.pow(2, Math.min(currentErrorStep, maxErrorStep)),
+          tokenRefreshInterval,
         )
-        if (currentErrorStep >= maxErrorStep) {
-          return
-        }
         currentErrorStep += 1
       }
       setTimeout(run, nextTimeout * 1000)
@@ -129,11 +117,24 @@
     const embedUrl = screenly.settings.embed_url
     const resourceType = getEmbedTypeFromUrl(embedUrl)
 
+    let initialToken
+    try {
+      initialToken = await getEmbedToken()
+    } catch (error) {
+      showError({
+        detailedMessage: error.message,
+        technicalDetails: {
+          errorInfo: [{ key: 'status', value: error.status }],
+        },
+      })
+      throw error
+    }
+
     const report = window.powerbi.embed(
       document.getElementById('embed-container'),
       {
         embedUrl: embedUrl,
-        accessToken: await getEmbedToken(),
+        accessToken: initialToken,
         type: resourceType,
         tokenType: models.TokenType.Embed,
         permissions: models.Permissions.All,

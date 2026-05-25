@@ -6,6 +6,9 @@ icon: https://playground.srly.io/edge-apps/menu-board/static/img/icon.svg
 author: Screenly, Inc
 entrypoint:
   type: file
+categories:
+  - Productivity
+  - Utilities
 ready_signal: true
 settings:
   accent_color:
@@ -722,7 +725,7 @@ settings:
       schema_version: 1
   logo_url:
     type: string
-    default_value: assets/screenly_food.svg
+    default_value: ''
     title: Restaurant Logo URL
     optional: true
     help_text: URL to your restaurant's logo image

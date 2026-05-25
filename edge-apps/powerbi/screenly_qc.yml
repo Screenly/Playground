@@ -5,6 +5,9 @@ description: |
   Displays Power BI dashboards and reports with big focus on security.
 icon: https://playground.srly.io/edge-apps/powerbi/static/img/icon.svg
 author: Screenly, Inc.
+categories:
+  - Dashboards
+  - Authentication
 ready_signal: true
 settings:
   display_errors:

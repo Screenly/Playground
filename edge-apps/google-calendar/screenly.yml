@@ -2,8 +2,11 @@
 syntax: manifest_v1
 id: 01KA95VY42DQWJA7AWY0WE9P1Z
 description: Google Calendar Edge App
-icon: https://playground.srly.io/edge-apps/google-calendar/src/img/icon.svg
+icon: https://playground.srly.io/edge-apps/google-calendar/static/img/icon.svg
 author: Screenly, Inc.
+categories:
+  - Productivity
+  - Utilities
 ready_signal: true
 settings:
   access_token:
@@ -78,18 +81,3 @@ settings:
     help_text: |
       Enter your Sentry DSN to enable error tracking and monitoring.
     is_global: true
-  theme:
-    type: string
-    default_value: light
-    title: Theme
-    optional: false
-    help_text:
-      properties:
-        help_text: Select the visual theme for the application.
-        options:
-          - label: Light
-            value: light
-          - label: Dark
-            value: dark
-        type: select
-      schema_version: 1
