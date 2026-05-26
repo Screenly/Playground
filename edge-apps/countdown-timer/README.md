@@ -60,4 +60,3 @@ See [this page](https://momentjs.com/) for the list of all possible values for t
 Alternatively, you can call `moment.locales()`, which returns all the supported locale values.
 
 Setting invalid values for the timezone won't crash the app itself, it'll just fall back to the default time.
-

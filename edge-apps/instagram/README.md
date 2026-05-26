@@ -13,4 +13,3 @@ $ screenly edge-app deploy
 $ screenly edge-app instance create
 $ screenly edge-app secret set instagram_api_token=MY_META_TOKEN
 ```
-

@@ -70,4 +70,3 @@ screenly edge-app setting set override_locale='en'
 ## Support
 
 For issues or questions, please contact Screenly support or open an issue in the repository.
-

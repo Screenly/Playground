@@ -65,4 +65,3 @@ $ screenly edge-app instance create
 ```
 
 For more details, please check the [Demo Dashboard App Page](https://www.screenly.io/edge-apps/demo-dashboard/).
-

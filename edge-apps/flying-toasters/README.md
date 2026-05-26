@@ -24,4 +24,3 @@ $ screenly edge-app version \
 ## Credits
 
 The original CSS/HTML was written by [Bryan Braun](https://github.com/bryanbraun/after-dark-css). This package merely re-packaged this as an Edge App (with permission from Bryan).
-
