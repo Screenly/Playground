@@ -51,3 +51,4 @@ bun run screenshots
 ```
 
 Screenshots are saved to the `screenshots/` directory.
+

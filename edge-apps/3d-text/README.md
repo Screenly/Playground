@@ -9,3 +9,4 @@ The app supports the following settings:
 - `text` - The text to display in 3D. If not provided, the screen name will be used.
 - `text_color` - The color of the text in hex format (e.g. #9C5FE4). Defaults to brand primary color.
 - `background_color` - The background color of the text. If not provided, the default is black.
+

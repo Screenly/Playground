@@ -170,3 +170,4 @@ For issues or questions:
 ---
 
 **Note**: This app requires a Strava account and API access. Ensure you comply with Strava's API terms of service and rate limits.
+

@@ -149,3 +149,4 @@ Provides historical data for the timeline chart:
 - **Space Utilization**: Analyze usage patterns in offices, libraries, or public spaces
 - **Marketing Insights**: Understand customer dwell time and visit patterns
 - **Security**: Monitor occupancy levels for safety compliance
+
