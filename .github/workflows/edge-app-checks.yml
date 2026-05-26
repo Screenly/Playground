@@ -51,8 +51,10 @@ jobs:
           add_app_if_valid() {
             local app="$1"
             if [[ -n "$app" && "$app" != "helpers" && "$app" != ".bun-create" ]]; then
-              if [[ ! " $CHANGED_APPS " =~ $app ]]; then
-                CHANGED_APPS="$CHANGED_APPS $app"
+              if [[ -d "edge-apps/$app" ]]; then
+                if [[ ! " $CHANGED_APPS " =~ $app ]]; then
+                  CHANGED_APPS="$CHANGED_APPS $app"
+                fi
               fi
             fi
           }
