@@ -52,7 +52,7 @@ jobs:
             local app="$1"
             if [[ -n "$app" && "$app" != "helpers" && "$app" != ".bun-create" ]]; then
               if [[ -d "edge-apps/$app" ]]; then
-                if [[ ! " $CHANGED_APPS " =~ $app ]]; then
+                if [[ " $CHANGED_APPS " != *" $app "* ]]; then
                   CHANGED_APPS="$CHANGED_APPS $app"
                 fi
               fi
@@ -208,7 +208,7 @@ jobs:
         run: |
           bunx prettier --check \
             --config edge-apps/.prettierrc.json \
-            "edge-apps/${{ matrix.app }}/**/*.{html,css,js,json,yml,yaml}"
+            "edge-apps/${{ matrix.app }}/**/*.{html,css,js,json,yml,yaml,md}"
 
       - name: Run Markdown lint
         run: |
@@ -216,37 +216,32 @@ jobs:
 
       - name: Run HTML lint
         run: |
-          FILES=$(find "edge-apps/${{ matrix.app }}" \
+          find "edge-apps/${{ matrix.app }}" \
             -name "*.html" \
             -not -path "*/static/*" \
             -not -path "*/dist/*" \
-            -not -path "*/node_modules/*")
-          if [[ -n "$FILES" ]]; then
-            echo "$FILES" | xargs bunx htmlhint
-          fi
+            -not -path "*/node_modules/*" \
+            -print0 | xargs -0 -r bunx htmlhint
 
       - name: Run CSS lint
         run: |
-          FILES=$(find "edge-apps/${{ matrix.app }}" \
+          find "edge-apps/${{ matrix.app }}" \
             -name "*.css" \
             -not -path "*/dist/*" \
-            -not -path "*/node_modules/*")
-          if [[ -n "$FILES" ]]; then
-            echo "$FILES" | xargs bunx stylelint \
+            -not -path "*/node_modules/*" \
+            -print0 | xargs -0 -r bunx stylelint \
               --config edge-apps/.stylelintrc.json
-          fi
 
       - name: Run JavaScript lint
         run: |
-          FILES=$(find "edge-apps/${{ matrix.app }}" \
+          find "edge-apps/${{ matrix.app }}" \
             -name "*.js" \
             -not -name "*.min.js" \
             -not -name "eslint.config.js" \
             -not -path "*/dist/*" \
-            -not -path "*/node_modules/*")
-          if [[ -n "$FILES" ]]; then
-            echo "$FILES" | xargs bunx eslint
-          fi
+            -not -path "*/node_modules/*" \
+            -print0 | xargs -0 -r bunx eslint \
+              --config edge-apps/eslint.config.cjs
 
   summary:
     name: Summary

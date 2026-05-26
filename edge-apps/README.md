@@ -45,7 +45,7 @@ From the repository root, run the following tools via `bunx`:
 
 ```bash
 # Formatting (HTML, CSS, JS, JSON, YAML, Markdown)
-bunx prettier --check --config edge-apps/.prettierrc.json "edge-apps/<app-name>/**/*.{html,css,js,json,yml,yaml}"
+bunx prettier --check --config edge-apps/.prettierrc.json "edge-apps/<app-name>/**/*.{html,css,js,json,yml,yaml,md}"
 
 # Markdown
 bunx markdownlint-cli2 "edge-apps/<app-name>/**/*.md"
@@ -54,10 +54,13 @@ bunx markdownlint-cli2 "edge-apps/<app-name>/**/*.md"
 bunx htmlhint "edge-apps/<app-name>/index.html"
 
 # CSS (excludes dist/)
-bunx stylelint --config edge-apps/.stylelintrc.json "edge-apps/<app-name>/**/*.css"
+find edge-apps/<app-name> -name "*.css" -not -path "*/dist/*" -not -path "*/node_modules/*" \
+  -print0 | xargs -0 -r bunx stylelint --config edge-apps/.stylelintrc.json
 
 # JavaScript (excludes dist/ and minified files)
-bunx eslint "edge-apps/<app-name>/path/to/file.js"
+find edge-apps/<app-name> -name "*.js" -not -name "*.min.js" -not -name "eslint.config.js" \
+  -not -path "*/dist/*" -not -path "*/node_modules/*" \
+  -print0 | xargs -0 -r bunx eslint --config edge-apps/eslint.config.cjs
 ```
 
 ## TypeScript Library
