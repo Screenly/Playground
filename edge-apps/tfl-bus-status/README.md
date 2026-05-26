@@ -60,4 +60,3 @@ Steps 9. **Assign Asset to Playlist and Device**
 - Assign the playlist to a device.
 
 Now, the TFL Bus status Edge App has been configured, and the designated webpage/dashboard will be presented on the Screenly-connected TV/Monitor.
-
