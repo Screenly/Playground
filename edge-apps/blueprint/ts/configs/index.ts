@@ -1,1 +1,0 @@
-export { playwrightConfig } from './playwright'

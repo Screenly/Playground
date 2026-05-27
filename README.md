@@ -10,7 +10,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 
 - [3D Text](https://github.com/Screenly/Playground/tree/master/edge-apps/3d-text) - A 3D text display app that renders text with depth and shadow effects.
 - [Asset Metadata](https://github.com/Screenly/Playground/tree/master/edge-apps/asset-metadata) - An example implementation of Screenly's metadata.
-- [BambooHR App](https://github.com/Screenly/Playground/tree/master/edge-apps/bamboo-hr-app) - Displays employee birthdays, work anniversaries and other HR events from BambooHR.
+- [BambooHR App](https://github.com/Screenly/bamboo-hr-app/) - Displays employee birthdays, work anniversaries and other HR events from BambooHR. _(Moved to a separate repository)_
 - [Calendar App](https://github.com/Screenly/Playground/tree/master/edge-apps/calendar) - A simple calendar app that shows events from iCal data.
 - [CAP Alerting](https://github.com/Screenly/Playground/tree/master/edge-apps/cap-alerting) - Display Common Alerting Protocol (CAP) emergency alerts on Screenly digital signage screens.
 - [CharlieHR App](https://github.com/Screenly/Playground/tree/master/edge-apps/charlie-hr-app) - Displays employee birthdays, work anniversaries and other HR events from CharlieHR.
@@ -25,7 +25,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [Outlook Calendar App](https://github.com/Screenly/Playground/tree/master/edge-apps/outlook-calendar) - A simple calendar app that shows events from Outlook Calendar.
 - [Power BI](https://github.com/Screenly/Playground/tree/master/edge-apps/powerbi) - A Power BI Edge App for securely accessing dashboards and reports.
 - [QR Code Generator](https://github.com/Screenly/Playground/tree/master/edge-apps/qr-code) - An example of how to build unique QR Codes that embeds the screen metadata as UTM parameters.
-- [RSS Reader](https://github.com/Screenly/Playground/tree/master/edge-apps/rss-reader) - A simple RSS reader.
+- [RSS Reader](https://github.com/Screenly/rss-reader-app/) - A simple RSS reader. _(Moved to a separate repository)_
 - [Simple Message App](https://github.com/Screenly/Playground/tree/master/edge-apps/simple-message-app) - A simple message app.
 - [Simple Table App](https://github.com/Screenly/Playground/tree/master/edge-apps/simple-table-app) - A minimalist edge app for Screenly that displays CSV data as a beautifully formatted table.
 - [Simple Timer App](https://github.com/Screenly/Playground/tree/master/edge-apps/simple-timer) - A simple timer app.
