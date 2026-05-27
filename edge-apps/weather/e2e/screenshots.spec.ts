@@ -27,6 +27,19 @@ const { screenlyJsContent } = createMockScreenlyForScreenshots(
   },
 )
 
+const { screenlyJsContent: screenlyJsContentNoApiKey } =
+  createMockScreenlyForScreenshots(
+    {
+      coordinates: [37.3893889, -122.0832101],
+      location: 'Mountain View, CA',
+    },
+    {
+      display_errors: 'false',
+      override_timezone: 'America/Los_Angeles',
+      override_locale: 'en',
+    },
+  )
+
 for (const { width, height } of RESOLUTIONS) {
   test(`screenshot ${width}x${height}`, async ({ browser }) => {
     const screenshotsDir = getScreenshotsDir()
@@ -48,6 +61,33 @@ for (const { width, height } of RESOLUTIONS) {
 
     await page.screenshot({
       path: path.join(screenshotsDir, `${width}x${height}.png`),
+      fullPage: false,
+    })
+
+    await context.close()
+  })
+}
+
+const NO_API_KEY_RESOLUTIONS = [
+  { width: 3840, height: 2160 },
+  { width: 2160, height: 3840 },
+]
+
+for (const { width, height } of NO_API_KEY_RESOLUTIONS) {
+  test(`screenshot no-api-key ${width}x${height}`, async ({ browser }) => {
+    const screenshotsDir = getScreenshotsDir()
+
+    const context = await browser.newContext({ viewport: { width, height } })
+    const page = await context.newPage()
+
+    await setupClockMock(page)
+    await setupScreenlyJsMock(page, screenlyJsContentNoApiKey)
+
+    await page.goto('/')
+    await page.waitForLoadState('networkidle')
+
+    await page.screenshot({
+      path: path.join(screenshotsDir, `no-api-key-${width}x${height}.png`),
       fullPage: false,
     })
 

@@ -204,19 +204,21 @@ describe('getHourlyForecast', () => {
     displayTemp: '58°F',
   }
 
-  test('should return empty array when no API key', async () => {
+  test('should throw when no API key is provided', async () => {
     mockGetSetting = () => undefined
 
-    const result = await getHourlyForecast(
-      37.39,
-      -122.0812,
-      'America/Los_Angeles',
-      'en',
-      'imperial',
-      mockCurrentWeather,
+    await expect(
+      getHourlyForecast(
+        37.39,
+        -122.0812,
+        'America/Los_Angeles',
+        'en',
+        'imperial',
+        mockCurrentWeather,
+      ),
+    ).rejects.toThrow(
+      'OpenWeatherMap API key is required. Please configure it in the app settings.',
     )
-
-    expect(result).toEqual([])
   })
 
   test('should prepend current weather as NOW and return forecast items', async () => {

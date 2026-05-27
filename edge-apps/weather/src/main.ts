@@ -17,6 +17,27 @@ import type { ForecastItem } from './weather'
 import { updateBackground } from './background'
 import sunIcon from '../static/images/sun.svg'
 
+type ErrorReporter = (message: string) => void
+
+function showError(message: string): void {
+  const contentEl = document.querySelector<HTMLElement>('main.content')
+  const errorScreen = document.getElementById('error-screen')
+  const errorMessage = document.getElementById('error-message')
+
+  if (contentEl) contentEl.style.display = 'none'
+  if (errorScreen) errorScreen.style.display = 'flex'
+  if (errorMessage) errorMessage.textContent = message
+}
+
+function createErrorReporter(displayErrors: boolean): ErrorReporter {
+  if (displayErrors) {
+    return (msg) => {
+      throw new Error(msg)
+    }
+  }
+  return showError
+}
+
 // DOM elements
 let locationEl: Element | null
 let temperatureEl: Element | null
@@ -158,33 +179,47 @@ document.addEventListener('DOMContentLoaded', async () => {
   forecastCardEl = document.querySelector('[data-forecast-card]')
   forecastHeaderIconEl = document.querySelector('[data-forecast-header-icon]')
 
-  // Set forecast header icon
   if (forecastHeaderIconEl) {
     forecastHeaderIconEl.src = sunIcon
   }
 
-  const [latitude, longitude] = getCoordinates()
+  const displayErrors = getSetting<string>('display_errors') === 'true'
+  const reportError = createErrorReporter(displayErrors)
 
-  timezone = await getTimeZone()
-  locale = await getLocale()
+  try {
+    const apiKey = getSetting<string>('openweathermap_api_key')
+    if (!apiKey) {
+      throw new Error(
+        'OpenWeatherMap API key is required. Please configure it in the app settings.',
+      )
+    }
 
-  const { cityName, countryCode } = await getCityInfo(latitude, longitude)
-  if (locationEl) {
-    locationEl.textContent = cityName
+    const [latitude, longitude] = getCoordinates()
+
+    timezone = await getTimeZone()
+    locale = await getLocale()
+
+    const { cityName, countryCode } = await getCityInfo(latitude, longitude)
+    if (locationEl) {
+      locationEl.textContent = cityName
+    }
+
+    // Get measurement unit from settings, or auto-detect based on location
+    measurementUnit = resolveMeasurementUnit(countryCode)
+
+    await updateWeatherDisplay(latitude, longitude, timezone, measurementUnit)
+
+    // Refresh weather every 15 minutes
+    setInterval(
+      () => {
+        updateWeatherDisplay(latitude, longitude, timezone, measurementUnit)
+      },
+      15 * 60 * 1000,
+    )
+  } catch (error) {
+    console.error('Weather app initialization failed:', error)
+    reportError(error instanceof Error ? error.message : String(error))
+  } finally {
+    signalReady()
   }
-
-  // Get measurement unit from settings, or auto-detect based on location
-  measurementUnit = resolveMeasurementUnit(countryCode)
-
-  await updateWeatherDisplay(latitude, longitude, timezone, measurementUnit)
-
-  // Refresh weather every 15 minutes
-  setInterval(
-    () => {
-      updateWeatherDisplay(latitude, longitude, timezone, measurementUnit)
-    },
-    15 * 60 * 1000,
-  )
-
-  signalReady()
 })
