@@ -1,47 +1,53 @@
-# Screenly Clock Edge App
+# Screenly Clock App
 
-![Clock App Screenshot](https://github.com/Screenly/playground/blob/master/edge-apps/clock/src/static/images/clock-app.jpg?raw=true)
-
-This is an example asset for Screenly as part of the [Screenly Playground](https://github.com/Screenly/playground).
-
-You can view the live demo at [clock.srly.io](https://clock.srly.io/). The clock should automatically detect your local time zone and display the correct time.
-
-## Setup
-
-To build the container, run the below command from the root directory:
-
-`docker build -t screenly/clock-app -f Dockerfile .`
-
-To run the container, run:
-```bash
-docker run --rm \
-  -v $(pwd)/src:/usr/app/src \
-  -v $(pwd)/dist:/usr/app/dist \
-  screenly/clock-app
-```
-
-You can optionally enable Google Analytics and Sentry. Replace `<GA_API_KEY>` with your Google Analytics API key and `<SENTRY_ID>` with your Sentry API key before running the below command.
+## Getting Started
 
 ```bash
-docker run --rm \
-  -e GA_API_KEY=<GA_API_KEY> \
-  -e SENTRY_ID=<SENTRY_ID> \
-  -v $(pwd)/src:/usr/app/src \
-  -v $(pwd)/dist:/usr/app/dist \
-  screenly/clock-app
+bun install
 ```
 
-This will create a directory called `dist` inside the root directory which will have the generated `index.html` file.
+## Deployment
 
-### Add the HTML file to Screenly
-
-To add the HTML file, you'll need to setup [Screenly CLI](https://github.com/Screenly/cli).
-Once that's done, run:
+Create and deploy the Edge App:
 
 ```bash
-screenly asset add [path]
+screenly edge-app create --name my-clock --in-place
+bun run deploy
+screenly edge-app instance create
 ```
 
-where `[path]` is the location of your `dist/index.html` file
+## Configuration
 
-This will upload the generated HTML file and make it available to be used as an edge app.
+The app accepts the following settings via `screenly.yml`:
+
+| Setting                  | Description                                                                                                                                                   | Type               | Default |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ------- |
+| `openweathermap_api_key` | OpenWeatherMap API key to access weather data and location information. Get your API key from the [OpenWeatherMap API](https://openweathermap.org/api)        | optional           | -       |
+| `override_locale`        | Override the default locale with a supported language code                                                                                                    | optional           | `en`    |
+| `override_timezone`      | Override the default timezone with a supported timezone identifier (e.g., `Europe/London`, `America/New_York`). Defaults to the system timezone if left blank | optional           | -       |
+| `unit`                   | Measurement unit for temperature display: `auto` (automatically determined based on location), `metric` (Celsius), or `imperial` (Fahrenheit)                 | optional, advanced | `auto`  |
+
+**Note:** When `unit` is set to `auto` (default), temperature units are automatically determined based on the device's location. The following countries use Fahrenheit: United States (US), Bahamas (BS), Cayman Islands (KY), Liberia (LR), Palau (PW), Federated States of Micronesia (FM), and Marshall Islands (MH). All other countries use Celsius.
+
+## Development
+
+```bash
+bun install      # Install dependencies
+bun run dev      # Start development server
+```
+
+## Testing
+
+```bash
+bun test
+```
+
+## Screenshots
+
+Generate screenshots at all supported resolutions:
+
+```bash
+bun run screenshots
+```
+
+Screenshots are saved to the `screenshots/` directory.

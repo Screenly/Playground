@@ -1,0 +1,26 @@
+Customer {
+  shape: image
+  icon: https://icons.terrastruct.com/essentials%2F359-users.svg
+}
+
+POS {
+  shape: image
+  icon: https://icons.terrastruct.com/tech%2Fdesktop.svg
+}
+
+QueueAPI {
+  shape: image
+  label: "Queue API"
+  icon: https://icons.terrastruct.com/tech%2F022-server.svg
+}
+
+Display {
+  shape: image
+  label: "Call‑Forward Screen"
+  icon: https://icons.terrastruct.com/tech%2F065-monitor-4.svg
+}
+
+
+Display <-> QueueAPI
+POS <-> QueueAPI
+Customer -> Display

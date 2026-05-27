@@ -1,0 +1,14 @@
+**/*.min.js
+edge-apps/.bun-create/
+edge-apps/cap-alerting/
+edge-apps/clock/
+edge-apps/grafana/
+edge-apps/powerbi-legacy/
+edge-apps/powerbi-legacy/**
+edge-apps/powerbi
+edge-apps/powerbi/**
+edge-apps/qr-code/
+edge-apps/menu-board/
+edge-apps/weather/
+.github/workflows/
+.claude/

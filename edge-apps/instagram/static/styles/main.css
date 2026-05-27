@@ -1,0 +1,99 @@
+.cards {
+  display: flex;
+  justify-content: space-around;
+  column-gap: 20px;
+  color: #000;
+}
+
+.card {
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  flex-direction: column;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0 0 0 / 10%);
+  text-align: center;
+  display: block;
+  overflow-y: hidden;
+}
+
+.dummy-card a {
+  display: block;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0 0 0 / 20%);
+  transition: transform 0.2s;
+}
+
+.post-image {
+  width: 100%;
+  height: 92%;
+  padding-bottom: 0;
+  background-size: cover;
+}
+
+.dummy-card {
+  display: none;
+}
+
+.user-handle {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.caption {
+  font-size: 14px;
+  margin: 0;
+  word-wrap: break-word;
+}
+
+@media screen and (min-width: 1920px) {
+  .card .caption {
+    padding: 24px 18px;
+  }
+}
+
+@media screen and (min-width: 3840px) {
+  .card .caption {
+    padding: 50px 24px;
+  }
+}
+
+@media screen and (orientation: portrait) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+    row-gap: 20px;
+  }
+
+  .card {
+    max-width: 75%;
+  }
+}
+
+@media screen and (min-width: 480px) and (orientation: portrait) {
+  .card {
+    max-width: 75%;
+  }
+}
+
+@media screen and (min-width: 720px) and (orientation: portrait) {
+  .card {
+    max-width: 65%;
+  }
+
+  .card .caption {
+    padding: 16px 12px;
+  }
+}
+
+@media screen and (min-width: 1080px) and (orientation: portrait) {
+  .cards {
+    row-gap: 60px;
+  }
+}
+
+@media screen and (min-width: 2160px) and (orientation: portrait) {
+  .card {
+    min-width: 100%;
+  }
+}

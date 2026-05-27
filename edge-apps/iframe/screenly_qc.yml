@@ -1,0 +1,16 @@
+---
+syntax: manifest_v1
+id: 01JZHNVPTK5HK9FD9DXVHJQKA5
+ready_signal: true
+description: Screenly iframe Edge App
+icon: 'https://playground.srly.io/edge-apps/iframe/static/images/icon.svg'
+author: Screenly, Inc.
+categories:
+  - Utilities
+settings:
+  iframe:
+    type: string
+    title: iFrame URL
+    optional: false
+    help_text: |
+      Enter the iframe source URL (e.g., https://example.com) or a complete iframe embed code.

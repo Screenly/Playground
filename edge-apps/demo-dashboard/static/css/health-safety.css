@@ -1,0 +1,723 @@
+/* stylelint-disable media-feature-range-notation */
+
+#dash-health-safety {
+  --bg-color: #f4f5f0;
+  --bg-gradient:
+    radial-gradient(
+      ellipse at 20% 0%,
+      rgba(13 148 136 / 5%) 0%,
+      transparent 55%
+    ),
+    radial-gradient(ellipse at 85% 85%, rgba(180 83 9 / 4%) 0%, transparent 40%);
+  --card-bg: #fff;
+  --card-border: rgba(0 0 0 / 8%);
+  --card-glow: 0 0.0625rem 0.5rem rgba(0 0 0 / 6%);
+  --text-color: #1c1917;
+  --text-secondary: #44403c;
+  --text-muted: #78716c;
+  --accent-teal: #0f766e;
+  --accent-amber: #b45309;
+  --success-color: #15803d;
+  --warning-color: #b45309;
+  --danger-color: #be123c;
+  --risk-high: #be123c;
+  --risk-medium: #b45309;
+  --risk-low: #15803d;
+  background-color: var(--bg-color);
+  background-image: var(--bg-gradient);
+  color: var(--text-color);
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#dash-health-safety h1 {
+  font-size: clamp(1rem, 1.2vw + 0.6vh, 2.5rem);
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.01em;
+  color: var(--text-color);
+}
+
+#dash-health-safety h2 {
+  font-size: clamp(0.625rem, 0.55vw + 0.5vh, 1.375rem);
+  font-weight: 700;
+  margin: 0;
+  color: var(--accent-teal);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 1;
+}
+
+#dash-health-safety .dashboard {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr auto;
+  height: 100%;
+  padding: clamp(0.5rem, 0.7vw, 1.25rem);
+  gap: clamp(0.375rem, 0.5vw, 0.75rem);
+  overflow: hidden;
+}
+
+#dash-health-safety .dash-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: clamp(0.375rem, 0.55vh, 0.875rem) clamp(0.75rem, 1vw, 1.5rem);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-left: 0.25rem solid var(--accent-teal);
+  border-radius: 0.5rem;
+  box-shadow: var(--card-glow);
+}
+
+#dash-health-safety .header-brand {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 0.8vw, 1.25rem);
+}
+
+#dash-health-safety .shield-icon {
+  width: clamp(1.25rem, 1.8vw + 0.8vh, 3rem);
+  height: clamp(1.25rem, 1.8vw + 0.8vh, 3rem);
+  color: var(--accent-teal);
+  flex-shrink: 0;
+}
+
+#dash-health-safety .shield-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+#dash-health-safety .header-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+#dash-health-safety .site-name {
+  font-size: clamp(0.5625rem, 0.45vw + 0.38vh, 1.125rem);
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+#dash-health-safety .safety-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(
+    135deg,
+    rgba(13 148 136 / 8%),
+    rgba(21 128 61 / 5%)
+  );
+  border: 1px solid rgba(13 148 136 / 15%);
+  border-radius: 0.375rem;
+  padding: clamp(0.125rem, 0.2vh, 0.3125rem) clamp(0.5rem, 0.7vw, 1rem);
+  margin-left: clamp(0.5rem, 1vw, 1.5rem);
+}
+
+#dash-health-safety .score-value {
+  font-size: clamp(1rem, 1.4vw + 0.7vh, 3rem);
+  font-weight: 800;
+  color: var(--accent-teal);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+#dash-health-safety .score-label {
+  font-size: clamp(0.4375rem, 0.35vw + 0.28vh, 0.75rem);
+  color: var(--accent-teal);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+#dash-health-safety .header-datetime {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.375rem, 0.8vw, 1.25rem);
+  font-size: clamp(0.5625rem, 0.5vw + 0.4vh, 1.25rem);
+  color: var(--text-muted);
+}
+
+#dash-health-safety .header-time {
+  color: var(--text-color);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+#dash-health-safety .kpi-row {
+  display: grid;
+  grid-template-columns: 1.6fr repeat(4, 1fr);
+  gap: clamp(0.375rem, 0.5vw, 0.75rem);
+}
+
+#dash-health-safety .kpi-hero {
+  background: linear-gradient(145deg, #134e4a, #0f766e);
+  border-radius: 0.5rem;
+  padding: clamp(0.5rem, 0.7vh, 1rem) clamp(0.625rem, 0.8vw, 1.25rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    var(--card-glow),
+    0 0.25rem 1rem rgba(13 148 136 / 12%);
+}
+
+#dash-health-safety .hero-label {
+  font-size: clamp(0.5rem, 0.45vw + 0.38vh, 1rem);
+  color: rgba(255 255 255 / 80%);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+#dash-health-safety .hero-value {
+  font-size: clamp(2rem, 3.5vw + 1.5vh, 7rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+#dash-health-safety .hero-sub {
+  font-size: clamp(0.4375rem, 0.4vw + 0.3vh, 0.875rem);
+  color: rgba(255 255 255 / 55%);
+  margin-top: clamp(0.0625rem, 0.15vh, 0.25rem);
+}
+
+#dash-health-safety .kpi-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 0.5rem;
+  padding: clamp(0.375rem, 0.5vh, 0.75rem) clamp(0.5rem, 0.6vw, 1rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.0625rem, 0.12vh, 0.1875rem);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--card-glow);
+}
+
+#dash-health-safety .kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0.1875rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+#dash-health-safety .kpi-hazards::before {
+  background: var(--danger-color);
+}
+#dash-health-safety .kpi-nearmiss::before {
+  background: var(--warning-color);
+}
+#dash-health-safety .kpi-ppe::before {
+  background: var(--accent-teal);
+}
+#dash-health-safety .kpi-firstaid::before {
+  background: var(--accent-amber);
+}
+
+#dash-health-safety .kpi-icon-wrap {
+  width: clamp(0.875rem, 1vw + 0.5vh, 2rem);
+  height: clamp(0.875rem, 1vw + 0.5vh, 2rem);
+  opacity: 0.5;
+}
+
+#dash-health-safety .kpi-icon-wrap svg {
+  width: 100%;
+  height: 100%;
+}
+
+#dash-health-safety .kpi-hazards .kpi-icon-wrap {
+  color: var(--danger-color);
+  opacity: 0.7;
+}
+#dash-health-safety .kpi-nearmiss .kpi-icon-wrap {
+  color: var(--warning-color);
+  opacity: 0.7;
+}
+#dash-health-safety .kpi-ppe .kpi-icon-wrap {
+  color: var(--accent-teal);
+  opacity: 0.7;
+}
+#dash-health-safety .kpi-firstaid .kpi-icon-wrap {
+  color: var(--accent-amber);
+  opacity: 0.7;
+}
+
+#dash-health-safety .kpi-val {
+  font-size: clamp(1.125rem, 1.6vw + 0.8vh, 4rem);
+  font-weight: 800;
+  color: var(--text-color);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+#dash-health-safety .kpi-lbl {
+  font-size: clamp(0.4375rem, 0.38vw + 0.3vh, 0.875rem);
+  color: var(--text-muted);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+#dash-health-safety .kpi-trend {
+  font-size: clamp(0.4375rem, 0.38vw + 0.3vh, 0.875rem);
+  font-weight: 700;
+}
+
+#dash-health-safety .kpi-trend.positive {
+  color: var(--success-color);
+}
+#dash-health-safety .kpi-trend.negative {
+  color: var(--danger-color);
+}
+
+#dash-health-safety .charts-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: clamp(0.375rem, 0.5vw, 0.75rem);
+  min-height: 0;
+}
+
+#dash-health-safety .chart-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-top: 0.1875rem solid var(--accent-teal);
+  border-radius: 0.5rem;
+  padding: clamp(0.375rem, 0.5vh, 0.75rem) clamp(0.5rem, 0.6vw, 1rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.1875rem, 0.25vh, 0.375rem);
+  min-height: 0;
+  overflow: hidden;
+  box-shadow: var(--card-glow);
+}
+
+#dash-health-safety .chart-card:last-child {
+  border-top-color: var(--accent-amber);
+}
+
+#dash-health-safety .chart-container {
+  flex: 1;
+  position: relative;
+  min-height: 0;
+}
+
+#dash-health-safety .chart-container canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#dash-health-safety .bottom-row {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: clamp(0.375rem, 0.5vw, 0.75rem);
+  min-height: 0;
+  overflow: hidden;
+}
+
+#dash-health-safety .zone-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-top: 0.1875rem solid var(--warning-color);
+  border-radius: 0.5rem;
+  padding: clamp(0.375rem, 0.5vh, 0.75rem) clamp(0.5rem, 0.6vw, 1rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.25rem, 0.3vh, 0.5rem);
+  min-height: 0;
+  overflow: hidden;
+  box-shadow: var(--card-glow);
+}
+
+#dash-health-safety .zone-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: clamp(0.25rem, 0.35vw, 0.5rem);
+  overflow: hidden;
+}
+
+#dash-health-safety .zone-tile {
+  border-radius: 0.375rem;
+  padding: clamp(0.5rem, 0.7vh, 1.25rem) clamp(0.5rem, 0.7vw, 1.25rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: clamp(0.125rem, 0.2vh, 0.375rem);
+  position: relative;
+  overflow: hidden;
+}
+
+#dash-health-safety .zone-tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  border-radius: 0.375rem;
+}
+
+#dash-health-safety .zone-tile.safe {
+  border: 1px solid rgba(21 128 61 / 20%);
+  border-left: 0.25rem solid var(--success-color);
+}
+
+#dash-health-safety .zone-tile.safe::before {
+  background: var(--success-color);
+}
+
+#dash-health-safety .zone-tile.caution {
+  border: 1px solid rgba(180 83 9 / 20%);
+  border-left: 0.25rem solid var(--warning-color);
+}
+
+#dash-health-safety .zone-tile.caution::before {
+  background: var(--warning-color);
+}
+
+#dash-health-safety .zone-tile.danger {
+  border: 1px solid rgba(190 18 60 / 20%);
+  border-left: 0.25rem solid var(--danger-color);
+}
+
+#dash-health-safety .zone-tile.danger::before {
+  background: var(--danger-color);
+}
+
+#dash-health-safety .zone-name {
+  font-size: clamp(0.75rem, 0.8vw + 0.65vh, 2rem);
+  font-weight: 800;
+  color: var(--text-color);
+  position: relative;
+}
+
+#dash-health-safety .zone-status-text {
+  font-size: clamp(0.5625rem, 0.55vw + 0.45vh, 1.375rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  position: relative;
+}
+
+#dash-health-safety .zone-tile.safe .zone-status-text {
+  color: var(--success-color);
+}
+#dash-health-safety .zone-tile.caution .zone-status-text {
+  color: var(--warning-color);
+}
+#dash-health-safety .zone-tile.danger .zone-status-text {
+  color: var(--danger-color);
+}
+
+#dash-health-safety .zone-detail {
+  font-size: clamp(0.5rem, 0.45vw + 0.35vh, 1.125rem);
+  color: var(--text-muted);
+  position: relative;
+}
+
+#dash-health-safety .zone-light {
+  position: absolute;
+  top: clamp(0.5rem, 0.6vh, 0.875rem);
+  right: clamp(0.5rem, 0.6vw, 0.875rem);
+  width: clamp(0.5rem, 0.6vw, 1rem);
+  height: clamp(0.5rem, 0.6vw, 1rem);
+  border-radius: 50%;
+}
+
+#dash-health-safety .zone-tile.safe .zone-light {
+  background: var(--success-color);
+  box-shadow: 0 0 0.375rem var(--success-color);
+}
+
+#dash-health-safety .zone-tile.caution .zone-light {
+  background: var(--warning-color);
+  box-shadow: 0 0 0.375rem var(--warning-color);
+  animation: hs-pulse-light 1.5s ease-in-out infinite;
+}
+
+#dash-health-safety .zone-tile.danger .zone-light {
+  background: var(--danger-color);
+  box-shadow: 0 0 0.375rem var(--danger-color);
+  animation: hs-pulse-light 0.8s ease-in-out infinite;
+}
+
+@keyframes hs-pulse-light {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+#dash-health-safety .alerts-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-top: 0.1875rem solid var(--danger-color);
+  border-radius: 0.5rem;
+  padding: clamp(0.375rem, 0.5vh, 0.75rem) clamp(0.5rem, 0.6vw, 1rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.25rem, 0.35vh, 0.5rem);
+  min-height: 0;
+  overflow: hidden;
+  box-shadow: var(--card-glow);
+}
+
+#dash-health-safety .alerts-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(0.25rem, 0.35vh, 0.5rem);
+  overflow: hidden;
+}
+
+#dash-health-safety .alert-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 0.6vw, 1rem);
+  padding: clamp(0.375rem, 0.5vh, 0.75rem) clamp(0.5rem, 0.7vw, 1.25rem);
+  border-radius: 0.375rem;
+  font-size: clamp(0.5625rem, 0.55vw + 0.45vh, 1.25rem);
+  line-height: 1.4;
+}
+
+#dash-health-safety .alert-item.critical {
+  background: rgba(190 18 60 / 5%);
+  border-left: 0.1875rem solid var(--danger-color);
+}
+
+#dash-health-safety .alert-item.warning {
+  background: rgba(180 83 9 / 5%);
+  border-left: 0.1875rem solid var(--warning-color);
+}
+
+#dash-health-safety .alert-item.info {
+  background: rgba(13 148 136 / 5%);
+  border-left: 0.1875rem solid var(--accent-teal);
+}
+
+#dash-health-safety .alert-icon {
+  flex-shrink: 0;
+  font-family: 'Noto Color Emoji', sans-serif;
+  font-size: clamp(0.75rem, 0.8vw + 0.55vh, 1.75rem);
+  line-height: 1.2;
+}
+
+#dash-health-safety .alert-content {
+  flex: 1;
+  min-width: 0;
+}
+
+#dash-health-safety .alert-title {
+  font-weight: 700;
+  color: var(--text-color);
+  font-size: clamp(0.5625rem, 0.55vw + 0.45vh, 1.25rem);
+}
+
+#dash-health-safety .alert-time {
+  color: var(--text-muted);
+  font-size: clamp(0.5rem, 0.48vw + 0.38vh, 1.0625rem);
+  margin-top: clamp(0.0625rem, 0.15vh, 0.1875rem);
+}
+
+@media (orientation: portrait) {
+  #dash-health-safety .dashboard {
+    grid-template-rows: auto auto auto auto;
+    height: auto;
+    min-height: 100%;
+    overflow: visible;
+    padding: clamp(0.5rem, 1vh, 1.25rem);
+    gap: clamp(0.5rem, 0.8vh, 1rem);
+  }
+
+  #dash-health-safety .dash-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(0.375rem, 0.6vh, 0.75rem);
+  }
+
+  #dash-health-safety h1 {
+    font-size: clamp(1rem, 1.2vh + 0.8vw, 3rem);
+  }
+
+  #dash-health-safety h2 {
+    font-size: clamp(0.75rem, 0.7vh + 0.5vw, 1.5rem);
+  }
+
+  #dash-health-safety .site-name {
+    font-size: clamp(0.625rem, 0.6vh + 0.4vw, 1.25rem);
+  }
+
+  #dash-health-safety .header-datetime {
+    font-size: clamp(0.625rem, 0.6vh + 0.4vw, 1.25rem);
+  }
+
+  #dash-health-safety .score-value {
+    font-size: clamp(1.25rem, 1.5vh + 0.8vw, 3.5rem);
+  }
+
+  #dash-health-safety .score-label {
+    font-size: clamp(0.5rem, 0.45vh + 0.3vw, 0.875rem);
+  }
+
+  #dash-health-safety .kpi-row {
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(0.5rem, 0.7vh, 1rem);
+  }
+
+  #dash-health-safety .kpi-hero {
+    grid-column: 1 / -1;
+  }
+
+  #dash-health-safety .hero-value {
+    font-size: clamp(2rem, 3vh + 2vw, 7rem);
+  }
+
+  #dash-health-safety .hero-label {
+    font-size: clamp(0.625rem, 0.6vh + 0.4vw, 1.125rem);
+  }
+
+  #dash-health-safety .hero-sub {
+    font-size: clamp(0.5rem, 0.5vh + 0.35vw, 1rem);
+  }
+
+  #dash-health-safety .kpi-val {
+    font-size: clamp(1.25rem, 1.8vh + 0.8vw, 4.5rem);
+  }
+
+  #dash-health-safety .kpi-lbl {
+    font-size: clamp(0.5625rem, 0.5vh + 0.35vw, 1rem);
+  }
+
+  #dash-health-safety .kpi-trend {
+    font-size: clamp(0.5625rem, 0.5vh + 0.35vw, 1rem);
+  }
+
+  #dash-health-safety .kpi-icon-wrap {
+    width: clamp(1rem, 1.2vh + 0.6vw, 2.5rem);
+    height: clamp(1rem, 1.2vh + 0.6vw, 2.5rem);
+  }
+
+  #dash-health-safety .kpi-card {
+    padding: clamp(0.5rem, 0.7vh, 1rem) clamp(0.5rem, 0.7vw, 1rem);
+  }
+
+  #dash-health-safety .charts-row {
+    grid-template-columns: 1fr;
+    gap: clamp(0.5rem, 0.7vh, 1rem);
+  }
+
+  #dash-health-safety .chart-container {
+    min-height: clamp(10rem, 20vh, 25rem);
+  }
+
+  #dash-health-safety .bottom-row {
+    grid-template-columns: 1fr;
+    gap: clamp(0.5rem, 0.7vh, 1rem);
+    overflow: visible;
+  }
+
+  #dash-health-safety .zone-name {
+    font-size: clamp(0.875rem, 1vh + 0.6vw, 2.5rem);
+  }
+
+  #dash-health-safety .zone-status-text {
+    font-size: clamp(0.6875rem, 0.7vh + 0.45vw, 1.5rem);
+  }
+
+  #dash-health-safety .zone-detail {
+    font-size: clamp(0.5625rem, 0.55vh + 0.35vw, 1.25rem);
+  }
+
+  #dash-health-safety .alert-item {
+    font-size: clamp(0.6875rem, 0.7vh + 0.45vw, 1.375rem);
+  }
+
+  #dash-health-safety .alert-title {
+    font-size: clamp(0.6875rem, 0.7vh + 0.45vw, 1.375rem);
+  }
+
+  #dash-health-safety .alert-time {
+    font-size: clamp(0.5625rem, 0.6vh + 0.4vw, 1.125rem);
+  }
+
+  #dash-health-safety .alert-icon {
+    font-size: clamp(0.875rem, 1vh + 0.6vw, 2rem);
+  }
+
+  #dash-health-safety .alerts-card {
+    overflow: visible;
+  }
+
+  #dash-health-safety .alerts-list {
+    overflow: visible;
+  }
+}
+
+@media (max-width: 800px) and (orientation: landscape) {
+  #dash-health-safety .dashboard {
+    gap: clamp(0.1875rem, 0.3vw, 0.375rem);
+    padding: clamp(0.1875rem, 0.3vw, 0.375rem);
+  }
+
+  #dash-health-safety .kpi-lbl {
+    display: none;
+  }
+
+  #dash-health-safety .alert-item {
+    font-size: clamp(0.4375rem, 0.42vw + 0.32vh, 0.75rem);
+    padding: clamp(0.1875rem, 0.25vh, 0.375rem) clamp(0.25rem, 0.35vw, 0.5rem);
+  }
+
+  #dash-health-safety .alert-title {
+    font-size: clamp(0.4375rem, 0.42vw + 0.32vh, 0.75rem);
+  }
+
+  #dash-health-safety .alert-time {
+    font-size: clamp(0.375rem, 0.35vw + 0.28vh, 0.625rem);
+  }
+
+  #dash-health-safety .zone-name {
+    font-size: clamp(0.5rem, 0.55vw + 0.45vh, 1rem);
+  }
+
+  #dash-health-safety .zone-status-text {
+    font-size: clamp(0.375rem, 0.4vw + 0.32vh, 0.75rem);
+  }
+
+  #dash-health-safety .zone-detail {
+    font-size: clamp(0.3125rem, 0.35vw + 0.28vh, 0.625rem);
+  }
+}
+
+@media (max-width: 480px) and (orientation: portrait) {
+  #dash-health-safety .kpi-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  #dash-health-safety .kpi-hero {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1919px) and (orientation: landscape) {
+  #dash-health-safety .kpi-val {
+    font-size: clamp(1rem, 1.4vw + 0.7vh, 3.5rem);
+  }
+}

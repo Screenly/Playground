@@ -1,10 +1,7 @@
-dist
-node_modules
-worker
-.cargo-ok
-
+node_modules/
+dist/
+*.log
 .DS_Store
-**/.DS_Store
-
-# Output of 'npm pack'
-*.tgz
+static/js/*.js
+static/js/*.js.map
+screenshots/*.png

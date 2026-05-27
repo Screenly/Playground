@@ -1,0 +1,4 @@
+mock-data.yml
+node_modules/
+*.log
+.DS_Store

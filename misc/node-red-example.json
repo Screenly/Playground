@@ -1,0 +1,120 @@
+[
+  {
+    "id": "flow1",
+    "type": "tab",
+    "label": "Screenly Control (auto-off)",
+    "disabled": false
+  },
+  {
+    "id": "uiTab1",
+    "type": "ui_tab",
+    "name": "Control Panel",
+    "icon": "dashboard",
+    "order": 1
+  },
+  {
+    "id": "uiGroup1",
+    "type": "ui_group",
+    "z": "flow1",
+    "name": "Screenly",
+    "tab": "uiTab1",
+    "order": 1,
+    "disp": true,
+    "width": "6",
+    "collapse": false
+  },
+  {
+    "id": "btnToggle",
+    "type": "ui_button",
+    "z": "flow1",
+    "name": "Toggle Override",
+    "group": "uiGroup1",
+    "order": 1,
+    "width": 4,
+    "height": 1,
+    "passthru": false,
+    "label": "Toggle Override",
+    "icon": "play_circle_outline",
+    "payload": "",
+    "payloadType": "str",
+    "topic": "",
+    "x": 140,
+    "y": 80,
+    "wires": [["fnBuildReq"]]
+  },
+  {
+    "id": "fnBuildReq",
+    "type": "function",
+    "z": "flow1",
+    "name": "Build enable + auto-disable",
+    "func": "// EDIT THESE TWO VALUES\nconst playlistId = 'REPLACE_ME_PLAYLIST_UUID';\nconst apiToken   = 'REPLACE_ME_SCREENLY_TOKEN';\n\n// Auto-off seconds (make this a flow/env var if you like)\nconst autoOffSec = 30;\n// ------------------------------------------------------\n\n// Toggle flag so each press flips the state\nconst enabled = !(flow.get('override_enabled') || false);\nflow.set('override_enabled', enabled);\n\nconst base = {\n  method:  'PATCH',\n  url:     `https://api.screenlyapp.com/api/v3/playlists/${playlistId}/`,\n  headers: { Authorization: `Token ${apiToken}` }\n};\n\n// ENABLE message goes out immediately\nconst msgEnable = {\n  ...base,\n  payload: { is_enabled: enabled, priority: 1 }\n};\n\n// If we just enabled, create a DISABLE message for later\nlet msgDisable = null;\nif (enabled) {\n  msgDisable = {\n    ...base,\n    payload: { is_enabled: false, priority: 1 },\n    delay:   autoOffSec * 1000   // milliseconds for Delay node\n  };\n}\n\nreturn [msgEnable, msgDisable];",
+    "outputs": 2,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 410,
+    "y": 80,
+    "wires": [["dbgOut","httpScreenly"],["delayOff"]]
+  },
+  {
+    "id": "delayOff",
+    "type": "delay",
+    "z": "flow1",
+    "name": "Wait then disable",
+    "pauseType": "delay",
+    "timeout": "5",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "1",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "x": 650,
+    "y": 120,
+    "wires": [["httpScreenly","dbgOut"]]
+  },
+  {
+    "id": "httpScreenly",
+    "type": "http request",
+    "z": "flow1",
+    "name": "Screenly API",
+    "method": "use",
+    "ret": "obj",
+    "paytoqs": "ignore",
+    "url": "",
+    "x": 890,
+    "y": 80,
+    "wires": [["dbgResp"]]
+  },
+  {
+    "id": "dbgOut",
+    "type": "debug",
+    "z": "flow1",
+    "name": "Outgoing msg",
+    "active": true,
+    "tosidebar": true,
+    "complete": "true",
+    "targetType": "full",
+    "x": 890,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "dbgResp",
+    "type": "debug",
+    "z": "flow1",
+    "name": "API response",
+    "active": true,
+    "tosidebar": true,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 1090,
+    "y": 80,
+    "wires": []
+  }
+]
+
+

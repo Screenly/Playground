@@ -1,0 +1,34 @@
+/* NWS formatted content styling */
+.nws-preamble {
+  margin-bottom: 1.5vh;
+  line-height: 1.4;
+}
+
+.nws-forecast-list,
+.nws-wwwi-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nws-forecast-list li,
+.nws-wwwi-list li {
+  position: relative;
+  padding-left: 3vw;
+  margin-bottom: 1vh;
+}
+
+.nws-forecast-list li::before,
+.nws-wwwi-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: rgb(234, 88, 12);
+  font-weight: 900;
+}
+
+.nws-forecast-list li strong,
+.nws-wwwi-list li strong {
+  color: rgb(30, 64, 175);
+  font-weight: 800;
+}

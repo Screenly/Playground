@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather - Screenly Edge App</title>
+    <script src="screenly.js?version=1"></script>
+  </head>
+  <body>
+    <auto-scaler
+      reference-width="1920"
+      reference-height="1080"
+      orientation="auto"
+    >
+      <div id="app">
+        <app-header class="header" show-date></app-header>
+
+        <main class="content">
+          <section class="current-weather">
+            <div class="city" data-location>--</div>
+            <div class="temperature-display" data-temperature>--°</div>
+            <div class="status-pill">
+              <span class="weather-description" data-weather-description></span>
+              <div class="hi-lo">
+                <span class="hi">↑ <span data-temp-high>--°</span></span>
+                <span class="lo">↓ <span data-temp-low>--°</span></span>
+              </div>
+            </div>
+          </section>
+
+          <section class="forecast-card" data-forecast-card>
+            <div class="forecast-header">
+              <img
+                class="forecast-header-icon"
+                data-forecast-header-icon
+                alt=""
+              />
+              <span>Forecast by Hour</span>
+            </div>
+            <div class="forecast-divider"></div>
+            <div class="forecast-items" data-forecast-items></div>
+          </section>
+        </main>
+
+        <div id="error-screen" style="display: none">
+          <div class="error-card">
+            <div class="error-card-left">
+              <h2>Something went wrong</h2>
+              <p>
+                The weather data could not be loaded. Please check your
+                configuration or contact your administrator.
+              </p>
+            </div>
+            <div class="error-card-right">
+              <div class="error-detail-label">Error details</div>
+              <p id="error-message" class="error-detail-message"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </auto-scaler>
+
+    <template id="forecast-item-template">
+      <div class="forecast-item">
+        <span class="forecast-item-temp"></span>
+        <img class="forecast-item-icon" alt="" />
+        <span class="forecast-item-time">
+          <span class="forecast-item-time-value"></span>
+          <span class="forecast-item-time-period"></span>
+        </span>
+      </div>
+    </template>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

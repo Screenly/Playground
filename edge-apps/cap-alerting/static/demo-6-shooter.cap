@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+  <identifier>DEMO-ACTIVE-SHOOTER-001</identifier>
+  <sender>demo@screenly.io</sender>
+  <sent>2024-06-20T14:30:00-00:00</sent>
+  <status>Exercise</status>
+  <msgType>Alert</msgType>
+  <scope>Public</scope>
+  <note>THIS IS A DEMONSTRATION EXERCISE - NOT A REAL EMERGENCY</note>
+  <info>
+    <language>en-US</language>
+    <category>Security</category>
+    <event>Active Shooter Alert</event>
+    <responseType>Shelter</responseType>
+    <responseType>Execute</responseType>
+    <urgency>Immediate</urgency>
+    <severity>Extreme</severity>
+    <certainty>Observed</certainty>
+    <effective>2024-06-20T14:30:00-00:00</effective>
+    <onset>2024-06-20T14:30:00-00:00</onset>
+    <expires>2024-06-20T18:00:00-00:00</expires>
+    <senderName>Campus Security (DEMO)</senderName>
+    <headline>Active Shooter on Campus - Lockdown in Effect</headline>
+    <description>Active shooter reported on campus. Law enforcement is on scene. This is an active and dangerous situation. All personnel must take immediate protective action.</description>
+    <instruction>Run, Hide, Fight. If safe to evacuate, run to {{closest_exit}} immediately. If evacuation is not possible, hide in a secure location, lock and barricade doors, silence phones, and stay quiet. Do not open doors for anyone except law enforcement. Call 911 when safe. As a last resort, if confronted, take action to defend yourself.</instruction>
+    <web>https://campus-security.edu/emergency</web>
+    <contact>Emergency: 911 | Campus Security: (555) 123-4567</contact>
+    <parameter>
+      <valueName>Location</valueName>
+      <value>Main Campus - Building C, 3rd Floor</value>
+    </parameter>
+    <parameter>
+      <valueName>Action</valueName>
+      <value>Lockdown</value>
+    </parameter>
+    <resource>
+      <resourceDesc>Emergency Lockdown Alert</resourceDesc>
+      <mimeType>audio/mpeg</mimeType>
+      <uri>https://archive.org/download/EASAlertTones/EAS_Alert_Tones/Civil_Emergency_Message.mp3</uri>
+    </resource>
+    <area>
+      <areaDesc>University Campus and Surrounding Area</areaDesc>
+      <polygon>40.75,-74.00 40.76,-73.98 40.77,-73.99 40.76,-74.01 40.75,-74.00</polygon>
+    </area>
+  </info>
+</alert>
+
