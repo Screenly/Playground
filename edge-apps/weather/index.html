@@ -41,6 +41,22 @@
             <div class="forecast-items" data-forecast-items></div>
           </section>
         </main>
+
+        <div id="error-screen" style="display: none">
+          <div class="error-card">
+            <div class="error-card-left">
+              <h2>Something went wrong</h2>
+              <p>
+                The weather data could not be loaded. Please check your
+                configuration or contact your administrator.
+              </p>
+            </div>
+            <div class="error-card-right">
+              <div class="error-detail-label">Error details</div>
+              <p id="error-message" class="error-detail-message"></p>
+            </div>
+          </div>
+        </div>
       </div>
     </auto-scaler>
 

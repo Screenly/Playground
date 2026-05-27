@@ -8,13 +8,40 @@ import {
   getSetting,
   getCityInfo,
   resolveMeasurementUnit,
+  setupErrorHandling,
   type MeasurementUnit,
 } from '@screenly/edge-apps'
 import '@screenly/edge-apps/components'
-import { getCurrentWeather, getHourlyForecast } from './weather'
+import {
+  getCurrentWeather,
+  getHourlyForecast,
+  MISSING_API_KEY_ERROR,
+} from './weather'
 import type { ForecastItem } from './weather'
 import { updateBackground } from './background'
 import sunIcon from '../static/images/sun.svg'
+
+type ErrorReporter = (error: unknown) => void
+
+function showError(error: unknown): void {
+  const message = error instanceof Error ? error.message : String(error)
+  const contentEl = document.querySelector<HTMLElement>('main.content')
+  const errorScreen = document.getElementById('error-screen')
+  const errorMessage = document.getElementById('error-message')
+
+  if (contentEl) contentEl.style.display = 'none'
+  if (errorScreen) errorScreen.style.display = 'flex'
+  if (errorMessage) errorMessage.textContent = message
+}
+
+function createErrorReporter(displayErrors: boolean): ErrorReporter {
+  if (displayErrors) {
+    return (error) => {
+      throw error instanceof Error ? error : new Error(String(error))
+    }
+  }
+  return showError
+}
 
 // DOM elements
 let locationEl: Element | null
@@ -146,19 +173,28 @@ async function updateWeatherDisplay(
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  try {
-    locationEl = document.querySelector('[data-location]')
-    temperatureEl = document.querySelector('[data-temperature]')
-    weatherDescriptionEl = document.querySelector('[data-weather-description]')
-    tempHighEl = document.querySelector('[data-temp-high]')
-    tempLowEl = document.querySelector('[data-temp-low]')
-    forecastItemsEl = document.querySelector('[data-forecast-items]')
-    forecastCardEl = document.querySelector('[data-forecast-card]')
-    forecastHeaderIconEl = document.querySelector('[data-forecast-header-icon]')
+  setupErrorHandling()
 
-    // Set forecast header icon
-    if (forecastHeaderIconEl) {
-      forecastHeaderIconEl.src = sunIcon
+  locationEl = document.querySelector('[data-location]')
+  temperatureEl = document.querySelector('[data-temperature]')
+  weatherDescriptionEl = document.querySelector('[data-weather-description]')
+  tempHighEl = document.querySelector('[data-temp-high]')
+  tempLowEl = document.querySelector('[data-temp-low]')
+  forecastItemsEl = document.querySelector('[data-forecast-items]')
+  forecastCardEl = document.querySelector('[data-forecast-card]')
+  forecastHeaderIconEl = document.querySelector('[data-forecast-header-icon]')
+
+  if (forecastHeaderIconEl) {
+    forecastHeaderIconEl.src = sunIcon
+  }
+
+  const displayErrors = getSetting<string>('display_errors') === 'true'
+  const reportError = createErrorReporter(displayErrors)
+
+  try {
+    const apiKey = getSetting<string>('openweathermap_api_key')
+    if (!apiKey) {
+      throw new Error(MISSING_API_KEY_ERROR)
     }
 
     const [latitude, longitude] = getCoordinates()
@@ -184,8 +220,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       15 * 60 * 1000,
     )
   } catch (error) {
-    console.error('Failed to initialize app:', error)
+    console.error('Weather app initialization failed:', error)
+    reportError(error)
+  } finally {
+    signalReady()
   }
-
-  signalReady()
 })
