@@ -1,7 +1,5 @@
 function closeConsentbox() {
-  const acceptCookieEl = document.querySelector(
-    'button[aria-label="Accept all"]',
-  )
+  const acceptCookieEl = document.querySelector('button[aria-label="Accept all"]')
   if (!acceptCookieEl) return
   acceptCookieEl.click()
   clearInterval(intervalId)
