@@ -1,6 +1,10 @@
 import '@screenly/edge-apps/test'
 import { describe, test, expect } from 'bun:test'
-import { getCurrentWeather, getHourlyForecast } from './weather'
+import {
+  getCurrentWeather,
+  getHourlyForecast,
+  MISSING_API_KEY_ERROR,
+} from './weather'
 
 let mockFetchCurrentWeatherData: (
   lat: number,
@@ -216,9 +220,7 @@ describe('getHourlyForecast', () => {
         'imperial',
         mockCurrentWeather,
       ),
-    ).rejects.toThrow(
-      'OpenWeatherMap API key is required. Please configure it in the app settings.',
-    )
+    ).rejects.toThrow(MISSING_API_KEY_ERROR)
   })
 
   test('should prepend current weather as NOW and return forecast items', async () => {

@@ -12,14 +12,19 @@ import {
   type MeasurementUnit,
 } from '@screenly/edge-apps'
 import '@screenly/edge-apps/components'
-import { getCurrentWeather, getHourlyForecast } from './weather'
+import {
+  getCurrentWeather,
+  getHourlyForecast,
+  MISSING_API_KEY_ERROR,
+} from './weather'
 import type { ForecastItem } from './weather'
 import { updateBackground } from './background'
 import sunIcon from '../static/images/sun.svg'
 
-type ErrorReporter = (message: string) => void
+type ErrorReporter = (error: unknown) => void
 
-function showError(message: string): void {
+function showError(error: unknown): void {
+  const message = error instanceof Error ? error.message : String(error)
   const contentEl = document.querySelector<HTMLElement>('main.content')
   const errorScreen = document.getElementById('error-screen')
   const errorMessage = document.getElementById('error-message')
@@ -31,8 +36,8 @@ function showError(message: string): void {
 
 function createErrorReporter(displayErrors: boolean): ErrorReporter {
   if (displayErrors) {
-    return (msg) => {
-      throw new Error(msg)
+    return (error) => {
+      throw error instanceof Error ? error : new Error(String(error))
     }
   }
   return showError
@@ -189,9 +194,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     const apiKey = getSetting<string>('openweathermap_api_key')
     if (!apiKey) {
-      throw new Error(
-        'OpenWeatherMap API key is required. Please configure it in the app settings.',
-      )
+      throw new Error(MISSING_API_KEY_ERROR)
     }
 
     const [latitude, longitude] = getCoordinates()
@@ -218,7 +221,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     )
   } catch (error) {
     console.error('Weather app initialization failed:', error)
-    reportError(error instanceof Error ? error.message : String(error))
+    reportError(error)
   } finally {
     signalReady()
   }
