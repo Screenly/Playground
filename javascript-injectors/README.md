@@ -221,6 +221,13 @@ $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
 - Download [cyfe-sign-in-via-credentials.js](https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/cyfe-sign-in-via-credentials.js) and modify it with your credentials.
 - Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
 
+## Google Maps cookies consent closing
+
+```bash
+$ export JAVASCRIPT_URL='https://raw.githubusercontent.com/Screenly/Playground/master/javascript-injectors/examples/googlemaps-cookies-consent-closing.js'
+$ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
+```
+
 ## Sign in to Zabbix via credentials
 
 <img src="../images/zabbix-logo.svg" alt="Zabbix logo" width="150"/>
