@@ -37,10 +37,10 @@ XXXXXXXXXXXXXXXXXXXXXXXXXX
 
 With our asset created, we can now apply the JavaScript Injection for this site. The above site, Engadget, uses Yahoo's cookie consent popover. When you first navigate to the site, you need to click the cookie consent dialogue to continue. This is obviously not ideal for digital signage.
 
-Luckily, we can use JavaScript to close this dialogue. The script [`yahoo-cookies-consent-closing.js`](https://raw.githubusercontent.com/Screenly/playground/master/javascript-injectors/examples/yahoo-cookies-consent-closing.js) does just that, so let's apply it to our asset using the CLI:
+Luckily, we can use JavaScript to close this dialogue. The script [`yahoo-cookies-consent-closing.js`](https://raw.githubusercontent.com/Screenly/Playground/master/javascript-injectors/examples/yahoo-cookies-consent-closing.js) does just that, so let's apply it to our asset using the CLI:
 
 ```bash
-$ export JAVASCRIPT_URL='https://raw.githubusercontent.com/Screenly/playground/master/javascript-injectors/examples/yahoo-cookies-consent-closing.js'
+$ export JAVASCRIPT_URL='https://raw.githubusercontent.com/Screenly/Playground/master/javascript-injectors/examples/yahoo-cookies-consent-closing.js'
 $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
 20XX-XX-XXTXX:XX:XX.XXXZ INFO  [screenly] Asset updated successfully.
 ```
@@ -93,7 +93,7 @@ The relevant JavaScript is very simple:
 Again, using our CLI, along with the URL to the JavaScript above, we're able instruct Screenly to run the above JavaScript when loading the page.
 
 ```bash
-$ export JAVASCRIPT_URL='https://raw.githubusercontent.com/Screenly/playground/master/javascript-injectors/examples/hello-world.js'
+$ export JAVASCRIPT_URL='https://raw.githubusercontent.com/Screenly/Playground/master/javascript-injectors/examples/hello-world.js'
 $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
 20XX-XX-XXTXX:XX:XX.XXXZ INFO  [screenly] Asset updated successfully.
 ```
@@ -108,7 +108,7 @@ Upon next load, you will see the text changing from 'Hello World' to 'Hello John
 
 - Sign into the Screenly [user interface](https://login.screenlyapp.com).
 - Retrieve the cookie `beaker.session.id` from your browser.
-- Download [screenly-signin-via-cookies.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/screenly-signin-via-cookies.js) and modify it with your `beaker.session.id`.
+- Download [screenly-signin-via-cookies.js](https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/screenly-signin-via-cookies.js) and modify it with your `beaker.session.id`.
 - Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
 
 ### Sign in to Tableau via cookies
@@ -117,7 +117,7 @@ Upon next load, you will see the text changing from 'Hello World' to 'Hello John
 
 - Sign into your Tableau account.
 - Extract the cookie `SSESS[...]` from your browser.
-- Download [tableau-via-cookies.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/tableau-via-cookies.js) and modify it with your cookies.
+- Download [tableau-via-cookies.js](https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/tableau-via-cookies.js) and modify it with your cookies.
 - Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
 
 ## Sign in to Power BI via cookies
@@ -129,42 +129,42 @@ Upon next load, you will see the text changing from 'Hello World' to 'Hello John
   - `.AspNet.CookiesC1`
   - `.AspNet.CookiesC2`
   - `.AspNet.Cookies`
-- Download [powerbi-signin-via-cookies.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/powerbi-signin-via-cookies.js), modify it with your cookies.
+- Download [powerbi-signin-via-cookies.js](https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/powerbi-signin-via-cookies.js), modify it with your cookies.
 - Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
 
 ## Sign in to Power BI via credentials
 
 <img src="../images/powerbi-logo.png" alt="Power BI logo" width="200"/>
 
-- Download [powerbi-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/powerbi-signin-via-credentials.js) and modify it with your credentials.
+- Download [powerbi-signin-via-credentials.js](https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/powerbi-signin-via-credentials.js) and modify it with your credentials.
 - Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
 
 ## Sign in to Ship Hero via credentials
 
 <img src="../images/shiphero-logo.png" alt="Ship Hero logo" width="200"/>
 
-- Download [shiphero-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/shiphero-signin-via-credentials.js) and modify it with your credentials.
+- Download [shiphero-signin-via-credentials.js](https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/shiphero-signin-via-credentials.js) and modify it with your credentials.
 - Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
 
 ## Sign in to Magento Dashboard via credentials
 
 <img src="../images/magento-logo.png" alt="Magento logo" width="200"/>
 
-- Download [magento-signin-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/magento-signin-via-credentials.js) and modify it with your credentials.
+- Download [magento-signin-via-credentials.js](https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/magento-signin-via-credentials.js) and modify it with your credentials.
 - Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
 
 ## Sign in to Domo Dashboard via credentials
 
 <img src="../images/domo-logo.png" alt="Domo logo" width="120"/>
 
-- Download [domo-dashboard-via-credentials.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/domo-dashboard-via-credentials.js) and modify it with your credentials.
+- Download [domo-dashboard-via-credentials.js](https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/domo-dashboard-via-credentials.js) and modify it with your credentials.
 - Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
 
 ## Sign in to Domo Dashboard via access code
 
 <img src="../images/domo-logo.png" alt="Domo logo" width="120"/>
 
-- Download [domo-dashboard-via-access-code.js](https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/domo-dashboard-via-access-code.js) and modify it with your credentials.
+- Download [domo-dashboard-via-access-code.js](https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/domo-dashboard-via-access-code.js) and modify it with your credentials.
 - Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
 
 ## Yahoo cookies consent closing
@@ -174,7 +174,7 @@ Upon next load, you will see the text changing from 'Hello World' to 'Hello John
 Applicable to Yahoo sites like Engadget, TechCrunch etc.
 
 ```bash
-$ export JAVASCRIPT_URL='https://raw.githubusercontent.com/Screenly/playground/master/javascript-injectors/examples/yahoo-cookies-consent-closing.js'
+$ export JAVASCRIPT_URL='https://raw.githubusercontent.com/Screenly/Playground/master/javascript-injectors/examples/yahoo-cookies-consent-closing.js'
 $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
 20XX-XX-XXTXX:XX:XX.XXXZ INFO  [screenly] Asset updated successfully.
 ```
@@ -182,14 +182,14 @@ $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
 ## Ez-cookie cookies consent closing
 
 ```bash
-* export JAVASCRIPT_URL='https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/ezcookie-cookies-consent-closing.js'
+* export JAVASCRIPT_URL='https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/ezcookie-cookies-consent-closing.js'
 $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
 ```
 
 ## Sign in to Unifi Captive portal
 
 ```bash
-* export JAVASCRIPT_URL='https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/unifi-signin-via-credentials.js'
+* export JAVASCRIPT_URL='https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/unifi-signin-via-credentials.js'
 $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
 ```
 
@@ -224,7 +224,7 @@ $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
 ## Google Maps cookies consent closing
 
 ```bash
-* export JAVASCRIPT_URL='https://github.com/Screenly/playground/tree/master/javascript-injectors/examples/googlemaps-cookies-consent-closing.js'
+* export JAVASCRIPT_URL='https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/googlemaps-cookies-consent-closing.js'
 $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
 ```
 
