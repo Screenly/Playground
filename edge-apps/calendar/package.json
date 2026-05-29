@@ -30,7 +30,7 @@
     "bun-types": "^1.3.14",
     "jsdom": "^29.1.1",
     "npm-run-all2": "^9.0.1",
-    "dayjs": "^1.11.20",
+    "dayjs": "^1.11.21",
     "ical.js": "^2.2.1",
     "prettier": "^3.8.3",
     "typescript": "^6.0.3"
