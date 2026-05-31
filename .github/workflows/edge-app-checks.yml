@@ -213,7 +213,7 @@ jobs:
       - name: Run Markdown lint
         run: |
           bunx markdownlint-cli2 \
-            --config '{"MD013": false}' \
+            --config edge-apps/.markdownlint.json \
             "edge-apps/${{ matrix.app }}/**/*.md"
 
       - name: Run HTML lint
