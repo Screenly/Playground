@@ -212,7 +212,9 @@ jobs:
 
       - name: Run Markdown lint
         run: |
-          bunx markdownlint-cli2 "edge-apps/${{ matrix.app }}/**/*.md"
+          bunx markdownlint-cli2 \
+            --config edge-apps/.markdownlint.json \
+            "edge-apps/${{ matrix.app }}/**/*.md"
 
       - name: Run HTML lint
         run: |
