@@ -1,6 +1,10 @@
 import '@screenly/edge-apps/test'
 import { describe, test, expect } from 'bun:test'
-import { getCurrentWeather, getHourlyForecast } from './weather'
+import {
+  getCurrentWeather,
+  getHourlyForecast,
+  MISSING_API_KEY_ERROR,
+} from './weather'
 
 let mockFetchCurrentWeatherData: (
   lat: number,
@@ -204,19 +208,19 @@ describe('getHourlyForecast', () => {
     displayTemp: '58°F',
   }
 
-  test('should return empty array when no API key', async () => {
+  test('should throw when no API key is provided', async () => {
     mockGetSetting = () => undefined
 
-    const result = await getHourlyForecast(
-      37.39,
-      -122.0812,
-      'America/Los_Angeles',
-      'en',
-      'imperial',
-      mockCurrentWeather,
-    )
-
-    expect(result).toEqual([])
+    await expect(
+      getHourlyForecast(
+        37.39,
+        -122.0812,
+        'America/Los_Angeles',
+        'en',
+        'imperial',
+        mockCurrentWeather,
+      ),
+    ).rejects.toThrow(MISSING_API_KEY_ERROR)
   })
 
   test('should prepend current weather as NOW and return forecast items', async () => {

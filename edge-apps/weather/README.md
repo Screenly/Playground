@@ -22,6 +22,7 @@ The app accepts the following settings via `screenly.yml`:
 
 | Setting                  | Description                                                                                                                                                   | Type               | Default |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ------- |
+| `display_errors`         | For debugging purposes to display errors on the screen.                                                                                                       | optional, advanced | `false` |
 | `openweathermap_api_key` | OpenWeatherMap API key to access weather data and location information. Get your API key from the [OpenWeatherMap API](https://openweathermap.org/api)        | required           | -       |
 | `override_coordinates`   | Comma-separated coordinates (e.g., `37.8267,-122.4233`) to override device location                                                                           | optional           | -       |
 | `override_locale`        | Override the default locale with a supported language code                                                                                                    | optional           | `en`    |

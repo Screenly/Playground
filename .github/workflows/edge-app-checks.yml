@@ -19,6 +19,7 @@ jobs:
     outputs:
       changed-apps: ${{ steps.extract-changes.outputs.changed-apps }}
       apps-with-build-system: ${{ steps.build-system-check.outputs.apps-with-build-system }}
+      apps-without-build-system: ${{ steps.no-build-system-check.outputs.apps-without-build-system }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -46,46 +47,28 @@ jobs:
           # Read CHANGED_FILES into an array
           read -ra FILES_ARRAY <<< "$CHANGED_FILES"
 
-          # Function to add app to list if it has build system and isn't already included
+          # Function to add app to list if not already included
           add_app_if_valid() {
             local app="$1"
-            if [[ -n "$app" && "$app" != "helpers" && "$app" != ".bun-create" && "$app" != "blueprint" ]]; then
-              if [[ -f "edge-apps/$app/package.json" ]]; then
-                if [[ ! " $CHANGED_APPS " =~ $app ]]; then
+            if [[ -n "$app" && "$app" != "helpers" && "$app" != ".bun-create" ]]; then
+              if [[ -d "edge-apps/$app" ]]; then
+                if [[ " $CHANGED_APPS " != *" $app "* ]]; then
                   CHANGED_APPS="$CHANGED_APPS $app"
                 fi
               fi
             fi
           }
 
-          # Check if blueprint has changes and extract unique Edge App directories
-          BLUEPRINT_CHANGED=false
+          # Extract unique Edge App directories from changed files
           CHANGED_APPS=""
 
           for file in "${FILES_ARRAY[@]}"; do
             if [[ "$file" == edge-apps/* ]]; then
-              # Check for blueprint changes
-              if [[ "$file" == edge-apps/blueprint/* ]]; then
-                BLUEPRINT_CHANGED=true
-              fi
-
               # Extract the app name (first directory after edge-apps/)
               APP_NAME=$(echo "$file" | cut -d'/' -f2)
               add_app_if_valid "$APP_NAME"
             fi
           done
-
-          # If blueprint changed, add all apps with build systems
-          if [[ "$BLUEPRINT_CHANGED" == "true" ]]; then
-            echo "Blueprint changed, adding all apps with build systems..."
-            # Dynamically discover all Edge Apps with build systems
-            for app_dir in edge-apps/*/; do
-              if [[ -d "$app_dir" ]]; then
-                app=$(basename "$app_dir")
-                add_app_if_valid "$app"
-              fi
-            done
-          fi
 
           # Remove leading space and set output
           CHANGED_APPS="${CHANGED_APPS# }"
@@ -117,8 +100,30 @@ jobs:
           fi
           echo "Apps with build system: $APPS_WITH_BUILD_SYSTEM"
 
-  run-checks:
-    name: Run Checks for ${{ matrix.app }}
+      - name: Check which apps don't have build systems
+        id: no-build-system-check
+        run: |
+          CHANGED_APPS="${{ steps.extract-changes.outputs.changed-apps }}"
+          APPS_WITHOUT_BUILD_SYSTEM=""
+
+          read -ra APPS_ARRAY <<< "$CHANGED_APPS"
+          for app in "${APPS_ARRAY[@]}"; do
+            if [[ ! -f "edge-apps/$app/package.json" ]]; then
+              APPS_WITHOUT_BUILD_SYSTEM="$APPS_WITHOUT_BUILD_SYSTEM $app"
+            fi
+          done
+
+          APPS_WITHOUT_BUILD_SYSTEM="${APPS_WITHOUT_BUILD_SYSTEM# }"
+          if [[ -n "$APPS_WITHOUT_BUILD_SYSTEM" ]]; then
+            JSON_ARRAY=$(echo "$APPS_WITHOUT_BUILD_SYSTEM" | tr ' ' '\n' | jq -R . | jq -s -c .)
+            echo "apps-without-build-system=$JSON_ARRAY" >> "$GITHUB_OUTPUT"
+          else
+            echo "apps-without-build-system=[]" >> "$GITHUB_OUTPUT"
+          fi
+          echo "Apps without build system: $APPS_WITHOUT_BUILD_SYSTEM"
+
+  run-full-checks:
+    name: Run Full Checks for ${{ matrix.app }}
     runs-on: ubuntu-latest
     needs: detect-changes
     strategy:
@@ -180,24 +185,83 @@ jobs:
           retry_on: error
           command: cd edge-apps/${{ matrix.app }} && bun run test:e2e
 
+  run-simple-checks:
+    name: Run Simple Checks for ${{ matrix.app }}
+    runs-on: ubuntu-latest
+    needs: detect-changes
+    strategy:
+      matrix:
+        app: ${{ fromJSON(needs.detect-changes.outputs.apps-without-build-system) }}
+      fail-fast: false
+    if: needs.detect-changes.outputs.apps-without-build-system != '[]'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.2.2
+
+      - name: Run formatting check
+        run: |
+          bunx prettier --check \
+            --config edge-apps/.prettierrc.json \
+            "edge-apps/${{ matrix.app }}/**/*.{html,css,js,json,yml,yaml,md}"
+
+      - name: Run Markdown lint
+        run: |
+          bunx markdownlint-cli2 \
+            --config edge-apps/.markdownlint.json \
+            "edge-apps/${{ matrix.app }}/**/*.md"
+
+      - name: Run HTML lint
+        run: |
+          find "edge-apps/${{ matrix.app }}" \
+            -name "*.html" \
+            -not -path "*/static/*" \
+            -not -path "*/dist/*" \
+            -not -path "*/node_modules/*" \
+            -print0 | xargs -0 -r bunx htmlhint
+
+      - name: Run CSS lint
+        run: |
+          find "edge-apps/${{ matrix.app }}" \
+            -name "*.css" \
+            -not -path "*/dist/*" \
+            -not -path "*/node_modules/*" \
+            -print0 | xargs -0 -r bunx stylelint \
+              --config edge-apps/.stylelintrc.json
+
+      - name: Run JavaScript lint
+        run: |
+          find "edge-apps/${{ matrix.app }}" \
+            -name "*.js" \
+            -not -name "*.min.js" \
+            -not -name "eslint.config.js" \
+            -not -path "*/dist/*" \
+            -not -path "*/node_modules/*" \
+            -print0 | xargs -0 -r bunx eslint \
+              --config edge-apps/eslint.config.cjs
+
   summary:
     name: Summary
     runs-on: ubuntu-latest
-    needs: [detect-changes, run-checks]
+    needs: [detect-changes, run-full-checks, run-simple-checks]
     if: always()
     steps:
       - name: Check if any apps were processed
         run: |
           if [[ "${{ needs.detect-changes.outputs.changed-apps }}" == "" ]]; then
             echo "No Edge Apps were changed."
-          elif [[ "${{ needs.detect-changes.outputs.apps-with-build-system }}" == "[]" ]]; then
-            echo "Changed Edge Apps don't have build systems: ${{ needs.detect-changes.outputs.changed-apps }}"
           else
-            echo "Processed Edge Apps with build systems: ${{ needs.detect-changes.outputs.apps-with-build-system }}"
+            echo "Apps with build system: ${{ needs.detect-changes.outputs.apps-with-build-system }}"
+            echo "Apps without build system: ${{ needs.detect-changes.outputs.apps-without-build-system }}"
           fi
 
       - name: Check for failures
-        if: needs.run-checks.result == 'failure'
+        if: needs.run-full-checks.result == 'failure' || needs.run-simple-checks.result == 'failure'
         run: |
           echo "Some Edge App checks failed. Please review the logs above."
           exit 1

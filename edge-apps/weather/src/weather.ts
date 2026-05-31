@@ -6,6 +6,9 @@ import {
   type MeasurementUnit,
 } from '@screenly/edge-apps'
 
+export const MISSING_API_KEY_ERROR =
+  'OpenWeatherMap API key is required. Please configure it in the app settings.'
+
 export interface CurrentWeatherData {
   temperature: number
   weatherId: number
@@ -59,12 +62,12 @@ export async function getHourlyForecast(
   unit: MeasurementUnit,
   currentWeather: CurrentWeatherData | null,
 ): Promise<ForecastItem[]> {
-  try {
-    const apiKey = getSetting<string>('openweathermap_api_key')
-    if (!apiKey) {
-      return []
-    }
+  const apiKey = getSetting<string>('openweathermap_api_key')
+  if (!apiKey) {
+    throw new Error(MISSING_API_KEY_ERROR)
+  }
 
+  try {
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&units=${unit}&cnt=7&appid=${apiKey}`,
     )
@@ -125,7 +128,7 @@ export async function getHourlyForecast(
 
     return forecastItems
   } catch (error) {
-    console.warn('Failed to get forecast data:', error)
+    console.error('Failed to get forecast data:', error)
     return []
   }
 }
