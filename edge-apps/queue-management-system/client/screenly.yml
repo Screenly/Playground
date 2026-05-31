@@ -6,14 +6,14 @@ entrypoint:
 settings:
   api_url:
     type: string
-    default_value: "http://localhost:8000"
+    default_value: 'http://localhost:8000'
     title: API URL
     optional: true
     help_text: |
       Enter the URL of the queue management API server.
   poll_interval:
     type: string
-    default_value: "5000"
+    default_value: '5000'
     title: Poll Interval
     optional: true
     help_text: |
