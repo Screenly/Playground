@@ -7,7 +7,7 @@ updates:
     directories:
       - 'edge-apps/*'
     schedule:
-      interval: 'weekly'
+      interval: 'monthly'
     groups:
       bun:
         patterns:
@@ -16,7 +16,7 @@ updates:
   - package-ecosystem: 'pip'
     directory: '/edge-apps/queue-management-system/server'
     schedule:
-      interval: 'weekly'
+      interval: 'monthly'
     groups:
       pip:
         patterns:
@@ -25,7 +25,7 @@ updates:
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
-      interval: 'weekly'
+      interval: 'monthly'
     groups:
       github-actions:
         patterns:
