@@ -36,6 +36,14 @@ const { screenlyJsContent: screenlyJsContentWithErrors } =
 const dashboardImage = fs.readFileSync(
   path.resolve('e2e/fixtures/sample-grafana-dashboard.png'),
 )
+const grafanaHtmlErrorPage = `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Grafana - Error</title>
+  </head>
+  <body>Forbidden</body>
+</html>`
 
 const DISPLAY_ERRORS_RESOLUTIONS = [
   { width: 1920, height: 1080 },
@@ -109,9 +117,9 @@ for (const { width, height } of DISPLAY_ERRORS_RESOLUTIONS) {
       `${width}x${height}-display-errors.png`,
       async (route) =>
         route.fulfill({
-          status: 403,
-          contentType: 'text/plain',
-          body: 'Access to this Grafana dashboard is forbidden.',
+          status: 500,
+          contentType: 'text/html',
+          body: grafanaHtmlErrorPage,
         }),
     )
   })

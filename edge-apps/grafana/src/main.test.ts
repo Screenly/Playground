@@ -22,6 +22,35 @@ Object.assign(globalThis.window, {
   innerHeight: 567,
 })
 
+const RENDER_URL = 'https://example.com/render'
+const TOKEN = 'token123'
+
+const imgElement = {
+  setAttribute: mock(() => {}),
+  src: '',
+} as unknown as HTMLImageElement
+
+let originalFetch: typeof fetch
+let originalCreateObjectURL: typeof URL.createObjectURL
+let originalRevokeObjectURL: typeof URL.revokeObjectURL
+
+function mockSuccessfulFetch(objectUrl = 'blob:fake-url') {
+  globalThis.fetch = mock(async () => ({
+    ok: true,
+    blob: async () => new Blob(['data'], { type: 'image/png' }),
+  })) as unknown as typeof fetch
+  globalThis.URL.createObjectURL = mock(() => objectUrl)
+}
+
+function mockFailedFetch(status: number, statusText: string, body = '') {
+  globalThis.fetch = mock(async () => ({
+    ok: false,
+    status,
+    statusText,
+    text: async () => body,
+  })) as unknown as typeof fetch
+}
+
 describe('getRenderUrl', () => {
   let originalScreenWidth: number
   let originalScreenHeight: number
@@ -84,26 +113,6 @@ describe('getRenderUrl', () => {
 })
 
 describe('fetchAndRenderDashboard', () => {
-  const RENDER_URL = 'https://example.com/render'
-  const TOKEN = 'token123'
-
-  const imgElement = {
-    setAttribute: mock(() => {}),
-    src: '',
-  } as unknown as HTMLImageElement
-
-  let originalFetch: typeof fetch
-  let originalCreateObjectURL: typeof URL.createObjectURL
-  let originalRevokeObjectURL: typeof URL.revokeObjectURL
-
-  function mockSuccessfulFetch(objectUrl = 'blob:fake-url') {
-    globalThis.fetch = mock(async () => ({
-      ok: true,
-      blob: async () => new Blob(['data'], { type: 'image/png' }),
-    })) as unknown as typeof fetch
-    globalThis.URL.createObjectURL = mock(() => objectUrl)
-  }
-
   beforeEach(() => {
     originalFetch = globalThis.fetch
     originalCreateObjectURL = globalThis.URL.createObjectURL
@@ -117,15 +126,6 @@ describe('fetchAndRenderDashboard', () => {
     globalThis.URL.createObjectURL = originalCreateObjectURL
     globalThis.URL.revokeObjectURL = originalRevokeObjectURL
   })
-
-  function mockFailedFetch(status: number, statusText: string, body = '') {
-    globalThis.fetch = mock(async () => ({
-      ok: false,
-      status,
-      statusText,
-      text: async () => body,
-    })) as unknown as typeof fetch
-  }
 
   test('should render the image when fetch succeeds', async () => {
     mockSuccessfulFetch()
@@ -159,6 +159,26 @@ describe('fetchAndRenderDashboard', () => {
     expect(
       fetchAndRenderDashboard(RENDER_URL, 'bad-token', imgElement),
     ).rejects.toThrow('HTTP 403 Forbidden - Access denied for this user')
+  })
+
+  test('should replace HTML error pages with a friendly Grafana hint', async () => {
+    mockFailedFetch(
+      500,
+      'Internal Server Error',
+      `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Grafana - Error</title>
+  </head>
+  <body>Forbidden</body>
+</html>`,
+    )
+
+    expect(
+      fetchAndRenderDashboard(RENDER_URL, 'bad-token', imgElement),
+    ).rejects.toThrow(
+      'HTTP 500 Internal Server Error - Grafana returned an HTML error page instead of a dashboard image. Possible causes include missing render permissions or screenshot rendering being unavailable.',
+    )
   })
 
   test('should throw on network error', async () => {
