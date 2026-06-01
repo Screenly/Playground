@@ -148,7 +148,7 @@ describe('fetchAndRenderDashboard', () => {
   test('should throw with HTTP status when response is not ok', async () => {
     mockFailedFetch(401, 'Unauthorized')
 
-    expect(
+    await expect(
       fetchAndRenderDashboard(RENDER_URL, 'bad-token', imgElement),
     ).rejects.toThrow('HTTP 401 Unauthorized')
   })
@@ -156,7 +156,7 @@ describe('fetchAndRenderDashboard', () => {
   test('should include response body in the error when available', async () => {
     mockFailedFetch(403, 'Forbidden', 'Access denied for this user')
 
-    expect(
+    await expect(
       fetchAndRenderDashboard(RENDER_URL, 'bad-token', imgElement),
     ).rejects.toThrow('HTTP 403 Forbidden - Access denied for this user')
   })
@@ -174,7 +174,7 @@ describe('fetchAndRenderDashboard', () => {
 </html>`,
     )
 
-    expect(
+    await expect(
       fetchAndRenderDashboard(RENDER_URL, 'bad-token', imgElement),
     ).rejects.toThrow(
       'HTTP 500 Internal Server Error - Grafana returned an HTML error page instead of a dashboard image. Possible causes include missing render permissions or screenshot rendering being unavailable.',
@@ -186,7 +186,7 @@ describe('fetchAndRenderDashboard', () => {
       Promise.reject(new Error('Network request failed')),
     ) as unknown as typeof fetch
 
-    expect(
+    await expect(
       fetchAndRenderDashboard(RENDER_URL, TOKEN, imgElement),
     ).rejects.toThrow('Network request failed')
   })
