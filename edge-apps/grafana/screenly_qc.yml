@@ -6,7 +6,6 @@ icon: https://playground.srly.io/edge-apps/grafana/static/img/icon.svg
 author: Screenly, Inc.
 categories:
   - Dashboards
-  - Authentication
 ready_signal: true
 settings:
   access_token:
