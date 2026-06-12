@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Puzzle Dashboard - Screenly Edge App</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <iframe id="dashboard" src="about:blank" title="Puzzle Dashboard" allowfullscreen></iframe>
+
+    <script src="screenly.js?version=1"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', async () => {
+        const settings = await screenly.settings;
+        const url = settings.dashboard_url;
+
+        if (url) {
+          document.getElementById('dashboard').src = url;
+        }
+
+        screenly.signalReadyForRendering();
+      });
+    </script>
+  </body>
+</html>

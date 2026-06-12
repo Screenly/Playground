@@ -1,0 +1,40 @@
+---
+syntax: manifest_v1
+id:
+description: Puzzle Dashboard
+icon: https://playground.srly.io/edge-apps/puzzle-dashboard/static/img/icon.svg
+author: Screenly, Inc.
+categories:
+  - Dashboards
+ready_signal: true
+settings:
+  dashboard_url:
+    type: string
+    title: Dashboard URL
+    optional: false
+    default_value: ""
+    help_text:
+      schema_version: 1
+      properties:
+        help_text: The URL of the dashboard to display.
+        type: url
+  username:
+    type: string
+    title: Username
+    optional: false
+    default_value: ""
+    help_text:
+      schema_version: 1
+      properties:
+        help_text: The username used to log in to the dashboard.
+        type: string
+  password:
+    type: secret
+    title: Password
+    optional: false
+    default_value: ""
+    help_text:
+      schema_version: 1
+      properties:
+        help_text: The password used to log in to the dashboard.
+        type: string
