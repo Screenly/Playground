@@ -10,8 +10,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error('Please specify a dashboard URL')
     return
   }
-  
+
   document.getElementById('dashboard').src = url
 
   screenly.signalReadyForRendering()
+}
 })
