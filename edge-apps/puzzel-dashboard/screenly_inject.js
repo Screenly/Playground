@@ -12,43 +12,38 @@ function setValue(selector, value) {
   return true
 }
 
-// Set an input's value through the native setter so React-based dashboards
-// pick it up. Use this when setValue doesn't take effect.
-function setReactValue(selector, value) {
-  const el = document.querySelector(selector)
-  if (!el) return false
-  const setter = Object.getOwnPropertyDescriptor(
-    HTMLInputElement.prototype,
-    'value',
-  ).set
-  setter.call(el, value)
-  el.dispatchEvent(new Event('input', { bubbles: true }))
-  return true
-}
+// ---- Puzzel (app.puzzel.com) ------------------------------------------------
+// Selectors confirmed against https://app.puzzel.com/id/Account/Login
+// Two-step login: username first, then password on the next page load.
 
-// Run fn only when the current path matches path.
-function onPath(path, fn) {
-  if (location.pathname === path) fn()
-}
-
-// ---- Puzzle (Auth0 Universal Login) ----------------------------------------
-// Selectors confirmed against https://auth.puzzle.io/u/login
-
-onPath('/u/login', () => {
-  if (
-    !setValue('#username', screenly_settings.username) ||
-    !setValue('#password', screenly_settings.password)
-  ) {
-    console.log('[screenly_inject] Login fields not found.')
-    return
-  }
-
-  const submitBtn = document.querySelector(
-    'button[data-action-button-primary="true"]',
-  )
-  if (submitBtn) {
-    submitBtn.click()
+// Step 1 — username/Puzzel ID field
+if (document.querySelector('#Input_Username')) {
+  if (!setValue('#Input_Username', screenly_settings.username)) {
+    console.log('[screenly_inject] Username field not found.')
   } else {
-    console.log('[screenly_inject] Submit button not found.')
+    const submitBtn = document.querySelector(
+      'button.submit-button[type="submit"]:not(.hidden)',
+    )
+    if (submitBtn) {
+      submitBtn.click()
+    } else {
+      console.log('[screenly_inject] Submit button not found.')
+    }
   }
-})
+}
+
+// Step 2 — password field
+if (document.querySelector('#Input_Password')) {
+  if (!setValue('#Input_Password', screenly_settings.password)) {
+    console.log('[screenly_inject] Password field not found.')
+  } else {
+    const submitBtn = document.querySelector(
+      'button.submit-button[type="submit"]:not(.hidden)',
+    )
+    if (submitBtn) {
+      submitBtn.click()
+    } else {
+      console.log('[screenly_inject] Submit button not found.')
+    }
+  }
+}
