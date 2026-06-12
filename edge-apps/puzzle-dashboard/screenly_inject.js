@@ -3,6 +3,8 @@
 // This script runs AFTER the page has fully loaded; DOMContentLoaded has
 // already fired. Manipulate the DOM directly.
 
+/* global screenly_settings, Event */
+
 // Set an input's value and notify change listeners.
 function setValue(selector, value) {
   const el = document.querySelector(selector)
