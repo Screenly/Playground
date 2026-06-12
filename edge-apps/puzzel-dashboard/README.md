@@ -32,6 +32,6 @@ The script detects which step is active by checking for the presence of `#Input_
 ## Deploying
 
 ```shell
-screenly edge-app create --name puzzle-dashboard --in-place
+screenly edge-app create --name puzzel-dashboard --in-place
 screenly edge-app deploy
 ```
