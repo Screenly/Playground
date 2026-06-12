@@ -1,7 +1,7 @@
 ---
 syntax: manifest_v1
 id:
-description: Puzzle Dashboard
+description: Puzzel Dashboard
 icon: https://playground.srly.io/edge-apps/puzzle-dashboard/static/img/icon.svg
 author: Screenly, Inc.
 categories:
@@ -12,7 +12,7 @@ settings:
     type: string
     title: Dashboard URL
     optional: false
-    default_value: ''
+    default_value: 'https://app.puzzel.com/admin/app/dashboard'
     help_text:
       schema_version: 1
       properties:

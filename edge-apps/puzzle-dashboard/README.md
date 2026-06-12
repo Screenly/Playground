@@ -1,32 +1,33 @@
-# Puzzle Dashboard
+# Puzzel Dashboard
 
-A Screenly Edge App that embeds the [Puzzle](https://www.puzzle.io/) dashboard in a full-screen iframe and automatically logs in using injected credentials.
+A Screenly Edge App that embeds the [Puzzel](https://www.puzzel.com/) admin dashboard in a full-screen iframe and automatically logs in using injected credentials.
 
 ## How it works
 
 1. The player loads `index.html`, which renders a full-screen iframe pointing at the configured `dashboard_url`.
 2. On each load the player injects `screenly_inject.js` into the dashboard page and supplies the configured credentials via `screenly_settings`.
-3. The inject script detects the Auth0 Universal Login page (`/u/login`), fills the username and password fields, and clicks the submit button — no manual login required on the screen.
+3. The inject script detects the Puzzel login pages by their input field IDs and fills them automatically — no manual login required on the screen.
 
 ## Settings
 
-| Key             | Type         | Description                                |
-| --------------- | ------------ | ------------------------------------------ |
-| `dashboard_url` | string (URL) | The URL of the Puzzle dashboard to display |
-| `username`      | string       | Puzzle account email                       |
-| `password`      | secret       | Puzzle account password (stored encrypted) |
+| Key             | Type         | Description                                                                               |
+| --------------- | ------------ | ----------------------------------------------------------------------------------------- |
+| `dashboard_url` | string (URL) | The URL of the Puzzel dashboard to display (default: `https://app.puzzel.com/admin/app/dashboard`) |
+| `username`      | string       | Puzzel account email (Puzzel ID)                                                          |
+| `password`      | secret       | Puzzel account password (stored encrypted)                                                |
 
 ## Login page selectors
 
-The inject script targets the Puzzle Auth0 login page at `https://auth.puzzle.io/u/login`:
+The inject script handles Puzzel's two-step login at `https://app.puzzel.com/id/Account/Login`:
 
-| Field    | Selector                                    |
-| -------- | ------------------------------------------- |
-| Email    | `#username`                                 |
-| Password | `#password`                                 |
-| Submit   | `button[data-action-button-primary="true"]` |
+| Step         | Field             | Selector                                           |
+| ------------ | ----------------- | -------------------------------------------------- |
+| 1 – Username | Puzzel ID (email) | `#Input_Username`                                  |
+| 1 – Submit   | Next button       | `button.submit-button[type="submit"]:not(.hidden)` |
+| 2 – Password | Password          | `#Input_Password`                                  |
+| 2 – Submit   | Sign-in button    | `button.submit-button[type="submit"]:not(.hidden)` |
 
-The `button[data-action-button-primary="true"]` selector is intentional — it targets only the email/password submit button and avoids the Google SSO and Rippling SSO buttons also present on the page.
+The script detects which step is active by checking for the presence of `#Input_Username` or `#Input_Password` — no path matching required.
 
 ## Deploying
 
