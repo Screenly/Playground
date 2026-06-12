@@ -10,11 +10,11 @@ A Screenly Edge App that embeds the [Puzzel](https://www.puzzel.com/) admin dash
 
 ## Settings
 
-| Key             | Type         | Description                                                                               |
-| --------------- | ------------ | ----------------------------------------------------------------------------------------- |
+| Key             | Type         | Description                                                                                        |
+| --------------- | ------------ | -------------------------------------------------------------------------------------------------- |
 | `dashboard_url` | string (URL) | The URL of the Puzzel dashboard to display (default: `https://app.puzzel.com/admin/app/dashboard`) |
-| `username`      | string       | Puzzel account email (Puzzel ID)                                                          |
-| `password`      | secret       | Puzzel account password (stored encrypted)                                                |
+| `username`      | string       | Puzzel account email (Puzzel ID)                                                                   |
+| `password`      | secret       | Puzzel account password (stored encrypted)                                                         |
 
 ## Login page selectors
 

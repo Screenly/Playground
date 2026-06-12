@@ -20,7 +20,7 @@ settings:
         type: url
   username:
     type: string
-    title: Username
+    title: Puzzel ID
     optional: false
     default_value: ''
     help_text:
