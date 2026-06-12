@@ -30,20 +30,25 @@
   </head>
 
   <body>
-    <iframe id="dashboard" src="about:blank" title="Puzzle Dashboard" allowfullscreen></iframe>
+    <iframe
+      id="dashboard"
+      src="about:blank"
+      title="Puzzle Dashboard"
+      allowfullscreen
+    ></iframe>
 
     <script src="screenly.js?version=1"></script>
     <script>
       document.addEventListener('DOMContentLoaded', async () => {
-        const settings = await screenly.settings;
-        const url = settings.dashboard_url;
+        const settings = await screenly.settings
+        const url = settings.dashboard_url
 
         if (url) {
-          document.getElementById('dashboard').src = url;
+          document.getElementById('dashboard').src = url
         }
 
-        screenly.signalReadyForRendering();
-      });
+        screenly.signalReadyForRendering()
+      })
     </script>
   </body>
 </html>

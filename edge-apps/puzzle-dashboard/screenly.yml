@@ -12,7 +12,7 @@ settings:
     type: string
     title: Dashboard URL
     optional: false
-    default_value: ""
+    default_value: ''
     help_text:
       schema_version: 1
       properties:
@@ -22,7 +22,7 @@ settings:
     type: string
     title: Username
     optional: false
-    default_value: ""
+    default_value: ''
     help_text:
       schema_version: 1
       properties:
@@ -32,7 +32,7 @@ settings:
     type: secret
     title: Password
     optional: false
-    default_value: ""
+    default_value: ''
     help_text:
       schema_version: 1
       properties:

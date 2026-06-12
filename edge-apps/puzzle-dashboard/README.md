@@ -10,21 +10,21 @@ A Screenly Edge App that embeds the [Puzzle](https://www.puzzle.io/) dashboard i
 
 ## Settings
 
-| Key | Type | Description |
-|---|---|---|
+| Key             | Type         | Description                                |
+| --------------- | ------------ | ------------------------------------------ |
 | `dashboard_url` | string (URL) | The URL of the Puzzle dashboard to display |
-| `username` | string | Puzzle account email |
-| `password` | secret | Puzzle account password (stored encrypted) |
+| `username`      | string       | Puzzle account email                       |
+| `password`      | secret       | Puzzle account password (stored encrypted) |
 
 ## Login page selectors
 
 The inject script targets the Puzzle Auth0 login page at `https://auth.puzzle.io/u/login`:
 
-| Field | Selector |
-|---|---|
-| Email | `#username` |
-| Password | `#password` |
-| Submit | `button[data-action-button-primary="true"]` |
+| Field    | Selector                                    |
+| -------- | ------------------------------------------- |
+| Email    | `#username`                                 |
+| Password | `#password`                                 |
+| Submit   | `button[data-action-button-primary="true"]` |
 
 The `button[data-action-button-primary="true"]` selector is intentional — it targets only the email/password submit button and avoids the Google SSO and Rippling SSO buttons also present on the page.
 
