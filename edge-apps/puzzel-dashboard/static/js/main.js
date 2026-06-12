@@ -6,7 +6,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (url) {
     document.getElementById('dashboard').src = url
+  if (!url) {
+    console.error('Please specify a dashboard URL')
+    return
   }
+  
+  document.getElementById('dashboard').src = url
 
   screenly.signalReadyForRendering()
 })
