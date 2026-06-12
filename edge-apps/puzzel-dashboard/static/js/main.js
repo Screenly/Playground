@@ -1,7 +1,7 @@
 /* global screenly */
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const settings = await screenly.settings
+  const settings = screenly.settings
   const url = settings.dashboard_url
 
   if (url) {
