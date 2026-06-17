@@ -42,7 +42,7 @@ export async function getEmbedToken(): Promise<EmbedToken> {
   }
 
   const { token, expiration } = await response.json()
-  return { token, expiration }
+  return { token, expiration: expiration ?? null }
 }
 
 export function initTokenRefreshLoop(

@@ -93,6 +93,7 @@ function failFetch(message: string, status: number): typeof fetch {
   })) as unknown as typeof fetch
 }
 
+// eslint-disable-next-line max-lines-per-function
 describe('services', () => {
   let originalFetch: typeof fetch
 

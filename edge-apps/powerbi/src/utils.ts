@@ -25,7 +25,11 @@ export function getRefreshDelaySec(
   expiration: string | null,
   maxIntervalSec: number,
 ): number {
-  const expiresAtMs = Date.parse(expiration as string)
+  if (!expiration) {
+    return maxIntervalSec
+  }
+
+  const expiresAtMs = Date.parse(expiration)
   if (isNaN(expiresAtMs)) {
     return maxIntervalSec
   }

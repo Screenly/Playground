@@ -13,6 +13,7 @@ function isoFromNow(offsetSec: number): string {
   return new Date(NOW_MS + offsetSec * 1000).toISOString()
 }
 
+// eslint-disable-next-line max-lines-per-function
 describe('utils', () => {
   describe('getRefreshDelaySec', () => {
     let nowSpy: ReturnType<typeof spyOn>
