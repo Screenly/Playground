@@ -49,3 +49,14 @@ settings:
         help_text: How often to refresh the Power BI report/dashboard (in minutes). Default is 5 minutes. Minimum is 1 minute.
         type: number
       schema_version: 1
+  sentry_dsn:
+    type: secret
+    title: Sentry DSN
+    optional: true
+    is_global: true
+    help_text:
+      properties:
+        advanced: true
+        help_text: Sentry DSN for reporting embed and token errors. Leave empty to disable.
+        type: string
+      schema_version: 1
