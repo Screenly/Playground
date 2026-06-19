@@ -241,3 +241,10 @@ $ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
 
 - Download [dynatrace-login-via-credentials.js](https://github.com/Screenly/Playground/tree/master/javascript-injectors/examples/dynatrace-login-via-credentials.js) and modify it with your credentials.
 - Run `screenly asset inject-js "$ASSET_ID" /path/to/script.js` to add the JavaScript
+
+## Airtable cookies consent closing
+
+```bash
+$ export JAVASCRIPT_URL='https://raw.githubusercontent.com/Screenly/Playground/master/javascript-injectors/examples/airtable-cookies-consent-closing.js'
+$ screenly asset inject-js "$ASSET_ID" "$JAVASCRIPT_URL"
+```
