@@ -11,6 +11,7 @@ import {
   showError,
 } from './services.lib'
 import type { EmbedToken, PowerBiError } from './services.types'
+import { reportError } from '@screenly/edge-apps/utils'
 
 export async function getEmbedToken(): Promise<EmbedToken> {
   if (screenly.settings.embed_token) {
@@ -59,7 +60,10 @@ export function initTokenRefreshLoop(
       await report.setAccessToken(token)
       currentErrorStep = 0
       nextTimeout = getRefreshDelaySec(expiration, maxRefreshIntervalSec)
-    } catch {
+    } catch (error) {
+      if (currentErrorStep === 0) {
+        reportError(error, { source: 'token-refresh' })
+      }
       nextTimeout = getErrorBackoffSec(currentErrorStep, maxRefreshIntervalSec)
       currentErrorStep += 1
     }
@@ -80,6 +84,7 @@ export async function initializePowerBI(): Promise<Embed> {
   try {
     initialToken = await getEmbedToken()
   } catch (error) {
+    reportError(error, { source: 'embed-token' })
     const failure = error as Error & { status?: number }
     showError({
       detailedMessage: failure.message,
@@ -115,6 +120,7 @@ export async function initializePowerBI(): Promise<Embed> {
   }
 
   report.on('error', function (event) {
+    reportError(event.detail, { source: 'powerbi-embed' })
     showError(event.detail as PowerBiError)
   })
 

@@ -61,6 +61,12 @@ mock.module('powerbi-client', () => ({
   models: { TokenType: { Embed: 'Embed' }, Permissions: { All: 'All' } },
 }))
 
+const reportError = mock(() => {})
+mock.module('@screenly/edge-apps/utils', () => ({
+  setupSentry: () => {},
+  reportError,
+}))
+
 const { getEmbedToken, initTokenRefreshLoop, initializePowerBI } =
   await import('./services')
 const { showError } = await import('./services.lib')
@@ -99,6 +105,7 @@ describe('services', () => {
 
   beforeEach(() => {
     originalFetch = globalThis.fetch
+    reportError.mockClear()
   })
 
   afterEach(() => {
@@ -223,6 +230,19 @@ describe('services', () => {
       await scheduled[1].fn()
       expect(scheduled[2].delayMs).toBe(30_000)
     })
+
+    it('when refresh fails repeatedly, should report only first failure to sentry', async () => {
+      globalThis.fetch = failFetch('boom', 500)
+      initTokenRefreshLoop(makeReport(), isoFromNow(100))
+
+      await scheduled[0].fn()
+      await scheduled[1].fn()
+
+      expect(reportError).toHaveBeenCalledTimes(1)
+      expect(reportError).toHaveBeenCalledWith(expect.anything(), {
+        source: 'token-refresh',
+      })
+    })
   })
 
   describe('initializePowerBI', () => {
@@ -248,7 +268,7 @@ describe('services', () => {
       expect(report).toBe(fakeReport)
     })
 
-    it('when token retrieval fails, should render error and rethrow', async () => {
+    it('when token retrieval fails, should report, render error, and rethrow', async () => {
       setScreenly({ ...OAUTH_SETTINGS, embed_url: REPORT_EMBED_URL })
       globalThis.fetch = failFetch('Embed token unavailable', 403)
 
@@ -256,8 +276,29 @@ describe('services', () => {
         'Embed token unavailable',
       )
 
+      expect(reportError).toHaveBeenCalledWith(expect.anything(), {
+        source: 'embed-token',
+      })
       expect(document.querySelector('.error-message')?.textContent).toBe(
         'Embed token unavailable',
+      )
+    })
+
+    it('when embed fires error event, should report it to sentry and render error', async () => {
+      setScreenly({ embed_token: 'static-token', embed_url: REPORT_EMBED_URL })
+      await initializePowerBI()
+      const errorHandler = reportOn.mock.calls.find(
+        (call) => call[0] === 'error',
+      )?.[1] as (event: { detail: unknown }) => void
+
+      errorHandler({ detail: { detailedMessage: 'TokenExpired' } })
+
+      expect(reportError).toHaveBeenCalledWith(
+        { detailedMessage: 'TokenExpired' },
+        { source: 'powerbi-embed' },
+      )
+      expect(document.querySelector('.error-message')?.textContent).toBe(
+        'TokenExpired',
       )
     })
   })
