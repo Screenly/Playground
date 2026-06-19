@@ -50,7 +50,7 @@ settings:
         type: number
       schema_version: 1
   sentry_dsn:
-    type: string
+    type: secret
     title: Sentry DSN
     optional: true
     is_global: true
