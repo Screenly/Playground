@@ -208,6 +208,7 @@ jobs:
         run: |
           bunx prettier --check \
             --config edge-apps/.prettierrc.json \
+            --no-error-on-unmatched-pattern \
             "edge-apps/${{ matrix.app }}/**/*.{html,css,js,json,yml,yaml,md}"
 
       - name: Run Markdown lint
