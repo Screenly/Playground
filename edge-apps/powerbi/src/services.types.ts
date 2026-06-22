@@ -4,6 +4,7 @@ export interface EmbedToken {
 }
 
 export interface PowerBiError {
+  message?: string
   detailedMessage?: string
   technicalDetails?: {
     errorInfo?: Array<{ key: string; value: string | number | undefined }>

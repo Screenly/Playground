@@ -7,8 +7,12 @@ import {
 } from './utils'
 import {
   DASHBOARD_READY_DELAY_MS,
+  MAX_MODEL_RELOADS,
   getEmbedService,
+  isModelLoadError,
+  powerBiErrorContext,
   showError,
+  toReportableError,
 } from './services.lib'
 import type { EmbedToken, PowerBiError } from './services.types'
 import { reportError } from '@screenly/edge-apps/utils'
@@ -95,24 +99,31 @@ export async function initializePowerBI(): Promise<Embed> {
     throw error
   }
 
-  const report = getEmbedService().embed(
-    document.getElementById('embed-container') as HTMLElement,
-    {
-      embedUrl: embedUrl,
-      accessToken: initialToken.token,
-      type: resourceType,
-      tokenType: models.TokenType.Embed,
-      permissions: models.Permissions.All,
-      settings: {
-        filterPaneEnabled: false,
-        navContentPaneEnabled: false,
-        hideErrors: true,
-      },
+  const container = document.getElementById('embed-container') as HTMLElement
+  const report = getEmbedService().embed(container, {
+    embedUrl: embedUrl,
+    accessToken: initialToken.token,
+    type: resourceType,
+    tokenType: models.TokenType.Embed,
+    permissions: models.Permissions.All,
+    settings: {
+      filterPaneEnabled: false,
+      navContentPaneEnabled: false,
+      hideErrors: true,
     },
-  )
+  })
+
+  // powerbi-client also dispatches a DOM 'error' CustomEvent that bubbles to window, where
+  // Sentry's global handler double-captures it; we report it explicitly below instead.
+  container.addEventListener('error', (event) => event.stopPropagation())
+
+  let modelReloadAttempts = 0
 
   if (resourceType === 'report') {
-    report.on('rendered', screenly.signalReadyForRendering)
+    report.on('rendered', () => {
+      modelReloadAttempts = 0
+      screenly.signalReadyForRendering()
+    })
   } else if (resourceType === 'dashboard') {
     report.on('loaded', () => {
       setTimeout(screenly.signalReadyForRendering, DASHBOARD_READY_DELAY_MS)
@@ -120,8 +131,16 @@ export async function initializePowerBI(): Promise<Embed> {
   }
 
   report.on('error', function (event) {
-    reportError(event.detail, { source: 'powerbi-embed' })
-    showError(event.detail as PowerBiError)
+    const detail = event.detail as PowerBiError
+    reportError(toReportableError(detail), powerBiErrorContext(detail))
+
+    if (isModelLoadError(detail) && modelReloadAttempts < MAX_MODEL_RELOADS) {
+      modelReloadAttempts += 1
+      void report.reload()
+      return
+    }
+
+    showError(detail)
   })
 
   if (!screenly.settings.embed_token) {

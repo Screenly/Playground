@@ -46,7 +46,12 @@ function setupDom() {
 const embedCalls: Array<{ config: Record<string, unknown> }> = []
 const reportOn = mock(() => {})
 const reportSetAccessToken = mock(async () => {})
-const fakeReport = { on: reportOn, setAccessToken: reportSetAccessToken }
+const reportReload = mock(async () => {})
+const fakeReport = {
+  on: reportOn,
+  setAccessToken: reportSetAccessToken,
+  reload: reportReload,
+}
 
 class FakeService {
   embed(_container: unknown, config: Record<string, unknown>) {
@@ -245,11 +250,14 @@ describe('services', () => {
     })
   })
 
+  // eslint-disable-next-line max-lines-per-function
   describe('initializePowerBI', () => {
     beforeEach(() => {
       embedCalls.length = 0
       reportOn.mockClear()
       reportSetAccessToken.mockClear()
+      reportReload.mockClear()
+      signalReady.mockClear()
       setupDom()
     })
 
@@ -264,8 +272,13 @@ describe('services', () => {
         tokenType: 'Embed',
         permissions: 'All',
       })
-      expect(reportOn).toHaveBeenCalledWith('rendered', signalReady)
       expect(report).toBe(fakeReport)
+
+      const renderedHandler = reportOn.mock.calls.find(
+        (call) => call[0] === 'rendered',
+      )?.[1] as () => void
+      renderedHandler()
+      expect(signalReady).toHaveBeenCalled()
     })
 
     it('when token retrieval fails, should report, render error, and rethrow', async () => {
@@ -284,22 +297,51 @@ describe('services', () => {
       )
     })
 
-    it('when embed fires error event, should report it to sentry and render error', async () => {
+    async function embedAndGetErrorHandler() {
       setScreenly({ embed_token: 'static-token', embed_url: REPORT_EMBED_URL })
       await initializePowerBI()
-      const errorHandler = reportOn.mock.calls.find(
+      return reportOn.mock.calls.find(
         (call) => call[0] === 'error',
       )?.[1] as (event: { detail: unknown }) => void
+    }
+
+    it('when embed fires non-model error, should report it and render error', async () => {
+      const errorHandler = await embedAndGetErrorHandler()
 
       errorHandler({ detail: { detailedMessage: 'TokenExpired' } })
 
-      expect(reportError).toHaveBeenCalledWith(
-        { detailedMessage: 'TokenExpired' },
-        { source: 'powerbi-embed' },
-      )
+      const [reportedError, context] = reportError.mock.calls[0] as [
+        Error,
+        Record<string, unknown>,
+      ]
+      expect(reportedError.message).toBe('TokenExpired')
+      expect(context.source).toBe('powerbi-embed')
+      expect(reportReload).not.toHaveBeenCalled()
       expect(document.querySelector('.error-message')?.textContent).toBe(
         'TokenExpired',
       )
+    })
+
+    it('when embed fires model-load error, should reload instead of showing error', async () => {
+      const errorHandler = await embedAndGetErrorHandler()
+
+      errorHandler({ detail: { message: 'X_FailedToLoadModel_Y' } })
+
+      expect(reportReload).toHaveBeenCalledTimes(1)
+      expect(document.querySelector('.error-message')).toBeNull()
+    })
+
+    it('when model-load errors exceed max reloads, should show error', async () => {
+      const errorHandler = await embedAndGetErrorHandler()
+      const modelError = { detail: { message: 'X_FailedToLoadModel_Y' } }
+
+      errorHandler(modelError)
+      errorHandler(modelError)
+      errorHandler(modelError)
+      errorHandler(modelError)
+
+      expect(reportReload).toHaveBeenCalledTimes(3)
+      expect(document.querySelector('.error-container')).not.toBeNull()
     })
   })
 })
