@@ -81,6 +81,45 @@ export function initTokenRefreshLoop(
   )
 }
 
+// Drives model-load recovery. Both a fresh error event and a failed reload funnel through
+// reloadOrShowError so they share one retry budget. While a reload is pending, further
+// errors are ignored so duplicates don't stack overlapping reloads. A successful render
+// calls reset(), cancelling any reload still waiting on its delay.
+function createReloadController(report: Embed) {
+  let attempts = 0
+  let timer: ReturnType<typeof setTimeout> | undefined
+
+  function reset() {
+    if (timer !== undefined) {
+      clearTimeout(timer)
+      timer = undefined
+    }
+    attempts = 0
+  }
+
+  function reloadOrShowError(detail: PowerBiError) {
+    if (timer !== undefined) {
+      return
+    }
+
+    if (attempts >= MAX_MODEL_RELOADS) {
+      showError(detail)
+      return
+    }
+
+    attempts += 1
+    timer = setTimeout(() => {
+      timer = undefined
+      report.reload().catch((reloadError) => {
+        reportError(reloadError, { source: 'powerbi-reload' })
+        reloadOrShowError(detail)
+      })
+    }, MODEL_RELOAD_DELAY_MS)
+  }
+
+  return { reset, reloadOrShowError }
+}
+
 export async function initializePowerBI(): Promise<Embed> {
   const embedUrl = screenly.settings.embed_url
   const resourceType = getEmbedTypeFromUrl(embedUrl)
@@ -118,28 +157,11 @@ export async function initializePowerBI(): Promise<Embed> {
   // Sentry's global handler double-captures it; we report it explicitly below instead.
   container.addEventListener('error', (event) => event.stopPropagation())
 
-  let modelReloadAttempts = 0
-
-  // Both failure paths funnel here so they share one budget: a failed reload re-enters
-  // and counts as an attempt, just like a fresh model-load error event does.
-  function reloadOrShowError(detail: PowerBiError) {
-    if (modelReloadAttempts >= MAX_MODEL_RELOADS) {
-      showError(detail)
-      return
-    }
-
-    modelReloadAttempts += 1
-    setTimeout(() => {
-      report.reload().catch((reloadError) => {
-        reportError(reloadError, { source: 'powerbi-reload' })
-        reloadOrShowError(detail)
-      })
-    }, MODEL_RELOAD_DELAY_MS)
-  }
+  const reloadController = createReloadController(report)
 
   if (resourceType === 'report') {
     report.on('rendered', () => {
-      modelReloadAttempts = 0
+      reloadController.reset()
       screenly.signalReadyForRendering()
     })
   } else if (resourceType === 'dashboard') {
@@ -153,7 +175,7 @@ export async function initializePowerBI(): Promise<Embed> {
     reportError(toReportableError(detail), powerBiErrorContext(detail))
 
     if (isModelLoadError(detail)) {
-      reloadOrShowError(detail)
+      reloadController.reloadOrShowError(detail)
       return
     }
 

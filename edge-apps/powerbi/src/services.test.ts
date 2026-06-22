@@ -252,8 +252,10 @@ describe('services', () => {
 
   // eslint-disable-next-line max-lines-per-function
   describe('initializePowerBI', () => {
-    let scheduled: Array<() => void>
+    let scheduled: Map<number, () => void>
+    let nextTimerId: number
     let originalSetTimeout: typeof setTimeout
+    let originalClearTimeout: typeof clearTimeout
 
     beforeEach(() => {
       embedCalls.length = 0
@@ -261,22 +263,29 @@ describe('services', () => {
       reportSetAccessToken.mockClear()
       reportReload.mockClear()
       signalReady.mockClear()
-      scheduled = []
+      scheduled = new Map()
+      nextTimerId = 1
       originalSetTimeout = globalThis.setTimeout
+      originalClearTimeout = globalThis.clearTimeout
       globalThis.setTimeout = ((fn: () => void) => {
-        scheduled.push(fn)
-        return 0
+        const id = nextTimerId++
+        scheduled.set(id, fn)
+        return id
       }) as unknown as typeof setTimeout
+      globalThis.clearTimeout = ((id: number) => {
+        scheduled.delete(id)
+      }) as unknown as typeof clearTimeout
       setupDom()
     })
 
     afterEach(() => {
       globalThis.setTimeout = originalSetTimeout
+      globalThis.clearTimeout = originalClearTimeout
     })
 
     function runScheduledReloads() {
-      const pending = scheduled.slice()
-      scheduled.length = 0
+      const pending = [...scheduled.values()]
+      scheduled.clear()
       pending.forEach((fn) => fn())
     }
 
@@ -370,15 +379,41 @@ describe('services', () => {
       expect(reportReload).toHaveBeenCalledTimes(2)
     })
 
-    it('when model-load errors exceed max reloads, should show error', async () => {
+    it('when duplicate errors fire before reload, should schedule only one reload', async () => {
       const errorHandler = await embedAndGetErrorHandler()
       const modelError = { detail: { message: 'X_FailedToLoadModel_Y' } }
 
       errorHandler(modelError)
       errorHandler(modelError)
-      errorHandler(modelError)
+      runScheduledReloads()
+
+      expect(reportReload).toHaveBeenCalledTimes(1)
+    })
+
+    it('when report renders before reload fires, should cancel pending reload', async () => {
+      const errorHandler = await embedAndGetErrorHandler()
+      const renderedHandler = reportOn.mock.calls.find(
+        (call) => call[0] === 'rendered',
+      )?.[1] as () => void
+
+      errorHandler({ detail: { message: 'X_FailedToLoadModel_Y' } })
+      renderedHandler()
+      runScheduledReloads()
+
+      expect(reportReload).not.toHaveBeenCalled()
+    })
+
+    it('when model-load errors exceed max reloads, should show error', async () => {
+      const errorHandler = await embedAndGetErrorHandler()
+      const modelError = { detail: { message: 'X_FailedToLoadModel_Y' } }
+
       errorHandler(modelError)
       runScheduledReloads()
+      errorHandler(modelError)
+      runScheduledReloads()
+      errorHandler(modelError)
+      runScheduledReloads()
+      errorHandler(modelError)
 
       expect(reportReload).toHaveBeenCalledTimes(3)
       expect(document.querySelector('.error-container')).not.toBeNull()

@@ -45,6 +45,8 @@ export function getEmbedService(): service.Service {
   return embedService
 }
 
+const DEFAULT_ERROR_MESSAGE = 'Unable to load report'
+
 export function showError(error: PowerBiError): void {
   const container = document.getElementById('embed-container') as HTMLElement
   container.innerHTML = ''
@@ -55,10 +57,8 @@ export function showError(error: PowerBiError): void {
   const content = template.content.cloneNode(true) as DocumentFragment
 
   const messageEl = content.querySelector('.error-message') as HTMLElement
-  const message = error.detailedMessage ?? error.message
-  if (message) {
-    messageEl.textContent = message
-  }
+  messageEl.textContent =
+    error.detailedMessage ?? error.message ?? DEFAULT_ERROR_MESSAGE
 
   const table = content.querySelector('.error-details') as HTMLElement
   const rowTemplate = document.getElementById(
