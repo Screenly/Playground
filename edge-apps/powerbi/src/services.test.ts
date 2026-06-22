@@ -331,6 +331,21 @@ describe('services', () => {
       expect(document.querySelector('.error-message')).toBeNull()
     })
 
+    it('when reload fails, should report it and show error', async () => {
+      const errorHandler = await embedAndGetErrorHandler()
+      reportReload.mockImplementationOnce(async () => {
+        throw new Error('reload failed')
+      })
+
+      errorHandler({ detail: { message: 'X_FailedToLoadModel_Y' } })
+      await new Promise((resolve) => setTimeout(resolve, 0))
+
+      expect(reportError).toHaveBeenCalledWith(expect.any(Error), {
+        source: 'powerbi-reload',
+      })
+      expect(document.querySelector('.error-container')).not.toBeNull()
+    })
+
     it('when model-load errors exceed max reloads, should show error', async () => {
       const errorHandler = await embedAndGetErrorHandler()
       const modelError = { detail: { message: 'X_FailedToLoadModel_Y' } }
@@ -370,6 +385,14 @@ describe('services.lib', () => {
       expect(document.querySelector('.error-key')?.textContent).toBe('status')
       expect(document.querySelector('.error-value')?.textContent).toBe('403')
       expect(signalReady).toHaveBeenCalled()
+    })
+
+    it('when only message present, should render message', () => {
+      showError({ message: 'X_FailedToLoadModel_Y' })
+
+      expect(document.querySelector('.error-message')?.textContent).toBe(
+        'X_FailedToLoadModel_Y',
+      )
     })
   })
 })

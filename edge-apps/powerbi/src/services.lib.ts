@@ -12,14 +12,15 @@ export function isModelLoadError(error: PowerBiError): boolean {
   return (error.message ?? '').includes(MODEL_LOAD_ERROR)
 }
 
-// Build a real Error (so Sentry groups/titles it) and flatten errorInfo to a string (so
-// Sentry's normalizeDepth doesn't truncate the nested array to "[Array]").
+// Build a real Error (so Sentry groups/titles it instead of "Object captured as exception").
 export function toReportableError(error: PowerBiError): Error {
   return new Error(
     error.message ?? error.detailedMessage ?? 'Power BI embed error',
   )
 }
 
+// Flatten errorInfo to a string so Sentry's normalizeDepth doesn't truncate the nested
+// array to "[Array]".
 export function powerBiErrorContext(
   error: PowerBiError,
 ): Record<string, unknown> {
@@ -51,8 +52,9 @@ export function showError(error: PowerBiError): void {
   const content = template.content.cloneNode(true) as DocumentFragment
 
   const messageEl = content.querySelector('.error-message') as HTMLElement
-  if (error.detailedMessage) {
-    messageEl.textContent = error.detailedMessage
+  const message = error.detailedMessage ?? error.message
+  if (message) {
+    messageEl.textContent = message
   }
 
   const table = content.querySelector('.error-details') as HTMLElement

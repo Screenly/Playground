@@ -136,7 +136,10 @@ export async function initializePowerBI(): Promise<Embed> {
 
     if (isModelLoadError(detail) && modelReloadAttempts < MAX_MODEL_RELOADS) {
       modelReloadAttempts += 1
-      void report.reload()
+      report.reload().catch((reloadError) => {
+        reportError(reloadError, { source: 'powerbi-reload' })
+        showError(detail)
+      })
       return
     }
 
