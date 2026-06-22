@@ -252,14 +252,33 @@ describe('services', () => {
 
   // eslint-disable-next-line max-lines-per-function
   describe('initializePowerBI', () => {
+    let scheduled: Array<() => void>
+    let originalSetTimeout: typeof setTimeout
+
     beforeEach(() => {
       embedCalls.length = 0
       reportOn.mockClear()
       reportSetAccessToken.mockClear()
       reportReload.mockClear()
       signalReady.mockClear()
+      scheduled = []
+      originalSetTimeout = globalThis.setTimeout
+      globalThis.setTimeout = ((fn: () => void) => {
+        scheduled.push(fn)
+        return 0
+      }) as unknown as typeof setTimeout
       setupDom()
     })
+
+    afterEach(() => {
+      globalThis.setTimeout = originalSetTimeout
+    })
+
+    function runScheduledReloads() {
+      const pending = scheduled.slice()
+      scheduled.length = 0
+      pending.forEach((fn) => fn())
+    }
 
     it('when embedding report, should embed with view permissions and return report', async () => {
       setScreenly({ embed_token: 'static-token', embed_url: REPORT_EMBED_URL })
@@ -326,24 +345,29 @@ describe('services', () => {
       const errorHandler = await embedAndGetErrorHandler()
 
       errorHandler({ detail: { message: 'X_FailedToLoadModel_Y' } })
+      runScheduledReloads()
 
       expect(reportReload).toHaveBeenCalledTimes(1)
       expect(document.querySelector('.error-message')).toBeNull()
     })
 
-    it('when reload fails, should report it and show error', async () => {
+    it('when reload request fails and attempts remain, should retry instead of showing error', async () => {
       const errorHandler = await embedAndGetErrorHandler()
       reportReload.mockImplementationOnce(async () => {
         throw new Error('reload failed')
       })
 
       errorHandler({ detail: { message: 'X_FailedToLoadModel_Y' } })
-      await new Promise((resolve) => setTimeout(resolve, 0))
+      runScheduledReloads()
+      await new Promise((resolve) => originalSetTimeout(resolve, 0))
 
       expect(reportError).toHaveBeenCalledWith(expect.any(Error), {
         source: 'powerbi-reload',
       })
-      expect(document.querySelector('.error-container')).not.toBeNull()
+      expect(document.querySelector('.error-container')).toBeNull()
+
+      runScheduledReloads()
+      expect(reportReload).toHaveBeenCalledTimes(2)
     })
 
     it('when model-load errors exceed max reloads, should show error', async () => {
@@ -354,6 +378,7 @@ describe('services', () => {
       errorHandler(modelError)
       errorHandler(modelError)
       errorHandler(modelError)
+      runScheduledReloads()
 
       expect(reportReload).toHaveBeenCalledTimes(3)
       expect(document.querySelector('.error-container')).not.toBeNull()

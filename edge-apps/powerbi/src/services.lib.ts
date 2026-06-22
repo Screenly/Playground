@@ -4,9 +4,12 @@ import type { PowerBiError } from './services.types'
 export const DASHBOARD_READY_DELAY_MS = 1000
 
 // Power BI's "FailedToLoadModel" is transient (a stale/evicted dataset session); reload
-// the report a few times to recover before giving up and showing the error screen.
+// the report a few times to recover before giving up and showing the error screen. The
+// delay gives the dataset time to come back and clears reload()'s 100ms throttle, so an
+// immediate retry isn't silently dropped.
 const MODEL_LOAD_ERROR = 'FailedToLoadModel'
 export const MAX_MODEL_RELOADS = 3
+export const MODEL_RELOAD_DELAY_MS = 5000
 
 export function isModelLoadError(error: PowerBiError): boolean {
   return (error.message ?? '').includes(MODEL_LOAD_ERROR)

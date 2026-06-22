@@ -8,6 +8,7 @@ import {
 import {
   DASHBOARD_READY_DELAY_MS,
   MAX_MODEL_RELOADS,
+  MODEL_RELOAD_DELAY_MS,
   getEmbedService,
   isModelLoadError,
   powerBiErrorContext,
@@ -119,6 +120,23 @@ export async function initializePowerBI(): Promise<Embed> {
 
   let modelReloadAttempts = 0
 
+  // Both failure paths funnel here so they share one budget: a failed reload re-enters
+  // and counts as an attempt, just like a fresh model-load error event does.
+  function reloadOrShowError(detail: PowerBiError) {
+    if (modelReloadAttempts >= MAX_MODEL_RELOADS) {
+      showError(detail)
+      return
+    }
+
+    modelReloadAttempts += 1
+    setTimeout(() => {
+      report.reload().catch((reloadError) => {
+        reportError(reloadError, { source: 'powerbi-reload' })
+        reloadOrShowError(detail)
+      })
+    }, MODEL_RELOAD_DELAY_MS)
+  }
+
   if (resourceType === 'report') {
     report.on('rendered', () => {
       modelReloadAttempts = 0
@@ -130,16 +148,12 @@ export async function initializePowerBI(): Promise<Embed> {
     })
   }
 
-  report.on('error', function (event) {
+  report.on('error', (event) => {
     const detail = event.detail as PowerBiError
     reportError(toReportableError(detail), powerBiErrorContext(detail))
 
-    if (isModelLoadError(detail) && modelReloadAttempts < MAX_MODEL_RELOADS) {
-      modelReloadAttempts += 1
-      report.reload().catch((reloadError) => {
-        reportError(reloadError, { source: 'powerbi-reload' })
-        showError(detail)
-      })
+    if (isModelLoadError(detail)) {
+      reloadOrShowError(detail)
       return
     }
 
