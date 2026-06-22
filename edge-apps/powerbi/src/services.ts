@@ -7,8 +7,13 @@ import {
 } from './utils'
 import {
   DASHBOARD_READY_DELAY_MS,
+  MAX_MODEL_RELOADS,
+  MODEL_RELOAD_DELAY_MS,
   getEmbedService,
+  isModelLoadError,
+  powerBiErrorContext,
   showError,
+  toReportableError,
 } from './services.lib'
 import type { EmbedToken, PowerBiError } from './services.types'
 import { reportError } from '@screenly/edge-apps/utils'
@@ -76,6 +81,45 @@ export function initTokenRefreshLoop(
   )
 }
 
+// Drives model-load recovery. Both a fresh error event and a failed reload funnel through
+// reloadOrShowError so they share one retry budget. While a reload is pending, further
+// errors are ignored so duplicates don't stack overlapping reloads. A successful render
+// calls reset(), cancelling any reload still waiting on its delay.
+function createReloadController(report: Embed) {
+  let attempts = 0
+  let timer: ReturnType<typeof setTimeout> | undefined
+
+  function reset() {
+    if (timer !== undefined) {
+      clearTimeout(timer)
+      timer = undefined
+    }
+    attempts = 0
+  }
+
+  function reloadOrShowError(detail: PowerBiError) {
+    if (timer !== undefined) {
+      return
+    }
+
+    if (attempts >= MAX_MODEL_RELOADS) {
+      showError(detail)
+      return
+    }
+
+    attempts += 1
+    timer = setTimeout(() => {
+      timer = undefined
+      report.reload().catch((reloadError) => {
+        reportError(reloadError, { source: 'powerbi-reload' })
+        reloadOrShowError(detail)
+      })
+    }, MODEL_RELOAD_DELAY_MS)
+  }
+
+  return { reset, reloadOrShowError }
+}
+
 export async function initializePowerBI(): Promise<Embed> {
   const embedUrl = screenly.settings.embed_url
   const resourceType = getEmbedTypeFromUrl(embedUrl)
@@ -95,33 +139,47 @@ export async function initializePowerBI(): Promise<Embed> {
     throw error
   }
 
-  const report = getEmbedService().embed(
-    document.getElementById('embed-container') as HTMLElement,
-    {
-      embedUrl: embedUrl,
-      accessToken: initialToken.token,
-      type: resourceType,
-      tokenType: models.TokenType.Embed,
-      permissions: models.Permissions.All,
-      settings: {
-        filterPaneEnabled: false,
-        navContentPaneEnabled: false,
-        hideErrors: true,
-      },
+  const container = document.getElementById('embed-container') as HTMLElement
+  const report = getEmbedService().embed(container, {
+    embedUrl: embedUrl,
+    accessToken: initialToken.token,
+    type: resourceType,
+    tokenType: models.TokenType.Embed,
+    permissions: models.Permissions.All,
+    settings: {
+      filterPaneEnabled: false,
+      navContentPaneEnabled: false,
+      hideErrors: true,
     },
-  )
+  })
+
+  // powerbi-client also dispatches a DOM 'error' CustomEvent that bubbles to window, where
+  // Sentry's global handler double-captures it; we report it explicitly below instead.
+  container.addEventListener('error', (event) => event.stopPropagation())
+
+  const reloadController = createReloadController(report)
 
   if (resourceType === 'report') {
-    report.on('rendered', screenly.signalReadyForRendering)
+    report.on('rendered', () => {
+      reloadController.reset()
+      screenly.signalReadyForRendering()
+    })
   } else if (resourceType === 'dashboard') {
     report.on('loaded', () => {
       setTimeout(screenly.signalReadyForRendering, DASHBOARD_READY_DELAY_MS)
     })
   }
 
-  report.on('error', function (event) {
-    reportError(event.detail, { source: 'powerbi-embed' })
-    showError(event.detail as PowerBiError)
+  report.on('error', (event) => {
+    const detail = event.detail as PowerBiError
+    reportError(toReportableError(detail), powerBiErrorContext(detail))
+
+    if (isModelLoadError(detail)) {
+      reloadController.reloadOrShowError(detail)
+      return
+    }
+
+    showError(detail)
   })
 
   if (!screenly.settings.embed_token) {
