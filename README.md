@@ -12,7 +12,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [Asset Metadata](https://github.com/Screenly/Playground/tree/master/edge-apps/asset-metadata) - An example implementation of Screenly's metadata.
 - [BambooHR App](https://github.com/Screenly/bamboo-hr-app/) - Displays employee birthdays, work anniversaries and other HR events from BambooHR. _(Moved to a separate repository)_
 - [Calendar App](https://github.com/Screenly/Playground/tree/master/edge-apps/calendar) - A simple calendar app that shows events from iCal data.
-- [CAP Alerting](https://github.com/Screenly/Playground/tree/master/edge-apps/cap-alerting) - Display Common Alerting Protocol (CAP) emergency alerts on Screenly digital signage screens.
+- [CAP Alerting](https://github.com/Screenly/cap-alerting-app/) - Display Common Alerting Protocol (CAP) emergency alerts on Screenly digital signage screens. _(Moved to a separate repository)_
 - [CharlieHR App](https://github.com/Screenly/Playground/tree/master/edge-apps/charlie-hr-app) - Displays employee birthdays, work anniversaries and other HR events from CharlieHR.
 - [Clock App](https://github.com/Screenly/clock-edge-app/) - A simple clock app. _(Moved to a separate repository)_
 - [Countdown Timer](https://github.com/Screenly/Playground/tree/master/edge-apps/countdown-timer) - A simple countdown timer app.
