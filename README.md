@@ -8,7 +8,7 @@ This repository holds various examples that showcases Screenly's features and AP
 
 If you are not familiar with Edge Apps, we suggest you review our [developer documentation](https://developer.screenly.io/edge-apps/#getting-started).
 
-- [3D Text](https://github.com/Screenly/Playground/tree/master/edge-apps/3d-text) - A 3D text display app that renders text with depth and shadow effects.
+- [3D Text](https://github.com/Screenly/3d-text-app/) - A 3D text display app that renders text with depth and shadow effects. _(Moved to a separate repository)_
 - [Asset Metadata](https://github.com/Screenly/Playground/tree/master/edge-apps/asset-metadata) - An example implementation of Screenly's metadata.
 - [BambooHR App](https://github.com/Screenly/bamboo-hr-app/) - Displays employee birthdays, work anniversaries and other HR events from BambooHR. _(Moved to a separate repository)_
 - [Calendar App](https://github.com/Screenly/Playground/tree/master/edge-apps/calendar) - A simple calendar app that shows events from iCal data.
