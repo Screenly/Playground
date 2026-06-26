@@ -27,7 +27,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [QR Code Generator](https://github.com/Screenly/Playground/tree/master/edge-apps/qr-code) - An example of how to build unique QR Codes that embeds the screen metadata as UTM parameters.
 - [RSS Reader](https://github.com/Screenly/rss-reader-app/) - A simple RSS reader. _(Moved to a separate repository)_
 - [Simple Message App](https://github.com/Screenly/Playground/tree/master/edge-apps/simple-message-app) - A simple message app.
-- [Simple Table App](https://github.com/Screenly/Playground/tree/master/edge-apps/simple-table-app) - A minimalist edge app for Screenly that displays CSV data as a beautifully formatted table.
+- [Simple Table App](https://github.com/Screenly/simple-table-app/) - A minimalist edge app for Screenly that displays CSV data as a beautifully formatted table. _(Moved to a separate repository)_
 - [Simple Timer App](https://github.com/Screenly/Playground/tree/master/edge-apps/simple-timer) - A simple timer app.
 - [Sonar Dashboard](https://github.com/Screenly/Playground/tree/master/edge-apps/sonar-dashboard) - A dashboard that displays the status of the [Sonar - BLE Device Counter](https://github.com/Viktopia/sonar).
 - [Strava Club Leaderboard](https://github.com/Screenly/Playground/tree/master/edge-apps/strava-club-leaderboard) - A leaderboard of Strava club activities.
