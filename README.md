@@ -21,7 +21,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [Google Calendar App](https://github.com/Screenly/Playground/tree/master/edge-apps/google-calendar) - A simple calendar app that shows events from Google Calendar.
 - [Grafana Dashboard](https://github.com/Screenly/Playground/tree/master/edge-apps/grafana) - Displays Grafana dashboards as images on Screenly screens with automatic refresh intervals.
 - [iframe App](https://github.com/Screenly/Playground/tree/master/edge-apps/iframe) - A simple iframe app.
-- [Menu Board App](https://github.com/Screenly/Playground/tree/master/edge-apps/menu-board) - A dynamic and responsive menu board for digital signage displays.
+- [Menu Board App](https://github.com/Screenly/menu-board-app/) - A dynamic menu board that can display up to 25 menu items. _(Moved to a separate repository)_
 - [Outlook Calendar App](https://github.com/Screenly/Playground/tree/master/edge-apps/outlook-calendar) - A simple calendar app that shows events from Outlook Calendar.
 - [Power BI](https://github.com/Screenly/Playground/tree/master/edge-apps/powerbi) - A Power BI Edge App for securely accessing dashboards and reports.
 - [QR Code Generator](https://github.com/Screenly/qr-code-app/) - A QR code generator app with customizable header and UTM tracking. _(Moved to a separate repository)_
