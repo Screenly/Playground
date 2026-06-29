@@ -15,7 +15,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [CAP Alerting](https://github.com/Screenly/cap-alerting-app/) - Display Common Alerting Protocol (CAP) emergency alerts on Screenly digital signage screens. _(Moved to a separate repository)_
 - [CharlieHR App](https://github.com/Screenly/charlie-hr-app/) - Displays employee birthdays, work anniversaries and other HR events from CharlieHR. _(Moved to a separate repository)_
 - [Clock App](https://github.com/Screenly/clock-edge-app/) - A simple clock app. _(Moved to a separate repository)_
-- [Countdown Timer](https://github.com/Screenly/Playground/tree/master/edge-apps/countdown-timer) - A simple countdown timer app.
+- [Countdown Timer](https://github.com/Screenly/countdown-timer-app/) - A simple countdown timer app. _(Moved to a separate repository)_
 - [Demo Dashboard](https://github.com/Screenly/demo-dashboard-app/) - A collection of demo dashboards. _(Moved to a separate repository)_
 - [Flying Toasters App](https://github.com/Screenly/flying-toasters-app/) - A simple toaster app that flies around the screen. _(Moved to a separate repository)_
 - [Google Calendar App](https://github.com/Screenly/google-calendar-app/) - A simple calendar app that shows events from Google Calendar. _(Moved to a separate repository)_
