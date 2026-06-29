@@ -18,7 +18,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [Countdown Timer](https://github.com/Screenly/Playground/tree/master/edge-apps/countdown-timer) - A simple countdown timer app.
 - [Demo Dashboard](https://github.com/Screenly/Playground/tree/master/edge-apps/demo-dashboard) - A collection of demo dashboards.
 - [Flying Toasters App](https://github.com/Screenly/Playground/tree/master/edge-apps/flying-toasters) - A simple toaster app that flies around the screen.
-- [Google Calendar App](https://github.com/Screenly/Playground/tree/master/edge-apps/google-calendar) - A simple calendar app that shows events from Google Calendar.
+- [Google Calendar App](https://github.com/Screenly/google-calendar-app/) - A simple calendar app that shows events from Google Calendar. _(Moved to a separate repository)_
 - [Grafana Dashboard](https://github.com/Screenly/Playground/tree/master/edge-apps/grafana) - Displays Grafana dashboards as images on Screenly screens with automatic refresh intervals.
 - [iframe App](https://github.com/Screenly/Playground/tree/master/edge-apps/iframe) - A simple iframe app.
 - [Menu Board App](https://github.com/Screenly/menu-board-app/) - A dynamic menu board that can display up to 25 menu items. _(Moved to a separate repository)_
