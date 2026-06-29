@@ -23,7 +23,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [iframe App](https://github.com/Screenly/iframe-app/) - A simple iframe app. _(Moved to a separate repository)_
 - [Menu Board App](https://github.com/Screenly/menu-board-app/) - A dynamic menu board that can display up to 25 menu items. _(Moved to a separate repository)_
 - [Outlook Calendar App](https://github.com/Screenly/outlook-calendar-app/) - A simple calendar app that shows events from Outlook Calendar. _(Moved to a separate repository)_
-- [Power BI](https://github.com/Screenly/Playground/tree/master/edge-apps/powerbi) - A Power BI Edge App for securely accessing dashboards and reports.
+- [Power BI](https://github.com/Screenly/powerbi-app/) - A Power BI Edge App for securely accessing dashboards and reports. _(Moved to a separate repository)_
 - [QR Code Generator](https://github.com/Screenly/qr-code-app/) - A QR code generator app with customizable header and UTM tracking. _(Moved to a separate repository)_
 - [RSS Reader](https://github.com/Screenly/rss-reader-app/) - A simple RSS reader. _(Moved to a separate repository)_
 - [Simple Message App](https://github.com/Screenly/simple-message-app/) - A simple message app. _(Moved to a separate repository)_
