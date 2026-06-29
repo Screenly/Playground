@@ -11,7 +11,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [3D Text](https://github.com/Screenly/Playground/tree/master/edge-apps/3d-text) - A 3D text display app that renders text with depth and shadow effects.
 - [Asset Metadata](https://github.com/Screenly/asset-metadata-app/) - An example implementation of Screenly's metadata. _(Moved to a separate repository)_
 - [BambooHR App](https://github.com/Screenly/bamboo-hr-app/) - Displays employee birthdays, work anniversaries and other HR events from BambooHR. _(Moved to a separate repository)_
-- [Calendar App](https://github.com/Screenly/Playground/tree/master/edge-apps/calendar) - A simple calendar app that shows events from iCal data.
+- [Calendar App](https://github.com/Screenly/calendar-app/) - A simple calendar app that shows events from iCal data. _(Moved to a separate repository)_
 - [CAP Alerting](https://github.com/Screenly/Playground/tree/master/edge-apps/cap-alerting) - Display Common Alerting Protocol (CAP) emergency alerts on Screenly digital signage screens.
 - [CharlieHR App](https://github.com/Screenly/Playground/tree/master/edge-apps/charlie-hr-app) - Displays employee birthdays, work anniversaries and other HR events from CharlieHR.
 - [Clock App](https://github.com/Screenly/clock-edge-app/) - A simple clock app. _(Moved to a separate repository)_
