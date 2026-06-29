@@ -22,7 +22,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [Grafana Dashboard](https://github.com/Screenly/grafana-app/) - Displays Grafana dashboards as images on Screenly screens with automatic refresh intervals. _(Moved to a separate repository)_
 - [iframe App](https://github.com/Screenly/Playground/tree/master/edge-apps/iframe) - A simple iframe app.
 - [Menu Board App](https://github.com/Screenly/menu-board-app/) - A dynamic menu board that can display up to 25 menu items. _(Moved to a separate repository)_
-- [Outlook Calendar App](https://github.com/Screenly/Playground/tree/master/edge-apps/outlook-calendar) - A simple calendar app that shows events from Outlook Calendar.
+- [Outlook Calendar App](https://github.com/Screenly/outlook-calendar-app/) - A simple calendar app that shows events from Outlook Calendar. _(Moved to a separate repository)_
 - [Power BI](https://github.com/Screenly/Playground/tree/master/edge-apps/powerbi) - A Power BI Edge App for securely accessing dashboards and reports.
 - [QR Code Generator](https://github.com/Screenly/qr-code-app/) - A QR code generator app with customizable header and UTM tracking. _(Moved to a separate repository)_
 - [RSS Reader](https://github.com/Screenly/rss-reader-app/) - A simple RSS reader. _(Moved to a separate repository)_
