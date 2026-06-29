@@ -20,7 +20,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [Flying Toasters App](https://github.com/Screenly/flying-toasters-app/) - A simple toaster app that flies around the screen. _(Moved to a separate repository)_
 - [Google Calendar App](https://github.com/Screenly/google-calendar-app/) - A simple calendar app that shows events from Google Calendar. _(Moved to a separate repository)_
 - [Grafana Dashboard](https://github.com/Screenly/grafana-app/) - Displays Grafana dashboards as images on Screenly screens with automatic refresh intervals. _(Moved to a separate repository)_
-- [iframe App](https://github.com/Screenly/Playground/tree/master/edge-apps/iframe) - A simple iframe app.
+- [iframe App](https://github.com/Screenly/iframe-app/) - A simple iframe app. _(Moved to a separate repository)_
 - [Menu Board App](https://github.com/Screenly/menu-board-app/) - A dynamic menu board that can display up to 25 menu items. _(Moved to a separate repository)_
 - [Outlook Calendar App](https://github.com/Screenly/outlook-calendar-app/) - A simple calendar app that shows events from Outlook Calendar. _(Moved to a separate repository)_
 - [Power BI](https://github.com/Screenly/Playground/tree/master/edge-apps/powerbi) - A Power BI Edge App for securely accessing dashboards and reports.
