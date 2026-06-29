@@ -9,31 +9,31 @@ This repository holds various examples that showcases Screenly's features and AP
 If you are not familiar with Edge Apps, we suggest you review our [developer documentation](https://developer.screenly.io/edge-apps/#getting-started).
 
 - [3D Text](https://github.com/Screenly/3d-text-app/) - A 3D text display app that renders text with depth and shadow effects. _(Moved to a separate repository)_
-- [Asset Metadata](https://github.com/Screenly/Playground/tree/master/edge-apps/asset-metadata) - An example implementation of Screenly's metadata.
+- [Asset Metadata](https://github.com/Screenly/asset-metadata-app/) - An example implementation of Screenly's metadata. _(Moved to a separate repository)_
 - [BambooHR App](https://github.com/Screenly/bamboo-hr-app/) - Displays employee birthdays, work anniversaries and other HR events from BambooHR. _(Moved to a separate repository)_
-- [Calendar App](https://github.com/Screenly/Playground/tree/master/edge-apps/calendar) - A simple calendar app that shows events from iCal data.
+- [Calendar App](https://github.com/Screenly/calendar-app/) - A simple calendar app that shows events from iCal data. _(Moved to a separate repository)_
 - [CAP Alerting](https://github.com/Screenly/Playground/tree/master/edge-apps/cap-alerting) - Display Common Alerting Protocol (CAP) emergency alerts on Screenly digital signage screens.
-- [CharlieHR App](https://github.com/Screenly/Playground/tree/master/edge-apps/charlie-hr-app) - Displays employee birthdays, work anniversaries and other HR events from CharlieHR.
+- [CharlieHR App](https://github.com/Screenly/charlie-hr-app/) - Displays employee birthdays, work anniversaries and other HR events from CharlieHR. _(Moved to a separate repository)_
 - [Clock App](https://github.com/Screenly/clock-edge-app/) - A simple clock app. _(Moved to a separate repository)_
 - [Countdown Timer](https://github.com/Screenly/Playground/tree/master/edge-apps/countdown-timer) - A simple countdown timer app.
-- [Demo Dashboard](https://github.com/Screenly/Playground/tree/master/edge-apps/demo-dashboard) - A collection of demo dashboards.
+- [Demo Dashboard](https://github.com/Screenly/demo-dashboard-app/) - A collection of demo dashboards. _(Moved to a separate repository)_
 - [Flying Toasters App](https://github.com/Screenly/Playground/tree/master/edge-apps/flying-toasters) - A simple toaster app that flies around the screen.
-- [Google Calendar App](https://github.com/Screenly/Playground/tree/master/edge-apps/google-calendar) - A simple calendar app that shows events from Google Calendar.
+- [Google Calendar App](https://github.com/Screenly/google-calendar-app/) - A simple calendar app that shows events from Google Calendar. _(Moved to a separate repository)_
 - [Grafana Dashboard](https://github.com/Screenly/Playground/tree/master/edge-apps/grafana) - Displays Grafana dashboards as images on Screenly screens with automatic refresh intervals.
 - [iframe App](https://github.com/Screenly/Playground/tree/master/edge-apps/iframe) - A simple iframe app.
-- [Menu Board App](https://github.com/Screenly/Playground/tree/master/edge-apps/menu-board) - A dynamic and responsive menu board for digital signage displays.
+- [Menu Board App](https://github.com/Screenly/menu-board-app/) - A dynamic menu board that can display up to 25 menu items. _(Moved to a separate repository)_
 - [Outlook Calendar App](https://github.com/Screenly/Playground/tree/master/edge-apps/outlook-calendar) - A simple calendar app that shows events from Outlook Calendar.
 - [Power BI](https://github.com/Screenly/Playground/tree/master/edge-apps/powerbi) - A Power BI Edge App for securely accessing dashboards and reports.
-- [QR Code Generator](https://github.com/Screenly/Playground/tree/master/edge-apps/qr-code) - An example of how to build unique QR Codes that embeds the screen metadata as UTM parameters.
+- [QR Code Generator](https://github.com/Screenly/qr-code-app/) - A QR code generator app with customizable header and UTM tracking. _(Moved to a separate repository)_
 - [RSS Reader](https://github.com/Screenly/rss-reader-app/) - A simple RSS reader. _(Moved to a separate repository)_
-- [Simple Message App](https://github.com/Screenly/Playground/tree/master/edge-apps/simple-message-app) - A simple message app.
+- [Simple Message App](https://github.com/Screenly/simple-message-app/) - A simple message app. _(Moved to a separate repository)_
 - [Simple Table App](https://github.com/Screenly/Playground/tree/master/edge-apps/simple-table-app) - A minimalist edge app for Screenly that displays CSV data as a beautifully formatted table.
-- [Simple Timer App](https://github.com/Screenly/Playground/tree/master/edge-apps/simple-timer) - A simple timer app.
+- [Simple Timer App](https://github.com/Screenly/simple-timer-app/) - A simple timer app. _(Moved to a separate repository)_
 - [Sonar Dashboard](https://github.com/Screenly/Playground/tree/master/edge-apps/sonar-dashboard) - A dashboard that displays the status of the [Sonar - BLE Device Counter](https://github.com/Viktopia/sonar).
-- [Strava Club Leaderboard](https://github.com/Screenly/Playground/tree/master/edge-apps/strava-club-leaderboard) - A leaderboard of Strava club activities.
+- [Strava Club Leaderboard](https://github.com/Screenly/strava-club-leaderboard-app/) - A leaderboard of Strava club activities. _(Moved to a separate repository)_
 - [TFL Bus Status App](https://github.com/Screenly/Playground/tree/master/edge-apps/tfl-bus-status) - An app to display TFL Bus Status for a given bus stop. A list of all bus stops can be found here - [Bus Stop Lookup Tool](https://playground.srly.io/edge-apps/helpers/tfl/bus-stop-lookup/)
 - [Weather App](https://github.com/Screenly/weather-app/) - A simple weather app. _(Moved to a separate repository)_
-- [Welcome App](https://github.com/Screenly/Playground/tree/master/edge-apps/welcome-app) - A customizable welcome screen app.
+- [Welcome App](https://github.com/Screenly/welcome-app/) - A customizable welcome screen app. _(Moved to a separate repository)_
 
 ### Creating a New Edge App
 
