@@ -1,0 +1,40 @@
+---
+syntax: manifest_v1
+id:
+description: Puzzel Dashboard
+icon: https://playground.srly.io/edge-apps/puzzel-dashboard/static/img/icon.svg
+author: Screenly, Inc.
+categories:
+  - Dashboards
+ready_signal: true
+settings:
+  dashboard_url:
+    type: string
+    title: Dashboard URL
+    optional: false
+    default_value: 'https://app.puzzel.com/admin/app/dashboard'
+    help_text:
+      schema_version: 1
+      properties:
+        help_text: The URL of the dashboard to display.
+        type: url
+  password:
+    type: secret
+    title: Password
+    optional: false
+    default_value: ''
+    help_text:
+      schema_version: 1
+      properties:
+        help_text: The password used to log in to the dashboard.
+        type: string
+  username:
+    type: string
+    title: Puzzel ID
+    optional: false
+    default_value: ''
+    help_text:
+      schema_version: 1
+      properties:
+        help_text: The username used to log in to the dashboard.
+        type: string
