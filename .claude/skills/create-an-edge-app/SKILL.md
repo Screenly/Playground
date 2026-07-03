@@ -48,7 +48,7 @@ Both paths feed the same `getCredentials()` — the Edge App code does not chang
 
 ## Reference Apps
 
-Edge Apps have migrated to standalone repos under the Screenly org. For reference on more complex implementations, consult:
+Most Edge Apps have migrated to standalone repos under the Screenly org. For reference on more complex implementations, consult:
 
 - [Screenly/qr-code-app](https://github.com/Screenly/qr-code-app) — simple, low-footprint example
 - [Screenly/menu-board-app](https://github.com/Screenly/menu-board-app) — more complex layout

@@ -10,8 +10,8 @@
   or AWS Lambda.
 - More details for Screenly's Edge Apps could be found in [https://developer.screenly.io/edge-apps](mdc:https://developer.screenly.io/edge-apps).
 - Most Edge Apps have migrated to standalone repositories under the Screenly org. The
-  [edge-apps](mdc:edge-apps) directory contains the apps that have not migrated yet, plus shared
-  assets like icons.
+  [edge-apps](mdc:edge-apps) directory contains the apps that have not migrated yet, redirect stubs
+  for the apps that have, plus shared assets like icons.
 
 ## Players
 

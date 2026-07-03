@@ -37,7 +37,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 
 ### Creating a New Edge App
 
-New Edge Apps are encouraged to live in their own standalone GitHub repo under the Screenly org rather than in this monorepo. See [`edge-apps/README.md`](/edge-apps/README.md) for details on scaffolding a new app.
+New Edge Apps are encouraged to live in their own standalone GitHub repo under the Screenly org rather than in this monorepo. See [`edge-apps/README.md`](/edge-apps/README.md) for guidance on creating a new app.
 
 ### TypeScript Library
 
