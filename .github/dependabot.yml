@@ -3,16 +3,6 @@ version: 2
 # See: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference#directories-or-directory--
 
 updates:
-  - package-ecosystem: 'bun'
-    directories:
-      - 'edge-apps/*'
-    schedule:
-      interval: 'monthly'
-    groups:
-      bun:
-        patterns:
-          - '*'
-
   - package-ecosystem: 'pip'
     directory: '/edge-apps/queue-management-system/server'
     schedule:
