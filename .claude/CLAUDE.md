@@ -21,11 +21,11 @@
   - Screenly Player, a Raspberry-pi based player
     - Compatible with Raspberry Pi 3 and 4 devices.
   - Screenly Player Max, a more powerful alternative to the Screenly Player
-- See [https://www.screenly.io/digital-signage-players/](mdc:https:/www.screenly.io/digital-signage-players) for more details about the physical players.
+- See [https://www.screenly.io/digital-signage-players/](mdc:https://www.screenly.io/digital-signage-players) for more details about the physical players.
 - Screenly also offers a virtual alternative, which we call "Screenly Anywhere".
-- Screenly Anywhere allows to you to deploy screens with no hardware required.
+- Screenly Anywhere allows you to deploy screens with no hardware required.
   - Screenly Anywhere can be set up on a web browser, on a smartphone, or on a smart TV.
-  - See [https://www.screenly.io/end-user/screenly-anywhere/](mdc:https:/www.screenly.io/end-user/screenly-anywhere) for more details.
+  - See [https://www.screenly.io/end-user/screenly-anywhere/](mdc:https://www.screenly.io/end-user/screenly-anywhere) for more details.
 
 ## Supported Resolutions
 
