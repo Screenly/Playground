@@ -7,12 +7,8 @@ description: Use when scaffolding a new Screenly Edge App — covers the templat
 
 ## When Creating an Edge App
 
-- If you're one of the maintainers of this repository, it's encouraged to create the new Edge App in its own standalone GitHub repo under the Screenly org, rather than inside this monorepo's `edge-apps/` directory — see the [Reference Apps](#reference-apps) section for examples of standalone repos.
-- Scaffold the new Edge App using the `bun create` template from inside the `edge-apps/` directory:
-  ```bash
-  bun create edge-app-template --no-git <app-name>
-  ```
-  - The app name should follow the `kebab-case` naming convention.
+- If you're one of the maintainers of this repository, it's encouraged to create the new Edge App in its own standalone GitHub repo under the Screenly org, rather than inside this monorepo's `edge-apps/` directory.
+- Scaffold the new Edge App by starting from one of the apps in the [Reference Apps](#reference-apps) section below — pick the closest match in complexity and adapt it, following the `kebab-case` naming convention for the app name.
 - After scaffolding, add an `id` field to `screenly.yml` and `screenly_qc.yml` before running `bun run dev`.
 - **Verify it boots** before building features: run `bun run dev`, `bun run lint`, and the tests. A scaffold that doesn't start is the first thing to fix.
 - **Consult Figma designs** before starting implementation.

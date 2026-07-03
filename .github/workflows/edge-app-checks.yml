@@ -50,7 +50,7 @@ jobs:
           # Function to add app to list if not already included
           add_app_if_valid() {
             local app="$1"
-            if [[ -n "$app" && "$app" != "helpers" && "$app" != ".bun-create" ]]; then
+            if [[ -n "$app" && "$app" != "helpers" ]]; then
               if [[ -d "edge-apps/$app" ]]; then
                 if [[ " $CHANGED_APPS " != *" $app "* ]]; then
                   CHANGED_APPS="$CHANGED_APPS $app"
