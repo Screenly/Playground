@@ -53,6 +53,7 @@ This approach provides a better user experience in the web interface by renderin
 
 This rule applies to Edge Apps that are written in plain HTML, CSS, and JavaScript.
 
+- If you're one of the maintainers of this repository, it's encouraged to create the new Edge App in its own standalone GitHub repo under the Screenly org, rather than inside this monorepo's `edge-apps/` directory.
 - Create a directory inside the [edge-apps](mdc:edge-apps) directory.
 - That new directory should at least contain the following files:
   - `index.html`

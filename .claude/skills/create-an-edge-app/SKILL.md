@@ -7,6 +7,7 @@ description: Use when scaffolding a new Screenly Edge App — covers the templat
 
 ## When Creating an Edge App
 
+- If you're one of the maintainers of this repository, it's encouraged to create the new Edge App in its own standalone GitHub repo under the Screenly org, rather than inside this monorepo's `edge-apps/` directory — see the [Reference Apps](#reference-apps) section for examples of standalone repos.
 - Scaffold the new Edge App using the `bun create` template from inside the `edge-apps/` directory:
   ```bash
   bun create edge-app-template --no-git <app-name>
@@ -33,7 +34,7 @@ When the app shows data from a third-party service, **do not hand-roll an auth f
 
 To develop locally (real credentials aren't present), set up a **super simple** way to supply them — pick the lighter of these two:
 
-- **Read a secret (CLI is fine).** Declare an `access_token` secret marked "for testing only", set it with `screenly edge-app setting set access_token=...` (or in `mock-data.yml`), and read it with `getSettingWithDefault('access_token', '')`. See `edge-apps/google-calendar/` (`src/main.ts`).
+- **Read a secret (CLI is fine).** Declare an `access_token` secret marked "for testing only", set it with `screenly edge-app setting set access_token=...` (or in `mock-data.yml`), and read it with `getSettingWithDefault('access_token', '')`. See [Screenly/google-calendar-app](https://github.com/Screenly/google-calendar-app) (`src/main.ts`).
 - **Handle the OAuth flow with a tiny companion app.** A small Express + Bun server that runs the flow, stores the tokens, refreshes them, and exposes `GET /access_token/` returning `{ token, metadata }` — mimicking the Screenly OAuth service. Wire it in via `mock-data.yml`'s `screenly_oauth_tokens_url`. See the `mock-authenticator/` in [Screenly/salesforce-app](https://github.com/Screenly/salesforce-app) for a complete, minimal example.
 
 Both paths feed the same `getCredentials()` — the Edge App code does not change between them.
@@ -51,12 +52,12 @@ Both paths feed the same `getCredentials()` — the Edge App code does not chang
 
 ## Reference Apps
 
-For reference on more complex implementations, consult:
+Edge Apps have migrated to standalone repos under the Screenly org. For reference on more complex implementations, consult:
 
-- QR Code (`edge-apps/qr-code/`) — simple, low-footprint example
-- Menu Board (`edge-apps/menu-board/`) — more complex layout
-- CAP Alerting (`edge-apps/cap-alerting/`) — advanced settings and data fetching
-- Google Calendar (`edge-apps/google-calendar/`) — integration via a test secret
+- [Screenly/qr-code-app](https://github.com/Screenly/qr-code-app) — simple, low-footprint example
+- [Screenly/menu-board-app](https://github.com/Screenly/menu-board-app) — more complex layout
+- [Screenly/cap-alerting-app](https://github.com/Screenly/cap-alerting-app) — advanced settings and data fetching
+- [Screenly/google-calendar-app](https://github.com/Screenly/google-calendar-app) — integration via a test secret
 - [Screenly/salesforce-app](https://github.com/Screenly/salesforce-app) — integration with a companion OAuth authenticator
 
 All apps depend on the `@screenly/edge-apps` NPM package and use `edge-apps-scripts` for tooling.

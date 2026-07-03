@@ -9,10 +9,9 @@
 - You could think of it as something similar to other serverless technologies like Cloudflare Workers
   or AWS Lambda.
 - More details for Screenly's Edge Apps could be found in [https://developer.screenly.io/edge-apps](mdc:https:/developer.screenly.io/edge-apps).
-- This repository contains a variety of Edge Apps like a simple clock app or an app that displays
-  real-time bus schedules.
-- Each of the available Edge Apps have their own directory, which could be found in the
-  [edge-apps](mdc:edge-apps) directory.
+- Most Edge Apps have migrated to standalone repositories under the Screenly org. The
+  [edge-apps](mdc:edge-apps) directory contains the apps that have not migrated yet, plus shared
+  assets like icons.
 
 ## Players
 
