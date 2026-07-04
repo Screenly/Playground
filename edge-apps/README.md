@@ -4,19 +4,9 @@ This directory contains all Screenly Edge Apps in this repository.
 
 ## Creating a New Edge App
 
-From this directory, run:
+It's encouraged to create new Edge Apps in their own standalone GitHub repo under the Screenly org rather than in this directory. If you're a maintainer, start from one of the existing standalone apps (see the reference apps listed in the [`create-an-edge-app` skill](/.claude/skills/create-an-edge-app/SKILL.md)) that's closest in complexity to what you're building, and adapt it.
 
-```bash
-bun create edge-app-template --no-git <your-app-name>
-```
-
-For example:
-
-```bash
-bun create edge-app-template --no-git my-new-app
-```
-
-This scaffolds a new app under `edge-apps/<your-app-name>/` with TypeScript, the Screenly design system, manifest files, screenshot tests, and all standard scripts pre-configured.
+If the app must stay in this monorepo, scaffold it under `edge-apps/<your-app-name>/` by copying the structure of an existing app in this directory (TypeScript, the Screenly design system, manifest files, screenshot tests, and standard scripts).
 
 After scaffolding:
 

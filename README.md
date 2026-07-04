@@ -37,13 +37,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 
 ### Creating a New Edge App
 
-To scaffold a new Edge App, run the following from the `edge-apps/` directory:
-
-```bash
-bun create edge-app-template --no-git <your-app-name>
-```
-
-This generates a new app with TypeScript, the Screenly design system, manifest files, and all standard scripts pre-configured. See [`edge-apps/README.md`](/edge-apps/README.md) for full details.
+New Edge Apps are encouraged to live in their own standalone GitHub repo under the Screenly org rather than in this monorepo. See [`edge-apps/README.md`](/edge-apps/README.md) for guidance on creating a new app.
 
 ### TypeScript Library
 

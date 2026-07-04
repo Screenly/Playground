@@ -8,11 +8,10 @@
 - Edge Apps allows you to build custom digital signage content without provisioning or managing servers.
 - You could think of it as something similar to other serverless technologies like Cloudflare Workers
   or AWS Lambda.
-- More details for Screenly's Edge Apps could be found in [https://developer.screenly.io/edge-apps](mdc:https:/developer.screenly.io/edge-apps).
-- This repository contains a variety of Edge Apps like a simple clock app or an app that displays
-  real-time bus schedules.
-- Each of the available Edge Apps have their own directory, which could be found in the
-  [edge-apps](mdc:edge-apps) directory.
+- More details for Screenly's Edge Apps could be found in [https://developer.screenly.io/edge-apps](mdc:https://developer.screenly.io/edge-apps).
+- Most Edge Apps have migrated to standalone repositories under the Screenly org. The
+  [edge-apps](mdc:edge-apps) directory contains the apps that have not migrated yet, redirect stubs
+  for the apps that have, plus shared assets like icons.
 
 ## Players
 
@@ -22,11 +21,11 @@
   - Screenly Player, a Raspberry-pi based player
     - Compatible with Raspberry Pi 3 and 4 devices.
   - Screenly Player Max, a more powerful alternative to the Screenly Player
-- See [https://www.screenly.io/digital-signage-players/](mdc:https:/www.screenly.io/digital-signage-players) for more details about the physical players.
+- See [https://www.screenly.io/digital-signage-players/](mdc:https://www.screenly.io/digital-signage-players) for more details about the physical players.
 - Screenly also offers a virtual alternative, which we call "Screenly Anywhere".
-- Screenly Anywhere allows to you to deploy screens with no hardware required.
+- Screenly Anywhere allows you to deploy screens with no hardware required.
   - Screenly Anywhere can be set up on a web browser, on a smartphone, or on a smart TV.
-  - See [https://www.screenly.io/end-user/screenly-anywhere/](mdc:https:/www.screenly.io/end-user/screenly-anywhere) for more details.
+  - See [https://www.screenly.io/end-user/screenly-anywhere/](mdc:https://www.screenly.io/end-user/screenly-anywhere) for more details.
 
 ## Supported Resolutions
 
