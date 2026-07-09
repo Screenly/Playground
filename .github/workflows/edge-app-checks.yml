@@ -22,7 +22,7 @@ jobs:
       apps-without-build-system: ${{ steps.no-build-system-check.outputs.apps-without-build-system }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
@@ -50,7 +50,7 @@ jobs:
           # Function to add app to list if not already included
           add_app_if_valid() {
             local app="$1"
-            if [[ -n "$app" && "$app" != "helpers" && "$app" != ".bun-create" ]]; then
+            if [[ -n "$app" && "$app" != "helpers" ]]; then
               if [[ -d "edge-apps/$app" ]]; then
                 if [[ " $CHANGED_APPS " != *" $app "* ]]; then
                   CHANGED_APPS="$CHANGED_APPS $app"
@@ -134,7 +134,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
@@ -197,7 +197,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
@@ -208,6 +208,7 @@ jobs:
         run: |
           bunx prettier --check \
             --config edge-apps/.prettierrc.json \
+            --no-error-on-unmatched-pattern \
             "edge-apps/${{ matrix.app }}/**/*.{html,css,js,json,yml,yaml,md}"
 
       - name: Run Markdown lint
