@@ -32,6 +32,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [Sonar Dashboard](https://github.com/Screenly/Playground/tree/master/edge-apps/sonar-dashboard) - A dashboard that displays the status of the [Sonar - BLE Device Counter](https://github.com/Viktopia/sonar).
 - [Strava Club Leaderboard](https://github.com/Screenly/strava-club-leaderboard-app/) - A leaderboard of Strava club activities. _(Moved to a separate repository)_
 - [TFL Bus Status App](https://github.com/Screenly/tfl-bus-status-app/) - An app to display TFL Bus Status for a given bus stop. _(Moved to a separate repository)_
+- [TradingView Widgets App](https://github.com/Screenly/tradingview-widgets-app/) - Displays TradingView widgets such as charts, tickers, and market data.
 - [Weather App](https://github.com/Screenly/weather-app/) - A simple weather app. _(Moved to a separate repository)_
 - [Welcome App](https://github.com/Screenly/welcome-app/) - A customizable welcome screen app. _(Moved to a separate repository)_
 
