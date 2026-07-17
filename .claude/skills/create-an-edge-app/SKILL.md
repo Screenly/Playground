@@ -35,6 +35,34 @@ To develop locally (real credentials aren't present), set up a **super simple** 
 
 Both paths feed the same `getCredentials()` — the Edge App code does not change between them.
 
+## Error Reporting (Sentry)
+
+New Edge Apps should support optional Sentry error reporting, gated behind a `sentry_dsn` setting that no-ops when unset.
+
+- Add a `sentry_dsn` setting to `screenly.yml`/`screenly_qc.yml` as a global secret that no-ops when unset:
+  ```yaml
+  settings:
+    sentry_dsn:
+      type: secret
+      title: Sentry DSN
+      optional: true
+      is_global: true
+      help_text:
+        schema_version: 1
+        properties:
+          advanced: true
+          help_text: Sentry DSN for reporting errors. Leave empty to disable.
+          type: string
+  ```
+- Call `setupSentry` from `@screenly/edge-apps/utils` once, near the top of `src/main.ts`, before other startup logic, passing the app name and any settings or metadata useful as context:
+  ```ts
+  setupSentry('app-name', { 'app-name': { screenName: screenly.metadata.screen_name } })
+  ```
+- Report failures with `reportError(error, { source: 'short-context' })` from `@screenly/edge-apps/utils` at meaningful failure points (credential refresh, content load, API errors) — not for expected or already-handled states.
+- Dedupe repeated consecutive failures of the same kind (e.g. only report the first of a run of identical background-refresh errors) so retry loops don't spam Sentry.
+- Requires `@screenly/edge-apps` `^1.1.0` or later.
+- See [Screenly/salesforce-app](https://github.com/Screenly/salesforce-app) (`src/main.ts`, `src/credentials.ts`) and [Screenly/powerbi-app](https://github.com/Screenly/powerbi-app) (`src/main.ts`, `src/services.ts`) for reference implementations.
+
 ## Testing
 
 - Write tests before the feature, then make them pass. Every app ships an `e2e/` directory (Playwright); add cases there for the behavior you build.
