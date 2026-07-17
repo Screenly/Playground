@@ -39,9 +39,26 @@ Both paths feed the same `getCredentials()` — the Edge App code does not chang
 
 Every Edge App should support optional Sentry error reporting, gated behind a `sentry_dsn` setting that no-ops when unset.
 
-- Add a `sentry_dsn` setting to `screenly.yml`/`screenly_qc.yml`: `type: secret`, `optional: true`, `is_global: true` (shared across app instances rather than configured per-instance). Use the structured `help_text` format with `advanced: true` and a short description of what's being reported.
-- Call `setupSentry('<app-name>', { <app-name>: { ...relevant settings for context... } })` from `@screenly/edge-apps/utils` once, near the top of `main.ts`, before other startup logic.
-- Report failures with `reportError(error, { source: '<short-context>' })` from `@screenly/edge-apps/utils` at meaningful failure points (credential refresh, content load, API errors) — not for expected or already-handled states.
+- Add a `sentry_dsn` setting to `screenly.yml`/`screenly_qc.yml` as a global secret that no-ops when unset:
+  ```yaml
+  settings:
+    sentry_dsn:
+      type: secret
+      title: Sentry DSN
+      optional: true
+      is_global: true
+      help_text:
+        schema_version: 1
+        properties:
+          advanced: true
+          help_text: Sentry DSN for reporting <app-specific> errors. Leave empty to disable.
+          type: string
+  ```
+- Call `setupSentry` from `@screenly/edge-apps/utils` once, near the top of `src/main.ts`, before other startup logic, passing the app name and any settings useful as context:
+  ```ts
+  setupSentry('app-name', { 'app-name': { contentId: screenly.settings.content_id } })
+  ```
+- Report failures with `reportError(error, { source: 'short-context' })` from `@screenly/edge-apps/utils` at meaningful failure points (credential refresh, content load, API errors) — not for expected or already-handled states.
 - Dedupe repeated consecutive failures of the same kind (e.g. only report the first of a run of identical background-refresh errors) so retry loops don't spam Sentry.
 - Requires `@screenly/edge-apps` `^1.1.0` or later.
 - See [Screenly/salesforce-app](https://github.com/Screenly/salesforce-app) (`src/main.ts`, `src/credentials.ts`) and [Screenly/powerbi-app](https://github.com/Screenly/powerbi-app) (`src/main.ts`, `src/services.ts`) for reference implementations.
