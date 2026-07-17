@@ -54,9 +54,9 @@ Every Edge App should support optional Sentry error reporting, gated behind a `s
           help_text: Sentry DSN for reporting <app-specific> errors. Leave empty to disable.
           type: string
   ```
-- Call `setupSentry` from `@screenly/edge-apps/utils` once, near the top of `src/main.ts`, before other startup logic, passing the app name and any settings useful as context:
+- Call `setupSentry` from `@screenly/edge-apps/utils` once, near the top of `src/main.ts`, before other startup logic, passing the app name and any settings or metadata useful as context:
   ```ts
-  setupSentry('app-name', { 'app-name': { contentId: screenly.settings.content_id } })
+  setupSentry('app-name', { 'app-name': { screenName: screenly.metadata.screen_name } })
   ```
 - Report failures with `reportError(error, { source: 'short-context' })` from `@screenly/edge-apps/utils` at meaningful failure points (credential refresh, content load, API errors) — not for expected or already-handled states.
 - Dedupe repeated consecutive failures of the same kind (e.g. only report the first of a run of identical background-refresh errors) so retry loops don't spam Sentry.
