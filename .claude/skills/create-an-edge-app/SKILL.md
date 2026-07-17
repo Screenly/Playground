@@ -37,7 +37,7 @@ Both paths feed the same `getCredentials()` — the Edge App code does not chang
 
 ## Error Reporting (Sentry)
 
-Every Edge App should support optional Sentry error reporting, gated behind a `sentry_dsn` setting that no-ops when unset.
+New Edge Apps should support optional Sentry error reporting, gated behind a `sentry_dsn` setting that no-ops when unset.
 
 - Add a `sentry_dsn` setting to `screenly.yml`/`screenly_qc.yml` as a global secret that no-ops when unset:
   ```yaml
@@ -51,7 +51,7 @@ Every Edge App should support optional Sentry error reporting, gated behind a `s
         schema_version: 1
         properties:
           advanced: true
-          help_text: Sentry DSN for reporting <app-specific> errors. Leave empty to disable.
+          help_text: Sentry DSN for reporting errors. Leave empty to disable.
           type: string
   ```
 - Call `setupSentry` from `@screenly/edge-apps/utils` once, near the top of `src/main.ts`, before other startup logic, passing the app name and any settings or metadata useful as context:
