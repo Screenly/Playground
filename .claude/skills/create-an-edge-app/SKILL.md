@@ -13,6 +13,10 @@ description: Use when scaffolding a new Screenly Edge App — covers the templat
   bunx @screenly/edge-apps create <app-name>
   ```
   This produces a minimal, working app — manifest, `index.html`, `src/main.ts`, and the standard dev/build/lint/test/deploy scripts — already wired up to the library's conventions. Requires `@screenly/edge-apps` `>=1.2.0`.
+- After scaffolding — and before or alongside making further code changes — add and initialize the [`edge-apps-claude-config`](https://github.com/Screenly/edge-apps-claude-config) submodule for Claude AI configuration:
+  ```bash
+  git submodule add https://github.com/Screenly/edge-apps-claude-config .claude
+  ```
 - The generator only produces a basic app. Still check the closest match in the [Reference Apps](#reference-apps) section below and adapt from there for anything past that starting point — integrations/auth, Sentry error reporting, non-trivial settings, or a closer starting point for a complex UI. Note that the generator does not create `screenly_qc.yml` (an internal-only staging manifest) — copy one over from a reference app if your app needs one, and keep both manifests in sync.
 - **Verify it boots** before building features: run `bun run dev`, `bun run lint`, and the tests. A scaffold that doesn't start is the first thing to fix.
 - **Consult Figma designs** before starting implementation.
