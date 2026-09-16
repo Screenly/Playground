@@ -1,0 +1,54 @@
+<svg width="414" height="414" viewBox="0 0 414 414" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="414" height="414" rx="40" fill="#1B1D32"/>
+<g opacity="0.55" filter="url(#glow)">
+<ellipse cx="207" cy="286" rx="118" ry="96" fill="#FF8A1E"/>
+<ellipse cx="128" cy="118" rx="104" ry="88" fill="#972FFF"/>
+</g>
+<g fill="#FFFFFF">
+  <rect x="39" y="39" width="336" height="48" />
+  <rect x="63" y="87" width="48" height="24" />
+  <rect x="303" y="87" width="48" height="24" />
+  <rect x="63" y="111" width="48" height="24" />
+  <rect x="303" y="111" width="48" height="24" />
+  <rect x="63" y="135" width="48" height="24" />
+  <rect x="303" y="135" width="48" height="24" />
+  <rect x="63" y="159" width="48" height="24" />
+  <rect x="303" y="159" width="48" height="24" />
+  <rect x="63" y="183" width="48" height="24" />
+  <rect x="303" y="183" width="48" height="24" />
+  <rect x="63" y="207" width="48" height="24" />
+  <rect x="303" y="207" width="48" height="24" />
+  <rect x="63" y="231" width="48" height="24" />
+  <rect x="303" y="231" width="48" height="24" />
+  <rect x="63" y="255" width="48" height="24" />
+  <rect x="303" y="255" width="48" height="24" />
+  <rect x="63" y="279" width="48" height="24" />
+  <rect x="303" y="279" width="48" height="24" />
+  <rect x="63" y="303" width="48" height="24" />
+  <rect x="303" y="303" width="48" height="24" />
+  <rect x="39" y="327" width="336" height="24" />
+</g>
+<g fill="#6A4A34">
+  <rect x="111" y="303" width="192" height="24" />
+</g>
+<g fill="#FFAD2B">
+  <rect x="207" y="87" width="24" height="24" />
+  <rect x="183" y="111" width="48" height="24" />
+  <rect x="183" y="135" width="72" height="24" />
+  <rect x="159" y="159" width="96" height="24" />
+  <rect x="159" y="183" width="120" height="24" />
+  <rect x="135" y="207" width="120" height="24" />
+  <rect x="135" y="231" width="144" height="72" />
+</g>
+<g fill="#FFF3C4">
+  <rect x="183" y="207" width="24" height="24" />
+  <rect x="159" y="231" width="72" height="72" />
+</g>
+<defs>
+<filter id="glow" x="-120" y="-120" width="654" height="654" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="64" result="blur"/>
+</filter>
+</defs>
+</svg>

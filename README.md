@@ -17,6 +17,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [Clock App](https://github.com/Screenly/clock-edge-app/) - A simple clock app. _(Moved to a separate repository)_
 - [Countdown Timer](https://github.com/Screenly/countdown-timer-app/) - A simple countdown timer app. _(Moved to a separate repository)_
 - [Demo Dashboard](https://github.com/Screenly/demo-dashboard-app/) - A collection of demo dashboards. _(Moved to a separate repository)_
+- [8bit Fireplace](https://github.com/Screenly/8bit-fireplace/) - A full-screen 8-bit fireplace rendered as pixel art. _(Moved to a separate repository)_
 - [Flying Toasters App](https://github.com/Screenly/flying-toasters-app/) - A simple toaster app that flies around the screen. _(Moved to a separate repository)_
 - [Google Calendar App](https://github.com/Screenly/google-calendar-app/) - A simple calendar app that shows events from Google Calendar. _(Moved to a separate repository)_
 - [Grafana Dashboard](https://github.com/Screenly/grafana-app/) - Displays Grafana dashboards as images on Screenly screens with automatic refresh intervals. _(Moved to a separate repository)_
