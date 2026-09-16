@@ -36,6 +36,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [TradingView Widgets App](https://github.com/Screenly/tradingview-widgets-app/) - Displays TradingView widgets such as charts, tickers, and market data.
 - [Weather App](https://github.com/Screenly/weather-app/) - A simple weather app. _(Moved to a separate repository)_
 - [Welcome App](https://github.com/Screenly/welcome-app/) - A customizable welcome screen app. _(Moved to a separate repository)_
+- [QR WiFi App](https://github.com/Screenly/qr-wifi-app) - Instantly share Wi-Fi credentials on your digital signage screens with this lightweight QR code generator for Screenly Apps.
 
 ### Creating a New Edge App
 
