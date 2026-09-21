@@ -9,6 +9,7 @@ This repository holds various examples that showcases Screenly's features and AP
 If you are not familiar with Edge Apps, we suggest you review our [developer documentation](https://developer.screenly.io/edge-apps/#getting-started).
 
 - [3D Text](https://github.com/Screenly/3d-text-app/) - A 3D text display app that renders text with depth and shadow effects. _(Moved to a separate repository)_
+- [8bit Fireplace](https://github.com/Screenly/8bit-fireplace/) - A full-screen 8-bit fireplace rendered as pixel art. _(Moved to a separate repository)_
 - [Asset Metadata](https://github.com/Screenly/asset-metadata-app/) - An example implementation of Screenly's metadata. _(Moved to a separate repository)_
 - [BambooHR App](https://github.com/Screenly/bamboo-hr-app/) - Displays employee birthdays, work anniversaries and other HR events from BambooHR. _(Moved to a separate repository)_
 - [Calendar App](https://github.com/Screenly/calendar-app/) - A simple calendar app that shows events from iCal data. _(Moved to a separate repository)_
@@ -16,8 +17,8 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [CharlieHR App](https://github.com/Screenly/charlie-hr-app/) - Displays employee birthdays, work anniversaries and other HR events from CharlieHR. _(Moved to a separate repository)_
 - [Clock App](https://github.com/Screenly/clock-edge-app/) - A simple clock app. _(Moved to a separate repository)_
 - [Countdown Timer](https://github.com/Screenly/countdown-timer-app/) - A simple countdown timer app. _(Moved to a separate repository)_
+- [Daylight App](https://github.com/Screenly/daylight-app) - Sunrise, sunset, twilight and moon phase for a screen, computed on the player with no network access. _(Moved to a separate repository)_
 - [Demo Dashboard](https://github.com/Screenly/demo-dashboard-app/) - A collection of demo dashboards. _(Moved to a separate repository)_
-- [8bit Fireplace](https://github.com/Screenly/8bit-fireplace/) - A full-screen 8-bit fireplace rendered as pixel art. _(Moved to a separate repository)_
 - [Flying Toasters App](https://github.com/Screenly/flying-toasters-app/) - A simple toaster app that flies around the screen. _(Moved to a separate repository)_
 - [Google Calendar App](https://github.com/Screenly/google-calendar-app/) - A simple calendar app that shows events from Google Calendar. _(Moved to a separate repository)_
 - [Grafana Dashboard](https://github.com/Screenly/grafana-app/) - Displays Grafana dashboards as images on Screenly screens with automatic refresh intervals. _(Moved to a separate repository)_
@@ -26,6 +27,7 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [Outlook Calendar App](https://github.com/Screenly/outlook-calendar-app/) - A simple calendar app that shows events from Outlook Calendar. _(Moved to a separate repository)_
 - [Power BI](https://github.com/Screenly/powerbi-app/) - A Power BI Edge App for securely accessing dashboards and reports. _(Moved to a separate repository)_
 - [QR Code Generator](https://github.com/Screenly/qr-code-app/) - A QR code generator app with customizable header and UTM tracking. _(Moved to a separate repository)_
+- [QR WiFi App](https://github.com/Screenly/qr-wifi-app) - Instantly share Wi-Fi credentials on your digital signage screens with this lightweight QR code generator for Screenly Apps.
 - [RSS Reader](https://github.com/Screenly/rss-reader-app/) - A simple RSS reader. _(Moved to a separate repository)_
 - [Simple Message App](https://github.com/Screenly/simple-message-app/) - A simple message app. _(Moved to a separate repository)_
 - [Simple Table App](https://github.com/Screenly/simple-table-app/) - A minimalist edge app for Screenly that displays CSV data as a beautifully formatted table. _(Moved to a separate repository)_
@@ -36,7 +38,6 @@ If you are not familiar with Edge Apps, we suggest you review our [developer doc
 - [TradingView Widgets App](https://github.com/Screenly/tradingview-widgets-app/) - Displays TradingView widgets such as charts, tickers, and market data.
 - [Weather App](https://github.com/Screenly/weather-app/) - A simple weather app. _(Moved to a separate repository)_
 - [Welcome App](https://github.com/Screenly/welcome-app/) - A customizable welcome screen app. _(Moved to a separate repository)_
-- [QR WiFi App](https://github.com/Screenly/qr-wifi-app) - Instantly share Wi-Fi credentials on your digital signage screens with this lightweight QR code generator for Screenly Apps.
 
 ### Creating a New Edge App
 
