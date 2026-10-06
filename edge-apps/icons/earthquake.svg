@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Earthquake">
+  <rect width="512" height="512" rx="96" fill="#F3F1EC"/>
+  <g fill="none" stroke-width="14">
+    <circle cx="256" cy="256" r="196" stroke="#EED1C7"/>
+    <circle cx="256" cy="256" r="140" stroke="#EBB9AA"/>
+    <circle cx="256" cy="256" r="88" stroke="#E5937B"/>
+  </g>
+  <circle cx="256" cy="256" r="39" fill="#D9451F"/>
+</svg>
