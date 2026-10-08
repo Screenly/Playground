@@ -1,0 +1,36 @@
+<svg width="414" height="414" viewBox="0 0 414 414" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0)">
+<rect width="414" height="414" rx="40" fill="#1B1D32"/>
+<g filter="url(#filter0)">
+<path d="M382.941 381.129C330.177 464.394 221.676 505.676 152.347 476.051C83.0172 446.425 27.474 368.985 64.6133 282.072C83.0177 239.003 31.1153 151.348 87.5058 114.93C144.909 77.8588 269.328 137.128 304.301 152.073C373.631 181.698 444.065 284.672 382.941 381.129Z" fill="#972FFF"/>
+</g>
+<g filter="url(#filter1)">
+<path d="M343.209 265.682C400.837 345.657 398.748 461.727 345.436 515.039C292.125 568.351 199.571 591.063 132.739 524.23C99.6199 491.111 -1.05853 506.64 -13.8584 440.745C-26.8882 373.665 74.4488 280.264 101.342 253.371C154.653 200.06 276.449 173.036 343.209 265.682Z" fill="#3F4FFD"/>
+</g>
+
+<circle cx="207" cy="207" r="74" stroke="white" stroke-width="18"/>
+<circle cx="207" cy="207" r="48" stroke="white" stroke-width="5" opacity="0.5"/>
+<path d="M207 207V172M207 207H232" stroke="white" stroke-width="12" stroke-linecap="round"/>
+<circle cx="207" cy="207" r="8" fill="white"/>
+<g stroke="white" stroke-linecap="round" fill="none">
+<path d="M83 118V170M96 118V170M109 118V170" stroke-width="9"/>
+<path d="M83 170C83 192 109 192 109 170" stroke-width="9"/>
+<path d="M96 188V298" stroke-width="15"/>
+</g><path d="M311 211V128C311 116 336 130 336 176V211Z" fill="white"/><path d="M318 206V298" stroke="white" stroke-width="15" stroke-linecap="round"/></g>
+<defs>
+<filter id="filter0" x="-159.882" y="-109.672" width="778.773" height="807.888" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="106.3" result="effect1_foregroundBlur"/>
+</filter>
+<filter id="filter1" x="-227.609" y="-7.94571" width="826.134" height="786.013" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="106.3" result="effect1_foregroundBlur"/>
+</filter>
+<clipPath id="clip0">
+<rect width="414" height="414" rx="16" fill="white"/>
+</clipPath>
+
+</defs>
+</svg>
