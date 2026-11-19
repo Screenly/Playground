@@ -10,6 +10,7 @@ This directory contains:
   - [`instagram`](instagram)
   - [`queue-management-system`](queue-management-system)
   - [`sonar-dashboard`](sonar-dashboard)
+
 ## Creating a New Edge App
 
 New Edge Apps should be created in their own standalone GitHub repo under the Screenly org rather than in this directory. If you're a maintainer, start from one of the existing standalone apps (see the reference apps listed in the [`create-an-edge-app` skill](/.claude/skills/create-an-edge-app/SKILL.md)) that's closest in complexity to what you're building, and adapt it.
