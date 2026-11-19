@@ -6,10 +6,6 @@ This directory contains:
 
 - [`icons/`](icons): Shared icons for the apps in their own repositories. Their manifests point `icon` to `https://playground.srly.io/edge-apps/icons/<icon>.svg`.
 - [`helpers/`](helpers): Hosted tools and assets that apps link to, such as the [TfL bus stop lookup](helpers/tfl/bus-stop-lookup) and the RSS Reader [news icons](helpers/rss-reader/app-icons).
-- Apps that haven't moved to their own repository yet. Their manifests reference their own assets, not `icons/`:
-  - [`instagram`](instagram)
-  - [`queue-management-system`](queue-management-system)
-  - [`sonar-dashboard`](sonar-dashboard)
 
 ## Creating a New Edge App
 
