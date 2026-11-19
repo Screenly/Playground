@@ -1,37 +1,21 @@
 # Edge Apps
 
-This directory contains all Screenly Edge Apps in this repository.
+Most Screenly Edge Apps live in their own repositories under the Screenly organization. See the [Edge Apps table](/README.md#edge-apps) in the root README for the full list.
+
+This directory contains:
+
+- [`icons/`](icons): Shared icons for the apps in their own repositories. Their manifests point `icon` to `https://playground.srly.io/edge-apps/icons/<icon>.svg`.
+- [`helpers/`](helpers): Hosted tools and assets that apps link to, such as the [TfL bus stop lookup](helpers/tfl/bus-stop-lookup) and the RSS Reader [news icons](helpers/rss-reader/app-icons).
 
 ## Creating a New Edge App
 
-It's encouraged to create new Edge Apps in their own standalone GitHub repo under the Screenly org rather than in this directory. If you're a maintainer, start from one of the existing standalone apps (see the reference apps listed in the [`create-an-edge-app` skill](/.claude/skills/create-an-edge-app/SKILL.md)) that's closest in complexity to what you're building, and adapt it.
+New Edge Apps should be created in their own standalone GitHub repo under the Screenly org rather than in this directory. If you're a maintainer, start from one of the existing standalone apps (see the reference apps listed in the [`create-an-edge-app` skill](/.claude/skills/create-an-edge-app/SKILL.md)) that's closest in complexity to what you're building, and adapt it.
 
-If the app must stay in this monorepo, scaffold it under `edge-apps/<your-app-name>/` by copying the structure of an existing app in this directory (TypeScript, the Screenly design system, manifest files, screenshot tests, and standard scripts).
-
-After scaffolding:
-
-1. Add an `id` field to `screenly.yml` and `screenly_qc.yml`.
-
-2. Install dependencies and start the dev server:
-   ```bash
-   bun install
-   bun run dev
-   ```
+To add the app's icon, put an SVG in [`icons/`](icons) and point the `icon` field in the app's `screenly.yml` and `screenly_qc.yml` to `https://playground.srly.io/edge-apps/icons/<icon>.svg`.
 
 ## Linting and Formatting
 
-### Apps with a build system
-
-From the app directory, run:
-
-```bash
-bun run lint
-bun run format:check
-```
-
-### Apps without a build system
-
-From the repository root, run the following tools via `bunx`:
+The apps in this directory don't have a build system. From the repository root, run the following tools via `bunx`:
 
 ```bash
 # Formatting (HTML, CSS, JS, JSON, YAML, Markdown)
@@ -55,4 +39,4 @@ find edge-apps/<app-name> -name "*.js" -not -name "*.min.js" -not -name "eslint.
 
 ## TypeScript Library
 
-The [`@screenly/edge-apps`](https://www.npmjs.com/package/@screenly/edge-apps) NPM package contains shared utilities, components, and styles used by the apps in this directory.
+The [`@screenly/edge-apps`](https://www.npmjs.com/package/@screenly/edge-apps) NPM package contains shared utilities, components, and styles for building Edge Apps.
