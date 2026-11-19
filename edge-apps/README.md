@@ -10,8 +10,6 @@ This directory contains:
   - [`instagram`](instagram)
   - [`queue-management-system`](queue-management-system)
   - [`sonar-dashboard`](sonar-dashboard)
-- [`welcome-app/`](welcome-app): Only the legacy icon, still used by the published Welcome app's manifest. Remove it once [Screenly/welcome-app#23](https://github.com/Screenly/welcome-app/pull/23) is released.
-
 ## Creating a New Edge App
 
 New Edge Apps should be created in their own standalone GitHub repo under the Screenly org rather than in this directory. If you're a maintainer, start from one of the existing standalone apps (see the reference apps listed in the [`create-an-edge-app` skill](/.claude/skills/create-an-edge-app/SKILL.md)) that's closest in complexity to what you're building, and adapt it.
