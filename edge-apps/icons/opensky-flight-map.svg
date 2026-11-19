@@ -1,0 +1,32 @@
+<svg width="414" height="414" viewBox="0 0 414 414" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Live Flights">
+<g clip-path="url(#clip0)">
+<rect width="414" height="414" rx="40" fill="#1B1D32"/>
+<g filter="url(#filter0)">
+<ellipse cx="300" cy="120" rx="150" ry="130" fill="#972FFF"/>
+</g>
+<g filter="url(#filter1)">
+<ellipse cx="90" cy="330" rx="150" ry="120" fill="#3F4FFD"/>
+</g>
+<circle cx="207" cy="207" r="150" stroke="white" stroke-opacity="0.45" stroke-width="7" stroke-dasharray="3 17" stroke-linecap="round"/>
+<path d="M96 318C134 296 156 270 174 244" stroke="white" stroke-width="10" stroke-dasharray="1 22" stroke-linecap="round"/>
+<circle cx="96" cy="318" r="14" fill="white"/>
+<g transform="translate(236 178) rotate(45) scale(3.4) translate(-32 -32)">
+<path fill="white" d="M32 3c2.2 0 3.6 2.3 3.6 5.4v14.3l22.6 13.1c.9.5 1.4 1.4 1.4 2.4v3.2c0 .9-.9 1.5-1.7 1.2L35.6 35.5v13.2l6.5 4.8c.6.4.9 1.1.9 1.8v2.4c0 .8-.8 1.4-1.6 1.1L32 55.9l-9.4 2.9c-.8.3-1.6-.3-1.6-1.1v-2.4c0-.7.3-1.4.9-1.8l6.5-4.8V35.5L6.1 42.6c-.8.3-1.7-.3-1.7-1.2v-3.2c0-1 .5-1.9 1.4-2.4l22.6-13.1V8.4C28.4 5.3 29.8 3 32 3z"/>
+</g>
+</g>
+<defs>
+<filter id="filter0" x="-63" y="-223" width="726" height="686" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="106.3" result="effect1_foregroundBlur"/>
+</filter>
+<filter id="filter1" x="-273" y="-3" width="726" height="666" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="106.3" result="effect1_foregroundBlur"/>
+</filter>
+<clipPath id="clip0">
+<rect width="414" height="414" rx="40" fill="white"/>
+</clipPath>
+</defs>
+</svg>
