@@ -1,17 +1,1 @@
-<svg width="240" height="240" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CDC Wastewater">
-<defs>
-<clipPath id="drop">
-<path d="M120 34C98 66 56 104 56 146A64 64 0 0 0 184 146C184 104 142 66 120 34Z"/>
-</clipPath>
-</defs>
-<rect width="240" height="240" rx="23.1884" fill="#F3F1EC"/>
-<path d="M120 34C98 66 56 104 56 146A64 64 0 0 0 184 146C184 104 142 66 120 34Z" fill="#FBFAF7"/>
-<g clip-path="url(#drop)">
-<rect x="73" y="168" width="14" height="62" rx="3" fill="#CFE0F1"/>
-<rect x="93" y="150" width="14" height="80" rx="3" fill="#8FB8E0"/>
-<rect x="113" y="130" width="14" height="100" rx="3" fill="#5B8FD6"/>
-<rect x="133" y="110" width="14" height="120" rx="3" fill="#4A55A8"/>
-<rect x="153" y="90" width="14" height="140" rx="3" fill="#3A1D6E"/>
-</g>
-<path d="M120 34C98 66 56 104 56 146A64 64 0 0 0 184 146C184 104 142 66 120 34Z" stroke="#1B1D32" stroke-width="10" stroke-linejoin="round"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#f3f1ec"/><path d="M32 8C23 20 16 29 16 38a16 16 0 0 0 32 0C48 29 41 20 32 8z" fill="#5b8fcc"/><rect x="24" y="38" width="4" height="8" rx="1" fill="#f3f1ec"/><rect x="30" y="33" width="4" height="13" rx="1" fill="#f3f1ec"/><rect x="36" y="28" width="4" height="18" rx="1" fill="#f3f1ec"/></svg>
